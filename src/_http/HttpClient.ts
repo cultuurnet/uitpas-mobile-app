@@ -47,7 +47,6 @@ class HttpClient {
     const headers = {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      'Sn-Api-Key': Config.API_KEY,
     };
     return headers;
   }
