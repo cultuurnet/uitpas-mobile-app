@@ -5,9 +5,9 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-      - name: "Notarize Release Build"
+      - name: 'Notarize Release Build'
         uses: apple-actions/import-codesign-certs@v1
-        with: 
+        with:
           p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
           p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
       - uses: actions/checkout@v2
