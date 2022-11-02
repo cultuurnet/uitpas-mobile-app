@@ -4,8 +4,10 @@ import { getLocales } from 'react-native-localize';
 import SplashScreen from 'react-native-splash-screen';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
+import { ThemeProvider } from 'styled-components/native';
 
 import { StorageKey } from './_models';
+import { theme } from './_styles/theme';
 import RootStackNavigator from './RootStackNavigator';
 
 import './_translations/i18n';
@@ -21,10 +23,12 @@ const App = () => {
   }, []);
 
   return (
-    <NavigationContainer>
-      <StatusBar barStyle="light-content" />
-      <RootStackNavigator />
-    </NavigationContainer>
+    <ThemeProvider theme={theme}>
+      <NavigationContainer>
+        <StatusBar barStyle="light-content" />
+        <RootStackNavigator />
+      </NavigationContainer>
+    </ThemeProvider>
   );
 };
 
