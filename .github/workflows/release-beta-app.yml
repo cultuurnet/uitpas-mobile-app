@@ -1,0 +1,43 @@
+name: release beta
+on:
+  workflow_dispatch:
+env:
+  APPCENTER_API_TOKEN: ${{ secrets.APPCENTER_API_TOKEN }}
+  APPCENTER_OWNER_NAME: ${{ secrets.APPCENTER_OWNER_NAME }}
+  APPCENTER_OWNER_TYPE: ${{ secrets.APPCENTER_OWNER_TYPE }}
+  BUILD_NUMBER: ${{ github.run_number }}
+jobs:
+  release_beta_ios:
+    runs-on: macos-12
+    steps:
+      - name: 'Notarize Release Build'
+        uses: apple-actions/import-codesign-certs@v1
+        with:
+          p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
+          p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install
+      - name: Install pods
+        run: cd ios && pod install
+      - run: fastlane ios_beta
+  release_beta_android:
+    runs-on: macos-12
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+          cache: 'gradle'
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install
+      - run: fastlane android_beta
