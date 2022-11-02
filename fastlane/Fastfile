@@ -1,0 +1,261 @@
+fastlane_version "2.141.0"
+
+# Don't generate README files.
+skip_docs
+
+# Unlock the Keychain
+keychain_password = ENV["JENKINS_KEYCHAIN_PASSWORD"] # general password in jenkins
+unlock_keychain(path: "login.keychain", password: keychain_password) if is_ci? && keychain_password
+
+# Install the provisioning profiles
+install_provisioning_profiles if is_ci? # plugin die zoekt naar provisioning profiles in source code en installeert deze --> hoeft daardoor niet in jenkins te zitten maar gewoon per project in de source code
+
+#######################
+###  CONFIGURATION  ##
+#######################
+# Project variables
+ios_project_name = "reactnative_uitpas"
+ios_bundle_id = "com.icapps.uitpas.app"
+android_bundle_id = "com.reactnative_uitpas" # meestal id van klant want anders komen PN soms niet aan
+
+# Appcenter Config
+appcenter_app_name = "" # declaration of variable, will be assigned below
+APPCENTER_ALPHA_DISTRIBUTION_GROUP= ""
+APPCENTER_BETA_DISTRIBUTION_GROUP= ""
+
+# Android api key
+json_key_file = "./fastlane/api-XXX.json" # Needed for production publish --> needed if you want to direct publish to google play store (key te laten genereren in settings google account)
+
+# iOS Config
+IOS_WORKSPACE = "#{ios_project_name}.xcworkspace"
+IOS_PROJECT = "#{ios_project_name}.xcodeproj"
+ALPHA_APP_ID = "#{ios_bundle_id}.alpha"
+ALPHA_PROFILE_NAME = "#{ios_bundle_id} Alpha"
+BETA_APP_ID = "#{ios_bundle_id}.beta"
+BETA_PROFILE_NAME = "#{ios_bundle_id} Beta" # zit bij icapps
+
+# Production iOS config
+RELEASE_APP_ID = "#{ios_bundle_id}" # zit bij klant, dus meestal niet hetzelfde als die van icapps (andere account)
+RELEASE_PROFILE_NAME = "#{ios_bundle_id} Appstore"
+APPSTORE_USERNAME = 'appstoreconnect@icapps.com' # vragen aan de klant om dit account toe te voegen + development@icapps.com
+APPSTORE_TEAM_NAME = 'iCapps' # zal meestal van de klant zijn, want we publishen via de klant (te vinden in apple developer profile - membership)
+APPSTORE_TEAM_ID = '310992' # zal meestal van de klant zijn, want we publishen via de klant (https://appstoreconnect.apple.com/WebObjects/iTunesConnect.woa/ra/user/detail --> contentProviderId)
+APPSTORE_APPLE_ID = 'SCZPF223NC' # zal meestal van de klant zijn, want we publishen via de klant (te vinden in apple developer profile - membership)
+
+##############################
+###  PUBLIC LANES ANDROID  ###
+##############################
+
+lane :android_alpha do
+  ensure_git_status_clean
+  build_android(buildType: "alpha")  # Build the application with the buildVariant.
+  upload_to_appcenter_android(buildType: "alpha") # Deploy the apk to Appcenter.
+	add_tag()
+end
+
+lane :android_beta do
+  ensure_git_status_clean
+  build_android(buildType: "beta")  # Build the application with the buildVariant.
+  upload_to_appcenter_android(buildType: "beta") # Deploy the apk to Appcenter.
+	add_tag()
+end
+
+lane :android_prod do
+	ensure_git_status_clean
+  build_android(buildType: "release")
+  upload_to_playstore(track: "production") # Make sure "json_key_file" has the correct value
+  add_tag()
+end
+
+##########################
+###  PUBLIC LANES IOS  ###
+##########################
+
+lane :ios_alpha do
+  ensure_git_status_clean
+  bundle_upload_ios(scheme_name: "Alpha")
+  build_ios(export_options: export_options_for(:alpha)) # Build IPA
+  upload_to_appcenter_ios(buildType: "alpha")  # Upload IPA to appcenter
+  add_tag()
+end
+
+lane :ios_beta do
+  ensure_git_status_clean
+  bundle_upload_ios(scheme_name: "Beta")
+  build_ios(export_options: export_options_for(:beta)) # Build IPA
+  upload_to_appcenter_ios(buildType: "beta")  # Upload IPA to appcenter
+  add_tag()
+end
+
+lane :ios_prod do
+	ensure_git_status_clean
+  bundle_upload_ios(scheme_name: "Release")
+  build_ios(export_options: export_options_for(:release)) # Build IPA
+  upload_to_test_flight_ios()
+	add_tag()
+end
+
+######################
+###  PUBLIC LANES  ###
+######################
+# public lanes kan je aanroepen via "fastlane LANE_NAME"
+# doen we soms bij het begin van het project om te zien dat alles goed is ingesteld, daarna niet meer nodig (is voor productie)
+
+lane :validate_json_key do
+  validate_play_store_json_key(
+    json_key: json_key_file
+  )
+end
+
+################################
+###   PRIVATE LANES ANDROID  ###
+################################
+# options is wat je meegeeft bij het aanroepen van public lane (zie hierboven)
+private_lane :build_android do |options|
+  if options[:buildType] == "release" then
+    sh "(cd ../ && npx jetify;); cd ../android/; ENVFILE=.env ./gradlew clean app:assemble#{options[:buildType]}" # stap kan weg als we .env.release maken bvb
+  else
+    sh "(cd ../ && npx jetify;); cd ../android/; ENVFILE=.env.#{options[:buildType]} ./gradlew clean app:assemble#{options[:buildType]}"
+  end
+end
+
+private_lane :upload_to_playstore do |options|
+	supply(
+		track: options[:track],
+		skip_upload_changelogs: false,
+		skip_upload_metadata: true,
+		skip_upload_images: true,
+		skip_upload_screenshots: true,
+		package_name: "#{android_bundle_id}",
+		aab: "./android/app/build/outputs/bundle/release/app-release.apk",
+	)
+end
+
+###########################
+###  PRIVATE LANES IOS  ###
+###########################
+ private_lane :bundle_upload_ios do |options|
+  # Select the correct Xcode version
+  xcode_select("/Applications/Xcode.app") if is_ci? # "Xcode" is Xcode versie dat geinstalleerd staat op jenkins
+
+  # Clear Derived Data
+  clear_derived_data if is_ci? # gooit restanten van vorige builds weg
+
+	prepare_xcconfig(scheme_name: options[:scheme_name]) # roept dylan zijn kunsten aan
+
+  increment_build_number(
+    xcodeproj: "./ios/#{IOS_PROJECT}",
+    build_number: ENV["BUILD_NUMBER"], # nummer van build op jenkins (is by default altijd 1 hoger)
+  ) # deze stap genereert 2 changes in git, die moet je niet mee pushen.
+end
+
+ private_lane :build_ios do |options|
+  gym(
+    workspace: "./ios/#{IOS_WORKSPACE}",
+    scheme: "#{ios_project_name}",
+    clean: true,
+    configuration: options[:configuration],
+    export_options: options[:export_options]
+  )
+end
+
+lane :add_tag do |options|
+  add_git_tag(
+    build_number: ENV["BUILD_NUMBER"] # build nummer van jenkins zetten we als tag voor deze release (enkel voor git)
+  )
+end
+
+ private_lane :upload_to_test_flight_ios do
+  pilot(
+    username:                          APPSTORE_USERNAME,
+    team_name:                         APPSTORE_TEAM_NAME,
+    team_id:                           APPSTORE_TEAM_ID,
+    app_identifier:                    RELEASE_APP_ID,
+    apple_id:                          APPSTORE_APPLE_ID,  
+    skip_submission:                   true,
+    skip_waiting_for_build_processing: true,
+  )
+
+end
+
+ def export_options_for(configuration)
+  if configuration == :alpha
+    {
+			verbose: true,
+      method: "enterprise",
+      provisioningProfiles: {
+        ALPHA_APP_ID => ALPHA_PROFILE_NAME
+      }
+    }
+  elsif configuration == :beta
+    {
+			verbose: true,
+      method: "enterprise",
+      provisioningProfiles: {
+        BETA_APP_ID => BETA_PROFILE_NAME
+      }
+    }
+  elsif configuration = :release
+    {
+      method: "app-store",
+      provisioningProfiles: {
+        RELEASE_APP_ID => RELEASE_PROFILE_NAME
+      }
+    }
+  end
+end
+
+################################
+###  PRIVATE LANES APPENTER  ###
+################################
+private_lane :upload_to_appcenter_android do |options|
+  getAppNameAndroid(buildType: options[:buildType])
+  appcenter_upload(
+		owner_name: 'icapps',
+    app_name: appcenter_app_name,
+    apk: "./android/app/build/outputs/apk/#{options[:buildType]}/app-#{options[:buildType]}.apk",
+    notify_testers: true,
+    destinations: getDistributionGroup(flavor: options[:flavor])
+  )
+end
+
+private_lane :getAppNameAndroid do |options|
+  buildType = options[:buildType]
+  #app_name should normally be different for each environment
+  if buildType == "alpha"
+    appcenter_app_name = "Uitpas-Alpha-1"
+  elsif buildType == "beta"
+    appcenter_app_name = "Uitpas-Beta"
+  end
+end
+
+private_lane :upload_to_appcenter_ios do |options|
+  getAppNameIOS(buildType: options[:buildType])
+  appcenter_upload(
+		owner_name: 'icapps',
+    app_name: appcenter_app_name,
+    notify_testers: true,
+    destinations: getDistributionGroup(flavor: options[:flavor])
+  )
+end
+
+private_lane :getAppNameIOS do |options|
+  buildType = options[:buildType]
+  #app_name should normally be different for each environment
+  if buildType == "alpha"
+      appcenter_app_name = "Uitpas-Alpha"
+  elsif buildType == "beta"
+      appcenter_app_name = "Uitpas-Beta-1"
+  end
+end
+
+private_lane :getDistributionGroup do |options|
+  flavor = options[:flavor]
+  if flavor == "alpha"
+      "Collaborators, #{APPCENTER_ALPHA_DISTRIBUTION_GROUP}"
+  elsif flavor == "beta"
+      "Collaborators, #{APPCENTER_BETA_DISTRIBUTION_GROUP}"
+  elsif flavor == "prod"
+      "Collaborators"
+  end
+end

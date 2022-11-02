@@ -1,0 +1,73 @@
+{
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2019,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["@typescript-eslint/eslint-plugin", "react-hooks", "typescript-sort-keys", "sort-keys-fix", "simple-import-sort"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "eslint-config-prettier",
+    "plugin:import/warnings",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "import/order": 1,
+    "react-hooks/exhaustive-deps": 0,
+    "react/prop-types": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/interface-name-prefix": 0,
+    "@typescript-eslint/no-empty-function": 0,
+    "typescript-sort-keys/interface": 1,
+    "typescript-sort-keys/string-enum": 1,
+    "react/jsx-sort-props": 1,
+    "sort-keys-fix/sort-keys-fix": 1,
+    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "@typescript-eslint/camelcase": 0,
+    "react/display-name": 0,
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "strict": ["error", "never"],
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          // Packages. `react` related packages come first.
+          ["^react", "^@?\\w"],
+          // Absolute imports and other imports such as Vue-style `@/foo`.
+          // Anything not matched in another group.
+          ["^"],
+          // Relative imports.
+          // Anything that starts with a dot.
+          ["^\\."],
+          // Style imports.
+          ["^.+\\.styles$"],
+          // Side effect imports.
+          ["^\\u0000"]
+        ]
+      }
+    ]
+  },
+  "env": {
+    "browser": true
+  },
+  "overrides": [
+    {
+      "files": "**/*.+(ts|tsx)",
+      "parserOptions": {
+        "project": "./tsconfig.json"
+      }
+    }
+  ]
+}

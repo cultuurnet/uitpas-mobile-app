@@ -1,0 +1,16 @@
+//
+//  Beta.xcconfig
+//  reactnative_uitpas
+//
+//  Created by Sam Van Hoey on 12/13/21.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+#include "Shared.xcconfig"
+
+PRODUCT_BUNDLE_IDENTIFIER = com.icapps.uitpas.app.beta
+PROVISIONING_PROFILE_SPECIFIER = com.icapps.uitpas.app Beta
+CODE_SIGN_IDENTITY = Apple Distribution
+ENV_FILE = .env.beta
+APP_ICON_SET = AppIcon-Beta

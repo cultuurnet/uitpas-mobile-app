@@ -1,0 +1,14 @@
+//
+//  Shared.xcconfig
+//  reactnative_uitpas
+//
+//  Created by Sam Van Hoey on 12/13/21.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+#include? "tmp.xcconfig"
+
+DEVELOPMENT_TEAM = FAJTRUZ6J9
+CODE_SIGN_STYLE = Manual
+APP_ICON_SET = AppIcon
