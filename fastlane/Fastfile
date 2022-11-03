@@ -113,9 +113,9 @@ end
 # options is wat je meegeeft bij het aanroepen van public lane (zie hierboven)
 private_lane :build_android do |options|
   if options[:buildType] == "release" then
-    sh "(cd ../ && npx jetify;); cd ../android/; ENVFILE=.env ./gradlew clean app:assemble#{options[:buildType]}" # stap kan weg als we .env.release maken bvb
+    sh "cd ../android/; ENVFILE=.env ./gradlew clean app:assemble#{options[:buildType]}" # stap kan weg als we .env.release maken bvb
   else
-    sh "(cd ../ && npx jetify;); cd ../android/; ENVFILE=.env.#{options[:buildType]} ./gradlew clean app:assemble#{options[:buildType]}"
+    sh "cd ../android/; ENVFILE=.env.#{options[:buildType]} ./gradlew clean app:assemble#{options[:buildType]}"
   end
 end
 
