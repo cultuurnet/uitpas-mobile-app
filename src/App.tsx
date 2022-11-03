@@ -8,6 +8,7 @@ import { ThemeProvider } from 'styled-components/native';
 
 import { StorageKey } from './_models';
 import RootStackNavigator from './_routing';
+import { QueryClientProvider } from './_providers';
 import { theme } from './_styles/theme';
 
 import './_translations/i18n';
@@ -24,10 +25,12 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <StatusBar barStyle="light-content" />
-        <RootStackNavigator />
-      </NavigationContainer>
+      <QueryClientProvider>
+        <NavigationContainer>
+          <StatusBar barStyle="light-content" />
+          <RootStackNavigator />
+        </NavigationContainer>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 };
