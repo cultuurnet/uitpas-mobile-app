@@ -3,16 +3,15 @@ import {
   BackgroundPropType,
   Platform,
   StyleProp,
-  StyleSheet,
   TouchableHighlight,
   TouchableNativeFeedback,
   TouchableWithoutFeedbackProps,
-  View,
   ViewStyle,
 } from 'react-native';
 import color from 'color';
 
-import { colors } from '../../_styles';
+import { theme } from '../../_styles/theme';
+import * as Styled from './style';
 
 const ANDROID_VERSION_LOLLIPOP = 21;
 const ANDROID_VERSION_PIE = 28;
@@ -28,7 +27,7 @@ type TProps = TouchableWithoutFeedbackProps & {
   underlayColor?: string;
 };
 
-export const TouchableRipple = ({
+const TouchableRipple = ({
   style,
   background,
   borderless = false,
@@ -39,7 +38,7 @@ export const TouchableRipple = ({
   ...rest
 }: TProps) => {
   const disabled = disabledProp || !rest.onPress;
-  const calculatedRippleColor = rippleColor || color(colors.text).alpha(0.2).rgb().string();
+  const calculatedRippleColor = rippleColor || color(theme.colors.text).alpha(0.2).rgb().string();
 
   // A workaround for ripple on Android P is to use useForeground + overflow: 'hidden'
   // https://github.com/facebook/react-native/issues/6480
@@ -53,27 +52,27 @@ export const TouchableRipple = ({
         disabled={disabled}
         useForeground={useForeground}
       >
-        <View style={[borderless && styles.overflowHidden, style]}>{React.Children.only(children)}</View>
+        <Styled.Content borderless={borderless} style={style}>
+          {React.Children.only(children)}
+        </Styled.Content>
       </TouchableNativeFeedback>
     );
   }
 
   return (
-    <TouchableHighlight
-      {...rest}
+    <Styled.Content
+      as={TouchableHighlight}
+      borderless={borderless}
       disabled={disabled}
-      style={[borderless && styles.overflowHidden, style]}
+      style={style}
       underlayColor={underlayColor ?? color(calculatedRippleColor).fade(0.5).rgb().string()}
+      {...rest}
     >
       {React.Children.only(children)}
-    </TouchableHighlight>
+    </Styled.Content>
   );
 };
 
 TouchableRipple.supported = Platform.OS === 'android' && Platform.Version >= ANDROID_VERSION_LOLLIPOP;
 
-const styles = StyleSheet.create({
-  overflowHidden: {
-    overflow: 'hidden',
-  },
-});
+export default TouchableRipple;

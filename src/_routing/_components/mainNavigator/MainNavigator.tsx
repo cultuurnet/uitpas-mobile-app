@@ -1,14 +1,13 @@
 import React, { FC } from 'react';
+import { Platform, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Icon } from '../../../_components';
-import { colors } from '../../../_styles';
+import { theme } from '../../../_styles/theme';
 import Home from '../../../home/Home';
-import { TMainNavigatorStackParamList } from '../../_models';
-import { Text } from '../../../_components';
 import Scan from '../../../scan/Scan';
 import Shop from '../../../shop/Shop';
-import { Platform } from 'react-native';
+import { TMainNavigatorStackParamList } from '../../_models';
 
 export const MainNavigator: FC = () => {
   const Tab = createBottomTabNavigator<TMainNavigatorStackParamList>();
@@ -18,7 +17,7 @@ export const MainNavigator: FC = () => {
       <Tab.Navigator
         backBehavior="history"
         screenOptions={{
-          tabBarActiveTintColor: colors.primary,
+          tabBarActiveTintColor: theme.colors.primary,
           tabBarLabelStyle: {
             fontSize: 12,
           },
