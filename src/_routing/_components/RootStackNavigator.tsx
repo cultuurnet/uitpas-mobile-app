@@ -1,20 +1,20 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { AuthenticationNavigator } from './AuthenticationNavigator';
 import { MainNavigator } from './MainNavigator';
+import { UnauthorizedNavigator } from './UnauthorizedNavigator';
 
 export type TRootParams = {
-  AuthenticationNavigator: undefined;
   MainNavigator: undefined;
+  UnauthorizedNavigator: undefined;
 };
 
 const RootStack = createNativeStackNavigator<TRootParams>();
 
 export const RootStackNavigator = () => {
   return (
-    <RootStack.Navigator initialRouteName="MainNavigator" screenOptions={{ headerShown: false }}>
-      <RootStack.Screen component={AuthenticationNavigator} name="AuthenticationNavigator" />
+    <RootStack.Navigator screenOptions={{ headerShown: false }}>
+      <RootStack.Screen component={UnauthorizedNavigator} name="UnauthorizedNavigator" />
       <RootStack.Screen component={MainNavigator} name="MainNavigator" />
     </RootStack.Navigator>
   );

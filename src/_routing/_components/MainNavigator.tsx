@@ -8,11 +8,8 @@ import Profile from '../../profile/Profile';
 import Scan from '../../scan/Scan';
 import Shop from '../../shop/Shop';
 
-export type TMainParams = {
-  Profile: undefined;
-  Scan: undefined;
-  Shop: undefined;
-};
+export type TMainRoutes = 'Profile' | 'Scan' | 'Shop';
+export type TMainParams = Record<TMainRoutes, undefined>;
 
 export const MainNavigator: FC = () => {
   const Tab = createBottomTabNavigator<TMainParams>();
