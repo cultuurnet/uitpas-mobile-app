@@ -2,7 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { MainNavigator } from './_routing/_components';
-import { TRootStackParamList } from './_routing/stackParamList';
+import { TRootStackParamList } from './_routing/_models';
 
 const RootStack = createNativeStackNavigator<TRootStackParamList>();
 

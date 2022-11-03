@@ -245,19 +245,12 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
-        release {
-            storeFile file("../keystores/release.keystore")
-            storePassword "EUrF6kG!h2jLaAwTJULdxAq8"
-            keyAlias "release-uitpas"
-            keyPassword "EUrF6kG!h2jLaAwTJULdxAq8"
-        }
     }
     buildTypes {
         debug {
             applicationIdSuffix ".debug"
             versionNameSuffix "-debug"
             signingConfig signingConfigs.debug
-            matchingFallbacks = ['debug']
         }
 
         alpha {
@@ -283,7 +276,10 @@ android {
         }
 
         release {
-            signingConfig signingConfigs.release
+            // @TODO:
+            // Caution! In production, you need to generate your own keystore file.
+            // see https://reactnative.dev/docs/signed-apk-android.
+            signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
@@ -332,7 +328,7 @@ dependencies {
 
     if (enableHermes) {
         //noinspection GradleDynamicVersion
-        implementation("com.facebook.react:hermes-engine:+") { 
+        implementation("com.facebook.react:hermes-engine:+") {
             exclude group:'com.facebook.fbjni'
         }
     } else {

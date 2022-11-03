@@ -4,4 +4,3 @@ export * from './errorMessage/ErrorMessage';
 export * from './input';
 export * from './icon/Icon';
 export * from './text/Text';
-export * from './search/SearchField';
