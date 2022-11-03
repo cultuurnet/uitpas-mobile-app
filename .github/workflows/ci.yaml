@@ -14,7 +14,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         name: Checkout
+      - uses: actions/setup-node@v3
+        name: Setup Node
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
       - name: Install modules
-        run: yarn
+        run: yarn install --frozen-lockfile
       - name: Run ESLint
         run: yarn run lint --fix
