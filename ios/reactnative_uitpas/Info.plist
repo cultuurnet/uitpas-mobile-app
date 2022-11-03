@@ -47,10 +47,10 @@
 	<string>We use your photo library to add a profile picture</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>HKNova-BoldR.otf</string>
-		<string>HKNova-LightR.otf</string>
-		<string>HKNova-RegularR.otf</string>
-		<string>HKNova-SemiBoldR.otf</string>
+		<string>Poppins-Bold.ttf</string>
+		<string>Poppins-Light.ttf</string>
+		<string>Poppins-Regular.ttf</string>
+		<string>Poppins-SemiBold.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen.storyboard</string>
