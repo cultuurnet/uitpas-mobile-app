@@ -1,6 +1,8 @@
 name: release beta
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - 'develop'
 env:
   APPCENTER_API_TOKEN: ${{ secrets.APPCENTER_API_TOKEN }}
   APPCENTER_OWNER_NAME: ${{ secrets.APPCENTER_OWNER_NAME }}
