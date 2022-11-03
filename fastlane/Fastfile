@@ -70,7 +70,7 @@ end
 
 lane :ios_alpha do
   # Install the provisioning profiles
-  install_provisioning_profiles if is_ci? # plugin die zoekt naar provisioning profiles in source code en installeert deze --> hoeft daardoor niet in jenkins te zitten maar gewoon per project in de source code
+  install_provisioning_profiles if is_ci? # plugin that searches for available provisioning profiles and installs these
   bundle_upload_ios(scheme_name: "Alpha")
   build_ios(export_options: export_options_for(:alpha)) # Build IPA
   upload_to_appcenter_ios(buildType: "alpha")  # Upload IPA to appcenter
@@ -79,7 +79,7 @@ end
 
 lane :ios_beta do
   # Install the provisioning profiles
-  install_provisioning_profiles if is_ci? # plugin die zoekt naar provisioning profiles in source code en installeert deze --> hoeft daardoor niet in jenkins te zitten maar gewoon per project in de source code
+  install_provisioning_profiles if is_ci? # plugin that searches for available provisioning profiles and installs these
   bundle_upload_ios(scheme_name: "Beta")
   build_ios(export_options: export_options_for(:beta)) # Build IPA
   upload_to_appcenter_ios(buildType: "beta")  # Upload IPA to appcenter
@@ -88,7 +88,7 @@ end
 
 lane :ios_prod do
 	# Install the provisioning profiles
-  install_provisioning_profiles if is_ci? # plugin die zoekt naar provisioning profiles in source code en installeert deze --> hoeft daardoor niet in jenkins te zitten maar gewoon per project in de source code
+  install_provisioning_profiles if is_ci? # plugin that searches for available provisioning profiles and installs these
   bundle_upload_ios(scheme_name: "Release")
   build_ios(export_options: export_options_for(:release)) # Build IPA
   upload_to_test_flight_ios()
