@@ -7,8 +7,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components/native';
 
 import { StorageKey } from './_models';
+import RootStackNavigator from './_routing';
 import { theme } from './_styles/theme';
-import RootStackNavigator from './RootStackNavigator';
 
 import './_translations/i18n';
 
