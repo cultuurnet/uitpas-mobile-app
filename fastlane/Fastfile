@@ -7,9 +7,6 @@ skip_docs
 keychain_password = ENV["JENKINS_KEYCHAIN_PASSWORD"] # general password in jenkins
 unlock_keychain(path: "login.keychain", password: keychain_password) if is_ci? && keychain_password
 
-# Install the provisioning profiles
-install_provisioning_profiles if is_ci? # plugin die zoekt naar provisioning profiles in source code en installeert deze --> hoeft daardoor niet in jenkins te zitten maar gewoon per project in de source code
-
 #######################
 ###  CONFIGURATION  ##
 #######################
@@ -72,7 +69,8 @@ end
 ##########################
 
 lane :ios_alpha do
-  ensure_git_status_clean
+  # Install the provisioning profiles
+  install_provisioning_profiles if is_ci? # plugin die zoekt naar provisioning profiles in source code en installeert deze --> hoeft daardoor niet in jenkins te zitten maar gewoon per project in de source code
   bundle_upload_ios(scheme_name: "Alpha")
   build_ios(export_options: export_options_for(:alpha)) # Build IPA
   upload_to_appcenter_ios(buildType: "alpha")  # Upload IPA to appcenter
@@ -80,7 +78,8 @@ lane :ios_alpha do
 end
 
 lane :ios_beta do
-  ensure_git_status_clean
+  # Install the provisioning profiles
+  install_provisioning_profiles if is_ci? # plugin die zoekt naar provisioning profiles in source code en installeert deze --> hoeft daardoor niet in jenkins te zitten maar gewoon per project in de source code
   bundle_upload_ios(scheme_name: "Beta")
   build_ios(export_options: export_options_for(:beta)) # Build IPA
   upload_to_appcenter_ios(buildType: "beta")  # Upload IPA to appcenter
@@ -88,7 +87,8 @@ lane :ios_beta do
 end
 
 lane :ios_prod do
-	ensure_git_status_clean
+	# Install the provisioning profiles
+  install_provisioning_profiles if is_ci? # plugin die zoekt naar provisioning profiles in source code en installeert deze --> hoeft daardoor niet in jenkins te zitten maar gewoon per project in de source code
   bundle_upload_ios(scheme_name: "Release")
   build_ios(export_options: export_options_for(:release)) # Build IPA
   upload_to_test_flight_ios()
