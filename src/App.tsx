@@ -12,6 +12,7 @@ import { QueryClientProvider } from './_providers';
 import { theme } from './_styles/theme';
 
 import './_translations/i18n';
+import { useGetAsyncStorageValue } from './_queries/useGetAsyncStorageValue';
 
 LogBox.ignoreAllLogs();
 
@@ -19,7 +20,6 @@ const App = () => {
   const { setItem } = useAsyncStorage(StorageKey.Language);
 
   useEffect(() => {
-    SplashScreen.hide();
     setItem(getLocales()[0].languageCode);
   }, []);
 
@@ -27,7 +27,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <QueryClientProvider>
         <NavigationContainer>
-          <StatusBar barStyle="light-content" />
+          <StatusBar barStyle="dark-content" />
           <RootStackNavigator />
         </NavigationContainer>
       </QueryClientProvider>

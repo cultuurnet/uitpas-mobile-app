@@ -9,13 +9,6 @@ const Home = () => {
 
   return (
     <DiagonalSplitView
-      bottomContent={
-        <Styled.BottomContainer>
-          <Styled.ListItem href="https://google.com/" label={t('HOME.REGISTER')} variant="link" />
-          <Styled.ListItem href="https://google.com/" label={t('HOME.WHERE_TO_BUY')} variant="link" />
-          <Styled.ListItem label={t('HOME.LOGIN')} onPress={() => {}} />
-        </Styled.BottomContainer>
-      }
       topContent={
         <>
           <BrandLogo height={48} inverse />
@@ -23,6 +16,13 @@ const Home = () => {
             {t('HOME.INTRO')}
           </Styled.IntroText>
         </>
+      }
+      bottomContent={
+        <Styled.BottomContainer>
+          <Styled.ListItem href="https://google.com/" label={t('HOME.REGISTER')} variant="link" />
+          <Styled.ListItem href="https://google.com/" label={t('HOME.WHERE_TO_BUY')} variant="link" />
+          <Styled.ListItem label={t('HOME.LOGIN')} onPress={() => {}} />
+        </Styled.BottomContainer>
       }
     />
   );
