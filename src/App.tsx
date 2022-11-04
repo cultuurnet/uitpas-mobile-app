@@ -7,6 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components/native';
 
 import { StorageKey } from './_models';
+import { QueryClientProvider } from './_providers';
 import { theme } from './_styles/theme';
 import RootStackNavigator from './RootStackNavigator';
 
@@ -24,10 +25,12 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <StatusBar barStyle="light-content" />
-        <RootStackNavigator />
-      </NavigationContainer>
+      <QueryClientProvider>
+        <NavigationContainer>
+          <StatusBar barStyle="light-content" />
+          <RootStackNavigator />
+        </NavigationContainer>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 };
