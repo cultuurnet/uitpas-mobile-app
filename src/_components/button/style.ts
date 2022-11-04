@@ -15,7 +15,7 @@ export const ButtonElement = styled(Pressable)<{
 }>`
   align-items: center;
   border-radius: 16px;
-  opacity: ${({ disabled }) => (disabled ? 0.3 : 1)}px;
+  opacity: ${({ disabled }) => (disabled ? 0.4 : 1)};
   background-color: ${({ $active, $variant, theme }) => {
     if ($variant === 'contained') {
       return $active ? theme.colors.buttonActive : theme.colors.button;
