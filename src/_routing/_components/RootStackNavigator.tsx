@@ -25,7 +25,7 @@ export const RootStackNavigator = () => {
 
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
-      {<RootStack.Screen component={Onboarding} name="Onboarding" />}
+      {!isPolicyApproved && <RootStack.Screen component={Onboarding} name="Onboarding" />}
       <RootStack.Screen component={Home} name="Home" />
       <RootStack.Screen component={MainNavigator} name="MainNavigator" />
     </RootStack.Navigator>

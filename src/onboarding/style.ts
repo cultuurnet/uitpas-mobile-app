@@ -1,4 +1,3 @@
-import { enIE } from 'date-fns/locale';
 import styled from 'styled-components/native';
 import { Button, Typography, Checkbox } from '../_components';
 
