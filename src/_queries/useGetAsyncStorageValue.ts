@@ -12,5 +12,5 @@ async function getAsyncStorageValue<T>(storageKey: StorageKey): Promise<T> {
 }
 
 export function useGetAsyncStorageValue<T>(storageKey: StorageKey) {
-  return useQuery<T>(['getPolicyStatus'], () => getAsyncStorageValue<T>(storageKey));
+  return useQuery<T>(['getAsyncStorageValue'], () => getAsyncStorageValue<T>(storageKey));
 }
