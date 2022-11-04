@@ -1,12 +1,12 @@
 import React from 'react';
 import { ScrollView, Text } from 'react-native';
 
-const Scan = () => {
+const Profile = () => {
   return (
     <ScrollView>
-      <Text>This is the scan page</Text>
+      <Text>This is the profile page</Text>
     </ScrollView>
   );
 };
 
-export default Scan;
+export default Profile;

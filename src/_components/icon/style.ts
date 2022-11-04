@@ -13,8 +13,8 @@ export const Icon = styled.Image<Pick<TIconProps, 'size' | 'color'>>`
   ${({ size }) => {
     const imageSize = typeof size === 'number' ? size : size === 'small' ? 16 : size === 'large' ? 40 : 20;
     return css`
-      width: ${imageSize};
-      height: ${imageSize};
+      width: ${imageSize}px;
+      height: ${imageSize}px;
     `;
   }}
 `;
