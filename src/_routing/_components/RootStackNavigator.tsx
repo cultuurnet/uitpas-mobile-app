@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
+import SplashScreen from 'react-native-splash-screen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { MainNavigator } from './MainNavigator';
-import Onboarding from '../../onboarding/Onboarding';
-import { useGetAsyncStorageValue } from '../../_queries/useGetAsyncStorageValue';
 import { StorageKey } from '../../_models';
+import { useGetAsyncStorageValue } from '../../_queries/useGetAsyncStorageValue';
 import Home from '../../home/Home';
-import SplashScreen from 'react-native-splash-screen';
+import Onboarding from '../../onboarding/Onboarding';
+import { MainNavigator } from './MainNavigator';
 
 export type TRootParams = {
+  Home: undefined;
   MainNavigator: undefined;
   Onboarding: undefined;
-  Home: undefined;
 };
 
 const RootStack = createNativeStackNavigator<TRootParams>();
@@ -25,7 +25,7 @@ export const RootStackNavigator = () => {
 
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
-      {!isPolicyApproved && <RootStack.Screen component={Onboarding} name="Onboarding" />}
+      {!isPolicyApproved && !isLoading && <RootStack.Screen component={Onboarding} name="Onboarding" />}
       <RootStack.Screen component={Home} name="Home" />
       <RootStack.Screen component={MainNavigator} name="MainNavigator" />
     </RootStack.Navigator>
