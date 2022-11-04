@@ -1,8 +1,12 @@
 import React from 'react';
-import { View } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 
 const Scan = () => {
-  return <View></View>;
+  return (
+    <ScrollView>
+      <Text>This is the scan page</Text>
+    </ScrollView>
+  );
 };
 
 export default Scan;
