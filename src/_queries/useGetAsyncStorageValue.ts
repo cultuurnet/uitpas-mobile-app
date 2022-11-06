@@ -1,8 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useQuery } from '@tanstack/react-query';
+
 import { StorageKey } from '../_models';
 
-async function getAsyncStorageValue<T>(storageKey: StorageKey): Promise<T> {
+async function getAsyncStorageValue<T>(storageKey: StorageKey) {
   const storageValue = await AsyncStorage.getItem(storageKey);
   try {
     return JSON.parse(storageValue) as T;

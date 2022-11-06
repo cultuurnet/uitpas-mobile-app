@@ -6188,6 +6188,11 @@ react-devtools-core@4.24.0:
     shell-quote "^1.6.1"
     ws "^7"
 
+react-flat-providers@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/react-flat-providers/-/react-flat-providers-2.2.0.tgz#a5015725aaffaffb941bf1f71d6b604262f51f81"
+  integrity sha512-Ka9E7Vl7MQ2YsBy01aOZA04/KOh4AaOY/JU4yKDO1/UVr+ZrOz5jq4SK8Z78VVPISclvC5vw/baT9yWHFEpYlw==
+
 react-freeze@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/react-freeze/-/react-freeze-1.0.3.tgz#5e3ca90e682fed1d73a7cb50c2c7402b3e85618d"

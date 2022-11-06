@@ -1,12 +1,13 @@
 import styled from 'styled-components/native';
-import { Button, Typography, Checkbox } from '../_components';
+
+import { Button, Checkbox, Typography } from '../_components';
 
 export const ViewContainer = styled.ScrollView`
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
 export const TopContainer = styled.View`
-  padding: 40px 16px;
+  padding: 0px 16px;
   align-items: center;
 `;
 
@@ -33,17 +34,18 @@ export const ConfirmViewContainer = styled.View`
   flex-wrap: wrap;
   margin-left: 14px;
 `;
+
 export const BottomContainer = styled.View`
-  padding: 40px 16px;
-  margin-left: 2.5%;
   position: absolute;
   bottom: 0px;
-  width: 95%;
-  align-items: center;
+  width: 100%;
 `;
 
 export const LinkButton = styled(Button)`
-  margin-left: 5px;
+  margin: 0 5px;
 `;
 
-export const ConfirmButton = styled(Button)``;
+export const ConfirmButton = styled(Button)`
+  margin: 0 auto;
+  width: 90%;
+`;
