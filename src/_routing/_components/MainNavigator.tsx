@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { t } from 'i18next';
 
 import TabBarIcon from '../../_components/tabBarIcon/TabBarIcon';
 import { theme } from '../../_styles/theme';
@@ -33,6 +34,7 @@ export const MainNavigator: FC = () => {
         name="Profile"
         options={{
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="Profile" />,
+          title: t('NAVIGATION.PROFILE'),
         }}
       />
       <Tab.Screen
@@ -40,6 +42,7 @@ export const MainNavigator: FC = () => {
         name="Scan"
         options={{
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="QR" />,
+          title: t('NAVIGATION.SCAN'),
         }}
       />
       <Tab.Screen
@@ -47,6 +50,7 @@ export const MainNavigator: FC = () => {
         name="Shop"
         options={{
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="Shop" />,
+          title: t('NAVIGATION.SHOP'),
         }}
       />
     </Tab.Navigator>
