@@ -9,11 +9,8 @@ import Home from '../../login/Login';
 import Onboarding from '../../onboarding/Onboarding';
 import { MainNavigator } from './MainNavigator';
 
-export type TRootParams = {
-  Home: undefined;
-  MainNavigator: undefined;
-  Onboarding: undefined;
-};
+export type TRootRoutes = 'MainNavigator' | 'Onboarding' | 'Home';
+export type TRootParams = Record<TRootRoutes, undefined>;
 
 const RootStack = createNativeStackNavigator<TRootParams>();
 
