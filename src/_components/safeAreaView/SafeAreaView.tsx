@@ -3,10 +3,10 @@ import { NativeSafeAreaViewProps as RNSafeAreaViewProps } from 'react-native-saf
 
 import * as Styled from './style';
 
-type TSafeAreaViewProps = { scrollView?: boolean } & RNSafeAreaViewProps;
+type TSafeAreaViewProps = { isScrollable?: boolean } & RNSafeAreaViewProps;
 
-const SafeAreaView: FC<TSafeAreaViewProps> = ({ children, scrollView = true, ...props }) => {
-  if (scrollView) {
+const SafeAreaView: FC<TSafeAreaViewProps> = ({ children, isScrollable = true, ...props }) => {
+  if (isScrollable) {
     return (
       <Styled.SafeAreaViewContainer>
         <Styled.ViewContainer contentContainerStyle={{ flexGrow: 1 }} {...props}>

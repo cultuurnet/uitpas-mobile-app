@@ -8,7 +8,8 @@ async function getAsyncStorageValue<T>(storageKey: StorageKey) {
   try {
     return JSON.parse(storageValue) as T;
   } catch (error) {
-    return storageValue as any;
+    //TODO: add error logging
+    return undefined;
   }
 }
 

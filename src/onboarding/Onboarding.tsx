@@ -10,7 +10,7 @@ const Onboarding = () => {
   const [isChecked, toggleChecked] = useToggle(false);
   const navigation = useStackNavigation();
 
-  function onPress() {
+  const onPress = () => {
     AsyncStorage.setItem(StorageKey.IsPolicyApproved, 'true');
     navigation.navigate('Home');
   }
@@ -44,7 +44,7 @@ const Onboarding = () => {
             </Styled.ConfirmViewContainer>
           }
           onChange={toggleChecked}
-        ></Styled.ConfirmCheckbox>
+        />
       </Styled.TopContainer>
       <Styled.BottomContainer>
         <Styled.ConfirmButton disabled={!isChecked} label={t('ONBOARDING.CONFIRM')} onPress={onPress} />
