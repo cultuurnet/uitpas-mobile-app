@@ -18,7 +18,7 @@ export type TRootParams = {
 const RootStack = createNativeStackNavigator<TRootParams>();
 
 export const RootStackNavigator = () => {
-  const { data: isPolicyApproved, isLoading } = useGetAsyncStorageValue<boolean>(StorageKey.IsPolicyApproved);
+  const { data: isPolicyApproved = false, isLoading } = useGetAsyncStorageValue<boolean>(StorageKey.IsPolicyApproved);
   const { user } = useAuth0();
   const isAuthenticated = user !== undefined && user !== null;
 
