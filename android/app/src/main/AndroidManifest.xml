@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.reactnative_uitpas">
+  package="com.publiq.uitpas">
 
     <!-- see https://github.com/zoontek/react-native-permissions for more permissions-->
     <uses-permission android:name="android.permission.INTERNET" />

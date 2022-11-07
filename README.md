@@ -1,86 +1,52 @@
-# icapps React Native Uitpas boilerplate
+# UiTPAS - Mobile Application
 
-## When starting a new project
+<img src="https://user-images.githubusercontent.com/4415097/199680673-a83a1e51-56d6-4ef5-bb11-999b37e12173.png" alt="UiTPAS logo" height="40" />
+<br />
+<br />
 
-### Do this for renaming
+- [Intro](#intro)
+- [Setup](#setup)
+  - [General](#general)
+  - [iOS](#ios)
+  - [Android](#android)
 
-`// TODO: add correct steps`
+## Intro
 
-### Fonts
+This repository hosts the source code for the mobile application of the UiTPAS app. Main purpose of this app is to digitize saving points for their UiTPAS by scanning QR codes at specific locations.
 
-Replace the new projects fonts with the fonts in the `src/assets/fonts` folder.
+**Used technologies/packages:**
+- [React native](https://reactnative.dev/docs/getting-started)
+- [Styled components](https://styled-components.com/)
+- [Tanstack React Query](https://tanstack.com/query/v4/docs/) (with `persistQueryClient`)
+- [i18next](https://react.i18next.com/)
+- [React Navigation](https://reactnavigation.org/docs/getting-started)
 
-Run `npx react-native link` or `yarn react-native link` to install these new fonts.
+## Setup
 
-Change the font names in `src/_components/text/Text.styles.ts`
+### General
 
-### Permissions
+1. Setup correct node version
+    ```shell
+    nvm use
+    ```
+2. Install project dependencies
+    ```shell
+    yarn
+    ```
 
-In this project we use the package https://github.com/zoontek/react-native-permissions<br  />If you want to use permissions in
-your app you have to make some changes
+### iOS
 
-**Ios:**<br  /> Make sure your needed permissions are added in the podfile <br  /> Edit the string of your permissions in the
-info.plist <br  /> **Android:** <br  /> Make sure your needed permissions are added to the AndroidManifest
+3. Install Pod's
+    ```shell
+    cd ios && pod install
+    ```
+4. Run the app
+    ```shell
+    yarn ios
+    ```
+### Android
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `yarn start`
-
-Bundles the app with metro so that the emulator can find his source code.
-
-### `yarn ios`
-
-Runs the app in an iOS emulator.
-
-### `yarn android`
-
-Runs the app in an android emulator.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br /> See the section about
-[running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br /> It correctly bundles React in production mode and optimizes the build
-for the best performance.
-
-The build is minified and the filenames include the hashes.<br /> Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the
-single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your
-project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied
-scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel
-obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are
-ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### `yarn lint`
-
-Runs eslint to check for linting errors
-
-### `yarn format`
-
-Runs prettier and formats all files
-
-### `yarn format:check`
-
-Runs prettier to check if all changed files are formatted correctly
+3. Run the app
+    ```shell
+    yarn android
+    ```
