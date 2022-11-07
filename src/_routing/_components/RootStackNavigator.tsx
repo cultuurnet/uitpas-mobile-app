@@ -12,7 +12,7 @@ const RootStack = createNativeStackNavigator<TRootParams>();
 
 export const RootStackNavigator = () => {
   const { user } = useAuth0();
-  const isAuthenticated = !!user;
+  const isAuthenticated = user !== undefined && user !== null;
 
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
