@@ -1,7 +1,9 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
+import { useMemo } from 'react';
+import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
 import { QueryClient } from '@tanstack/react-query';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
+
+import { useSecureStorage } from '../_hooks/useSecureStorage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -11,14 +13,26 @@ const queryClient = new QueryClient({
   },
 });
 
-const asyncStoragePersister = createAsyncStoragePersister({
-  storage: AsyncStorage,
-});
+const QueryClientProvider = ({ children }) => {
+  const { set: setItem, getString: getItem, delete: removeItem } = useSecureStorage();
 
-const QueryClientProvider = ({ children }) => (
-  <PersistQueryClientProvider client={queryClient} persistOptions={{ persister: asyncStoragePersister }}>
-    {children}
-  </PersistQueryClientProvider>
-);
+  const persister = useMemo(
+    () =>
+      createSyncStoragePersister({
+        storage: {
+          getItem,
+          removeItem,
+          setItem,
+        },
+      }),
+    [],
+  );
+
+  return (
+    <PersistQueryClientProvider client={queryClient} persistOptions={{ persister }}>
+      {children}
+    </PersistQueryClientProvider>
+  );
+};
 
 export default QueryClientProvider;
