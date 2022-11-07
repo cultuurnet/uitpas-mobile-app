@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Home from '../../home/Home';
+import Home from '../../login/Login';
 
 export type TUnauthorizedRoutes = 'Home';
 export type TUnauthorizedParams = Record<TUnauthorizedRoutes, undefined>;
