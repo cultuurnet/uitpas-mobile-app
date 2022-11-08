@@ -156,12 +156,13 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.reactnative_uitpas"
+        applicationId "com.publiq.uitpas"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode computeVersionCode()
         versionName project.env.get("REACT_NATIVE_APP_VERSION_NR")
-        resValue "string", "build_config_package", "com.reactnative_uitpas"
+        resValue "string", "build_config_package", "com.publiq.uitpas"
+        manifestPlaceholders = [auth0Domain: project.env.get("REACT_NATIVE_APP_AUTH0_DOMAIN"), auth0Scheme: project.env.get("REACT_NATIVE_APP_AUTH0_SCHEME")]
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
         if (isNewArchitectureEnabled()) {
             // We configure the NDK build only if you decide to opt-in for the New Architecture.

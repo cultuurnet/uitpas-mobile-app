@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { t } from 'i18next';
 
 import TabBarIcon from '../../_components/tabBarIcon/TabBarIcon';
 import { theme } from '../../_styles/theme';
@@ -32,9 +33,27 @@ export const MainNavigator: FC = () => {
         },
       })}
     >
-      <Tab.Screen component={Profile} name="Profile" />
-      <Tab.Screen component={Scan} name="Scan" />
-      <Tab.Screen component={Shop} name="Shop" />
+      <Tab.Screen
+        component={Profile}
+        name="Profile"
+        options={{
+          title: t('NAVIGATION.PROFILE'),
+        }}
+      />
+      <Tab.Screen
+        component={Scan}
+        name="Scan"
+        options={{
+          title: t('NAVIGATION.SCAN'),
+        }}
+      />
+      <Tab.Screen
+        component={Shop}
+        name="Shop"
+        options={{
+          title: t('NAVIGATION.SHOP'),
+        }}
+      />
     </Tab.Navigator>
   );
 };

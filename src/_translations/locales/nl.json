@@ -1,4 +1,9 @@
 {
+  "NAVIGATION": {
+    "PROFILE": "Mijn UiTPAS",
+    "SCAN": "Sparen",
+    "SHOP": "Shop"
+  },
   "ONBOARDING": {
     "TITLE": "Algemene voorwaarden",
     "INTRO": "We verzamelen automatisch enkele gebruiksgegevens om UiTPAS en deze app verder te verbeteren.",
