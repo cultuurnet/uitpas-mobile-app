@@ -5,7 +5,7 @@ import { useAuth0 } from 'react-native-auth0';
 import { BrandLogo, DiagonalSplitView } from '../_components';
 import * as Styled from './style';
 
-const Home = () => {
+const Login = () => {
   const { t } = useTranslation();
   const { authorize } = useAuth0();
 
@@ -39,4 +39,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Login;
