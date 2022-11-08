@@ -11,5 +11,5 @@ export const BottomContainer = styled.View`
 `;
 
 export const ListItem = styled(Button)`
-  margin-top: 10px;
+  margin-top: 20px;
 `;

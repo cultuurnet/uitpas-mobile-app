@@ -1,19 +1,26 @@
 import styled from 'styled-components/native';
 
+import SafeAreaView from '../safeAreaView/SafeAreaView';
+
 const DIAGONAL_CONTAINER_HEIGHT = 100;
 
-export const ViewContainer = styled.ScrollView`
+export const TopSafeAreaViewContainer = styled(SafeAreaView)`
+  background-color: ${({ theme }) => theme.colors.secondary};
+  flex: 0;
+`;
+
+export const ViewContainer = styled(SafeAreaView)`
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
 export const TopContainer = styled.View`
-  padding: 80px 16px;
+  padding: 40px 16px;
   background-color: ${({ theme }) => theme.colors.secondary};
   align-items: center;
 `;
 
 export const BottomContainer = styled.View`
-  padding: 40px 16px;
+  padding: 20px 16px;
   flex-grow: 1;
 `;
 
