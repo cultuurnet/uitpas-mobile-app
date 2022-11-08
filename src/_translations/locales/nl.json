@@ -1,4 +1,20 @@
 {
+  "NAVIGATION": {
+    "PROFILE": "Mijn UiTPAS",
+    "SCAN": "Sparen",
+    "SHOP": "Shop"
+  },
+  "ONBOARDING": {
+    "TITLE": "Algemene voorwaarden",
+    "INTRO": "We verzamelen automatisch enkele gebruiksgegevens om UiTPAS en deze app verder te verbeteren.",
+    "LOOK_AT": "Bekijk onze",
+    "TERMS_OF_SERVICE_URL": "https://www.uitpas.be/gebruiksvoorwaarden",
+    "TERMS_OF_SERVICE": "gebruiksvoorwaarden",
+    "AND": "en",
+    "PRIVACY_POLICY": "privacybeleid",
+    "PRIVACY_POLICY_URL": "https://www.uitpas.be/privacybeleid",
+    "CONFIRM": "Oké, ik begrijp het"
+  },
   "HOME": {
     "INTRO": "Jouw voordeelkaart voor verrassende vrije tijd buitenshuis",
     "REGISTER": "Registreer je UiTPAS",

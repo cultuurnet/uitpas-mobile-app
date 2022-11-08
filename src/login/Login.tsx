@@ -5,7 +5,7 @@ import { BrandLogo, DiagonalSplitView } from '../_components';
 import { useAuthentication } from '../_context/AuthenticationProvider';
 import * as Styled from './style';
 
-const Home = () => {
+const Login = () => {
   const { t } = useTranslation();
   const { authorize } = useAuthentication();
 
@@ -39,4 +39,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Login;

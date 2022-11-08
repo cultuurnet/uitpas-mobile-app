@@ -3,26 +3,32 @@ import SplashScreen from 'react-native-splash-screen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { useAuthentication } from '../../_context/AuthenticationProvider';
+import { StorageKey } from '../../_models';
+import { useGetAsyncStorageValue } from '../../_queries/useGetAsyncStorageValue';
+import Home from '../../login/Login';
+import Onboarding from '../../onboarding/Onboarding';
 import { MainNavigator } from './MainNavigator';
-import { UnauthorizedNavigator } from './UnauthorizedNavigator';
 
-export type TRootRoutes = 'MainNavigator' | 'UnauthorizedNavigator';
+export type TRootRoutes = 'MainNavigator' | 'Onboarding' | 'Home';
 export type TRootParams = Record<TRootRoutes, undefined>;
 
 const RootStack = createNativeStackNavigator<TRootParams>();
 
 export const RootStackNavigator = () => {
   const { isAuthenticated, isInitialized } = useAuthentication();
+  const { data: isPolicyApproved = false, isLoading } = useGetAsyncStorageValue<boolean>(StorageKey.IsPolicyApproved);
 
   useEffect(() => {
+    if (isLoading) return;
     if (!isInitialized) return;
 
     SplashScreen.hide();
-  }, [isInitialized]);
+  }, [isLoading]);
 
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
-      {!isAuthenticated && <RootStack.Screen component={UnauthorizedNavigator} name="UnauthorizedNavigator" />}
+      {!isPolicyApproved && !isLoading && <RootStack.Screen component={Onboarding} name="Onboarding" />}
+      {!isAuthenticated && <RootStack.Screen component={Home} name="Home" />}
       {isAuthenticated && <RootStack.Screen component={MainNavigator} name="MainNavigator" />}
     </RootStack.Navigator>
   );
