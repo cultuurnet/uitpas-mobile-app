@@ -3,9 +3,6 @@ import styled from 'styled-components/native';
 import { Button, Typography } from '../_components';
 
 export const TitleText = styled(Typography)`
-  color: ${({ theme }) => {
-    return theme.colors.text;
-  }};
   margin-bottom: 10px;
 `;
 
