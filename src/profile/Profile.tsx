@@ -1,27 +1,20 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, Text } from 'react-native';
-import { useAuth0 } from 'react-native-auth0';
 
 import { Button } from '../_components';
+import { useToggle } from '../_hooks';
+import LogoutModal from './LogOutModal';
 
 const Profile = () => {
-  const { clearSession } = useAuth0();
-
-  const handleLogout = async () => {
-    try {
-      await clearSession();
-    } catch (e) {
-      // @TODO: general error handling?
-      console.error(e);
-    }
-  };
+  const [logOutModalVisible, toggleLogOutModalVisible] = useToggle(false);
 
   return (
     <SafeAreaView>
+      <LogoutModal isVisible={logOutModalVisible} toggleIsVisible={toggleLogOutModalVisible} />
       <ScrollView>
         {/* @TODO: This is placeholder content */}
         <Text>This is the profile page</Text>
-        <Button label="Logout" onPress={handleLogout} />
+        <Button label="Logout" onPress={toggleLogOutModalVisible} />
       </ScrollView>
     </SafeAreaView>
   );

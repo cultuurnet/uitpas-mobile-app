@@ -30,6 +30,8 @@ export const ButtonText = styled(Typography)<{ $active: boolean; $variant: TButt
   color: ${({ $variant, $active, theme }) => {
     if ($variant === 'link') {
       return $active ? theme.colors.buttonActive : theme.colors.button;
+    } else if ($variant === 'outline') {
+      return theme.colors.button;
     }
 
     return theme.colors.white;

@@ -13,7 +13,7 @@ export type TTypographyProps = {
 
 const Typography: FC<TTypographyProps> = ({
   children,
-  color = 'white',
+  color = 'text',
   size = 'normal',
   align = 'left',
   fontStyle = 'normal',
