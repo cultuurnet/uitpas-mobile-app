@@ -1,17 +1,17 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAuth0 } from 'react-native-auth0';
 
 import { BrandLogo, DiagonalSplitView } from '../_components';
+import { useAuthentication } from '../_context/AuthenticationProvider';
 import * as Styled from './style';
 
 const Home = () => {
   const { t } = useTranslation();
-  const { authorize } = useAuth0();
+  const { authorize } = useAuthentication();
 
   const handleLogin = async () => {
     try {
-      await authorize({ scope: 'openid profile email' });
+      await authorize({ scope: 'openid profile email offline_access' });
     } catch (e) {
       // @TODO: general error handling?
       console.error(e);

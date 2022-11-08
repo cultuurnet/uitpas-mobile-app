@@ -1,15 +1,15 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, Text } from 'react-native';
-import { useAuth0 } from 'react-native-auth0';
 
 import { Button } from '../_components';
+import { useAuthentication } from '../_context/AuthenticationProvider';
 
 const Profile = () => {
-  const { clearSession } = useAuth0();
+  const { logout } = useAuthentication();
 
   const handleLogout = async () => {
     try {
-      await clearSession();
+      await logout();
     } catch (e) {
       // @TODO: general error handling?
       console.error(e);
