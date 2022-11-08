@@ -1,4 +1,4 @@
-import { FC, Fragment } from 'react';
+import { FC } from 'react';
 import { useWindowDimensions } from 'react-native';
 
 import * as Styled from './style';
@@ -12,8 +12,8 @@ const DiagonalSplitView: FC<TProps> = ({ topContent, bottomContent }) => {
   const { width } = useWindowDimensions();
 
   return (
-    <Fragment>
-      <Styled.TopSafeAreViewContainer edges={['top']} isScrollable={false} />
+    <>
+      <Styled.TopSafeAreaViewContainer edges={['top']} isScrollable={false} />
       <Styled.ViewContainer edges={['bottom']} isScrollable={false}>
         <Styled.TopContainer>{topContent}</Styled.TopContainer>
 
@@ -24,7 +24,7 @@ const DiagonalSplitView: FC<TProps> = ({ topContent, bottomContent }) => {
 
         <Styled.BottomContainer>{bottomContent}</Styled.BottomContainer>
       </Styled.ViewContainer>
-    </Fragment>
+    </>
   );
 };
 

@@ -4,7 +4,7 @@ import SafeAreaView from '../safeAreaView/SafeAreaView';
 
 const DIAGONAL_CONTAINER_HEIGHT = 100;
 
-export const TopSafeAreViewContainer = styled(SafeAreaView)`
+export const TopSafeAreaViewContainer = styled(SafeAreaView)`
   background-color: ${({ theme }) => theme.colors.secondary};
   flex: 0;
 `;
