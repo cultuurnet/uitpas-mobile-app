@@ -162,6 +162,7 @@ android {
         versionCode computeVersionCode()
         versionName project.env.get("REACT_NATIVE_APP_VERSION_NR")
         resValue "string", "build_config_package", "com.publiq.uitpas"
+        manifestPlaceholders = [auth0Domain: project.env.get("REACT_NATIVE_APP_AUTH0_DOMAIN"), auth0Scheme: project.env.get("REACT_NATIVE_APP_AUTH0_SCHEME")]
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
         if (isNewArchitectureEnabled()) {
             // We configure the NDK build only if you decide to opt-in for the New Architecture.
