@@ -9,9 +9,9 @@ const SafeAreaView: FC<TSafeAreaViewProps> = ({ children, isScrollable = true, .
   if (isScrollable) {
     return (
       <Styled.SafeAreaViewContainer>
-        <Styled.ViewContainer contentContainerStyle={{ flexGrow: 1 }} {...props}>
+        <Styled.ScrollContainer contentContainerStyle={{ flexGrow: 1 }} {...props}>
           {children}
-        </Styled.ViewContainer>
+        </Styled.ScrollContainer>
       </Styled.SafeAreaViewContainer>
     );
   } else {

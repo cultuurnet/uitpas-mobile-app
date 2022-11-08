@@ -6,6 +6,6 @@ export const SafeAreaViewContainer = styled(SafeAreaView)`
   flex-grow: 1;
 `;
 
-export const ViewContainer = styled.ScrollView`
+export const ScrollContainer = styled.ScrollView`
   background-color: ${({ theme }) => theme.colors.white};
 `;
