@@ -1,11 +1,8 @@
 name: CI
 
 on:
-  pull_request:
-  push:
-    branches:
-      - main
-      - develop
+  pull_request_review:
+    types: [submitted]
 
 jobs:
   lint:
@@ -25,6 +22,7 @@ jobs:
         run: yarn run lint --fix
 
   build_android:
+    if: github.event.review.state == 'approved'
     runs-on: macos-12
     name: Build Android
     steps:
@@ -53,6 +51,7 @@ jobs:
           cd android && ./gradlew bundleRelease --no-daemon
 
   build_ios:
+    if: github.event.review.state == 'approved'
     runs-on: macos-12
     name: Build iOS
     steps:
