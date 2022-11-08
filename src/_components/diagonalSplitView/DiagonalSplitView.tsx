@@ -1,6 +1,5 @@
-import { FC } from 'react';
+import { FC, Fragment } from 'react';
 import { useWindowDimensions } from 'react-native';
-import SafeAreaView from '../safeAreaView/SafeAreaView';
 
 import * as Styled from './style';
 
@@ -13,16 +12,19 @@ const DiagonalSplitView: FC<TProps> = ({ topContent, bottomContent }) => {
   const { width } = useWindowDimensions();
 
   return (
-    <SafeAreaView isScrollable={false}>
-      <Styled.TopContainer>{topContent}</Styled.TopContainer>
+    <Fragment>
+      <Styled.TopSafeAreViewContainer edges={['top']} isScrollable={false} />
+      <Styled.ViewContainer edges={['bottom']} isScrollable={false}>
+        <Styled.TopContainer>{topContent}</Styled.TopContainer>
 
-      <Styled.DiagonalContainer>
-        <Styled.Triangle screenWidth={width} />
-        <Styled.TriangleDark screenWidth={width} />
-      </Styled.DiagonalContainer>
+        <Styled.DiagonalContainer>
+          <Styled.Triangle screenWidth={width} />
+          <Styled.TriangleDark screenWidth={width} />
+        </Styled.DiagonalContainer>
 
-      <Styled.BottomContainer>{bottomContent}</Styled.BottomContainer>
-    </SafeAreaView>
+        <Styled.BottomContainer>{bottomContent}</Styled.BottomContainer>
+      </Styled.ViewContainer>
+    </Fragment>
   );
 };
 
