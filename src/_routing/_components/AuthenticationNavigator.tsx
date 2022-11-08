@@ -3,12 +3,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Login from '../../login/Login';
 
-export type TUnauthorizedRoutes = 'Home';
-export type TUnauthorizedParams = Record<TUnauthorizedRoutes, undefined>;
+export type TAuthenticationParams = {
+  Home: undefined;
+};
 
-const Stack = createNativeStackNavigator<TUnauthorizedParams>();
+const Stack = createNativeStackNavigator<TAuthenticationParams>();
 
-export const UnauthorizedNavigator: FC = () => {
+export const AuthenticationNavigator: FC = () => {
   return (
     <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
       <Stack.Screen component={Login} name="Home" />

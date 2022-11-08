@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { LogBox, StatusBar } from 'react-native';
 import { getLocales } from 'react-native-localize';
-import SplashScreen from 'react-native-splash-screen';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components/native';
@@ -19,7 +19,6 @@ const App = () => {
   const { setItem } = useAsyncStorage(StorageKey.Language);
 
   useEffect(() => {
-    SplashScreen.hide();
     setItem(getLocales()[0].languageCode);
   }, []);
 
@@ -27,10 +26,12 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <AuthenticationProvider>
         <QueryClientProvider>
-          <NavigationContainer>
-            <StatusBar barStyle="light-content" />
-            <RootStackNavigator />
-          </NavigationContainer>
+          <SafeAreaProvider>
+            <NavigationContainer>
+              <StatusBar barStyle="light-content" />
+              <RootStackNavigator />
+            </NavigationContainer>
+          </SafeAreaProvider>
         </QueryClientProvider>
       </AuthenticationProvider>
     </ThemeProvider>
