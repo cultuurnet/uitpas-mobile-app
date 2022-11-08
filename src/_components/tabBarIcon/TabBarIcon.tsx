@@ -5,7 +5,7 @@ import Icon, { TIconName } from '../icon/Icon';
 
 type TProps = {
   focused?: boolean;
-  name: Extract<TIconName, 'Shop' | 'QR' | 'Profile'>;
+  name: TIconName;
 };
 
 const isIconName = (name: string): name is TIconName => Object.keys(Icons).includes(name);
