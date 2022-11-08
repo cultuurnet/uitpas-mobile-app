@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { useAuthentication } from '../../_context/AuthenticationProvider';
+import { useAuthentication } from '../../_context';
 import { StorageKey } from '../../_models';
 import { useGetAsyncStorageValue } from '../../_queries/useGetAsyncStorageValue';
 import Home from '../../login/Login';

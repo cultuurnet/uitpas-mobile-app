@@ -7,7 +7,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components/native';
 
 import { AuthenticationProvider } from './_context';
-import { useAuthentication } from './_context/AuthenticationProvider';
 import { StorageKey } from './_models';
 import { QueryClientProvider } from './_providers';
 import RootStackNavigator from './_routing';
@@ -19,11 +18,10 @@ LogBox.ignoreAllLogs();
 
 const App = () => {
   const { setItem } = useAsyncStorage(StorageKey.Language);
-  const { isInitialized } = useAuthentication();
 
   useEffect(() => {
     setItem(getLocales()[0].languageCode);
-  }, [isInitialized]);
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>

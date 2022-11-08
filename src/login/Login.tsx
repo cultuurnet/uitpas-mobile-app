@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { BrandLogo, DiagonalSplitView } from '../_components';
-import { useAuthentication } from '../_context/AuthenticationProvider';
+import { useAuthentication } from '../_context';
 import * as Styled from './style';
 
 const Login = () => {

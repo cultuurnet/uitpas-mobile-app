@@ -1,1 +1,1 @@
-export { default as AuthenticationProvider } from './AuthenticationProvider';
+export { default as AuthenticationProvider, useAuthentication } from './AuthenticationContext';

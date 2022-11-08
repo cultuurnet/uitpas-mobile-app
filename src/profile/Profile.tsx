@@ -2,7 +2,7 @@ import React from 'react';
 import { SafeAreaView, ScrollView, Text } from 'react-native';
 
 import { Button } from '../_components';
-import { useAuthentication } from '../_context/AuthenticationProvider';
+import { useAuthentication } from '../_context';
 
 const Profile = () => {
   const { logout } = useAuthentication();
