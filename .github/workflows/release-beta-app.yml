@@ -1,8 +1,15 @@
 name: release beta
 on:
-  push:
-    branches:
-      - develop
+  workflow_dispatch:
+    inputs:
+      version_bump:
+        description: Version bump
+        options:
+          - none
+          - patch
+          - minor
+          - major
+
 env:
   ENVFILE: .env.beta
   REACT_NATIVE_APP_AUTH0_DOMAIN: ${{ secrets.BETA_AUTH0_DOMAIN }}
@@ -11,8 +18,42 @@ env:
   APPCENTER_OWNER_NAME: ${{ secrets.APPCENTER_OWNER_NAME }}
   APPCENTER_OWNER_TYPE: ${{ secrets.APPCENTER_OWNER_TYPE }}
   BUILD_NUMBER: ${{ github.run_number }}
+
 jobs:
+  bump_version:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.version_bump != 'none'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: develop
+
+      - uses: nyaa8/package-version@v1
+        name: Fetch current version
+
+      - name: Increase version
+        uses: olegsu/semver-action@v1
+        id: version
+        with:
+          version: ${{ env.PACKAGE_VERSION }}
+          bump: ${{ github.event.inputs.version_bump }}
+
+      - name: Bump version in package.json
+        run: yarn version --new-version ${{ steps.version.outputs.version }} --no-git-tag-version
+
+      - name: Bump version in .env files
+        run:
+          find . -type f -name '.env*' -exec sed -i '' \ -e
+          's/.*REACT_NATIVE_APP_VERSION_NR.*/REACT_NATIVE_APP_VERSION_NR=${{steps.version.outputs.version }}/' {} \;
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Bump version to ${{ steps.version.outputs.version }}
+
   release_beta_ios:
+    needs: [bump_version]
     runs-on: macos-12
     steps:
       - name: Notarize Release Build
@@ -21,6 +62,8 @@ jobs:
           p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
           p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
       - uses: actions/checkout@v3
+        with:
+          ref: develop
       - uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc
@@ -31,9 +74,12 @@ jobs:
         run: cd ios && pod install
       - run: fastlane ios_beta
   release_beta_android:
+    needs: [bump_version]
     runs-on: macos-12
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: develop
       - uses: actions/setup-java@v3
         with:
           distribution: temurin
