@@ -3,6 +3,7 @@ import { useAuth0 } from 'react-native-auth0';
 import { t } from 'i18next';
 
 import { BlurredModal, Typography } from '../_components';
+import { useAuthentication } from '../_context';
 import * as Styled from './style';
 
 type TLogOutModalProps = {
@@ -11,12 +12,12 @@ type TLogOutModalProps = {
 };
 
 const LogoutModal: FC<TLogOutModalProps> = ({ isVisible, toggleIsVisible }) => {
-  const { clearSession } = useAuth0();
+  const { logout } = useAuthentication();
 
   const handleLogout = async () => {
     try {
+      logout();
       toggleIsVisible();
-      await clearSession();
     } catch (e) {
       // @TODO: general error handling?
       console.error(e);

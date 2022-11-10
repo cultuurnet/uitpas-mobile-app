@@ -9,6 +9,8 @@
   - [General](#general)
   - [iOS](#ios)
   - [Android](#android)
+- [Development](#development)
+  - [Debugging](#debugging)
 
 ## Intro
 
@@ -18,6 +20,7 @@ This repository hosts the source code for the mobile application of the UiTPAS a
 - [React native](https://reactnative.dev/docs/getting-started)
 - [Styled components](https://styled-components.com/)
 - [Tanstack React Query](https://tanstack.com/query/v4/docs/) (with `persistQueryClient`)
+- [MMKV](https://github.com/Tencent/MMKV)
 - [i18next](https://react.i18next.com/)
 - [React Navigation](https://reactnavigation.org/docs/getting-started)
 
@@ -50,3 +53,12 @@ This repository hosts the source code for the mobile application of the UiTPAS a
     ```shell
     yarn android
     ```
+
+
+## Development
+
+### Debugging
+
+> React Native Debugger will not work, since MMKV does not support this
+
+We use [Flipper](https://fbflipper.com/) to debug the application. If you want to debug the MMKV storage, install the MMKV flipper plugin by searching for 'react-native-mmkv' in the Plugin Manager in Flipper
