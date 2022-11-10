@@ -12,5 +12,5 @@
 PRODUCT_BUNDLE_IDENTIFIER = com.publiq.uitpas.alpha
 PROVISIONING_PROFILE_SPECIFIER = com.publiq.uitpas Alpha
 CODE_SIGN_IDENTITY = Apple Distribution
-ENV_FILE = .env.alpha
+ENV_FILE = .env
 APP_ICON_SET = AppIcon-Alpha
