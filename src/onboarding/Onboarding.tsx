@@ -1,9 +1,9 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { t } from 'i18next';
 
 import { SafeAreaView, Typography } from '../_components';
 import { useStackNavigation, useToggle } from '../_hooks';
 import { StorageKey } from '../_models';
+import { storage } from '../storage';
 import * as Styled from './style';
 
 const Onboarding = () => {
@@ -11,9 +11,9 @@ const Onboarding = () => {
   const navigation = useStackNavigation();
 
   const onPress = () => {
-    AsyncStorage.setItem(StorageKey.IsPolicyApproved, 'true');
+    storage.set(StorageKey.IsPolicyApproved, true);
     navigation.navigate('Home');
-  }
+  };
 
   return (
     <SafeAreaView>

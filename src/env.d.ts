@@ -1,12 +1,15 @@
 import 'react-native-config';
 
 declare module 'react-native-config' {
-  export interface NativeConfig {
-    API_HOST: string | undefined;
-    APP_NAME: string | undefined;
-    NODE_ENV: string | undefined;
-    REACT_NATIVE_APP_AUTH0_CLIENT_ID: string | undefined;
-    REACT_NATIVE_APP_AUTH0_DOMAIN: string | undefined;
-    REACT_NATIVE_APP_VERSION_NR: string | undefined;
-  }
+  type ConfigKeys =
+    | 'API_HOST'
+    | 'APP_NAME'
+    | 'NODE_ENV'
+    | 'REACT_NATIVE_APP_AUTH0_CLIENT_ID'
+    | 'REACT_NATIVE_APP_AUTH0_DOMAIN'
+    | 'REACT_NATIVE_APP_ENCRYPTION_KEY'
+    | 'REACT_NATIVE_APP_VERSION_NR';
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  export interface NativeConfig extends Record<ConfigKeys, string | undefined> {}
 }
