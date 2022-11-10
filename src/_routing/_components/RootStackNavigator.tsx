@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -16,7 +16,8 @@ const RootStack = createNativeStackNavigator<TRootParams>();
 
 export const RootStackNavigator = () => {
   const { isAuthenticated, isInitialized } = useAuthentication();
-  const isPolicyApproved = useMemo(() => storage.getBoolean(StorageKey.IsPolicyApproved), []);
+  const isPolicyApprovedInStorage = useMemo(() => storage.getBoolean(StorageKey.IsPolicyApproved), [isAuthenticated]);
+  const [hasViewedOnboarding, setHasViewedOnboarding] = useState(false);
 
   useEffect(() => {
     if (!isInitialized) return;
@@ -25,7 +26,15 @@ export const RootStackNavigator = () => {
 
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
-      {!isPolicyApproved && !isAuthenticated && <RootStack.Screen component={Onboarding} name="Onboarding" />}
+      {(!isPolicyApprovedInStorage || !hasViewedOnboarding) && !isAuthenticated && (
+        <RootStack.Screen
+          component={Onboarding}
+          listeners={() => ({
+            focus: () => setHasViewedOnboarding(true),
+          })}
+          name="Onboarding"
+        />
+      )}
       {!isAuthenticated && <RootStack.Screen component={Home} name="Home" />}
       {isAuthenticated && <RootStack.Screen component={MainNavigator} name="MainNavigator" />}
     </RootStack.Navigator>
