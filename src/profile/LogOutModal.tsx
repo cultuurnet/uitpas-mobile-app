@@ -7,7 +7,7 @@ import * as Styled from './style';
 
 type TLogOutModalProps = {
   isVisible: boolean;
-  toggleIsVisible: (nextValue?: unknown) => void;
+  toggleIsVisible: () => void;
 };
 
 const LogoutModal: FC<TLogOutModalProps> = ({ isVisible, toggleIsVisible }) => {
@@ -27,10 +27,10 @@ const LogoutModal: FC<TLogOutModalProps> = ({ isVisible, toggleIsVisible }) => {
       <Styled.TitleText fontStyle="bold" size="large">
         {t('AUTHENTICATION.LOG_OUT')}
       </Styled.TitleText>
-      <Typography size="normal">{t('AUTHENTICATION.CONFIRM_TEXT')}</Typography>
+      <Typography>{t('AUTHENTICATION.CONFIRM_TEXT')}</Typography>
       <Styled.ButtonContainer>
         <Styled.ActionButton label={t('AUTHENTICATION.CANCEL')} onPress={toggleIsVisible} variant="outline" />
-        <Styled.ActionButton label={t('AUTHENTICATION.CONFIRM')} onPress={() => handleLogout()} variant="outline" />
+        <Styled.ActionButton label={t('AUTHENTICATION.CONFIRM')} onPress={handleLogout} variant="outline" />
       </Styled.ButtonContainer>
     </BlurredModal>
   );
