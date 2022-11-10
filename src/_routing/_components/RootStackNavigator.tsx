@@ -16,7 +16,7 @@ const RootStack = createNativeStackNavigator<TRootParams>();
 
 export const RootStackNavigator = () => {
   const { isAuthenticated, isInitialized } = useAuthentication();
-  const isPolicyApprovedInStorage = useMemo(() => storage.getBoolean(StorageKey.IsPolicyApproved), [isAuthenticated]);
+  const isPolicyApprovedInStorage = useMemo(() => storage.getBoolean(StorageKey.IsPolicyApproved), []);
   const [hasViewedOnboarding, setHasViewedOnboarding] = useState(false);
 
   useEffect(() => {
