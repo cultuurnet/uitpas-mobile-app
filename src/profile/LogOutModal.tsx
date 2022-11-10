@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { useAuth0 } from 'react-native-auth0';
 import { t } from 'i18next';
 
 import { BlurredModal, Typography } from '../_components';
