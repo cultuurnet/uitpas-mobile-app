@@ -6,3 +6,4 @@ export { default as DiagonalSplitView } from './diagonalSplitView/DiagonalSplitV
 export { default as Button } from './button/Button';
 export { default as Checkbox } from './checkbox/Checkbox';
 export { default as SafeAreaView } from './safeAreaView/SafeAreaView';
+export { default as BlurredModal } from './blurredModal/BlurredModal';

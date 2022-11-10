@@ -15,6 +15,12 @@
     "PRIVACY_POLICY_URL": "https://www.uitpas.be/privacybeleid",
     "CONFIRM": "Oké, ik begrijp het"
   },
+  "AUTHENTICATION": {
+    "LOG_OUT": "Afmelden",
+    "CONFIRM_TEXT": "Ben je zeker dat je wil afmelden?",
+    "CANCEL": "Annuleren",
+    "CONFIRM": "OK"
+  },
   "HOME": {
     "INTRO": "Jouw voordeelkaart voor verrassende vrije tijd buitenshuis",
     "REGISTER": "Registreer je UiTPAS",

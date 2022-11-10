@@ -1,6 +1,7 @@
 export const theme = {
   // Use hashes
   colors: {
+    blurredBlack: 'rgba(0, 0, 0, 0.3)',
     button: '#168b8d',
     buttonActive: '#0f6163',
     grey: '#6e7777',
