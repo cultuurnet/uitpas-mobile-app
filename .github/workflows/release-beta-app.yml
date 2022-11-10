@@ -22,40 +22,40 @@ env:
   BUILD_NUMBER: ${{ github.run_number }}
 
 jobs:
-  bump_version:
-    runs-on: ubuntu-latest
-    if: github.event.inputs.version_bump != 'none'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          ref: develop
+  # bump_version:
+  #   runs-on: ubuntu-latest
+  #   if: github.event.inputs.version_bump != 'none'
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
+  #       with:
+  #         fetch-depth: 0
+  #         ref: develop
 
-      - uses: nyaa8/package-version@v1
-        name: Fetch current version
+  #     - uses: nyaa8/package-version@v1
+  #       name: Fetch current version
 
-      - name: Increase version
-        uses: olegsu/semver-action@v1
-        id: version
-        with:
-          version: ${{ env.PACKAGE_VERSION }}
-          bump: ${{ github.event.inputs.version_bump }}
+  #     - name: Increase version
+  #       uses: olegsu/semver-action@v1
+  #       id: version
+  #       with:
+  #         version: ${{ env.PACKAGE_VERSION }}
+  #         bump: ${{ github.event.inputs.version_bump }}
 
-      - name: Bump version in package.json
-        run: yarn version --new-version ${{ steps.version.outputs.version }} --no-git-tag-version
+  #     - name: Bump version in package.json
+  #       run: yarn version --new-version ${{ steps.version.outputs.version }} --no-git-tag-version
 
-      - name: Bump version in .env files
-        run:
-          find . -type f -name '.env*' -exec sed -i '' \ -e
-          's/.*REACT_NATIVE_APP_VERSION_NR.*/REACT_NATIVE_APP_VERSION_NR=${{steps.version.outputs.version }}/' {} \;
+  #     - name: Bump version in .env files
+  #       run:
+  #         find . -type f -name '.env*' -exec sed -i '' \ -e
+  #         's/.*REACT_NATIVE_APP_VERSION_NR.*/REACT_NATIVE_APP_VERSION_NR=${{steps.version.outputs.version }}/' {} \;
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Bump version to ${{ steps.version.outputs.version }}
+  #     - uses: stefanzweifel/git-auto-commit-action@v4
+  #       with:
+  #         commit_message: Bump version to ${{ steps.version.outputs.version }}
 
   release_beta_ios:
-    needs: [bump_version]
+    # needs: [bump_version]
     runs-on: macos-12
     steps:
       - name: Notarize Release Build
@@ -79,7 +79,7 @@ jobs:
           filename: .env.beta
       - run: fastlane ios_beta
   release_beta_android:
-    needs: [bump_version]
+    # needs: [bump_version]
     runs-on: macos-12
     steps:
       - uses: actions/checkout@v3
