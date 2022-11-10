@@ -29,7 +29,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* reactnative_uitpasTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = reactnative_uitpasTests.m; sourceTree = "<group>"; };
 		049431359B3D4D1BBBECC3CD /* HKNova-LightR.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HKNova-LightR.otf"; path = "../src/_assets/fonts/HKNova-LightR.otf"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* Uitpas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Uitpas.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Uitpas Beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Uitpas Beta.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = reactnative_uitpas/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = reactnative_uitpas/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = reactnative_uitpas/Images.xcassets; sourceTree = "<group>"; };
@@ -164,7 +164,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* Uitpas.app */,
+				13B07F961A680F5B00A75B9A /* Uitpas Beta.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -200,7 +200,7 @@
 			);
 			name = reactnative_uitpas;
 			productName = reactnative_uitpas;
-			productReference = 13B07F961A680F5B00A75B9A /* Uitpas.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Uitpas Beta.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */

@@ -90,9 +90,9 @@ project.ext.react = [
     ]
 
 project.ext.envConfigFiles = [
-    debug        : ".env.debug",
-    alpha        : ".env.alpha",
-    beta         : ".env.beta",
+    debug        : ".env",
+    alpha        : ".env",
+    beta         : ".env",
     release      : ".env",
 ]
 

@@ -12,10 +12,6 @@ on:
           - major
 
 env:
-  ENVFILE: .env.beta
-  REACT_NATIVE_APP_AUTH0_DOMAIN: ${{ secrets.BETA_AUTH0_DOMAIN }}
-  REACT_NATIVE_APP_AUTH0_CLIENT_ID: ${{ secrets.BETA_AUTH0_CLIENT_ID }}
-  REACT_NATIVE_APP_ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
   APPCENTER_API_TOKEN: ${{ secrets.APPCENTER_API_TOKEN }}
   APPCENTER_OWNER_NAME: ${{ secrets.APPCENTER_OWNER_NAME }}
   APPCENTER_OWNER_TYPE: ${{ secrets.APPCENTER_OWNER_TYPE }}
@@ -58,6 +54,18 @@ jobs:
     # needs: [bump_version]
     runs-on: macos-12
     steps:
+      - name: Create .env file
+        run: |
+          touch .env
+          echo NODE_ENV=beta >> .env
+          echo REACT_NATIVE_APP_AUTH0_DOMAIN=${{ secrets.BETA_AUTH0_DOMAIN }} >> .env
+          echo REACT_NATIVE_APP_AUTH0_SCHEME=${{ secrets.BETA_AUTH0_SCHEME }} >> .env
+          echo REACT_NATIVE_APP_AUTH0_CLIENT_ID=${{ secrets.BETA_AUTH0_CLIENT_ID }} >> .env
+          echo REACT_NATIVE_APP_ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }} >> .env
+          echo API_HOST=${{ secrets.BETA_API_HOST }} >> .env
+          echo APP_NAME=${{ secrets.BETA_APP_NAME }} >> .env
+          echo REACT_NATIVE_APP_VERSION_NR=${{ secrets.BETA_VERSION_NR }} >> .env
+          cat .env
       - name: Notarize Release Build
         uses: apple-actions/import-codesign-certs@v1
         with:
@@ -74,14 +82,23 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Install pods
         run: cd ios && pod install
-      - uses: falnyr/replace-env-vars-action@master
-        with:
-          filename: .env.beta
       - run: fastlane ios_beta
   release_beta_android:
     # needs: [bump_version]
     runs-on: macos-12
     steps:
+      - name: Create .env file
+        run: |
+          touch .env
+          echo NODE_ENV=beta >> .env
+          echo REACT_NATIVE_APP_AUTH0_DOMAIN=${{ secrets.BETA_AUTH0_DOMAIN }} >> .env
+          echo REACT_NATIVE_APP_AUTH0_SCHEME=${{ secrets.BETA_AUTH0_SCHEME }} >> .env
+          echo REACT_NATIVE_APP_AUTH0_CLIENT_ID=${{ secrets.BETA_AUTH0_CLIENT_ID }} >> .env
+          echo REACT_NATIVE_APP_ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }} >> .env
+          echo API_HOST=${{ secrets.BETA_API_HOST }} >> .env
+          echo APP_NAME=${{ secrets.BETA_APP_NAME }} >> .env
+          echo REACT_NATIVE_APP_VERSION_NR=${{ secrets.BETA_VERSION_NR }} >> .env
+          cat .env
       - uses: actions/checkout@v3
         with:
           ref: develop
@@ -96,7 +113,4 @@ jobs:
           cache: yarn
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-      - uses: falnyr/replace-env-vars-action@master
-        with:
-          filename: .env.beta
       - run: fastlane android_beta
