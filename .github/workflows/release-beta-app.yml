@@ -54,6 +54,14 @@ jobs:
     # needs: [bump_version]
     runs-on: macos-12
     steps:
+      - name: Notarize Release Build
+        uses: apple-actions/import-codesign-certs@v1
+        with:
+          p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
+          p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
+      - uses: actions/checkout@v3
+        with:
+          ref: develop
       - name: Create .env file
         run: |
           touch .env
@@ -66,14 +74,6 @@ jobs:
           echo APP_NAME="${{ secrets.BETA_APP_NAME }}" >> .env
           echo REACT_NATIVE_APP_VERSION_NR="${{ secrets.BETA_VERSION_NR }}" >> .env
           cat .env
-      - name: Notarize Release Build
-        uses: apple-actions/import-codesign-certs@v1
-        with:
-          p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
-          p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
-      - uses: actions/checkout@v3
-        with:
-          ref: develop
       - uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc
@@ -87,6 +87,9 @@ jobs:
     # needs: [bump_version]
     runs-on: macos-12
     steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: develop
       - name: Create .env file
         run: |
           touch .env
@@ -99,9 +102,6 @@ jobs:
           echo APP_NAME="${{ secrets.BETA_APP_NAME }}" >> .env
           echo REACT_NATIVE_APP_VERSION_NR="${{ secrets.BETA_VERSION_NR }}" >> .env
           cat .env
-      - uses: actions/checkout@v3
-        with:
-          ref: develop
       - uses: actions/setup-java@v3
         with:
           distribution: temurin
