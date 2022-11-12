@@ -26,7 +26,7 @@ export const RootStackNavigator = () => {
 
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
-      {(!isPolicyApprovedInStorage || !hasViewedOnboarding) && !isAuthenticated && (
+      {!isPolicyApprovedInStorage && !hasViewedOnboarding && !isAuthenticated && (
         <RootStack.Screen
           component={Onboarding}
           listeners={() => ({
