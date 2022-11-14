@@ -1,0 +1,52 @@
+name: Create new version
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_bump:
+        type: choice
+        description: Level
+        required: true
+        default: minor
+        options:
+          - patch
+          - minor
+          - major
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  BASE: develop
+
+jobs:
+  bump_version:
+    name: Bump version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: nyaa8/package-version@v1
+        name: Fetch current version
+
+      - name: Increase version
+        uses: olegsu/semver-action@v1
+        id: version
+        with:
+          version: ${{ env.PACKAGE_VERSION }}
+          bump: ${{ github.event.inputs.version_bump }}
+
+      - name: Bump version in package.json
+        run: yarn version --new-version ${{ steps.version.outputs.version }} --no-git-tag-version
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          title: Bump version to ${{ steps.version.outputs.version }}
+          commit-message: Bump version to ${{ steps.version.outputs.version }}
+          branch: release/${{ steps.version.outputs.version }}
+          delete-branch: true
