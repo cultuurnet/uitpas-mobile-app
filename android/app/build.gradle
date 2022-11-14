@@ -334,6 +334,8 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    implementation project(':react-native-lottie-splash-screen')
 }
 
 if (isNewArchitectureEnabled()) {

@@ -22,6 +22,8 @@
 		99DFB00876824C1FADB167D0 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A3A3AC7F99014A80B91945B4 /* Poppins-Bold.ttf */; };
 		9EC1E27EA4604BC98E0D9D9D /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F91037B907942748C58330E /* Poppins-SemiBold.ttf */; };
 		A7F1FBFE2F273096F34D44C3 /* libPods-reactnative_uitpas.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CB7424B6EBCEC9ED464F31 /* libPods-reactnative_uitpas.a */; };
+		E2CFE7012922257F000C67AB /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CFE7002922257F000C67AB /* SplashScreen.swift */; };
+		E2CFE70329223065000C67AB /* splash.json in Resources */ = {isa = PBXBuildFile; fileRef = E2CFE70229223065000C67AB /* splash.json */; };
 		EFEAC3E3088D428DA2E8F3D3 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14B18EC71B6E44929B756ACE /* Poppins-Light.ttf */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +55,9 @@
 		9415B91012A32C153B70562B /* Pods-reactnative_uitpas.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactnative_uitpas.release.xcconfig"; path = "Target Support Files/Pods-reactnative_uitpas/Pods-reactnative_uitpas.release.xcconfig"; sourceTree = "<group>"; };
 		A3A3AC7F99014A80B91945B4 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../src/_assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		AC8A32F03FD2EA635F2BF3F1 /* Pods-reactnative_uitpas.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reactnative_uitpas.debug.xcconfig"; path = "Target Support Files/Pods-reactnative_uitpas/Pods-reactnative_uitpas.debug.xcconfig"; sourceTree = "<group>"; };
+		E2CFE6FF2922257F000C67AB /* reactnative_uitpas-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "reactnative_uitpas-Bridging-Header.h"; sourceTree = "<group>"; };
+		E2CFE7002922257F000C67AB /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		E2CFE70229223065000C67AB /* splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash.json; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FE32F61006F24853BA56580D /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../src/_assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,12 +95,15 @@
 			isa = PBXGroup;
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				E2CFE7002922257F000C67AB /* SplashScreen.swift */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				E2CFE70229223065000C67AB /* splash.json */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				2237B49A2796F55A007E0F93 /* InfoPlist.strings */,
+				E2CFE6FF2922257F000C67AB /* reactnative_uitpas-Bridging-Header.h */,
 			);
 			name = reactnative_uitpas;
 			sourceTree = "<group>";
@@ -212,7 +220,7 @@
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1340;
 					};
 				};
 			};
@@ -242,6 +250,7 @@
 			files = (
 				226F6AD127677DE300C3705E /* Debug.xcconfig in Resources */,
 				226F6AD927677E2D00C3705E /* Production.xcconfig in Resources */,
+				E2CFE70329223065000C67AB /* splash.json in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				2237B4982796F55A007E0F93 /* InfoPlist.strings in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
@@ -357,6 +366,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2CFE7012922257F000C67AB /* SplashScreen.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -385,6 +395,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "$(APP_ICON_SET)";
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 7;
+				DEFINES_MODULE = YES;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = reactnative_uitpas/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -397,6 +408,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = "$(APP_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "reactnative_uitpas-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -412,6 +424,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CURRENT_PROJECT_VERSION = 7;
+				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = reactnative_uitpas/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -423,6 +436,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = "$(APP_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "reactnative_uitpas-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
