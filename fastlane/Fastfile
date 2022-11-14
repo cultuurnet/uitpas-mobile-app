@@ -18,7 +18,7 @@ android_bundle_id = "com.reactnative_uitpas" # meestal id van klant want anders 
 # Appcenter Config
 appcenter_app_name = "" # declaration of variable, will be assigned below
 APPCENTER_ALPHA_DISTRIBUTION_GROUP= ""
-APPCENTER_BETA_DISTRIBUTION_GROUP= ""
+APPCENTER_BETA_DISTRIBUTION_GROUP= "Publiq"
 
 # Android api key
 json_key_file = "./fastlane/api-XXX.json" # Needed for production publish --> needed if you want to direct publish to google play store (key te laten genereren in settings google account)
@@ -109,7 +109,7 @@ end
 ################################
 # options is wat je meegeeft bij het aanroepen van public lane (zie hierboven)
 private_lane :build_android do |options|
-  sh "cd ../android/; ENVFILE=.env ./gradlew clean app:assemble#{options[:buildType]}" 
+  sh "cd ../android/; ENVFILE=.env ./gradlew clean app:assemble#{options[:buildType]}"
 end
 
 private_lane :upload_to_playstore do |options|
@@ -164,7 +164,7 @@ end
     team_name:                         APPSTORE_TEAM_NAME,
     team_id:                           APPSTORE_TEAM_ID,
     app_identifier:                    RELEASE_APP_ID,
-    apple_id:                          APPSTORE_APPLE_ID,  
+    apple_id:                          APPSTORE_APPLE_ID,
     skip_submission:                   true,
     skip_waiting_for_build_processing: true,
   )
