@@ -7,7 +7,7 @@ import { ThemeProvider } from 'styled-components/native';
 
 import { AuthenticationProvider } from './_context';
 import { StorageKey } from './_models';
-// import { QueryClientProvider } from './_providers';
+import { QueryClientProvider } from './_providers';
 import RootStackNavigator from './_routing';
 import { theme } from './_styles/theme';
 import { storage } from './storage';
@@ -24,15 +24,14 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <AuthenticationProvider>
-        {/* @TODO: Uncomment when react-query is used in the source code */}
-        {/* <QueryClientProvider> */}
-        <SafeAreaProvider>
-          <NavigationContainer>
-            <StatusBar />
-            <RootStackNavigator />
-          </NavigationContainer>
-        </SafeAreaProvider>
-        {/* </QueryClientProvider> */}
+        <QueryClientProvider>
+          <SafeAreaProvider>
+            <NavigationContainer>
+              <StatusBar />
+              <RootStackNavigator />
+            </NavigationContainer>
+          </SafeAreaProvider>
+        </QueryClientProvider>
       </AuthenticationProvider>
     </ThemeProvider>
   );

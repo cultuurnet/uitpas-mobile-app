@@ -12,7 +12,7 @@ const Onboarding = () => {
 
   const onPress = () => {
     storage.set(StorageKey.IsPolicyApproved, true);
-    navigation.navigate('Home');
+    navigation.navigate('Login');
   };
 
   return (
