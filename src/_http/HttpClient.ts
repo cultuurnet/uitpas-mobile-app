@@ -4,8 +4,8 @@ import axios, { AxiosError, AxiosResponse, ResponseType } from 'axios';
 import { TApiError, TValidationError } from './HttpError';
 import { HttpStatus } from './HttpStatus';
 
-type Params = Record<string, string | number | boolean | null | undefined>;
-type Headers = Record<string, string>;
+export type Params = Record<string, string | number | boolean | null | undefined>;
+export type Headers = Record<string, string>;
 
 class HttpClient {
   static getUrl(route: string): string {
