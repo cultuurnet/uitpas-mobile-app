@@ -44,7 +44,6 @@ yarn-error.log
 
 # env
 #
-.env
 .env.local
 .env 
 
