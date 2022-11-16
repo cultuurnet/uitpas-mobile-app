@@ -51,29 +51,14 @@ class HttpClient {
     return headers;
   }
 
-  static createApiError(error: AxiosError): TApiError {
-    if (error.response) {
-      const data: { error?: string; message?: string | Array<TValidationError & { property: string }>; statusCode: HttpStatus } =
-        error.response.data;
-      return {
-        error: data.error,
-        message: typeof data.message === 'string' ? data.message : null,
-        statusCode: data.statusCode,
-        validationErrors: Array.isArray(data.message)
-          ? data.message.reduce(
-              (acc: Record<string, TValidationError>, { property, ...validationError }) => ({
-                ...acc,
-                [property]: validationError,
-              }),
-              {},
-            )
-          : null,
-      };
-    }
-    return {
-      message: error.message,
-      statusCode: HttpStatus.InternalServerError,
-    };
+  static createApiError(error: AxiosError<TApiError>): TApiError {
+    return (
+      error?.response?.data || {
+        status: HttpStatus.InternalServerError,
+        title: error.message,
+        type: '',
+      }
+    );
   }
 
   static async getRaw<T>(

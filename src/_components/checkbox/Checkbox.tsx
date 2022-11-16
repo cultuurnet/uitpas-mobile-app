@@ -13,7 +13,7 @@ type TProps = {
   onChange?: (value: boolean, name: string) => void;
 };
 
-const Checkbox: FC<TProps> = ({ isChecked, onChange, name, label, checkedColor = 'button', iconSize, ...props }) => {
+const Checkbox: FC<TProps> = ({ isChecked, onChange, name, label, checkedColor = 'turqoise', iconSize, ...props }) => {
   return (
     <Styled.ButtonElement
       accessibilityRole="checkbox"

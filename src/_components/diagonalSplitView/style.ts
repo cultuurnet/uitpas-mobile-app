@@ -1,11 +1,12 @@
 import styled from 'styled-components/native';
 
+import { Theme } from '../../_styles/theme';
 import SafeAreaView from '../safeAreaView/SafeAreaView';
 
 const DIAGONAL_CONTAINER_HEIGHT = 100;
 
-export const TopSafeAreaViewContainer = styled(SafeAreaView)`
-  background-color: ${({ theme }) => theme.colors.secondary};
+export const TopSafeAreaViewContainer = styled(SafeAreaView)<{ backgroundColor: keyof Theme['colors'] }>`
+  background-color: ${({ theme, backgroundColor }) => theme.colors[backgroundColor]};
   flex: 0;
 `;
 
@@ -13,9 +14,9 @@ export const ViewContainer = styled(SafeAreaView)`
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
-export const TopContainer = styled.View`
+export const TopContainer = styled.View<{ backgroundColor: keyof Theme['colors'] }>`
   padding: 40px 16px;
-  background-color: ${({ theme }) => theme.colors.secondary};
+  background-color: ${({ theme, backgroundColor }) => theme.colors[backgroundColor]};
   align-items: center;
 `;
 
@@ -24,20 +25,20 @@ export const BottomContainer = styled.View`
   flex-grow: 1;
 `;
 
-export const DiagonalContainer = styled.View`
+export const DiagonalContainer = styled.View<{ lineColor: keyof Theme['colors'] }>`
   position: relative;
   height: ${DIAGONAL_CONTAINER_HEIGHT}px;
-  background-color: ${({ theme }) => theme.colors.secondaryDark};
+  background-color: ${({ theme, lineColor }) => theme.colors[lineColor]};
 `;
 
-export const Triangle = styled.View<{ screenWidth: number }>`
+export const Triangle = styled.View<{ backgroundColor: keyof Theme['colors']; screenWidth: number }>`
   position: absolute;
   background-color: transparent;
   border-style: solid;
   border-right-width: ${({ screenWidth }) => `${screenWidth}px`};
   border-right-color: transparent;
   border-top-width: ${DIAGONAL_CONTAINER_HEIGHT}px;
-  border-top-color: ${({ theme }) => theme.colors.secondary};
+  border-top-color: ${({ theme, backgroundColor }) => theme.colors[backgroundColor]};
 `;
 
 export const TriangleDark = styled.View<{ screenWidth: number }>`

@@ -1,24 +1,32 @@
 import { FC } from 'react';
 import { useWindowDimensions } from 'react-native';
 
+import { Theme } from '../../_styles/theme';
 import * as Styled from './style';
 
 type TProps = {
+  backgroundColor?: keyof Theme['colors'];
   bottomContent?: React.ReactNode;
+  lineColor?: keyof Theme['colors'];
   topContent: React.ReactNode;
 };
 
-const DiagonalSplitView: FC<TProps> = ({ topContent, bottomContent }) => {
+const DiagonalSplitView: FC<TProps> = ({
+  topContent,
+  bottomContent,
+  backgroundColor = 'secondary',
+  lineColor = 'secondaryDark',
+}) => {
   const { width } = useWindowDimensions();
 
   return (
     <>
-      <Styled.TopSafeAreaViewContainer edges={['top']} isScrollable={false} />
+      <Styled.TopSafeAreaViewContainer backgroundColor={backgroundColor} edges={['top']} isScrollable={false} />
       <Styled.ViewContainer edges={['bottom']} isScrollable={false}>
-        <Styled.TopContainer>{topContent}</Styled.TopContainer>
+        <Styled.TopContainer backgroundColor={backgroundColor}>{topContent}</Styled.TopContainer>
 
-        <Styled.DiagonalContainer>
-          <Styled.Triangle screenWidth={width} />
+        <Styled.DiagonalContainer lineColor={lineColor}>
+          <Styled.Triangle backgroundColor={backgroundColor} screenWidth={width} />
           <Styled.TriangleDark screenWidth={width} />
         </Styled.DiagonalContainer>
 
