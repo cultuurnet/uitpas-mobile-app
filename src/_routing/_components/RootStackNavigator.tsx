@@ -20,8 +20,7 @@ export const RootStackNavigator = () => {
   const [hasViewedOnboarding, setHasViewedOnboarding] = useState(false);
 
   useEffect(() => {
-    if (!isInitialized) return;
-    SplashScreen.hide();
+    if (isInitialized) SplashScreen.hide();
   }, [isInitialized]);
 
   return (
@@ -30,7 +29,9 @@ export const RootStackNavigator = () => {
         <RootStack.Screen
           component={Onboarding}
           listeners={() => ({
-            focus: () => setHasViewedOnboarding(true),
+            focus: () => {
+              if (isInitialized) setHasViewedOnboarding(true);
+            },
           })}
           name="Onboarding"
         />
