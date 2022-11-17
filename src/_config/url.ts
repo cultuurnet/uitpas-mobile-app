@@ -1,7 +1,7 @@
 import { TConfigEnvironment } from './environments';
 
 type TConfigUrl = Record<TConfigEnvironment, string>;
-type TConfigUrlIdentifiers = 'register' | 'buy' | 'forgotEmail' | 'helpdesk' | 'termsOfService' | 'privacyPolicy';
+type TConfigUrlIdentifiers = 'register' | 'buy' | 'forgotEmail' | 'helpdesk' | 'termsOfService' | 'privacyPolicy' | 'shop';
 
 const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
   buy: {
@@ -23,6 +23,11 @@ const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
   register: {
     beta: 'https://test.uitpas.be/uitid-registreren-stap1',
     production: 'https://uitpas.be/uitid-registreren-stap1',
+  },
+  shop: {
+    beta: 'https://test.uitpas.be/voordelen-zoeken?cardSystemsFilter[0]={{cardSystem}}&utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=open-shop',
+    production:
+      'https://test.uitpas.be/voordelen-zoeken?cardSystemsFilter[0]={{cardSystem}}&utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=open-shop',
   },
   termsOfService: {
     beta: 'https://test.uitpas.be/gebruiksvoorwaarden',
