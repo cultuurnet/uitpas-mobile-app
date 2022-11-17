@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
 import { QueryClient } from '@tanstack/react-query';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
@@ -13,19 +12,21 @@ const queryClient = new QueryClient({
   },
 });
 
-const QueryClientProvider = ({ children }) => {
-  const persister = useMemo(
-    () =>
-      createSyncStoragePersister({
-        storage: {
-          getItem: storage.getString,
-          removeItem: storage.delete,
-          setItem: storage.set,
-        },
-      }),
-    [],
-  );
+if (__DEV__) {
+  import('react-query-native-devtools').then(({ addPlugin }) => {
+    addPlugin({ queryClient });
+  });
+}
 
+const persister = createSyncStoragePersister({
+  storage: {
+    getItem: (key: string) => storage.getString(key),
+    removeItem: (key: string) => storage.delete(key),
+    setItem: (key: string, value: string) => storage.set(key, value),
+  },
+});
+
+const QueryClientProvider = ({ children }) => {
   return (
     <PersistQueryClientProvider client={queryClient} persistOptions={{ persister }}>
       {children}

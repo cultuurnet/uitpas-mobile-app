@@ -51,6 +51,7 @@ jobs:
           touch .env
           echo NODE_ENV=beta >> .env
           echo REACT_NATIVE_APP_AUTH0_DOMAIN="auth0.example.com" >> .env
+          echo REACT_NATIVE_APP_AUTH0_AUDIENCE="https://example.com" >> .env
           echo REACT_NATIVE_APP_AUTH0_SCHEME="com.publiq.uitpas.debug" >> .env
           echo REACT_NATIVE_APP_AUTH0_CLIENT_ID="fakeclientid" >> .env
           echo REACT_NATIVE_APP_ENCRYPTION_KEY="supersecretkey" >> .env
@@ -110,6 +111,7 @@ jobs:
           touch .env
           echo NODE_ENV=beta >> .env
           echo REACT_NATIVE_APP_AUTH0_DOMAIN="auth0.example.com" >> .env
+          echo REACT_NATIVE_APP_AUTH0_AUDIENCE="https://example.com" >> .env
           echo REACT_NATIVE_APP_AUTH0_SCHEME="com.publiq.uitpas.debug" >> .env
           echo REACT_NATIVE_APP_AUTH0_CLIENT_ID="fakeclientid" >> .env
           echo REACT_NATIVE_APP_ENCRYPTION_KEY="supersecretkey" >> .env

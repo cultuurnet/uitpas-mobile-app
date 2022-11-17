@@ -4,12 +4,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { useAuthentication } from '../../_context';
 import { StorageKey } from '../../_models';
-import Home from '../../login/Login';
+import Login from '../../login/Login';
 import Onboarding from '../../onboarding/Onboarding';
 import { storage } from '../../storage';
 import { MainNavigator } from './MainNavigator';
 
-export type TRootRoutes = 'MainNavigator' | 'Onboarding' | 'Home';
+export type TRootRoutes = 'MainNavigator' | 'Onboarding' | 'Login';
 export type TRootParams = Record<TRootRoutes, undefined>;
 
 const RootStack = createNativeStackNavigator<TRootParams>();
@@ -36,7 +36,7 @@ export const RootStackNavigator = () => {
           name="Onboarding"
         />
       )}
-      {!isAuthenticated && <RootStack.Screen component={Home} name="Home" />}
+      {!isAuthenticated && <RootStack.Screen component={Login} name="Login" />}
       {isAuthenticated && <RootStack.Screen component={MainNavigator} name="MainNavigator" />}
     </RootStack.Navigator>
   );

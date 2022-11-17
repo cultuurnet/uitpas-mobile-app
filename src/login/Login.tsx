@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Config } from 'react-native-config';
 
 import { BrandLogo, DiagonalSplitView } from '../_components';
 import { useAuthentication } from '../_context';
@@ -11,7 +12,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      await authorize({ scope: 'openid profile email offline_access' });
+      await authorize({ audience: Config.REACT_NATIVE_APP_AUTH0_AUDIENCE, scope: 'openid profile email offline_access' });
     } catch (e) {
       // @TODO: general error handling?
       console.error(e);
