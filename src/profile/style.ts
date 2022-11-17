@@ -17,3 +17,7 @@ export const ActionButton = styled(Button)`
   margin-top: 20px;
   align-content: flex-end;
 `;
+
+export const ErrorMessage = styled(Typography)`
+  max-width: 264px;
+`;

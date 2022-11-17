@@ -7,7 +7,24 @@ export const Typography = styled.Text<TTypographyProps>`
   text-align: ${({ align }) => align};
   margin-bottom: ${({ bottomSpacing }) => (bottomSpacing ? bottomSpacing : '0px')};
 
-  line-height: 24px;
+  line-height: ${({ size }) => {
+    switch (size) {
+      case 'small':
+        return '21px';
+
+      case 'normal':
+        return '24px';
+
+      case 'large':
+        return '27px';
+
+      case 'xlarge':
+        return '30px';
+
+      case 'xxlarge':
+        return '36px';
+    }
+  }};
 
   font-family: ${({ fontStyle }) => {
     switch (fontStyle) {

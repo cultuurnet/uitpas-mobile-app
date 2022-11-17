@@ -59,6 +59,14 @@ This repository hosts the source code for the mobile application of the UiTPAS a
 
 ### Debugging
 
-> React Native Debugger will not work, since MMKV does not support this
+We use [Flipper](https://fbflipper.com/) to debug the application.
 
-We use [Flipper](https://fbflipper.com/) to debug the application. If you want to debug the MMKV storage, install the MMKV flipper plugin by searching for 'react-native-mmkv' in the Plugin Manager in Flipper
+You can use the following plugins to debug the application:
+
+| Functionality | Flipper plugin |
+|---|---|
+| storage (MMKV) | [react-native-mmkv](https://github.com/mrousavy/react-native-mmkv) |
+| navigation | [react-navigation](https://reactnavigation.org/docs/devtools/)
+| react query | [flipper-plugin-react-query-native-devtools](https://github.com/bgaleotti/react-query-native-devtools) |
+
+> _**Note**: React Native Debugger will not work, since MMKV does not support this_

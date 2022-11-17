@@ -23,7 +23,8 @@ export const ButtonElement = styled(Pressable)<{
     }
     return 'transparent';
   }};
-  padding: ${({ $variant, $inline }) => ($inline ? '6px 16px' : $variant !== 'link' ? '10px 16px' : '0px')};
+  padding: ${({ $variant, $inline }) =>
+    $inline && $variant !== 'link' ? '6px 16px' : $variant !== 'link' ? '10px 16px' : '0px'};
   border: ${({ $variant, theme }) => ($variant === 'outline' ? `2px solid ${theme.colors.white}` : 'none')};
 `;
 

@@ -6,11 +6,9 @@ import { useAuthentication } from '../_context';
 import { HttpClient, TApiError } from '../_http';
 import { Headers, Params } from '../_http/HttpClient';
 
-type TGetOptions = {
+type TGetOptions<T = unknown> = QueryObserverOptions<T, TApiError> & {
   enabled?: boolean;
   headers?: Headers;
-  onError?: QueryObserverOptions['onError'];
-  onSuccess?: QueryObserverOptions['onSuccess'];
   params?: Params;
 };
 
@@ -22,13 +20,13 @@ export function usePubliqApi() {
   };
 
   const get = useCallback(
-    <T>(queryKey: unknown[], path: string, { headers = {}, params = {}, ...options }: TGetOptions = {}) => {
+    <T = unknown>(queryKey: unknown[], path: string, { headers = {}, params = {}, enabled, ...options }: TGetOptions<T> = {}) => {
       return useQuery<T, TApiError>({
-        enabled: !!accessToken && (options.enabled === undefined || options.enabled),
-        onError: options.onError,
-        onSuccess: options.onSuccess,
+        enabled: !!accessToken && (enabled === undefined || enabled),
+        networkMode: 'offlineFirst',
         queryFn: async () => HttpClient.get<T>(`${Config.API_HOST}${path}`, params, { ...defaultHeaders, ...headers }),
         queryKey,
+        ...options,
       });
     },
     [Config.API_HOST, accessToken],

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useWindowDimensions } from 'react-native';
+import { ScrollView, useWindowDimensions, View } from 'react-native';
 
 import { Theme } from '../../_styles/theme';
 import * as Styled from './style';
@@ -7,6 +7,7 @@ import * as Styled from './style';
 type TProps = {
   backgroundColor?: keyof Theme['colors'];
   bottomContent?: React.ReactNode;
+  isScrollable?: boolean;
   lineColor?: keyof Theme['colors'];
   topContent: React.ReactNode;
 };
@@ -16,6 +17,7 @@ const DiagonalSplitView: FC<TProps> = ({
   bottomContent,
   backgroundColor = 'secondary',
   lineColor = 'secondaryDark',
+  isScrollable,
 }) => {
   const { width } = useWindowDimensions();
 
@@ -30,7 +32,9 @@ const DiagonalSplitView: FC<TProps> = ({
           <Styled.TriangleDark screenWidth={width} />
         </Styled.DiagonalContainer>
 
-        <Styled.BottomContainer>{bottomContent}</Styled.BottomContainer>
+        <Styled.BottomContainer as={isScrollable ? ScrollView : View}>
+          {isScrollable ? <Styled.BottomContainerContent>{bottomContent}</Styled.BottomContainerContent> : bottomContent}
+        </Styled.BottomContainer>
       </Styled.ViewContainer>
     </>
   );

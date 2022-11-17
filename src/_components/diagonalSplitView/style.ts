@@ -25,6 +25,10 @@ export const BottomContainer = styled.View`
   flex-grow: 1;
 `;
 
+export const BottomContainerContent = styled.View`
+  padding-bottom: 36px;
+`;
+
 export const DiagonalContainer = styled.View<{ lineColor: keyof Theme['colors'] }>`
   position: relative;
   height: ${DIAGONAL_CONTAINER_HEIGHT}px;
