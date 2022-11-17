@@ -10,17 +10,17 @@ import { getIdTokenProfileClaims } from './util';
 // We should improve this later..
 type TAuthenticationContext = {
   accessToken?: string;
-  authorize: (parameters: object) => void;
+  authorize: (parameters: object) => Promise<void>;
   isAuthenticated?: boolean;
   isInitialized: boolean;
-  logout: (...options) => void;
+  logout: (...options) => Promise<void>;
   user?: TAuth0User;
 };
 
 export const AuthenticationContext = createContext<TAuthenticationContext>({
-  authorize: () => {},
+  authorize: async () => {},
   isInitialized: false,
-  logout: () => {},
+  logout: async () => {},
 });
 
 export const useAuthentication = () => useContext(AuthenticationContext);

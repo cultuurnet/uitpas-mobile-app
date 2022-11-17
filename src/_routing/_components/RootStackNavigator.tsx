@@ -37,8 +37,12 @@ export const RootStackNavigator = () => {
         />
       )}
       {!isAuthenticated && <RootStack.Screen component={Login} name="Login" />}
-      {isAuthenticated && <RootStack.Screen component={MainNavigator} name="MainNavigator" />}
-      <RootStack.Screen component={ProfileNotFound} name="ProfileNotFound" />
+      {isAuthenticated && (
+        <>
+          <RootStack.Screen component={MainNavigator} name="MainNavigator" />
+          <RootStack.Screen component={ProfileNotFound} name="ProfileNotFound" />
+        </>
+      )}
     </RootStack.Navigator>
   );
 };

@@ -7,8 +7,17 @@ import { useAuthentication } from '../_context';
 import * as Styled from './style';
 
 const ProfileNotFound: FC = () => {
-  const { user } = useAuthentication();
+  const { user, logout } = useAuthentication();
   const { t } = useTranslation();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (e) {
+      // @TODO: general error handling?
+      console.error(e);
+    }
+  };
 
   return (
     <DiagonalSplitView
@@ -25,11 +34,11 @@ const ProfileNotFound: FC = () => {
           </BulletList.Item>
           <BulletList.Item>
             <Typography bottomSpacing="8px">{t('PROFILE_NOT_FOUND.FORGOT_EMAIL_TEXT')}</Typography>
-            <Button href={ConfigUrl.buy} inline label={t('PROFILE_NOT_FOUND.FORGOT_EMAIL_CTA')} variant="link" />
+            <Button href={ConfigUrl.forgotEmail} inline label={t('PROFILE_NOT_FOUND.FORGOT_EMAIL_CTA')} variant="link" />
           </BulletList.Item>
           <BulletList.Item>
             <Typography bottomSpacing="8px">{t('PROFILE_NOT_FOUND.OTHER_ACCOUNT_TEXT')}</Typography>
-            <Button href={ConfigUrl.buy} inline label={t('PROFILE_NOT_FOUND.OTHER_ACCOUNT_CTA')} />
+            <Button inline label={t('PROFILE_NOT_FOUND.OTHER_ACCOUNT_CTA')} onPress={handleLogout} />
           </BulletList.Item>
           <>
             <Typography align="center" bottomSpacing="4px">
