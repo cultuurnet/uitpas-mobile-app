@@ -1,7 +1,7 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, Text } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 
-import { Button } from '../_components';
+import { Button, SafeAreaView } from '../_components';
 import { useToggle } from '../_hooks';
 import LogoutModal from './LogOutModal';
 

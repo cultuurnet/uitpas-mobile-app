@@ -1,6 +1,7 @@
-import { FC } from 'react';
-import { useWindowDimensions } from 'react-native';
+import { FC, useEffect } from 'react';
+import { StatusBar, useWindowDimensions } from 'react-native';
 
+import { theme } from '../../_styles/theme';
 import * as Styled from './style';
 
 type TProps = {
@@ -10,6 +11,11 @@ type TProps = {
 
 const DiagonalSplitView: FC<TProps> = ({ topContent, bottomContent }) => {
   const { width } = useWindowDimensions();
+
+  useEffect(() => {
+    StatusBar.setBackgroundColor(theme.colors.secondary);
+    StatusBar.setBarStyle('light-content');
+  }, []);
 
   return (
     <>
