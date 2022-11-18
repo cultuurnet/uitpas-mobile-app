@@ -17,7 +17,7 @@ const Onboarding = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView isScrollable={false}>
       <Styled.TopContainer>
         <Styled.TitleText color="secondaryDark" fontStyle="bold" size="large">
           {t('ONBOARDING.TITLE')}
