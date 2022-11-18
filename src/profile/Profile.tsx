@@ -54,7 +54,6 @@ const Profile = () => {
       <Styled.SafeAreaViewContainer edges={['top']} isScrollable>
         <Styled.TopContainer>
           <Typography fontStyle="bold" size="large">{`${i18n.t('PROFILE.HELLO')} ${passHolder.firstName}`}</Typography>
-          {/* @TODO: This is placeholder content */}
           <UitpasCard passHolder={passHolder} />
           {isMIANotificationVisible && <UitpasInfo onClose={() => setIsMIANotificationVisible(false)} />}
         </Styled.TopContainer>
