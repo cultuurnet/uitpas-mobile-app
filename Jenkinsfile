@@ -14,7 +14,7 @@ pipeline {
         }
 
         stage('Test and build') {
-            agent { label 'ubuntu' && '16.04' }
+            agent { label 'ubuntu && 16.04' }
             environment {
                 GIT_SHORT_COMMIT = build.shortCommitRef()
                 ARTIFACT_VERSION = "${env.PIPELINE_VERSION}" + '+sha.' + "${env.GIT_SHORT_COMMIT}"
@@ -45,7 +45,7 @@ pipeline {
         }
 
         stage('Deploy to Acceptance') {
-            agent { label 'ubuntu' && '16.04' }
+            agent { label 'ubuntu && 16.04' }
             options { skipDefaultCheckout() }
             environment {
                 APPLICATION_ENVIRONMENT = 'acceptance'
@@ -72,7 +72,7 @@ pipeline {
 
         stage('Deploy to Testing') {
             input { message "Deploy to Testing?" }
-            agent { label 'ubuntu' && '16.04' }
+            agent { label 'ubuntu && 16.04' }
             options { skipDefaultCheckout() }
             environment {
                 APPLICATION_ENVIRONMENT = 'testing'
@@ -99,7 +99,7 @@ pipeline {
 
         stage('Deploy to Production') {
             input { message "Deploy to Production?" }
-            agent { label 'ubuntu' && '16.04' }
+            agent { label 'ubuntu && 16.04' }
             options { skipDefaultCheckout() }
             environment {
                 APPLICATION_ENVIRONMENT = 'production'
@@ -124,7 +124,7 @@ pipeline {
             }
         }
         stage('Tag release') {
-            agent { label 'ubuntu' && '16.04' }
+            agent { label 'ubuntu && 16.04' }
             steps {
                 copyArtifacts filter: 'pkg/*.tar.gz', projectName: env.JOB_NAME, flatten: true, selector: specific(env.BUILD_NUMBER)
                 tagRelease commitHash: artifact.metadata(artifactFilter: '*.tar.gz', field: 'git-ref')
