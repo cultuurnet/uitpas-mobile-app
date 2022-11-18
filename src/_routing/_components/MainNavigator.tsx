@@ -5,9 +5,9 @@ import { t } from 'i18next';
 
 import TabBarIcon from '../../_components/tabBarIcon/TabBarIcon';
 import { theme } from '../../_styles/theme';
-import Profile from '../../profile/Profile';
 import Scan from '../../scan/Scan';
 import Shop from '../../shop/Shop';
+import { ProfileNavigator } from './ProfileNavigator';
 import { mapRouteNameToIcon } from './utils';
 
 export type TMainRoutes = 'Profile' | 'Scan' | 'Shop';
@@ -34,7 +34,7 @@ export const MainNavigator: FC = () => {
       })}
     >
       <Tab.Screen
-        component={Profile}
+        component={ProfileNavigator}
         name="Profile"
         options={{
           title: t('NAVIGATION.PROFILE'),

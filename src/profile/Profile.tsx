@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { LinkList, Typography } from '../_components';
 import { TLinkListItem } from '../_components/linkList/LinkList';
 import { useStackNavigation, useToggle } from '../_hooks';
-import { TMainParams } from '../_routing/_components/MainNavigator';
+import { TProfileParams } from '../_routing/_components/ProfileNavigator';
 import i18n from '../_translations/i18n';
 import { useGetMe } from './_queries/useGetMe';
 import LogoutModal from './LogOutModal';
@@ -11,11 +11,12 @@ import MIANotification from './MIANotification/MIANotification';
 import * as Styled from './style';
 import UitpasCard from './UitpasCard/UitpasCard';
 import UitpasInfo from './UitpasInfo/UitpasInfo';
+
 const Profile = () => {
   const [logOutModalVisible, toggleLogOutModalVisible] = useToggle(false);
   const { data: passHolder, isLoading: isPassHolderLoading } = useGetMe();
   const [isMIANotificationVisible, setIsMIANotificationVisible] = useState(false);
-  const { navigate } = useStackNavigation<TMainParams>();
+  const { navigate } = useStackNavigation<TProfileParams>();
 
   if (isPassHolderLoading) return null;
 
@@ -32,7 +33,7 @@ const Profile = () => {
       iconName: 'History',
       label: i18n.t('PROFILE.LINKS.HISTORY'),
       labelColor: 'text',
-      onPress: () => navigate('Shop'),
+      onPress: () => navigate('History'),
     },
     {
       iconColor: 'red',
