@@ -1,7 +1,7 @@
-import { FC } from 'react';
-import { ScrollView, useWindowDimensions, View } from 'react-native';
+import { FC, useEffect } from 'react';
+import { ScrollView, StatusBar, useWindowDimensions, View } from 'react-native';
 
-import { Theme } from '../../_styles/theme';
+import { Theme, theme } from '../../_styles/theme';
 import * as Styled from './style';
 
 type TProps = {
@@ -20,6 +20,11 @@ const DiagonalSplitView: FC<TProps> = ({
   isScrollable,
 }) => {
   const { width } = useWindowDimensions();
+
+  useEffect(() => {
+    StatusBar.setBackgroundColor(theme.colors.secondary);
+    StatusBar.setBarStyle('light-content');
+  }, []);
 
   return (
     <>
