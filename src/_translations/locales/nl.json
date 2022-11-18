@@ -8,7 +8,6 @@
     "TITLE": "Algemene voorwaarden",
     "INTRO": "We verzamelen automatisch enkele gebruiksgegevens om UiTPAS en deze app verder te verbeteren.",
     "LOOK_AT": "Bekijk onze",
-    "TERMS_OF_SERVICE_URL": "https://www.uitpas.be/gebruiksvoorwaarden",
     "TERMS_OF_SERVICE": "gebruiksvoorwaarden",
     "AND": "en",
     "PRIVACY_POLICY": "privacybeleid",
@@ -26,5 +25,18 @@
     "REGISTER": "Registreer je UiTPAS",
     "WHERE_TO_BUY": "Waar koop ik een UiTPAS?",
     "LOGIN": "Aanmelden"
+  },
+  "PROFILE_NOT_FOUND": {
+    "TITLE": "We kunnen geen UiTPAS terugvinden voor",
+    "REGISTER_TEXT": "Het is de eerste keer dat je aanmeldt op UiTPAS?",
+    "REGISTER_CTA": "Registreer op uitpas.be",
+    "BUY_TEXT": "Je hebt nog geen UiTPAS?",
+    "BUY_CTA": "Koop hier een UiTPAS",
+    "FORGOT_EMAIL_TEXT": "Je hebt een UiTPAS, maar weet niet welk e-mailadres?",
+    "FORGOT_EMAIL_CTA": "Zoek het hier op uitpas.be",
+    "OTHER_ACCOUNT_TEXT": "Meld je aan met een ander e-mailadres",
+    "OTHER_ACCOUNT_CTA": "Aanmelden",
+    "HELPDESK_TEXT": "Geen antwoord gevonden?",
+    "HELPDESK_CTA": "Contacteer onze helpdesk"
   }
 }
