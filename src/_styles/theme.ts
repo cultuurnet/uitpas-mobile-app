@@ -1,6 +1,7 @@
 export const theme = {
   // Use hashes
   colors: {
+    background: '#eaecec',
     blurredBlack: 'rgba(0, 0, 0, 0.3)',
     grey: '#6e7777',
     lightGreen: '#90D9DA',
