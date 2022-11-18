@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import { StatusBar } from 'react-native';
+import { ScrollView, StatusBar } from 'react-native';
 import { NativeSafeAreaViewProps as RNSafeAreaViewProps } from 'react-native-safe-area-context';
 
 import { theme } from '../../_styles/theme';
@@ -15,10 +15,8 @@ const SafeAreaView: FC<TSafeAreaViewProps> = ({ children, isScrollable = true, .
 
   if (isScrollable) {
     return (
-      <Styled.SafeAreaViewContainer>
-        <Styled.ScrollContainer contentContainerStyle={{ flexGrow: 1 }} {...props}>
-          {children}
-        </Styled.ScrollContainer>
+      <Styled.SafeAreaViewContainer {...props}>
+        <ScrollView>{children}</ScrollView>
       </Styled.SafeAreaViewContainer>
     );
   } else {
