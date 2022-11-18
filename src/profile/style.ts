@@ -14,6 +14,10 @@ export const ButtonContainer = styled.View`
 
 export const ActionButton = styled(Button)`
   margin-left: 10px;
-  margin-top: 20px
+  margin-top: 20px;
   align-content: flex-end;
+`;
+
+export const ErrorMessage = styled(Typography)`
+  max-width: 264px;
 `;

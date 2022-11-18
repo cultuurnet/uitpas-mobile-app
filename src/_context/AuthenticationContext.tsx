@@ -3,27 +3,31 @@ import Auth0 from 'react-native-auth0';
 import { Config } from 'react-native-config';
 
 import { useToggle } from '../_hooks';
+import { TAuth0User } from '../_models';
+import { getIdTokenProfileClaims } from './util';
 
 // Types are not optimal, because the @types/react-native-auth0 packages is not up-to-date.
 // We should improve this later..
 type TAuthenticationContext = {
   accessToken?: string;
-  authorize: (parameters: object, options: object) => void;
+  authorize: (parameters?: object, options?: object) => void;
   isAuthenticated?: boolean;
   isInitialized: boolean;
-  logout: (...options) => void;
+  logout: (...options) => Promise<void>;
+  user?: TAuth0User;
 };
 
 export const AuthenticationContext = createContext<TAuthenticationContext>({
-  authorize: () => {},
+  authorize: async () => {},
   isInitialized: false,
-  logout: () => {},
+  logout: async () => {},
 });
 
 export const useAuthentication = () => useContext(AuthenticationContext);
 
 const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [accessToken, setAccessToken] = useState<string>();
+  const [user, setUser] = useState<TAuth0User>();
   const [isInitialized, setIsInitialized] = useToggle(false);
   const [isAuthenticated, setIsAuthenticated] = useToggle(false);
 
@@ -48,6 +52,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
         const credentials = await client.credentialsManager.getCredentials();
 
         if (credentials) {
+          setUser(getIdTokenProfileClaims(credentials.idToken));
           setAccessToken(credentials.accessToken);
         }
       }
@@ -60,6 +65,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
       await client.credentialsManager.saveCredentials(credentials);
       setAccessToken(credentials.accessToken);
       setIsAuthenticated(true);
+      setUser(getIdTokenProfileClaims(credentials.idToken));
     } catch (e) {
       console.error(e);
     }
@@ -82,6 +88,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
         isAuthenticated,
         isInitialized,
         logout,
+        user,
       }}
     >
       {children}
