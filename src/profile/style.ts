@@ -23,7 +23,7 @@ export const SafeAreaViewContainer = styled(SafeAreaView)`
 `;
 
 export const TopContainer = styled.View`
-  padding: 20px;
+  padding: 20px 20px 5px 20px;
 `;
 
 export const ErrorMessage = styled(Typography)`

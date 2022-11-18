@@ -12,8 +12,10 @@ export const ButtonElement = styled(Pressable)<{
   $active: boolean;
   $inline: TButtonPropsBase['inline'];
   $variant: TButtonPropsBase['variant'];
+  centered?: TButtonPropsBase['centered'];
   disabled: TButtonPropsBase['disabled'];
 }>`
+  align-self: ${({ $inline, centered }) => (centered ? 'center' : $inline ? 'flex-start' : 'stretch')};
   align-items: center;
   border-radius: 16px;
   opacity: ${({ disabled }) => (disabled ? 0.4 : 1)};
@@ -35,7 +37,7 @@ export const ButtonText = styled(Typography)<{
   $variant: TButtonPropsBase['variant'];
 }>`
   color: ${({ $variant, $active, $color, theme }) => {
-    if ($color) return $color;
+    if ($color) return theme.colors[$color];
     if ($variant === 'link') {
       return $active ? theme.colors.turquoiseActive : theme.colors.turquoise;
     } else if ($variant === 'outline') {

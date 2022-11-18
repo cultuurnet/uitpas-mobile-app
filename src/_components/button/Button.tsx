@@ -58,25 +58,24 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
   const handlePress = href ? openURL : onPress;
 
   return (
-    <Styled.ButtonContainer inline={inline} {...props}>
-      <Styled.ButtonElement
-        $active={isActive}
-        $inline={inline}
-        $variant={variant}
-        accessibilityHint={accessibilityHint}
-        accessibilityLabel={accessibilityLabel}
-        accessibilityRole="button"
-        accessibilityState={{ disabled }}
-        disabled={disabled}
-        onPress={handlePress}
-        onPressIn={() => setIsActive(true)}
-        onPressOut={() => setIsActive(false)}
-      >
-        <Styled.ButtonText $active={isActive} $color={color} $underline={underline} $variant={variant} fontStyle={fontStyle}>
-          {label}
-        </Styled.ButtonText>
-      </Styled.ButtonElement>
-    </Styled.ButtonContainer>
+    <Styled.ButtonElement
+      $active={isActive}
+      $inline={inline}
+      $variant={variant}
+      accessibilityHint={accessibilityHint}
+      accessibilityLabel={accessibilityLabel}
+      accessibilityRole="button"
+      accessibilityState={{ disabled }}
+      disabled={disabled}
+      onPress={handlePress}
+      onPressIn={() => setIsActive(true)}
+      onPressOut={() => setIsActive(false)}
+      {...props}
+    >
+      <Styled.ButtonText $active={isActive} $color={color} $underline={underline} $variant={variant} fontStyle={fontStyle}>
+        {label}
+      </Styled.ButtonText>
+    </Styled.ButtonElement>
   );
 };
 
