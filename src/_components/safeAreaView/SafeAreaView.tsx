@@ -9,7 +9,7 @@ type TSafeAreaViewProps = { isScrollable?: boolean } & RNSafeAreaViewProps;
 
 const SafeAreaView: FC<TSafeAreaViewProps> = ({ children, isScrollable = true, ...props }) => {
   useEffect(() => {
-    StatusBar.setBackgroundColor(theme.colors.white);
+    StatusBar.setBackgroundColor(theme.colors.background);
     StatusBar.setBarStyle('dark-content');
   }, []);
 
