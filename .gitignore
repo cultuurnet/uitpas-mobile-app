@@ -69,6 +69,10 @@ buck-out/
 # Ruby / CocoaPods
 /ios/Pods/
 
-# vs code 
+# vs code
 .vscode
 /vendor/bundle/
+
+# bundler and artifacts
+.bundle
+pkg
