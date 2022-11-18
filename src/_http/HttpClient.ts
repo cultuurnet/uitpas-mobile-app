@@ -1,7 +1,7 @@
 import { Config } from 'react-native-config';
 import axios, { AxiosError, AxiosResponse, ResponseType } from 'axios';
 
-import { TApiError, TValidationError } from './HttpError';
+import { TApiError } from './HttpError';
 import { HttpStatus } from './HttpStatus';
 
 export type Params = Record<string, string | number | boolean | null | undefined>;
