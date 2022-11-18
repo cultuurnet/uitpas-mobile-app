@@ -7,7 +7,6 @@ const BulletListItem: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Styled.BulletListItem>
       <Styled.Disk />
-
       <View>{children}</View>
     </Styled.BulletListItem>
   );
