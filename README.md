@@ -66,7 +66,6 @@ You can use the following plugins to debug the application:
 | Functionality | Flipper plugin |
 |---|---|
 | storage (MMKV) | [react-native-mmkv](https://github.com/mrousavy/react-native-mmkv) |
-| navigation | [react-navigation](https://reactnavigation.org/docs/devtools/)
 | react query | [flipper-plugin-react-query-native-devtools](https://github.com/bgaleotti/react-query-native-devtools) |
 
 > _**Note**: React Native Debugger will not work, since MMKV does not support this_
