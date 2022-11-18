@@ -260,6 +260,3 @@ DEPENDENCIES
   jsonlint
   oj (<= 3.3.4)
   rake (~> 13.0)
-
-BUNDLED WITH
-   2.2.18
