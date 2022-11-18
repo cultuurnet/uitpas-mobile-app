@@ -8,7 +8,7 @@ import { useToggle } from '../_hooks';
 // We should improve this later..
 type TAuthenticationContext = {
   accessToken?: string;
-  authorize: (parameters: object) => void;
+  authorize: (parameters: object, options: object) => void;
   isAuthenticated?: boolean;
   isInitialized: boolean;
   logout: (...options) => void;
@@ -65,9 +65,8 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   };
 
-  const logout = async (...options) => {
+  const logout = async () => {
     try {
-      await client.webAuth.clearSession(...options);
       await client.credentialsManager.clearCredentials();
       setIsAuthenticated(false);
     } catch (e) {

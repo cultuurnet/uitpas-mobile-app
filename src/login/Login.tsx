@@ -12,7 +12,10 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      await authorize({ audience: Config.REACT_NATIVE_APP_AUTH0_AUDIENCE, scope: 'openid profile email offline_access' });
+      await authorize(
+        { audience: Config.REACT_NATIVE_APP_AUTH0_AUDIENCE, prompt: 'login', scope: 'openid profile email offline_access' },
+        { ephemeralSession: true },
+      );
     } catch (e) {
       // @TODO: general error handling?
       console.error(e);
