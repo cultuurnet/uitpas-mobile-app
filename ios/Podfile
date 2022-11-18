@@ -23,7 +23,7 @@ target 'reactnative_uitpas' do
     #
     # Note that if you have use_frameworks! enabled, Flipper will not work and
     # you should disable the next line.
-    :flipper_configuration => FlipperConfiguration.enabled(["Debug"], { 'Flipper' => '0.163.0' }),
+    # :flipper_configuration => FlipperConfiguration.enabled(["Debug"], { 'Flipper' => '0.163.0' }),
     :path => config[:reactNativePath],
     # to enable hermes on iOS, change `false` to `true` and then install pods
     :hermes_enabled => true,
