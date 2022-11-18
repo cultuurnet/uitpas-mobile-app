@@ -75,4 +75,5 @@ buck-out/
 
 # bundler and artifacts
 .bundle
+metadata.json
 pkg
