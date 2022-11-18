@@ -22,7 +22,7 @@ const DiagonalSplitView: FC<TProps> = ({
   const { width } = useWindowDimensions();
 
   useEffect(() => {
-    StatusBar.setBackgroundColor(theme.colors.secondary);
+    StatusBar.setBackgroundColor(theme.colors[backgroundColor]);
     StatusBar.setBarStyle('light-content');
   }, []);
 
