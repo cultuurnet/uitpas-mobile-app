@@ -27,7 +27,7 @@ const App = () => {
         <QueryClientProvider>
           <SafeAreaProvider>
             <NavigationContainer>
-              <StatusBar barStyle="light-content" />
+              <StatusBar />
               <RootStackNavigator />
             </NavigationContainer>
           </SafeAreaProvider>
