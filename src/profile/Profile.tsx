@@ -20,9 +20,27 @@ const Profile = () => {
   if (isPassHolderLoading) return null;
 
   const links: TLinkListItem[] = [
-    { href: 'https://www.google.com', iconColor: 'teal', iconName: 'Gift', label: 'Mijn Welkomstvoordelen', labelColor: 'text' },
-    { iconColor: 'teal', iconName: 'History', label: 'Mijn Historiek', labelColor: 'text', onPress: () => navigate('Shop') },
-    { iconColor: 'red', iconName: 'Logout', label: 'Afmelden', labelColor: 'darkRed', onPress: toggleLogOutModalVisible },
+    {
+      href: 'https://www.google.com',
+      iconColor: 'teal',
+      iconName: 'Gift',
+      label: i18n.t('PROFILE.LINKS.BENEFITS'),
+      labelColor: 'text',
+    },
+    {
+      iconColor: 'teal',
+      iconName: 'History',
+      label: i18n.t('PROFILE.LINKS.HISTORY'),
+      labelColor: 'text',
+      onPress: () => navigate('Shop'),
+    },
+    {
+      iconColor: 'red',
+      iconName: 'Logout',
+      label: i18n.t('PROFILE.LINKS.LOGOUT'),
+      labelColor: 'darkRed',
+      onPress: toggleLogOutModalVisible,
+    },
   ];
 
   useEffect(() => {
@@ -41,7 +59,7 @@ const Profile = () => {
           {isMIANotificationVisible && <UitpasInfo onClose={() => setIsMIANotificationVisible(false)} />}
         </Styled.TopContainer>
         <LinkList items={links} />
-        {!MIAInfoFirstActiveCard && <MIANotification socialTariffInfo={MIAInfoFirstActiveCard?.socialTariff} />}
+        {MIAInfoFirstActiveCard && <MIANotification socialTariffInfo={MIAInfoFirstActiveCard?.socialTariff} />}
       </Styled.SafeAreaViewContainer>
       <LogoutModal isVisible={logOutModalVisible} toggleIsVisible={toggleLogOutModalVisible} />
     </>

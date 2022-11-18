@@ -28,7 +28,15 @@
   },
   "PROFILE": {
     "POINTS": "punten",
-    "HELLO": "Dag"
+    "HELLO": "Dag",
+    "INFO": "Dit is je digitale UiTPAS. Toon deze barcode wanneer je een voordeel wenst om te ruilen op een UiTPAS locatie.",
+    "MIA": "Dankzij jouw UiTPAS met kortingstarief kan je extra voordelig deelnemen aan UiTPAS-activiteiten.",
+    "VALID_UNTIL": "Geldig tot",
+    "LINKS": {
+      "BENEFITS": "Mijn Welkomstvoordelen",
+      "HISTORY": "Mijn Historiek",
+      "LOGOUT": "Afmelden"
+    }
   },
   "PROFILE_NOT_FOUND": {
     "TITLE": "We kunnen geen UiTPAS terugvinden voor",

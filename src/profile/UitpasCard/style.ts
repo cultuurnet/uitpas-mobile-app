@@ -32,6 +32,9 @@ export const LogoContainer = styled.View`
   margin-top: 15px;
 `;
 
+export const PointsView = styled.View`
+  align-items: center;
+`;
 export const BarcodeContainer = styled.View`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.white};

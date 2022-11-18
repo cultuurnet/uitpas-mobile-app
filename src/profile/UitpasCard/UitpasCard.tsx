@@ -3,6 +3,7 @@ import { useWindowDimensions, View } from 'react-native';
 import Barcode from 'react-native-barcode-svg';
 
 import { BrandLogo, Typography } from '../../_components';
+import i18n from '../../_translations/i18n';
 import { TPassHolder } from '../_models';
 import * as Styled from './style';
 
@@ -35,14 +36,14 @@ const UitpasCard: FC<TProps> = ({ passHolder }) => {
               {renderCards()}
             </Typography>
           </View>
-          <View style={{ alignItems: 'center', marginTop: -7 }}>
-            <Typography color="white" fontStyle="bold" size="verylarge">
+          <Styled.PointsView>
+            <Typography color="white" fontStyle="bold" size="xlarge">
               {passHolder.points}
             </Typography>
             <Typography color="white" fontStyle="semibold" size="xsmall">
-              punten
+              {i18n.t('PROFILE.POINTS')}
             </Typography>
-          </View>
+          </Styled.PointsView>
         </Styled.UserInfoContainer>
         <Styled.LogoContainer>
           <BrandLogo height={16} inverse />

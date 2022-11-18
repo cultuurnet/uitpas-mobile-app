@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 
+import i18n from '../../_translations/i18n';
 import * as Styled from './style';
 
 type TProps = {
@@ -9,9 +10,7 @@ type TProps = {
 const UitpasInfo: FC<TProps> = ({ onClose }) => {
   return (
     <Styled.NotificationContainer>
-      <Styled.CardInfo color="darkGreen">
-        Dit is je digitale UiTPAS. Toon deze barcode wanneer je een voordeel wenst om te ruilen op een UiTPAS locatie.
-      </Styled.CardInfo>
+      <Styled.CardInfo color="darkGreen">{i18n.t('PROFILE.INFO')}</Styled.CardInfo>
       <Styled.CloseButton name="Close" onPress={onClose} size={10} />
     </Styled.NotificationContainer>
   );
