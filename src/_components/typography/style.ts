@@ -6,8 +6,6 @@ export const Typography = styled.Text<TTypographyProps>`
   color: ${({ color, theme }) => theme.colors[color]};
   text-align: ${({ align }) => align}
 
-  line-height: 24px;
-
   font-family: ${({ fontStyle }) => {
     switch (fontStyle) {
       case 'light':
@@ -26,6 +24,9 @@ export const Typography = styled.Text<TTypographyProps>`
 
   font-size: ${({ size }) => {
     switch (size) {
+      case 'xsmall':
+        return '10px';
+
       case 'small':
         return '14px';
 
@@ -37,6 +38,9 @@ export const Typography = styled.Text<TTypographyProps>`
 
       case 'xlarge':
         return '20px';
+
+      case 'verylarge':
+        return '24px';
     }
   }};
 `;

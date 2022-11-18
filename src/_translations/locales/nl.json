@@ -26,5 +26,9 @@
     "REGISTER": "Registreer je UiTPAS",
     "WHERE_TO_BUY": "Waar koop ik een UiTPAS?",
     "LOGIN": "Aanmelden"
+  },
+  "PROFILE": {
+    "POINTS": "punten",
+    "HELLO": "Dag"
   }
 }

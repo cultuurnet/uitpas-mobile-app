@@ -26,8 +26,14 @@ export const ButtonElement = styled(Pressable)<{
   border: ${({ $variant, theme }) => ($variant === 'outline' ? `2px solid ${theme.colors.white}` : 'none')};
 `;
 
-export const ButtonText = styled(Typography)<{ $active: boolean; $variant: TButtonPropsBase['variant'] }>`
-  color: ${({ $variant, $active, theme }) => {
+export const ButtonText = styled(Typography)<{
+  $active: boolean;
+  $color: TButtonPropsBase['color'];
+  $underline: boolean;
+  $variant: TButtonPropsBase['variant'];
+}>`
+  color: ${({ $variant, $active, $color, theme }) => {
+    if ($color) return $color;
     if ($variant === 'link') {
       return $active ? theme.colors.buttonActive : theme.colors.button;
     } else if ($variant === 'outline') {
@@ -36,6 +42,7 @@ export const ButtonText = styled(Typography)<{ $active: boolean; $variant: TButt
 
     return theme.colors.white;
   }};
-  text-decoration: ${({ $variant }) => $variant === 'link' && 'underline'};
-  text-decoration-color: ${({ $active, theme }) => ($active ? theme.colors.buttonActive : theme.colors.button)};
+  text-decoration: ${({ $variant, $underline }) => $variant === 'link' && $underline && 'underline'};
+  text-decoration-color: ${({ $active, theme, $color }) =>
+    $color ? $color : $active ? theme.colors.buttonActive : theme.colors.button};
 `;

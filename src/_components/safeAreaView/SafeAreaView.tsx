@@ -8,7 +8,7 @@ type TSafeAreaViewProps = { isScrollable?: boolean } & RNSafeAreaViewProps;
 const SafeAreaView: FC<TSafeAreaViewProps> = ({ children, isScrollable = true, ...props }) => {
   if (isScrollable) {
     return (
-      <Styled.SafeAreaViewContainer>
+      <Styled.SafeAreaViewContainer {...props}>
         <Styled.ScrollContainer contentContainerStyle={{ flexGrow: 1 }} {...props}>
           {children}
         </Styled.ScrollContainer>

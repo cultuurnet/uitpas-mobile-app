@@ -16,3 +16,7 @@ export const Shop = require('./shop.png');
 export const ShopFilled = require('./shopFilled.png');
 export const User = require('./user.png');
 export const Warning = require('./warning.png');
+export const KansenTarief = require('./kansentarief.png');
+export const History = require('./history.png');
+export const Logout = require('./logout.png');
+export const Gift = require('./gift.png');

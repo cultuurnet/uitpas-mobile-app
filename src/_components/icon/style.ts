@@ -5,7 +5,7 @@ import { TIconProps } from './Icon';
 
 export const IconButton = styled(TouchableRipple)<{ borderless?: boolean; disabled?: boolean }>`
   overflow: ${({ borderless }) => borderless && 'visible'};
-  opacity: ${({ disabled }) => disabled && '.6'};
+  opacity: ${({ disabled }) => (disabled ? 0.6 : 1)};
 `;
 
 export const Icon = styled.Image<Pick<TIconProps, 'size' | 'color'>>`
