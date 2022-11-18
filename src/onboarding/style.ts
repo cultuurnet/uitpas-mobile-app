@@ -37,7 +37,7 @@ export const ConfirmViewContainer = styled.View`
 
 export const BottomContainer = styled.View`
   position: absolute;
-  bottom: 10px;
+  bottom: 35px;
   width: 100%;
 `;
 
