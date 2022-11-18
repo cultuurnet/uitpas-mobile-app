@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rake', '~> 13.0'
-gem 'fastlane'
 
 group :syntax do
   gem 'jsonlint'
@@ -15,6 +14,10 @@ end
 group :aws do
   gem 'aws-sdk-s3'
   gem 'aws-sdk-cloudfront'
+end
+
+group :develop do
+  gem 'fastlane'
 end
 
 plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')
