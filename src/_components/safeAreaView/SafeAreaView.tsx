@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { ScrollView } from 'react-native';
 import { NativeSafeAreaViewProps as RNSafeAreaViewProps } from 'react-native-safe-area-context';
 
 import * as Styled from './style';
@@ -9,9 +10,7 @@ const SafeAreaView: FC<TSafeAreaViewProps> = ({ children, isScrollable = true, .
   if (isScrollable) {
     return (
       <Styled.SafeAreaViewContainer {...props}>
-        <Styled.ScrollContainer contentContainerStyle={{ flexGrow: 1 }} {...props}>
-          {children}
-        </Styled.ScrollContainer>
+        <ScrollView>{children}</ScrollView>
       </Styled.SafeAreaViewContainer>
     );
   } else {

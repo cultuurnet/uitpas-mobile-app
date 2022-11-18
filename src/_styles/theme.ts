@@ -11,6 +11,7 @@ export const theme = {
     lightBlue: '#90D9DA',
     lightGreen: '#81D5BE',
     lightGrey: '#CFD3D3',
+
     primary: '#39ac8d',
     primaryDark: '#127173',
     red: '#F82E58',
@@ -18,6 +19,8 @@ export const theme = {
     secondaryDark: '#118363',
     teal: '#1AA5A8',
     text: '#2d3843',
+    turquoise: '#168b8d',
+    turquoiseActive: '#168b8d',
     white: '#ffffff',
   },
 

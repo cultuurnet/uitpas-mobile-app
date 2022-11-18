@@ -40,6 +40,7 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
   color,
   underline = true,
   fontStyle = 'bold',
+  inline,
   ...props
 }) => {
   const [isActive, setIsActive] = useState(false);
@@ -57,9 +58,10 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
   const handlePress = href ? openURL : onPress;
 
   return (
-    <Styled.ButtonContainer {...props}>
+    <Styled.ButtonContainer inline={inline} {...props}>
       <Styled.ButtonElement
         $active={isActive}
+        $inline={inline}
         $variant={variant}
         accessibilityHint={accessibilityHint}
         accessibilityLabel={accessibilityLabel}

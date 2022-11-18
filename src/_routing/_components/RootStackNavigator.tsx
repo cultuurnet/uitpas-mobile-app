@@ -6,10 +6,11 @@ import { useAuthentication } from '../../_context';
 import { StorageKey } from '../../_models';
 import Login from '../../login/Login';
 import Onboarding from '../../onboarding/Onboarding';
+import ProfileNotFound from '../../profile/ProfileNotFound';
 import { storage } from '../../storage';
 import { MainNavigator } from './MainNavigator';
 
-export type TRootRoutes = 'MainNavigator' | 'Onboarding' | 'Login';
+export type TRootRoutes = 'MainNavigator' | 'Onboarding' | 'Login' | 'ProfileNotFound';
 export type TRootParams = Record<TRootRoutes, undefined>;
 
 const RootStack = createNativeStackNavigator<TRootParams>();
@@ -20,8 +21,7 @@ export const RootStackNavigator = () => {
   const [hasViewedOnboarding, setHasViewedOnboarding] = useState(false);
 
   useEffect(() => {
-    if (!isInitialized) return;
-    SplashScreen.hide();
+    if (isInitialized) SplashScreen.hide();
   }, [isInitialized]);
 
   return (
@@ -30,13 +30,20 @@ export const RootStackNavigator = () => {
         <RootStack.Screen
           component={Onboarding}
           listeners={() => ({
-            focus: () => setHasViewedOnboarding(true),
+            focus: () => {
+              if (isInitialized) setHasViewedOnboarding(true);
+            },
           })}
           name="Onboarding"
         />
       )}
       {!isAuthenticated && <RootStack.Screen component={Login} name="Login" />}
-      {isAuthenticated && <RootStack.Screen component={MainNavigator} name="MainNavigator" />}
+      {isAuthenticated && (
+        <>
+          <RootStack.Screen component={MainNavigator} name="MainNavigator" />
+          <RootStack.Screen component={ProfileNotFound} name="ProfileNotFound" />
+        </>
+      )}
     </RootStack.Navigator>
   );
 };

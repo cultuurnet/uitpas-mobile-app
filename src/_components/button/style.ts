@@ -5,11 +5,12 @@ import Typography from '../typography/Typography';
 import { TButtonPropsBase } from './Button';
 
 export const ButtonContainer = styled.View<Pick<TButtonPropsBase, 'inline' | 'centered'>>`
-  align-self: ${({ inline, centered }) => (inline ? 'flex-start' : centered ? 'center' : 'stretch')};
+  align-self: ${({ inline, centered }) => (centered ? 'center' : inline ? 'flex-start' : 'stretch')};
 `;
 
 export const ButtonElement = styled(Pressable)<{
   $active: boolean;
+  $inline: TButtonPropsBase['inline'];
   $variant: TButtonPropsBase['variant'];
   disabled: TButtonPropsBase['disabled'];
 }>`
@@ -18,11 +19,12 @@ export const ButtonElement = styled(Pressable)<{
   opacity: ${({ disabled }) => (disabled ? 0.4 : 1)};
   background-color: ${({ $active, $variant, theme }) => {
     if ($variant === 'contained') {
-      return $active ? theme.colors.buttonActive : theme.colors.button;
+      return $active ? theme.colors.turquoiseActive : theme.colors.turquoise;
     }
     return 'transparent';
   }};
-  padding: ${({ $variant }) => ($variant !== 'link' ? 10 : 0)}px;
+  padding: ${({ $variant, $inline }) =>
+    $inline && $variant !== 'link' ? '6px 16px' : $variant !== 'link' ? '10px 16px' : '0px'};
   border: ${({ $variant, theme }) => ($variant === 'outline' ? `2px solid ${theme.colors.white}` : 'none')};
 `;
 
@@ -35,9 +37,9 @@ export const ButtonText = styled(Typography)<{
   color: ${({ $variant, $active, $color, theme }) => {
     if ($color) return $color;
     if ($variant === 'link') {
-      return $active ? theme.colors.buttonActive : theme.colors.button;
+      return $active ? theme.colors.turquoiseActive : theme.colors.turquoise;
     } else if ($variant === 'outline') {
-      return theme.colors.button;
+      return theme.colors.turquoise;
     }
 
     return theme.colors.white;

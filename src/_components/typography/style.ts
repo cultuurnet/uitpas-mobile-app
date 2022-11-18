@@ -4,7 +4,8 @@ import { TTypographyProps } from './Typography';
 
 export const Typography = styled.Text<TTypographyProps>`
   color: ${({ color, theme }) => theme.colors[color]};
-  text-align: ${({ align }) => align}
+  text-align: ${({ align }) => align};
+  margin-bottom: ${({ bottomSpacing }) => (bottomSpacing ? bottomSpacing : '0px')};
 
   font-family: ${({ fontStyle }) => {
     switch (fontStyle) {
@@ -39,7 +40,7 @@ export const Typography = styled.Text<TTypographyProps>`
       case 'xlarge':
         return '20px';
 
-      case 'verylarge':
+      case 'xxlarge':
         return '24px';
     }
   }};
