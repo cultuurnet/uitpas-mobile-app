@@ -2,28 +2,32 @@ import React, { FC } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { theme } from '../../_styles/theme';
-import History from '../../history/History';
+import i18n from '../../_translations/i18n';
+import About from '../../about/About';
 import Profile from '../../profile/Profile';
 
 export type TProfileParams = {
-  History: undefined;
-  Profiel: undefined;
+  About: undefined;
+  Profile: undefined;
 };
 
 const Stack = createNativeStackNavigator<TProfileParams>();
 
 export const ProfileNavigator: FC = () => {
   return (
-    <Stack.Navigator initialRouteName="Profiel" screenOptions={{ headerShown: false }}>
-      <Stack.Screen component={Profile} name="Profiel" />
+    <Stack.Navigator initialRouteName="Profile" screenOptions={{ headerShown: false }}>
+      <Stack.Screen component={Profile} name="Profile" />
       <Stack.Screen
-        component={History}
-        name="History"
+        component={About}
+        name="About"
         options={{
-          headerBackTitle: 'Profiel',
+          headerBackTitle: i18n.t('PROFILE.ABOUT.BACK_TITLE'),
+          headerBackTitleStyle: { fontFamily: 'Poppins-SemiBold' },
           headerShown: true,
           headerStyle: { backgroundColor: theme.colors.primary },
           headerTintColor: theme.colors.white,
+          headerTitle: i18n.t('PROFILE.ABOUT.HEADER_TITLE'),
+          headerTitleStyle: { fontFamily: 'Poppins-SemiBold' },
         }}
       />
     </Stack.Navigator>

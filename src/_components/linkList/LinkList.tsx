@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 
 import { Theme } from '../../_styles/theme';
 import Icon, { TIconName } from '../icon/Icon';
+import Typography from '../typography/Typography';
 import * as Styled from './style';
 
 type TLinkTypes = { href: string; onPress?: never } | { href?: never; onPress: () => void };
@@ -15,9 +16,10 @@ export type TLinkListItem = {
 
 type TProps = {
   items: TLinkListItem[];
+  title?: string;
 };
 
-const LinkList: FC<TProps> = ({ items, ...props }) => {
+const LinkList: FC<TProps> = ({ items, title, ...props }) => {
   function renderItem(item: TLinkListItem) {
     return (
       <Styled.LinkItem key={item.label}>
@@ -37,7 +39,16 @@ const LinkList: FC<TProps> = ({ items, ...props }) => {
       </Styled.LinkItem>
     );
   }
-  return <Styled.LinkContainer {...props}>{items.map(item => renderItem(item))}</Styled.LinkContainer>;
+  return (
+    <Styled.LinkContainer {...props}>
+      {title && (
+        <Styled.LinkItem>
+          <Typography>{title}</Typography>
+        </Styled.LinkItem>
+      )}
+      {items.map(item => renderItem(item))}
+    </Styled.LinkContainer>
+  );
 };
 
 export default LinkList;

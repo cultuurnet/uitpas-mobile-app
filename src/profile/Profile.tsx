@@ -30,10 +30,10 @@ const Profile = () => {
     },
     {
       iconColor: 'teal',
-      iconName: 'History',
-      label: i18n.t('PROFILE.LINKS.HISTORY'),
+      iconName: 'Info',
+      label: i18n.t('PROFILE.LINKS.ABOUT'),
       labelColor: 'text',
-      onPress: () => navigate('History'),
+      onPress: () => navigate('About'),
     },
     {
       iconColor: 'red',

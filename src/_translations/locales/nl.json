@@ -35,7 +35,17 @@
     "LINKS": {
       "BENEFITS": "Mijn Welkomstvoordelen",
       "HISTORY": "Mijn Historiek",
-      "LOGOUT": "Afmelden"
+      "LOGOUT": "Afmelden",
+      "ABOUT": "Over deze app"
+    },
+    "ABOUT": {
+      "HEADER_TITLE": "Over deze app",
+      "BACK_TITLE": "Profiel",
+      "TERMS_OF_SERVICE": "Gebruikersvoorwaarden",
+      "PRIVACY_POLICY": "Privacybeleid",
+      "CHECK_FOR_UPDATES": "Check for updates",
+      "REPORT_PROBLEM": "Probleem melden",
+      "CONSTRUCTION_WARNING": "Deze app is in volle opbouw. Ging er iets fout? Klik hier om het te melden!"
     }
   },
   "PROFILE_NOT_FOUND": {
