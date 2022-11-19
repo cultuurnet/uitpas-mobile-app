@@ -208,7 +208,7 @@ private_lane :upload_to_appcenter_android do |options|
     app_name: appcenter_app_name,
     apk: "./android/app/build/outputs/apk/#{options[:buildType]}/app-#{options[:buildType]}.apk",
     notify_testers: true,
-    destinations: getDistributionGroup(flavor: options[:flavor])
+    destinations: getDistributionGroup(buildType: options[:buildType])
   )
 end
 
@@ -228,7 +228,7 @@ private_lane :upload_to_appcenter_ios do |options|
 		owner_name: 'icapps',
     app_name: appcenter_app_name,
     notify_testers: true,
-    destinations: getDistributionGroup(flavor: options[:flavor])
+    destinations: getDistributionGroup(buildType: options[:buildType])
   )
 end
 
@@ -243,12 +243,12 @@ private_lane :getAppNameIOS do |options|
 end
 
 private_lane :getDistributionGroup do |options|
-  flavor = options[:flavor]
-  if flavor == "alpha"
+  buildType = options[:buildType]
+  if buildType == "alpha"
       "Collaborators, #{APPCENTER_ALPHA_DISTRIBUTION_GROUP}"
-  elsif flavor == "beta"
+  elsif buildType == "beta"
       "Collaborators, #{APPCENTER_BETA_DISTRIBUTION_GROUP}"
-  elsif flavor == "prod"
+  elsif buildType == "prod"
       "Collaborators"
   end
 end
