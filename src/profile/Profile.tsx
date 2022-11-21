@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { LinkList, Typography } from '../_components';
 import { TLinkListItem } from '../_components/linkList/LinkList';
+import { ConfigUrl } from '../_config';
 import { useStackNavigation, useToggle } from '../_hooks';
 import { TProfileParams } from '../_routing/_components/ProfileNavigator';
 import i18n from '../_translations/i18n';
@@ -22,10 +23,17 @@ const Profile = () => {
 
   const links: TLinkListItem[] = [
     {
-      href: 'https://www.google.com',
+      href: ConfigUrl.welcomeBenefits,
       iconColor: 'teal',
       iconName: 'Gift',
       label: i18n.t('PROFILE.LINKS.BENEFITS'),
+      labelColor: 'text',
+    },
+    {
+      href: ConfigUrl.personalInfo,
+      iconColor: 'teal',
+      iconName: 'ProfileCircled',
+      label: i18n.t('PROFILE.LINKS.PERSONAL_INFO'),
       labelColor: 'text',
     },
     {
@@ -34,6 +42,13 @@ const Profile = () => {
       label: i18n.t('PROFILE.LINKS.ABOUT'),
       labelColor: 'text',
       onPress: () => navigate('About'),
+    },
+    {
+      href: ConfigUrl.faq,
+      iconColor: 'teal',
+      iconName: 'Question',
+      label: i18n.t('PROFILE.LINKS.FAQ'),
+      labelColor: 'text',
     },
     {
       iconColor: 'red',
