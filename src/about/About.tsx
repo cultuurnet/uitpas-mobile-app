@@ -8,9 +8,6 @@ import { ConfigUrl } from '../_config';
 import i18n from '../_translations/i18n';
 import * as Styled from './style';
 
-const appStoreLink = 'itms-apps://apps.apple.com/be/app/uitpas/id1249270326?l=nl';
-const playStoreLink = 'market://details?id=be.cultuurnet.uitpasapp';
-
 const links: TLinkListItem[] = [
   {
     href: ConfigUrl.termsOfService,
@@ -27,7 +24,7 @@ const links: TLinkListItem[] = [
     labelColor: 'text',
   },
   {
-    href: Platform.OS === 'ios' ? appStoreLink : playStoreLink,
+    href: Platform.OS === 'ios' ? ConfigUrl.appStore : ConfigUrl.playStore,
     iconColor: 'teal',
     iconName: 'External',
     label: i18n.t('PROFILE.ABOUT.CHECK_FOR_UPDATES'),
