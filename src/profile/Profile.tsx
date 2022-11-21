@@ -30,10 +30,10 @@ const Profile = () => {
     },
     {
       iconColor: 'teal',
-      iconName: 'History',
-      label: i18n.t('PROFILE.LINKS.HISTORY'),
+      iconName: 'Info',
+      label: i18n.t('PROFILE.LINKS.ABOUT'),
       labelColor: 'text',
-      onPress: () => navigate('History'),
+      onPress: () => navigate('About'),
     },
     {
       iconColor: 'red',
@@ -54,7 +54,9 @@ const Profile = () => {
     <>
       <Styled.SafeAreaViewContainer edges={['top']} isScrollable>
         <Styled.TopContainer>
-          <Typography fontStyle="bold" size="large">{`${i18n.t('PROFILE.HELLO')} ${passHolder.firstName}`}</Typography>
+          <Typography fontStyle="bold" size="large">
+            {i18n.t('PROFILE.HELLO', { name: passHolder.firstName })}
+          </Typography>
           <UitpasCard passHolder={passHolder} />
           {isMIANotificationVisible && <UitpasInfo onClose={() => setIsMIANotificationVisible(false)} />}
         </Styled.TopContainer>

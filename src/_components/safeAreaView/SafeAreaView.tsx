@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import { ScrollView, StatusBar } from 'react-native';
+import { Platform, ScrollView, StatusBar } from 'react-native';
 import { NativeSafeAreaViewProps as RNSafeAreaViewProps } from 'react-native-safe-area-context';
 
 import { theme } from '../../_styles/theme';
@@ -9,7 +9,7 @@ type TSafeAreaViewProps = { isScrollable?: boolean } & RNSafeAreaViewProps;
 
 const SafeAreaView: FC<TSafeAreaViewProps> = ({ children, isScrollable = true, ...props }) => {
   useEffect(() => {
-    StatusBar.setBackgroundColor(theme.colors.background);
+    if (Platform.OS === 'android') StatusBar.setBackgroundColor(theme.colors.background);
     StatusBar.setBarStyle('dark-content');
   }, []);
 

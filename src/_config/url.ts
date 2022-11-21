@@ -1,9 +1,22 @@
 import { TConfigEnvironment } from './environments';
 
 type TConfigUrl = Record<TConfigEnvironment, string>;
-type TConfigUrlIdentifiers = 'register' | 'buy' | 'forgotEmail' | 'helpdesk' | 'termsOfService' | 'privacyPolicy' | 'shop';
+type TConfigUrlIdentifiers =
+  | 'register'
+  | 'buy'
+  | 'forgotEmail'
+  | 'helpdesk'
+  | 'termsOfService'
+  | 'privacyPolicy'
+  | 'shop'
+  | 'appStore'
+  | 'playStore';
 
 const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
+  appStore: {
+    beta: 'itms-apps://apps.apple.com/be/app/uitpas/id1249270326?l=nl',
+    production: 'itms-apps://apps.apple.com/be/app/uitpas/id1249270326?l=nl',
+  },
   buy: {
     beta: 'https://test.uitpas.be/activiteiten-in-de-regio',
     production: 'https://uitpas.be/activiteiten-in-de-regio',
@@ -15,6 +28,10 @@ const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
   helpdesk: {
     beta: 'https://helpdesk.uitpas.be/hc/nl/requests/new',
     production: 'https://helpdesk.uitpas.be/hc/nl/requests/new',
+  },
+  playStore: {
+    beta: 'market://details?id=be.cultuurnet.uitpasapp',
+    production: 'market://details?id=be.cultuurnet.uitpasapp',
   },
   privacyPolicy: {
     beta: 'https://test.uitpas.be/privacybeleid',
