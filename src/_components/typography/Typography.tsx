@@ -9,7 +9,7 @@ export type TTypographyProps = {
   children: React.ReactNode;
   color?: keyof Theme['colors'];
   fontStyle?: 'light' | 'normal' | 'semibold' | 'bold';
-  size?: 'small' | 'normal' | 'large' | 'xlarge' | 'xxlarge';
+  size?: 'xsmall' | 'small' | 'normal' | 'large' | 'xlarge' | 'xxlarge';
 };
 
 const Typography: FC<TTypographyProps> = ({

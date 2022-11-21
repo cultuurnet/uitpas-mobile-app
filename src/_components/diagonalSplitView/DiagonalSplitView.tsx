@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import { ScrollView, StatusBar, useWindowDimensions, View } from 'react-native';
+import { Platform, ScrollView, StatusBar, useWindowDimensions, View } from 'react-native';
 
 import { Theme, theme } from '../../_styles/theme';
 import * as Styled from './style';
@@ -22,7 +22,7 @@ const DiagonalSplitView: FC<TProps> = ({
   const { width } = useWindowDimensions();
 
   useEffect(() => {
-    StatusBar.setBackgroundColor(theme.colors[backgroundColor]);
+    if (Platform.OS === 'android') StatusBar.setBackgroundColor(theme.colors[backgroundColor]);
     StatusBar.setBarStyle('light-content');
   }, []);
 

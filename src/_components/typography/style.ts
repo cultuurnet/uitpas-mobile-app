@@ -7,25 +7,6 @@ export const Typography = styled.Text<TTypographyProps>`
   text-align: ${({ align }) => align};
   margin-bottom: ${({ bottomSpacing }) => (bottomSpacing ? bottomSpacing : '0px')};
 
-  line-height: ${({ size }) => {
-    switch (size) {
-      case 'small':
-        return '21px';
-
-      case 'normal':
-        return '24px';
-
-      case 'large':
-        return '27px';
-
-      case 'xlarge':
-        return '30px';
-
-      case 'xxlarge':
-        return '36px';
-    }
-  }};
-
   font-family: ${({ fontStyle }) => {
     switch (fontStyle) {
       case 'light':
@@ -42,8 +23,26 @@ export const Typography = styled.Text<TTypographyProps>`
     }
   }};
 
+  line-height: ${({ size }) => {
+    switch (size) {
+      case 'small':
+        return '21px';
+      case 'normal':
+        return '24px';
+      case 'large':
+        return '27px';
+      case 'xlarge':
+        return '30px';
+      case 'xxlarge':
+        return '36px';
+    }
+  }};
+
   font-size: ${({ size }) => {
     switch (size) {
+      case 'xsmall':
+        return '10px';
+
       case 'small':
         return '14px';
 

@@ -1,0 +1,56 @@
+import React, { FC } from 'react';
+import { useWindowDimensions, View } from 'react-native';
+import Barcode from 'react-native-barcode-svg';
+
+import { BrandLogo, Typography } from '../../_components';
+import i18n from '../../_translations/i18n';
+import { TPassHolder } from '../_models';
+import * as Styled from './style';
+
+type TProps = {
+  passHolder: TPassHolder;
+};
+
+const UitpasCard: FC<TProps> = ({ passHolder }) => {
+  const { width } = useWindowDimensions();
+  const activeUitpasCards = passHolder.cardSystemMemberships.filter(card => card.status === 'ACTIVE' && card.uitpasNumber);
+  const [firstActiveCard] = activeUitpasCards;
+
+  return (
+    <Styled.CardContainer>
+      <Styled.ContentContainer>
+        <Styled.UserInfoContainer>
+          <View>
+            <Typography color="white" fontStyle="bold">
+              {`${passHolder.firstName} ${passHolder.name}`}
+            </Typography>
+            <Typography color="white" size="small">
+              {firstActiveCard.cardSystem.name} {activeUitpasCards.length > 1 && ', ...'}
+            </Typography>
+          </View>
+          <Styled.PointsView>
+            <Typography color="white" fontStyle="bold" size="xlarge">
+              {passHolder.points}
+            </Typography>
+            <Typography color="white" fontStyle="semibold" size="xsmall">
+              {i18n.t('PROFILE.POINTS')}
+            </Typography>
+          </Styled.PointsView>
+        </Styled.UserInfoContainer>
+        <Styled.LogoContainer>
+          <BrandLogo height={16} inverse />
+        </Styled.LogoContainer>
+        <Styled.BarcodeContainer>
+          <Barcode format="CODE128" height={40} singleBarWidth={1.4} value={firstActiveCard.uitpasNumber} />
+          <Typography>{firstActiveCard.uitpasNumber}</Typography>
+        </Styled.BarcodeContainer>
+      </Styled.ContentContainer>
+      <Styled.TopCardView screenWidth={width}>
+        <Styled.Triangle screenWidth={width} />
+      </Styled.TopCardView>
+      <Styled.BottomCardView screenWidth={width} />
+    </Styled.CardContainer>
+  );
+};
+
+export default UitpasCard;

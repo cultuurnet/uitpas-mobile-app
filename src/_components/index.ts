@@ -7,4 +7,5 @@ export { default as Button } from './button/Button';
 export { default as Checkbox } from './checkbox/Checkbox';
 export { default as SafeAreaView } from './safeAreaView/SafeAreaView';
 export { default as BlurredModal } from './blurredModal/BlurredModal';
+export { default as LinkList } from './linkList/LinkList';
 export { default as BulletList } from './bulletList';

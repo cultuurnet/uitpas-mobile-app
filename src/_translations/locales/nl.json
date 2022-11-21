@@ -26,6 +26,29 @@
     "WHERE_TO_BUY": "Waar koop ik een UiTPAS?",
     "LOGIN": "Aanmelden"
   },
+  "PROFILE": {
+    "POINTS": "punten",
+    "HELLO": "Dag {{name}}",
+    "INFO": "Dit is je digitale UiTPAS. Toon deze barcode wanneer je een voordeel wenst om te ruilen op een UiTPAS locatie.",
+    "MIA": "Dankzij jouw UiTPAS met kortingstarief kan je extra voordelig deelnemen aan UiTPAS-activiteiten.",
+    "VALID_UNTIL": "Geldig tot",
+    "LINKS": {
+      "BENEFITS": "Mijn Welkomstvoordelen",
+      "HISTORY": "Mijn Historiek",
+      "LOGOUT": "Afmelden",
+      "ABOUT": "Over deze app"
+    },
+    "ABOUT": {
+      "VERSION": "Versie {{version}}",
+      "HEADER_TITLE": "Over deze app",
+      "BACK_TITLE": "Profiel",
+      "TERMS_OF_SERVICE": "Gebruikersvoorwaarden",
+      "PRIVACY_POLICY": "Privacybeleid",
+      "CHECK_FOR_UPDATES": "Check for updates",
+      "REPORT_PROBLEM": "Probleem melden",
+      "CONSTRUCTION_WARNING": "Deze app is in volle opbouw. Ging er iets fout? Klik hier om het te melden!"
+    }
+  },
   "PROFILE_NOT_FOUND": {
     "TITLE": "We kunnen geen UiTPAS terugvinden voor",
     "REGISTER_TEXT": "Het is de eerste keer dat je aanmeldt op UiTPAS?",

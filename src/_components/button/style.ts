@@ -12,8 +12,10 @@ export const ButtonElement = styled(Pressable)<{
   $active: boolean;
   $inline: TButtonPropsBase['inline'];
   $variant: TButtonPropsBase['variant'];
+  centered?: TButtonPropsBase['centered'];
   disabled: TButtonPropsBase['disabled'];
 }>`
+  align-self: ${({ $inline, centered }) => (centered ? 'center' : $inline ? 'flex-start' : 'stretch')};
   align-items: center;
   border-radius: 16px;
   opacity: ${({ disabled }) => (disabled ? 0.4 : 1)};
@@ -28,8 +30,14 @@ export const ButtonElement = styled(Pressable)<{
   border: ${({ $variant, theme }) => ($variant === 'outline' ? `2px solid ${theme.colors.white}` : 'none')};
 `;
 
-export const ButtonText = styled(Typography)<{ $active: boolean; $variant: TButtonPropsBase['variant'] }>`
-  color: ${({ $variant, $active, theme }) => {
+export const ButtonText = styled(Typography)<{
+  $active: boolean;
+  $color: TButtonPropsBase['color'];
+  $underline: boolean;
+  $variant: TButtonPropsBase['variant'];
+}>`
+  color: ${({ $variant, $active, $color, theme }) => {
+    if ($color) return theme.colors[$color];
     if ($variant === 'link') {
       return $active ? theme.colors.turquoiseActive : theme.colors.turquoise;
     } else if ($variant === 'outline') {
@@ -38,6 +46,7 @@ export const ButtonText = styled(Typography)<{ $active: boolean; $variant: TButt
 
     return theme.colors.white;
   }};
-  text-decoration: ${({ $variant }) => $variant === 'link' && 'underline'};
-  text-decoration-color: ${({ $active, theme }) => ($active ? theme.colors.turquoiseActive : theme.colors.turquoise)};
+  text-decoration: ${({ $variant, $underline }) => $variant === 'link' && $underline && 'underline'};
+  text-decoration-color: ${({ $active, theme, $color }) =>
+    $color ? $color : $active ? theme.colors.buttonActive : theme.colors.button};
 `;
