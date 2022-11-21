@@ -39,6 +39,7 @@
       "ABOUT": "Over deze app"
     },
     "ABOUT": {
+      "VERSION": "Versie {{version}}",
       "HEADER_TITLE": "Over deze app",
       "BACK_TITLE": "Profiel",
       "TERMS_OF_SERVICE": "Gebruikersvoorwaarden",

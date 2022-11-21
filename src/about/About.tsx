@@ -35,7 +35,10 @@ const links: TLinkListItem[] = [
 const About = () => {
   return (
     <>
-      <Styled.ListContainer items={links} title={`Versie ${Config.REACT_NATIVE_APP_VERSION_NR}`} />
+      <Styled.ListContainer
+        items={links}
+        title={i18n.t('PROFILE.ABOUT.VERSION', { version: Config.REACT_NATIVE_APP_VERSION_NR })}
+      />
       <Styled.NotificationContainer>
         <Typography bottomSpacing="20px" color="darkGreen">
           {i18n.t('PROFILE.ABOUT.CONSTRUCTION_WARNING')}
