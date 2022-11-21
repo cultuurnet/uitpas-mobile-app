@@ -16,14 +16,6 @@ const UitpasCard: FC<TProps> = ({ passHolder }) => {
   const activeUitpasCards = passHolder.cardSystemMemberships.filter(card => card.status === 'ACTIVE' && card.uitpasNumber);
   const [firstActiveCard] = activeUitpasCards;
 
-  function renderCards() {
-    if (activeUitpasCards.length === 1) {
-      return firstActiveCard.cardSystem.name;
-    } else {
-      return `${firstActiveCard.cardSystem.name}, ...`;
-    }
-  }
-
   return (
     <Styled.CardContainer>
       <Styled.ContentContainer>
@@ -33,7 +25,7 @@ const UitpasCard: FC<TProps> = ({ passHolder }) => {
               {`${passHolder.firstName} ${passHolder.name}`}
             </Typography>
             <Typography color="white" size="small">
-              {renderCards()}
+              {firstActiveCard.cardSystem.name} {activeUitpasCards.length > 1 && ', ...'}
             </Typography>
           </View>
           <Styled.PointsView>
