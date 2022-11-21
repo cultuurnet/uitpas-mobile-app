@@ -23,6 +23,21 @@ export const Typography = styled.Text<TTypographyProps>`
     }
   }};
 
+  line-height: ${({ size }) => {
+    switch (size) {
+      case 'small':
+        return '21px';
+      case 'normal':
+        return '24px';
+      case 'large':
+        return '27px';
+      case 'xlarge':
+        return '30px';
+      case 'xxlarge':
+        return '36px';
+    }
+  }};
+
   font-size: ${({ size }) => {
     switch (size) {
       case 'xsmall':
