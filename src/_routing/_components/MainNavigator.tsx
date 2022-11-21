@@ -10,7 +10,7 @@ import Shop from '../../shop/Shop';
 import { ProfileNavigator } from './ProfileNavigator';
 import { mapRouteNameToIcon } from './utils';
 
-export type TMainRoutes = 'Profile' | 'Scan' | 'Shop';
+export type TMainRoutes = 'ProfileNavigator' | 'Scan' | 'Shop';
 export type TMainParams = Record<TMainRoutes, undefined>;
 
 export const MainNavigator: FC = () => {
@@ -35,7 +35,7 @@ export const MainNavigator: FC = () => {
     >
       <Tab.Screen
         component={ProfileNavigator}
-        name="Profile"
+        name="ProfileNavigator"
         options={{
           title: t('NAVIGATION.PROFILE'),
         }}
