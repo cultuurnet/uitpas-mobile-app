@@ -25,6 +25,8 @@ export const Typography = styled.Text<TTypographyProps>`
 
   line-height: ${({ size }) => {
     switch (size) {
+      case 'xsmall':
+        return '15px';
       case 'small':
         return '21px';
       case 'normal':
