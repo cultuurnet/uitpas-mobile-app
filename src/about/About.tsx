@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { Config } from 'react-native-config';
 
-import { Button } from '../_components';
+import { Button, Typography } from '../_components';
 import { TLinkListItem } from '../_components/linkList/LinkList';
 import { ConfigUrl } from '../_config';
 import i18n from '../_translations/i18n';
@@ -40,7 +40,9 @@ const About = () => {
     <>
       <Styled.ListContainer items={links} title={`Versie ${Config.REACT_NATIVE_APP_VERSION_NR}`} />
       <Styled.NotificationContainer>
-        <Styled.ConstructionText color="darkGreen">{i18n.t('PROFILE.ABOUT.CONSTRUCTION_WARNING')}</Styled.ConstructionText>
+        <Typography bottomSpacing="20px" color="darkGreen">
+          {i18n.t('PROFILE.ABOUT.CONSTRUCTION_WARNING')}
+        </Typography>
         <Button href={ConfigUrl.helpdesk} inline label={i18n.t('PROFILE.ABOUT.REPORT_PROBLEM')} />
       </Styled.NotificationContainer>
     </>
