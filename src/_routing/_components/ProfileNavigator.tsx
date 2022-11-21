@@ -6,10 +6,8 @@ import i18n from '../../_translations/i18n';
 import About from '../../about/About';
 import Profile from '../../profile/Profile';
 
-export type TProfileParams = {
-  About: undefined;
-  Profile: undefined;
-};
+export type TProfileRoutes = 'Profile' | 'About';
+export type TProfileParams = Record<TProfileRoutes, undefined>;
 
 const Stack = createNativeStackNavigator<TProfileParams>();
 
