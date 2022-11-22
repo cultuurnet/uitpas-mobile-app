@@ -11,24 +11,18 @@ import * as Styled from './style';
 const links: TLinkListItem[] = [
   {
     href: ConfigUrl.termsOfService,
-    iconColor: 'teal',
     iconName: 'External',
     label: i18n.t('PROFILE.ABOUT.TERMS_OF_SERVICE'),
-    labelColor: 'text',
   },
   {
     href: ConfigUrl.privacyPolicy,
-    iconColor: 'teal',
     iconName: 'External',
     label: i18n.t('PROFILE.ABOUT.PRIVACY_POLICY'),
-    labelColor: 'text',
   },
   {
     href: Platform.OS === 'ios' ? ConfigUrl.appStore : ConfigUrl.playStore,
-    iconColor: 'teal',
     iconName: 'External',
     label: i18n.t('PROFILE.ABOUT.CHECK_FOR_UPDATES'),
-    labelColor: 'text',
   },
 ];
 

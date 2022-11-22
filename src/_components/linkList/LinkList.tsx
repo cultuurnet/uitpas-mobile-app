@@ -8,10 +8,10 @@ import * as Styled from './style';
 type TLinkTypes = { href: string; onPress?: never } | { href?: never; onPress: () => void };
 
 export type TLinkListItem = {
-  iconColor: keyof Theme['colors'];
+  iconColor?: keyof Theme['colors'];
   iconName: TIconName;
   label: string;
-  labelColor: keyof Theme['colors'];
+  labelColor?: keyof Theme['colors'];
 } & TLinkTypes;
 
 type TProps = {
@@ -20,15 +20,21 @@ type TProps = {
 };
 
 const LinkList: FC<TProps> = ({ items, title, ...props }) => {
-  function renderItem(item: TLinkListItem) {
+  function renderItem(item: Partial<TLinkListItem>) {
     return (
       <Styled.LinkItem key={item.label}>
-        <Icon color={item.iconColor} name={item.iconName} />
+        <Icon color={item.iconColor || 'teal'} name={item.iconName} />
         {item.href ? (
-          <Styled.LinkButton color={item.labelColor} fontStyle="normal" href={item.href} label={item.label} variant="link" />
+          <Styled.LinkButton
+            color={item.labelColor || 'text'}
+            fontStyle="normal"
+            href={item.href}
+            label={item.label}
+            variant="link"
+          />
         ) : (
           <Styled.LinkButton
-            color={item.labelColor}
+            color={item.labelColor || 'text'}
             fontStyle="normal"
             label={item.label}
             onPress={item.onPress}

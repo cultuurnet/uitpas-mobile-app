@@ -22,3 +22,5 @@ export const Logout = require('./logout.png');
 export const Gift = require('./gift.png');
 export const Info = require('./info.png');
 export const External = require('./external.png');
+export const ProfileCircled = require('./profileCircled.png');
+export const Question = require('./question.png');

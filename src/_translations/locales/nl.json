@@ -36,7 +36,9 @@
       "BENEFITS": "Mijn Welkomstvoordelen",
       "HISTORY": "Mijn Historiek",
       "LOGOUT": "Afmelden",
-      "ABOUT": "Over deze app"
+      "ABOUT": "Over deze app",
+      "PERSONAL_INFO": "Mijn persoonlijke gegevens",
+      "FAQ": "Veelgestelde vragen"
     },
     "ABOUT": {
       "VERSION": "Versie {{version}}",
