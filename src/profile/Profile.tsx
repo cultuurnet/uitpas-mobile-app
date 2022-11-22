@@ -4,6 +4,7 @@ import { LinkList, Typography } from '../_components';
 import { TLinkListItem } from '../_components/linkList/LinkList';
 import { useStackNavigation, useToggle } from '../_hooks';
 import { TProfileParams } from '../_routing/_components/ProfileNavigator';
+import { TRootParams } from '../_routing/_components/RootStackNavigator';
 import i18n from '../_translations/i18n';
 import { useGetMe } from './_queries/useGetMe';
 import LogoutModal from './LogOutModal';
@@ -16,9 +17,7 @@ const Profile = () => {
   const [logOutModalVisible, toggleLogOutModalVisible] = useToggle(false);
   const { data: passHolder, isLoading: isPassHolderLoading } = useGetMe();
   const [isMIANotificationVisible, setIsMIANotificationVisible] = useState(false);
-  const { navigate } = useStackNavigation<TProfileParams>();
-
-  if (isPassHolderLoading) return null;
+  const { navigate } = useStackNavigation<TProfileParams & TRootParams>();
 
   const links: TLinkListItem[] = [
     {
@@ -48,6 +47,10 @@ const Profile = () => {
     if (passHolder) setIsMIANotificationVisible(true);
   }, [passHolder]);
 
+  if (isPassHolderLoading) return null;
+  if (!passHolder) {
+    return navigate('ProfileNotFound');
+  }
   const [MIAInfoFirstActiveCard] = passHolder.cardSystemMemberships.filter(card => card.status === 'ACTIVE' && card.socialTariff);
 
   return (
