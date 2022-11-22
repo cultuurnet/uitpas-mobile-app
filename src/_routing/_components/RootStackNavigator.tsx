@@ -41,7 +41,7 @@ export const RootStackNavigator = () => {
       {isAuthenticated && (
         <>
           <RootStack.Screen component={MainNavigator} name="MainNavigator" />
-          <RootStack.Screen component={ProfileNotFound} name="ProfileNotFound" />
+          <RootStack.Screen component={ProfileNotFound} name="ProfileNotFound" options={{ gestureEnabled: false }} />
         </>
       )}
     </RootStack.Navigator>

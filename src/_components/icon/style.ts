@@ -4,7 +4,6 @@ import TouchableRipple from '../touchableRipple/TouchableRipple';
 import { TIconProps } from './Icon';
 
 export const IconButton = styled(TouchableRipple)<{ borderless?: boolean; disabled?: boolean }>`
-  overflow: ${({ borderless }) => borderless && 'visible'};
   opacity: ${({ disabled }) => (disabled ? 0.6 : 1)};
 `;
 
