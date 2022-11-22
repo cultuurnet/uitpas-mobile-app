@@ -46,7 +46,7 @@ export const ButtonText = styled(Typography)<{
 
     return theme.colors.white;
   }};
-  text-decoration: ${({ $variant, $underline }) => $variant === 'link' && $underline && 'underline'};
+  text-decoration: ${({ $variant, $underline }) => ($variant === 'link' && $underline ? 'underline' : 'none')};
   text-decoration-color: ${({ $active, theme, $color }) =>
     $color ? $color : $active ? theme.colors.buttonActive : theme.colors.button};
 `;
