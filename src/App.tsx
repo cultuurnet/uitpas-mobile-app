@@ -12,6 +12,7 @@ import RootStackNavigator from './_routing';
 import { theme } from './_styles/theme';
 import { storage } from './storage';
 
+import 'react-native-reanimated';
 import './_translations/i18n';
 
 LogBox.ignoreAllLogs();

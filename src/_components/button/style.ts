@@ -41,7 +41,7 @@ export const ButtonText = styled(Typography)<{
     if ($variant === 'link') {
       return $active ? theme.colors.turquoiseActive : theme.colors.turquoise;
     } else if ($variant === 'outline') {
-      return theme.colors.turquoise;
+      return theme.colors.white;
     }
 
     return theme.colors.white;
