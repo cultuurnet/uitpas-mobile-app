@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { LinkList, Typography } from '../_components';
+import { LinkList, Spinner, Typography } from '../_components';
 import { TLinkListItem } from '../_components/linkList/LinkList';
 import { ConfigUrl } from '../_config';
 import { useStackNavigation, useToggle } from '../_hooks';
@@ -54,7 +54,7 @@ const Profile = () => {
     if (passHolder) setIsMIANotificationVisible(true);
   }, [passHolder]);
 
-  if (isPassHolderLoading) return null;
+  if (isPassHolderLoading) return <Spinner />;
   if (!passHolder) {
     return navigate('ProfileNotFound');
   }

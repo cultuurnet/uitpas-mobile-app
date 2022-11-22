@@ -4,6 +4,7 @@ import { Config } from 'react-native-config';
 
 import { useToggle } from '../_hooks';
 import { TAuth0User } from '../_models';
+import { queryClient } from '../_providers/QueryClientProvider';
 import { getIdTokenProfileClaims } from './util';
 
 // Types are not optimal, because the @types/react-native-auth0 packages is not up-to-date.
@@ -74,6 +75,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
   const logout = async () => {
     try {
       await client.credentialsManager.clearCredentials();
+      await queryClient.removeQueries();
       setIsAuthenticated(false);
     } catch (e) {
       console.error(e);
