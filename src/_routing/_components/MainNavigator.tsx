@@ -27,9 +27,12 @@ export const MainNavigator: FC = () => {
         },
         tabBarLabelStyle: {
           fontSize: 12,
+          marginTop: 3,
         },
         tabBarStyle: {
-          ...Platform.select({ android: { paddingBottom: 4 } }),
+          height: 60,
+          padding: 10,
+          ...Platform.select({ android: { paddingBottom: 14 } }),
         },
       })}
     >
