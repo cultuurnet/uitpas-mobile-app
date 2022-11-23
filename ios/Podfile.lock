@@ -8,6 +8,7 @@ PODS:
   - boost (1.76.0)
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
+  - DynamsoftBarcodeReader (9.2.12)
   - FBLazyVector (0.70.4)
   - FBReactNativeSpec (0.70.4):
     - RCT-Folly (= 2021.07.22.00)
@@ -442,6 +443,13 @@ PODS:
     - React-Core
   - SimpleKeychain (1.0.1)
   - SocketRocket (0.6.0)
+  - vision-camera-dynamsoft-barcode-reader (0.4.4):
+    - DynamsoftBarcodeReader (= 9.2.12)
+    - React-Core
+  - VisionCamera (2.15.2):
+    - React
+    - React-callinvoker
+    - React-Core
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -521,12 +529,15 @@ DEPENDENCIES:
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
+  - vision-camera-dynamsoft-barcode-reader (from `../node_modules/vision-camera-dynamsoft-barcode-reader`)
+  - VisionCamera (from `../node_modules/react-native-vision-camera`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
     - Auth0
     - CocoaAsyncSocket
+    - DynamsoftBarcodeReader
     - Flipper
     - Flipper-Boost-iOSX
     - Flipper-DoubleConversion
@@ -645,6 +656,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-screens"
   RNSVG:
     :path: "../node_modules/react-native-svg"
+  vision-camera-dynamsoft-barcode-reader:
+    :path: "../node_modules/vision-camera-dynamsoft-barcode-reader"
+  VisionCamera:
+    :path: "../node_modules/react-native-vision-camera"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -654,6 +669,7 @@ SPEC CHECKSUMS:
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
+  DynamsoftBarcodeReader: 0a72b82df80ed6dc896863dab22db8cdf0eb9a43
   FBLazyVector: 8a28262f61fbe40c04ce8677b8d835d97c18f1b3
   FBReactNativeSpec: b475991eb2d8da6a4ec32d09a8df31b0247fa87d
   Flipper: 3f748432f5557ee89b9f84f73cc567c0858a2322
@@ -717,6 +733,8 @@ SPEC CHECKSUMS:
   RNSVG: 3a79c0c4992213e4f06c08e62730c5e7b9e4dc17
   SimpleKeychain: 130211269f88f038d7dc5254cf0b1b9ce978c398
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
+  vision-camera-dynamsoft-barcode-reader: bc8ddd10d5607ad06bdd0eaea62de3233cc1425f
+  VisionCamera: 4cfd685b1e671fea4aa0400905ab397f0e972210
   Yoga: 1f02ef4ce4469aefc36167138441b27d988282b1
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
