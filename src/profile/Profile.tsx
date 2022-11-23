@@ -27,6 +27,11 @@ const Profile = () => {
       label: i18n.t('PROFILE.LINKS.BENEFITS'),
     },
     {
+      iconName: 'History',
+      label: i18n.t('PROFILE.LINKS.HISTORY'),
+      onPress: () => navigate('History'),
+    },
+    {
       href: ConfigUrl.personalInfo,
       iconName: 'ProfileCircled',
       label: i18n.t('PROFILE.LINKS.PERSONAL_INFO'),

@@ -50,6 +50,13 @@
       "CHECK_FOR_UPDATES": "Check for updates",
       "REPORT_PROBLEM": "Probleem melden",
       "CONSTRUCTION_WARNING": "Deze app is in volle opbouw. Ging er iets fout? Klik hier om het te melden!"
+    },
+    "HISTORY": {
+      "BACK_TITLE": "Profiel",
+      "HEADER_TITLE": "Historiek",
+      "POINTS": "{{points}} punten",
+      "POINTS_POSITIVE": "1 toegang",
+      "POINTS_NEGATIVE": "1 totebag"
     }
   },
   "PROFILE_NOT_FOUND": {

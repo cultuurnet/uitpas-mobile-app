@@ -2,6 +2,7 @@ export const theme = {
   // Use hashes
   colors: {
     background: '#eaecec',
+    blueGreen: '#3eb9bb',
     blurredBlack: 'rgba(0, 0, 0, 0.3)',
     button: '#168b8d',
     buttonActive: '#0f6163',
@@ -11,6 +12,7 @@ export const theme = {
     lightBlue: '#90d9dA',
     lightGreen: '#81d5bE',
     lightGrey: '#cfc3d3',
+    lightestGreen: '#bae7e8',
 
     primary: '#39ac8d',
     primaryDark: '#127173',
