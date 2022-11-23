@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Platform } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { t } from 'i18next';
 
@@ -15,6 +16,7 @@ export type TMainParams = Record<TMainRoutes, undefined>;
 
 export const MainNavigator: FC = () => {
   const Tab = createBottomTabNavigator<TMainParams>();
+  const insets = useSafeAreaInsets();
 
   return (
     <Tab.Navigator
@@ -25,14 +27,16 @@ export const MainNavigator: FC = () => {
         tabBarIcon: ({ focused }) => {
           return <TabBarIcon focused={focused} name={mapRouteNameToIcon(route.name)} />;
         },
+        tabBarItemStyle: {
+          height: 40,
+        },
         tabBarLabelStyle: {
           fontSize: 12,
           marginTop: 3,
         },
         tabBarStyle: {
-          height: 60,
+          height: 60 + insets.bottom,
           padding: 10,
-          ...Platform.select({ android: { paddingBottom: 14 } }),
         },
       })}
     >
