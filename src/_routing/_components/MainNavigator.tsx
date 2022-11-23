@@ -5,12 +5,12 @@ import { t } from 'i18next';
 
 import TabBarIcon from '../../_components/tabBarIcon/TabBarIcon';
 import { theme } from '../../_styles/theme';
-import Scan from '../../scan/Scan';
 import Shop from '../../shop/Shop';
 import { ProfileNavigator } from './ProfileNavigator';
+import { ScanNavigator } from './ScanNavigator';
 import { mapRouteNameToIcon } from './utils';
 
-export type TMainRoutes = 'ProfileNavigator' | 'Scan' | 'Shop';
+export type TMainRoutes = 'ProfileNavigator' | 'ScanNavigator' | 'Shop';
 export type TMainParams = Record<TMainRoutes, undefined>;
 
 export const MainNavigator: FC = () => {
@@ -47,8 +47,8 @@ export const MainNavigator: FC = () => {
         }}
       />
       <Tab.Screen
-        component={Scan}
-        name="Scan"
+        component={ScanNavigator}
+        name="ScanNavigator"
         options={{
           title: t('NAVIGATION.SCAN'),
         }}

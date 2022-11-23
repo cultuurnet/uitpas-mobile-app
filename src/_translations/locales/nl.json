@@ -68,5 +68,9 @@
   "SHOP": {
     "DESCRIPTION": "Met je gespaarde punten kan je heel wat voordelen omruilen. Doorzoek de voordelen op zoek naar een korting, gadget of cadeau dat bij jou past.",
     "BUTTON": "Ga naar de shop"
+  },
+  "CAMERA": {
+    "DESCRIPTION": "Scan de UiTPAS QR-code",
+    "CTA": "Hulp nodig met scannen?"
   }
 }

@@ -11,6 +11,7 @@ type TConfigUrlIdentifiers =
   | 'shop'
   | 'appStore'
   | 'playStore'
+  | 'scanHelp'
   | 'welcomeBenefits'
   | 'personalInfo'
   | 'faq';
@@ -58,6 +59,11 @@ const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
     beta: 'https://test.uitpas.be/uitid-registreren-stap1?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-geen-uitpas-gevonden',
     production:
       'https://uitpas.be/uitid-registreren-stap1?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-geen-uitpas-gevonden',
+  },
+  scanHelp: {
+    beta: 'https://helpdesk.uitpas.be/hc/nl/articles/360010576839-Hoe-kan-ik-punten-sparen-?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-punten-sparen',
+    production:
+      'https://helpdesk.uitpas.be/hc/nl/articles/360010576839-Hoe-kan-ik-punten-sparen-?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-punten-sparen',
   },
   shop: {
     beta: 'https://test.uitpas.be/voordelen-zoeken?cardSystemsFilter[0]={{cardSystem}}&utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=open-shop',
