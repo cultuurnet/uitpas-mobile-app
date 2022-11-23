@@ -3,7 +3,7 @@ import { LayoutChangeEvent, StatusBar, StyleSheet } from 'react-native';
 import { runOnJS } from 'react-native-reanimated';
 import { Camera as VisionCamera, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
 import { useFocusEffect } from '@react-navigation/native';
-import { DBRConfig, decode, TextResult } from 'vision-camera-dynamsoft-barcode-reader';
+import { decode, TextResult } from 'vision-camera-dynamsoft-barcode-reader';
 
 import { useCameraPermission } from '../_hooks';
 import { TOverlayDimensions, useOverlayDimensions } from '../_hooks/useOverlayDimensions';
