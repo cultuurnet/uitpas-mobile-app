@@ -23,30 +23,33 @@ const Camera = () => {
   const [dimensions, setDimensions] = useState<[number, number]>([0, 0]);
 
   const overlay = useOverlayDimensions(dimensions, overlaySettings);
-  const frameProcessor = useFrameProcessor(frame => {
-    'worklet';
+  const frameProcessor = useFrameProcessor(
+    frame => {
+      'worklet';
 
-    const barcodes: TextResult[] = decode(frame, {
-      template: JSON.stringify({
-        ImageParameter: {
-          BarcodeFormatIds: ['BF_QR_CODE'],
-          Description: '',
-          Name: 'Settings',
-          RegionDefinitionNameArray: ['Square'],
-        },
-        RegionDefinition: {
-          MeasuredByPercentage: 1,
-          Name: 'Square',
-          ...overlay.regionDefinition,
-        },
-        Version: '3.0',
-      }),
-    });
+      const barcodes: TextResult[] = decode(frame, {
+        template: JSON.stringify({
+          ImageParameter: {
+            BarcodeFormatIds: ['BF_QR_CODE'],
+            Description: '',
+            Name: 'Settings',
+            RegionDefinitionNameArray: ['Square'],
+          },
+          RegionDefinition: {
+            MeasuredByPercentage: 1,
+            Name: 'Square',
+            ...overlay.regionDefinition,
+          },
+          Version: '3.0',
+        }),
+      });
 
-    if (barcodes.length > 0) {
-      runOnJS(onBarCodeDetected)(barcodes[0]);
-    }
-  }, []);
+      if (barcodes.length > 0) {
+        runOnJS(onBarCodeDetected)(barcodes[0]);
+      }
+    },
+    [overlay.regionDefinition],
+  );
 
   useFocusEffect(
     useCallback(() => {
