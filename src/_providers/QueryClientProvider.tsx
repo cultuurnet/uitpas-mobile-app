@@ -4,7 +4,7 @@ import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client
 
 import { storage } from '../storage';
 
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       cacheTime: 1000 * 60 * 60 * 1, // 1 hour
@@ -12,11 +12,11 @@ const queryClient = new QueryClient({
   },
 });
 
-// if (__DEV__) {
-//   import('react-query-native-devtools').then(({ addPlugin }) => {
-//     addPlugin({ queryClient });
-//   });
-// }
+if (__DEV__) {
+  import('react-query-native-devtools').then(({ addPlugin }) => {
+    addPlugin({ queryClient });
+  });
+}
 
 const persister = createSyncStoragePersister({
   storage: {
