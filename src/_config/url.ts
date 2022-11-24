@@ -14,7 +14,8 @@ type TConfigUrlIdentifiers =
   | 'scanHelp'
   | 'welcomeBenefits'
   | 'personalInfo'
-  | 'faq';
+  | 'faq'
+  | 'loginHelp';
 
 const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
   appStore: {
@@ -40,6 +41,11 @@ const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
     beta: 'https://helpdesk.uitpas.be/hc/nl/requests/new?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-geen-uitpas-gevonden',
     production:
       'https://helpdesk.uitpas.be/hc/nl/requests/new?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-geen-uitpas-gevonden',
+  },
+  loginHelp: {
+    beta: 'https://helpdesk.uitpas.be/hc/nl/articles/7777132221202-Meldde-je-voorheen-aan-met-je-kaartnummer-en-pincode-?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-aanmelden',
+    production:
+      'https://helpdesk.uitpas.be/hc/nl/articles/7777132221202-Meldde-je-voorheen-aan-met-je-kaartnummer-en-pincode-?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-aanmelden',
   },
   personalInfo: {
     beta: 'https://test.uitpas.be/profiel/persoonlijke-gegevens?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-mijn-uitpas',
