@@ -21,11 +21,11 @@
     "CANCEL": "Annuleren",
     "CONFIRM": "OK"
   },
-  "HOME": {
-    "INTRO": "Jouw voordeelkaart voor verrassende vrije tijd buitenshuis",
+  "LOGIN": {
+    "INTRO": "Jouw voordeelkaart voor\nverrassende vrije tijd buitenshuis",
     "REGISTER": "Registreer je UiTPAS",
-    "WHERE_TO_BUY": "Waar koop ik een UiTPAS?",
-    "LOGIN": "Aanmelden"
+    "HELP": "Meldde je voorheen aan met je kaartnummer?",
+    "CTA": "Aanmelden"
   },
   "PROFILE": {
     "POINTS": "punten",

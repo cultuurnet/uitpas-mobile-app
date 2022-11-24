@@ -5,6 +5,7 @@ import Barcode from 'react-native-barcode-svg';
 import { BrandLogo, Typography } from '../../_components';
 import i18n from '../../_translations/i18n';
 import { TPassHolder } from '../_models';
+import { applyBarcodeMask } from '../_util/mask';
 import * as Styled from './style';
 
 type TProps = {
@@ -25,7 +26,8 @@ const UitpasCard: FC<TProps> = ({ passHolder }) => {
               {`${passHolder.firstName} ${passHolder.name}`}
             </Typography>
             <Typography color="white" size="small">
-              {firstActiveCard.cardSystem.name} {activeUitpasCards.length > 1 && ', ...'}
+              {firstActiveCard.cardSystem.name}
+              {activeUitpasCards.length > 1 && ', ...'}
             </Typography>
           </View>
           <Styled.PointsView>
@@ -42,7 +44,7 @@ const UitpasCard: FC<TProps> = ({ passHolder }) => {
         </Styled.LogoContainer>
         <Styled.BarcodeContainer>
           <Barcode format="CODE128" height={40} singleBarWidth={1.4} value={firstActiveCard.uitpasNumber} />
-          <Typography>{firstActiveCard.uitpasNumber}</Typography>
+          <Typography>{applyBarcodeMask(firstActiveCard.uitpasNumber)}</Typography>
         </Styled.BarcodeContainer>
       </Styled.ContentContainer>
       <Styled.TopCardView screenWidth={width}>
