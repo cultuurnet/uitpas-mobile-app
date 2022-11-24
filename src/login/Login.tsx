@@ -1,27 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Config } from 'react-native-config';
 
-import { BrandLogo, DiagonalSplitView } from '../_components';
+import { BrandLogo, DiagonalSplitView, Spinner } from '../_components';
 import { ConfigUrl } from '../_config';
 import { useAuthentication } from '../_context';
 import * as Styled from './style';
 
 const Login = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
   const { authorize } = useAuthentication();
 
   const handleLogin = async () => {
     try {
+      setIsLoading(true);
       await authorize(
-        { audience: Config.REACT_NATIVE_APP_AUTH0_AUDIENCE, prompt: 'login', scope: 'openid profile email offline_access' },
+        {
+          audience: Config.REACT_NATIVE_APP_AUTH0_AUDIENCE,
+          product_display_name: 'UiTPAS',
+          prompt: 'login',
+          referrer: 'uitpas',
+          scope: 'openid profile email offline_access',
+        },
         { ephemeralSession: true },
       );
+      setIsLoading(false);
     } catch (e) {
       // @TODO: general error handling?
       console.error(e);
     }
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <DiagonalSplitView
