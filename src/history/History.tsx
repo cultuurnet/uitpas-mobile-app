@@ -1,17 +1,25 @@
 import { FC } from 'react';
 import { FlashList } from '@shopify/flash-list';
 
-import { SafeAreaView } from '../_components';
 import { useGetHistory } from './_queries/useGetHistory';
 import HistoryItem from './HistoryItem';
+import * as Styled from './style';
 
 const History: FC = () => {
-  const { data } = useGetHistory();
+  const { data, fetchNextPage } = useGetHistory();
 
   return (
-    <SafeAreaView>
-      <FlashList data={data.pages?.flat()} renderItem={({ item }) => <HistoryItem data={item} />} />
-    </SafeAreaView>
+    <Styled.ListView>
+      <FlashList
+        data={data?.pages?.flatMap(({ member }) => member) ?? []}
+        estimatedItemSize={Styled.HISTORY_ITEM_HEIGHT}
+        onEndReached={() => {
+          fetchNextPage();
+        }}
+        onEndReachedThreshold={0.1}
+        renderItem={({ item }) => <HistoryItem data={item} />}
+      />
+    </Styled.ListView>
   );
 };
 
