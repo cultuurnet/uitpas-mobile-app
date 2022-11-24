@@ -25,3 +25,4 @@ export const External = require('./external.png');
 export const QRInstruction = require('./QRInstruction.png');
 export const ProfileCircled = require('./profileCircled.png');
 export const Question = require('./question.png');
+export const Point = require('./point.png');
