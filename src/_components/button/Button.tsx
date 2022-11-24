@@ -72,7 +72,14 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
       onPressOut={() => setIsActive(false)}
       {...props}
     >
-      <Styled.ButtonText $active={isActive} $color={color} $underline={underline} $variant={variant} fontStyle={fontStyle}>
+      <Styled.ButtonText
+        $active={isActive}
+        $color={color}
+        $underline={underline}
+        $variant={variant}
+        align={props.centered ? 'center' : 'left'}
+        fontStyle={fontStyle}
+      >
         {label}
       </Styled.ButtonText>
     </Styled.ButtonElement>

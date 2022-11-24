@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Config } from 'react-native-config';
 
 import { BrandLogo, DiagonalSplitView } from '../_components';
+import { ConfigUrl } from '../_config';
 import { useAuthentication } from '../_context';
 import * as Styled from './style';
 
@@ -26,16 +27,16 @@ const Login = () => {
     <DiagonalSplitView
       bottomContent={
         <Styled.BottomContainer>
-          <Styled.ListItem href="https://google.com/" label={t('HOME.REGISTER')} variant="link" />
-          <Styled.ListItem href="https://google.com/" label={t('HOME.WHERE_TO_BUY')} variant="link" />
-          <Styled.ListItem label={t('HOME.LOGIN')} onPress={handleLogin} />
+          <Styled.ListItem centered href={ConfigUrl.register} label={t('LOGIN.REGISTER')} variant="link" />
+          <Styled.ListItem centered href={ConfigUrl.loginHelp} label={t('LOGIN.HELP')} variant="link" />
+          <Styled.ListItem label={t('LOGIN.CTA')} onPress={handleLogin} />
         </Styled.BottomContainer>
       }
       topContent={
         <>
           <BrandLogo height={48} inverse />
           <Styled.IntroText align="center" color="white" fontStyle="semibold">
-            {t('HOME.INTRO')}
+            {t('LOGIN.INTRO')}
           </Styled.IntroText>
         </>
       }
