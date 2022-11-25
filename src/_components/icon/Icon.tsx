@@ -23,7 +23,7 @@ const Icon = ({ size, name, color, style = {}, onPress, disabled = false, border
   );
 
   return onPress ? (
-    <Styled.IconButton {...imageProps} borderless={borderless} disabled={disabled} onPress={onPress} style={style}>
+    <Styled.IconButton hitSlop={20} {...imageProps} borderless={borderless} disabled={disabled} onPress={onPress} style={style}>
       <BareIcon />
     </Styled.IconButton>
   ) : (

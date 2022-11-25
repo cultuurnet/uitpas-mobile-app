@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Config } from 'react-native-config';
+import { EventArg } from '@react-navigation/native';
 
 import { BrandLogo, DiagonalSplitView, Spinner } from '../_components';
 import { ConfigUrl } from '../_config';
 import { useAuthentication } from '../_context';
+import { useStackNavigation } from '../_hooks';
 import * as Styled from './style';
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
   const { authorize } = useAuthentication();
+  const navigation = useStackNavigation();
+
+  useEffect(() => {
+    const listener = (e: EventArg<'beforeRemove', true>) => {
+      e.preventDefault();
+      return;
+    };
+    navigation.addListener('beforeRemove', listener);
+
+    return () => navigation.removeListener('beforeRemove', listener);
+  }, [navigation]);
 
   const handleLogin = async () => {
     try {
