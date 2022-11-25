@@ -19,8 +19,7 @@ import UitpasInfo from './UitpasInfo/UitpasInfo';
 const Profile = () => {
   const [logOutModalVisible, toggleLogOutModalVisible] = useToggle(false);
   const { data: passHolder, isLoading: isPassHolderLoading } = useGetMe();
-  const isUitpasInfoClosedInStorage = useMemo(() => storage.getBoolean(StorageKey.IsUitpasInfoClosed), []);
-  const [isUitpasInfoClosed, setIsUitpasInfoClosed] = useState(isUitpasInfoClosedInStorage);
+  const [isUitpasInfoClosed, setIsUitpasInfoClosed] = useState(storage.getBoolean(StorageKey.IsUitpasInfoClosed));
   const { navigate } = useStackNavigation<TProfileParams & TRootParams>();
 
   const links: TLinkListItem[] = [
