@@ -19,7 +19,7 @@ const App = () => {
   const { setItem } = useAsyncStorage(StorageKey.Language);
 
   useEffect(() => {
-    // SplashScreen.hide();
+    SplashScreen.hide();
     setItem(getLocales()[0].languageCode);
   }, []);
 

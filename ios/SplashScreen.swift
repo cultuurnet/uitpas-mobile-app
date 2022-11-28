@@ -12,13 +12,13 @@ import Lottie
 @objc class SplashScreen: NSObject {
 
   @objc func createAnimationView(rootView: UIView, lottieName: String) -> UIView {
-    let view = UIView()
+    // Adding a wrapper around the animation view is not really needed, but handy when tweaking sizes of the lottie
+    let view = AnimationView(name: lottieName)
     view.frame = rootView.frame
     view.center = rootView.center
     view.backgroundColor = UIColor.white
     let animationView = AnimationView(name: lottieName)
-//    let size = min(rootView.frame.width, rootView.frame.height) * 0.4
-    animationView.frame = CGRect(x: 0, y: 0, width: rootView.frame.width*0.8, height: rootView.frame.height*0.8)
+    animationView.frame = CGRect(x: 0, y: 0, width: rootView.frame.width, height: rootView.frame.height)
     animationView.center = view.center
     view.addSubview(animationView)
     return view;
