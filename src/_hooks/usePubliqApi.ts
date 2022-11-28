@@ -5,7 +5,7 @@ import { InfiniteQueryObserverOptions, QueryObserverOptions, useInfiniteQuery, u
 import { useAuthentication } from '../_context';
 import { HttpClient, TApiError } from '../_http';
 import { Headers, Params } from '../_http/HttpClient';
-import { THistoryResponse } from '../history/_models';
+import { TPaginatedResponse } from '../_models';
 
 type TSharedOptions = {
   enabled?: boolean;
@@ -36,29 +36,31 @@ export function usePubliqApi() {
     [Config.API_HOST, accessToken],
   );
 
-  let pageNumber = 0;
   const getInfinite = useCallback(
-    <T = unknown>(
+    <T extends TPaginatedResponse = TPaginatedResponse>(
       queryKey: unknown[],
       path: string,
-      { headers = {}, params = {}, itemsPerPage = 10 }: TGetInfiniteOptions<T> = {},
+      { headers = {}, params = {}, itemsPerPage = 10, enabled, ...options }: TGetInfiniteOptions<T> = {},
     ) =>
-      useInfiniteQuery<THistoryResponse, TApiError>({
-        getNextPageParam: lastPage => {
-          if (lastPage === null || lastPage === undefined) {
-            return 0;
+      useInfiniteQuery<T, TApiError>({
+        enabled: !!accessToken && (enabled === undefined || enabled),
+        getNextPageParam: (lastPage, allPages) => {
+          const nextPageNumber = allPages.length;
+          if (nextPageNumber * itemsPerPage >= lastPage?.totalItems) {
+            return undefined;
           }
-          pageNumber += 1;
-          return pageNumber * itemsPerPage >= lastPage?.totalItems ? undefined : pageNumber;
+
+          return nextPageNumber;
         },
-        queryFn: async ({ pageParam = 0 }) => {
-          return await HttpClient.get(
+        networkMode: 'offlineFirst',
+        queryFn: async ({ pageParam = 0 }) =>
+          HttpClient.get(
             `${Config.API_HOST}${path}`,
             { limit: itemsPerPage, start: pageParam * itemsPerPage, ...params },
             { ...defaultHeaders, ...headers },
-          );
-        },
+          ),
         queryKey,
+        ...options,
       }),
     [],
   );
