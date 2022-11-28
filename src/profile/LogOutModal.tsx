@@ -24,10 +24,12 @@ const LogoutModal: FC<TLogOutModalProps> = ({ isVisible, toggleIsVisible }) => {
   };
   return (
     <BlurredModal isVisible={isVisible} toggleIsVisible={toggleIsVisible}>
-      <Styled.TitleText fontStyle="bold" size="large">
+      <Styled.TitleText fontStyle="bold" size="xlarge">
         {t('AUTHENTICATION.LOG_OUT')}
       </Styled.TitleText>
-      <Typography>{t('AUTHENTICATION.CONFIRM_TEXT')}</Typography>
+      <Typography bottomSpacing="10px" size="large">
+        {t('AUTHENTICATION.CONFIRM_TEXT')}
+      </Typography>
       <Styled.ButtonContainer>
         <Styled.ActionButton label={t('AUTHENTICATION.CANCEL')} onPress={toggleIsVisible} underline={false} variant="link" />
         <Styled.ActionButton label={t('AUTHENTICATION.CONFIRM')} onPress={handleLogout} underline={false} variant="link" />
