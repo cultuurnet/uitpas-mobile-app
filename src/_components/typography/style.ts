@@ -4,9 +4,8 @@ import { TTypographyProps } from './Typography';
 
 export const Typography = styled.Text<TTypographyProps>`
   color: ${({ color, theme }) => theme.colors[color]};
-  text-align: ${({ align }) => align}
-
-  line-height: 24px;
+  text-align: ${({ align }) => align};
+  margin-bottom: ${({ bottomSpacing }) => (bottomSpacing ? bottomSpacing : '0px')};
 
   font-family: ${({ fontStyle }) => {
     switch (fontStyle) {
@@ -24,8 +23,28 @@ export const Typography = styled.Text<TTypographyProps>`
     }
   }};
 
+  line-height: ${({ size }) => {
+    switch (size) {
+      case 'xsmall':
+        return '15px';
+      case 'small':
+        return '21px';
+      case 'normal':
+        return '24px';
+      case 'large':
+        return '27px';
+      case 'xlarge':
+        return '30px';
+      case 'xxlarge':
+        return '36px';
+    }
+  }};
+
   font-size: ${({ size }) => {
     switch (size) {
+      case 'xsmall':
+        return '10px';
+
       case 'small':
         return '14px';
 
@@ -37,6 +56,9 @@ export const Typography = styled.Text<TTypographyProps>`
 
       case 'xlarge':
         return '20px';
+
+      case 'xxlarge':
+        return '24px';
     }
   }};
 `;

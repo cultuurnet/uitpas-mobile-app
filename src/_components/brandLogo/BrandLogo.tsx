@@ -10,7 +10,7 @@ const BrandLogo: FC<TProps> = ({ inverse, height = 24 }) => {
   return (
     <Image
       resizeMode="contain"
-      source={inverse ? require('../../_assets/images/logoInverse.png') : '../../_assets/images/logo.png'}
+      source={inverse ? require('../../_assets/images/logoInverse.png') : require('../../_assets/images/logo.png')}
       style={{ height }}
     />
   );

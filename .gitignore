@@ -45,6 +45,7 @@ yarn-error.log
 # env
 #
 .env.local
+.env 
 
 # BUCK
 buck-out/
@@ -69,6 +70,6 @@ buck-out/
 # Ruby / CocoaPods
 /ios/Pods/
 
-# vs code 
+# vs code
 .vscode
 /vendor/bundle/

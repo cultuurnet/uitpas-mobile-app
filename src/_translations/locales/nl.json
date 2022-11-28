@@ -1,8 +1,83 @@
 {
-  "HOME": {
-    "INTRO": "Jouw voordeelkaart voor verrassende vrije tijd buitenshuis",
+  "NAVIGATION": {
+    "PROFILE": "Mijn UiTPAS",
+    "SCAN": "Sparen",
+    "SHOP": "Shop"
+  },
+  "ONBOARDING": {
+    "TITLE": "Algemene voorwaarden",
+    "INTRO": "We verzamelen automatisch enkele gebruiksgegevens om UiTPAS en deze app verder te verbeteren.",
+    "LOOK_AT": "Accepteer de",
+    "TERMS_OF_SERVICE": "gebruiksvoorwaarden",
+    "AND": "en",
+    "TO_MOVE_ON": "om verder te gaan.",
+    "PRIVACY_POLICY": "privacybeleid",
+    "PRIVACY_POLICY_URL": "https://www.uitpas.be/privacybeleid",
+    "CONFIRM": "Oké, ik begrijp het"
+  },
+  "AUTHENTICATION": {
+    "LOG_OUT": "Afmelden",
+    "CONFIRM_TEXT": "Ben je zeker dat je wil afmelden?",
+    "CANCEL": "Annuleren",
+    "CONFIRM": "OK"
+  },
+  "LOGIN": {
+    "INTRO": "Jouw voordeelkaart voor\nverrassende vrije tijd buitenshuis",
     "REGISTER": "Registreer je UiTPAS",
-    "WHERE_TO_BUY": "Waar koop ik een UiTPAS?",
-    "LOGIN": "Aanmelden"
+    "HELP": "Meldde je voorheen aan met je kaartnummer?",
+    "CTA": "Aanmelden"
+  },
+  "PROFILE": {
+    "POINTS": "punten",
+    "HELLO": "Dag {{name}}",
+    "INFO": "Dit is je digitale UiTPAS. Toon deze barcode wanneer je een voordeel wenst om te ruilen op een UiTPAS locatie.",
+    "MIA": "Dankzij jouw UiTPAS met kortingstarief kan je extra voordelig deelnemen aan UiTPAS-activiteiten.",
+    "VALID_UNTIL": "Geldig tot",
+    "LINKS": {
+      "BENEFITS": "Mijn Welkomstvoordelen",
+      "HISTORY": "Mijn Historiek",
+      "LOGOUT": "Afmelden",
+      "ABOUT": "Over deze app",
+      "PERSONAL_INFO": "Mijn persoonlijke gegevens",
+      "FAQ": "Veelgestelde vragen"
+    },
+    "ABOUT": {
+      "VERSION": "Versie {{version}}",
+      "HEADER_TITLE": "Over deze app",
+      "BACK_TITLE": "Profiel",
+      "TERMS_OF_SERVICE": "Gebruikersvoorwaarden",
+      "PRIVACY_POLICY": "Privacybeleid",
+      "CHECK_FOR_UPDATES": "Check for updates",
+      "REPORT_PROBLEM": "Probleem melden",
+      "CONSTRUCTION_WARNING": "Deze app is in volle opbouw. Ging er iets fout? Klik hier om het te melden!"
+    },
+    "HISTORY": {
+      "BACK_TITLE": "Profiel",
+      "HEADER_TITLE": "Historiek",
+      "POINTS": "{{points}} punten",
+      "POINTS_POSITIVE": "1 toegang",
+      "POINTS_NEGATIVE": "1 totebag"
+    }
+  },
+  "PROFILE_NOT_FOUND": {
+    "TITLE": "We kunnen geen UiTPAS terugvinden voor",
+    "REGISTER_TEXT": "Het is de eerste keer dat je aanmeldt op UiTPAS?",
+    "REGISTER_CTA": "Registreer op uitpas.be",
+    "BUY_TEXT": "Je hebt nog geen UiTPAS?",
+    "BUY_CTA": "Koop hier een UiTPAS",
+    "FORGOT_EMAIL_TEXT": "Je hebt een UiTPAS, maar weet niet welk e-mailadres?",
+    "FORGOT_EMAIL_CTA": "Zoek het hier op uitpas.be",
+    "OTHER_ACCOUNT_TEXT": "Meld je aan met een ander e-mailadres",
+    "OTHER_ACCOUNT_CTA": "Aanmelden",
+    "HELPDESK_TEXT": "Geen antwoord gevonden?",
+    "HELPDESK_CTA": "Contacteer onze helpdesk"
+  },
+  "SHOP": {
+    "DESCRIPTION": "Met je gespaarde punten kan je heel wat voordelen omruilen. Doorzoek de voordelen op zoek naar een korting, gadget of cadeau dat bij jou past.",
+    "BUTTON": "Ga naar de shop"
+  },
+  "CAMERA": {
+    "DESCRIPTION": "Scan de UiTPAS QR-code",
+    "CTA": "Hulp nodig met scannen?"
   }
 }

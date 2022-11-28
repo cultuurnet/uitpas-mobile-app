@@ -1,36 +1,39 @@
 import React, { useEffect } from 'react';
 import { LogBox, StatusBar } from 'react-native';
 import { getLocales } from 'react-native-localize';
-import SplashScreen from 'react-native-lottie-splash-screen';
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components/native';
 
+import { AuthenticationProvider } from './_context';
 import { StorageKey } from './_models';
 import { QueryClientProvider } from './_providers';
 import RootStackNavigator from './_routing';
 import { theme } from './_styles/theme';
+import { storage } from './storage';
 
+import 'react-native-reanimated';
 import './_translations/i18n';
 
 LogBox.ignoreAllLogs();
 
 const App = () => {
-  const { setItem } = useAsyncStorage(StorageKey.Language);
-
   useEffect(() => {
-    SplashScreen.hide();
-    setItem(getLocales()[0].languageCode);
+    storage.set(StorageKey.Language, getLocales()[0].languageCode);
   }, []);
 
   return (
     <ThemeProvider theme={theme}>
-      <QueryClientProvider>
-        <NavigationContainer>
-          <StatusBar barStyle="light-content" />
-          <RootStackNavigator />
-        </NavigationContainer>
-      </QueryClientProvider>
+      <AuthenticationProvider>
+        <QueryClientProvider>
+          <SafeAreaProvider>
+            <NavigationContainer>
+              <StatusBar />
+              <RootStackNavigator />
+            </NavigationContainer>
+          </SafeAreaProvider>
+        </QueryClientProvider>
+      </AuthenticationProvider>
     </ThemeProvider>
   );
 };

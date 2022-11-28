@@ -5,15 +5,16 @@ import * as Styled from './style';
 
 export type TTypographyProps = {
   align?: 'left' | 'center' | 'right';
+  bottomSpacing?: string;
   children: React.ReactNode;
   color?: keyof Theme['colors'];
   fontStyle?: 'light' | 'normal' | 'semibold' | 'bold';
-  size?: 'small' | 'normal' | 'large' | 'xlarge';
+  size?: 'xsmall' | 'small' | 'normal' | 'large' | 'xlarge' | 'xxlarge';
 };
 
 const Typography: FC<TTypographyProps> = ({
   children,
-  color = 'white',
+  color = 'text',
   size = 'normal',
   align = 'left',
   fontStyle = 'normal',

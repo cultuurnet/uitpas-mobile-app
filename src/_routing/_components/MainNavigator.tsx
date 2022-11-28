@@ -1,52 +1,63 @@
 import React, { FC } from 'react';
-import { Platform } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { t } from 'i18next';
 
 import TabBarIcon from '../../_components/tabBarIcon/TabBarIcon';
 import { theme } from '../../_styles/theme';
-import Profile from '../../profile/Profile';
-import Scan from '../../scan/Scan';
 import Shop from '../../shop/Shop';
+import { ProfileNavigator } from './ProfileNavigator';
+import { ScanNavigator } from './ScanNavigator';
+import { mapRouteNameToIcon } from './utils';
 
-export type TMainRoutes = 'Profile' | 'Scan' | 'Shop';
+export type TMainRoutes = 'ProfileNavigator' | 'ScanNavigator' | 'Shop';
 export type TMainParams = Record<TMainRoutes, undefined>;
 
 export const MainNavigator: FC = () => {
   const Tab = createBottomTabNavigator<TMainParams>();
+  const insets = useSafeAreaInsets();
 
   return (
     <Tab.Navigator
       backBehavior="history"
-      screenOptions={{
+      screenOptions={({ route }) => ({
         headerShown: false,
         tabBarActiveTintColor: theme.colors.primary,
+        tabBarIcon: ({ focused }) => {
+          return <TabBarIcon focused={focused} name={mapRouteNameToIcon(route.name)} />;
+        },
+        tabBarItemStyle: {
+          height: 40,
+        },
         tabBarLabelStyle: {
           fontSize: 12,
+          marginTop: 3,
         },
         tabBarStyle: {
-          ...Platform.select({ android: { paddingBottom: 4 } }),
+          height: 60 + insets.bottom,
+          padding: 10,
         },
-      }}
+      })}
     >
       <Tab.Screen
-        component={Profile}
-        name="Profile"
+        component={ProfileNavigator}
+        name="ProfileNavigator"
         options={{
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="Profile" />,
+          title: t('NAVIGATION.PROFILE'),
         }}
       />
       <Tab.Screen
-        component={Scan}
-        name="Scan"
+        component={ScanNavigator}
+        name="ScanNavigator"
         options={{
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="QR" />,
+          title: t('NAVIGATION.SCAN'),
         }}
       />
       <Tab.Screen
         component={Shop}
         name="Shop"
         options={{
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="Shop" />,
+          title: t('NAVIGATION.SHOP'),
         }}
       />
     </Tab.Navigator>

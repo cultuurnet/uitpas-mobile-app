@@ -1,9 +1,10 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
+import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
 import { QueryClient } from '@tanstack/react-query';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 
-const queryClient = new QueryClient({
+import { storage } from '../storage';
+
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       cacheTime: 1000 * 60 * 60 * 1, // 1 hour
@@ -11,14 +12,26 @@ const queryClient = new QueryClient({
   },
 });
 
-const asyncStoragePersister = createAsyncStoragePersister({
-  storage: AsyncStorage,
+if (__DEV__) {
+  import('react-query-native-devtools').then(({ addPlugin }) => {
+    addPlugin({ queryClient });
+  });
+}
+
+const persister = createSyncStoragePersister({
+  storage: {
+    getItem: (key: string) => storage.getString(key),
+    removeItem: (key: string) => storage.delete(key),
+    setItem: (key: string, value: string) => storage.set(key, value),
+  },
 });
 
-const QueryClientProvider = ({ children }) => (
-  <PersistQueryClientProvider client={queryClient} persistOptions={{ persister: asyncStoragePersister }}>
-    {children}
-  </PersistQueryClientProvider>
-);
+const QueryClientProvider = ({ children }) => {
+  return (
+    <PersistQueryClientProvider client={queryClient} persistOptions={{ persister }}>
+      {children}
+    </PersistQueryClientProvider>
+  );
+};
 
 export default QueryClientProvider;

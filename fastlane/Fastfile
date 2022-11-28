@@ -18,7 +18,7 @@ android_bundle_id = "com.reactnative_uitpas" # meestal id van klant want anders 
 # Appcenter Config
 appcenter_app_name = "" # declaration of variable, will be assigned below
 APPCENTER_ALPHA_DISTRIBUTION_GROUP= ""
-APPCENTER_BETA_DISTRIBUTION_GROUP= ""
+APPCENTER_BETA_DISTRIBUTION_GROUP= "Publiq"
 
 # Android api key
 json_key_file = "./fastlane/api-XXX.json" # Needed for production publish --> needed if you want to direct publish to google play store (key te laten genereren in settings google account)
@@ -44,21 +44,18 @@ APPSTORE_APPLE_ID = 'SCZPF223NC' # zal meestal van de klant zijn, want we publis
 ##############################
 
 lane :android_alpha do
-  ensure_git_status_clean
   build_android(buildType: "alpha")  # Build the application with the buildVariant.
   upload_to_appcenter_android(buildType: "alpha") # Deploy the apk to Appcenter.
 	add_tag()
 end
 
 lane :android_beta do
-  ensure_git_status_clean
   build_android(buildType: "beta")  # Build the application with the buildVariant.
   upload_to_appcenter_android(buildType: "beta") # Deploy the apk to Appcenter.
 	add_tag()
 end
 
 lane :android_prod do
-	ensure_git_status_clean
   build_android(buildType: "release")
   upload_to_playstore(track: "production") # Make sure "json_key_file" has the correct value
   add_tag()
@@ -112,11 +109,7 @@ end
 ################################
 # options is wat je meegeeft bij het aanroepen van public lane (zie hierboven)
 private_lane :build_android do |options|
-  if options[:buildType] == "release" then
-    sh "cd ../android/; ENVFILE=.env ./gradlew clean app:assemble#{options[:buildType]}" # stap kan weg als we .env.release maken bvb
-  else
-    sh "cd ../android/; ENVFILE=.env.#{options[:buildType]} ./gradlew clean app:assemble#{options[:buildType]}"
-  end
+  sh "cd ../android/; ENVFILE=.env ./gradlew clean app:assemble#{options[:buildType]}"
 end
 
 private_lane :upload_to_playstore do |options|
@@ -171,7 +164,7 @@ end
     team_name:                         APPSTORE_TEAM_NAME,
     team_id:                           APPSTORE_TEAM_ID,
     app_identifier:                    RELEASE_APP_ID,
-    apple_id:                          APPSTORE_APPLE_ID,  
+    apple_id:                          APPSTORE_APPLE_ID,
     skip_submission:                   true,
     skip_waiting_for_build_processing: true,
   )
@@ -215,7 +208,7 @@ private_lane :upload_to_appcenter_android do |options|
     app_name: appcenter_app_name,
     apk: "./android/app/build/outputs/apk/#{options[:buildType]}/app-#{options[:buildType]}.apk",
     notify_testers: true,
-    destinations: getDistributionGroup(flavor: options[:flavor])
+    destinations: getDistributionGroup(buildType: options[:buildType])
   )
 end
 
@@ -235,7 +228,7 @@ private_lane :upload_to_appcenter_ios do |options|
 		owner_name: 'icapps',
     app_name: appcenter_app_name,
     notify_testers: true,
-    destinations: getDistributionGroup(flavor: options[:flavor])
+    destinations: getDistributionGroup(buildType: options[:buildType])
   )
 end
 
@@ -250,12 +243,12 @@ private_lane :getAppNameIOS do |options|
 end
 
 private_lane :getDistributionGroup do |options|
-  flavor = options[:flavor]
-  if flavor == "alpha"
+  buildType = options[:buildType]
+  if buildType == "alpha"
       "Collaborators, #{APPCENTER_ALPHA_DISTRIBUTION_GROUP}"
-  elsif flavor == "beta"
+  elsif buildType == "beta"
       "Collaborators, #{APPCENTER_BETA_DISTRIBUTION_GROUP}"
-  elsif flavor == "prod"
+  elsif buildType == "prod"
       "Collaborators"
   end
 end
