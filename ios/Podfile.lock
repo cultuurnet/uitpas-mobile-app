@@ -77,6 +77,9 @@ PODS:
   - FlipperKit/SKIOSNetworkPlugin (0.163.0):
     - FlipperKit/Core
     - FlipperKit/FlipperKitNetworkPlugin
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
   - fmt (6.2.1)
   - glog (0.3.5)
   - hermes-engine (0.70.4)
@@ -441,9 +444,14 @@ PODS:
   - RNScreens (3.18.2):
     - React-Core
     - React-RCTImage
+  - RNSnowplowTracker (1.3.0):
+    - React-Core
+    - SnowplowTracker (~> 4.0)
   - RNSVG (13.6.0):
     - React-Core
   - SimpleKeychain (1.0.1)
+  - SnowplowTracker (4.1.0):
+    - FMDB (~> 2.7)
   - SocketRocket (0.6.0)
   - vision-camera-dynamsoft-barcode-reader (0.4.4):
     - DynamsoftBarcodeReader (= 9.2.12)
@@ -531,6 +539,7 @@ DEPENDENCIES:
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - "RNSnowplowTracker (from `../node_modules/@snowplow/react-native-tracker`)"
   - RNSVG (from `../node_modules/react-native-svg`)
   - vision-camera-dynamsoft-barcode-reader (from `../node_modules/vision-camera-dynamsoft-barcode-reader`)
   - VisionCamera (from `../node_modules/react-native-vision-camera`)
@@ -550,6 +559,7 @@ SPEC REPOS:
     - Flipper-PeerTalk
     - Flipper-RSocket
     - FlipperKit
+    - FMDB
     - fmt
     - JWTDecode
     - libevent
@@ -557,6 +567,7 @@ SPEC REPOS:
     - MMKVCore
     - OpenSSL-Universal
     - SimpleKeychain
+    - SnowplowTracker
     - SocketRocket
     - YogaKit
 
@@ -659,6 +670,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSnowplowTracker:
+    :path: "../node_modules/@snowplow/react-native-tracker"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   vision-camera-dynamsoft-barcode-reader:
@@ -686,6 +699,7 @@ SPEC CHECKSUMS:
   Flipper-PeerTalk: 116d8f857dc6ef55c7a5a75ea3ceaafe878aadc9
   Flipper-RSocket: d9d9ade67cbecf6ac10730304bf5607266dd2541
   FlipperKit: 0674bb0e923016a5296838ae2aa9a10e7efc6b91
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   hermes-engine: 3623325e0d0676a45fbc544d72c57dd79fce7446
@@ -736,8 +750,10 @@ SPEC CHECKSUMS:
   RNPermissions: dcdb7b99796bbeda6975a6e79ad519c41b251b1c
   RNReanimated: 2a91e85fcd343f8af3c58d3425b99fdd285590a5
   RNScreens: 34cc502acf1b916c582c60003dc3089fa01dc66d
+  RNSnowplowTracker: 4f395a9a7be502c486720f756ab6ee0d5cb33f6e
   RNSVG: 3a79c0c4992213e4f06c08e62730c5e7b9e4dc17
   SimpleKeychain: 130211269f88f038d7dc5254cf0b1b9ce978c398
+  SnowplowTracker: 3f35a60dcb2cf9c4a56fa4cad46d5af6d1b5db44
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   vision-camera-dynamsoft-barcode-reader: bc8ddd10d5607ad06bdd0eaea62de3233cc1425f
   VisionCamera: 4cfd685b1e671fea4aa0400905ab397f0e972210
