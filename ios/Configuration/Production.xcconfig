@@ -10,7 +10,7 @@
 #include "Shared.xcconfig"
 
 PRODUCT_BUNDLE_IDENTIFIER = be.cultuurnet.uitpas
-PROVISIONING_PROFILE_SPECIFIER = be.cultuurnet.uitpas AppStore
+PROVISIONING_PROFILE_SPECIFIER = be.cultuurnet.uitpas
 CODE_SIGN_IDENTITY = iPhone Distribution
 DEVELOPMENT_TEAM = FAJTRUZ6J9
 ENV_FILE = .env
