@@ -1,4 +1,4 @@
-package com.publiq.uitpas;
+package be.cultuurnet.uitpasapp;
 
 import android.content.Intent;
 import android.os.Bundle;

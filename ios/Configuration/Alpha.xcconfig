@@ -9,8 +9,8 @@
 // https://help.apple.com/xcode/#/dev745c5c974
 #include "Shared.xcconfig"
 
-PRODUCT_BUNDLE_IDENTIFIER = com.publiq.uitpas.alpha
-PROVISIONING_PROFILE_SPECIFIER = com.publiq.uitpas Alpha
+PRODUCT_BUNDLE_IDENTIFIER = be.cultuurnet.uitpasapp.alpha
+PROVISIONING_PROFILE_SPECIFIER = be.cultuurnet.uitpasapp Alpha
 CODE_SIGN_IDENTITY = Apple Distribution
 ENV_FILE = .env
 APP_ICON_SET = AppIcon-Alpha

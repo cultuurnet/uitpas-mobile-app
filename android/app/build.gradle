@@ -156,12 +156,12 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.publiq.uitpas"
+        applicationId "be.cultuurnet.uitpasapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode computeVersionCode()
         versionName project.env.get("REACT_NATIVE_APP_VERSION_NR")
-        resValue "string", "build_config_package", "com.publiq.uitpas"
+        resValue "string", "build_config_package", "be.cultuurnet.uitpasapp"
         manifestPlaceholders = [auth0Domain: project.env.get("REACT_NATIVE_APP_AUTH0_DOMAIN"), auth0Scheme: project.env.get("REACT_NATIVE_APP_AUTH0_SCHEME")]
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
         if (isNewArchitectureEnabled()) {
@@ -245,6 +245,12 @@ android {
             storePassword 'android'
             keyAlias 'androiddebugkey'
             keyPassword 'android'
+        }
+         release {
+            storeFile file("../keystores/uitpas.keystore")
+            storePassword "MnR-v8XzNVTv.7r6pEnK"
+            keyAlias "keystore_uitpas"
+            keyPassword "MnR-v8XzNVTv.7r6pEnK"
         }
     }
     buildTypes {

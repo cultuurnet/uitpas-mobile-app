@@ -21,7 +21,7 @@ APPCENTER_ALPHA_DISTRIBUTION_GROUP= ""
 APPCENTER_BETA_DISTRIBUTION_GROUP= "Publiq"
 
 # Android api key
-json_key_file = "./fastlane/api-XXX.json" # Needed for production publish --> needed if you want to direct publish to google play store (key te laten genereren in settings google account)
+json_key_file = "./fastlane/icapps-uitpas-app-api.json" # Needed for production publish --> needed if you want to direct publish to google play store (key te laten genereren in settings google account)
 
 # iOS Config
 IOS_WORKSPACE = "#{ios_project_name}.xcworkspace"

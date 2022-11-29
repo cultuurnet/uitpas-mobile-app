@@ -9,7 +9,7 @@
 // https://help.apple.com/xcode/#/dev745c5c974
 #include "Shared.xcconfig"
 
-PRODUCT_BUNDLE_IDENTIFIER = com.publiq.uitpas.debug
-PROVISIONING_PROFILE_SPECIFIER = com.publiq.uitpas Debug
+PRODUCT_BUNDLE_IDENTIFIER = be.cultuurnet.uitpasapp.debug
+PROVISIONING_PROFILE_SPECIFIER = be.cultuurnet.uitpasapp Debug
 CODE_SIGN_IDENTITY = Apple Distribution
 ENV_FILE = .env

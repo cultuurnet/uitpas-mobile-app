@@ -1,4 +1,4 @@
-package com.publiq.uitpas.newarchitecture.components;
+package be.cultuurnet.uitpasapp.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;
