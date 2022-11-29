@@ -86,7 +86,7 @@ end
 lane :ios_prod do
 	# Install the provisioning profiles
   install_provisioning_profiles if is_ci? # plugin that searches for available provisioning profiles and installs these
-  bundle_upload_ios(scheme_name: "Release")
+  bundle_upload_ios(scheme_name: "Production")
   build_ios(export_options: export_options_for(:release)) # Build IPA
   upload_to_test_flight_ios()
 	add_tag()
