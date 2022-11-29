@@ -32,8 +32,8 @@ BETA_APP_ID = "#{ios_bundle_id}.beta"
 BETA_PROFILE_NAME = "#{ios_bundle_id} Beta" # zit bij icapps
 
 # Production iOS config
-RELEASE_APP_ID = "#{ios_bundle_id}" # zit bij klant, dus meestal niet hetzelfde als die van icapps (andere account)
-RELEASE_PROFILE_NAME = "UiTPAS"
+RELEASE_APP_ID = "be.cultuurnet.uitpasapp" # zit bij klant, dus meestal niet hetzelfde als die van icapps (andere account)
+RELEASE_PROFILE_NAME = "be.cultuurnet.uitpasapp AppStore"
 APPSTORE_USERNAME = 'appstoreconnect@icapps.com' # vragen aan de klant om dit account toe te voegen + development@icapps.com
 APPSTORE_TEAM_NAME = 'Publiq ASBL' # zal meestal van de klant zijn, want we publishen via de klant (te vinden in apple developer profile - membership)
 APPSTORE_TEAM_ID = '65321197' # zal meestal van de klant zijn, want we publishen via de klant (https://appstoreconnect.apple.com/WebObjects/iTunesConnect.woa/ra/user/detail --> contentProviderId)
