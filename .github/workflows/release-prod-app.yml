@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   pull_request:
     branches:
-      - develop
+      - feat/android-prod-deploy
     types: [closed]
 
 env:
@@ -70,9 +70,6 @@ jobs:
     name: Android (prod)
     environment: production
     runs-on: macos-12
-    if:
-      github.event_name == 'workflow_dispatch' || (startsWith(github.head_ref, 'release/') && github.event.pull_request.merged ==
-      true)
     steps:
       - uses: actions/checkout@v3
         with:
