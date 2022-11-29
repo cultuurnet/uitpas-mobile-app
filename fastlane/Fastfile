@@ -13,7 +13,7 @@ unlock_keychain(path: "login.keychain", password: keychain_password) if is_ci? &
 # Project variables
 ios_project_name = "reactnative_uitpas"
 ios_bundle_id = "be.cultuurnet.uitpas"
-android_bundle_id = "com.reactnative_uitpas" # meestal id van klant want anders komen PN soms niet aan
+android_bundle_id = "be.cultuurnet.uitpas" # meestal id van klant want anders komen PN soms niet aan
 
 # Appcenter Config
 appcenter_app_name = "" # declaration of variable, will be assigned below
@@ -57,7 +57,7 @@ end
 
 lane :android_prod do
   build_android(buildType: "release")
-  upload_to_playstore(track: "production") # Make sure "json_key_file" has the correct value
+  upload_to_playstore(track: "alpha") # Make sure "json_key_file" has the correct value
   add_tag()
 end
 
@@ -120,7 +120,7 @@ private_lane :upload_to_playstore do |options|
 		skip_upload_images: true,
 		skip_upload_screenshots: true,
 		package_name: "#{android_bundle_id}",
-		aab: "./android/app/build/outputs/bundle/release/app-release.apk",
+		aab: "./android/app/build/outputs/bundle/release/app-release.aab",
 	)
 end
 
