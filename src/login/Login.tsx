@@ -7,6 +7,7 @@ import { BrandLogo, DiagonalSplitView, Spinner } from '../_components';
 import { ConfigUrl } from '../_config';
 import { useAuthentication } from '../_context';
 import { useStackNavigation } from '../_hooks';
+import { log } from '../_utils/logger';
 import * as Styled from './style';
 
 const Login = () => {
@@ -41,7 +42,7 @@ const Login = () => {
       setIsLoading(false);
     } catch (e) {
       // @TODO: general error handling?
-      console.error(e);
+      log.error(e);
     }
   };
 

@@ -1,6 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { TApiError } from '../../_http';
+import { log } from '../../_utils/logger';
 import { THistoryResponse } from '../_models';
 
 export function useGetHistory() {
@@ -10,8 +11,8 @@ export function useGetHistory() {
     ['history'],
     async ({ pageParam }) => {
       limit += pageParam;
-      console.log('start', start);
-      console.log('limit', limit);
+      log.debug('start', start);
+      log.debug('limit', limit);
 
       return Promise.resolve({
         member: historyItems.slice(0, 15),

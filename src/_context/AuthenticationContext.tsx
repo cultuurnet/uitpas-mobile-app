@@ -5,6 +5,7 @@ import { Config } from 'react-native-config';
 import { useToggle } from '../_hooks';
 import { TAuth0User } from '../_models';
 import { queryClient } from '../_providers/QueryClientProvider';
+import { log } from '../_utils/logger';
 import { getIdTokenProfileClaims } from './util';
 
 // Types are not optimal, because the @types/react-native-auth0 packages is not up-to-date.
@@ -68,7 +69,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
       setIsAuthenticated(true);
       setUser(getIdTokenProfileClaims(credentials.idToken));
     } catch (e) {
-      console.error(e);
+      log.error(e);
     }
   };
 
@@ -78,7 +79,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
       await queryClient.removeQueries();
       setIsAuthenticated(false);
     } catch (e) {
-      console.error(e);
+      log.error(e);
     }
   };
 

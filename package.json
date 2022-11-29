@@ -35,6 +35,7 @@
     "react-native-barcode-svg": "^0.0.15",
     "react-native-config": "^1.4.11",
     "react-native-localize": "^2.2.4",
+    "react-native-logs": "^5.0.1",
     "react-native-mmkv": "^2.5.1",
     "react-native-mmkv-flipper-plugin": "^1.0.0",
     "react-native-permissions": "^3.6.1",
