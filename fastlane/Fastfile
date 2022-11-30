@@ -12,8 +12,8 @@ unlock_keychain(path: "login.keychain", password: keychain_password) if is_ci? &
 #######################
 # Project variables
 ios_project_name = "reactnative_uitpas"
-ios_bundle_id = "be.cultuurnet.uitpas"
-android_bundle_id = "be.cultuurnet.uitpas" # meestal id van klant want anders komen PN soms niet aan
+ios_bundle_id = "be.cultuurnet.uitpasapp"
+android_bundle_id = "be.cultuurnet.uitpasapp" # meestal id van klant want anders komen PN soms niet aan
 
 # Appcenter Config
 appcenter_app_name = "" # declaration of variable, will be assigned below
