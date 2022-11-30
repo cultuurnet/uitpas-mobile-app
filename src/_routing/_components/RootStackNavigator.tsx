@@ -7,11 +7,19 @@ import { StorageKey } from '../../_models';
 import Login from '../../login/Login';
 import Onboarding from '../../onboarding/Onboarding';
 import ProfileNotFound from '../../profile/ProfileNotFound';
+import { TCheckInResponse } from '../../scan/_models';
+import ScanError from '../../scan/ScanError';
+import ScanSuccess from '../../scan/ScanSuccess';
 import { storage } from '../../storage';
 import { MainNavigator } from './MainNavigator';
 
-export type TRootRoutes = 'MainNavigator' | 'Onboarding' | 'Login' | 'ProfileNotFound';
-export type TRootParams = Record<TRootRoutes, undefined>;
+export type TRootRoutes = 'MainNavigator' | 'Onboarding' | 'Login' | 'ProfileNotFound' | 'ScanSuccess' | 'ScanError';
+export type TRootParams = Record<Exclude<TRootRoutes, 'ScanSuccess' | 'ScanError'>, undefined> & {
+  ScanError: {
+    error: string;
+  };
+  ScanSuccess: TCheckInResponse;
+};
 
 const RootStack = createNativeStackNavigator<TRootParams>();
 
@@ -42,6 +50,8 @@ export const RootStackNavigator = () => {
         <>
           <RootStack.Screen component={MainNavigator} name="MainNavigator" />
           <RootStack.Screen component={ProfileNotFound} name="ProfileNotFound" options={{ gestureEnabled: false }} />
+          <RootStack.Screen component={ScanSuccess} name="ScanSuccess" />
+          <RootStack.Screen component={ScanError} name="ScanError" />
         </>
       )}
     </RootStack.Navigator>

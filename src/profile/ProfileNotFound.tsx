@@ -40,14 +40,14 @@ const ProfileNotFound: FC = () => {
       isScrollable
       lineColor="primaryDark"
       topContent={
-        <>
+        <Styled.TopContent>
           <Styled.ErrorMessage align="center" bottomSpacing="8px" color="white">
             {t('PROFILE_NOT_FOUND.TITLE')}
           </Styled.ErrorMessage>
           <Typography align="center" color="white" fontStyle="bold" size="xxlarge">
             {user?.email}
           </Typography>
-        </>
+        </Styled.TopContent>
       }
     />
   );

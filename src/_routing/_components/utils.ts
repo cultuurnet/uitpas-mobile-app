@@ -2,8 +2,8 @@ import { TIconName } from '../../_components/icon/Icon';
 import { TMainRoutes } from './MainNavigator';
 
 const ICON_MAP: Record<TMainRoutes, TIconName> = {
+  Camera: 'QR',
   ProfileNavigator: 'Profile',
-  ScanNavigator: 'QR',
   Shop: 'Shop',
 };
 

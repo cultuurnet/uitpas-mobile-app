@@ -1,12 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { LayoutChangeEvent, StatusBar, StyleSheet } from 'react-native';
+import { LayoutChangeEvent, Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { runOnJS } from 'react-native-reanimated';
 import { Camera as VisionCamera, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
 import { useFocusEffect } from '@react-navigation/native';
 import { decode, TextResult } from 'vision-camera-dynamsoft-barcode-reader';
 
+import { useStackNavigation } from '../../_hooks';
+import { HttpStatus, TApiError } from '../../_http';
+import { TRootParams } from '../../_routing/_components/RootStackNavigator';
+import { theme } from '../../_styles/theme';
+import { log } from '../../_utils/logger';
 import { useCameraPermission } from '../_hooks';
 import { TOverlayDimensions, useOverlayDimensions } from '../_hooks/useOverlayDimensions';
+import { useCheckin } from '../_queries/useCheckin';
 import CameraOverlay from './CameraOverlay';
 import * as Styled from './style';
 
@@ -21,6 +27,8 @@ const Camera = () => {
   const devices = useCameraDevices();
   const { hasCameraPermission } = useCameraPermission();
   const [dimensions, setDimensions] = useState<[number, number]>([0, 0]);
+  const { mutateAsync, isLoading } = useCheckin();
+  const { navigate } = useStackNavigation<TRootParams>();
 
   const overlay = useOverlayDimensions(dimensions, overlaySettings);
   const frameProcessor = useFrameProcessor(
@@ -59,17 +67,39 @@ const Camera = () => {
   );
 
   useEffect(() => {
+    if (Platform.OS === 'android') StatusBar.setBackgroundColor(theme.colors.background);
+    StatusBar.setBarStyle('dark-content');
     StatusBar.setTranslucent(true);
-    return StatusBar.setTranslucent(false);
   }, []);
+
+  useEffect(() => {
+    setIsActive(!isLoading);
+  }, [isLoading]);
 
   function handleLayoutChange({ nativeEvent: { layout } }: LayoutChangeEvent) {
     setDimensions([layout.width, layout.height]);
   }
 
-  function onBarCodeDetected(barcode: TextResult) {
-    console.log({ barcode }); // @TODO: remove this console.log
-    setIsActive(false);
+  async function onBarCodeDetected({ barcodeText }: TextResult) {
+    try {
+      const response = await mutateAsync({ checkinCode: barcodeText });
+      navigate('ScanSuccess', response);
+    } catch (error) {
+      const { status, endUserMessage } = error as TApiError;
+      if (
+        status === HttpStatus.BadRequest ||
+        status === HttpStatus.Unauthorized ||
+        status === HttpStatus.Forbidden ||
+        status === HttpStatus.TooManyRequests
+      ) {
+        navigate('ScanError', {
+          error: endUserMessage.nl,
+        });
+      }
+
+      // @TODO: error handling
+      log.error(error);
+    }
   }
 
   if (!hasCameraPermission || devices.back == null) {
@@ -77,7 +107,7 @@ const Camera = () => {
   }
 
   return (
-    <Styled.CameraWrapper onLayout={handleLayoutChange}>
+    <View onLayout={handleLayoutChange} style={StyleSheet.absoluteFill}>
       <VisionCamera
         device={devices.back}
         frameProcessor={frameProcessor}
@@ -86,8 +116,8 @@ const Camera = () => {
         style={StyleSheet.absoluteFill}
       />
 
-      <CameraOverlay config={overlay} settings={overlaySettings} />
-    </Styled.CameraWrapper>
+      <CameraOverlay config={overlay} isLoading={isLoading} settings={overlaySettings} />
+    </View>
   );
 };
 

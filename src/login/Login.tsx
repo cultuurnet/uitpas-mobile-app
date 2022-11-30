@@ -60,12 +60,12 @@ const Login = () => {
         </Styled.BottomContainer>
       }
       topContent={
-        <>
+        <Styled.TopContainer>
           <BrandLogo height={48} inverse />
           <Styled.IntroText align="center" color="white" fontStyle="semibold">
             {t('LOGIN.INTRO')}
           </Styled.IntroText>
-        </>
+        </Styled.TopContainer>
       }
     />
   );
