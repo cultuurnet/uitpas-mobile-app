@@ -50,7 +50,6 @@ export function useOverlayDimensions(dimensions, { padding, strokeWidth, cornerL
       },
     ];
 
-    /* @see https://www.dynamsoft.com/barcode-reader/docs/core/parameters/reference/region-definition/index.html?ver=latest#image-process-control */
     const regionDefinition = {
       Bottom: Math.round((boundingBox.bottom / height) * 100),
       Left: Math.round((boundingBox.left / width) * 100),
