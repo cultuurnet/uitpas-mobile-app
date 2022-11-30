@@ -248,9 +248,9 @@ android {
         }
          release {
             storeFile file("../keystores/uitpas.keystore")
-            storePassword "MnR-v8XzNVTv.7r6pEnK"
-            keyAlias "keystore_uitpas"
-            keyPassword "MnR-v8XzNVTv.7r6pEnK"
+            storePassword System.env.STORE_PASSWORD
+            keyAlias System.env.KEY_ALIAS
+            keyPassword System.env.KEY_PASSWORD
         }
     }
     buildTypes {
