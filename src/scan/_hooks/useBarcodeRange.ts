@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
 import { PixelRatio } from 'react-native';
-import { Rect } from 'vision-camera-code-scanner';
+import { Point, Rect } from 'vision-camera-code-scanner';
 
 export function useBarcodeRange(
   [videoWidth, videoHeight]: [number, number],
@@ -15,14 +14,21 @@ export function useBarcodeRange(
   const multiplierX = videoWidth / actualScreenWidth;
   const multiplierY = videoHeight / actualScreenHeight;
 
-  const isInRange = (barcodeBoundingBox: Rect) => {
-    const top = scanRegion.top * multiplierY;
-    const right = scanRegion.right * multiplierX;
-    const bottom = scanRegion.bottom * multiplierY;
-    const left = scanRegion.left * multiplierX;
+  const isInRange = (barcodeBoundingBox: Rect, cornerPoints: Point[]) => {
+    const top = scanRegion.top * pixelRatio * multiplierY;
+    const right = scanRegion.right * pixelRatio * multiplierX;
+    const bottom = scanRegion.bottom * pixelRatio * multiplierY;
+    const left = scanRegion.left * pixelRatio * multiplierX;
+    const [topLeft, topRight, bottomRight, bottomLeft] = cornerPoints;
 
     console.log({
       barcodeBoundingBox,
+      cornerPoints: {
+        bottomLeft,
+        bottomRight,
+        topLeft,
+        topRight,
+      },
       scanRegion: {
         bottom,
         left,
@@ -34,6 +40,19 @@ export function useBarcodeRange(
       videoHeight,
       videoWidth,
     }); // @TODO: remove this console.log
+
+    if (topLeft.x > left && bottomLeft.x > left) {
+      console.log('is inside left');
+    }
+    if (topRight.x < right && bottomRight.x < right) {
+      console.log('is inside right');
+    }
+    if (topLeft.y > top && topRight.y > top) {
+      console.log('is inside top');
+    }
+    if (bottomLeft.y < bottom && bottomRight.y < bottom) {
+      console.log('is inside bottom');
+    }
   };
 
   return { isInRange };

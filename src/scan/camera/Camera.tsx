@@ -27,11 +27,12 @@ const Camera = () => {
 
   useEffect(() => setFormat(device?.formats.sort(sortFormats)[0]), [device]);
 
-  const videoWidth = format.videoWidth > format.videoHeight ? format.videoHeight : format.videoWidth;
-  const videoHeight = format.videoWidth > format.videoHeight ? format.videoWidth : format.videoHeight;
+  const videoWidth = format?.videoWidth > format?.videoHeight ? format?.videoHeight : format?.videoWidth;
+  const videoHeight = format?.videoWidth > format?.videoHeight ? format?.videoWidth : format?.videoHeight;
 
   const overlay = useOverlayDimensions(dimensions, overlaySettings);
   console.log({ dimensions }); // @TODO: remove this console.log
+  console.log('overlay', JSON.stringify(overlay)); // @TODO: remove this console.log
   const { isInRange } = useBarcodeRange([videoWidth, videoHeight], dimensions, overlay.boundingBox);
   const frameProcessor = useFrameProcessor(frame => {
     'worklet';
@@ -58,7 +59,9 @@ const Camera = () => {
   }
 
   function onBarCodeDetected(barcode: Barcode) {
-    isInRange(barcode.boundingBox);
+    console.log('barcode', JSON.stringify(barcode));
+
+    isInRange(barcode.boundingBox, barcode.cornerPoints);
     setIsActive(false);
   }
 
@@ -70,6 +73,7 @@ const Camera = () => {
     <Styled.CameraWrapper onLayout={handleLayoutChange}>
       <VisionCamera
         device={device}
+        format={format}
         frameProcessor={frameProcessor}
         frameProcessorFps={5}
         isActive={isActive}
