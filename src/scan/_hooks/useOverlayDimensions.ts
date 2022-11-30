@@ -58,13 +58,16 @@ export function useOverlayDimensions(
     const actualScreenWidth = screenWidth * pixelRatio;
     const actualScreenHeight = screenHeight * pixelRatio;
 
+    const filledVideoWidth = (videoHeight * screenWidth) / screenHeight;
+    const clippedVideoSectionsWidth = Math.abs(filledVideoWidth - videoWidth);
+
     const multiplierX = videoWidth / actualScreenWidth;
     const multiplierY = videoHeight / actualScreenHeight;
 
     const actualBoundingBox = {
-      bottom: boundingBox.bottom * pixelRatio * multiplierY,
-      left: boundingBox.left * pixelRatio * multiplierX,
-      right: boundingBox.right * pixelRatio * multiplierX,
+      bottom: (boundingBox.bottom + padding / 2) * pixelRatio * multiplierY,
+      left: (boundingBox.left + clippedVideoSectionsWidth) * pixelRatio * multiplierX,
+      right: (boundingBox.right + clippedVideoSectionsWidth) * pixelRatio * multiplierX,
       top: boundingBox.top * pixelRatio * multiplierY,
     };
 
