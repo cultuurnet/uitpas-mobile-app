@@ -1,28 +1,6 @@
-import { PixelRatio } from 'react-native';
 import { Point, Rect } from 'vision-camera-code-scanner';
 
-type TIsInRange = {
-  cornerPoints: Point[];
-  scanRegion: Rect;
-  screenHeight: number;
-  screenWidth: number;
-  videoHeight: number;
-  videoWidth: number;
-};
-
-export function isInRange({ cornerPoints, scanRegion, screenHeight, screenWidth, videoHeight, videoWidth }: TIsInRange) {
-  const pixelRatio = PixelRatio.get();
-
-  const actualScreenWidth = screenWidth * pixelRatio;
-  const actualScreenHeight = screenHeight * pixelRatio;
-
-  const multiplierX = videoWidth / actualScreenWidth;
-  const multiplierY = videoHeight / actualScreenHeight;
-
-  const top = scanRegion.top * pixelRatio * multiplierY;
-  const right = scanRegion.right * pixelRatio * multiplierX;
-  const bottom = scanRegion.bottom * pixelRatio * multiplierY;
-  const left = scanRegion.left * pixelRatio * multiplierX;
+export function isInRange(cornerPoints: Point[], { top, right, bottom, left }: Rect) {
   const [topLeft, topRight, bottomRight, bottomLeft] = cornerPoints;
 
   console.log({
@@ -44,10 +22,6 @@ export function isInRange({ cornerPoints, scanRegion, screenHeight, screenWidth,
       right,
       top,
     },
-    screenHeight: actualScreenWidth,
-    screenWidth: actualScreenHeight,
-    videoHeight,
-    videoWidth,
   }); // @TODO: remove this console.log
 
   return (
@@ -60,6 +34,4 @@ export function isInRange({ cornerPoints, scanRegion, screenHeight, screenWidth,
     bottomLeft.y < bottom &&
     bottomRight.y < bottom
   );
-
-  return { isInRange };
 }

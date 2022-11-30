@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { LayoutChangeEvent, StatusBar, StyleSheet } from 'react-native';
 import { runOnJS } from 'react-native-reanimated';
 import { Camera as VisionCamera, sortFormats, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
@@ -7,7 +7,6 @@ import { Barcode, BarcodeFormat, scanBarcodes } from 'vision-camera-code-scanner
 
 import { Spinner } from '../../_components';
 import { useCameraPermission } from '../_hooks';
-import { useBarcodeRange } from '../_hooks/useBarcodeRange';
 import { TOverlayDimensions, useOverlayDimensions } from '../_hooks/useOverlayDimensions';
 import { isInRange } from '../_util/isInRange';
 import CameraOverlay from './CameraOverlay';
@@ -24,18 +23,27 @@ const Camera = () => {
   const { back: device } = useCameraDevices();
   const { hasCameraPermission } = useCameraPermission();
   const [overlayDimensions, setOverlayDimensions] = useState<[number, number]>([0, 0]);
-  const [format, setFormat] = useState(device?.formats.sort(sortFormats)[0]);
+  const [videoDimensions, setVideoDimensions] = useState<[number, number]>([0, 0]);
 
-  useEffect(() => setFormat(device?.formats.sort(sortFormats)[0]), [device]);
+  const format = useMemo(() => device?.formats.sort(sortFormats)[0], [device]);
+  useEffect(() => {
+    setVideoDimensions([
+      format?.videoWidth > format?.videoHeight ? format?.videoHeight : format?.videoWidth,
+      format?.videoWidth > format?.videoHeight ? format?.videoWidth : format?.videoHeight,
+    ]);
+  }, [format]);
 
-  const overlay = useOverlayDimensions(overlayDimensions, overlaySettings);
-  const frameProcessor = useFrameProcessor(frame => {
-    'worklet';
-    const barcodes = scanBarcodes(frame, [BarcodeFormat.QR_CODE]);
-    if (barcodes.length > 0) {
-      runOnJS(onBarCodeDetected)(barcodes[0]);
-    }
-  }, []);
+  const overlay = useOverlayDimensions(overlayDimensions, videoDimensions, overlaySettings);
+  const frameProcessor = useFrameProcessor(
+    frame => {
+      'worklet';
+      const barcodes = scanBarcodes(frame, [BarcodeFormat.QR_CODE]);
+      if (barcodes.length > 0) {
+        runOnJS(onBarCodeDetected)(barcodes[0]);
+      }
+    },
+    [overlay.actualBoundingBox],
+  );
 
   useFocusEffect(
     useCallback(() => {
@@ -54,19 +62,7 @@ const Camera = () => {
   }
 
   function onBarCodeDetected(barcode: Barcode) {
-    const videoWidth = format.videoWidth > format.videoHeight ? format.videoHeight : format.videoWidth;
-    const videoHeight = format.videoWidth > format.videoHeight ? format.videoWidth : format.videoHeight;
-
-    if (
-      isInRange({
-        cornerPoints: barcode.cornerPoints,
-        scanRegion: overlay.boundingBox,
-        screenHeight: overlayDimensions[1],
-        screenWidth: overlayDimensions[0],
-        videoHeight,
-        videoWidth,
-      })
-    ) {
+    if (isInRange(barcode.cornerPoints, overlay.actualBoundingBox)) {
       setIsActive(false);
     }
   }
