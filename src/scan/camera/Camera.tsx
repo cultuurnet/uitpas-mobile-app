@@ -9,6 +9,7 @@ import { Spinner } from '../../_components';
 import { useCameraPermission } from '../_hooks';
 import { useBarcodeRange } from '../_hooks/useBarcodeRange';
 import { TOverlayDimensions, useOverlayDimensions } from '../_hooks/useOverlayDimensions';
+import { isInRange } from '../_util/isInRange';
 import CameraOverlay from './CameraOverlay';
 import * as Styled from './style';
 
@@ -22,18 +23,12 @@ const Camera = () => {
   const [isActive, setIsActive] = useState(true);
   const { back: device } = useCameraDevices();
   const { hasCameraPermission } = useCameraPermission();
-  const [dimensions, setDimensions] = useState<[number, number]>([0, 0]);
+  const [overlayDimensions, setOverlayDimensions] = useState<[number, number]>([0, 0]);
   const [format, setFormat] = useState(device?.formats.sort(sortFormats)[0]);
 
   useEffect(() => setFormat(device?.formats.sort(sortFormats)[0]), [device]);
 
-  const videoWidth = format?.videoWidth > format?.videoHeight ? format?.videoHeight : format?.videoWidth;
-  const videoHeight = format?.videoWidth > format?.videoHeight ? format?.videoWidth : format?.videoHeight;
-
-  const overlay = useOverlayDimensions(dimensions, overlaySettings);
-  console.log({ dimensions }); // @TODO: remove this console.log
-  console.log('overlay', JSON.stringify(overlay)); // @TODO: remove this console.log
-  const { isInRange } = useBarcodeRange([videoWidth, videoHeight], dimensions, overlay.boundingBox);
+  const overlay = useOverlayDimensions(overlayDimensions, overlaySettings);
   const frameProcessor = useFrameProcessor(frame => {
     'worklet';
     const barcodes = scanBarcodes(frame, [BarcodeFormat.QR_CODE]);
@@ -55,14 +50,25 @@ const Camera = () => {
   }, []);
 
   function handleLayoutChange({ nativeEvent: { layout } }: LayoutChangeEvent) {
-    setDimensions([layout.width, layout.height]);
+    setOverlayDimensions([layout.width, layout.height]);
   }
 
   function onBarCodeDetected(barcode: Barcode) {
-    console.log('barcode', JSON.stringify(barcode));
+    const videoWidth = format.videoWidth > format.videoHeight ? format.videoHeight : format.videoWidth;
+    const videoHeight = format.videoWidth > format.videoHeight ? format.videoWidth : format.videoHeight;
 
-    isInRange(barcode.boundingBox, barcode.cornerPoints);
-    setIsActive(false);
+    if (
+      isInRange({
+        cornerPoints: barcode.cornerPoints,
+        scanRegion: overlay.boundingBox,
+        screenHeight: overlayDimensions[1],
+        screenWidth: overlayDimensions[0],
+        videoHeight,
+        videoWidth,
+      })
+    ) {
+      setIsActive(false);
+    }
   }
 
   if (!hasCameraPermission || device == null) {

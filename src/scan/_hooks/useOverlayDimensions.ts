@@ -50,17 +50,9 @@ export function useOverlayDimensions(dimensions, { padding, strokeWidth, cornerL
       },
     ];
 
-    const regionDefinition = {
-      Bottom: Math.round((boundingBox.bottom / height) * 100),
-      Left: Math.round((boundingBox.left / width) * 100),
-      Right: Math.round((boundingBox.right / width) * 100),
-      Top: Math.round((boundingBox.top / height) * 100),
-    };
-
     return {
       boundingBox: boundingBox as Rect,
       corners,
-      regionDefinition,
       sideLength,
     };
   }, [width, height, pixelRatio]);
