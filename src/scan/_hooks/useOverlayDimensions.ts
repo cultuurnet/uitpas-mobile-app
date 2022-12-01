@@ -67,7 +67,7 @@ export function useOverlayDimensions(
     const actualBoundingBox = {
       bottom: (boundingBox.bottom + padding / 2) * pixelRatio * multiplierY,
       left: (boundingBox.left + clippedVideoSectionsWidth) * pixelRatio * multiplierX,
-      right: (boundingBox.right + clippedVideoSectionsWidth) * pixelRatio * multiplierX,
+      right: (boundingBox.right + clippedVideoSectionsWidth + padding / 2) * pixelRatio * multiplierX,
       top: boundingBox.top * pixelRatio * multiplierY,
     };
 
