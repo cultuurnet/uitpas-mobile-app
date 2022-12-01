@@ -4,5 +4,5 @@ import { THistoryResponse } from '../_models';
 export function useGetHistory() {
   const api = usePubliqApi();
 
-  return api.getInfinite<THistoryResponse>(['history'], '/passholders/me/transactions', { itemsPerPage: 5 });
+  return api.getInfinite<THistoryResponse>(['history'], '/passholders/me/transactions', { itemsPerPage: 10 });
 }
