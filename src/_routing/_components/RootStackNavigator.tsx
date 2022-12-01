@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import SplashScreen from 'react-native-splash-screen';
+import SplashScreen from 'react-native-lottie-splash-screen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { useAuthentication } from '../../_context';
