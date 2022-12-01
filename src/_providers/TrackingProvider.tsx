@@ -17,10 +17,29 @@ const TrackingProvider: FC<TTrackerProviderProps> = ({ children, currentRoute })
   const { user } = useAuthentication();
   const { data, isFetched } = useGetMe();
 
+  const globalContexts: EventContext[] = [
+    {
+      data: {
+        environment: ConfigEnvironment,
+      },
+      schema: TrackingConfig.appEnvironmentSchema,
+    },
+    ...(isFetched && data?.id
+      ? [
+          {
+            data: {
+              id: data?.id,
+            },
+            schema: TrackingConfig.passHolderSchema,
+          },
+        ]
+      : []),
+  ];
+
   const tracker = useMemo(() => {
     if (!TrackingConfig.isEnabled) return;
 
-    const result = createTracker(
+    return createTracker(
       TrackingConfig.appId,
       {
         endpoint: TrackingConfig.endpoint,
@@ -36,39 +55,27 @@ const TrackingProvider: FC<TTrackerProviderProps> = ({ children, currentRoute })
         },
       },
     );
-
-    return result;
   }, []);
 
-  function trackScreenViewEvent(name: TRoute) {
-    const contexts: EventContext[] = [
-      {
-        data: {
-          environment: ConfigEnvironment,
-        },
-        schema: TrackingConfig.appEnvironmentSchema,
-      },
-      ...(isFetched && data?.id
-        ? [
-            {
-              data: {
-                id: data?.id,
-              },
-              schema: TrackingConfig.passHolderSchema,
-            },
-          ]
-        : []),
-    ];
+  useEffect(() => {
+    if (!tracker) return;
+    tracker.removeGlobalContexts('user-environment');
+    tracker.addGlobalContexts({
+      globalContexts,
+      tag: 'user-environment',
+    });
+  }, [tracker, globalContexts]);
 
+  function trackScreenViewEvent(name: TRoute) {
     if (Config.REACT_NATIVE_APP_ENABLE_ANALYTICS_LOGGING === 'true') {
-      console.info('Track screenViewEvent', JSON.stringify({ contexts, name }, undefined, 2));
+      console.info('Track screenViewEvent', JSON.stringify({ globalContexts, name }, undefined, 2));
     }
 
     if (!TrackingConfig.isEnabled) {
       return Promise.resolve();
     }
 
-    return tracker.trackScreenViewEvent({ name }, contexts);
+    return tracker.trackScreenViewEvent({ name });
   }
 
   useEffect(() => {
