@@ -12,6 +12,7 @@ import com.facebook.soloader.SoLoader;
 import com.publiq.uitpas.newarchitecture.MainApplicationReactNativeHost;
 import com.facebook.react.bridge.JSIModulePackage;
 import com.swmansion.reanimated.ReanimatedJSIModulePackage;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.visioncameradynamsoftbarcodereader.VisionCameraDynamsoftBarcodeReaderPackage;
