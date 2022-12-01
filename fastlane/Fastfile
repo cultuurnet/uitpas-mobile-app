@@ -125,7 +125,7 @@ private_lane :upload_to_playstore do |options|
 		skip_upload_metadata: true,
 		skip_upload_images: true,
 		skip_upload_screenshots: true,
-    json_key: json_key_file,
+    json_key: ENV["ANDROID_JSON_KEY_FILE"],
 		package_name: "#{android_bundle_id}",
 		aab: "./android/app/build/outputs/bundle/release/app-release.aab",
 	)
