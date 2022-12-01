@@ -8,7 +8,8 @@ public class MainActivity extends ReactActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    SplashScreen.show(this, true);
+    SplashScreen.show(this, R.style.SplashScreenTheme, R.id.lottie);
+    SplashScreen.setAnimationFinished(true); // If you want the animation dialog to be forced to close when hide is called, use this code
     super.onCreate(savedInstanceState);
   }
 
