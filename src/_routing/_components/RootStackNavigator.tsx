@@ -27,7 +27,6 @@ const RootStack = createNativeStackNavigator<TRootParams>();
 export const RootStackNavigator = () => {
   const { isAuthenticated, isInitialized } = useAuthentication();
   const isPolicyApprovedInStorage = useMemo(() => storage.getBoolean(StorageKey.IsPolicyApproved), []);
-  const [hasViewedOnboarding, setHasViewedOnboarding] = useState(false);
 
   useEffect(() => {
     if (isInitialized) SplashScreen.hide();
@@ -35,17 +34,7 @@ export const RootStackNavigator = () => {
 
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
-      {!isPolicyApprovedInStorage && !hasViewedOnboarding && !isAuthenticated && (
-        <RootStack.Screen
-          component={Onboarding}
-          listeners={() => ({
-            focus: () => {
-              if (isInitialized) setHasViewedOnboarding(true);
-            },
-          })}
-          name="Onboarding"
-        />
-      )}
+      {!isPolicyApprovedInStorage && <RootStack.Screen component={Onboarding} name="Onboarding" />}
       {!isAuthenticated && <RootStack.Screen component={Login} name="Login" />}
       {isAuthenticated && (
         <>

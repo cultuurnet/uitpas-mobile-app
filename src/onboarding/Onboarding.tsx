@@ -1,5 +1,6 @@
 import { t } from 'i18next';
 
+import { Counter } from '../_assets/images';
 import { SafeAreaView, Typography } from '../_components';
 import { ConfigUrl } from '../_config';
 import { useStackNavigation, useToggle } from '../_hooks';
@@ -17,11 +18,12 @@ const Onboarding = () => {
   };
 
   return (
-    <SafeAreaView isScrollable={false}>
+    <SafeAreaView backgroundColor="neutral.0" isScrollable={false}>
       <Styled.TopContainer>
         <Styled.TitleText color="secondary.700" fontStyle="bold" size="large">
           {t('ONBOARDING.TITLE')}
         </Styled.TitleText>
+        <Styled.Image source={Counter} />
         <Styled.IntroText align="center" color="neutral.900">
           {t('ONBOARDING.INTRO')}
         </Styled.IntroText>
