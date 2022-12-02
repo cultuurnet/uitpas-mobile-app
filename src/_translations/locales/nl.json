@@ -84,10 +84,12 @@
     "SUCCESS": {
       "DESCRIPTION": "Hopla, weer een punt erbij!\nDat brengt je totaal op <bold>{{points}} punten</bold>.",
       "CTA": "Sluiten"
-    },
-    "ERROR": {
-      "TITLE": "Er is iets misgegaan!",
-      "CTA": "Sluiten"
     }
+  },
+  "ERROR": {
+    "TITLE": "Er is iets misgegaan!",
+    "DEFAULT_MESSAGE": "Er lijkt iets misgegaan tijdens het gebruik van de app, ga terug naar de app of meld het probleem.",
+    "HELP": "Meld een probleem",
+    "CTA": "Sluiten"
   }
 }

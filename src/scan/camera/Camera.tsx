@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { LayoutChangeEvent, Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { runOnJS } from 'react-native-reanimated';
-import { Camera as VisionCamera, Frame, sortFormats, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
+import { Camera as VisionCamera, Frame, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
 import { useFocusEffect } from '@react-navigation/native';
 import { Barcode, BarcodeFormat, scanBarcodes } from 'vision-camera-code-scanner';
 
 import { Spinner } from '../../_components';
 import { useStackNavigation } from '../../_hooks';
-import { HttpStatus, TApiError } from '../../_http';
+import { TApiError } from '../../_http';
 import { TRootParams } from '../../_routing/_components/RootStackNavigator';
 import { theme } from '../../_styles/theme';
 import { log } from '../../_utils/logger';
@@ -30,7 +30,7 @@ const Camera = () => {
   const [overlayDimensions, setOverlayDimensions] = useState<[number, number]>([0, 0]);
   const overlay = useOverlayDimensions(overlayDimensions, overlaySettings);
   const { mutateAsync, isLoading } = useCheckin();
-  const { navigate } = useStackNavigation<TRootParams>();
+  const { navigate, ...navigation } = useStackNavigation<TRootParams>();
   const frameProcessor = useFrameProcessor(
     frame => {
       'worklet';
@@ -73,19 +73,13 @@ const Camera = () => {
         const response = await mutateAsync({ checkinCode: barcode.displayValue });
         navigate('ScanSuccess', response);
       } catch (error) {
-        const { status, endUserMessage } = error as TApiError;
-        if (
-          status === HttpStatus.BadRequest ||
-          status === HttpStatus.Unauthorized ||
-          status === HttpStatus.Forbidden ||
-          status === HttpStatus.TooManyRequests
-        ) {
-          navigate('ScanError', {
-            error: endUserMessage.nl,
-          });
-        }
+        const { endUserMessage } = error as TApiError;
 
         // @TODO: error handling
+        navigate('Error', {
+          message: endUserMessage?.nl,
+          onClose: () => navigation.replace('MainNavigator', { screen: 'Camera' } as unknown as undefined), // Types in react-navigation package are incorrect...
+        });
         log.error(error);
       }
     }

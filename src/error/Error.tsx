@@ -2,17 +2,16 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteProp, useRoute } from '@react-navigation/native';
 
-import { Error } from '../_assets/images';
+import { Error as ErrorImage } from '../_assets/images';
 import { Button, DiagonalSplitView, Typography } from '../_components';
-import { useStackNavigation } from '../_hooks';
+import { ConfigUrl } from '../_config';
 import { TRootParams } from '../_routing/_components/RootStackNavigator';
 import * as Styled from './style';
 
-const ScanError: FC = () => {
+const Error: FC = () => {
   const {
-    params: { error },
-  } = useRoute<RouteProp<TRootParams, 'ScanError'>>();
-  const navigation = useStackNavigation<TRootParams>();
+    params: { message, onClose },
+  } = useRoute<RouteProp<TRootParams, 'Error'>>();
   const { t } = useTranslation();
 
   return (
@@ -22,20 +21,19 @@ const ScanError: FC = () => {
         <>
           <Styled.BottomContainer>
             <Typography bottomSpacing="24px" color="red" fontStyle="bold" size="xxlarge">
-              {t('SCAN.ERROR.TITLE')}
+              {t('ERROR.TITLE')}
             </Typography>
-            <Typography align="center">{error}</Typography>
+            <Typography align="center">{message || t('ERROR.DEFAULT_MESSAGE')}</Typography>
           </Styled.BottomContainer>
-          <Button
-            label={t('SCAN.ERROR.CTA')}
-            onPress={() => navigation.replace('MainNavigator', { screen: 'Camera' } as unknown as undefined)} // Types in react-navigation package are incorrect...
-          />
+
+          <Button href={ConfigUrl.helpdesk} label={t('ERROR.HELP')} variant="link" />
+          <Styled.CloseButton label={t('ERROR.CTA')} onPress={onClose} />
         </>
       }
       lineColor="red"
-      topContent={<Styled.ErrorImage resizeMode="contain" source={Error} />}
+      topContent={<Styled.ErrorImage resizeMode="contain" source={ErrorImage} />}
     />
   );
 };
 
-export default ScanError;
+export default Error;

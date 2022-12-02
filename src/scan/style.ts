@@ -18,9 +18,3 @@ export const SavedPoints = styled.View`
   border-radius: 40px;
   overflow: hidden;
 `;
-
-export const ErrorImage = styled.Image`
-  margin: 60px 0;
-  width: 156px;
-  height: 156px;
-`;
