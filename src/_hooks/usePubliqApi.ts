@@ -1,6 +1,13 @@
 import { useCallback } from 'react';
 import { Config } from 'react-native-config';
-import { InfiniteQueryObserverOptions, QueryObserverOptions, useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import {
+  InfiniteQueryObserverOptions,
+  useInfiniteQuery,
+  useMutation,
+  UseMutationOptions,
+  useQuery,
+  UseQueryOptions,
+} from '@tanstack/react-query';
 
 import { useAuthentication } from '../_context/AuthenticationContext';
 import { HttpClient, TApiError } from '../_http';
@@ -12,8 +19,14 @@ type TSharedOptions = {
   headers?: Headers;
   params?: Params;
 };
+type TGetOptions<T = unknown> = Omit<UseQueryOptions<T, TApiError>, 'networkMode' | 'queryFn' | 'queryKey'> & TSharedOptions;
 
-type TGetOptions<T = unknown> = QueryObserverOptions<T, TApiError> & TSharedOptions;
+type TPostOptions<T = unknown, RequestBody extends Record<string, unknown> = Record<string, unknown>> = Omit<
+  UseMutationOptions<T, TApiError, RequestBody>,
+  'queryFn' | 'mutationKey' | 'networkMode'
+> & {
+  headers?: Headers;
+};
 type TGetInfiniteOptions<T = unknown> = InfiniteQueryObserverOptions<T, TApiError> & TSharedOptions & { itemsPerPage?: number };
 
 export function usePubliqApi() {
@@ -30,6 +43,23 @@ export function usePubliqApi() {
         networkMode: 'offlineFirst',
         queryFn: async () => HttpClient.get<T>(`${Config.API_HOST}${path}`, params, { ...defaultHeaders, ...headers }),
         queryKey,
+        ...options,
+      });
+    },
+    [Config.API_HOST, accessToken],
+  );
+
+  const post = useCallback(
+    <T = unknown, RequestBody extends Record<string, unknown> = Record<string, unknown>>(
+      mutationKey: unknown[],
+      path: string,
+      { headers = {}, ...options }: TPostOptions<T> = {},
+    ) => {
+      return useMutation<T, TApiError, RequestBody>({
+        mutationFn: async (body: Record<string, unknown>) =>
+          HttpClient.post<T>(`${Config.API_HOST}${path}`, body, { ...defaultHeaders, ...headers }),
+        mutationKey,
+        networkMode: 'offlineFirst',
         ...options,
       });
     },
@@ -65,5 +95,5 @@ export function usePubliqApi() {
     [],
   );
 
-  return { get, getInfinite };
+  return { get, getInfinite, post };
 }

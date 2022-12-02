@@ -1,11 +1,11 @@
 import { FC, ReactNode, useEffect, useMemo } from 'react';
-import { Config } from 'react-native-config';
 import { createTracker, EventContext } from '@snowplow/react-native-tracker';
 
 import { TrackingConfig } from '../_config';
 import { ConfigEnvironment } from '../_config/environments';
 import { useAuthentication } from '../_context/AuthenticationContext';
 import { TRoute } from '../_routing';
+import { log } from '../_utils/logger';
 import { useGetMe } from '../profile/_queries/useGetMe';
 
 type TTrackerProviderProps = {
@@ -67,9 +67,7 @@ const TrackingProvider: FC<TTrackerProviderProps> = ({ children, currentRoute })
   }, [tracker, globalContexts]);
 
   function trackScreenViewEvent(name: TRoute) {
-    if (Config.REACT_NATIVE_APP_ENABLE_ANALYTICS_LOGGING === 'true') {
-      console.info('Track screenViewEvent', JSON.stringify({ globalContexts, name }, undefined, 2));
-    }
+    log.debug('Track screenViewEvent', JSON.stringify({ globalContexts, name }, undefined, 2));
 
     if (!TrackingConfig.isEnabled) {
       return Promise.resolve();
