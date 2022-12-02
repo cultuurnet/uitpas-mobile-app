@@ -8,7 +8,7 @@ export const ListContainer = styled(LinkList)`
 
 export const NotificationContainer = styled.View`
   margin: 20px 20px;
-  background-color: ${({ theme }) => theme.colors.lightBlue};
+  background-color: ${({ theme }) => theme.palette.primary['300']};
   padding: 20px;
   border-radius: 10px;
 `;

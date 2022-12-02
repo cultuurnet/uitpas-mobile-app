@@ -12,7 +12,12 @@ const isIconName = (name: string): name is TIconName => Object.keys(Icons).inclu
 
 const TabBarIcon: FC<TProps> = ({ focused, name }) => {
   const filledIconName = `${name}Filled`;
-  return <Icon color={focused ? 'primary' : 'grey'} name={focused && isIconName(filledIconName) ? filledIconName : name} />;
+  return (
+    <Icon
+      color={focused ? 'secondary.500' : 'neutral.500'}
+      name={focused && isIconName(filledIconName) ? filledIconName : name}
+    />
+  );
 };
 
 export default TabBarIcon;

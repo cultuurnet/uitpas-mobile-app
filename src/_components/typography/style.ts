@@ -1,9 +1,10 @@
 import styled from 'styled-components/native';
 
+import { getColor } from '../../_utils/colorHelper';
 import { TTypographyProps } from './Typography';
 
 export const Typography = styled.Text<TTypographyProps>`
-  color: ${({ color, theme }) => theme.colors[color]};
+  color: ${({ color }) => getColor(color)};
   text-align: ${({ align }) => align};
   margin-bottom: ${({ bottomSpacing }) => (bottomSpacing ? bottomSpacing : '0px')};
 

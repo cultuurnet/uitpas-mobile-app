@@ -19,10 +19,10 @@ const Onboarding = () => {
   return (
     <SafeAreaView isScrollable={false}>
       <Styled.TopContainer>
-        <Styled.TitleText color="secondaryDark" fontStyle="bold" size="large">
+        <Styled.TitleText color="secondary.700" fontStyle="bold" size="large">
           {t('ONBOARDING.TITLE')}
         </Styled.TitleText>
-        <Styled.IntroText align="center" color="text">
+        <Styled.IntroText align="center" color="neutral.900">
           {t('ONBOARDING.INTRO')}
         </Styled.IntroText>
         <Styled.ConfirmCheckbox
@@ -30,11 +30,11 @@ const Onboarding = () => {
           isChecked={isChecked}
           label={
             <Styled.ConfirmViewContainer>
-              <Typography color="text">{t('ONBOARDING.LOOK_AT')}</Typography>
+              <Typography color="neutral.900">{t('ONBOARDING.LOOK_AT')}</Typography>
               <Styled.LinkButton href={ConfigUrl.termsOfService} label={t('ONBOARDING.TERMS_OF_SERVICE')} variant="link" />
-              <Typography color="text">{t('ONBOARDING.AND')}</Typography>
+              <Typography color="neutral.900">{t('ONBOARDING.AND')}</Typography>
               <Styled.LinkButton href={ConfigUrl.privacyPolicy} label={t('ONBOARDING.PRIVACY_POLICY')} variant="link" />
-              <Typography color="text">{t('ONBOARDING.TO_MOVE_ON')}</Typography>
+              <Typography color="neutral.900">{t('ONBOARDING.TO_MOVE_ON')}</Typography>
             </Styled.ConfirmViewContainer>
           }
           onChange={toggleChecked}

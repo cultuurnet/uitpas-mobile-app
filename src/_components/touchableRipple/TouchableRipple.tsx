@@ -40,7 +40,7 @@ const TouchableRipple = ({
   ...rest
 }: TProps) => {
   const disabled = disabledProp || !rest.onPress;
-  const calculatedRippleColor = rippleColor || color(theme.colors.text).alpha(0.2).rgb().string();
+  const calculatedRippleColor = rippleColor || color(theme.palette.neutral['900']).alpha(0.2).rgb().string();
 
   // A workaround for ripple on Android P is to use useForeground + overflow: 'hidden'
   // https://github.com/facebook/react-native/issues/6480

@@ -61,7 +61,7 @@ const Login = () => {
       topContent={
         <>
           <BrandLogo height={48} inverse />
-          <Styled.IntroText align="center" color="white" fontStyle="semibold">
+          <Styled.IntroText align="center" color="neutral.0" fontStyle="semibold">
             {t('LOGIN.INTRO')}
           </Styled.IntroText>
         </>

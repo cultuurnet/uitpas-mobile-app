@@ -32,7 +32,7 @@ const CameraOverlay: FC<TProps> = ({ config: { sideLength, boundingBox, corners 
       </Styled.Overlay>
 
       <Styled.Instruction bottom={boundingBox.top + sideLength}>
-        <Typography align="center" bottomSpacing="20px" color="white" fontStyle="bold" size="large">
+        <Typography align="center" bottomSpacing="20px" color="neutral.0" fontStyle="bold" size="large">
           {t('CAMERA.DESCRIPTION')}
         </Typography>
         <Icon name="QRInstruction" size={80} />

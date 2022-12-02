@@ -49,10 +49,10 @@ const Profile = () => {
       label: i18n.t('PROFILE.LINKS.FAQ'),
     },
     {
-      iconColor: 'red',
+      iconColor: 'error.600',
       iconName: 'Logout',
       label: i18n.t('PROFILE.LINKS.LOGOUT'),
-      labelColor: 'darkRed',
+      labelColor: 'error.800',
       onPress: toggleLogOutModalVisible,
     },
   ];

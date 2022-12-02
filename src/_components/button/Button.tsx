@@ -1,7 +1,7 @@
 import { FC, useCallback, useState } from 'react';
 import { Linking } from 'react-native';
 
-import { Theme } from '../../_styles/theme';
+import { ThemeColor } from '../../_styles/theme';
 import { TTypographyProps } from '../typography/Typography';
 import * as Styled from './style';
 
@@ -9,7 +9,7 @@ export type TButtonPropsBase = {
   accessibilityHint?: string;
   accessibilityLabel?: string;
   centered?: boolean;
-  color?: keyof Theme['colors'];
+  color?: ThemeColor;
   disabled?: boolean;
   fontStyle?: TTypographyProps['fontStyle'];
   inline?: boolean;

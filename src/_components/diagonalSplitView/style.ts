@@ -1,22 +1,23 @@
 import styled from 'styled-components/native';
 
-import { Theme } from '../../_styles/theme';
+import { ThemeColor } from '../../_styles/theme';
+import { getColor } from '../../_utils/colorHelper';
 import SafeAreaView from '../safeAreaView/SafeAreaView';
 
 const DIAGONAL_CONTAINER_HEIGHT = 100;
 
-export const TopSafeAreaViewContainer = styled(SafeAreaView)<{ backgroundColor: keyof Theme['colors'] }>`
-  background-color: ${({ theme, backgroundColor }) => theme.colors[backgroundColor]};
+export const TopSafeAreaViewContainer = styled(SafeAreaView)<{ backgroundColor: ThemeColor }>`
+  background-color: ${({ backgroundColor }) => getColor(backgroundColor)};
   flex: 0;
 `;
 
 export const ViewContainer = styled(SafeAreaView)`
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.palette.neutral['0']};
 `;
 
-export const TopContainer = styled.View<{ backgroundColor: keyof Theme['colors'] }>`
+export const TopContainer = styled.View<{ backgroundColor: ThemeColor }>`
   padding: 40px 16px;
-  background-color: ${({ theme, backgroundColor }) => theme.colors[backgroundColor]};
+  background-color: ${({ backgroundColor }) => getColor(backgroundColor)};
   align-items: center;
 `;
 
@@ -29,20 +30,20 @@ export const BottomContainerContent = styled.View`
   padding-bottom: 36px;
 `;
 
-export const DiagonalContainer = styled.View<{ lineColor: keyof Theme['colors'] }>`
+export const DiagonalContainer = styled.View<{ lineColor: ThemeColor }>`
   position: relative;
   height: ${DIAGONAL_CONTAINER_HEIGHT}px;
-  background-color: ${({ theme, lineColor }) => theme.colors[lineColor]};
+  background-color: ${({ lineColor }) => getColor(lineColor)};
 `;
 
-export const Triangle = styled.View<{ backgroundColor: keyof Theme['colors']; screenWidth: number }>`
+export const Triangle = styled.View<{ backgroundColor: ThemeColor; screenWidth: number }>`
   position: absolute;
   background-color: transparent;
   border-style: solid;
   border-right-width: ${({ screenWidth }) => `${screenWidth}px`};
   border-right-color: transparent;
   border-top-width: ${DIAGONAL_CONTAINER_HEIGHT}px;
-  border-top-color: ${({ theme, backgroundColor }) => theme.colors[backgroundColor]};
+  border-top-color: ${({ backgroundColor }) => getColor(backgroundColor)};
 `;
 
 export const TriangleDark = styled.View<{ screenWidth: number }>`
@@ -53,5 +54,5 @@ export const TriangleDark = styled.View<{ screenWidth: number }>`
   border-left-width: ${({ screenWidth }) => `${screenWidth}px`};
   border-left-color: transparent;
   border-bottom-width: ${DIAGONAL_CONTAINER_HEIGHT - 20}px;
-  border-bottom-color: ${({ theme }) => theme.colors.white};
+  border-bottom-color: ${({ theme }) => theme.palette.neutral['0']};
 `;

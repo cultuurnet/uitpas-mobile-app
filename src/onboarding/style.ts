@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import { Button, Checkbox, Typography } from '../_components';
 
 export const ViewContainer = styled.ScrollView`
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.palette.neutral['0']};
 `;
 
 export const TopContainer = styled.View`

@@ -11,5 +11,5 @@ export const Disk = styled.View`
   height: 8px;
   border-radius: 4px;
   margin-right: 16px;
-  background: ${({ theme }) => theme.colors.lightGreen};
+  background: ${({ theme }) => theme.palette.secondary['300']};
 `;
