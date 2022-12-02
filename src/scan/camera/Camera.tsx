@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { LayoutChangeEvent, Platform, StatusBar } from 'react-native';
 import { runOnJS } from 'react-native-reanimated';
-import { Camera as VisionCamera, Frame, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
+import { Camera as VisionCamera, Frame, sortFormats, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
 import { useFocusEffect } from '@react-navigation/native';
 import { Barcode, BarcodeFormat, scanBarcodes } from 'vision-camera-code-scanner';
 
@@ -23,7 +23,7 @@ const Camera = () => {
   const { back: device } = useCameraDevices();
   const { hasCameraPermission } = useCameraPermission();
   const [overlayDimensions, setOverlayDimensions] = useState<[number, number]>([0, 0]);
-
+  const format = device?.formats.sort(sortFormats)[0];
   const overlay = useOverlayDimensions(overlayDimensions, overlaySettings);
   const frameProcessor = useFrameProcessor(
     frame => {
@@ -54,7 +54,9 @@ const Camera = () => {
   }
 
   function onBarCodeDetected(barcode: Barcode, frame: Frame) {
-    if (isInRange(barcode, overlay.regionDefinition, [frame.height, frame.width])) {
+    const frameWidth = frame.width > frame.height ? frame.height : frame.width;
+    const frameHeight = frame.width > frame.height ? frame.width : frame.height;
+    if (isInRange(barcode, overlay.regionDefinition, [frameWidth, frameHeight])) {
       setIsActive(false);
     }
   }
@@ -67,6 +69,7 @@ const Camera = () => {
     <Styled.CameraWrapper onLayout={handleLayoutChange}>
       <VisionCamera
         device={device}
+        format={format}
         frameProcessor={frameProcessor}
         frameProcessorFps={5}
         isActive={isActive}
