@@ -28,7 +28,6 @@ const Camera = () => {
   const { back: device } = useCameraDevices();
   const { hasCameraPermission } = useCameraPermission();
   const [overlayDimensions, setOverlayDimensions] = useState<[number, number]>([0, 0]);
-  const format = device?.formats.sort(sortFormats)[0];
   const overlay = useOverlayDimensions(overlayDimensions, overlaySettings);
   const { mutateAsync, isLoading } = useCheckin();
   const { navigate } = useStackNavigation<TRootParams>();
@@ -67,6 +66,7 @@ const Camera = () => {
   async function onBarCodeDetected(barcode: Barcode, frame: Frame) {
     const frameWidth = frame.width > frame.height ? frame.height : frame.width;
     const frameHeight = frame.width > frame.height ? frame.width : frame.height;
+
     if (isInRange(barcode, overlay.regionDefinition, [frameWidth, frameHeight])) {
       try {
         setIsActive(false);
@@ -99,7 +99,6 @@ const Camera = () => {
     <View onLayout={handleLayoutChange} style={StyleSheet.absoluteFill}>
       <VisionCamera
         device={device}
-        format={format}
         frameProcessor={frameProcessor}
         frameProcessorFps={5}
         isActive={isActive}
