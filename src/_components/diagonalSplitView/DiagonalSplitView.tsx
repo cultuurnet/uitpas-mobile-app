@@ -8,6 +8,7 @@ import * as Styled from './style';
 type TProps = {
   backgroundColor?: ThemeColor;
   bottomContent?: React.ReactNode;
+  diagonalContainerHeight?: number;
   isScrollable?: boolean;
   lineColor?: ThemeColor;
   topContent: React.ReactNode;
@@ -19,6 +20,7 @@ const DiagonalSplitView: FC<TProps> = ({
   backgroundColor = 'secondary.600',
   lineColor = 'secondary.700',
   isScrollable,
+  diagonalContainerHeight = 100,
 }) => {
   const { width } = useWindowDimensions();
 
@@ -33,9 +35,13 @@ const DiagonalSplitView: FC<TProps> = ({
       <Styled.ViewContainer edges={['bottom']} isScrollable={false}>
         <Styled.TopContainer backgroundColor={backgroundColor}>{topContent}</Styled.TopContainer>
 
-        <Styled.DiagonalContainer lineColor={lineColor}>
-          <Styled.Triangle backgroundColor={backgroundColor} screenWidth={width} />
-          <Styled.TriangleDark screenWidth={width} />
+        <Styled.DiagonalContainer diagonalContainerHeight={diagonalContainerHeight} lineColor={lineColor}>
+          <Styled.Triangle
+            backgroundColor={backgroundColor}
+            diagonalContainerHeight={diagonalContainerHeight}
+            screenWidth={width}
+          />
+          <Styled.TriangleDark diagonalContainerHeight={diagonalContainerHeight} screenWidth={width} />
         </Styled.DiagonalContainer>
 
         <Styled.BottomContainer as={isScrollable ? ScrollView : View}>

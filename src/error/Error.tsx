@@ -16,11 +16,11 @@ const Error: FC = () => {
 
   return (
     <DiagonalSplitView
-      backgroundColor="redLighter"
+      backgroundColor="error.300"
       bottomContent={
         <>
           <Styled.BottomContainer>
-            <Typography bottomSpacing="24px" color="red" fontStyle="bold" size="xxlarge">
+            <Typography bottomSpacing="24px" color="error.600" fontStyle="bold" size="xxlarge">
               {t('ERROR.TITLE')}
             </Typography>
             <Typography align="center">{message || t('ERROR.DEFAULT_MESSAGE')}</Typography>
@@ -30,7 +30,7 @@ const Error: FC = () => {
           <Styled.CloseButton label={t('ERROR.CTA')} onPress={onClose} />
         </>
       }
-      lineColor="red"
+      lineColor="error.600"
       topContent={<Styled.ErrorImage resizeMode="contain" source={ErrorImage} />}
     />
   );

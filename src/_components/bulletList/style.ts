@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 export const BulletListItem = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
 `;
 
 export const Disk = styled.View`

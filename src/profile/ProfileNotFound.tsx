@@ -44,7 +44,7 @@ const ProfileNotFound: FC = () => {
           <Styled.ErrorMessage align="center" bottomSpacing="8px" color="neutral.0">
             {t('PROFILE_NOT_FOUND.TITLE')}
           </Styled.ErrorMessage>
-          <Typography align="center" color="neutral.0" fontStyle="bold" size="xxlarge">
+          <Typography align="center" color="neutral.0" fontStyle="bold" size="large">
             {user?.email}
           </Typography>
         </Styled.TopContent>

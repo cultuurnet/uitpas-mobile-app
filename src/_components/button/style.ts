@@ -18,7 +18,7 @@ export const ButtonElement = styled(Pressable)<{
 }>`
   align-self: ${({ $inline, centered }) => (centered ? 'center' : $inline ? 'flex-start' : 'stretch')};
   align-items: center;
-  border-radius: 16px;
+  border-radius: ${({ $inline }) => ($inline ? '24px' : '16px')};
   opacity: ${({ disabled }) => (disabled ? 0.4 : 1)};
   background-color: ${({ $active, $variant, theme }) => {
     if ($variant === 'contained') {
@@ -27,7 +27,7 @@ export const ButtonElement = styled(Pressable)<{
     return 'transparent';
   }};
   padding: ${({ $variant, $inline }) =>
-    $inline && $variant !== 'link' ? '6px 16px' : $variant !== 'link' ? '10px 16px' : '0px'};
+    $inline && $variant !== 'link' ? '12px 16px' : $variant !== 'link' ? '12px 20px' : '0px'};
   border: ${({ $variant, theme }) => ($variant === 'outline' ? `2px solid ${theme.palette.neutral['0']}` : 'none')};
 `;
 

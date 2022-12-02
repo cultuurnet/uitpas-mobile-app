@@ -19,7 +19,7 @@ export const LinkContainer = styled.View`
 
 export const LinkItem = styled.View`
   flex-direction: row;
-  padding: 10px 20px;
+  padding: 16px 20px;
   border-top-width: 0.5px;
   border-top-color: ${({ theme }) => theme.palette.neutral['200']};
 `;
