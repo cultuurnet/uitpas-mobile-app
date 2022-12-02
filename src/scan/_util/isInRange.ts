@@ -1,37 +1,24 @@
-import { Point, Rect } from 'vision-camera-code-scanner';
+import { Barcode, Rect } from 'vision-camera-code-scanner';
 
-export function isInRange(cornerPoints: Point[], { top, right, bottom, left }: Rect) {
-  const [topLeft, topRight, bottomRight, bottomLeft] = cornerPoints;
+type Dimensions = [width: number, height: number];
 
-  console.log({
-    cornerPoints: {
-      bottomLeft,
-      bottomRight,
-      topLeft,
-      topRight,
-    },
-    isInRange: {
-      bottom: bottomLeft.y < bottom && bottomRight.y < bottom,
-      left: topLeft.x > left && bottomLeft.x > left,
-      right: topRight.x < right && bottomRight.x < right,
-      top: topLeft.y > top && topRight.y > top,
-    },
-    scanRegion: {
-      bottom,
-      left,
-      right,
-      top,
-    },
-  }); // @TODO: remove this console.log
+export function isInRange({ boundingBox }: Barcode, scanRegion: Rect, [frameWidth, frameHeight]: Dimensions) {
+  if (boundingBox) {
+    /** bounding box for QR code in percentages */
+    const qrBoundingBox: Rect = {
+      bottom: boundingBox.bottom / frameHeight,
+      left: boundingBox.left / frameWidth,
+      right: boundingBox.right / frameWidth,
+      top: boundingBox.top / frameHeight,
+    };
 
-  return (
-    topLeft.x > left &&
-    bottomLeft.x > left &&
-    topRight.x < right &&
-    bottomRight.x < right &&
-    topLeft.y > top &&
-    topRight.y > top &&
-    bottomLeft.y < bottom &&
-    bottomRight.y < bottom
-  );
+    return (
+      qrBoundingBox.left > scanRegion.left &&
+      qrBoundingBox.right < scanRegion.right &&
+      qrBoundingBox.top > scanRegion.top &&
+      qrBoundingBox.bottom < scanRegion.bottom
+    );
+  }
+
+  return false;
 }

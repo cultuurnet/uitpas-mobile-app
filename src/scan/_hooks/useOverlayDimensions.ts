@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { PixelRatio } from 'react-native';
 import { Rect } from 'vision-camera-code-scanner';
 
 type Corner = {
@@ -15,13 +14,10 @@ export type TOverlayDimensions = {
 };
 
 export function useOverlayDimensions(
-  screenDimensions,
-  videoDimensions,
+  screenDimensions: [number, number],
   { padding, strokeWidth, cornerLength }: TOverlayDimensions,
 ) {
   const [screenWidth, screenHeight] = screenDimensions;
-  const [videoWidth, videoHeight] = videoDimensions;
-  const pixelRatio = PixelRatio.get();
 
   return useMemo(() => {
     const sideLength = screenWidth - padding * 2;
@@ -55,27 +51,18 @@ export function useOverlayDimensions(
       },
     ];
 
-    const actualScreenWidth = screenWidth * pixelRatio;
-    const actualScreenHeight = screenHeight * pixelRatio;
-
-    const filledVideoWidth = (videoHeight * screenWidth) / screenHeight;
-    const clippedVideoSectionsWidth = Math.abs(filledVideoWidth - videoWidth);
-
-    const multiplierX = videoWidth / actualScreenWidth;
-    const multiplierY = videoHeight / actualScreenHeight;
-
-    const actualBoundingBox = {
-      bottom: (boundingBox.bottom + padding / 2) * pixelRatio * multiplierY,
-      left: (boundingBox.left + clippedVideoSectionsWidth) * pixelRatio * multiplierX,
-      right: (boundingBox.right + clippedVideoSectionsWidth + padding / 2) * pixelRatio * multiplierX,
-      top: boundingBox.top * pixelRatio * multiplierY,
+    const regionDefinition = {
+      bottom: boundingBox.bottom / screenHeight,
+      left: boundingBox.left / screenWidth,
+      right: boundingBox.right / screenWidth,
+      top: boundingBox.top / screenHeight,
     };
 
     return {
-      actualBoundingBox,
       boundingBox: boundingBox as Rect,
       corners,
+      regionDefinition,
       sideLength,
     };
-  }, [screenWidth, screenHeight, pixelRatio, videoDimensions, screenDimensions]);
+  }, [screenWidth, screenHeight, screenDimensions]);
 }
