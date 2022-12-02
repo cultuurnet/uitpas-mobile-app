@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { Config } from 'react-native-config';
 import { InfiniteQueryObserverOptions, QueryObserverOptions, useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
-import { useAuthentication } from '../_context';
+import { useAuthentication } from '../_context/AuthenticationContext';
 import { HttpClient, TApiError } from '../_http';
 import { Headers, Params } from '../_http/HttpClient';
 import { TPaginatedResponse } from '../_models';
