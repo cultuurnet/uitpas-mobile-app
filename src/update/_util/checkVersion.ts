@@ -3,7 +3,12 @@ import { Config } from 'react-native-config';
 
 import { TVersion } from '../_models';
 
-export function checkVersion(version: TVersion): { isBehindMinVersion: boolean; isBehindTarget: boolean } {
+export type TCheckedVersion = {
+  isBehindMinVersion: boolean;
+  isBehindTarget: boolean;
+};
+
+export function checkVersion(version: TVersion): TCheckedVersion {
   const currentPlatform = Platform.OS === 'ios' ? 'ios' : 'android';
   const isBehindMinVersion = isVersionGreaterThan(version.minVersion[currentPlatform], Config.REACT_NATIVE_APP_VERSION_NR);
 

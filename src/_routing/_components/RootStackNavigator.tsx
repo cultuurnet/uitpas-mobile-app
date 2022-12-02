@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import Config from 'react-native-config';
 import SplashScreen from 'react-native-lottie-splash-screen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -10,6 +11,7 @@ import ProfileNotFound from '../../profile/ProfileNotFound';
 import { storage } from '../../storage';
 import { useGetVersions } from '../../update/_queries/useGetVersions';
 import { checkVersion } from '../../update/_util/checkVersion';
+import UpdateScreen from '../../update/UpdateScreen';
 import { MainNavigator } from './MainNavigator';
 
 export type TRootRoutes = 'MainNavigator' | 'Onboarding' | 'Login' | 'ProfileNotFound' | 'Update';
@@ -19,10 +21,9 @@ const RootStack = createNativeStackNavigator<TRootParams>();
 
 export const RootStackNavigator = () => {
   const { isAuthenticated, isInitialized } = useAuthentication();
-  const { data: versions, isLoading } = useGetVersions();
+  const { data: versions } = useGetVersions();
   const isPolicyApprovedInStorage = useMemo(() => storage.getBoolean(StorageKey.IsPolicyApproved), []);
   const [hasViewedOnboarding, setHasViewedOnboarding] = useState(false);
-  if (!isLoading) console.log('versions', checkVersion(versions));
 
   useEffect(() => {
     if (isInitialized) SplashScreen.hide();
@@ -40,6 +41,9 @@ export const RootStackNavigator = () => {
           })}
           name="Onboarding"
         />
+      )}
+      {Config.UPDATE_CHECK_ENABLED && isAuthenticated && !!versions && checkVersion(versions).isBehindMinVersion && (
+        <RootStack.Screen component={UpdateScreen} name="Update" />
       )}
       {!isAuthenticated && <RootStack.Screen component={Login} name="Login" />}
       {isAuthenticated && (
