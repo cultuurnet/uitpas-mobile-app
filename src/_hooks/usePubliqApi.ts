@@ -1,16 +1,20 @@
 import { useCallback } from 'react';
 import { Config } from 'react-native-config';
-import { QueryObserverOptions, useQuery } from '@tanstack/react-query';
+import { InfiniteQueryObserverOptions, QueryObserverOptions, useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 import { useAuthentication } from '../_context';
 import { HttpClient, TApiError } from '../_http';
 import { Headers, Params } from '../_http/HttpClient';
+import { TPaginatedResponse } from '../_models';
 
-type TGetOptions<T = unknown> = QueryObserverOptions<T, TApiError> & {
+type TSharedOptions = {
   enabled?: boolean;
   headers?: Headers;
   params?: Params;
 };
+
+type TGetOptions<T = unknown> = QueryObserverOptions<T, TApiError> & TSharedOptions;
+type TGetInfiniteOptions<T = unknown> = InfiniteQueryObserverOptions<T, TApiError> & TSharedOptions & { itemsPerPage?: number };
 
 export function usePubliqApi() {
   const { accessToken } = useAuthentication();
@@ -32,5 +36,34 @@ export function usePubliqApi() {
     [Config.API_HOST, accessToken],
   );
 
-  return { get };
+  const getInfinite = useCallback(
+    <T extends TPaginatedResponse = TPaginatedResponse>(
+      queryKey: unknown[],
+      path: string,
+      { headers = {}, params = {}, itemsPerPage = 10, enabled, ...options }: TGetInfiniteOptions<T> = {},
+    ) =>
+      useInfiniteQuery<T, TApiError>({
+        enabled: !!accessToken && (enabled === undefined || enabled),
+        getNextPageParam: (lastPage, allPages) => {
+          const nextPageNumber = allPages.length;
+          if (nextPageNumber * itemsPerPage >= lastPage?.totalItems) {
+            return undefined;
+          }
+
+          return nextPageNumber;
+        },
+        networkMode: 'offlineFirst',
+        queryFn: async ({ pageParam = 0 }) =>
+          HttpClient.get(
+            `${Config.API_HOST}${path}`,
+            { limit: itemsPerPage, start: pageParam * itemsPerPage, ...params },
+            { ...defaultHeaders, ...headers },
+          ),
+        queryKey,
+        ...options,
+      }),
+    [],
+  );
+
+  return { get, getInfinite };
 }
