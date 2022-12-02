@@ -8,17 +8,21 @@ import Login from '../../login/Login';
 import Onboarding from '../../onboarding/Onboarding';
 import ProfileNotFound from '../../profile/ProfileNotFound';
 import { storage } from '../../storage';
+import { useGetVersions } from '../../update/_queries/useGetVersions';
+import { checkVersion } from '../../update/_util/checkVersion';
 import { MainNavigator } from './MainNavigator';
 
-export type TRootRoutes = 'MainNavigator' | 'Onboarding' | 'Login' | 'ProfileNotFound';
+export type TRootRoutes = 'MainNavigator' | 'Onboarding' | 'Login' | 'ProfileNotFound' | 'Update';
 export type TRootParams = Record<TRootRoutes, undefined>;
 
 const RootStack = createNativeStackNavigator<TRootParams>();
 
 export const RootStackNavigator = () => {
   const { isAuthenticated, isInitialized } = useAuthentication();
+  const { data: versions, isLoading } = useGetVersions();
   const isPolicyApprovedInStorage = useMemo(() => storage.getBoolean(StorageKey.IsPolicyApproved), []);
   const [hasViewedOnboarding, setHasViewedOnboarding] = useState(false);
+  if (!isLoading) console.log('versions', checkVersion(versions));
 
   useEffect(() => {
     if (isInitialized) SplashScreen.hide();

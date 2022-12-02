@@ -12,6 +12,7 @@ export type TButtonPropsBase = {
   color?: keyof Theme['colors'];
   disabled?: boolean;
   fontStyle?: TTypographyProps['fontStyle'];
+  hitSlop?: number;
   inline?: boolean;
   label: string;
   loading?: boolean;
@@ -41,6 +42,7 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
   underline = true,
   fontStyle = 'bold',
   inline,
+  hitSlop,
   ...props
 }) => {
   const [isActive, setIsActive] = useState(false);
@@ -67,6 +69,7 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
       accessibilityRole="button"
       accessibilityState={{ disabled }}
       disabled={disabled}
+      hitSlop={hitSlop}
       onPress={handlePress}
       onPressIn={() => setIsActive(true)}
       onPressOut={() => setIsActive(false)}

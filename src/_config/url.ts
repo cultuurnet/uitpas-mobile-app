@@ -15,7 +15,8 @@ type TConfigUrlIdentifiers =
   | 'welcomeBenefits'
   | 'personalInfo'
   | 'faq'
-  | 'loginHelp';
+  | 'loginHelp'
+  | 'version';
 
 const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
   appStore: {
@@ -80,6 +81,10 @@ const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
     beta: 'https://test.uitpas.be/gebruiksvoorwaarden?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-over-app',
     production:
       'https://www.uitpas.be/gebruiksvoorwaarden?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-over-app',
+  },
+  version: {
+    beta: 'https://assets-test.uitpas.be/mobile-app/versions',
+    production: 'https://assets.uitpas.be/mobile-app/versions',
   },
   welcomeBenefits: {
     beta: 'https://test.uitpas.be/mijn-uitpas/voordelen?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-mijn-uitpas',

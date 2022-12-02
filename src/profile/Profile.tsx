@@ -15,6 +15,7 @@ import MIANotification from './MIANotification/MIANotification';
 import * as Styled from './style';
 import UitpasCard from './UitpasCard/UitpasCard';
 import UitpasInfo from './UitpasInfo/UitpasInfo';
+import UpdateNotification from './UpdateNotification/UpdateNotification';
 
 const Profile = () => {
   const [logOutModalVisible, toggleLogOutModalVisible] = useToggle(false);
@@ -70,6 +71,7 @@ const Profile = () => {
           <Typography fontStyle="bold" size="large">
             {i18n.t('PROFILE.HELLO', { name: passHolder.firstName })}
           </Typography>
+          <UpdateNotification />
           <UitpasCard passHolder={passHolder} />
           {!isUitpasInfoClosed && (
             <UitpasInfo
