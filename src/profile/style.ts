@@ -22,6 +22,10 @@ export const SafeAreaViewContainer = styled(SafeAreaView)`
   background-color: ${({ theme }) => theme.palette.neutral['100']};
 `;
 
+export const TopContent = styled.View`
+  padding: 40px 16px;
+`;
+
 export const TopContainer = styled.View`
   padding: 20px 20px 5px 20px;
 `;

@@ -16,7 +16,6 @@ export const ViewContainer = styled(SafeAreaView)`
 `;
 
 export const TopContainer = styled.View<{ backgroundColor: ThemeColor }>`
-  padding: 40px 16px;
   background-color: ${({ backgroundColor }) => getColor(backgroundColor)};
   align-items: center;
 `;

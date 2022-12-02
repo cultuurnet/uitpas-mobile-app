@@ -85,6 +85,7 @@ export const theme = {
     primary: '#39ac8d',
     primaryDark: '#127173',
     red: '#f82e58',
+    redLighter: '#fc97ab',
     secondary: '#149773',
     secondaryDark: '#118363',
     teal: '#1aa5a8',

@@ -5,6 +5,7 @@ import { EventArg } from '@react-navigation/native';
 import { DiagonalSplitView, Typography } from '../_components';
 import { useAuthentication } from '../_context';
 import { useStackNavigation } from '../_hooks';
+import { log } from '../_utils/logger';
 import ProfileNotFoundContent from './ProfileNotFoundContent';
 import * as Styled from './style';
 
@@ -28,7 +29,7 @@ const ProfileNotFound: FC = () => {
       await logout();
     } catch (e) {
       // @TODO: general error handling?
-      console.error(e);
+      log.error(e);
     }
   };
 
@@ -39,14 +40,14 @@ const ProfileNotFound: FC = () => {
       isScrollable
       lineColor="primary.800"
       topContent={
-        <>
+        <Styled.TopContent>
           <Styled.ErrorMessage align="center" bottomSpacing="8px" color="neutral.0">
             {t('PROFILE_NOT_FOUND.TITLE')}
           </Styled.ErrorMessage>
           <Typography align="center" color="neutral.0" fontStyle="bold" size="xxlarge">
             {user?.email}
           </Typography>
-        </>
+        </Styled.TopContent>
       }
     />
   );

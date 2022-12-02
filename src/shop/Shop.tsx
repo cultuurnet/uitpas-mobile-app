@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { Shop as ShopImage } from '../_assets/images';
 import { Button, Typography } from '../_components';
 import { ConfigUrl } from '../_config';
 import { useGetMe } from '../profile/_queries/useGetMe';
@@ -17,7 +18,7 @@ const Shop = () => {
 
   return (
     <Styled.ContentContainer isScrollable={false}>
-      <Styled.ShopImage resizeMode="contain" source={require('../_assets/images/shop.png')} />
+      <Styled.ShopImage resizeMode="contain" source={ShopImage} />
       <Typography align="center" bottomSpacing="32px">
         {t('SHOP.DESCRIPTION')}
       </Typography>
