@@ -54,7 +54,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
         const credentials = await client.credentialsManager.getCredentials();
 
         if (credentials) {
-          setUser(getIdTokenProfileClaims(credentials.idToken));
+          setUser(getIdTokenProfileClaims(credentials.idToken) as TAuth0User);
           setAccessToken(credentials.accessToken);
         }
       }
@@ -67,7 +67,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
       await client.credentialsManager.saveCredentials(credentials);
       setAccessToken(credentials.accessToken);
       setIsAuthenticated(true);
-      setUser(getIdTokenProfileClaims(credentials.idToken));
+      setUser(getIdTokenProfileClaims(credentials.idToken) as TAuth0User);
     } catch (e) {
       log.error(e);
     }

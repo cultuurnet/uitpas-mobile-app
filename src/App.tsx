@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LogBox, StatusBar } from 'react-native';
 import { getLocales } from 'react-native-localize';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -8,8 +8,8 @@ import { ThemeProvider } from 'styled-components/native';
 
 import { AuthenticationProvider } from './_context';
 import { StorageKey } from './_models';
-import { QueryClientProvider } from './_providers';
-import RootStackNavigator from './_routing';
+import { QueryClientProvider, TrackingProvider } from './_providers';
+import RootStackNavigator, { TRoute } from './_routing';
 import { theme } from './_styles/theme';
 import { storage } from './storage';
 
@@ -20,6 +20,7 @@ LogBox.ignoreAllLogs();
 
 const App = () => {
   const navigationRef = useNavigationContainerRef();
+  const [currentRoute, setCurrentRoute] = useState<TRoute>();
   useFlipper(navigationRef);
 
   useEffect(() => {
@@ -31,9 +32,14 @@ const App = () => {
       <AuthenticationProvider>
         <QueryClientProvider>
           <SafeAreaProvider>
-            <NavigationContainer ref={navigationRef}>
-              <StatusBar />
-              <RootStackNavigator />
+            <NavigationContainer
+              onStateChange={() => setCurrentRoute(navigationRef?.getCurrentRoute().name as TRoute)}
+              ref={navigationRef}
+            >
+              <TrackingProvider currentRoute={currentRoute}>
+                <StatusBar />
+                <RootStackNavigator />
+              </TrackingProvider>
             </NavigationContainer>
           </SafeAreaProvider>
         </QueryClientProvider>
