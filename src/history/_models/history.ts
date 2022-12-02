@@ -1,3 +1,5 @@
+import { TPaginatedResponse } from '../../_models';
+
 export type THistoryItem = {
   creationDate: string;
   location: string;
@@ -5,7 +7,4 @@ export type THistoryItem = {
   title: string;
 };
 
-export type THistoryResponse = {
-  member: THistoryItem[];
-  totalItems: number;
-};
+export type THistoryResponse = TPaginatedResponse<THistoryItem>;
