@@ -1,4 +1,3 @@
-import Svg from 'react-native-svg';
 import styled from 'styled-components/native';
 
 export const Instruction = styled.View<{ bottom?: number; top?: number }>`

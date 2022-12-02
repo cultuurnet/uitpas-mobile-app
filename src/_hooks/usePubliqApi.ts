@@ -1,16 +1,25 @@
 import { useCallback } from 'react';
 import { Config } from 'react-native-config';
-import { useMutation, UseMutationOptions, useQuery, UseQueryOptions } from '@tanstack/react-query';
+import {
+  InfiniteQueryObserverOptions,
+  useInfiniteQuery,
+  useMutation,
+  UseMutationOptions,
+  useQuery,
+  UseQueryOptions,
+} from '@tanstack/react-query';
 
 import { useAuthentication } from '../_context';
 import { HttpClient, TApiError } from '../_http';
 import { Headers, Params } from '../_http/HttpClient';
+import { TPaginatedResponse } from '../_models';
 
-type TGetOptions<T = unknown> = Omit<UseQueryOptions<T, TApiError>, 'networkMode' | 'queryFn' | 'queryKey'> & {
+type TSharedOptions = {
   enabled?: boolean;
   headers?: Headers;
   params?: Params;
 };
+type TGetOptions<T = unknown> = Omit<UseQueryOptions<T, TApiError>, 'networkMode' | 'queryFn' | 'queryKey'> & TSharedOptions;
 
 type TPostOptions<T = unknown, RequestBody extends Record<string, unknown> = Record<string, unknown>> = Omit<
   UseMutationOptions<T, TApiError, RequestBody>,
@@ -18,6 +27,7 @@ type TPostOptions<T = unknown, RequestBody extends Record<string, unknown> = Rec
 > & {
   headers?: Headers;
 };
+type TGetInfiniteOptions<T = unknown> = InfiniteQueryObserverOptions<T, TApiError> & TSharedOptions & { itemsPerPage?: number };
 
 export function usePubliqApi() {
   const { accessToken } = useAuthentication();
@@ -56,5 +66,34 @@ export function usePubliqApi() {
     [Config.API_HOST, accessToken],
   );
 
-  return { get, post };
+  const getInfinite = useCallback(
+    <T extends TPaginatedResponse = TPaginatedResponse>(
+      queryKey: unknown[],
+      path: string,
+      { headers = {}, params = {}, itemsPerPage = 10, enabled, ...options }: TGetInfiniteOptions<T> = {},
+    ) =>
+      useInfiniteQuery<T, TApiError>({
+        enabled: !!accessToken && (enabled === undefined || enabled),
+        getNextPageParam: (lastPage, allPages) => {
+          const nextPageNumber = allPages.length;
+          if (nextPageNumber * itemsPerPage >= lastPage?.totalItems) {
+            return undefined;
+          }
+
+          return nextPageNumber;
+        },
+        networkMode: 'offlineFirst',
+        queryFn: async ({ pageParam = 0 }) =>
+          HttpClient.get(
+            `${Config.API_HOST}${path}`,
+            { limit: itemsPerPage, start: pageParam * itemsPerPage, ...params },
+            { ...defaultHeaders, ...headers },
+          ),
+        queryKey,
+        ...options,
+      }),
+    [],
+  );
+
+  return { get, getInfinite, post };
 }

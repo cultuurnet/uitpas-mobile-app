@@ -9,8 +9,8 @@
 // https://help.apple.com/xcode/#/dev745c5c974
 #include "Shared.xcconfig"
 
-PRODUCT_BUNDLE_IDENTIFIER = com.publiq.uitpas
-PROVISIONING_PROFILE_SPECIFIER = com.publiq.uitpas AppStore
+PRODUCT_BUNDLE_IDENTIFIER = be.cultuurnet.uitpasapp
+PROVISIONING_PROFILE_SPECIFIER = be.cultuurnet.uitpasapp AppStore
 CODE_SIGN_IDENTITY = iPhone Distribution
-DEVELOPMENT_TEAM = FAJTRUZ6J9
+DEVELOPMENT_TEAM = 3M7M296YKK
 ENV_FILE = .env

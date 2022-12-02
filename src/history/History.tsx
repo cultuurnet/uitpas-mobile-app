@@ -13,9 +13,7 @@ const History: FC = () => {
       <FlashList
         data={data?.pages?.flatMap(({ member }) => member) ?? []}
         estimatedItemSize={Styled.HISTORY_ITEM_HEIGHT}
-        onEndReached={() => {
-          fetchNextPage();
-        }}
+        onEndReached={fetchNextPage}
         onEndReachedThreshold={0.1}
         renderItem={({ item }) => <HistoryItem data={item} />}
       />

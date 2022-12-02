@@ -12,7 +12,7 @@ unlock_keychain(path: "login.keychain", password: keychain_password) if is_ci? &
 #######################
 # Project variables
 ios_project_name = "reactnative_uitpas"
-ios_bundle_id = "com.icapps.uitpas.app"
+ios_bundle_id = "be.cultuurnet.uitpas"
 android_bundle_id = "com.reactnative_uitpas" # meestal id van klant want anders komen PN soms niet aan
 
 # Appcenter Config
@@ -32,12 +32,12 @@ BETA_APP_ID = "#{ios_bundle_id}.beta"
 BETA_PROFILE_NAME = "#{ios_bundle_id} Beta" # zit bij icapps
 
 # Production iOS config
-RELEASE_APP_ID = "#{ios_bundle_id}" # zit bij klant, dus meestal niet hetzelfde als die van icapps (andere account)
-RELEASE_PROFILE_NAME = "#{ios_bundle_id} Appstore"
+RELEASE_APP_ID = "be.cultuurnet.uitpasapp" # zit bij klant, dus meestal niet hetzelfde als die van icapps (andere account)
+RELEASE_PROFILE_NAME = "be.cultuurnet.uitpasapp AppStore"
 APPSTORE_USERNAME = 'appstoreconnect@icapps.com' # vragen aan de klant om dit account toe te voegen + development@icapps.com
-APPSTORE_TEAM_NAME = 'iCapps' # zal meestal van de klant zijn, want we publishen via de klant (te vinden in apple developer profile - membership)
-APPSTORE_TEAM_ID = '310992' # zal meestal van de klant zijn, want we publishen via de klant (https://appstoreconnect.apple.com/WebObjects/iTunesConnect.woa/ra/user/detail --> contentProviderId)
-APPSTORE_APPLE_ID = 'SCZPF223NC' # zal meestal van de klant zijn, want we publishen via de klant (te vinden in apple developer profile - membership)
+APPSTORE_TEAM_NAME = 'Publiq ASBL' # zal meestal van de klant zijn, want we publishen via de klant (te vinden in apple developer profile - membership)
+APPSTORE_TEAM_ID = '65321197' # zal meestal van de klant zijn, want we publishen via de klant (https://appstoreconnect.apple.com/WebObjects/iTunesConnect.woa/ra/user/detail --> contentProviderId)
+APPSTORE_APPLE_ID = '3M7M296YKK' # zal meestal van de klant zijn, want we publishen via de klant (te vinden in apple developer profile - membership)
 
 ##############################
 ###  PUBLIC LANES ANDROID  ###
@@ -86,7 +86,7 @@ end
 lane :ios_prod do
 	# Install the provisioning profiles
   install_provisioning_profiles if is_ci? # plugin that searches for available provisioning profiles and installs these
-  bundle_upload_ios(scheme_name: "Release")
+  bundle_upload_ios(scheme_name: "Production")
   build_ios(export_options: export_options_for(:release)) # Build IPA
   upload_to_test_flight_ios()
 	add_tag()
