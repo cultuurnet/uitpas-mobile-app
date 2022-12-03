@@ -12,7 +12,7 @@ unlock_keychain(path: "login.keychain", password: keychain_password) if is_ci? &
 #######################
 # Project variables
 ios_project_name = "reactnative_uitpas"
-ios_bundle_id = "be.cultuurnet.uitpas"
+ios_bundle_id = "com.publiq.uitpas"
 android_bundle_id = "com.reactnative_uitpas" # meestal id van klant want anders komen PN soms niet aan
 
 # Appcenter Config
