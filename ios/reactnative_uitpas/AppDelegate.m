@@ -6,7 +6,7 @@
 #import <React/RCTLinkingManager.h>
 
 #import "RNSplashScreen.h"
-#import "reactnative_uitpas-Swift.h"
+#import "$(SWIFT_MODULE_NAME)-Swift.h"
 
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
