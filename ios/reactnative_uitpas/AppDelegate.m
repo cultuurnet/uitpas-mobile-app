@@ -6,7 +6,6 @@
 #import <React/RCTLinkingManager.h>
 
 #import "RNSplashScreen.h"
-#import "Uitpas_Debug-Swift.h"
 
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
