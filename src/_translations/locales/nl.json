@@ -64,8 +64,8 @@
       "EMPTY": "Je hebt nog geen punten gespaard of voordelen ingewisseld.",
       "BACK_TITLE": "Profiel",
       "HEADER_TITLE": "Historiek",
-      "POINTS_other": "{{count}} punten",
-      "POINTS_one": "{{count}} punt",
+      "POINTS": "{{points}} punten",
+      "POINT": "{{points}} punt",
       "POINTS_TITLE": "1 {{title}}"
     }
   },
