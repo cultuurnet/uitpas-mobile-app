@@ -19,7 +19,7 @@ export const ActionButton = styled(Button)`
 `;
 
 export const SafeAreaViewContainer = styled(SafeAreaView)`
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: ${({ theme }) => theme.palette.neutral['100']};
 `;
 
 export const TopContent = styled.View`

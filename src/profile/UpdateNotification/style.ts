@@ -4,7 +4,7 @@ import { Button } from '../../_components';
 
 export const NotificationContainer = styled.View`
   margin: 20px 0px 0px;
-  background-color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.palette.neutral['900']};
   padding: 15px;
   border-radius: 10px;
   flex-direction: row;

@@ -13,9 +13,9 @@ const MIANotification: FC<TProps> = ({ socialTariffInfo }) => {
   return (
     <Styled.NotificationContainer>
       <Styled.CloseButton name="SocialTariff" size={25} />
-      <Styled.MIAText color="darkGreen">{i18n.t('PROFILE.MIA')}</Styled.MIAText>
+      <Styled.MIAText color="secondary.900">{i18n.t('PROFILE.MIA')}</Styled.MIAText>
       {socialTariffInfo.endDate && (
-        <Styled.ExpirationText color="darkGreen" size="small">{`${i18n.t('PROFILE.VALID_UNTIL')} ${formatDate(
+        <Styled.ExpirationText color="secondary.900" size="small">{`${i18n.t('PROFILE.VALID_UNTIL')} ${formatDate(
           new Date(socialTariffInfo.endDate),
         )}`}</Styled.ExpirationText>
       )}

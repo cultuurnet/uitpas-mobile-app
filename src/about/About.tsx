@@ -34,7 +34,7 @@ const About = () => {
         title={i18n.t('PROFILE.ABOUT.VERSION', { version: Config.REACT_NATIVE_APP_VERSION_NR })}
       />
       <Styled.NotificationContainer>
-        <Typography bottomSpacing="20px" color="darkGreen">
+        <Typography bottomSpacing="20px" color="secondary.900">
           {i18n.t('PROFILE.ABOUT.CONSTRUCTION_WARNING')}
         </Typography>
         <Button href={ConfigUrl.helpdesk} inline label={i18n.t('PROFILE.ABOUT.REPORT_PROBLEM')} />

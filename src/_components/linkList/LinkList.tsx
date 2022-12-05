@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { Theme } from '../../_styles/theme';
+import { ThemeColor } from '../../_styles/theme';
 import Icon, { TIconName } from '../icon/Icon';
 import Typography from '../typography/Typography';
 import * as Styled from './style';
@@ -8,10 +8,10 @@ import * as Styled from './style';
 type TLinkTypes = { href: string; onPress?: never } | { href?: never; onPress: () => void };
 
 export type TLinkListItem = {
-  iconColor?: keyof Theme['colors'];
+  iconColor?: ThemeColor;
   iconName: TIconName;
   label: string;
-  labelColor?: keyof Theme['colors'];
+  labelColor?: ThemeColor;
 } & TLinkTypes;
 
 type TProps = {
@@ -23,10 +23,10 @@ const LinkList: FC<TProps> = ({ items, title, ...props }) => {
   function renderItem(item: Partial<TLinkListItem>) {
     return (
       <Styled.LinkItem key={item.label}>
-        <Icon color={item.iconColor || 'teal'} name={item.iconName} />
+        <Icon color={item.iconColor || 'primary.600'} name={item.iconName} />
         {item.href ? (
           <Styled.LinkButton
-            color={item.labelColor || 'text'}
+            color={item.labelColor || 'neutral.900'}
             fontStyle="normal"
             href={item.href}
             label={item.label}
@@ -34,7 +34,7 @@ const LinkList: FC<TProps> = ({ items, title, ...props }) => {
           />
         ) : (
           <Styled.LinkButton
-            color={item.labelColor || 'text'}
+            color={item.labelColor || 'neutral.900'}
             fontStyle="normal"
             label={item.label}
             onPress={item.onPress}

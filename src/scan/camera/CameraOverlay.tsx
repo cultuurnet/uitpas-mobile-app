@@ -47,7 +47,7 @@ const CameraOverlay: FC<TProps> = ({
       </Svg>
 
       <Styled.Instruction bottom={boundingBox.top + sideLength}>
-        <Typography align="center" bottomSpacing="20px" color="white" fontStyle="bold" size="large">
+        <Typography align="center" bottomSpacing="20px" color="neutral.0" fontStyle="bold" size="large">
           {t('SCAN.CAMERA.DESCRIPTION')}
         </Typography>
         <Icon name="QRInstruction" size={80} />
@@ -59,7 +59,7 @@ const CameraOverlay: FC<TProps> = ({
 
       {isLoading && (
         <View style={StyleSheet.absoluteFill}>
-          <Spinner color="white" />
+          <Spinner color="neutral.0" />
         </View>
       )}
     </>

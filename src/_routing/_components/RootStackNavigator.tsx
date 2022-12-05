@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Config } from 'react-native-config';
 import SplashScreen from 'react-native-lottie-splash-screen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -30,8 +30,7 @@ const RootStack = createNativeStackNavigator<TRootParams>();
 export const RootStackNavigator = () => {
   const { isAuthenticated, isInitialized } = useAuthentication();
   const versions = useGetVersions();
-  const isPolicyApprovedInStorage = useMemo(() => storage.getBoolean(StorageKey.IsPolicyApproved), []);
-  const [hasViewedOnboarding, setHasViewedOnboarding] = useState(false);
+  const isPolicyApprovedInStorage = storage.getBoolean(StorageKey.IsPolicyApproved);
 
   useEffect(() => {
     if (isInitialized) SplashScreen.hide();
@@ -39,17 +38,7 @@ export const RootStackNavigator = () => {
 
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
-      {!isPolicyApprovedInStorage && !hasViewedOnboarding && !isAuthenticated && (
-        <RootStack.Screen
-          component={Onboarding}
-          listeners={() => ({
-            focus: () => {
-              if (isInitialized) setHasViewedOnboarding(true);
-            },
-          })}
-          name="Onboarding"
-        />
-      )}
+      {!isAuthenticated && !isPolicyApprovedInStorage && <RootStack.Screen component={Onboarding} name="Onboarding" />}
       {Config.UPDATE_CHECK_ENABLED === 'true' && isAuthenticated && versions?.isBehindMinVersion && (
         <RootStack.Screen component={UpdateScreen} name="Update" />
       )}

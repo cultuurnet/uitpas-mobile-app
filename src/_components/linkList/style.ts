@@ -9,9 +9,9 @@ export const LinkButton = styled(Button)`
 `;
 
 export const LinkContainer = styled.View`
-  background-color: ${({ theme }) => theme.colors.white};
-  border-bottom-color: ${({ theme }) => theme.colors.lightGrey};
-  border-top-color: ${({ theme }) => theme.colors.lightGrey};
+  background-color: ${({ theme }) => theme.palette.neutral['0']};
+  border-bottom-color: ${({ theme }) => theme.palette.neutral['200']};
+  border-top-color: ${({ theme }) => theme.palette.neutral['200']};
   border-bottom-width: 1px;
   border-top-width: 0.25px;
   margin: 20px 0px;
@@ -19,7 +19,7 @@ export const LinkContainer = styled.View`
 
 export const LinkItem = styled.View`
   flex-direction: row;
-  padding: 10px 20px;
+  padding: 16px 20px;
   border-top-width: 0.5px;
-  border-top-color: ${({ theme }) => theme.colors.lightGrey};
+  border-top-color: ${({ theme }) => theme.palette.neutral['200']};
 `;

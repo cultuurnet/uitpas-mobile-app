@@ -1,28 +1,31 @@
 import { FC, useEffect } from 'react';
 import { Platform, ScrollView, StatusBar, useWindowDimensions, View } from 'react-native';
 
-import { Theme, theme } from '../../_styles/theme';
+import { ThemeColor } from '../../_styles/theme';
+import { getColor } from '../../_utils/colorHelper';
 import * as Styled from './style';
 
 type TProps = {
-  backgroundColor?: keyof Theme['colors'];
+  backgroundColor?: ThemeColor;
   bottomContent?: React.ReactNode;
+  diagonalContainerHeight?: number;
   isScrollable?: boolean;
-  lineColor?: keyof Theme['colors'];
+  lineColor?: ThemeColor;
   topContent: React.ReactNode;
 };
 
 const DiagonalSplitView: FC<TProps> = ({
   topContent,
   bottomContent,
-  backgroundColor = 'secondary',
-  lineColor = 'secondaryDark',
+  backgroundColor = 'secondary.600',
+  lineColor = 'secondary.700',
   isScrollable,
+  diagonalContainerHeight = 100,
 }) => {
   const { width } = useWindowDimensions();
 
   useEffect(() => {
-    if (Platform.OS === 'android') StatusBar.setBackgroundColor(theme.colors[backgroundColor]);
+    if (Platform.OS === 'android') StatusBar.setBackgroundColor(getColor(backgroundColor));
     StatusBar.setBarStyle('light-content');
   }, []);
 
@@ -32,9 +35,13 @@ const DiagonalSplitView: FC<TProps> = ({
       <Styled.ViewContainer edges={['bottom']} isScrollable={false}>
         <Styled.TopContainer backgroundColor={backgroundColor}>{topContent}</Styled.TopContainer>
 
-        <Styled.DiagonalContainer lineColor={lineColor}>
-          <Styled.Triangle backgroundColor={backgroundColor} screenWidth={width} />
-          <Styled.TriangleDark screenWidth={width} />
+        <Styled.DiagonalContainer diagonalContainerHeight={diagonalContainerHeight} lineColor={lineColor}>
+          <Styled.Triangle
+            backgroundColor={backgroundColor}
+            diagonalContainerHeight={diagonalContainerHeight}
+            screenWidth={width}
+          />
+          <Styled.TriangleDark diagonalContainerHeight={diagonalContainerHeight} screenWidth={width} />
         </Styled.DiagonalContainer>
 
         <Styled.BottomContainer as={isScrollable ? ScrollView : View}>

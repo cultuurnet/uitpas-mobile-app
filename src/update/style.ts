@@ -21,9 +21,9 @@ export const ButtonView = styled.View`
 
 export const TopView = styled.View`
   height: 50px;
-  margin-left: 9px;
   position: relative;
   width: 100%;
+  align-items: center;
 `;
 
 export const CardView = styled.View`

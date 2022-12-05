@@ -35,16 +35,16 @@ const ProfileNotFound: FC = () => {
 
   return (
     <DiagonalSplitView
-      backgroundColor="turquoise"
+      backgroundColor="primary.700"
       bottomContent={<ProfileNotFoundContent onLogout={handleLogout} />}
       isScrollable
-      lineColor="primaryDark"
+      lineColor="primary.800"
       topContent={
         <Styled.TopContent>
-          <Styled.ErrorMessage align="center" bottomSpacing="8px" color="white">
+          <Styled.ErrorMessage align="center" bottomSpacing="8px" color="neutral.0">
             {t('PROFILE_NOT_FOUND.TITLE')}
           </Styled.ErrorMessage>
-          <Typography align="center" color="white" fontStyle="bold" size="xxlarge">
+          <Typography align="center" color="neutral.0" fontStyle="bold" size="large">
             {user?.email}
           </Typography>
         </Styled.TopContent>
