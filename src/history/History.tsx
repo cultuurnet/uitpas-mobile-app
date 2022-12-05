@@ -26,7 +26,7 @@ const History: FC = () => {
           renderItem={({ item }) => <HistoryItem data={item} />}
         />
       ) : (
-        <Styled.NoContentText>{t('PROFILE.HISTORY.EMPTY')}</Styled.NoContentText>
+        <Styled.NoContentText align="center">{t('PROFILE.HISTORY.EMPTY')}</Styled.NoContentText>
       )}
     </Styled.ListView>
   );

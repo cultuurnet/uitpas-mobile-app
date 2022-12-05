@@ -26,7 +26,6 @@ export const InfoView = styled.View`
 
 export const NoContentText = styled(Typography)`
   padding: 0 20px;
-  text-align: center;
 `;
 
 export const HistoryIcon = styled.View`
