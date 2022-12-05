@@ -14,6 +14,7 @@ export const CardInfo = styled(Typography)`
 `;
 
 export const CloseButton = styled(Icon)`
+  padding: 5px;
   position: absolute;
   top: 7px;
   right: 7px;
