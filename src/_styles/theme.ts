@@ -70,9 +70,11 @@ export const theme = {
   /** @deprecated */
   colors: {
     background: '#eaecec',
+    black: '#2E3333',
     blueGreen: '#3eb9bb',
     blurredBlack: 'rgba(0, 0, 0, 0.3)',
     button: '#168b8d',
+    blue: '#68C8CA',
     buttonActive: '#0f6163',
     darkGreen: '#0b5641',
     darkRed: '#a32941',
@@ -81,7 +83,6 @@ export const theme = {
     lightGreen: '#81d5bE',
     lightGrey: '#cfc3d3',
     lightestGreen: '#bae7e8',
-
     primary: '#39ac8d',
     primaryDark: '#127173',
     red: '#f82e58',

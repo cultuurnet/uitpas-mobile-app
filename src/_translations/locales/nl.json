@@ -1,8 +1,17 @@
 {
+  "GENERAL": {
+    "PROBLEM": "Meld een probleem"
+  },
   "NAVIGATION": {
     "PROFILE": "Mijn UiTPAS",
     "CAMERA": "Sparen",
     "SHOP": "Shop"
+  },
+  "UPDATE": {
+    "NECESSARY": "Update nodig",
+    "DISCLAIMER": "Een update is nodig om de UiTPAS app verder te gebruiken",
+    "STORE_BUTTON": "Update",
+    "AVAILABLE": "Er is een nieuwe update beschikbaar."
   },
   "ONBOARDING": {
     "TITLE": "Algemene voorwaarden",

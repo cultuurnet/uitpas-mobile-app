@@ -9,18 +9,21 @@ import { TProfileParams } from '../_routing/_components/ProfileNavigator';
 import { TRootParams } from '../_routing/_components/RootStackNavigator';
 import i18n from '../_translations/i18n';
 import { storage } from '../storage';
+import { useGetVersions } from '../update/_queries/useGetVersions';
 import { useGetMe } from './_queries/useGetMe';
 import LogoutModal from './LogOutModal';
 import MIANotification from './MIANotification/MIANotification';
 import * as Styled from './style';
 import UitpasCard from './UitpasCard/UitpasCard';
 import UitpasInfo from './UitpasInfo/UitpasInfo';
+import UpdateNotification from './UpdateNotification/UpdateNotification';
 
 const Profile = () => {
   const [logOutModalVisible, toggleLogOutModalVisible] = useToggle(false);
   const { data: passHolder, isLoading: isPassHolderLoading } = useGetMe();
   const [isUitpasInfoClosed, setIsUitpasInfoClosed] = useState(storage.getBoolean(StorageKey.IsUitpasInfoClosed));
   const { navigate } = useStackNavigation<TProfileParams & TRootParams>();
+  const versions = useGetVersions();
 
   const links: TLinkListItem[] = [
     {
@@ -62,7 +65,6 @@ const Profile = () => {
     return navigate('ProfileNotFound');
   }
   const [MIAInfoFirstActiveCard] = passHolder.cardSystemMemberships.filter(card => card.status === 'ACTIVE' && card.socialTariff);
-
   return (
     <>
       <Styled.SafeAreaViewContainer edges={['top']} isScrollable>
@@ -70,6 +72,7 @@ const Profile = () => {
           <Typography fontStyle="bold" size="large">
             {i18n.t('PROFILE.HELLO', { name: passHolder.firstName })}
           </Typography>
+          {versions?.isBehindTarget && <UpdateNotification />}
           <UitpasCard passHolder={passHolder} />
           {!isUitpasInfoClosed && (
             <UitpasInfo
