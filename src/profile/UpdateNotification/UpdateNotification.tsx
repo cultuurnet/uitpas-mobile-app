@@ -10,13 +10,13 @@ const UpdateNotification = () => {
   return (
     <Styled.NotificationContainer>
       <Styled.TextView>
-        <Typography color="white" fontStyle="semibold">
+        <Typography color="neutral.0" fontStyle="semibold">
           {i18n.t('UPDATE.AVAILABLE')}
         </Typography>
       </Styled.TextView>
       <Styled.UpdateButton
         centered
-        color="blue"
+        color="primary.400"
         hitSlop={20}
         href={Platform.OS === 'ios' ? ConfigUrl.appStore : ConfigUrl.playStore}
         label="Update"

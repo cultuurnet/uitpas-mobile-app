@@ -18,7 +18,7 @@ const HistoryItem: FC<TProps> = ({ data: { points, location, creationDate } }) =
   return (
     <Styled.HistoryItem>
       <Styled.HistoryIcon>
-        <Icon color="blueGreen" name={isNegative ? 'Gift' : 'Point'} size={20} />
+        <Icon color="primary.500" name={isNegative ? 'Gift' : 'Point'} size={20} />
       </Styled.HistoryIcon>
 
       <View>
@@ -29,7 +29,7 @@ const HistoryItem: FC<TProps> = ({ data: { points, location, creationDate } }) =
       </View>
 
       <Styled.Points>
-        <Typography color={isNegative ? 'red' : 'secondary'} fontStyle="bold" size="small">
+        <Typography color={isNegative ? 'error.600' : 'secondary.600'} fontStyle="bold" size="small">
           {t('PROFILE.HISTORY.POINTS', { points: isNegative ? points : `+${points}` })}
         </Typography>
         <Typography size="xsmall">{format(new Date(creationDate), 'dd/MM')}</Typography>

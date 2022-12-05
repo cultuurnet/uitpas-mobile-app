@@ -22,19 +22,19 @@ const UitpasCard: FC<TProps> = ({ passHolder }) => {
       <Styled.ContentContainer>
         <Styled.UserInfoContainer>
           <View>
-            <Typography color="white" fontStyle="bold">
+            <Typography color="neutral.0" fontStyle="bold">
               {`${passHolder.firstName} ${passHolder.name}`}
             </Typography>
-            <Typography color="white" size="small">
+            <Typography color="neutral.0" size="small">
               {firstActiveCard.cardSystem.name}
               {activeUitpasCards.length > 1 && ', ...'}
             </Typography>
           </View>
           <Styled.PointsView>
-            <Typography color="white" fontStyle="bold" size="xlarge">
+            <Typography color="neutral.0" fontStyle="bold" size="xlarge">
               {passHolder.points}
             </Typography>
-            <Typography color="white" fontStyle="semibold" size="xsmall">
+            <Typography color="neutral.0" fontStyle="semibold" size="xsmall">
               {i18n.t('PROFILE.POINTS')}
             </Typography>
           </Styled.PointsView>

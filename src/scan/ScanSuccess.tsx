@@ -24,7 +24,7 @@ const ScanSuccess: FC = () => {
         <>
           <Styled.BottomContainer>
             <Styled.SavedPoints>
-              <Typography color="turquoise" fontStyle="bold" size="xxlarge">
+              <Typography color="primary.700" fontStyle="bold" size="xxlarge">
                 +{addedPoints}
               </Typography>
             </Styled.SavedPoints>

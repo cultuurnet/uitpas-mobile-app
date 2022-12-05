@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components/native';
 
+import { getColor } from '../../_utils/colorHelper';
 import TouchableRipple from '../touchableRipple/TouchableRipple';
 import { TIconProps } from './Icon';
 
@@ -8,7 +9,7 @@ export const IconButton = styled(TouchableRipple)<{ borderless?: boolean; disabl
 `;
 
 export const Icon = styled.Image<Pick<TIconProps, 'size' | 'color'>>`
-  tint-color: ${({ color, theme }) => color && theme.colors[color]};
+  tint-color: ${({ color }) => color && getColor(color)};
   ${({ size }) => {
     const imageSize = typeof size === 'number' ? size : size === 'small' ? 16 : size === 'large' ? 40 : 20;
     return css`

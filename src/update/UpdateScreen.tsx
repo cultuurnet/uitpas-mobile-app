@@ -15,11 +15,11 @@ const UpdateScreen = () => {
   }
   return (
     <DiagonalSplitView
-      backgroundColor="lightBlue"
+      backgroundColor="primary.300"
       bottomContent={
         <>
           <Styled.TextView>
-            <Typography color="primaryDark" fontStyle="bold" size="xxlarge">
+            <Typography color="primary.800" fontStyle="bold" size="xxlarge">
               {i18n.t('UPDATE.NECESSARY')}
             </Typography>
             <Typography align="center" size="large">
@@ -32,7 +32,7 @@ const UpdateScreen = () => {
           </Styled.ButtonView>
         </>
       }
-      lineColor="blueGreen"
+      lineColor="primary.500"
       topContent={
         <Styled.TopView>
           <Styled.CardView>

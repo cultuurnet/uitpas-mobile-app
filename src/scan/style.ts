@@ -10,7 +10,7 @@ export const BottomContainer = styled.View`
 export const SavedPoints = styled.View`
   margin-bottom: 24px;
   border-width: 5px;
-  border-color: ${({ theme }) => theme.colors.lightestGreen};
+  border-color: ${({ theme }) => theme.palette.primary['200']};
   width: 80px;
   height: 80px;
   align-items: center;

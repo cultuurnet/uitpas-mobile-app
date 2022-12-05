@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Config } from 'react-native-config';
 import { EventArg } from '@react-navigation/native';
 
+import { Person } from '../_assets/images';
 import { BrandLogo, DiagonalSplitView, Spinner } from '../_components';
 import { ConfigUrl } from '../_config';
 import { useAuthentication } from '../_context';
@@ -59,12 +60,15 @@ const Login = () => {
           <Styled.ListItem label={t('LOGIN.CTA')} onPress={handleLogin} />
         </Styled.BottomContainer>
       }
+      diagonalContainerHeight={150}
       topContent={
         <Styled.TopContainer>
           <BrandLogo height={48} inverse />
-          <Styled.IntroText align="center" color="white" fontStyle="semibold">
+          <Styled.IntroText align="center" color="neutral.0">
             {t('LOGIN.INTRO')}
           </Styled.IntroText>
+
+          <Styled.Illustration source={Person} />
         </Styled.TopContainer>
       }
     />

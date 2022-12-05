@@ -2,14 +2,14 @@ import React from 'react';
 import { ImageProps, ImageStyle, StyleProp, ViewStyle } from 'react-native';
 
 import * as Icons from '../../_assets/icons';
-import { Theme } from '../../_styles/theme';
+import { ThemeColor } from '../../_styles/theme';
 import * as Styled from './style';
 
 export type TIconName = keyof typeof Icons;
 
 export type TIconProps = {
   borderless?: boolean;
-  color?: keyof Theme['colors'];
+  color?: ThemeColor;
   disabled?: boolean;
   name: TIconName;
   onPress?: () => void;

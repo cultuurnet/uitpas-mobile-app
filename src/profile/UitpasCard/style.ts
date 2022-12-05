@@ -24,7 +24,7 @@ export const CardContainer = styled.View`
 `;
 
 export const SafeAreaViewContainer = styled(SafeAreaView)`
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: ${({ theme }) => theme.palette.neutral['100']};
 `;
 
 export const LogoContainer = styled.View`
@@ -37,7 +37,7 @@ export const PointsView = styled.View`
 `;
 export const BarcodeContainer = styled.View`
   align-items: center;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.palette.neutral['0']};
   border-radius: 10px;
   height: 75px;
   justify-content: center;
@@ -49,7 +49,7 @@ export const TopCardView = styled.View<{ screenWidth: number }>`
   position: relative;
   height: 155px;
   width: ${({ screenWidth }) => `${screenWidth - CARD_MARGIN * 2}px`};
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.palette.secondary['500']};
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
 `;
@@ -61,7 +61,7 @@ export const Triangle = styled.View<{ screenWidth: number }>`
   border-right-width: ${({ screenWidth }) => `${screenWidth - CARD_MARGIN * 2}px`};
   border-right-color: transparent;
   border-bottom-width: 90px;
-  border-bottom-color: ${({ theme }) => theme.colors.secondary};
+  border-bottom-color: ${({ theme }) => theme.palette.secondary['600']};
   border-top-width: 65px;
   border-top-color: transparent;
 `;
@@ -69,7 +69,7 @@ export const Triangle = styled.View<{ screenWidth: number }>`
 export const BottomCardView = styled.View<{ screenWidth: number }>`
   height: 45px;
   width: ${({ screenWidth }) => `${screenWidth - CARD_MARGIN * 2}px`};
-  background-color: ${({ theme }) => theme.colors.secondary};
+  background-color: ${({ theme }) => theme.palette.secondary['600']};
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 `;

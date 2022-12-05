@@ -22,7 +22,7 @@ export const MainNavigator: FC = () => {
       backBehavior="history"
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarActiveTintColor: theme.colors.primary,
+        tabBarActiveTintColor: theme.palette.secondary['500'],
         tabBarIcon: ({ focused }) => {
           return <TabBarIcon focused={focused} name={mapRouteNameToIcon(route.name)} />;
         },

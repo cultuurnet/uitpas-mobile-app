@@ -2,26 +2,25 @@ import styled from 'styled-components/native';
 
 import { Button, Checkbox, Typography } from '../_components';
 
-export const ViewContainer = styled.ScrollView`
-  background-color: ${({ theme }) => theme.colors.white};
-`;
-
 export const TopContainer = styled.View`
   padding: 0px 16px;
   align-items: center;
 `;
 
 export const TitleText = styled(Typography)`
-  margin-top: 16px;
+  margin-top: 42px;
+`;
+
+export const Image = styled.Image`
+  margin-top: 60px;
 `;
 
 export const IntroText = styled(Typography)`
-  margin-top: 24px;
+  margin-top: 42px;
 `;
 
 export const ConfirmCheckbox = styled(Checkbox)`
-  margin-top: 24px;
-  width: 100%;
+  margin-top: 32px;
 `;
 
 export const LabelText = styled(Typography)`
