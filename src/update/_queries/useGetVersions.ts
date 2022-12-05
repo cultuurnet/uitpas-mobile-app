@@ -11,5 +11,5 @@ function getVersions(): Promise<TVersion> {
 
 export function useGetVersions() {
   const { data: versions } = useQuery<TVersion, unknown>(['versions'], () => getVersions());
-  return checkVersion(versions);
+  return versions ? checkVersion(versions) : undefined;
 }
