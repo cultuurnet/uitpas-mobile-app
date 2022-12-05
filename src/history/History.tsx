@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlashList } from '@shopify/flash-list';
 
 import { Spinner } from '../_components';
@@ -8,6 +9,7 @@ import * as Styled from './style';
 
 const History: FC = () => {
   const { data: history, fetchNextPage, isLoading: isHistoryLoading } = useGetHistory();
+  const { t } = useTranslation();
 
   if (isHistoryLoading) {
     return <Spinner />;
@@ -24,7 +26,7 @@ const History: FC = () => {
           renderItem={({ item }) => <HistoryItem data={item} />}
         />
       ) : (
-        <Styled.NoContentText>Je hebt nog geen punten gespaard of voordelen ingewisseld.</Styled.NoContentText>
+        <Styled.NoContentText>{t('PROFILE.HISTORY.EMPTY')}</Styled.NoContentText>
       )}
     </Styled.ListView>
   );
