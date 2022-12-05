@@ -47,5 +47,11 @@ target 'reactnative_uitpas' do
       system('cd Pods/OpenSSL-Universal/Frameworks/OpenSSL.xcframework/ios-arm64_x86_64-maccatalyst; ln -sfh OpenSSL.framework openssl.framework')
       system('cd Pods/OpenSSL-Universal/Frameworks/OpenSSL.xcframework/macos-arm64_x86_64; ln -sfh OpenSSL.framework openssl.framework')
     end
+
+    # The macos file system is case sensitive, so the `fmdb` is not found.
+    # See https://github.com/snowplow/snowplow-objc-tracker/issues/731
+    unless File.exist? "pods"
+      system('cd Pods/SnowplowTracker/Snowplow/Internal/Storage; sed -i .bak "s/fmdb/FMDB/" SPSQLiteEventStore.m')
+    end
   end
 end

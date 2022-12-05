@@ -1,21 +1,4 @@
-import Svg from 'react-native-svg';
 import styled from 'styled-components/native';
-
-export const CameraWrapper = styled.View`
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-`;
-
-export const Overlay = styled(Svg)`
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-`;
 
 export const Instruction = styled.View<{ bottom?: number; top?: number }>`
   position: absolute;

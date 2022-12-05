@@ -1,6 +1,6 @@
-import { TConfigEnvironment } from './environments';
+import { ConfigEnvironment } from './environments';
 
-type TConfigUrl = Record<TConfigEnvironment, string>;
+type TConfigUrl = Record<ConfigEnvironment, string>;
 type TConfigUrlIdentifiers =
   | 'register'
   | 'buy'
@@ -96,6 +96,6 @@ const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
 export const ConfigUrl = Object.keys(urls).reduce((result, key) => {
   return {
     ...result,
-    [key]: urls[key][TConfigEnvironment],
+    [key]: urls[key][ConfigEnvironment],
   };
 }, {} as Record<TConfigUrlIdentifiers, string>);

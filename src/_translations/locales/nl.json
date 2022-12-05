@@ -4,7 +4,7 @@
   },
   "NAVIGATION": {
     "PROFILE": "Mijn UiTPAS",
-    "SCAN": "Sparen",
+    "CAMERA": "Sparen",
     "SHOP": "Shop"
   },
   "UPDATE": {
@@ -85,8 +85,20 @@
     "DESCRIPTION": "Met je gespaarde punten kan je heel wat voordelen omruilen. Doorzoek de voordelen op zoek naar een korting, gadget of cadeau dat bij jou past.",
     "BUTTON": "Ga naar de shop"
   },
-  "CAMERA": {
-    "DESCRIPTION": "Scan de UiTPAS QR-code",
-    "CTA": "Hulp nodig met scannen?"
+  "SCAN": {
+    "CAMERA": {
+      "DESCRIPTION": "Scan de UiTPAS QR-code",
+      "CTA": "Hulp nodig met scannen?"
+    },
+    "SUCCESS": {
+      "DESCRIPTION": "Hopla, weer een punt erbij!\nDat brengt je totaal op <bold>{{points}} punten</bold>.",
+      "CTA": "Sluiten"
+    }
+  },
+  "ERROR": {
+    "TITLE": "Er is iets misgegaan!",
+    "DEFAULT_MESSAGE": "Er lijkt iets misgegaan tijdens het gebruik van de app, ga terug naar de app of meld het probleem.",
+    "HELP": "Meld een probleem",
+    "CTA": "Sluiten"
   }
 }

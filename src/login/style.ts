@@ -6,6 +6,10 @@ export const IntroText = styled(Typography)`
   margin-top: 16px;
 `;
 
+export const TopContainer = styled.View`
+  padding: 40px 16px;
+`;
+
 export const BottomContainer = styled.View`
   margin-top: auto;
 `;

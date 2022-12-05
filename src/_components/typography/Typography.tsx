@@ -6,7 +6,7 @@ import * as Styled from './style';
 export type TTypographyProps = {
   align?: 'left' | 'center' | 'right';
   bottomSpacing?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   color?: keyof Theme['colors'];
   fontStyle?: 'light' | 'normal' | 'semibold' | 'bold';
   size?: 'xsmall' | 'small' | 'normal' | 'large' | 'xlarge' | 'xxlarge';
