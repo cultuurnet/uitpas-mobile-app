@@ -1,4 +1,6 @@
 import styled from 'styled-components/native';
+
+import { Typography } from '../_components';
 export const HISTORY_ITEM_HEIGHT = 65;
 
 export const HistoryItem = styled.View`
@@ -12,7 +14,13 @@ export const HistoryItem = styled.View`
 
 export const ListView = styled.View`
   flex: 1;
+  justify-content: center;
   padding-top: 20px;
+`;
+
+export const NoContentText = styled(Typography)`
+  padding: 0 20px;
+  text-align: center;
 `;
 
 export const HistoryIcon = styled.View`
