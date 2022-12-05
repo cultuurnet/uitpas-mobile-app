@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { Config } from 'react-native-config';
 import SplashScreen from 'react-native-lottie-splash-screen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -11,9 +12,11 @@ import ProfileNotFound from '../../profile/ProfileNotFound';
 import { TCheckInResponse } from '../../scan/_models';
 import ScanSuccess from '../../scan/ScanSuccess';
 import { storage } from '../../storage';
+import { useGetVersions } from '../../update/_queries/useGetVersions';
+import UpdateScreen from '../../update/UpdateScreen';
 import { MainNavigator } from './MainNavigator';
 
-export type TRootRoutes = 'MainNavigator' | 'Onboarding' | 'Login' | 'ProfileNotFound' | 'ScanSuccess' | 'Error';
+export type TRootRoutes = 'MainNavigator' | 'Onboarding' | 'Login' | 'ProfileNotFound' | 'ScanSuccess' | 'Error' | 'Update';
 export type TRootParams = Record<Exclude<TRootRoutes, 'ScanSuccess' | 'Error'>, undefined> & {
   Error: {
     message: string;
@@ -26,6 +29,7 @@ const RootStack = createNativeStackNavigator<TRootParams>();
 
 export const RootStackNavigator = () => {
   const { isAuthenticated, isInitialized } = useAuthentication();
+  const versions = useGetVersions();
   const isPolicyApprovedInStorage = useMemo(() => storage.getBoolean(StorageKey.IsPolicyApproved), []);
   const [hasViewedOnboarding, setHasViewedOnboarding] = useState(false);
 
@@ -45,6 +49,9 @@ export const RootStackNavigator = () => {
           })}
           name="Onboarding"
         />
+      )}
+      {Config.UPDATE_CHECK_ENABLED === 'true' && isAuthenticated && versions?.isBehindMinVersion && (
+        <RootStack.Screen component={UpdateScreen} name="Update" />
       )}
       {!isAuthenticated && <RootStack.Screen component={Login} name="Login" />}
       {isAuthenticated && (

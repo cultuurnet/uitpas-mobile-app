@@ -32,6 +32,7 @@ export const DiagonalContainer = styled.View<{ lineColor: keyof Theme['colors'] 
   position: relative;
   height: ${DIAGONAL_CONTAINER_HEIGHT}px;
   background-color: ${({ theme, lineColor }) => theme.colors[lineColor]};
+  z-index: -1;
 `;
 
 export const Triangle = styled.View<{ backgroundColor: keyof Theme['colors']; screenWidth: number }>`
