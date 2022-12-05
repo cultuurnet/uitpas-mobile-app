@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect } from 'react';
 import SplashScreen from 'react-native-lottie-splash-screen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -26,7 +26,7 @@ const RootStack = createNativeStackNavigator<TRootParams>();
 
 export const RootStackNavigator = () => {
   const { isAuthenticated, isInitialized } = useAuthentication();
-  const isPolicyApprovedInStorage = useMemo(() => storage.getBoolean(StorageKey.IsPolicyApproved), []);
+  const isPolicyApprovedInStorage = storage.getBoolean(StorageKey.IsPolicyApproved);
 
   useEffect(() => {
     if (isInitialized) SplashScreen.hide();
@@ -34,7 +34,7 @@ export const RootStackNavigator = () => {
 
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
-      {!isPolicyApprovedInStorage && <RootStack.Screen component={Onboarding} name="Onboarding" />}
+      {!isAuthenticated && !isPolicyApprovedInStorage && <RootStack.Screen component={Onboarding} name="Onboarding" />}
       {!isAuthenticated && <RootStack.Screen component={Login} name="Login" />}
       {isAuthenticated && (
         <>
