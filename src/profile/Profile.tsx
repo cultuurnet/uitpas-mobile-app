@@ -64,7 +64,9 @@ const Profile = () => {
   if (!passHolder) {
     return navigate('ProfileNotFound');
   }
-  const [MIAInfoFirstActiveCard] = passHolder.cardSystemMemberships.filter(card => card.status === 'ACTIVE' && card.socialTariff);
+  const [MIAInfoFirstActiveCard] = passHolder.cardSystemMemberships.filter(
+    card => card.status === 'ACTIVE' && card.socialTariff && !card.socialTariff.expired,
+  );
   return (
     <>
       <Styled.SafeAreaViewContainer edges={['top']} isScrollable>

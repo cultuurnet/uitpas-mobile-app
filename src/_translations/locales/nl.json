@@ -61,11 +61,12 @@
       "CONSTRUCTION_WARNING": "Deze app is in volle opbouw. Ging er iets fout? Klik hier om het te melden!"
     },
     "HISTORY": {
+      "EMPTY": "Je hebt nog geen punten gespaard of voordelen ingewisseld.",
       "BACK_TITLE": "Profiel",
       "HEADER_TITLE": "Historiek",
       "POINTS": "{{points}} punten",
-      "POINTS_POSITIVE": "1 toegang",
-      "POINTS_NEGATIVE": "1 totebag"
+      "POINT": "{{points}} punt",
+      "POINTS_TITLE": "1 {{title}}"
     }
   },
   "PROFILE_NOT_FOUND": {
