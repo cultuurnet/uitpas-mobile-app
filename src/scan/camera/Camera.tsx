@@ -15,6 +15,7 @@ import { useCameraPermission } from '../_hooks';
 import { TOverlayDimensions, useOverlayDimensions } from '../_hooks/useOverlayDimensions';
 import { useCheckin } from '../_queries/useCheckin';
 import { isInRange } from '../_util/isInRange';
+import CameraSettings from '../cameraSettings/CameraSettings';
 import CameraOverlay from './CameraOverlay';
 
 const overlaySettings: TOverlayDimensions = {
@@ -85,6 +86,10 @@ const Camera = () => {
         log.error(error);
       }
     }
+  }
+
+  if (!hasCameraPermission) {
+    return <CameraSettings />;
   }
 
   if (!hasCameraPermission || device == null) {

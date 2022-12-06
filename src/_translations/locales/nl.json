@@ -89,6 +89,11 @@
       "DESCRIPTION": "Scan de UiTPAS QR-code",
       "CTA": "Hulp nodig met scannen?"
     },
+    "SETTINGS": {
+      "TITLE": "De camera is nodig om punten te kunnen  sparen",
+      "DESCRIPTION": "Voor het sparen van punten is toegang tot de camera nodig. Gelieve deze in je instellingen aan te passen.",
+      "CTA": "Ga naar instellingen"
+    },
     "SUCCESS": {
       "DESCRIPTION": "Hopla, weer een punt erbij!\nJe hebt nu <bold>{{totalPoints}} UiTPAS-punten.</bold>",
       "DESCRIPTION_MULTIPLE": "Hopla, weer {{addedPoints}} punten erbij!\nJe hebt nu <bold>{{totalPoints}} UiTPAS-punten.</bold>",
