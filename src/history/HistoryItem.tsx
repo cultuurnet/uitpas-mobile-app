@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns';
 
 import { Icon, Typography } from '../_components';
+import i18n from '../_translations/i18n';
 import { THistoryItem } from './_models';
 import * as Styled from './style';
 
@@ -12,7 +12,6 @@ type TProps = {
 
 const HistoryItem: FC<TProps> = ({ data: { points, location, creationDate, title } }) => {
   const isNegative = points < 0;
-  const { t } = useTranslation();
   return (
     <Styled.HistoryItem>
       <Styled.HistoryIcon>
@@ -21,8 +20,8 @@ const HistoryItem: FC<TProps> = ({ data: { points, location, creationDate, title
 
       <Styled.InfoView>
         <Typography fontStyle="bold" size="small">
-          {t(`PROFILE.HISTORY.POINTS_TITLE`, {
-            title: title,
+          {i18n.t(`PROFILE.HISTORY.POINTS_TITLE`, {
+            title,
           })}
         </Typography>
         <Typography size="xsmall">{location}</Typography>
@@ -30,7 +29,7 @@ const HistoryItem: FC<TProps> = ({ data: { points, location, creationDate, title
 
       <Styled.Points>
         <Typography color={isNegative ? 'error.600' : 'secondary.600'} fontStyle="bold" size="small">
-          {t('PROFILE.HISTORY.POINTS', { points: isNegative ? points : `+${points}` })}
+          {i18n.t('PROFILE.HISTORY.POINTS', { points: isNegative ? points : `+${points}` })}
         </Typography>
         <Typography size="xsmall">{format(new Date(creationDate), 'dd/MM')}</Typography>
       </Styled.Points>
