@@ -47,8 +47,8 @@ export const RootStackNavigator = () => {
         <>
           <RootStack.Screen component={MainNavigator} name="MainNavigator" />
           <RootStack.Screen component={ProfileNotFound} name="ProfileNotFound" options={{ gestureEnabled: false }} />
-          <RootStack.Screen component={ScanSuccess} name="ScanSuccess" />
-          <RootStack.Screen component={Error} name="Error" />
+          <RootStack.Screen component={ScanSuccess} name="ScanSuccess" options={{ gestureEnabled: false }} />
+          <RootStack.Screen component={Error} name="Error" options={{ gestureEnabled: false }} />
         </>
       )}
     </RootStack.Navigator>

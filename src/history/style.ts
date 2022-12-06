@@ -9,7 +9,6 @@ export const HistoryItem = styled.View`
   padding: 12px 16px;
   border-bottom-width: 0.25px;
   border-bottom-color: ${({ theme }) => theme.palette.neutral['200']};
-  height: ${HISTORY_ITEM_HEIGHT}px;
 `;
 
 export const ListView = styled.View`

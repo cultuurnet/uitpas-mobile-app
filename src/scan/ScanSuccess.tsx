@@ -31,8 +31,8 @@ const ScanSuccess: FC = () => {
             <Typography align="center">
               <Trans
                 components={{ bold: <Typography fontStyle="bold" /> }}
-                i18nKey="SCAN.SUCCESS.DESCRIPTION"
-                values={{ points: totalPoints }}
+                i18nKey={`SCAN.SUCCESS.DESCRIPTION${addedPoints > 1 ? 'MULTIPLE' : ''}`}
+                values={{ addedPoints, totalPoints }}
               />
             </Typography>
           </Styled.BottomContainer>

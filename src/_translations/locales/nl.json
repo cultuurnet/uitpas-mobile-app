@@ -5,7 +5,7 @@
   "NAVIGATION": {
     "PROFILE": "Mijn UiTPAS",
     "CAMERA": "Sparen",
-    "SHOP": "Shop"
+    "SHOP": "Voordelen"
   },
   "UPDATE": {
     "NECESSARY": "Update nodig",
@@ -16,35 +16,33 @@
   "ONBOARDING": {
     "TITLE": "Algemene voorwaarden",
     "INTRO": "We verzamelen automatisch enkele gebruiksgegevens om UiTPAS en deze app verder te verbeteren.",
-    "LOOK_AT": "Accepteer de",
-    "TERMS_OF_SERVICE": "gebruiksvoorwaarden",
+    "LOOK_AT": "Ik accepteer",
+    "TERMS_OF_SERVICE": "de gebruiksvoorwaarden",
     "AND": "en",
-    "TO_MOVE_ON": "om verder te gaan.",
-    "PRIVACY_POLICY": "privacybeleid",
+    "PRIVACY_POLICY": "het privacybeleid.",
     "PRIVACY_POLICY_URL": "https://www.uitpas.be/privacybeleid",
-    "CONFIRM": "Oké, ik begrijp het"
+    "CONFIRM": "Doorgaan"
   },
   "AUTHENTICATION": {
     "LOG_OUT": "Afmelden",
-    "CONFIRM_TEXT": "Ben je zeker dat je wil afmelden?",
+    "CONFIRM_TEXT": "Weet je zeker dat je wil afmelden?",
     "CANCEL": "Annuleren",
     "CONFIRM": "OK"
   },
   "LOGIN": {
     "INTRO": "Jouw voordeelkaart voor\nverrassende vrije tijd buitenshuis",
-    "REGISTER": "Registreer je UiTPAS",
-    "HELP": "Meldde je voorheen aan met je kaartnummer?",
+    "REGISTER": "Kan je niet aanmelden?\n Registreer je UiTPAS (opnieuw)",
     "CTA": "Aanmelden"
   },
   "PROFILE": {
     "POINTS": "punten",
     "HELLO": "Dag {{name}}",
-    "INFO": "Dit is je digitale UiTPAS. Toon deze barcode wanneer je een voordeel wenst om te ruilen op een UiTPAS locatie.",
-    "MIA": "Dankzij jouw UiTPAS met kortingstarief kan je extra voordelig deelnemen aan UiTPAS-activiteiten.",
-    "VALID_UNTIL": "Geldig tot",
+    "INFO": "Dit is je UiTPAS: toon de barcode wanneer een medewerker naar je UiTPAS vraagt, bijvoorbeeld om punten te ruilen.",
+    "MIA": "Je hebt een UiTPAS met kansentarief: daarmee krijg je korting bij alle UiTPAS-activiteiten.",
+    "VALID_UNTIL": "Geldig tot en met",
     "LINKS": {
-      "BENEFITS": "Mijn Welkomstvoordelen",
-      "HISTORY": "Mijn Historiek",
+      "BENEFITS": "Mijn welkomstvoordelen",
+      "HISTORY": "Historiek",
       "LOGOUT": "Afmelden",
       "ABOUT": "Over deze app",
       "PERSONAL_INFO": "Mijn persoonlijke gegevens",
@@ -54,37 +52,37 @@
       "VERSION": "Versie {{version}}",
       "HEADER_TITLE": "Over deze app",
       "BACK_TITLE": "Profiel",
-      "TERMS_OF_SERVICE": "Gebruikersvoorwaarden",
+      "TERMS_OF_SERVICE": "Gebruiksvoorwaarden",
       "PRIVACY_POLICY": "Privacybeleid",
-      "CHECK_FOR_UPDATES": "Check for updates",
-      "REPORT_PROBLEM": "Probleem melden",
-      "CONSTRUCTION_WARNING": "Deze app is in volle opbouw. Ging er iets fout? Klik hier om het te melden!"
+      "CHECK_FOR_UPDATES": "Controleer op updates",
+      "REPORT_PROBLEM": "Meld een probleem",
+      "CONSTRUCTION_WARNING": "We werken nog hard aan deze app. Vond je een fout of ging er iets mis? Laat het ons weten."
     },
     "HISTORY": {
-      "EMPTY": "Je hebt nog geen punten gespaard of voordelen ingewisseld.",
+      "EMPTY": "Je hebt nog geen punten gespaard of ingeruild.",
       "BACK_TITLE": "Profiel",
       "HEADER_TITLE": "Historiek",
       "POINTS": "{{points}} punten",
       "POINT": "{{points}} punt",
-      "POINTS_TITLE": "1 {{title}}"
+      "POINTS_TITLE": "{{title}}"
     }
   },
   "PROFILE_NOT_FOUND": {
     "TITLE": "We kunnen geen UiTPAS terugvinden voor",
-    "REGISTER_TEXT": "Het is de eerste keer dat je aanmeldt op UiTPAS?",
-    "REGISTER_CTA": "Registreer op uitpas.be",
-    "BUY_TEXT": "Je hebt nog geen UiTPAS?",
-    "BUY_CTA": "Koop hier een UiTPAS",
-    "FORGOT_EMAIL_TEXT": "Je hebt een UiTPAS, maar weet niet welk e-mailadres?",
-    "FORGOT_EMAIL_CTA": "Zoek het hier op uitpas.be",
-    "OTHER_ACCOUNT_TEXT": "Meld je aan met een ander e-mailadres",
-    "OTHER_ACCOUNT_CTA": "Aanmelden",
-    "HELPDESK_TEXT": "Geen antwoord gevonden?",
-    "HELPDESK_CTA": "Contacteer onze helpdesk"
+    "REGISTER_TEXT": "Heb je al een UiTPAS?",
+    "REGISTER_CTA": "Registreer hem eerst op uitpas.be",
+    "BUY_TEXT": "Heb je nog geen UiTPAS?",
+    "BUY_CTA": "Hier kan je er een kopen.",
+    "FORGOT_EMAIL_TEXT": "Vergeten welk e-mailadres bij je UiTPAS hoort?",
+    "FORGOT_EMAIL_CTA": "Kijk het even na.",
+    "OTHER_ACCOUNT_TEXT": "Aanmelden met een ander e-mailadres?",
+    "OTHER_ACCOUNT_CTA": "Probeer het opnieuw",
+    "HELPDESK_TEXT": "Een andere vraag?",
+    "HELPDESK_CTA": "Stel ze aan een medewerker via de helpdesk."
   },
   "SHOP": {
-    "DESCRIPTION": "Met je gespaarde punten kan je heel wat voordelen omruilen. Doorzoek de voordelen op zoek naar een korting, gadget of cadeau dat bij jou past.",
-    "BUTTON": "Ga naar de shop"
+    "DESCRIPTION": "Je kan je UiTPAS-punten inruilen voor heel wat leuks: ga op zoek naar een korting of cadeautje dat bij jou past",
+    "BUTTON": "Bekijk alle voordelen"
   },
   "SCAN": {
     "CAMERA": {
@@ -92,7 +90,8 @@
       "CTA": "Hulp nodig met scannen?"
     },
     "SUCCESS": {
-      "DESCRIPTION": "Hopla, weer een punt erbij!\nDat brengt je totaal op <bold>{{points}} punten</bold>.",
+      "DESCRIPTION": "Hopla, weer een punt erbij!\nJe hebt nu <bold>{{totalPoints}} UiTPAS-punten.</bold>",
+      "DESCRIPTION_MULTIPLE": "Hopla, weer {{addedPoints}} punten erbij!\nJe hebt nu <bold>{{totalPoints}} UiTPAS-punten.</bold>",
       "CTA": "Sluiten"
     }
   },
