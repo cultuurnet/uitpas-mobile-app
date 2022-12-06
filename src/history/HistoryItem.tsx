@@ -29,7 +29,7 @@ const HistoryItem: FC<TProps> = ({ data: { points, location, creationDate, title
 
       <Styled.Points>
         <Typography color={isNegative ? 'error.600' : 'secondary.600'} fontStyle="bold" size="small">
-          {i18n.t('PROFILE.HISTORY.POINTS', { points: isNegative ? points : `+${points}` })}
+          {i18n.t(`PROFILE.HISTORY.POINT${points > 1 ? 'S' : ''}`, { points: isNegative ? points : `+${points}` })}
         </Typography>
         <Typography size="xsmall">{format(new Date(creationDate), 'dd/MM')}</Typography>
       </Styled.Points>

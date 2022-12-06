@@ -1,10 +1,11 @@
-import React from 'react';
-import { Platform } from 'react-native';
+import React, { useEffect } from 'react';
+import { Platform, StatusBar } from 'react-native';
 import { Config } from 'react-native-config';
 
 import { Button, Typography } from '../_components';
 import { TLinkListItem } from '../_components/linkList/LinkList';
 import { ConfigUrl } from '../_config';
+import { theme } from '../_styles/theme';
 import i18n from '../_translations/i18n';
 import * as Styled from './style';
 
@@ -27,6 +28,14 @@ const links: TLinkListItem[] = [
 ];
 
 const About = () => {
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      StatusBar.setTranslucent(true);
+      StatusBar.setBackgroundColor(theme.palette.neutral['100']);
+    }
+    StatusBar.setBarStyle('light-content');
+  }, []);
+
   return (
     <>
       <Styled.ListContainer
