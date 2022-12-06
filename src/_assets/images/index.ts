@@ -5,3 +5,4 @@ export const LogoInverse = require('./logoInverse.png');
 export const Shop = require('./shop.png');
 export const Counter = require('./counter.png');
 export const Person = require('./person.png');
+export const Scan = require('./scan.png');
