@@ -12,7 +12,6 @@ type TProps = {
 
 const HistoryItem: FC<TProps> = ({ data: { points, location, creationDate, title } }) => {
   const isNegative = points < 0;
-
   return (
     <Styled.HistoryItem>
       <Styled.HistoryIcon>
