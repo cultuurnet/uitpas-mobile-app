@@ -50,9 +50,11 @@ const Camera = () => {
   );
 
   useEffect(() => {
-    if (Platform.OS === 'android') StatusBar.setBackgroundColor(theme.palette.neutral['100']);
+    if (Platform.OS === 'android') {
+      StatusBar.setTranslucent(true);
+      StatusBar.setBackgroundColor(theme.palette.neutral['100']);
+    }
     StatusBar.setBarStyle('dark-content');
-    StatusBar.setTranslucent(true);
   }, []);
 
   useEffect(() => {
