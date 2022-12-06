@@ -36,7 +36,6 @@ const Onboarding = () => {
               <Styled.LinkButton href={ConfigUrl.termsOfService} label={t('ONBOARDING.TERMS_OF_SERVICE')} variant="link" />
               <Typography color="neutral.900">{t('ONBOARDING.AND')}</Typography>
               <Styled.LinkButton href={ConfigUrl.privacyPolicy} label={t('ONBOARDING.PRIVACY_POLICY')} variant="link" />
-              <Typography color="neutral.900">{t('ONBOARDING.TO_MOVE_ON')}</Typography>
             </Styled.ConfirmViewContainer>
           }
           onChange={toggleChecked}
