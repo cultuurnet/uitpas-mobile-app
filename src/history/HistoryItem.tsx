@@ -22,7 +22,7 @@ const HistoryItem: FC<TProps> = ({ data: { points, location, creationDate, title
       <Styled.InfoView>
         <Typography fontStyle="bold" size="small">
           {i18n.t(`PROFILE.HISTORY.POINTS_TITLE`, {
-            title: title,
+            title,
           })}
         </Typography>
         <Typography size="xsmall">{location}</Typography>
