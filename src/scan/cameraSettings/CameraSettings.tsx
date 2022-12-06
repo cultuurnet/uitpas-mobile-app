@@ -1,11 +1,20 @@
-import { Linking } from 'react-native';
+import { useEffect } from 'react';
+import { Linking, Platform, StatusBar } from 'react-native';
 import { t } from 'i18next';
 
 import { Scan } from '../../_assets/images';
 import { SafeAreaView } from '../../_components';
+import { theme } from '../../_styles/theme';
 import * as Styled from './style';
 
 const CameraSettings = () => {
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      StatusBar.setTranslucent(true);
+      StatusBar.setBackgroundColor(theme.palette.neutral['100']);
+    }
+    StatusBar.setBarStyle('dark-content');
+  }, []);
   return (
     <SafeAreaView backgroundColor="neutral.0" isScrollable={false}>
       <Styled.TopContainer>

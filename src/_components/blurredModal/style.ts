@@ -9,8 +9,7 @@ export const BlurContainer = styled.View`
 
 export const ModalContainer = styled.View`
   background-color: ${({ theme }) => theme.palette.neutral['0']};
-  height: 150px;
   width: 90%;
-  padding: 15px;
+  padding: 20px;
   border-radius: 10px;
 `;
