@@ -19,6 +19,7 @@ const History: FC = () => {
     <Styled.ListView>
       {history.pages.length > 0 ? (
         <FlashList
+          contentContainerStyle={{ paddingTop: 20 }}
           data={history?.pages?.flatMap(({ member }) => member) ?? []}
           estimatedItemSize={Styled.HISTORY_ITEM_HEIGHT}
           onEndReached={fetchNextPage}

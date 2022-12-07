@@ -36,6 +36,11 @@ export const RootStackNavigator = () => {
     if (isInitialized) SplashScreen.hide();
   }, [isInitialized]);
 
+  useEffect(() => {
+    // this is here so the user who is still logged in on reinstall of the app doesn't get the onboarding screen again
+    if (!isPolicyApprovedInStorage && isAuthenticated) storage.set(StorageKey.IsPolicyApproved, true);
+  }, [isAuthenticated]);
+
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
       {!isAuthenticated && !isPolicyApprovedInStorage && <RootStack.Screen component={Onboarding} name="Onboarding" />}

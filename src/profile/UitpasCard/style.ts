@@ -28,7 +28,7 @@ export const SafeAreaViewContainer = styled(SafeAreaView)`
 `;
 
 export const LogoContainer = styled.View`
-  margin-left: -60px;
+  margin-left: -40px;
   margin-top: 15px;
 `;
 
