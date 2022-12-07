@@ -109,7 +109,11 @@ end
 ################################
 # options is wat je meegeeft bij het aanroepen van public lane (zie hierboven)
 private_lane :build_android do |options|
-  sh "cd ../android/; ENVFILE=.env ./gradlew clean app:assemble#{options[:buildType]}"
+  if options[:buildType] == "release" then
+    sh "cd ../android/; ENVFILE=.env ./gradlew clean app:bundleRelease"
+  else
+    sh "cd ../android/; ENVFILE=.env ./gradlew clean app:assemble#{options[:buildType]}"
+  end
 end
 
 private_lane :upload_to_playstore do |options|
