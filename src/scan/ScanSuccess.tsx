@@ -31,14 +31,14 @@ const ScanSuccess: FC = () => {
             <Typography align="center">
               <Trans
                 components={{ bold: <Typography fontStyle="bold" /> }}
-                i18nKey={`SCAN.SUCCESS.DESCRIPTION${addedPoints > 1 ? 'MULTIPLE' : ''}`}
+                i18nKey={`SCAN.SUCCESS.DESCRIPTION${addedPoints > 1 ? '_MULTIPLE' : ''}`}
                 values={{ addedPoints, totalPoints }}
               />
             </Typography>
           </Styled.BottomContainer>
           <Button
             label={t('SCAN.SUCCESS.CTA')}
-            onPress={() => navigation.replace('MainNavigator', { screen: 'Camera' } as unknown as undefined)} // Types in react-navigation package are incorrect...
+            onPress={() => navigation.replace('MainNavigator', { screen: 'ProfileNavigator' } as unknown as undefined)} // Types in react-navigation package are incorrect...
           />
         </>
       }

@@ -81,7 +81,7 @@ const Camera = () => {
         // @TODO: error handling
         navigate('Error', {
           message: endUserMessage?.nl,
-          onClose: () => navigation.replace('MainNavigator', { screen: 'Camera' } as unknown as undefined), // Types in react-navigation package are incorrect...
+          onClose: () => navigation.replace('MainNavigator', { screen: 'ProfileNavigator' } as unknown as undefined), // Types in react-navigation package are incorrect...
         });
         log.error(error);
       }

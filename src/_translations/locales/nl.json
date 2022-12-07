@@ -102,7 +102,7 @@
   },
   "ERROR": {
     "TITLE": "Er is iets misgegaan!",
-    "DEFAULT_MESSAGE": "Er lijkt iets misgegaan tijdens het gebruik van de app, ga terug naar de app of meld het probleem.",
+    "DEFAULT_MESSAGE": "Controleer alvast even je internetverbinding en probeer opnieuw.",
     "HELP": "Meld een probleem",
     "CTA": "Sluiten"
   }

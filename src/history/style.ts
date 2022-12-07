@@ -14,7 +14,6 @@ export const HistoryItem = styled.View`
 export const ListView = styled.View`
   flex: 1;
   justify-content: center;
-  padding-top: 20px;
 `;
 
 export const InfoView = styled.View`

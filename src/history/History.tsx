@@ -14,12 +14,13 @@ const History: FC = () => {
   if (isHistoryLoading) {
     return <Spinner />;
   }
-
+  const members = history?.pages?.flatMap(({ member }) => member) ?? [];
   return (
     <Styled.ListView>
-      {history.pages.length > 0 ? (
+      {members.length > 0 ? (
         <FlashList
-          data={history?.pages?.flatMap(({ member }) => member) ?? []}
+          contentContainerStyle={{ paddingTop: 20 }}
+          data={members}
           estimatedItemSize={Styled.HISTORY_ITEM_HEIGHT}
           onEndReached={fetchNextPage}
           onEndReachedThreshold={0.1}
