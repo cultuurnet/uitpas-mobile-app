@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Config } from 'react-native-config';
 import SplashScreen from 'react-native-lottie-splash-screen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
