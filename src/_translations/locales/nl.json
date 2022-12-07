@@ -90,9 +90,9 @@
       "CTA": "Hulp nodig met scannen?"
     },
     "SETTINGS": {
-      "TITLE": "De camera is nodig om punten te kunnen  sparen",
-      "DESCRIPTION": "Voor het sparen van punten is toegang tot de camera nodig. Gelieve deze in je instellingen aan te passen.",
-      "CTA": "Ga naar instellingen"
+      "TITLE": "Geef UiTPAS toegang tot je camera",
+      "DESCRIPTION": "Om punten te kunnen sparen moet je deze app toegang geven tot je camera. Dat kan via de instellingen van je telefoon.",
+      "CTA": "Instellingen openen"
     },
     "SUCCESS": {
       "DESCRIPTION": "Hopla, weer een punt erbij!\nJe hebt nu <bold>{{totalPoints}} UiTPAS-punten.</bold>",
