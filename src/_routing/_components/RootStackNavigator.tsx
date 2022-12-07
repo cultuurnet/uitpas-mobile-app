@@ -44,9 +44,7 @@ export const RootStackNavigator = () => {
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
       {!isAuthenticated && !isPolicyApprovedInStorage && <RootStack.Screen component={Onboarding} name="Onboarding" />}
-      {Config.UPDATE_CHECK_ENABLED === 'true' && isAuthenticated && versions?.isBehindMinVersion && (
-        <RootStack.Screen component={UpdateScreen} name="Update" />
-      )}
+      {isAuthenticated && versions?.isBehindMinVersion && <RootStack.Screen component={UpdateScreen} name="Update" />}
       {!isAuthenticated && <RootStack.Screen component={Login} name="Login" />}
       {isAuthenticated && (
         <>
