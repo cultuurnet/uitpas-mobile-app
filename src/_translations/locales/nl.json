@@ -102,7 +102,7 @@
   },
   "ERROR": {
     "TITLE": "Er is iets misgegaan!",
-    "DEFAULT_MESSAGE": "Er is iets misgegaan! Controleer alvast even je internetverbinding en probeer opnieuw.",
+    "DEFAULT_MESSAGE": "Controleer alvast even je internetverbinding en probeer opnieuw.",
     "HELP": "Meld een probleem",
     "CTA": "Sluiten"
   }
