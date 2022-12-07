@@ -14,6 +14,11 @@ export const LinkText = styled(Typography)`
   margin-left: 20px;
 `;
 
+export const UnderlinedLinkText = styled(Typography)`
+  margin-left: 20px;
+  text-decoration: underline;
+`;
+
 export const HeaderText = styled(Typography)`
   padding: 16px 20px;
 `;

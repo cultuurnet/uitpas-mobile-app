@@ -20,13 +20,6 @@ type TProps = {
 
 const LinkList: FC<TProps> = ({ items, title, ...props }) => {
   function renderItem(item: Partial<TLinkListItem>) {
-    const buttonContent = (
-      <>
-        <Icon color={item.iconColor || 'primary.600'} name={item.iconName} />
-        <Styled.LinkText>{item.label}</Styled.LinkText>
-      </>
-    );
-
     return (
       <Styled.LinkItem key={item.label}>
         {item.href ? (
@@ -38,7 +31,10 @@ const LinkList: FC<TProps> = ({ items, title, ...props }) => {
             radius={false}
             variant="link"
           >
-            {buttonContent}
+            <>
+              <Icon color={item.iconColor || 'primary.600'} name={item.iconName} />
+              <Styled.UnderlinedLinkText>{item.label}</Styled.UnderlinedLinkText>
+            </>
           </Styled.LinkButton>
         ) : (
           <Styled.LinkButton
@@ -49,7 +45,10 @@ const LinkList: FC<TProps> = ({ items, title, ...props }) => {
             radius={false}
             variant="link"
           >
-            {buttonContent}
+            <>
+              <Icon color={item.iconColor || 'primary.600'} name={item.iconName} />
+              <Styled.LinkText>{item.label}</Styled.LinkText>
+            </>
           </Styled.LinkButton>
         )}
       </Styled.LinkItem>
