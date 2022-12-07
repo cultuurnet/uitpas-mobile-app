@@ -10,6 +10,9 @@ function getVersions(): Promise<TVersion> {
 }
 
 export function useGetVersions() {
-  const { data: versions } = useQuery<TVersion, unknown>(['versions'], () => getVersions(), { networkMode: 'online' });
+  const { data: versions } = useQuery<TVersion, unknown>(['versions'], () => getVersions(), {
+    cacheTime: 0,
+    networkMode: 'online',
+  });
   return versions ? checkVersion(versions) : undefined;
 }
