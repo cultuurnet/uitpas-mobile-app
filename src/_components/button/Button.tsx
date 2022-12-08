@@ -1,7 +1,7 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, ReactNode, useCallback, useState } from 'react';
 import { Linking } from 'react-native';
 
-import { Theme } from '../../_styles/theme';
+import { ThemeColor } from '../../_styles/theme';
 import { TTypographyProps } from '../typography/Typography';
 import * as Styled from './style';
 
@@ -9,12 +9,15 @@ export type TButtonPropsBase = {
   accessibilityHint?: string;
   accessibilityLabel?: string;
   centered?: boolean;
-  color?: keyof Theme['colors'];
+  children?: ReactNode;
+  color?: ThemeColor;
   disabled?: boolean;
   fontStyle?: TTypographyProps['fontStyle'];
+  hitSlop?: number;
   inline?: boolean;
   label: string;
   loading?: boolean;
+  radius?: boolean;
   underline?: boolean;
   variant?: 'contained' | 'outline' | 'link';
 };
@@ -33,6 +36,7 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
   accessibilityHint,
   accessibilityLabel,
   disabled,
+  radius = true,
   onPress,
   href,
   label,
@@ -41,6 +45,8 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
   underline = true,
   fontStyle = 'bold',
   inline,
+  hitSlop,
+  children,
   ...props
 }) => {
   const [isActive, setIsActive] = useState(false);
@@ -61,27 +67,33 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
     <Styled.ButtonElement
       $active={isActive}
       $inline={inline}
+      $radius={radius}
       $variant={variant}
       accessibilityHint={accessibilityHint}
       accessibilityLabel={accessibilityLabel}
       accessibilityRole="button"
       accessibilityState={{ disabled }}
       disabled={disabled}
+      hitSlop={hitSlop}
       onPress={handlePress}
       onPressIn={() => setIsActive(true)}
       onPressOut={() => setIsActive(false)}
       {...props}
     >
-      <Styled.ButtonText
-        $active={isActive}
-        $color={color}
-        $underline={underline}
-        $variant={variant}
-        align={props.centered ? 'center' : 'left'}
-        fontStyle={fontStyle}
-      >
-        {label}
-      </Styled.ButtonText>
+      {children ? (
+        children
+      ) : (
+        <Styled.ButtonText
+          $active={isActive}
+          $color={color}
+          $underline={underline}
+          $variant={variant}
+          align={props.centered ? 'center' : 'left'}
+          fontStyle={fontStyle}
+        >
+          {label}
+        </Styled.ButtonText>
+      )}
     </Styled.ButtonElement>
   );
 };

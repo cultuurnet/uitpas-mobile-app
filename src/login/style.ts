@@ -6,11 +6,21 @@ export const IntroText = styled(Typography)`
   margin-top: 16px;
 `;
 
+export const TopContainer = styled.View`
+  padding: 40px 16px;
+  align-items: center;
+`;
+
 export const BottomContainer = styled.View`
   margin-top: auto;
 `;
 
 export const ListItem = styled(Button)`
-  margin-top: 20px;
-  text-align: center;
+  margin-top: 36px;
+`;
+
+export const Illustration = styled.Image`
+  width: 225px;
+  margin-top: 24px;
+  margin-bottom: -235px;
 `;

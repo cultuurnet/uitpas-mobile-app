@@ -5,7 +5,7 @@ import { Icon, Typography } from '../../_components';
 export const NotificationContainer = styled.View`
   margin: 0px 20px 20px 20px;
   position: relative;
-  background-color: ${({ theme }) => theme.colors.lightBlue};
+  background-color: ${({ theme }) => theme.palette.primary['300']};
   padding: 15px;
   border-radius: 10px;
 `;

@@ -1,8 +1,16 @@
+import { useEffect } from 'react';
+import { AppState, AppStateStatus, Platform } from 'react-native';
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
-import { QueryClient } from '@tanstack/react-query';
+import { focusManager, QueryClient } from '@tanstack/react-query';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 
 import { storage } from '../storage';
+
+function onAppStateChange(status: AppStateStatus) {
+  if (Platform.OS !== 'web') {
+    focusManager.setFocused(status === 'active');
+  }
+}
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,6 +35,12 @@ const persister = createSyncStoragePersister({
 });
 
 const QueryClientProvider = ({ children }) => {
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', onAppStateChange);
+
+    return () => subscription.remove();
+  }, []);
+
   return (
     <PersistQueryClientProvider client={queryClient} persistOptions={{ persister }}>
       {children}

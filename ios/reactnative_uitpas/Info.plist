@@ -53,15 +53,9 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>We use your camera to add a profile picture</string>
-	<key>NSFaceIDUsageDescription</key>
-	<string>We use Face ID to log in</string>
+	<string>We use your camera to scan QR codes</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>We use your photo library to add a profile picture</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>We use your photo library to add a profile picture</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Poppins-Bold.ttf</string>

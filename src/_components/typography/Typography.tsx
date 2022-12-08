@@ -1,20 +1,20 @@
 import { FC } from 'react';
 
-import { Theme } from '../../_styles/theme';
+import { ThemeColor } from '../../_styles/theme';
 import * as Styled from './style';
 
 export type TTypographyProps = {
   align?: 'left' | 'center' | 'right';
   bottomSpacing?: string;
-  children: React.ReactNode;
-  color?: keyof Theme['colors'];
+  children?: React.ReactNode;
+  color?: ThemeColor;
   fontStyle?: 'light' | 'normal' | 'semibold' | 'bold';
   size?: 'xsmall' | 'small' | 'normal' | 'large' | 'xlarge' | 'xxlarge';
 };
 
 const Typography: FC<TTypographyProps> = ({
   children,
-  color = 'text',
+  color = 'neutral.900',
   size = 'normal',
   align = 'left',
   fontStyle = 'normal',

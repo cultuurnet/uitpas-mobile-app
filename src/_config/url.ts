@@ -1,6 +1,6 @@
-import { TConfigEnvironment } from './environments';
+import { ConfigEnvironment } from './environments';
 
-type TConfigUrl = Record<TConfigEnvironment, string>;
+type TConfigUrl = Record<ConfigEnvironment, string>;
 type TConfigUrlIdentifiers =
   | 'register'
   | 'buy'
@@ -15,7 +15,8 @@ type TConfigUrlIdentifiers =
   | 'welcomeBenefits'
   | 'personalInfo'
   | 'faq'
-  | 'loginHelp';
+  | 'loginHelp'
+  | 'version';
 
 const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
   appStore: {
@@ -81,6 +82,10 @@ const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
     production:
       'https://www.uitpas.be/gebruiksvoorwaarden?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-over-app',
   },
+  version: {
+    beta: 'https://assets-test.uitpas.be/mobile-app/versions',
+    production: 'https://assets.uitpas.be/mobile-app/versions',
+  },
   welcomeBenefits: {
     beta: 'https://test.uitpas.be/mijn-uitpas/voordelen?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-mijn-uitpas',
     production:
@@ -91,6 +96,6 @@ const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
 export const ConfigUrl = Object.keys(urls).reduce((result, key) => {
   return {
     ...result,
-    [key]: urls[key][TConfigEnvironment],
+    [key]: urls[key][ConfigEnvironment],
   };
 }, {} as Record<TConfigUrlIdentifiers, string>);

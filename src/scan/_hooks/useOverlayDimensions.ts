@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { PixelRatio } from 'react-native';
 import { Rect } from 'vision-camera-code-scanner';
 
 type Corner = {
@@ -14,17 +13,19 @@ export type TOverlayDimensions = {
   strokeWidth: number;
 };
 
-export function useOverlayDimensions(dimensions, { padding, strokeWidth, cornerLength }: TOverlayDimensions) {
-  const [width, height] = dimensions;
-  const pixelRatio = PixelRatio.get();
+export function useOverlayDimensions(
+  screenDimensions: [number, number],
+  { padding, strokeWidth, cornerLength }: TOverlayDimensions,
+) {
+  const [screenWidth, screenHeight] = screenDimensions;
 
   return useMemo(() => {
-    const sideLength = width - padding * 2;
+    const sideLength = screenWidth - padding * 2;
     const boundingBox: Partial<Rect> = {};
 
-    boundingBox.left = (width - sideLength) / 2;
+    boundingBox.left = (screenWidth - sideLength) / 2;
     boundingBox.right = boundingBox.left + sideLength;
-    boundingBox.top = (height - sideLength) / 2;
+    boundingBox.top = (screenHeight - sideLength) / 2;
     boundingBox.bottom = boundingBox.top + sideLength;
 
     const corners: Corner[] = [
@@ -50,12 +51,11 @@ export function useOverlayDimensions(dimensions, { padding, strokeWidth, cornerL
       },
     ];
 
-    /* @see https://www.dynamsoft.com/barcode-reader/docs/core/parameters/reference/region-definition/index.html?ver=latest#image-process-control */
     const regionDefinition = {
-      Bottom: Math.round((boundingBox.bottom / height) * 100),
-      Left: Math.round((boundingBox.left / width) * 100),
-      Right: Math.round((boundingBox.right / width) * 100),
-      Top: Math.round((boundingBox.top / height) * 100),
+      bottom: boundingBox.bottom / screenHeight,
+      left: boundingBox.left / screenWidth,
+      right: boundingBox.right / screenWidth,
+      top: boundingBox.top / screenHeight,
     };
 
     return {
@@ -64,5 +64,5 @@ export function useOverlayDimensions(dimensions, { padding, strokeWidth, cornerL
       regionDefinition,
       sideLength,
     };
-  }, [width, height, pixelRatio]);
+  }, [screenWidth, screenHeight, screenDimensions]);
 }

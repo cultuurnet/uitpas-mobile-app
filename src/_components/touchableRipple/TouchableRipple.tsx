@@ -21,6 +21,7 @@ type TProps = TouchableWithoutFeedbackProps & {
   borderless?: boolean;
   children: React.ReactNode;
   disabled?: boolean;
+  hitSlop?: number;
   onPress?: () => void;
   rippleColor?: string;
   style?: StyleProp<ViewStyle>;
@@ -35,10 +36,11 @@ const TouchableRipple = ({
   rippleColor,
   underlayColor,
   children,
+  hitSlop,
   ...rest
 }: TProps) => {
   const disabled = disabledProp || !rest.onPress;
-  const calculatedRippleColor = rippleColor || color(theme.colors.text).alpha(0.2).rgb().string();
+  const calculatedRippleColor = rippleColor || color(theme.palette.primary['900']).alpha(0.2).rgb().string();
 
   // A workaround for ripple on Android P is to use useForeground + overflow: 'hidden'
   // https://github.com/facebook/react-native/issues/6480
@@ -50,6 +52,7 @@ const TouchableRipple = ({
         {...rest}
         background={background ?? TouchableNativeFeedback.Ripple(calculatedRippleColor, borderless)}
         disabled={disabled}
+        hitSlop={hitSlop}
         useForeground={useForeground}
       >
         <View style={style}>{React.Children.only(children)}</View>
@@ -60,6 +63,7 @@ const TouchableRipple = ({
   return (
     <TouchableHighlight
       disabled={disabled}
+      hitSlop={hitSlop}
       style={style}
       underlayColor={underlayColor ?? color(calculatedRippleColor).fade(0.5).rgb().string()}
       {...rest}

@@ -13,13 +13,17 @@ export const ButtonContainer = styled.View`
 `;
 
 export const ActionButton = styled(Button)`
-  margin-left: 10px;
+  margin-left: 20px;
   margin-top: 20px;
   align-content: flex-end;
 `;
 
 export const SafeAreaViewContainer = styled(SafeAreaView)`
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: ${({ theme }) => theme.palette.neutral['100']};
+`;
+
+export const TopContent = styled.View`
+  padding: 40px 16px;
 `;
 
 export const TopContainer = styled.View`

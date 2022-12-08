@@ -1,24 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { LinkList, Spinner, Typography } from '../_components';
 import { TLinkListItem } from '../_components/linkList/LinkList';
 import { ConfigUrl } from '../_config';
 import { useStackNavigation, useToggle } from '../_hooks';
+import { StorageKey } from '../_models';
 import { TProfileParams } from '../_routing/_components/ProfileNavigator';
 import { TRootParams } from '../_routing/_components/RootStackNavigator';
 import i18n from '../_translations/i18n';
+import { storage } from '../storage';
+import { useGetVersions } from '../update/_queries/useGetVersions';
 import { useGetMe } from './_queries/useGetMe';
 import LogoutModal from './LogOutModal';
 import MIANotification from './MIANotification/MIANotification';
 import * as Styled from './style';
 import UitpasCard from './UitpasCard/UitpasCard';
 import UitpasInfo from './UitpasInfo/UitpasInfo';
+import UpdateNotification from './UpdateNotification/UpdateNotification';
 
 const Profile = () => {
   const [logOutModalVisible, toggleLogOutModalVisible] = useToggle(false);
   const { data: passHolder, isLoading: isPassHolderLoading } = useGetMe();
-  const [isMIANotificationVisible, setIsMIANotificationVisible] = useState(false);
+  const [isUitpasInfoClosed, setIsUitpasInfoClosed] = useState(storage.getBoolean(StorageKey.IsUitpasInfoClosed));
   const { navigate } = useStackNavigation<TProfileParams & TRootParams>();
+  const versions = useGetVersions();
 
   const links: TLinkListItem[] = [
     {
@@ -47,24 +52,21 @@ const Profile = () => {
       label: i18n.t('PROFILE.LINKS.FAQ'),
     },
     {
-      iconColor: 'red',
+      iconColor: 'error.600',
       iconName: 'Logout',
       label: i18n.t('PROFILE.LINKS.LOGOUT'),
-      labelColor: 'darkRed',
+      labelColor: 'error.800',
       onPress: toggleLogOutModalVisible,
     },
   ];
-
-  useEffect(() => {
-    if (passHolder) setIsMIANotificationVisible(true);
-  }, [passHolder]);
 
   if (isPassHolderLoading) return <Spinner />;
   if (!passHolder) {
     return navigate('ProfileNotFound');
   }
-  const [MIAInfoFirstActiveCard] = passHolder.cardSystemMemberships.filter(card => card.status === 'ACTIVE' && card.socialTariff);
-
+  const [MIAInfoFirstActiveCard] = passHolder.cardSystemMemberships.filter(
+    card => card.status === 'ACTIVE' && card.socialTariff && !card.socialTariff.expired,
+  );
   return (
     <>
       <Styled.SafeAreaViewContainer edges={['top']} isScrollable>
@@ -72,8 +74,16 @@ const Profile = () => {
           <Typography fontStyle="bold" size="large">
             {i18n.t('PROFILE.HELLO', { name: passHolder.firstName })}
           </Typography>
+          {versions?.isBehindTarget && <UpdateNotification />}
           <UitpasCard passHolder={passHolder} />
-          {isMIANotificationVisible && <UitpasInfo onClose={() => setIsMIANotificationVisible(false)} />}
+          {!isUitpasInfoClosed && (
+            <UitpasInfo
+              onClose={() => {
+                setIsUitpasInfoClosed(true);
+                storage.set(StorageKey.IsUitpasInfoClosed, true);
+              }}
+            />
+          )}
         </Styled.TopContainer>
         <LinkList items={links} />
         {MIAInfoFirstActiveCard && <MIANotification socialTariffInfo={MIAInfoFirstActiveCard?.socialTariff} />}

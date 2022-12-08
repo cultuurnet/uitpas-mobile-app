@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
-import { Theme } from '../../_styles/theme';
+import { ThemeColor } from '../../_styles/theme';
 import Icon, { TIconProps } from '../icon/Icon';
 import * as Styled from './style';
 
 type TProps = {
-  checkedColor?: keyof Theme['colors'];
+  checkedColor?: ThemeColor;
   iconSize?: TIconProps['size'];
   isChecked: boolean;
   label?: React.ReactNode;
@@ -13,7 +13,7 @@ type TProps = {
   onChange?: (value: boolean, name: string) => void;
 };
 
-const Checkbox: FC<TProps> = ({ isChecked, onChange, name, label, checkedColor = 'turquoise', iconSize, ...props }) => {
+const Checkbox: FC<TProps> = ({ isChecked, onChange, name, label, checkedColor = 'primary.700', iconSize, ...props }) => {
   return (
     <Styled.ButtonElement
       accessibilityRole="checkbox"
