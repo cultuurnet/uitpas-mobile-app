@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useWindowDimensions } from 'react-native';
 import { Config } from 'react-native-config';
 import { EventArg } from '@react-navigation/native';
 
@@ -16,6 +17,7 @@ const Login = () => {
   const { t } = useTranslation();
   const { authorize } = useAuthentication();
   const navigation = useStackNavigation();
+  const { height } = useWindowDimensions();
 
   useEffect(() => {
     const listener = (e: EventArg<'beforeRemove', true>) => {
@@ -67,7 +69,7 @@ const Login = () => {
             {t('LOGIN.INTRO')}
           </Styled.IntroText>
 
-          <Styled.Illustration source={Person} />
+          {height > 600 && <Styled.Illustration source={Person} />}
         </Styled.TopContainer>
       }
     />

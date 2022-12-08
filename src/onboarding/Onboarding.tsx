@@ -1,3 +1,4 @@
+import { useWindowDimensions } from 'react-native';
 import { t } from 'i18next';
 
 import { Counter } from '../_assets/images';
@@ -11,6 +12,7 @@ import * as Styled from './style';
 const Onboarding = () => {
   const [isChecked, toggleChecked] = useToggle(false);
   const navigation = useStackNavigation();
+  const { height } = useWindowDimensions();
 
   const onPress = () => {
     storage.set(StorageKey.IsPolicyApproved, true);
@@ -23,7 +25,7 @@ const Onboarding = () => {
         <Styled.TitleText color="secondary.700" fontStyle="bold" size="large">
           {t('ONBOARDING.TITLE')}
         </Styled.TitleText>
-        <Styled.Image source={Counter} />
+        {height > 600 && <Styled.Image source={Counter} />}
         <Styled.IntroText align="center" color="neutral.900">
           {t('ONBOARDING.INTRO')}
         </Styled.IntroText>
