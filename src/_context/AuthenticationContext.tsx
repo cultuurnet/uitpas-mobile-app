@@ -46,17 +46,22 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
     if (!client) return;
 
     (async () => {
-      const isLoggedIn = await client.credentialsManager.hasValidCredentials();
-      setIsAuthenticated(isLoggedIn);
-      setIsInitialized(true);
+      try {
+        const isLoggedIn = await client.credentialsManager.hasValidCredentials();
+        setIsAuthenticated(isLoggedIn);
+        setIsInitialized(true);
 
-      if (isLoggedIn) {
-        const credentials = await client.credentialsManager.getCredentials();
+        if (isLoggedIn) {
+          const credentials = await client.credentialsManager.getCredentials();
 
-        if (credentials) {
-          setUser(getIdTokenProfileClaims(credentials.idToken) as TAuth0User);
-          setAccessToken(credentials.accessToken);
+          if (credentials) {
+            setUser(getIdTokenProfileClaims(credentials.idToken) as TAuth0User);
+            setAccessToken(credentials.accessToken);
+          }
         }
+      } catch (e) {
+        logout();
+        log.error(e);
       }
     })();
   }, [client]);
@@ -69,6 +74,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
       setIsAuthenticated(true);
       setUser(getIdTokenProfileClaims(credentials.idToken) as TAuth0User);
     } catch (e) {
+      logout();
       log.error(e);
     }
   };

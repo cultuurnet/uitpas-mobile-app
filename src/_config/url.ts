@@ -20,8 +20,8 @@ type TConfigUrlIdentifiers =
 
 const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
   appStore: {
-    beta: 'itms-apps://apps.apple.com/be/app/uitpas/id1249270326?l=nl',
-    production: 'itms-apps://apps.apple.com/be/app/uitpas/id1249270326?l=nl',
+    beta: 'itms-apps://apps.apple.com/be/app/uitpas/id1658556470?l=nl',
+    production: 'itms-apps://apps.apple.com/be/app/uitpas/id1658556470?l=nl',
   },
   buy: {
     beta: 'https://test.uitpas.be/activiteiten-in-de-regio?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-geen-uitpas-gevonden',
