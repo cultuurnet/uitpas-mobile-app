@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   pull_request:
     branches:
-      - feat/android-prod-deploy
+      - develop
     types: [closed]
 
 env:
@@ -22,7 +22,9 @@ jobs:
     name: iOS (production)
     environment: production
     runs-on: macos-12
-    if: (startsWith(github.head_ref, 'release/') && github.event.pull_request.merged == true)
+    if:
+      github.event_name == 'workflow_dispatch' || (startsWith(github.head_ref, 'release/') && github.event.pull_request.merged ==
+      true)
     steps:
       - name: Notarize Release Build
         uses: apple-actions/import-codesign-certs@v1
