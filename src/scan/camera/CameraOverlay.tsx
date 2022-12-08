@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import Svg, { Defs, Mask, Path, Rect } from 'react-native-svg';
 
 import { Button, Icon, Spinner, Typography } from '../../_components';
@@ -20,6 +20,7 @@ const CameraOverlay: FC<TProps> = ({
   isLoading = false,
 }) => {
   const { t } = useTranslation();
+  const { height } = useWindowDimensions();
 
   return (
     <>
@@ -50,7 +51,7 @@ const CameraOverlay: FC<TProps> = ({
         <Typography align="center" bottomSpacing="20px" color="neutral.0" fontStyle="bold" size="large">
           {t('SCAN.CAMERA.DESCRIPTION')}
         </Typography>
-        <Icon name="QRInstruction" size={80} />
+        {height > 720 && <Icon name="QRInstruction" size={80} />}
       </Styled.Instruction>
 
       <Styled.Instruction top={boundingBox.bottom}>
