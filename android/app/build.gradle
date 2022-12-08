@@ -156,12 +156,12 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        applicationId "be.cultuurnet.uitpasapp"
+        applicationId "com.publiq.uitpas"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode computeVersionCode()
         versionName project.env.get("REACT_NATIVE_APP_VERSION_NR")
-        resValue "string", "build_config_package", "be.cultuurnet.uitpasapp"
+        resValue "string", "build_config_package", "com.publiq.uitpas"
         manifestPlaceholders = [auth0Domain: project.env.get("REACT_NATIVE_APP_AUTH0_DOMAIN"), auth0Scheme: project.env.get("REACT_NATIVE_APP_AUTH0_SCHEME")]
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
         if (isNewArchitectureEnabled()) {

@@ -1,4 +1,4 @@
-package be.cultuurnet.uitpasapp.newarchitecture;
+package com.publiq.uitpas.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import be.cultuurnet.uitpasapp.BuildConfig;
-import be.cultuurnet.uitpasapp.newarchitecture.components.MainComponentsRegistry;
-import be.cultuurnet.uitpasapp.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.publiq.uitpas.BuildConfig;
+import com.publiq.uitpas.newarchitecture.components.MainComponentsRegistry;
+import com.publiq.uitpas.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

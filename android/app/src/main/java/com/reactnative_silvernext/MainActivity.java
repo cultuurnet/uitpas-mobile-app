@@ -1,4 +1,4 @@
-package be.cultuurnet.uitpasapp;
+package com.publiq.uitpas;
 
 import org.devio.rn.splashscreen.SplashScreen;
 import android.os.Bundle;

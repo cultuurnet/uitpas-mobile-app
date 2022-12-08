@@ -1,4 +1,4 @@
-package be.cultuurnet.uitpasapp.newarchitecture.modules;
+package com.publiq.uitpas.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

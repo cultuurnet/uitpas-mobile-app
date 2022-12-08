@@ -1,4 +1,4 @@
-package be.cultuurnet.uitpasapp;
+package com.publiq.uitpas;
 
 import android.app.Application;
 import android.content.Context;
@@ -9,7 +9,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.soloader.SoLoader;
-import be.cultuurnet.uitpasapp.newarchitecture.MainApplicationReactNativeHost;
+import com.publiq.uitpas.newarchitecture.MainApplicationReactNativeHost;
 import com.facebook.react.bridge.JSIModulePackage;
 import com.swmansion.reanimated.ReanimatedJSIModulePackage;
 import java.lang.reflect.InvocationTargetException;
@@ -82,7 +82,7 @@ public class MainApplication extends Application implements ReactApplication {
          We use reflection here to pick up the class that initializes Flipper,
         since Flipper library is not available in release mode
         */
-        Class<?> aClass = Class.forName("be.cultuurnet.uitpasapp.ReactNativeFlipper");
+        Class<?> aClass = Class.forName("com.publiq.uitpas.ReactNativeFlipper");
         aClass
             .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
             .invoke(null, context, reactInstanceManager);
