@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 
 import { DiagonalSplitView, Spinner, Typography } from '../_components';
 import { ConfigUrl } from '../_config';
@@ -28,7 +29,11 @@ const UpdateScreen = () => {
           </Styled.TextView>
           <Styled.ButtonView>
             <Styled.ActionButton centered href={ConfigUrl.helpdesk} label={i18n.t('GENERAL.PROBLEM')} variant="link" />
-            <Styled.ActionButton centered href={ConfigUrl.helpdesk} label={i18n.t('UPDATE.STORE_BUTTON')} />
+            <Styled.ActionButton
+              centered
+              href={Platform.OS === 'ios' ? ConfigUrl.appStore : ConfigUrl.playStore}
+              label={i18n.t('UPDATE.STORE_BUTTON')}
+            />
           </Styled.ButtonView>
         </>
       }
