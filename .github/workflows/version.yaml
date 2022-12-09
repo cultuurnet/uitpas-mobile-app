@@ -3,12 +3,22 @@ name: Create new version
 on:
   workflow_dispatch:
     inputs:
+      release_type:
+        type: choice
+        description: Release type
+        required: true
+        default: beta
+        options:
+          - production
+          - beta
       version_bump:
         type: choice
         description: Level
         required: true
-        default: minor
+        default: patch
         options:
+          # Increases the prerelease version: 1.0.1-beta.0 -> 1.0.1-beta.1
+          - prerelease
           - patch
           - minor
           - major
@@ -16,9 +26,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-
-env:
-  BASE: develop
 
 jobs:
   bump_version:
@@ -29,19 +36,24 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
-      - uses: nyaa8/package-version@v1
-        name: Fetch current version
-
-      - name: Increase version
-        uses: olegsu/semver-action@v1
-        id: version
-        with:
-          version: ${{ env.PACKAGE_VERSION }}
-          bump: ${{ github.event.inputs.version_bump }}
+          ref: develop
 
       - name: Bump version in package.json
-        run: yarn version --new-version ${{ steps.version.outputs.version }} --no-git-tag-version
+        id: version
+        run: |
+          yarn config set version-git-tag false
+
+          if [[ ${{ github.event.inputs.release_type }} == 'beta' ]]; then
+            if [[ ${{ github.event.inputs.version_bump }} == 'prelease' ]]; then
+              yarn version --prerelease
+            else
+              yarn version --preid beta --pre${{ github.event.inputs.version_bump }}
+            fi
+          else
+            yarn version --${{ github.event.inputs.version_bump }}
+          fi
+
+          echo "version=$(cat package.json | jq -r '.version')" >> $GITHUB_OUTPUT
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
@@ -49,4 +61,5 @@ jobs:
           title: Bump version to ${{ steps.version.outputs.version }}
           commit-message: Bump version to ${{ steps.version.outputs.version }}
           branch: release/${{ steps.version.outputs.version }}
+          base: ${{ github.event.inputs.release_type == 'beta' && 'develop' || 'main' }}
           delete-branch: true

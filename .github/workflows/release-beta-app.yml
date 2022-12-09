@@ -118,4 +118,5 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
+          prerelease: true
           tag_name: ${{ env.PACKAGE_VERSION }}
