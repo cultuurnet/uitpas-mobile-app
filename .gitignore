@@ -73,3 +73,8 @@ buck-out/
 # vs code
 .vscode
 /vendor/bundle/
+
+# bundler and artifacts
+.bundle
+metadata.json
+pkg
