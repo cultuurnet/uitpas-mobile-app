@@ -19,7 +19,10 @@ export function labelForLocale(locale: Language): string {
 
 use(initReactI18next).init({
   compatibilityJSON: 'v3', // By default React Native projects does not support Intl
-  fallbackLng: 'en',
+  fallbackLng: 'nl',
+  interpolation: {
+    escapeValue: false,
+  },
   lng: getLocales()[0].languageCode,
   resources: {
     nl: { translation: NL },

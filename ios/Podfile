@@ -19,15 +19,15 @@ target 'reactnative_uitpas' do
 
 
   use_react_native!(
-    :path => config[:reactNativePath],
-    # to enable hermes on iOS, change `false` to `true` and then install pods
-    :hermes_enabled => true,
-    :fabric_enabled => flags[:fabric_enabled],
     # Enables Flipper.
     #
     # Note that if you have use_frameworks! enabled, Flipper will not work and
     # you should disable the next line.
-    # :flipper_configuration => FlipperConfiguration.enabled,
+    :flipper_configuration => FlipperConfiguration.enabled(["Debug"], { 'Flipper' => '0.163.0' }),
+    :path => config[:reactNativePath],
+    # to enable hermes on iOS, change `false` to `true` and then install pods
+    :hermes_enabled => true,
+    :fabric_enabled => flags[:fabric_enabled],
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
@@ -37,5 +37,21 @@ target 'reactnative_uitpas' do
   post_install do |installer|
     react_native_post_install(installer)
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
+
+    # The real directory is /Users/<user>/Library.
+    # In case-sensitive file systems these files won't exist.
+    # See https://github.com/facebook/react-native/issues/28409
+    unless File.exist? "pods"
+      system('cd Pods/OpenSSL-Universal/Frameworks/OpenSSL.xcframework/ios-arm64_armv7; ln -sfh OpenSSL.framework openssl.framework')
+      system('cd Pods/OpenSSL-Universal/Frameworks/OpenSSL.xcframework/ios-arm64_i386_x86_64-simulator; ln -sfh OpenSSL.framework openssl.framework')
+      system('cd Pods/OpenSSL-Universal/Frameworks/OpenSSL.xcframework/ios-arm64_x86_64-maccatalyst; ln -sfh OpenSSL.framework openssl.framework')
+      system('cd Pods/OpenSSL-Universal/Frameworks/OpenSSL.xcframework/macos-arm64_x86_64; ln -sfh OpenSSL.framework openssl.framework')
+    end
+
+    # The macos file system is case sensitive, so the `fmdb` is not found.
+    # See https://github.com/snowplow/snowplow-objc-tracker/issues/731
+    unless File.exist? "pods"
+      system('cd Pods/SnowplowTracker/Snowplow/Internal/Storage; sed -i .bak "s/fmdb/FMDB/" SPSQLiteEventStore.m')
+    end
   end
 end

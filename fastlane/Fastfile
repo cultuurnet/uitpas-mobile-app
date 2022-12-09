@@ -7,24 +7,20 @@ skip_docs
 keychain_password = ENV["JENKINS_KEYCHAIN_PASSWORD"] # general password in jenkins
 unlock_keychain(path: "login.keychain", password: keychain_password) if is_ci? && keychain_password
 
-# Install the provisioning profiles
-install_provisioning_profiles if is_ci? # plugin die zoekt naar provisioning profiles in source code en installeert deze --> hoeft daardoor niet in jenkins te zitten maar gewoon per project in de source code
-
 #######################
 ###  CONFIGURATION  ##
 #######################
 # Project variables
 ios_project_name = "reactnative_uitpas"
-ios_bundle_id = "com.icapps.uitpas.app"
-android_bundle_id = "com.reactnative_uitpas" # meestal id van klant want anders komen PN soms niet aan
+ios_bundle_id = "com.publiq.uitpas"
+android_bundle_id = "com.publiq.uitpas" # meestal id van klant want anders komen PN soms niet aan
 
 # Appcenter Config
 appcenter_app_name = "" # declaration of variable, will be assigned below
 APPCENTER_ALPHA_DISTRIBUTION_GROUP= ""
-APPCENTER_BETA_DISTRIBUTION_GROUP= ""
+APPCENTER_BETA_DISTRIBUTION_GROUP= "Publiq"
 
 # Android api key
-json_key_file = "./fastlane/api-XXX.json" # Needed for production publish --> needed if you want to direct publish to google play store (key te laten genereren in settings google account)
 
 # iOS Config
 IOS_WORKSPACE = "#{ios_project_name}.xcworkspace"
@@ -35,35 +31,32 @@ BETA_APP_ID = "#{ios_bundle_id}.beta"
 BETA_PROFILE_NAME = "#{ios_bundle_id} Beta" # zit bij icapps
 
 # Production iOS config
-RELEASE_APP_ID = "#{ios_bundle_id}" # zit bij klant, dus meestal niet hetzelfde als die van icapps (andere account)
-RELEASE_PROFILE_NAME = "#{ios_bundle_id} Appstore"
+RELEASE_APP_ID = "com.publiq.uitpas" # zit bij klant, dus meestal niet hetzelfde als die van icapps (andere account)
+RELEASE_PROFILE_NAME = "com.publiq.uitpas AppStore"
 APPSTORE_USERNAME = 'appstoreconnect@icapps.com' # vragen aan de klant om dit account toe te voegen + development@icapps.com
-APPSTORE_TEAM_NAME = 'iCapps' # zal meestal van de klant zijn, want we publishen via de klant (te vinden in apple developer profile - membership)
-APPSTORE_TEAM_ID = '310992' # zal meestal van de klant zijn, want we publishen via de klant (https://appstoreconnect.apple.com/WebObjects/iTunesConnect.woa/ra/user/detail --> contentProviderId)
-APPSTORE_APPLE_ID = 'SCZPF223NC' # zal meestal van de klant zijn, want we publishen via de klant (te vinden in apple developer profile - membership)
+APPSTORE_TEAM_NAME = 'Publiq ASBL' # zal meestal van de klant zijn, want we publishen via de klant (te vinden in apple developer profile - membership)
+APPSTORE_TEAM_ID = '65321197' # zal meestal van de klant zijn, want we publishen via de klant (https://appstoreconnect.apple.com/WebObjects/iTunesConnect.woa/ra/user/detail --> contentProviderId)
+APPSTORE_APPLE_ID = '3M7M296YKK' # zal meestal van de klant zijn, want we publishen via de klant (te vinden in apple developer profile - membership)
 
 ##############################
 ###  PUBLIC LANES ANDROID  ###
 ##############################
 
 lane :android_alpha do
-  ensure_git_status_clean
   build_android(buildType: "alpha")  # Build the application with the buildVariant.
   upload_to_appcenter_android(buildType: "alpha") # Deploy the apk to Appcenter.
 	add_tag()
 end
 
 lane :android_beta do
-  ensure_git_status_clean
   build_android(buildType: "beta")  # Build the application with the buildVariant.
   upload_to_appcenter_android(buildType: "beta") # Deploy the apk to Appcenter.
 	add_tag()
 end
 
 lane :android_prod do
-	ensure_git_status_clean
   build_android(buildType: "release")
-  upload_to_playstore(track: "production") # Make sure "json_key_file" has the correct value
+  upload_to_playstore(track: "alpha") # Make sure "json_key_file" has the correct value
   add_tag()
 end
 
@@ -72,7 +65,8 @@ end
 ##########################
 
 lane :ios_alpha do
-  ensure_git_status_clean
+  # Install the provisioning profiles
+  install_provisioning_profiles if is_ci? # plugin that searches for available provisioning profiles and installs these
   bundle_upload_ios(scheme_name: "Alpha")
   build_ios(export_options: export_options_for(:alpha)) # Build IPA
   upload_to_appcenter_ios(buildType: "alpha")  # Upload IPA to appcenter
@@ -80,7 +74,8 @@ lane :ios_alpha do
 end
 
 lane :ios_beta do
-  ensure_git_status_clean
+  # Install the provisioning profiles
+  install_provisioning_profiles if is_ci? # plugin that searches for available provisioning profiles and installs these
   bundle_upload_ios(scheme_name: "Beta")
   build_ios(export_options: export_options_for(:beta)) # Build IPA
   upload_to_appcenter_ios(buildType: "beta")  # Upload IPA to appcenter
@@ -88,8 +83,9 @@ lane :ios_beta do
 end
 
 lane :ios_prod do
-	ensure_git_status_clean
-  bundle_upload_ios(scheme_name: "Release")
+	# Install the provisioning profiles
+  install_provisioning_profiles if is_ci? # plugin that searches for available provisioning profiles and installs these
+  bundle_upload_ios(scheme_name: "Production")
   build_ios(export_options: export_options_for(:release)) # Build IPA
   upload_to_test_flight_ios()
 	add_tag()
@@ -113,9 +109,9 @@ end
 # options is wat je meegeeft bij het aanroepen van public lane (zie hierboven)
 private_lane :build_android do |options|
   if options[:buildType] == "release" then
-    sh "(cd ../ && npx jetify;); cd ../android/; ENVFILE=.env ./gradlew clean app:assemble#{options[:buildType]}" # stap kan weg als we .env.release maken bvb
+    sh "cd ../android/; ENVFILE=.env ./gradlew clean app:bundleRelease"
   else
-    sh "(cd ../ && npx jetify;); cd ../android/; ENVFILE=.env.#{options[:buildType]} ./gradlew clean app:assemble#{options[:buildType]}"
+    sh "cd ../android/; ENVFILE=.env ./gradlew clean app:assemble#{options[:buildType]}"
   end
 end
 
@@ -126,8 +122,9 @@ private_lane :upload_to_playstore do |options|
 		skip_upload_metadata: true,
 		skip_upload_images: true,
 		skip_upload_screenshots: true,
+    json_key: ENV["ANDROID_JSON_KEY_FILE"],
 		package_name: "#{android_bundle_id}",
-		aab: "./android/app/build/outputs/bundle/release/app-release.apk",
+		aab: "./android/app/build/outputs/bundle/release/app-release.aab",
 	)
 end
 
@@ -171,7 +168,7 @@ end
     team_name:                         APPSTORE_TEAM_NAME,
     team_id:                           APPSTORE_TEAM_ID,
     app_identifier:                    RELEASE_APP_ID,
-    apple_id:                          APPSTORE_APPLE_ID,  
+    apple_id:                          APPSTORE_APPLE_ID,
     skip_submission:                   true,
     skip_waiting_for_build_processing: true,
   )
@@ -215,7 +212,7 @@ private_lane :upload_to_appcenter_android do |options|
     app_name: appcenter_app_name,
     apk: "./android/app/build/outputs/apk/#{options[:buildType]}/app-#{options[:buildType]}.apk",
     notify_testers: true,
-    destinations: getDistributionGroup(flavor: options[:flavor])
+    destinations: getDistributionGroup(buildType: options[:buildType])
   )
 end
 
@@ -235,7 +232,7 @@ private_lane :upload_to_appcenter_ios do |options|
 		owner_name: 'icapps',
     app_name: appcenter_app_name,
     notify_testers: true,
-    destinations: getDistributionGroup(flavor: options[:flavor])
+    destinations: getDistributionGroup(buildType: options[:buildType])
   )
 end
 
@@ -250,12 +247,12 @@ private_lane :getAppNameIOS do |options|
 end
 
 private_lane :getDistributionGroup do |options|
-  flavor = options[:flavor]
-  if flavor == "alpha"
+  buildType = options[:buildType]
+  if buildType == "alpha"
       "Collaborators, #{APPCENTER_ALPHA_DISTRIBUTION_GROUP}"
-  elsif flavor == "beta"
+  elsif buildType == "beta"
       "Collaborators, #{APPCENTER_BETA_DISTRIBUTION_GROUP}"
-  elsif flavor == "prod"
+  elsif buildType == "prod"
       "Collaborators"
   end
 end
