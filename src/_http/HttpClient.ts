@@ -1,11 +1,12 @@
 import { Config } from 'react-native-config';
 import axios, { AxiosError, AxiosResponse, ResponseType } from 'axios';
 
-import { TApiError, TValidationError } from './HttpError';
+import { log } from '../_utils/logger';
+import { TApiError } from './HttpError';
 import { HttpStatus } from './HttpStatus';
 
-type Params = Record<string, string | number | boolean | null | undefined>;
-type Headers = Record<string, string>;
+export type Params = Record<string, string | number | boolean | null | undefined>;
+export type Headers = Record<string, string>;
 
 class HttpClient {
   static getUrl(route: string): string {
@@ -51,29 +52,14 @@ class HttpClient {
     return headers;
   }
 
-  static createApiError(error: AxiosError): TApiError {
-    if (error.response) {
-      const data: { error?: string; message?: string | Array<TValidationError & { property: string }>; statusCode: HttpStatus } =
-        error.response.data;
-      return {
-        error: data.error,
-        message: typeof data.message === 'string' ? data.message : null,
-        statusCode: data.statusCode,
-        validationErrors: Array.isArray(data.message)
-          ? data.message.reduce(
-              (acc: Record<string, TValidationError>, { property, ...validationError }) => ({
-                ...acc,
-                [property]: validationError,
-              }),
-              {},
-            )
-          : null,
-      };
-    }
-    return {
-      message: error.message,
-      statusCode: HttpStatus.InternalServerError,
-    };
+  static createApiError(error: AxiosError<TApiError>): TApiError {
+    return (
+      error?.response?.data || {
+        status: HttpStatus.InternalServerError,
+        title: error.message,
+        type: '',
+      }
+    );
   }
 
   static async getRaw<T>(
@@ -100,6 +86,7 @@ class HttpClient {
     responseType: ResponseType = 'json',
   ): Promise<T> {
     const result = await this.getRaw<T>(route, params, headers, responseType);
+    log.debug(`[GET] ${this.getUrlWithParams(route, params)}`, { response: result.data });
     return result.data;
   }
 
@@ -109,6 +96,7 @@ class HttpClient {
         headers: { ...this.getBasicHeaders(), ...headers },
         withCredentials: true,
       });
+      log.debug(`[PUT] ${this.getUrlWithParams(route, params)}`, { request: body, response: result.data });
       return result.data;
     } catch (error) {
       throw this.createApiError(error);
@@ -121,6 +109,7 @@ class HttpClient {
         headers: { ...this.getBasicHeaders(), ...headers },
         withCredentials: true,
       });
+      log.debug(`[PATCH] ${this.getUrl(route)}`, { request: body, response: result.data });
       return result.data;
     } catch (error) {
       throw this.createApiError(error);
@@ -133,6 +122,7 @@ class HttpClient {
         headers: { ...this.getBasicHeaders(), ...headers },
         withCredentials: true,
       });
+      log.debug(`[POST] ${this.getUrl(route)}`, { request: body, response: result.data });
       return result.data;
     } catch (error) {
       throw this.createApiError(error);
@@ -145,6 +135,7 @@ class HttpClient {
         headers: { ...this.getBasicHeaders(), ...headers },
         withCredentials: true,
       });
+      log.debug(`[DELETE] ${this.getUrl(route)}`, { response: result.data });
       return result.data || true;
     } catch (error) {
       throw this.createApiError(error);

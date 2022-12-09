@@ -1,1 +1,109 @@
-{}
+{
+  "GENERAL": {
+    "PROBLEM": "Meld een probleem"
+  },
+  "NAVIGATION": {
+    "PROFILE": "Mijn UiTPAS",
+    "CAMERA": "Sparen",
+    "SHOP": "Voordelen"
+  },
+  "UPDATE": {
+    "NECESSARY": "Update nodig",
+    "DISCLAIMER": "Een update is nodig om de UiTPAS app verder te gebruiken",
+    "STORE_BUTTON": "Update",
+    "AVAILABLE": "Er is een nieuwe update beschikbaar."
+  },
+  "ONBOARDING": {
+    "TITLE": "Algemene voorwaarden",
+    "INTRO": "We verzamelen automatisch enkele gebruiksgegevens om UiTPAS en deze app verder te verbeteren.",
+    "LOOK_AT": "Ik accepteer",
+    "TERMS_OF_SERVICE": "de gebruiksvoorwaarden",
+    "AND": "en",
+    "PRIVACY_POLICY": "het privacybeleid.",
+    "PRIVACY_POLICY_URL": "https://www.uitpas.be/privacybeleid",
+    "CONFIRM": "Doorgaan"
+  },
+  "AUTHENTICATION": {
+    "LOG_OUT": "Afmelden",
+    "CONFIRM_TEXT": "Weet je zeker dat je wil afmelden?",
+    "CANCEL": "Annuleren",
+    "CONFIRM": "OK"
+  },
+  "LOGIN": {
+    "INTRO": "Jouw voordeelkaart voor\nverrassende vrije tijd buitenshuis",
+    "REGISTER": "Kan je niet aanmelden?\n Registreer je UiTPAS (opnieuw)",
+    "CTA": "Aanmelden"
+  },
+  "PROFILE": {
+    "POINTS": "punten",
+    "HELLO": "Dag {{name}}",
+    "INFO": "Dit is je UiTPAS: toon de barcode wanneer een medewerker naar je UiTPAS vraagt, bijvoorbeeld om punten te ruilen.",
+    "MIA": "Je hebt een UiTPAS met kansentarief: daarmee krijg je korting bij alle UiTPAS-activiteiten.",
+    "VALID_UNTIL": "Geldig tot en met",
+    "LINKS": {
+      "BENEFITS": "Mijn welkomstvoordelen",
+      "HISTORY": "Historiek",
+      "LOGOUT": "Afmelden",
+      "ABOUT": "Over deze app",
+      "PERSONAL_INFO": "Mijn persoonlijke gegevens",
+      "FAQ": "Veelgestelde vragen"
+    },
+    "ABOUT": {
+      "VERSION": "Versie {{version}}",
+      "HEADER_TITLE": "Over deze app",
+      "BACK_TITLE": "Profiel",
+      "TERMS_OF_SERVICE": "Gebruiksvoorwaarden",
+      "PRIVACY_POLICY": "Privacybeleid",
+      "CHECK_FOR_UPDATES": "Controleer op updates",
+      "REPORT_PROBLEM": "Meld een probleem",
+      "CONSTRUCTION_WARNING": "We werken nog hard aan deze app. Vond je een fout of ging er iets mis? Laat het ons weten."
+    },
+    "HISTORY": {
+      "EMPTY": "Je hebt nog geen punten gespaard of ingeruild.",
+      "BACK_TITLE": "Profiel",
+      "HEADER_TITLE": "Historiek",
+      "POINTS": "{{points}} punten",
+      "POINT": "{{points}} punt",
+      "POINTS_TITLE": "{{title}}"
+    }
+  },
+  "PROFILE_NOT_FOUND": {
+    "TITLE": "We kunnen geen UiTPAS terugvinden voor",
+    "REGISTER_TEXT": "Heb je al een UiTPAS?",
+    "REGISTER_CTA": "Registreer hem eerst op uitpas.be",
+    "BUY_TEXT": "Heb je nog geen UiTPAS?",
+    "BUY_CTA": "Hier kan je er een kopen.",
+    "FORGOT_EMAIL_TEXT": "Vergeten welk e-mailadres bij je UiTPAS hoort?",
+    "FORGOT_EMAIL_CTA": "Kijk het even na.",
+    "OTHER_ACCOUNT_TEXT": "Aanmelden met een ander e-mailadres?",
+    "OTHER_ACCOUNT_CTA": "Probeer het opnieuw",
+    "HELPDESK_TEXT": "Een andere vraag?",
+    "HELPDESK_CTA": "Stel ze aan een medewerker via de helpdesk."
+  },
+  "SHOP": {
+    "DESCRIPTION": "Je kan je UiTPAS-punten inruilen voor heel wat leuks: ga op zoek naar een korting of cadeautje dat bij jou past",
+    "BUTTON": "Bekijk alle voordelen"
+  },
+  "SCAN": {
+    "CAMERA": {
+      "DESCRIPTION": "Scan de UiTPAS QR-code",
+      "CTA": "Hulp nodig met scannen?"
+    },
+    "SETTINGS": {
+      "TITLE": "Geef UiTPAS toegang tot je camera",
+      "DESCRIPTION": "Om punten te kunnen sparen moet je deze app toegang geven tot je camera. Dat kan via de instellingen van je telefoon.",
+      "CTA": "Instellingen openen"
+    },
+    "SUCCESS": {
+      "DESCRIPTION": "Hopla, weer een punt erbij!\nJe hebt nu <bold>{{totalPoints}} UiTPAS-punten.</bold>",
+      "DESCRIPTION_MULTIPLE": "Hopla, weer {{addedPoints}} punten erbij!\nJe hebt nu <bold>{{totalPoints}} UiTPAS-punten.</bold>",
+      "CTA": "Sluiten"
+    }
+  },
+  "ERROR": {
+    "TITLE": "Er is iets misgegaan!",
+    "DEFAULT_MESSAGE": "Controleer alvast even je internetverbinding en probeer opnieuw.",
+    "HELP": "Meld een probleem",
+    "CTA": "Sluiten"
+  }
+}
