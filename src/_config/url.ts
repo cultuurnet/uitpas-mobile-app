@@ -54,8 +54,8 @@ const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
       'https://www.uitpas.be/profiel/persoonlijke-gegevens?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-mijn-uitpas',
   },
   playStore: {
-    beta: 'market://details?id=be.cultuurnet.uitpasapp',
-    production: 'market://details?id=be.cultuurnet.uitpasapp',
+    beta: 'market://details?id=com.publiq.uitpas',
+    production: 'market://details?id=com.publiq.uitpas',
   },
   privacyPolicy: {
     beta: 'https://test.uitpas.be/privacybeleid?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-over-app',

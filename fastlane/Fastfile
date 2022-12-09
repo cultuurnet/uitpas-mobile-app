@@ -21,7 +21,6 @@ APPCENTER_ALPHA_DISTRIBUTION_GROUP= ""
 APPCENTER_BETA_DISTRIBUTION_GROUP= "Publiq"
 
 # Android api key
-json_key_file = "./fastlane/api-XXX.json" # Needed for production publish --> needed if you want to direct publish to google play store (key te laten genereren in settings google account)
 
 # iOS Config
 IOS_WORKSPACE = "#{ios_project_name}.xcworkspace"
@@ -57,7 +56,7 @@ end
 
 lane :android_prod do
   build_android(buildType: "release")
-  upload_to_playstore(track: "production") # Make sure "json_key_file" has the correct value
+  upload_to_playstore(track: "alpha") # Make sure "json_key_file" has the correct value
   add_tag()
 end
 
@@ -123,8 +122,9 @@ private_lane :upload_to_playstore do |options|
 		skip_upload_metadata: true,
 		skip_upload_images: true,
 		skip_upload_screenshots: true,
+    json_key: ENV["ANDROID_JSON_KEY_FILE"],
 		package_name: "#{android_bundle_id}",
-		aab: "./android/app/build/outputs/bundle/release/app-release.apk",
+		aab: "./android/app/build/outputs/bundle/release/app-release.aab",
 	)
 end
 

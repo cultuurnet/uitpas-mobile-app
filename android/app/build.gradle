@@ -246,6 +246,12 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+         release {
+            storeFile System.env.STORE_FILE
+            storePassword System.env.STORE_PASSWORD
+            keyAlias System.env.KEY_ALIAS
+            keyPassword System.env.KEY_PASSWORD
+        }
     }
     buildTypes {
         debug {
