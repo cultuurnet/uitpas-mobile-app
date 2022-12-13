@@ -1,7 +1,7 @@
 {
   "minVersion": {
     "ios": "0.6.3",
-    "android": "1.0.0"
+    "android": "0.6.3"
   },
   "targetVersion": {
     "ios": "0.6.3",
