@@ -75,7 +75,7 @@ const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
   shop: {
     beta: 'https://test.uitpas.be/voordelen-zoeken?cardSystemsFilter[0]={{cardSystem}}&utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=open-shop',
     production:
-      'https://test.uitpas.be/voordelen-zoeken?cardSystemsFilter[0]={{cardSystem}}&utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=open-shop',
+      'https://uitpas.be/voordelen-zoeken?cardSystemsFilter[0]={{cardSystem}}&utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=open-shop',
   },
   termsOfService: {
     beta: 'https://test.uitpas.be/gebruiksvoorwaarden?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-over-app',
