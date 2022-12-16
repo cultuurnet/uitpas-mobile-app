@@ -4,6 +4,7 @@ import Barcode from 'react-native-barcode-svg';
 
 import { BrandLogo, Typography } from '../../_components';
 import { useToggle } from '../../_hooks';
+import { theme } from '../../_styles/theme';
 import i18n from '../../_translations/i18n';
 import { TPassHolder } from '../_models';
 import { applyBarcodeMask } from '../_util/mask';
@@ -46,7 +47,7 @@ const UitpasCard: FC<TProps> = ({ passHolder }) => {
           <Styled.LogoContainer>
             <BrandLogo height={16} inverse />
           </Styled.LogoContainer>
-          <Styled.BarcodeContainer onPress={toggleLogOutModalVisible} underlayColor="white">
+          <Styled.BarcodeContainer onPress={toggleLogOutModalVisible} underlayColor={theme.palette.neutral['100']}>
             <>
               <Barcode format="CODE128" height={40} singleBarWidth={1.4} value={firstActiveCard.uitpasNumber} />
               <Typography>{applyBarcodeMask(firstActiveCard.uitpasNumber)}</Typography>

@@ -16,3 +16,16 @@ export const ModalContainer = styled.View`
   border-radius: 10px;
   z-index: 1;
 `;
+
+export const LogoContainer = styled.View`
+  align-items: center;
+  height: 100px;
+  justify-content: center;
+`;
+
+export const BarcodeContainer = styled.View`
+  align-items: center;
+  background-color: ${({ theme }) => theme.palette.neutral['0']};
+  border-radius: 10px;
+  padding: 30px;
+`;

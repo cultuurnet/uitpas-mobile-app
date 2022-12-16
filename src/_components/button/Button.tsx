@@ -18,6 +18,7 @@ export type TButtonPropsBase = {
   label?: string;
   loading?: boolean;
   radius?: boolean;
+  underlayColor?: string;
   underline?: boolean;
   variant?: 'contained' | 'outline' | 'link';
 };
@@ -47,6 +48,7 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
   inline,
   hitSlop,
   children,
+  underlayColor,
   ...props
 }) => {
   const [isActive, setIsActive] = useState(false);
@@ -78,6 +80,7 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
       onPress={handlePress}
       onPressIn={() => setIsActive(true)}
       onPressOut={() => setIsActive(false)}
+      underlayColor={underlayColor}
       {...props}
     >
       {children ? (

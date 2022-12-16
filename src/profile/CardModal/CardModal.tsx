@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Modal, View } from 'react-native';
+import { Modal } from 'react-native';
 import Barcode from 'react-native-barcode-svg';
 
 import { BrandLogo, Typography } from '../../_components';
@@ -27,15 +27,15 @@ const CardModal: FC<TCardModalProps> = ({ isVisible, toggleIsVisible, firstActiv
     >
       <Styled.BlurContainer onPress={toggleIsVisible}>
         <Styled.ModalContainer>
-          <View style={{ alignItems: 'center', height: 100, justifyContent: 'center' }}>
+          <Styled.LogoContainer>
             <BrandLogo height={40} inverse />
-          </View>
-          <View style={{ alignItems: 'center', backgroundColor: 'white', borderRadius: 10, padding: 30 }}>
+          </Styled.LogoContainer>
+          <Styled.BarcodeContainer>
             <Barcode format="CODE128" height={100} singleBarWidth={2} value={firstActiveCard.uitpasNumber} />
             <Typography fontStyle="semibold" size="large" topSpacing="10px">
               {applyBarcodeMask(firstActiveCard.uitpasNumber)}
             </Typography>
-          </View>
+          </Styled.BarcodeContainer>
         </Styled.ModalContainer>
       </Styled.BlurContainer>
     </Modal>
