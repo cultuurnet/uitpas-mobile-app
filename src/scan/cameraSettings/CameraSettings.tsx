@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { Linking, Platform, StatusBar, useWindowDimensions } from 'react-native';
+import { Linking, StatusBar, useWindowDimensions } from 'react-native';
 import { t } from 'i18next';
 
 import { Scan } from '../../_assets/images';
@@ -10,15 +9,10 @@ import * as Styled from './style';
 const CameraSettings = () => {
   const { height } = useWindowDimensions();
 
-  useEffect(() => {
-    if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(theme.palette.neutral['0']);
-    }
-    StatusBar.setBarStyle('dark-content');
-  }, []);
-
   return (
     <SafeAreaView backgroundColor="neutral.0" isScrollable={false}>
+      <StatusBar backgroundColor={theme.palette.neutral['0']} barStyle="dark-content" />
+
       <Styled.TopContainer>
         <Styled.TitleText align="center" color="secondary.700" fontStyle="bold" size="large">
           {t('SCAN.SETTINGS.TITLE')}

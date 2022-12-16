@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { LayoutChangeEvent, Platform, StatusBar, StyleSheet, View } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { LayoutChangeEvent, StatusBar, StyleSheet, View } from 'react-native';
 import { runOnJS } from 'react-native-reanimated';
 import { Camera as VisionCamera, Frame, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
 import { useFocusEffect } from '@react-navigation/native';
@@ -50,14 +50,6 @@ const Camera = () => {
     }, []),
   );
 
-  useEffect(() => {
-    if (Platform.OS === 'android') {
-      StatusBar.setTranslucent(true);
-      StatusBar.setBackgroundColor(theme.palette.neutral['100']);
-    }
-    StatusBar.setBarStyle('dark-content');
-  }, []);
-
   function handleLayoutChange({ nativeEvent: { layout } }: LayoutChangeEvent) {
     setOverlayDimensions([layout.width, layout.height]);
   }
@@ -94,6 +86,7 @@ const Camera = () => {
 
   return (
     <View onLayout={handleLayoutChange} style={StyleSheet.absoluteFill}>
+      <StatusBar backgroundColor={theme.palette.neutral['100']} barStyle="dark-content" translucent />
       <VisionCamera
         device={device}
         frameProcessor={frameProcessor}
