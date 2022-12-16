@@ -15,7 +15,7 @@ export type TButtonPropsBase = {
   fontStyle?: TTypographyProps['fontStyle'];
   hitSlop?: number;
   inline?: boolean;
-  label: string;
+  label?: string;
   loading?: boolean;
   radius?: boolean;
   underline?: boolean;

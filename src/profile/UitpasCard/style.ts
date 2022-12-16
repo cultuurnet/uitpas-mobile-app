@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { SafeAreaView } from '../../_components';
+import { Button, SafeAreaView } from '../../_components';
 
 const CARD_MARGIN = 20;
 
@@ -35,7 +35,7 @@ export const LogoContainer = styled.View`
 export const PointsView = styled.View`
   align-items: center;
 `;
-export const BarcodeContainer = styled.View`
+export const BarcodeContainer = styled(Button)`
   align-items: center;
   background-color: ${({ theme }) => theme.palette.neutral['0']};
   border-radius: 10px;

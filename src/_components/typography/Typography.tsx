@@ -10,6 +10,7 @@ export type TTypographyProps = {
   color?: ThemeColor;
   fontStyle?: 'light' | 'normal' | 'semibold' | 'bold';
   size?: 'xsmall' | 'small' | 'normal' | 'large' | 'xlarge' | 'xxlarge';
+  topSpacing?: string;
 };
 
 const Typography: FC<TTypographyProps> = ({

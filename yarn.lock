@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@adrianso/react-native-device-brightness@^1.2.5":
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/@adrianso/react-native-device-brightness/-/react-native-device-brightness-1.2.5.tgz#0cded59a17a270a907a358aed47b3e6a67862c6e"
+  integrity sha512-HJH0pygEVZ/RQQyIjHtX7qDpUNRKrgMmkPuIIkGjSKgjVZcyN01kvFom2O8CxmTiZ6kg+Uai6AVHT6kdZ11umA==
+
 "@ampproject/remapping@^2.1.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.2.0.tgz#56c133824780de3174aed5ab6834f3026790154d"
