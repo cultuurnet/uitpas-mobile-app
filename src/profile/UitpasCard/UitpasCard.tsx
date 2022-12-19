@@ -17,7 +17,7 @@ type TProps = {
 
 const UitpasCard: FC<TProps> = ({ passHolder }) => {
   const { width } = useWindowDimensions();
-  const [logOutModalVisible, toggleLogOutModalVisible] = useToggle(false);
+  const [cardModalVisible, toggleCardModalVisible] = useToggle(false);
   const activeUitpasCards = passHolder.cardSystemMemberships.filter(card => card.status === 'ACTIVE' && card.uitpasNumber);
   const [firstActiveCard] = activeUitpasCards;
 
@@ -47,7 +47,7 @@ const UitpasCard: FC<TProps> = ({ passHolder }) => {
           <Styled.LogoContainer>
             <BrandLogo height={16} inverse />
           </Styled.LogoContainer>
-          <Styled.BarcodeContainer onPress={toggleLogOutModalVisible} underlayColor={theme.palette.neutral['100']}>
+          <Styled.BarcodeContainer onPress={toggleCardModalVisible} underlayColor={theme.palette.neutral['100']}>
             <>
               <Barcode format="CODE128" height={40} singleBarWidth={1.4} value={firstActiveCard.uitpasNumber} />
               <Typography>{applyBarcodeMask(firstActiveCard.uitpasNumber)}</Typography>
@@ -59,8 +59,8 @@ const UitpasCard: FC<TProps> = ({ passHolder }) => {
         </Styled.TopCardView>
         <Styled.BottomCardView screenWidth={width} />
       </Styled.CardContainer>
-      {logOutModalVisible && (
-        <CardModal firstActiveCard={firstActiveCard} isVisible={logOutModalVisible} toggleIsVisible={toggleLogOutModalVisible} />
+      {cardModalVisible && (
+        <CardModal firstActiveCard={firstActiveCard} isVisible={cardModalVisible} toggleIsVisible={toggleCardModalVisible} />
       )}
     </>
   );
