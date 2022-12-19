@@ -58,10 +58,6 @@ const Camera = () => {
     StatusBar.setBarStyle('dark-content');
   }, []);
 
-  useEffect(() => {
-    setIsActive(!isLoading);
-  }, [isLoading]);
-
   function handleLayoutChange({ nativeEvent: { layout } }: LayoutChangeEvent) {
     setOverlayDimensions([layout.width, layout.height]);
   }
