@@ -3,12 +3,12 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { t } from 'i18next';
 
+import { NavigationBar, NavigationButton } from '../../_components';
 import TabBarIcon from '../../_components/tabBarIcon/TabBarIcon';
 import { theme } from '../../_styles/theme';
 import Camera from '../../scan/camera/Camera';
 import Shop from '../../shop/Shop';
 import { ProfileNavigator } from './ProfileNavigator';
-import { mapRouteNameToIcon } from './utils';
 
 export type TMainRoutes = 'ProfileNavigator' | 'Camera' | 'Shop';
 export type TMainParams = Record<TMainRoutes, undefined>;
@@ -20,12 +20,11 @@ export const MainNavigator: FC = () => {
   return (
     <Tab.Navigator
       backBehavior="history"
-      screenOptions={({ route }) => ({
+      screenOptions={() => ({
         headerShown: false,
         tabBarActiveTintColor: theme.palette.secondary['500'],
-        tabBarIcon: ({ focused }) => {
-          return <TabBarIcon focused={focused} name={mapRouteNameToIcon(route.name)} />;
-        },
+        tabBarBackground: () => <NavigationBar />,
+        tabBarInactiveTintColor: theme.palette.neutral['500'],
         tabBarItemStyle: {
           height: 40,
         },
@@ -34,8 +33,13 @@ export const MainNavigator: FC = () => {
           marginTop: 3,
         },
         tabBarStyle: {
+          backgroundColor: 'transparent',
+          borderTopWidth: 0,
+          elevation: 0,
           height: 60 + insets.bottom,
           padding: 10,
+          position: 'absolute',
+          shadowOpacity: 0,
         },
       })}
     >
@@ -43,20 +47,31 @@ export const MainNavigator: FC = () => {
         component={ProfileNavigator}
         name="ProfileNavigator"
         options={{
+          tabBarIcon: ({ size: _, ...props }) => <TabBarIcon name="Profile" {...props} />,
           title: t('NAVIGATION.PROFILE'),
         }}
       />
       <Tab.Screen
         component={Camera}
         name="Camera"
-        options={{
-          title: t('NAVIGATION.CAMERA'),
+        options={({ navigation }) => {
+          const focused = navigation.isFocused();
+
+          return {
+            tabBarButton: props => <NavigationButton focused={focused} {...props} />,
+            tabBarIcon: ({ size: _, ...props }) => <TabBarIcon name="QR" size={24} {...props} />,
+            tabBarLabelStyle: {
+              color: focused ? theme.palette.neutral['0'] : theme.palette.primary['500'],
+            },
+            title: t('NAVIGATION.CAMERA'),
+          };
         }}
       />
       <Tab.Screen
         component={Shop}
         name="Shop"
         options={{
+          tabBarIcon: ({ size: _, ...props }) => <TabBarIcon name="Shop" {...props} />,
           title: t('NAVIGATION.SHOP'),
         }}
       />

@@ -16,13 +16,13 @@ const SafeAreaView: FC<TSafeAreaViewProps> = ({ children, backgroundColor = 'neu
 
   if (isScrollable) {
     return (
-      <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} {...props}>
-        <ScrollView>{children}</ScrollView>
+      <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} isScrollable={isScrollable} {...props}>
+        <ScrollView contentContainerStyle={{ paddingBottom: 95 }}>{children}</ScrollView>
       </Styled.SafeAreaViewContainer>
     );
   } else {
     return (
-      <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} {...props}>
+      <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} isScrollable={isScrollable} {...props}>
         {children}
       </Styled.SafeAreaViewContainer>
     );
