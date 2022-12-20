@@ -2,6 +2,8 @@ import { Config } from 'react-native-config';
 import { configLoggerType, logger, sentryTransport } from 'react-native-logs';
 import * as Sentry from '@sentry/react-native';
 
+import { ConfigEnvironment } from '../_config';
+
 let config: configLoggerType = {
   levels: {
     debug: 0,
@@ -27,6 +29,7 @@ if (__DEV__) {
 } else {
   Sentry.init({
     dsn: Config.SENTRY_DSN,
+    environment: ConfigEnvironment,
   });
 
   config = {
