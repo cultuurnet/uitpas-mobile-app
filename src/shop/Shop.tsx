@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { URL } from 'react-native-url-polyfill';
 
 import { Shop as ShopImage } from '../_assets/images';
 import { Button, Typography } from '../_components';
@@ -11,10 +12,17 @@ const Shop = () => {
   const { t } = useTranslation();
   const { data } = useGetMe();
 
-  const href = ConfigUrl.shop.replace(
-    '{{cardSystem}}',
-    encodeURIComponent(data?.cardSystemMemberships[0]?.cardSystem.name || ''),
-  );
+  const href = useMemo(() => {
+    const url = new URL(ConfigUrl.shop);
+
+    data.cardSystemMemberships
+      .filter(card => card.status === 'ACTIVE' && card.uitpasNumber)
+      .forEach((membership, index) => {
+        url.searchParams.append(`cardSystemsFilter[${index}]`, membership.cardSystem.name);
+      });
+
+    return url.toString();
+  }, [data.cardSystemMemberships]);
 
   return (
     <Styled.ContentContainer isScrollable={false}>
