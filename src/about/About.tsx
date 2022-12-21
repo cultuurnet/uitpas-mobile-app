@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Platform, ScrollView, StatusBar } from 'react-native';
 import { Config } from 'react-native-config';
 
@@ -28,15 +28,9 @@ const links: TLinkListItem[] = [
 ];
 
 const About = () => {
-  useEffect(() => {
-    if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(theme.palette.primary['500']);
-    }
-    StatusBar.setBarStyle('light-content');
-  }, []);
-
   return (
     <ScrollView>
+      <StatusBar backgroundColor={theme.palette.primary['500']} barStyle="light-content" />
       <LinkList items={links} title={i18n.t('PROFILE.ABOUT.VERSION', { version: Config.REACT_NATIVE_APP_VERSION_NR })} />
       <Styled.NotificationContainer>
         <Typography bottomSpacing="20px" color="secondary.900">

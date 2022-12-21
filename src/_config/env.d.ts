@@ -10,7 +10,8 @@ declare module 'react-native-config' {
     | 'REACT_NATIVE_APP_AUTH0_AUDIENCE'
     | 'REACT_NATIVE_APP_ENCRYPTION_KEY'
     | 'REACT_NATIVE_APP_VERSION_NR'
-    | 'REACT_NATIVE_APP_LOGGING_LEVEL';
+    | 'REACT_NATIVE_APP_LOGGING_LEVEL'
+    | 'SENTRY_DSN';
 
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   export interface NativeConfig extends Record<ConfigKeys, string | undefined> {}
