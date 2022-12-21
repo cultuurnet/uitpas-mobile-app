@@ -48,6 +48,10 @@ export const MainNavigator: FC = () => {
         name="ProfileNavigator"
         options={{
           tabBarIcon: ({ size: _, ...props }) => <TabBarIcon name="Profile" {...props} />,
+          tabBarItemStyle: {
+            height: 40,
+            marginRight: 37.5,
+          },
           title: t('NAVIGATION.PROFILE'),
         }}
       />
@@ -61,7 +65,7 @@ export const MainNavigator: FC = () => {
             tabBarButton: props => <NavigationButton focused={focused} {...props} />,
             tabBarIcon: ({ size: _, ...props }) => <TabBarIcon name="QR" size={24} {...props} />,
             tabBarLabelStyle: {
-              color: focused ? theme.palette.neutral['0'] : theme.palette.primary['500'],
+              color: focused ? theme.palette.neutral['0'] : theme.palette.neutral['500'],
             },
             title: t('NAVIGATION.CAMERA'),
           };
@@ -72,6 +76,10 @@ export const MainNavigator: FC = () => {
         name="Shop"
         options={{
           tabBarIcon: ({ size: _, ...props }) => <TabBarIcon name="Shop" {...props} />,
+          tabBarItemStyle: {
+            height: 40,
+            marginLeft: 37.5,
+          },
           title: t('NAVIGATION.SHOP'),
         }}
       />

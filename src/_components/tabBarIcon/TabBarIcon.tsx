@@ -17,7 +17,7 @@ const TabBarIcon: FC<TProps> = ({ focused, name, size }) => {
   let color: ThemeColor = focused ? 'secondary.500' : 'neutral.500';
 
   if (name === 'QR') {
-    color = focused ? 'neutral.0' : 'primary.500';
+    color = focused ? 'neutral.0' : 'neutral.500';
   }
 
   return <Icon color={color} name={focused && isIconName(filledIconName) ? filledIconName : name} size={size} />;
