@@ -16,9 +16,9 @@ export const NavigationButton = styled.Pressable<TNavigationButtonProps>`
   padding: 15px;
   z-index: 1;
   /* shadow */
-  elevation: 8;
+  elevation: 6;
   shadow-color: black;
-  shadow-offset: 0px 0px;
-  shadow-opacity: 0.3;
-  shadow-radius: 10px;
+  shadow-offset: 0px 3px;
+  shadow-opacity: 0.27;
+  shadow-radius: 4.65px;
 `;
