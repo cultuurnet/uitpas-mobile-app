@@ -42,7 +42,7 @@ const ScanSuccess: FC = () => {
           />
         </>
       }
-      topContent={<LottieView autoPlay loop={false} source={PointsSuccess} style={{ height: height / 2.5 }} />}
+      topContent={<LottieView autoPlay loop source={PointsSuccess} style={{ height: height / 2.5 }} />}
     />
   );
 };
