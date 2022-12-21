@@ -23,7 +23,7 @@ const History: FC = () => {
       {members.length > 0 ? (
         <>
           <FlashList
-            contentContainerStyle={{ paddingTop: 20 }}
+            contentContainerStyle={{ paddingBottom: 105, paddingTop: 20 }}
             data={members}
             estimatedItemSize={Styled.HISTORY_ITEM_HEIGHT}
             onEndReached={fetchNextPage}

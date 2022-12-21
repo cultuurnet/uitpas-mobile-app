@@ -8,7 +8,6 @@ export const Home = require('./home.png');
 export const Profile = require('./profile.png');
 export const ProfileFilled = require('./profileFilled.png');
 export const QR = require('./QR.png');
-export const QRFilled = require('./QRFilled.png');
 export const RadioChecked = require('./radioChecked.png');
 export const RadioUnchecked = require('./radioUnchecked.png');
 export const Search = require('./search.png');

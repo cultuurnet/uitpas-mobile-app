@@ -11,14 +11,14 @@ export type TSafeAreaViewProps = { backgroundColor?: ThemeColor; isScrollable?: 
 const SafeAreaView: FC<TSafeAreaViewProps> = ({ children, backgroundColor = 'neutral.100', isScrollable = true, ...props }) => {
   if (isScrollable) {
     return (
-      <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} {...props}>
+      <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} isScrollable={isScrollable} {...props}>
         <StatusBar backgroundColor={getColor(backgroundColor)} barStyle="dark-content" />
-        <ScrollView>{children}</ScrollView>
+        <ScrollView contentContainerStyle={{ paddingBottom: 95 }}>{children}</ScrollView>
       </Styled.SafeAreaViewContainer>
     );
   } else {
     return (
-      <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} {...props}>
+      <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} isScrollable={isScrollable} {...props}>
         <StatusBar backgroundColor={getColor(backgroundColor)} barStyle="dark-content" />
         {children}
       </Styled.SafeAreaViewContainer>
