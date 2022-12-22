@@ -88,7 +88,7 @@ project.ext.react = [
         def v -> v.name.toLowerCase().contains('alpha') || v.name.toLowerCase().contains('beta') || v.name.toLowerCase().contains('release') ? ['-w', "-O", "-output-source-map"] : []
     },
     deleteDebugFilesForVariant: {
-        def variant -> v.name.toLowerCase().contains('alpha') || v.name.toLowerCase().contains('beta') || v.name.toLowerCase().contains('release')
+        def v -> v.name.toLowerCase().contains('alpha') || v.name.toLowerCase().contains('beta') || v.name.toLowerCase().contains('release')
     }
     ]
 
