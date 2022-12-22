@@ -83,9 +83,12 @@ project.ext.react = [
     devDisabledInBeta: true,
     devDisabledInRelease: true,
     enableHermes: true,  // clean and rebuild if changing
+    // Hotfix: https://github.com/facebook/react-native/issues/33120#issuecomment-1308164580
+    hermesFlagsForVariant: {
+        def v -> v.name.toLowerCase().contains('alpha') || v.name.toLowerCase().contains('beta') || v.name.toLowerCase().contains('release') ? ['-w', "-O", "-output-source-map"] : []
+    },
     deleteDebugFilesForVariant: {
-            def variant ->
-                variant.name.toLowerCase().contains("release")
+        def variant -> v.name.toLowerCase().contains('alpha') || v.name.toLowerCase().contains('beta') || v.name.toLowerCase().contains('release')
     }
     ]
 
