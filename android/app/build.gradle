@@ -84,11 +84,8 @@ project.ext.react = [
     devDisabledInRelease: true,
     enableHermes: true,  // clean and rebuild if changing
     // Hotfix: https://github.com/facebook/react-native/issues/33120#issuecomment-1308164580
-    hermesFlagsForVariant: {
-        def v -> v.name.toLowerCase().contains('alpha') || v.name.toLowerCase().contains('beta') || v.name.toLowerCase().contains('release') ? ['-w', "-O", "-output-source-map"] : []
-    },
     deleteDebugFilesForVariant: {
-        def v -> v.name.toLowerCase().contains('alpha') || v.name.toLowerCase().contains('beta') || v.name.toLowerCase().contains('release')
+        def v -> v.name.toLowerCase().contains('release')
     }
     ]
 
@@ -100,7 +97,6 @@ project.ext.envConfigFiles = [
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
-apply from: "../../node_modules/@sentry/react-native/sentry.gradle"
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 /**

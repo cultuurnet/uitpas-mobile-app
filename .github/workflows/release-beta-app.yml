@@ -42,10 +42,6 @@ jobs:
           echo REACT_NATIVE_APP_ENCRYPTION_KEY="${{ secrets.ENCRYPTION_KEY }}" >> .env
           echo API_HOST="${{ secrets.API_HOST }}" >> .env
           echo APP_NAME="${{ secrets.APP_NAME }}" >> .env
-          echo SENTRY_URL="${{ secrets.SENTRY_URL }}" >> .env
-          echo SENTRY_ORG="${{ secrets.SENTRY_ORG }}" >> .env
-          echo SENTRY_PROJECT="${{ secrets.SENTRY_PROJECT }}" >> .env
-          echo SENTRY_AUTH_TOKEN="${{ secrets.SENTRY_AUTH_TOKEN }}" >> .env
           echo SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
           echo REACT_NATIVE_APP_VERSION_NR="${{ env.PACKAGE_VERSION }}" >> .env
           cat .env
@@ -92,10 +88,6 @@ jobs:
           echo REACT_NATIVE_APP_ENCRYPTION_KEY="${{ secrets.ENCRYPTION_KEY }}" >> .env
           echo API_HOST="${{ secrets.API_HOST }}" >> .env
           echo APP_NAME="${{ secrets.APP_NAME }}" >> .env
-          echo SENTRY_URL="${{ secrets.SENTRY_URL }}" >> .env
-          echo SENTRY_ORG="${{ secrets.SENTRY_ORG }}" >> .env
-          echo SENTRY_PROJECT="${{ secrets.SENTRY_PROJECT }}" >> .env
-          echo SENTRY_AUTH_TOKEN="${{ secrets.SENTRY_AUTH_TOKEN }}" >> .env
           echo SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
           echo REACT_NATIVE_APP_VERSION_NR="${{ env.PACKAGE_VERSION }}" >> .env
           cat .env
