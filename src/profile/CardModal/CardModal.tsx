@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Modal } from 'react-native';
 import Barcode from 'react-native-barcode-svg';
 
@@ -15,7 +15,10 @@ type TCardModalProps = {
 };
 
 const CardModal: FC<TCardModalProps> = ({ isVisible, toggleIsVisible, firstActiveCard }) => {
-  useFullScreenBrightness();
+  const { resetScreen, brightenScreen } = useFullScreenBrightness();
+  useEffect(() => {
+    isVisible ? brightenScreen() : resetScreen();
+  }, [isVisible]);
 
   return (
     <Modal
@@ -25,8 +28,9 @@ const CardModal: FC<TCardModalProps> = ({ isVisible, toggleIsVisible, firstActiv
       transparent
       visible={isVisible}
     >
-      <Styled.BlurContainer onPress={toggleIsVisible}>
+      <Styled.BlurContainer onPress={toggleIsVisible} underlayColor="rgba(0, 0, 0, 0.85)">
         <Styled.ModalContainer>
+          <Styled.CloseButton color="neutral.0" name="Close" onPress={toggleIsVisible} size={15} />
           <Styled.LogoContainer>
             <BrandLogo height={40} inverse />
           </Styled.LogoContainer>
