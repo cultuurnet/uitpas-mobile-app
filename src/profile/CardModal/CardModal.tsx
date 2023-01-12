@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Modal } from 'react-native';
 import Barcode from 'react-native-barcode-svg';
 
