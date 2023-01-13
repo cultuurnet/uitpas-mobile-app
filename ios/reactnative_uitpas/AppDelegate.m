@@ -61,6 +61,11 @@ static void InitializeFlipper(UIApplication *application) {
   // play
   [splashScreen playWithAnimationView:splashScreenView.subviews.firstObject];
   
+  
+  // If you want the animation layout to be forced to remove when hide is called, use this code
+  [RNSplashScreen setAnimationFinished:true];
+  
+  
   return YES;
 }
 
