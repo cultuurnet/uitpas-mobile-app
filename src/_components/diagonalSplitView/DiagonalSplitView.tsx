@@ -27,9 +27,8 @@ const DiagonalSplitView: FC<TProps> = ({
 
   return (
     <>
-      <FocusAwareStatusBar backgroundColor={getColor(backgroundColor)} barStyle="light-content" />
       <Styled.TopSafeAreaViewContainer backgroundColor={backgroundColor} edges={['top']} isScrollable={false} />
-      <Styled.ViewContainer edges={['bottom']} isScrollable={false}>
+      <Styled.ViewContainer backgroundColor={backgroundColor} edges={['bottom']} isScrollable={false}>
         <Styled.TopContainer backgroundColor={backgroundColor}>{topContent}</Styled.TopContainer>
 
         <Styled.DiagonalContainer diagonalContainerHeight={diagonalContainerHeight} lineColor={lineColor}>
@@ -45,6 +44,7 @@ const DiagonalSplitView: FC<TProps> = ({
           {isScrollable ? <Styled.BottomContainerContent>{bottomContent}</Styled.BottomContainerContent> : bottomContent}
         </Styled.BottomContainer>
       </Styled.ViewContainer>
+      <FocusAwareStatusBar backgroundColor={getColor(backgroundColor)} barStyle="light-content" />
     </>
   );
 };
