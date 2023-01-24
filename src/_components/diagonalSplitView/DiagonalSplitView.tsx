@@ -1,8 +1,9 @@
 import { FC } from 'react';
-import { ScrollView, StatusBar, useWindowDimensions, View } from 'react-native';
+import { ScrollView, useWindowDimensions, View } from 'react-native';
 
 import { ThemeColor } from '../../_styles/theme';
 import { getColor } from '../../_utils/colorHelper';
+import { FocusAwareStatusBar } from '..';
 import * as Styled from './style';
 
 type TProps = {
@@ -26,7 +27,7 @@ const DiagonalSplitView: FC<TProps> = ({
 
   return (
     <>
-      <StatusBar backgroundColor={getColor(backgroundColor)} barStyle="light-content" />
+      <FocusAwareStatusBar backgroundColor={getColor(backgroundColor)} barStyle="light-content" />
       <Styled.TopSafeAreaViewContainer backgroundColor={backgroundColor} edges={['top']} isScrollable={false} />
       <Styled.ViewContainer edges={['bottom']} isScrollable={false}>
         <Styled.TopContainer backgroundColor={backgroundColor}>{topContent}</Styled.TopContainer>

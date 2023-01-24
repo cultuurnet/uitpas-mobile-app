@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react';
-import { LayoutChangeEvent, StatusBar, StyleSheet, View } from 'react-native';
+import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
 import { runOnJS } from 'react-native-reanimated';
 import { Camera as VisionCamera, Frame, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
 import { useFocusEffect } from '@react-navigation/native';
 import { Barcode, BarcodeFormat, scanBarcodes } from 'vision-camera-code-scanner';
 
-import { Spinner } from '../../_components';
+import { FocusAwareStatusBar, Spinner } from '../../_components';
 import { useStackNavigation } from '../../_hooks';
 import { TApiError } from '../../_http';
 import { TRootParams } from '../../_routing/_components/RootStackNavigator';
@@ -86,7 +86,7 @@ const Camera = () => {
 
   return (
     <View onLayout={handleLayoutChange} style={StyleSheet.absoluteFill}>
-      <StatusBar backgroundColor={theme.palette.neutral['100']} barStyle="dark-content" translucent />
+      <FocusAwareStatusBar backgroundColor={theme.palette.neutral['100']} barStyle="light-content" translucent />
       <VisionCamera
         device={device}
         frameProcessor={frameProcessor}

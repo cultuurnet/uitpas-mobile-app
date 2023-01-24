@@ -1,9 +1,9 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RefreshControl, StatusBar } from 'react-native';
+import { RefreshControl } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 
-import { Spinner } from '../_components';
+import { FocusAwareStatusBar, Spinner } from '../_components';
 import { theme } from '../_styles/theme';
 import { useGetHistory } from './_queries/useGetHistory';
 import HistoryItem from './HistoryItem';
@@ -31,7 +31,7 @@ const History: FC = () => {
   const members = history?.pages?.flatMap(({ member }) => member) ?? [];
   return (
     <>
-      <StatusBar backgroundColor={theme.palette.primary['500']} barStyle="light-content" />
+      <FocusAwareStatusBar backgroundColor={theme.palette.primary['500']} barStyle="light-content" />
       <Styled.ListView>
         <FlashList
           ListEmptyComponent={<Styled.NoContentText align="center">{t('PROFILE.HISTORY.EMPTY')}</Styled.NoContentText>}

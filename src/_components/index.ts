@@ -12,3 +12,4 @@ export { default as BulletList } from './bulletList';
 export { default as Spinner } from './spinner/Spinner';
 export { default as NavigationBar } from './navigation/NavigationBar';
 export { default as NavigationButton } from './navigation/NavigationButton';
+export { default as FocusAwareStatusBar } from './statusBar/FocusAwareStatusBar';

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Platform, ScrollView, StatusBar } from 'react-native';
+import { Platform, ScrollView } from 'react-native';
 import { Config } from 'react-native-config';
 
-import { Button, Typography } from '../_components';
+import { Button, FocusAwareStatusBar, Typography } from '../_components';
 import LinkList, { TLinkListItem } from '../_components/linkList/LinkList';
 import { ConfigUrl } from '../_config';
 import { theme } from '../_styles/theme';
@@ -30,7 +30,7 @@ const links: TLinkListItem[] = [
 const About = () => {
   return (
     <ScrollView>
-      <StatusBar backgroundColor={theme.palette.primary['500']} barStyle="light-content" />
+      <FocusAwareStatusBar backgroundColor={theme.palette.primary['500']} barStyle="light-content" />
       <LinkList items={links} title={i18n.t('PROFILE.ABOUT.VERSION', { version: Config.REACT_NATIVE_APP_VERSION_NR })} />
       <Styled.NotificationContainer>
         <Typography bottomSpacing="20px" color="secondary.900">
