@@ -31,7 +31,7 @@ const History: FC = () => {
   const members = history?.pages?.flatMap(({ member }) => member) ?? [];
   return (
     <>
-      <FocusAwareStatusBar backgroundColor={theme.palette.primary['500']} barStyle="light-content" />
+      <FocusAwareStatusBar backgroundColor={theme.palette.secondary['500']} barStyle="light-content" />
       <Styled.ListView>
         <FlashList
           ListEmptyComponent={<Styled.NoContentText align="center">{t('PROFILE.HISTORY.EMPTY')}</Styled.NoContentText>}

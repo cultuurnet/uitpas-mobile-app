@@ -30,7 +30,7 @@ const links: TLinkListItem[] = [
 const About = () => {
   return (
     <ScrollView>
-      <FocusAwareStatusBar backgroundColor={theme.palette.primary['500']} barStyle="light-content" />
+      <FocusAwareStatusBar backgroundColor={theme.palette.secondary['500']} barStyle="light-content" />
       <LinkList items={links} title={i18n.t('PROFILE.ABOUT.VERSION', { version: Config.REACT_NATIVE_APP_VERSION_NR })} />
       <Styled.NotificationContainer>
         <Typography bottomSpacing="20px" color="secondary.900">
