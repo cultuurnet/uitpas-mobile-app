@@ -23,7 +23,7 @@ export const InfoView = styled.View`
 `;
 
 export const NoContentText = styled(Typography)`
-  padding: 0 20px;
+  padding: 0 16px;
 `;
 
 export const HistoryIcon = styled.View`

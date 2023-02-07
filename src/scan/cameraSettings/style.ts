@@ -5,6 +5,7 @@ import { Button, Typography } from '../../_components';
 export const TopContainer = styled.View`
   padding: 0px 16px;
   align-items: center;
+  flex-grow: 1;
 `;
 
 export const TitleText = styled(Typography)`
@@ -24,9 +25,7 @@ export const LabelText = styled(Typography)`
 `;
 
 export const BottomContainer = styled.View`
-  position: absolute;
-  bottom: 35px;
-  width: 100%;
+  padding-bottom: 115px;
 `;
 
 export const ConfirmButton = styled(Button)`
