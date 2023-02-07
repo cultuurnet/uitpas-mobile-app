@@ -5,6 +5,7 @@ import { SafeAreaView } from '../_components';
 export const ContentContainer = styled(SafeAreaView)`
   padding: 16px;
   justify-content: center;
+  padding-bottom: 105px;
 `;
 
 export const ShopImage = styled.Image`

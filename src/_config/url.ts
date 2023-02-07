@@ -73,9 +73,9 @@ const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
       'https://helpdesk.uitpas.be/hc/nl/articles/360010576839-Hoe-kan-ik-punten-sparen-?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-punten-sparen',
   },
   shop: {
-    beta: 'https://test.uitpas.be/voordelen-zoeken?cardSystemsFilter[0]={{cardSystem}}&utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=open-shop',
+    beta: 'https://test.uitpas.be/voordelen-zoeken?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=open-shop',
     production:
-      'https://uitpas.be/voordelen-zoeken?cardSystemsFilter[0]={{cardSystem}}&utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=open-shop',
+      'https://uitpas.be/voordelen-zoeken?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=open-shop',
   },
   termsOfService: {
     beta: 'https://test.uitpas.be/gebruiksvoorwaarden?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-over-app',

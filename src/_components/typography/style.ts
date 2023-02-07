@@ -7,6 +7,7 @@ export const Typography = styled.Text<TTypographyProps>`
   color: ${({ color }) => getColor(color)};
   text-align: ${({ align }) => align};
   margin-bottom: ${({ bottomSpacing }) => (bottomSpacing ? bottomSpacing : '0px')};
+  margin-top: ${({ topSpacing }) => (topSpacing ? topSpacing : '0px')};
 
   font-family: ${({ fontStyle }) => {
     switch (fontStyle) {

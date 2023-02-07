@@ -1,8 +1,9 @@
-import { FC, useEffect } from 'react';
-import { Platform, ScrollView, StatusBar, useWindowDimensions, View } from 'react-native';
+import { FC } from 'react';
+import { ScrollView, useWindowDimensions, View } from 'react-native';
 
 import { ThemeColor } from '../../_styles/theme';
 import { getColor } from '../../_utils/colorHelper';
+import { FocusAwareStatusBar } from '..';
 import * as Styled from './style';
 
 type TProps = {
@@ -24,15 +25,10 @@ const DiagonalSplitView: FC<TProps> = ({
 }) => {
   const { width } = useWindowDimensions();
 
-  useEffect(() => {
-    if (Platform.OS === 'android') StatusBar.setBackgroundColor(getColor(backgroundColor));
-    StatusBar.setBarStyle('light-content');
-  }, []);
-
   return (
     <>
       <Styled.TopSafeAreaViewContainer backgroundColor={backgroundColor} edges={['top']} isScrollable={false} />
-      <Styled.ViewContainer edges={['bottom']} isScrollable={false}>
+      <Styled.ViewContainer backgroundColor={backgroundColor} edges={['bottom']} isScrollable={false}>
         <Styled.TopContainer backgroundColor={backgroundColor}>{topContent}</Styled.TopContainer>
 
         <Styled.DiagonalContainer diagonalContainerHeight={diagonalContainerHeight} lineColor={lineColor}>
@@ -48,6 +44,7 @@ const DiagonalSplitView: FC<TProps> = ({
           {isScrollable ? <Styled.BottomContainerContent>{bottomContent}</Styled.BottomContainerContent> : bottomContent}
         </Styled.BottomContainer>
       </Styled.ViewContainer>
+      <FocusAwareStatusBar backgroundColor={getColor(backgroundColor)} barStyle="light-content" />
     </>
   );
 };
