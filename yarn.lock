@@ -6893,10 +6893,10 @@ react-native-codegen@^0.70.6:
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
 
-react-native-config@^1.4.11:
-  version "1.4.11"
-  resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-1.4.11.tgz#f9ea08a8dffbe3fd4f2187d80d2594756526dee8"
-  integrity sha512-PdBFnfR3pljUNrJu4B2wiJ9TbAiz1J1WcG5KP8AFBqZi8ve5MV/CTCDnANaGrqhOxkBDJV73D/SrMENHe7TKBg==
+react-native-config@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-1.5.0.tgz#ff5a78fbbc2c2a0525788e5f3c86101110651ba4"
+  integrity sha512-slecooA/0tCwhb+RuWEbwLqtKirGh9vWPRpgDfH7uPAraCciqHNH2XjS9ylW+Spn4FUrHg5KWTqUGs9BdBADHg==
 
 react-native-flipper@^0.163.0:
   version "0.163.0"
@@ -6918,10 +6918,10 @@ react-native-logs@^5.0.1:
   resolved "https://registry.yarnpkg.com/react-native-logs/-/react-native-logs-5.0.1.tgz#53665919587b499e22f514e50cb6a834cedba1ce"
   integrity sha512-30aQugeLFfcBEKd6U4I75SKc5q5fb9Qrwv0Vnsy3jwpC716xON9SxRbBEnxoPSDJjzK527r4zi+qYqzig6lPlQ==
 
-react-native-lottie-splash-screen@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-lottie-splash-screen/-/react-native-lottie-splash-screen-1.0.1.tgz#f195a04d3d36ef7f69361380f8c05267fb7b0a22"
-  integrity sha512-7V/ih/IvERkRXvwZ8pSZTYgRrKXYPhRXr8VWPpnGg0Bu1XQMP582bX9i2T7N30v/i3TEQjRowoExxODCG5yP7Q==
+react-native-lottie-splash-screen@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-lottie-splash-screen/-/react-native-lottie-splash-screen-1.1.1.tgz#fd3b4b1972dc8e6d204c895b3abe8bf278333b00"
+  integrity sha512-rCa7ebuETM98VuW1CHw1q5MVx1qIybNKPqzUaOZOhXM8eNZRwoidsOx9V/9n5+tAbL7H9i/1PaZcJZwfDlEPdw==
   dependencies:
     lottie-ios "3.2.3"
     lottie-react-native "^5.1.3"
