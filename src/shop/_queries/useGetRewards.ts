@@ -3,8 +3,8 @@ import { TApiError } from '../../_http';
 import { useGetMe } from '../../profile/_queries/useGetMe';
 import { TRewardCategory, TRewardsResponse, TRewardType } from '../_models/reward';
 
-type TFilterRewardCategory = TRewardCategory | 'laatste kans';
-type TFilterRewardSections = 'online' | 'in de kijker' | 'populair regio' | 'populair' | 'stad voordelen' | 'sport';
+export type TFilterRewardCategory = TRewardCategory | 'laatste kans';
+export type TFilterRewardSections = 'online' | 'in de kijker' | 'populair regio' | 'populair' | 'stad voordelen' | 'sport';
 
 export function useGetRewards({
   category,
@@ -28,7 +28,7 @@ export function useGetRewards({
   };
 
   let owningCardSystemIdParam = `?${user.cardSystemMemberships
-    .map(membership => `owningCardSytemId=${membership.cardSystem.id}`)
+    .map(membership => `owningCardSystemId=${membership.cardSystem.id}`)
     .join('&')}`;
 
   // add type
