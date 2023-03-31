@@ -6,13 +6,11 @@ import { Shop as ShopImage } from '../_assets/images';
 import { Button, Typography } from '../_components';
 import { ConfigUrl } from '../_config';
 import { useGetMe } from '../profile/_queries/useGetMe';
-import { useGetRewards } from './_queries/useGetRewards';
 import * as Styled from './style';
 
 const Shop = () => {
   const { t } = useTranslation();
   const { data } = useGetMe();
-  const { data: rewards } = useGetRewards({ section: 'populair' });
 
   const href = useMemo(() => {
     const url = new URL(ConfigUrl.shop);
