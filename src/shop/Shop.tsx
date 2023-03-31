@@ -1,8 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
-import { SafeAreaView } from '../_components';
-import { RewardsSection } from './_components/rewardsSection/RewardsSection';
+import { Shop as ShopImage } from '../_assets/images';
+import { Button, Typography } from '../_components';
+import { ConfigUrl } from '../_config';
+import { useGetMe } from '../profile/_queries/useGetMe';
+import * as Styled from './style';
 
 const Shop = () => {
   const { t } = useTranslation();
