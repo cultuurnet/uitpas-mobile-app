@@ -4,8 +4,10 @@ import { FlatList } from 'react-native';
 
 import { Icon, Reward, Typography } from '../../../_components';
 import { REWARD_TILE_WIDTH } from '../../../_components/reward/style';
+import { queryClient } from '../../../_providers/QueryClientProvider';
 import { TReward } from '../../_models/reward';
 import { TFilterRewardSections, useGetRewards } from '../../_queries/useGetRewards';
+import { RewardsSectionLoader } from './RewardSection.loading';
 import * as Styled from './style';
 
 type TProps = {
@@ -18,10 +20,13 @@ export const RewardsSection = ({ horizontal, filter, title }: TProps) => {
   const { t } = useTranslation();
 
   const onPressReward = useCallback((_reward: TReward) => {
+    queryClient.removeQueries({ queryKey: ['rewards'] });
   }, []);
 
   // We need to have 2 or more results to display the section
   if (!isLoading && !(rewards?.pages[0]?.member.length >= 2)) return null;
+
+  if (isLoading) return <RewardsSectionLoader horizontal={horizontal} />;
 
   return (
     <Styled.Container>
