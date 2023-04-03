@@ -1,9 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+export const Activity = require('./activity.png');
 export const ArrowLeft = require('./arrowLeft.png');
 export const ArrowRight = require('./arrowRight.png');
+export const Bag = require('./bag.png');
+export const Charity = require('./charity.png');
 export const CheckboxChecked = require('./checkboxChecked.png');
 export const CheckboxUnchecked = require('./checkboxUnchecked.png');
 export const ChevronLeft = require('./chevronLeft.png');
+export const Clock = require('./clock.png');
 export const Close = require('./close.png');
 export const External = require('./external.png');
 export const Gift = require('./gift.png');
@@ -26,5 +30,6 @@ export const Search = require('./search.png');
 export const Shop = require('./shop.png');
 export const ShopFilled = require('./shopFilled.png');
 export const SocialTariff = require('./socialtariff.png');
+export const Sport = require('./sport.png');
 export const User = require('./user.png');
 export const Warning = require('./warning.png');

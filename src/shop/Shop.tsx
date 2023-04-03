@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { SafeAreaView } from '../_components';
+import { CategoryButtons } from './_components/categoryButtons/CategoryButtons';
 import { RewardsSection } from './_components/rewardsSection/RewardsSection';
 
 const Shop = () => {
@@ -9,6 +10,7 @@ const Shop = () => {
 
   return (
     <SafeAreaView isScrollable>
+      <CategoryButtons />
       <RewardsSection filter="populair" horizontal title={t('SHOP.SECTIONS.POPULAR')} />
       <RewardsSection filter="in de kijker" title={t('SHOP.SECTIONS.HIGHLIGHTED')} />
       <RewardsSection filter="populair regio" horizontal title={t('SHOP.SECTIONS.POPULAR_REGION')} />
