@@ -14,14 +14,14 @@ type TProps = {
   title: string;
 }
 export const RewardsSection = ({ horizontal, filter, title }: TProps) => {
-  const { data: rewards, isLoading } = useGetRewards({ itemsPerPage: horizontal ? 20 : 3, section: filter });
+  const { data, isLoading } = useGetRewards({ itemsPerPage: horizontal ? 20 : 3, section: filter });
   const { t } = useTranslation();
-
+  const rewards = data?.pages[0]?.member;
   const onPressReward = useCallback((_reward: TReward) => {
   }, []);
 
   // We need to have 2 or more results to display the section
-  if (!isLoading && !(rewards?.pages[0]?.member.length >= 2)) return null;
+  if (!isLoading && !(rewards?.length >= 2)) return null;
 
   return (
     <Styled.Container>
@@ -35,7 +35,7 @@ export const RewardsSection = ({ horizontal, filter, title }: TProps) => {
       {horizontal ? <>
         <FlatList
           contentContainerStyle={Styled.ContentContainerStyle}
-          data={rewards?.pages[0]?.member}
+          data={rewards}
           decelerationRate='fast'
           horizontal
           keyExtractor={item => item.id}
@@ -45,11 +45,11 @@ export const RewardsSection = ({ horizontal, filter, title }: TProps) => {
           snapToInterval={REWARD_TILE_WIDTH + Styled.RewardTileMargin}
         />
       </> : <>
-        {rewards?.pages[0]?.member.map((reward) => (
-          <>
+        {rewards?.map((reward) => (
+          <React.Fragment key={reward.id}>
             <Reward key={reward.id} mode="list" onPress={() => onPressReward(reward)} reward={reward} />
             <Styled.Separator />
-          </>
+          </React.Fragment>
         ))}
       </>}
     </Styled.Container>

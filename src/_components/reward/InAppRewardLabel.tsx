@@ -3,19 +3,19 @@ import { useTranslation } from 'react-i18next'
 
 import Icon from '../icon/Icon'
 import Typography from '../typography/Typography'
-import { InAppRewardContainer, OnlineIconContainer } from './style'
+import * as Styled from './style'
 
 type TProps = {
-  withLabel?: boolean;
+  hideLabel?: boolean;
 };
 
-export const InAppRewardLabel = ({ withLabel = true }: TProps) => {
+export const InAppRewardLabel = ({ hideLabel = false }: TProps) => {
   const { t } = useTranslation();
 
   return (
-    <InAppRewardContainer>
-      <OnlineIconContainer><Icon name="Online" size={12} /></OnlineIconContainer>
-      {withLabel && <Typography color="primary.800" size="small">{t("SHOP.ONLINE_REWARD")}</Typography>}
-    </InAppRewardContainer>
+    <Styled.InAppRewardContainer>
+      <Styled.OnlineIconContainer><Icon name="Online" size={12} /></Styled.OnlineIconContainer>
+      {!hideLabel && <Typography color="primary.800" size="small">{t("SHOP.ONLINE_REWARD")}</Typography>}
+    </Styled.InAppRewardContainer>
   )
 }

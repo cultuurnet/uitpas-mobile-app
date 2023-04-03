@@ -20,12 +20,13 @@ const Reward = ({ reward, mode, ...props }: TProps) => {
   const renderPointsAndLabel = useCallback(() => (
     <Styled.PointsAndLabelContainer>
       <Points points={reward.points} theme={isTile ? 'white' : 'primary'} />
-      {reward.online && <InAppRewardLabel withLabel={!isTile} />}
+      {reward.online && <InAppRewardLabel hideLabel={!isTile} />}
     </Styled.PointsAndLabelContainer>
   ), [isTile, reward.points]);
 
+  const Container = isTile ? Styled.RewardTileContainer : Styled.RewardListContainer;
   return (
-    <Styled.RewardContainer isTile={isTile}  {...props}>
+    <Container {...props}>
       <>
         <Styled.ImageContainer isTile={isTile}>
           <Styled.Image isTile={isTile} onError={() => setIsImageError(true)} source={!isImageError && reward.pictures?.[0] ? { uri: reward.pictures[0] } : Gift} />
@@ -39,7 +40,7 @@ const Reward = ({ reward, mode, ...props }: TProps) => {
           {!isTile && renderPointsAndLabel()}
         </Styled.textContainer>
       </>
-    </Styled.RewardContainer>
+    </Container>
   );
 }
 

@@ -27,20 +27,26 @@ export const textContainer = styled.View<{ isTile?: boolean }>`
   ${({ isTile }) => (isTile ? '' : 'flex: 1')};
 `;
 
-export const RewardContainer = styled(TouchableRipple)<{ isTile?: boolean }>`
-  align-items: ${({ isTile }) => (isTile ? 'flex-start' : 'center')};
+export const RewardListContainer = styled(TouchableRipple)`
+  align-items: center;
   align-self: stretch;
   background-color: ${theme.palette.neutral[0]};
-  border-radius: ${({ isTile }) => (isTile ? '8px' : '0')};
-  flex-direction: ${({ isTile }) => (isTile ? 'column' : 'row')};
-  padding: ${({ isTile }) => (isTile ? '0' : `${theme.common.defaultSpacing}px`)};
-  width: ${({ isTile }) => (isTile ? `${REWARD_TILE_WIDTH}px` : '100%')};
-  elevation: ${({ isTile }) => (isTile ? '1' : '0')};
+  flex-direction: row;
+  padding: ${theme.common.defaultSpacing}px;
+  width: 100%;
+`;
+export const RewardTileContainer = styled(TouchableRipple)`
+  align-items: flex-start;
+  align-self: stretch;
+  background-color: ${theme.palette.neutral[0]};
+  border-radius: 8px;
+  width: ${REWARD_TILE_WIDTH}px;
+  elevation: 1;
   shadow-color: ${theme.palette.primary[800]};
   shadow-offset: 0px 2px;
-  shadow-opacity: ${({ isTile }) => (isTile ? '0.05' : '0')};
+  shadow-opacity: 0.05;
   shadow-radius: 2px;
-  margin-bottom: ${({ isTile }) => (isTile ? '4px' : '0')};
+  margin-bottom: 4px;
 `;
 
 export const PointsAndLabelContainer = styled.View<{ isTile?: boolean }>`

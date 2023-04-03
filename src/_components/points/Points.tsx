@@ -1,14 +1,15 @@
 import React from 'react'
 
+import { ThemeColor } from '../../_styles/theme';
 import Icon from '../icon/Icon';
-import { PointsContainer, PointsText, TPointsProps } from './style';
+import * as Styled from './style';
 
-export const Points = ({ points, theme = 'primary' }: TPointsProps) => {
-  const color = theme === 'primary' ? 'primary.800' : 'neutral.0';
+export const Points = ({ points, theme = 'primary' }: Styled.TPointsProps) => {
+  const color: ThemeColor = theme === 'primary' ? 'primary.800' : 'neutral.0';
   return (
-    <PointsContainer $theme={theme}>
-      <PointsText color={color} fontStyle='bold' size='small'>{points}</PointsText>
+    <Styled.PointsContainer $theme={theme}>
+      <Styled.PointsText color={color} fontStyle='bold' size='small'>{points}</Styled.PointsText>
       <Icon color={color} name="Point" size={14} />
-    </PointsContainer>
+    </Styled.PointsContainer>
   )
 }
