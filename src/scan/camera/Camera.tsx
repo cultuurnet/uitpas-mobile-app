@@ -6,9 +6,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import { Barcode, BarcodeFormat, scanBarcodes } from 'vision-camera-code-scanner';
 
 import { FocusAwareStatusBar, Spinner } from '../../_components';
-import { useStackNavigation } from '../../_hooks';
 import { TApiError } from '../../_http';
-import { TRootParams } from '../../_routing/_components/RootStackNavigator';
+import { TMainNavigationProp } from '../../_routing/_components/TRootStackParamList';
 import { theme } from '../../_styles/theme';
 import { log } from '../../_utils/logger';
 import { useCameraPermission } from '../_hooks';
@@ -24,14 +23,17 @@ const overlaySettings: TOverlayDimensions = {
   strokeWidth: 4,
 };
 
-const Camera = () => {
+type TProps = {
+  navigation: TMainNavigationProp<'Camera'>;
+}
+
+const Camera = ({ navigation }: TProps) => {
   const [isActive, setIsActive] = useState(true);
   const { back: device } = useCameraDevices();
   const { hasCameraPermission } = useCameraPermission();
   const [overlayDimensions, setOverlayDimensions] = useState<[number, number]>([0, 0]);
   const overlay = useOverlayDimensions(overlayDimensions, overlaySettings);
   const { mutateAsync, isLoading } = useCheckin();
-  const { navigate, ...navigation } = useStackNavigation<TRootParams>();
   const frameProcessor = useFrameProcessor(
     frame => {
       'worklet';
@@ -62,14 +64,13 @@ const Camera = () => {
       try {
         setIsActive(false);
         const response = await mutateAsync({ checkinCode: barcode.displayValue });
-        navigate('ScanSuccess', response);
+        navigation.navigate('ScanSuccess', response);
       } catch (error) {
         const { endUserMessage } = error as TApiError;
 
-        // @TODO: error handling
-        navigate('Error', {
+        navigation.navigate('Error', {
+          gotoAfterClose: ['MainNavigator', 'Profile'],
           message: endUserMessage?.nl,
-          onClose: () => navigation.replace('MainNavigator', { screen: 'ProfileNavigator' } as unknown as undefined), // Types in react-navigation package are incorrect...
         });
         log.error(error);
       }

@@ -13,14 +13,14 @@ const SafeAreaView: FC<TSafeAreaViewProps> = ({ children, backgroundColor = 'neu
   if (isScrollable) {
     return (
       <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} isScrollable={isScrollable} {...props}>
-        <FocusAwareStatusBar backgroundColor={getColor(backgroundColor)} barStyle="dark-content" />
+        <FocusAwareStatusBar backgroundColor={getColor(backgroundColor)} barStyle="light-content" />
         <ScrollView contentContainerStyle={{ paddingBottom: 95 }}>{children}</ScrollView>
       </Styled.SafeAreaViewContainer>
     );
   } else {
     return (
       <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} isScrollable={isScrollable} {...props}>
-        <FocusAwareStatusBar backgroundColor={getColor(backgroundColor)} barStyle="dark-content" />
+        <FocusAwareStatusBar backgroundColor={getColor(backgroundColor)} barStyle="light-content" />
         {children}
       </Styled.SafeAreaViewContainer>
     );
