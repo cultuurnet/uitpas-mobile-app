@@ -1,15 +1,16 @@
 import { FC } from 'react';
+import { TextProps } from 'react-native';
 
 import { ThemeColor } from '../../_styles/theme';
 import * as Styled from './style';
 
-export type TTypographyProps = {
+export type TTypographyProps = TextProps & {
   align?: 'left' | 'center' | 'right';
   bottomSpacing?: string;
   children?: React.ReactNode;
   color?: ThemeColor;
   fontStyle?: 'light' | 'normal' | 'semibold' | 'bold';
-  size?: 'xsmall' | 'small' | 'normal' | 'large' | 'xlarge' | 'xxlarge' | 'xxxlarge';
+  size?: 'xxsmall' | 'xsmall' | 'small' | 'normal' | 'large' | 'xlarge' | 'xxlarge' | 'xxxlarge';
   topSpacing?: string;
 };
 

@@ -75,8 +75,8 @@ const Profile = ({ navigation }: TProps) => {
       <Styled.SafeAreaViewContainer edges={['left', 'right']} isScrollable>
         <Styled.TopContainer>
           <Styled.TopContainerHalf />
-          {versions?.isBehindTarget && <UpdateNotification />}
           <UitpasCard passHolder={passHolder} />
+          {versions?.isBehindTarget && <UpdateNotification />}
           {!isUitpasInfoClosed && (
             <UitpasInfo
               onClose={() => {
