@@ -1,12 +1,17 @@
 import styled from 'styled-components/native';
 
-import { theme } from '../../_styles/theme';
+import { theme, ThemeColor } from '../../_styles/theme';
 import Typography from '../typography/Typography';
 
 type TPointsTheme = 'primary' | 'white';
 export type TPointsProps = {
   points: number;
   theme?: TPointsTheme;
+};
+
+export const PointsColor: Record<TPointsTheme, ThemeColor> = {
+  primary: 'primary.800',
+  white: 'neutral.0',
 };
 
 export const PointsContainer = styled.View<{ $theme: TPointsTheme }>`
