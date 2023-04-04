@@ -22,7 +22,7 @@ const Reward = ({ reward, mode, ...props }: TProps) => {
       <Points points={reward.points} theme={isTile ? 'white' : 'primary'} />
       {reward.online && <InAppRewardLabel hideLabel={!isTile} />}
     </Styled.PointsAndLabelContainer>
-  ), [isTile, reward.points]);
+  ), [isTile, reward.points, reward.online]);
 
   const Container = isTile ? Styled.RewardTileContainer : Styled.RewardListContainer;
   return (

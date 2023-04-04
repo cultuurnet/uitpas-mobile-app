@@ -1,4 +1,4 @@
-import { createContext, FC, PropsWithChildren, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, FC, PropsWithChildren, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import Auth0 from 'react-native-auth0';
 import { Config } from 'react-native-config';
 
@@ -20,9 +20,9 @@ type TAuthenticationContext = {
 };
 
 export const AuthenticationContext = createContext<TAuthenticationContext>({
-  authorize: async () => {},
+  authorize: async () => { },
   isInitialized: false,
-  logout: async () => {},
+  logout: async () => { },
 });
 
 export const useAuthentication = () => useContext(AuthenticationContext);
@@ -41,6 +41,16 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
       }),
     [],
   );
+
+  const logout = useCallback(async () => {
+    try {
+      await client.credentialsManager.clearCredentials();
+      await queryClient.removeQueries();
+      setIsAuthenticated(false);
+    } catch (e) {
+      log.error(e);
+    }
+  }, [client.credentialsManager, setIsAuthenticated]);
 
   useEffect(() => {
     if (!client) return;
@@ -64,7 +74,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
         log.error(e);
       }
     })();
-  }, [client]);
+  }, [client, setIsAuthenticated, setIsInitialized, logout]);
 
   const authorize = async (...options) => {
     try {
@@ -75,16 +85,6 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
       setUser(getIdTokenProfileClaims(credentials.idToken) as TAuth0User);
     } catch (e) {
       logout();
-      log.error(e);
-    }
-  };
-
-  const logout = async () => {
-    try {
-      await client.credentialsManager.clearCredentials();
-      await queryClient.removeQueries();
-      setIsAuthenticated(false);
-    } catch (e) {
       log.error(e);
     }
   };

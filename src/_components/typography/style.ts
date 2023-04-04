@@ -39,6 +39,8 @@ export const Typography = styled.Text<TTypographyProps>`
         return '30px';
       case 'xxlarge':
         return '36px';
+      case 'xxxlarge':
+        return '40px';
     }
   }};
 
@@ -61,6 +63,9 @@ export const Typography = styled.Text<TTypographyProps>`
 
       case 'xxlarge':
         return '24px';
+      
+      case 'xxxlarge':
+        return '28px';
     }
   }};
 `;

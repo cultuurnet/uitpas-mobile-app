@@ -31,9 +31,9 @@ export function useGetRewards({
       type,
     };
 
-    let owningCardSystemIdParam = `?${user.cardSystemMemberships
-      .map(membership => `owningCardSystemId=${membership.cardSystem.id}`)
-      .join('&')}`;
+    let owningCardSystemIdParam = user?.cardSystemMemberships
+      ? `?${user.cardSystemMemberships.map(membership => `owningCardSystemId=${membership.cardSystem.id}`).join('&')}`
+      : '';
 
     // add category
     if (category === 'laatste kans') {
@@ -68,10 +68,10 @@ export function useGetRewards({
         break;
     }
     return [params, owningCardSystemIdParam];
-  }, []);
+  }, [category, section, type, user]);
 
   return api.getInfinite<TRewardsResponse>(
-    ['rewards', JSON.stringify(params), owningCardSystemIdParam],
+    ['rewards', JSON.stringify(params), owningCardSystemIdParam, itemsPerPage],
     `/rewards${owningCardSystemIdParam}`,
     {
       itemsPerPage,

@@ -30,7 +30,7 @@ const Spinner: FC<TProps> = ({ color = 'secondary.500', size = 44 }) => {
       -1,
     );
     return () => cancelAnimation(rotation);
-  }, []);
+  }, [rotation]);
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
