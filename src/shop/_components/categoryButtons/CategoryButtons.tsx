@@ -15,7 +15,8 @@ const CATEGORIES: TCategoryListItem[] = [
   { icon: 'Activity', key: '2', label: 'SHOP.SECTIONS.DO', params: { category: 'Doen' } },
   { icon: 'Charity', key: '3', label: 'SHOP.SECTIONS.CHARITY', params: { category: 'Goede doel' } },
   { icon: 'Bag', key: '4', label: 'SHOP.SECTIONS.GADGET', params: { category: 'Gadget of item' } },
-  { icon: 'Clock', key: '5', label: 'SHOP.SECTIONS.LAST_CHANCE', params: { category: 'laatste kans' } },
+  { icon: 'Food', key: '5', label: 'SHOP.SECTIONS.FOOD', params: { category: 'Eten en drinken' } },
+  { icon: 'Clock', key: '6', label: 'SHOP.SECTIONS.LAST_CHANCE', params: { category: 'laatste kans' } },
 ];
 
 export const CategoryButtons = () => {
