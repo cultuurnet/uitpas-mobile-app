@@ -33,3 +33,11 @@ export const ContentContainerStyle = {
   paddingLeft: RewardTileMargin,
   paddingRight: 4 * RewardTileMargin,
 };
+
+export const HorizontalLoaderContainer = styled.View`
+  flex-direction: row;
+  padding-horizontal: ${RewardTileMargin}px;
+`;
+export const HorizontalLoaderSeparator = styled.View`
+  width: ${RewardTileMargin}px;
+`;
