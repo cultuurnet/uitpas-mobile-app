@@ -44,15 +44,15 @@ export const MainNavigator: FC = () => {
       })}
     >
       <Tab.Screen
-        component={ProfileNavigator}
-        name="ProfileNavigator"
+        component={Shop}
+        name="Shop"
         options={{
-          tabBarIcon: ({ size: _, ...props }) => <TabBarIcon name="Profile" {...props} />,
+          tabBarIcon: ({ size: _, ...props }) => <TabBarIcon name="Shop" {...props} />,
           tabBarItemStyle: {
             height: 40,
             marginRight: 37.5,
           },
-          title: t('NAVIGATION.PROFILE'),
+          title: t('NAVIGATION.SHOP'),
         }}
       />
       <Tab.Screen
@@ -72,15 +72,15 @@ export const MainNavigator: FC = () => {
         }}
       />
       <Tab.Screen
-        component={Shop}
-        name="Shop"
+        component={ProfileNavigator}
+        name="ProfileNavigator"
         options={{
-          tabBarIcon: ({ size: _, ...props }) => <TabBarIcon name="Shop" {...props} />,
+          tabBarIcon: ({ size: _, ...props }) => <TabBarIcon name="Profile" {...props} />,
           tabBarItemStyle: {
             height: 40,
             marginLeft: 37.5,
           },
-          title: t('NAVIGATION.SHOP'),
+          title: t('NAVIGATION.PROFILE'),
         }}
       />
     </Tab.Navigator>

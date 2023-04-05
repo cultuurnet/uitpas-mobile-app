@@ -15,7 +15,7 @@ const HistoryItem: FC<TProps> = ({ data: { points, location, creationDate, title
   return (
     <Styled.HistoryItem>
       <Styled.HistoryIcon>
-        <Icon color="primary.500" name={isNegative ? 'Gift' : 'Point'} size={20} />
+        <Icon color="primary.500" name={isNegative ? 'Gift' : 'PointAdd'} size={20} />
       </Styled.HistoryIcon>
 
       <Styled.InfoView>
