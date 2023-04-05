@@ -9,6 +9,7 @@ export { default as Icon } from './icon/Icon';
 export { default as LinkList } from './linkList/LinkList';
 export { default as NavigationBar } from './navigation/NavigationBar';
 export { default as NavigationButton } from './navigation/NavigationButton';
+export { default as PillButton } from './pillButton/PillButton';
 export { default as Reward } from './reward/Reward';
 export { default as RewardLoader } from './reward/Reward.loading';
 export { default as SafeAreaView } from './safeAreaView/SafeAreaView';
