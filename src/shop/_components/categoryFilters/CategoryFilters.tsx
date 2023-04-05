@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next';
-import { FlatList } from 'react-native';
+import { FlashList } from '@shopify/flash-list';
 
 import { TIconName } from '../../../_components/icon/Icon';
 import { theme } from '../../../_styles/theme';
@@ -16,12 +16,12 @@ const CATEGORIES: TCategoryListItem[] = [
   { icon: 'Clock', key: '5', label: 'SHOP.SECTIONS.LAST_CHANCE', params: { category: 'laatste kans' } },
 ];
 
-export const CategoryButtons = () => {
+export const CategoryFilters = () => {
   const { t } = useTranslation();
 
   return (
     <Styled.Container>
-      <FlatList
+      <FlashList
         contentContainerStyle={{ paddingHorizontal: theme.common.defaultSpacing }}
         data={CATEGORIES}
         horizontal
