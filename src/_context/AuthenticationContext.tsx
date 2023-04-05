@@ -73,7 +73,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
       logout();
       log.error(e);
     }
-  }, [client, setIsAuthenticated, setIsInitialized, logout]);
+  }, [client, setIsAuthenticated, logout, setAccessToken, setUser, setIsInitialized]);
 
   useAppState({
     onForeground: async () => {
@@ -96,7 +96,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
       logout();
       log.error(e);
     }
-  }, [client.webAuth, setIsAuthenticated, logout, setAccessToken, setUser, client.credentialsManager]);
+  }, [client, setIsAuthenticated, logout]);
 
   return (
     <AuthenticationContext.Provider
