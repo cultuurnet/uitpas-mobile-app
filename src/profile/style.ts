@@ -26,6 +26,8 @@ export const TopContent = styled.View`
   padding: 40px 16px;
 `;
 
+// Extra large offset to "counter" the bounce effect of the scrollview
+// When you scroll up and see the bounce, there will be no white space between the green header and this green block
 const BOUNCE_SCROLLVIEW_FIX = 1000;
 export const TopContainerHalf = styled.View`
   position: absolute;

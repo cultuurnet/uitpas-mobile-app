@@ -12,6 +12,10 @@ type TProps = {
   navigation: TRootStackNavigationProp<'FilteredShop'>;
   route: TRootStackRouteProp<'FilteredShop'>;
 }
+
+// When everything fits on 1 line, and device font-size is not increased, the height of a listitem is 125
+const MIMIMAL_REWARD_HEIGHT = 125;
+
 export const FilteredShop = ({ route }: TProps) => {
   const { subtitle, filter, category } = route.params || {};
 
@@ -26,7 +30,7 @@ export const FilteredShop = ({ route }: TProps) => {
     ListHeaderComponent={<Styled.Header fontStyle='bold' size='xxxlarge'>{subtitle}</Styled.Header>}
     contentContainerStyle={{ paddingBottom: 105 }}
     data={members}
-    estimatedItemSize={125}
+    estimatedItemSize={MIMIMAL_REWARD_HEIGHT}
     keyExtractor={(item) => item.id}
     onEndReached={!isRewardsLoading ? fetchNextPage : () => { }}
     onEndReachedThreshold={0.1}
