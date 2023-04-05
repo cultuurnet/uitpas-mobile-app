@@ -82,7 +82,8 @@ export const MainNavigator: FC = () => {
           tabBarItemStyle: {
             height: 40,
             marginRight: 37.5,
-          }
+          },
+          title: t('NAVIGATION.SHOP'),
         }}
       />
       <Tab.Screen
@@ -96,7 +97,8 @@ export const MainNavigator: FC = () => {
             tabBarIcon: ({ size: _, ...props }) => <TabBarIcon name="QR" size={24} {...props} />,
             tabBarLabelStyle: {
               color: focused ? theme.palette.neutral['0'] : theme.palette.neutral['500'],
-            }
+            },
+            title: t('NAVIGATION.CAMERA'),
           };
         }}
       />
@@ -108,7 +110,8 @@ export const MainNavigator: FC = () => {
           tabBarItemStyle: {
             height: 40,
             marginLeft: 37.5,
-          }
+          },
+          title: t('NAVIGATION.PROFILE'),
         }}
       />
     </Tab.Navigator>
