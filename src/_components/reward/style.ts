@@ -24,7 +24,7 @@ export const OnlineIconContainer = styled.View`
 export const textContainer = styled.View<{ isTile?: boolean }>`
   min-height: ${({ isTile }) => (isTile ? '102px' : '0')};
   padding: ${({ isTile }) => (isTile ? '8px' : '0')};
-  ${({ isTile }) => (isTile ? '' : 'flex: 1')};
+  ${({ isTile }) => (isTile ? '' : 'flex: 1;')};
 `;
 
 export const RewardListContainer = styled(TouchableRipple)`
@@ -57,14 +57,16 @@ export const PointsAndLabelContainer = styled.View<{ isTile?: boolean }>`
 export const ImageContainer = styled.View<{ isTile?: boolean }>`
   border-top-left-radius: ${({ isTile }) => (isTile ? '8px' : '0')};
   border-top-right-radius: ${({ isTile }) => (isTile ? '8px' : '0')};
+  height: ${({ isTile }) => (isTile ? '120px' : '80px')};
+  width: ${({ isTile }) => (isTile ? '200px' : '80px')};
   overflow: hidden;
   margin-right: ${({ isTile }) => (isTile ? '0' : `${theme.common.defaultSpacing}px`)};
   position: relative;
 `;
 
 export const Image = styled.Image<{ isTile?: boolean }>`
-  height: ${({ isTile }) => (isTile ? '120px' : '80px')};
-  width: ${({ isTile }) => (isTile ? '200px' : '80px')};
+  height: 100%;
+  width: 100%;
   resize-mode: cover;
   border-radius: ${({ isTile }) => (isTile ? '0' : '8px')};
 `;
