@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next';
-import { FlatList } from 'react-native';
+import { FlashList } from '@shopify/flash-list';
 
 import { TIconName } from '../../../_components/icon/Icon';
 import { useStackNavigation } from '../../../_hooks';
@@ -18,7 +18,7 @@ const CATEGORIES: TCategoryListItem[] = [
   { icon: 'Clock', key: '5', label: 'SHOP.SECTIONS.LAST_CHANCE', params: { category: 'laatste kans' } },
 ];
 
-export const CategoryButtons = () => {
+export const CategoryFilters = () => {
   const { t } = useTranslation();
   const { navigate } = useStackNavigation<TRootStackParamList>();
 
@@ -29,7 +29,7 @@ export const CategoryButtons = () => {
 
   return (
     <Styled.Container>
-      <FlatList
+      <FlashList
         contentContainerStyle={{ paddingHorizontal: theme.common.defaultSpacing }}
         data={CATEGORIES}
         horizontal
