@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { RefreshControl } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 
-import { FocusAwareStatusBar, Spinner } from '../_components';
+import { Spinner } from '../_components';
 import { theme } from '../_styles/theme';
 import { useGetHistory } from './_queries/useGetHistory';
 import HistoryItem from './HistoryItem';

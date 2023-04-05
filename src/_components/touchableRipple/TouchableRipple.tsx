@@ -3,7 +3,6 @@ import {
   BackgroundPropType,
   Platform,
   StyleProp,
-  StyleSheet,
   TouchableHighlight,
   TouchableNativeFeedback,
   TouchableWithoutFeedbackProps,
