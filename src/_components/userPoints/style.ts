@@ -5,10 +5,7 @@ import { theme } from '../../_styles/theme';
 import Typography from '../typography/Typography';
 
 export const UserPointsButton = styled(TouchableOpacity)`
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 8px;
-  padding-right: 4px;
+  padding: 4px 4px 4px 8px;
   border-radius: 16px;
   align-items: center;
   justify-content: center;

@@ -12,15 +12,15 @@ const UserPoints = () => {
   const firstActiveCard = user?.cardSystemMemberships?.filter(card => card.status === 'ACTIVE' && card.uitpasNumber)?.[0];
 
   if (isLoading || isError) return null;
-
+  const initials = `${user.firstName?.[0] || ''}${user.name?.[0] || ''}`;
   return (
     <>
       <Styled.UserPointsButton activeOpacity={0.8} onPress={toggleCardModalVisible}>
         <>
           <Styled.PointsLabel allowFontScaling={false} color="neutral.0" fontStyle='bold' size="large" >{user.points}</Styled.PointsLabel>
-          <Styled.AvatarContainer>
-            <Typography allowFontScaling={false} color="secondary.500" fontStyle='bold' size="xsmall">{user.firstName?.[0]}{user.name?.[0]}</Typography>
-          </Styled.AvatarContainer>
+          {!!initials && <Styled.AvatarContainer>
+            <Typography allowFontScaling={false} color="secondary.500" fontStyle='bold' size="xsmall">{initials}</Typography>
+          </Styled.AvatarContainer>}
         </>
       </Styled.UserPointsButton>
       <CardModal firstActiveCard={firstActiveCard} isVisible={cardModalVisible} toggleIsVisible={toggleCardModalVisible} />
