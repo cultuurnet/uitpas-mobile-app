@@ -9,7 +9,7 @@ const Shop = () => {
   const { t } = useTranslation();
 
   return (
-    <SafeAreaView isScrollable>
+    <SafeAreaView edges={['left', 'right']} isScrollable>
       <CategoryFilters />
       <RewardsSection filter="populair" horizontal title={t('SHOP.SECTIONS.POPULAR')} />
       <RewardsSection filter="in de kijker" title={t('SHOP.SECTIONS.HIGHLIGHTED')} />

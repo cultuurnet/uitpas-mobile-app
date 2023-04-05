@@ -49,7 +49,7 @@ export const TopCardView = styled.View<{ screenWidth: number }>`
   position: relative;
   height: 155px;
   width: ${({ screenWidth }) => `${screenWidth - CARD_MARGIN * 2}px`};
-  background-color: ${({ theme }) => theme.palette.secondary['500']};
+  background-color: ${({ theme }) => theme.palette.primary['700']};
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
 `;
@@ -61,7 +61,7 @@ export const Triangle = styled.View<{ screenWidth: number }>`
   border-right-width: ${({ screenWidth }) => `${screenWidth - CARD_MARGIN * 2}px`};
   border-right-color: transparent;
   border-bottom-width: 90px;
-  border-bottom-color: ${({ theme }) => theme.palette.secondary['600']};
+  border-bottom-color: ${({ theme }) => theme.palette.primary['800']};
   border-top-width: 65px;
   border-top-color: transparent;
 `;
@@ -69,7 +69,7 @@ export const Triangle = styled.View<{ screenWidth: number }>`
 export const BottomCardView = styled.View<{ screenWidth: number }>`
   height: 45px;
   width: ${({ screenWidth }) => `${screenWidth - CARD_MARGIN * 2}px`};
-  background-color: ${({ theme }) => theme.palette.secondary['600']};
+  background-color: ${({ theme }) => theme.palette.primary['800']};
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 `;
