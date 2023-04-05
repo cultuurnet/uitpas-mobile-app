@@ -3,6 +3,7 @@ import Auth0 from 'react-native-auth0';
 import { Config } from 'react-native-config';
 
 import { useToggle } from '../_hooks';
+import { useAppState } from '../_hooks/useAppState';
 import { TAuth0User } from '../_models';
 import { queryClient } from '../_providers/QueryClientProvider';
 import { log } from '../_utils/logger';
@@ -52,31 +53,39 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   }, [client.credentialsManager, setIsAuthenticated]);
 
-  useEffect(() => {
+  const checkAndRenewCredentials = useCallback(async () => {
     if (!client) return;
 
-    (async () => {
-      try {
-        const isLoggedIn = await client.credentialsManager.hasValidCredentials();
-        setIsAuthenticated(isLoggedIn);
-        setIsInitialized(true);
+    try {
+      const isLoggedIn = await client.credentialsManager.hasValidCredentials();
+      setIsAuthenticated(isLoggedIn);
+      setIsInitialized(true);
 
-        if (isLoggedIn) {
-          const credentials = await client.credentialsManager.getCredentials();
+      if (isLoggedIn) {
+        const credentials = await client.credentialsManager.getCredentials();
 
-          if (credentials) {
-            setUser(getIdTokenProfileClaims(credentials.idToken) as TAuth0User);
-            setAccessToken(credentials.accessToken);
-          }
+        if (credentials) {
+          setUser(getIdTokenProfileClaims(credentials.idToken) as TAuth0User);
+          setAccessToken(credentials.accessToken);
         }
-      } catch (e) {
-        logout();
-        log.error(e);
       }
-    })();
-  }, [client, setIsAuthenticated, setIsInitialized, logout]);
+    } catch (e) {
+      logout();
+      log.error(e);
+    }
+  }, [client, setIsAuthenticated, logout, setAccessToken, setUser, setIsInitialized]);
 
-  const authorize = async (...options) => {
+  useAppState({
+    onForeground: async () => {
+      checkAndRenewCredentials();
+    },
+  });
+
+  useEffect(() => {
+    checkAndRenewCredentials();
+  }, [checkAndRenewCredentials]);
+
+  const authorize = useCallback(async (...options) => {
     try {
       const credentials = await client.webAuth.authorize(...options);
       await client.credentialsManager.saveCredentials(credentials);
@@ -87,7 +96,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
       logout();
       log.error(e);
     }
-  };
+  }, [client, setIsAuthenticated, logout]);
 
   return (
     <AuthenticationContext.Provider
