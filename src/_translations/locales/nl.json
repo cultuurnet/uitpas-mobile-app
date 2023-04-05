@@ -85,6 +85,10 @@
     "BUTTON": "Bekijk alle voordelen",
     "ONLINE_REWARD": "In de app om te ruilen",
     "SHOW_MORE": "Bekijk meer",
+    "WELCOME": {
+      "GREETING": "Welkom bij UiTPAS {{name}}!",
+      "TITLE": "Bekijk nu je Welkomstvoordelen"
+    },
     "SECTIONS": {
       "DO": "Doen",
       "GADGET": "Gadget of item",
