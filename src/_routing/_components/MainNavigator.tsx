@@ -5,7 +5,7 @@ import { getFocusedRouteNameFromRoute, RouteProp } from '@react-navigation/nativ
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import { t } from 'i18next';
 
-import { NavigationBar, NavigationButton } from '../../_components';
+import { NavigationBar, NavigationButton, UserPoints } from '../../_components';
 import TabBarIcon from '../../_components/tabBarIcon/TabBarIcon';
 import { theme } from '../../_styles/theme';
 import { useGetMe } from '../../profile/_queries/useGetMe';
@@ -22,7 +22,10 @@ export const useMainHeaderProps = (enabled?: boolean): ((route: RouteProp<TRootS
 
     switch (routeName) {
       case 'Shop':
-        return { title: t('NAVIGATION.SHOP') };
+        return {
+          headerRight: UserPoints,
+          title: t('NAVIGATION.SHOP'),
+        };
       case 'Camera':
         return { title: '' };
       case 'Profile':

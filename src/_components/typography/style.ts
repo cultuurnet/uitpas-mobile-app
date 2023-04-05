@@ -27,6 +27,8 @@ export const Typography = styled.Text<TTypographyProps>`
 
   line-height: ${({ size }) => {
     switch (size) {
+      case 'xxsmall':
+        return '10px';
       case 'xsmall':
         return '15px';
       case 'small':
@@ -46,6 +48,9 @@ export const Typography = styled.Text<TTypographyProps>`
 
   font-size: ${({ size }) => {
     switch (size) {
+      case 'xxsmall':
+        return '8px';
+
       case 'xsmall':
         return '10px';
 
@@ -63,7 +68,7 @@ export const Typography = styled.Text<TTypographyProps>`
 
       case 'xxlarge':
         return '24px';
-      
+
       case 'xxxlarge':
         return '28px';
     }

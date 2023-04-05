@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import SplashScreen from 'react-native-lottie-splash-screen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { UserPoints } from '../../_components';
 import { useAuthentication } from '../../_context';
 import { StorageKey } from '../../_models';
 import { generalStyles } from '../../_styles/constants';
@@ -71,9 +72,9 @@ export const RootStackNavigator = () => {
             component={FilteredShop}
             name="FilteredShop"
             options={{
-              gestureEnabled: true,
               headerBackButtonMenuEnabled: false,
               headerBackTitle: '',
+              headerRight: UserPoints,
               headerTitle: i18n.t('NAVIGATION.SHOP'),
             }}
           />
@@ -82,6 +83,7 @@ export const RootStackNavigator = () => {
             name="History"
             options={{
               headerBackTitle: i18n.t('PROFILE.HISTORY.BACK_TITLE'),
+              headerRight: UserPoints,
               headerTitle: i18n.t('PROFILE.HISTORY.HEADER_TITLE'),
             }}
           />
