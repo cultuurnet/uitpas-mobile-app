@@ -27,10 +27,12 @@ export const Typography = styled.Text<TTypographyProps>`
 
   line-height: ${({ size }) => {
     switch (size) {
+      case 'xxsmall':
+        return '10px';
       case 'xsmall':
         return '15px';
       case 'small':
-        return '21px';
+        return '20px';
       case 'normal':
         return '24px';
       case 'large':
@@ -39,11 +41,16 @@ export const Typography = styled.Text<TTypographyProps>`
         return '30px';
       case 'xxlarge':
         return '36px';
+      case 'xxxlarge':
+        return '40px';
     }
   }};
 
   font-size: ${({ size }) => {
     switch (size) {
+      case 'xxsmall':
+        return '8px';
+
       case 'xsmall':
         return '10px';
 
@@ -61,6 +68,9 @@ export const Typography = styled.Text<TTypographyProps>`
 
       case 'xxlarge':
         return '24px';
+
+      case 'xxxlarge':
+        return '28px';
     }
   }};
 `;

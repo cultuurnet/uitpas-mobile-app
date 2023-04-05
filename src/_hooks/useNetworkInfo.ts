@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { NetInfoState, useNetInfo } from '@react-native-community/netinfo';
 
 export function useNetworkInfo(): NetInfoState {
@@ -21,12 +21,12 @@ export function useNetworkInfo(): NetInfoState {
     }
   }
 
-  async function validateIfInternetIsReachable() {
+  const validateIfInternetIsReachable = useCallback(async () => {
     const result = await doRealNetworkCheck();
     if (!result) {
       setValidatedNetworkInfo(networkInfo);
     }
-  }
+  }, [networkInfo]);
 
   useEffect(() => {
     // isInternetReachable could be null
@@ -35,7 +35,7 @@ export function useNetworkInfo(): NetInfoState {
     } else if (networkInfo.isInternetReachable === true) {
       setValidatedNetworkInfo(networkInfo);
     }
-  }, [networkInfo]);
+  }, [networkInfo, validateIfInternetIsReachable]);
 
   return validatedNetworkInfo;
 }

@@ -37,7 +37,7 @@ const App = () => {
               ref={navigationRef}
             >
               <TrackingProvider currentRoute={currentRoute}>
-                <StatusBar />
+                <StatusBar backgroundColor={theme.palette.secondary[600]} barStyle="light-content" />
                 <RootStackNavigator />
               </TrackingProvider>
             </NavigationContainer>

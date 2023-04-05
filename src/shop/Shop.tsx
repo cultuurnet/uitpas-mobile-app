@@ -1,37 +1,22 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { URL } from 'react-native-url-polyfill';
 
-import { Shop as ShopImage } from '../_assets/images';
-import { Button, Typography } from '../_components';
-import { ConfigUrl } from '../_config';
-import { useGetMe } from '../profile/_queries/useGetMe';
-import * as Styled from './style';
+import { SafeAreaView } from '../_components';
+import { CategoryFilters } from './_components/categoryFilters/CategoryFilters';
+import { RewardsSection } from './_components/rewardsSection/RewardsSection';
 
 const Shop = () => {
   const { t } = useTranslation();
-  const { data } = useGetMe();
-
-  const href = useMemo(() => {
-    const url = new URL(ConfigUrl.shop);
-
-    data.cardSystemMemberships
-      .filter(card => card.status === 'ACTIVE' && card.uitpasNumber)
-      .forEach((membership, index) => {
-        url.searchParams.append(`cardSystemsFilter[${index}]`, membership.cardSystem.name);
-      });
-
-    return url.toString();
-  }, [data.cardSystemMemberships]);
 
   return (
-    <Styled.ContentContainer isScrollable={false}>
-      <Styled.ShopImage resizeMode="contain" source={ShopImage} />
-      <Typography align="center" bottomSpacing="32px">
-        {t('SHOP.DESCRIPTION')}
-      </Typography>
-      <Button centered href={href} inline label={t('SHOP.BUTTON')} />
-    </Styled.ContentContainer>
+    <SafeAreaView edges={['left', 'right']} isScrollable>
+      <CategoryFilters />
+      <RewardsSection filter="populair" horizontal title={t('SHOP.SECTIONS.POPULAR')} />
+      <RewardsSection filter="in de kijker" title={t('SHOP.SECTIONS.HIGHLIGHTED')} />
+      <RewardsSection filter="populair regio" horizontal title={t('SHOP.SECTIONS.POPULAR_REGION')} />
+      <RewardsSection filter="online" title={t('SHOP.SECTIONS.ONLINE')} />
+      <RewardsSection filter="sport" horizontal title={t('SHOP.SECTIONS.SPORT')} />
+    </SafeAreaView>
   );
 };
 
