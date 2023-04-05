@@ -45,7 +45,6 @@ const TouchableRipple = ({
   // A workaround for ripple on Android P is to use useForeground + overflow: 'hidden'
   // https://github.com/facebook/react-native/issues/6480
   const useForeground = Platform.OS === 'android' && Platform.Version >= ANDROID_VERSION_PIE && borderless;
-
   if (TouchableRipple.supported) {
     return (
       <TouchableNativeFeedback
@@ -56,7 +55,7 @@ const TouchableRipple = ({
         useForeground={useForeground}
       >
         <View style={style}>{React.Children.only(children)}</View>
-      </TouchableNativeFeedback>
+      </TouchableNativeFeedback >
     );
   }
 

@@ -37,6 +37,7 @@ export const RewardListContainer = styled(TouchableRipple)`
 `;
 export const RewardTileContainer = styled(TouchableRipple)`
   align-items: flex-start;
+  overflow: hidden;
   align-self: stretch;
   background-color: ${theme.palette.neutral[0]};
   border-radius: 8px;

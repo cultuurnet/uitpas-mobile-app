@@ -75,6 +75,7 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
       accessibilityLabel={accessibilityLabel}
       accessibilityRole="button"
       accessibilityState={{ disabled }}
+      borderless
       disabled={disabled}
       hitSlop={hitSlop}
       onPress={handlePress}

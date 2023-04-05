@@ -26,7 +26,7 @@ const Reward = ({ reward, mode, ...props }: TProps) => {
 
   const Container = isTile ? Styled.RewardTileContainer : Styled.RewardListContainer;
   return (
-    <Container {...props}>
+    <Container borderless={isTile} {...props}>
       <>
         <Styled.ImageContainer isTile={isTile}>
           <Styled.Image isTile={isTile} onError={() => setIsImageError(true)} source={!isImageError && reward.pictures?.[0] ? { uri: reward.pictures[0] } : Gift} />

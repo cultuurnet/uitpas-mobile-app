@@ -32,7 +32,7 @@ export const Typography = styled.Text<TTypographyProps>`
       case 'xsmall':
         return '15px';
       case 'small':
-        return '21px';
+        return '20px';
       case 'normal':
         return '24px';
       case 'large':
