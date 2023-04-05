@@ -1,20 +1,46 @@
 import React, { FC } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { getFocusedRouteNameFromRoute, RouteProp } from '@react-navigation/native';
+import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import { t } from 'i18next';
 
 import { NavigationBar, NavigationButton } from '../../_components';
 import TabBarIcon from '../../_components/tabBarIcon/TabBarIcon';
 import { theme } from '../../_styles/theme';
+import { useGetMe } from '../../profile/_queries/useGetMe';
+import Profile from '../../profile/Profile';
 import Camera from '../../scan/camera/Camera';
 import Shop from '../../shop/Shop';
-import { ProfileNavigator } from './ProfileNavigator';
+import { TMainParamsList, TRootStackParamList } from './TRootStackParamList';
 
-export type TMainRoutes = 'ProfileNavigator' | 'Camera' | 'Shop';
-export type TMainParams = Record<TMainRoutes, undefined>;
+export const useMainHeaderProps = (enabled?: boolean): ((route: RouteProp<TRootStackParamList, "MainNavigator">) => NativeStackNavigationOptions) => {
+  const { data: passHolder } = useGetMe(enabled);
+
+  return route => {
+    const routeName = getFocusedRouteNameFromRoute(route) ?? 'Shop';
+
+    switch (routeName) {
+      case 'Shop':
+        return { title: t('NAVIGATION.SHOP') };
+      case 'Camera':
+        return { title: '' };
+      case 'Profile':
+        return {
+          headerTitleAlign: 'left',
+          headerTitleStyle: {
+            fontFamily: 'Poppins-SemiBold',
+            fontSize: 20
+          },
+          title: t('PROFILE.HELLO', { name: passHolder?.firstName }),
+        };
+      default: return {};
+    }
+  };
+}
 
 export const MainNavigator: FC = () => {
-  const Tab = createBottomTabNavigator<TMainParams>();
+  const Tab = createBottomTabNavigator<TMainParamsList>();
   const insets = useSafeAreaInsets();
 
   return (
@@ -72,15 +98,14 @@ export const MainNavigator: FC = () => {
         }}
       />
       <Tab.Screen
-        component={ProfileNavigator}
-        name="ProfileNavigator"
+        component={Profile}
+        name="Profile"
         options={{
           tabBarIcon: ({ size: _, ...props }) => <TabBarIcon name="Profile" {...props} />,
           tabBarItemStyle: {
             height: 40,
             marginLeft: 37.5,
-          },
-          title: t('NAVIGATION.PROFILE'),
+          }
         }}
       />
     </Tab.Navigator>
