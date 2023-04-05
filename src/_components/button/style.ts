@@ -27,6 +27,7 @@ export const ButtonElement = styled(TouchableRipple)<{
     }
     return 'transparent';
   }};
+  overflow: hidden;
   padding: ${({ $variant, $inline }) =>
     $inline && $variant !== 'link' ? '12px 16px' : $variant !== 'link' ? '12px 20px' : '0px'};
   border: ${({ $variant, theme }) => ($variant === 'outline' ? `2px solid ${theme.palette.neutral['0']}` : 'none')};

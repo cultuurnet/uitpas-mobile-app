@@ -87,7 +87,7 @@ const Camera = ({ navigation }: TProps) => {
 
   return (
     <View onLayout={handleLayoutChange} style={StyleSheet.absoluteFill}>
-      <FocusAwareStatusBar backgroundColor={theme.palette.neutral['100']} barStyle="light-content" translucent />
+      <FocusAwareStatusBar backgroundColor={theme.palette.neutral['900']} barStyle="light-content" translucent />
       <VisionCamera
         device={device}
         frameProcessor={frameProcessor}

@@ -30,28 +30,25 @@ const History: FC = () => {
 
   const members = history?.pages?.flatMap(({ member }) => member) ?? [];
   return (
-    <>
-      <FocusAwareStatusBar backgroundColor={theme.palette.secondary['500']} barStyle="light-content" />
-      <Styled.ListView>
-        <FlashList
-          ListEmptyComponent={<Styled.NoContentText align="center">{t('PROFILE.HISTORY.EMPTY')}</Styled.NoContentText>}
-          contentContainerStyle={{ paddingBottom: 105, paddingTop: 20 }}
-          data={members}
-          estimatedItemSize={Styled.HISTORY_ITEM_HEIGHT}
-          onEndReached={fetchNextPage}
-          onEndReachedThreshold={0.1}
-          refreshControl={
-            <RefreshControl
-              colors={[theme.palette.primary['500'], theme.palette.neutral['0']]}
-              onRefresh={refetchByUser}
-              refreshing={isRefetchingByUser}
-              tintColor={theme.palette.primary['500']}
-            />
-          }
-          renderItem={({ item }) => <HistoryItem data={item} />}
-        />
-      </Styled.ListView>
-    </>
+    <Styled.ListView>
+      <FlashList
+        ListEmptyComponent={<Styled.NoContentText align="center">{t('PROFILE.HISTORY.EMPTY')}</Styled.NoContentText>}
+        contentContainerStyle={{ paddingBottom: 105, paddingTop: 20 }}
+        data={members}
+        estimatedItemSize={Styled.HISTORY_ITEM_HEIGHT}
+        onEndReached={fetchNextPage}
+        onEndReachedThreshold={0.1}
+        refreshControl={
+          <RefreshControl
+            colors={[theme.palette.primary['500'], theme.palette.neutral['0']]}
+            onRefresh={refetchByUser}
+            refreshing={isRefetchingByUser}
+            tintColor={theme.palette.primary['500']}
+          />
+        }
+        renderItem={({ item }) => <HistoryItem data={item} />}
+      />
+    </Styled.ListView>
   );
 };
 
