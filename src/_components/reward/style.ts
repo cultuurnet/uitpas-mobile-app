@@ -41,8 +41,6 @@ export const RewardTileContainer = styled(TouchableRipple)`
   background-color: ${theme.palette.neutral[0]};
   border-radius: 8px;
   width: ${REWARD_TILE_WIDTH}px;
-  
-  
   margin-bottom: 4px;
 `;
 
