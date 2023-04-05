@@ -9,7 +9,7 @@ export type TTypographyProps = {
   children?: React.ReactNode;
   color?: ThemeColor;
   fontStyle?: 'light' | 'normal' | 'semibold' | 'bold';
-  size?: 'xsmall' | 'small' | 'normal' | 'large' | 'xlarge' | 'xxlarge';
+  size?: 'xsmall' | 'small' | 'normal' | 'large' | 'xlarge' | 'xxlarge' | 'xxxlarge';
   topSpacing?: string;
 };
 

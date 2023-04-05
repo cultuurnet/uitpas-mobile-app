@@ -18,7 +18,7 @@ const CardModal: FC<TCardModalProps> = ({ isVisible, toggleIsVisible, firstActiv
   const { resetScreen, brightenScreen } = useFullScreenBrightness();
   useEffect(() => {
     isVisible ? brightenScreen() : resetScreen();
-  }, [isVisible]);
+  }, [isVisible, brightenScreen, resetScreen]);
 
   return (
     <Modal

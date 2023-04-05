@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Config } from 'react-native-config';
 import {
   InfiniteQueryObserverOptions,
@@ -32,12 +32,16 @@ type TGetInfiniteOptions<T = unknown> = InfiniteQueryObserverOptions<T, TApiErro
 export function usePubliqApi() {
   const { accessToken } = useAuthentication();
 
-  const defaultHeaders: Headers = {
-    Authorization: `Bearer ${accessToken}`,
-  };
+  const defaultHeaders: Headers = useMemo(
+    () => ({
+      Authorization: `Bearer ${accessToken}`,
+    }),
+    [accessToken],
+  );
 
   const get = useCallback(
     <T = unknown>(queryKey: unknown[], path: string, { headers = {}, params = {}, enabled, ...options }: TGetOptions<T> = {}) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       return useQuery<T, TApiError>({
         enabled: !!accessToken && (enabled === undefined || enabled),
         networkMode: 'offlineFirst',
@@ -46,7 +50,7 @@ export function usePubliqApi() {
         ...options,
       });
     },
-    [Config.API_HOST, accessToken],
+    [accessToken, defaultHeaders],
   );
 
   const post = useCallback(
@@ -55,6 +59,7 @@ export function usePubliqApi() {
       path: string,
       { headers = {}, ...options }: TPostOptions<T> = {},
     ) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       return useMutation<T, TApiError, RequestBody>({
         mutationFn: async (body: Record<string, unknown>) =>
           HttpClient.post<T>(`${Config.API_HOST}${path}`, body, { ...defaultHeaders, ...headers }),
@@ -63,7 +68,7 @@ export function usePubliqApi() {
         ...options,
       });
     },
-    [Config.API_HOST, accessToken],
+    [defaultHeaders],
   );
 
   const getInfinite = useCallback(
@@ -71,8 +76,9 @@ export function usePubliqApi() {
       queryKey: unknown[],
       path: string,
       { headers = {}, params = {}, itemsPerPage = 10, enabled, ...options }: TGetInfiniteOptions<T> = {},
-    ) =>
-      useInfiniteQuery<T, TApiError>({
+    ) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      return useInfiniteQuery<T, TApiError>({
         enabled: !!accessToken && (enabled === undefined || enabled),
         getNextPageParam: (lastPage, allPages) => {
           const nextPageNumber = allPages.length;
@@ -91,8 +97,9 @@ export function usePubliqApi() {
           ),
         queryKey,
         ...options,
-      }),
-    [],
+      });
+    },
+    [accessToken, defaultHeaders],
   );
 
   return { get, getInfinite, post };

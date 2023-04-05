@@ -64,5 +64,5 @@ export function useOverlayDimensions(
       regionDefinition,
       sideLength,
     };
-  }, [screenWidth, screenHeight, screenDimensions]);
+  }, [screenWidth, screenHeight, cornerLength, padding, strokeWidth]);
 }

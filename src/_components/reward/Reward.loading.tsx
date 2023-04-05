@@ -16,8 +16,9 @@ const RewardLoader = ({ mode, ...props }: TProps) => {
     </Styled.PointsAndLabelContainer>
   ), []);
 
+  const Container = isTile ? Styled.RewardTileContainer : Styled.RewardListContainer;
   return (
-    <Styled.RewardContainer isTile={isTile}  {...props}>
+    <Container {...props}>
       <>
         <Styled.ImageContainer isTile={isTile}>
           <SkeletonLoader dark layout={[{ borderRadius: isTile ? 0 : 8, height: isTile ? 120 : 80, width: isTile ? 200 : 80 }]} />
@@ -29,7 +30,7 @@ const RewardLoader = ({ mode, ...props }: TProps) => {
           {!isTile && renderPointsAndLabel()}
         </Styled.textContainer>
       </>
-    </Styled.RewardContainer>
+    </Container>
   );
 }
 

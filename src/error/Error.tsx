@@ -24,7 +24,7 @@ const Error = ({ route, navigation }: TProps) => {
     } else {
       return navigation.reset({ index: 0, routes: [{ name: gotoAfterClose[0], params: { screen: gotoAfterClose[1] } }] });
     }
-  }, [gotoAfterClose]);
+  }, [gotoAfterClose, navigation]);
 
   return (
     <DiagonalSplitView
