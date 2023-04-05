@@ -11,7 +11,7 @@ export const WelcomeGiftsBanner = () => {
   const { t } = useTranslation();
   const { data: user } = useGetMe();
 
-  // TODO: condition whemn to show and when not
+  // TODO: condition when to show and when not
   // if(user.creationDate)  return null;
 
   return (
