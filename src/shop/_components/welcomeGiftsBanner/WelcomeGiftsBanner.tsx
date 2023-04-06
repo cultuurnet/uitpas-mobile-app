@@ -10,7 +10,6 @@ import { theme } from '../../../_styles/theme'
 import { useGetMe } from '../../../profile/_queries/useGetMe'
 import * as Styled from './style';
 
-const today = new Date();
 
 export const WelcomeGiftsBanner = () => {
   const { t } = useTranslation();
@@ -18,7 +17,7 @@ export const WelcomeGiftsBanner = () => {
   const { navigate } = useNavigation<TMainNavigationProp>();
 
   const creationDate = parseISO(user?.creationDate);
-  if (!isValid(creationDate) || isBefore(creationDate, subMonths(today, 2))) return null;
+  if (!isValid(creationDate) || isBefore(creationDate, subMonths(new Date(), 2))) return null;
 
   return (
     <Styled.Container onPress={() => navigate('FilteredShop', { filter: 'welkom', subtitle: t('SHOP.SECTIONS.WELCOME') })} underlayColor={theme.palette.primary[800]}>
