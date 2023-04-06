@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, RefreshControl } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 
@@ -17,15 +18,15 @@ type TProps = {
 const MIMIMAL_REWARD_HEIGHT = 125;
 
 export const FilteredShop = ({ route }: TProps) => {
-  const { subtitle, filter, category } = route.params || {};
-
-  const { data: rewards, fetchNextPage, isLoading: isRewardsLoading, refetch, isRefetching, isFetchingNextPage } = useGetRewards({ category, itemsPerPage: 20, section: filter });
+  const { subtitle, filter, category, type } = route.params || {};
+  const { t } = useTranslation();
+  const { data: rewards, fetchNextPage, isLoading: isRewardsLoading, refetch, isRefetching, isFetchingNextPage } = useGetRewards({ category, itemsPerPage: 20, section: filter, type });
 
   const members = rewards?.pages?.flatMap(({ member }) => member) ?? [];
 
   return <FlashList
     ItemSeparatorComponent={Styled.Separator}
-    ListEmptyComponent={isRewardsLoading && <>{[1, 2, 3, 4].map(key => <RewardLoader key={key} mode='list' />)}</>}
+    ListEmptyComponent={isRewardsLoading ? <>{[1, 2, 3, 4].map(key => <RewardLoader key={key} mode='list' />)}</> : <Styled.NoContentText align="center">{t('SHOP.NO_RESULTS')}</Styled.NoContentText>}
     ListFooterComponent={isFetchingNextPage && <Styled.FooterLoadingContainer><ActivityIndicator color={theme.palette.primary['500']} /></Styled.FooterLoadingContainer>}
     ListHeaderComponent={<Styled.Header fontStyle='bold' size='xxxlarge'>{subtitle}</Styled.Header>}
     contentContainerStyle={{ paddingBottom: 105 }}

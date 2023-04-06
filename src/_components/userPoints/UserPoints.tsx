@@ -17,7 +17,7 @@ const UserPoints = () => {
     <>
       <Styled.UserPointsButton activeOpacity={0.8} onPress={toggleCardModalVisible}>
         <>
-          <Styled.PointsLabel allowFontScaling={false} color="neutral.0" fontStyle='bold' size="large" >{user.points}</Styled.PointsLabel>
+          <Styled.PointsLabel allowFontScaling={false} color="neutral.0" fontStyle='bold' size="normal" >{user.points}</Styled.PointsLabel>
           {!!initials && <Styled.AvatarContainer>
             <Typography allowFontScaling={false} color="secondary.500" fontStyle='bold' size="xsmall">{initials}</Typography>
           </Styled.AvatarContainer>}

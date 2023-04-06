@@ -12,6 +12,10 @@ export const Separator = styled.View`
   border: 1px solid ${theme.palette.neutral[100]};
 `;
 
+export const NoContentText = styled(Typography)`
+  padding: 0 16px;
+`;
+
 export const FooterLoadingContainer = styled.View`
   height: 40px;
   align-items: center;
