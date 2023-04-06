@@ -1,4 +1,4 @@
-import { Platform, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 
 import { theme } from '../../_styles/theme';
@@ -16,9 +16,6 @@ export const UserPointsButton = styled(TouchableOpacity)`
 
 export const PointsLabel = styled(Typography)`
   margin-right: 4px;
-  background-color: red;
-  line-height: ${Platform.OS === 'ios' ? '25px' : '18px'};
-  
 `;
 
 export const AvatarContainer = styled.View`

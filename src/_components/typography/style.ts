@@ -8,8 +8,7 @@ export const Typography = styled.Text<TTypographyProps>`
   text-align: ${({ align }) => align};
   margin-bottom: ${({ bottomSpacing }) => (bottomSpacing ? bottomSpacing : '0px')};
   margin-top: ${({ topSpacing }) => (topSpacing ? topSpacing : '0px')};
-  include-font-padding: false;
-  text-align-vertical: center;
+
   font-family: ${({ fontStyle }) => {
     switch (fontStyle) {
       case 'light':
