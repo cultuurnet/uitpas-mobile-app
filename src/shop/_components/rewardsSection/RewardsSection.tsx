@@ -10,13 +10,13 @@ import { TFilterRewardCategory, TFilterRewardSections, useGetRewards } from '../
 import { RewardsSectionLoader } from './RewardSection.loading';
 import * as Styled from './style';
 
-type TProps = {
+export type TRewardSectionProps = {
   category?: TFilterRewardCategory;
   filter?: TFilterRewardSections;
   horizontal?: boolean;
   title: string;
 }
-export const RewardsSection = ({ horizontal, filter, title, category }: TProps) => {
+export const RewardsSection = ({ horizontal, filter, title, category }: TRewardSectionProps) => {
   const { data, isLoading } = useGetRewards({ itemsPerPage: horizontal ? 20 : 3, section: filter });
   const { t } = useTranslation();
   const { navigate } = useNavigation<TMainNavigationProp>();

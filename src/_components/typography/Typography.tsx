@@ -23,7 +23,7 @@ const Typography: FC<TTypographyProps> = ({
   ...props
 }) => {
   return (
-    <Styled.Typography align={align} color={color} fontStyle={fontStyle} size={size} {...props}>
+    <Styled.Typography align={align} color={color} fontStyle={fontStyle} size={size}  {...props} style={[{ includeFontPadding: false, textAlignVertical: 'center' }, props.style]}>
       {children}
     </Styled.Typography>
   );
