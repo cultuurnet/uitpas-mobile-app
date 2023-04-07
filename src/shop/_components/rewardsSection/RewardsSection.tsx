@@ -7,16 +7,17 @@ import { Icon, Reward, Typography } from '../../../_components';
 import { REWARD_TILE_WIDTH } from '../../../_components/reward/style';
 import { TMainNavigationProp } from '../../../_routing';
 import { TReward } from '../../_models/reward';
-import { TFilterRewardSections, useGetRewards } from '../../_queries/useGetRewards';
+import { TFilterRewardCategory, TFilterRewardSections, useGetRewards } from '../../_queries/useGetRewards';
 import { RewardsSectionLoader } from './RewardSection.loading';
 import * as Styled from './style';
 
-type TProps = {
-  filter: TFilterRewardSections;
+export type TRewardSectionProps = {
+  category?: TFilterRewardCategory;
+  filter?: TFilterRewardSections;
   horizontal?: boolean;
   title: string;
 }
-export const RewardsSection = ({ horizontal, filter, title }: TProps) => {
+export const RewardsSection = ({ horizontal, filter, title, category }: TRewardSectionProps) => {
   const { data, isLoading } = useGetRewards({ itemsPerPage: horizontal ? 20 : 3, section: filter });
   const { t } = useTranslation();
   const { navigate } = useNavigation<TMainNavigationProp>();
@@ -27,8 +28,8 @@ export const RewardsSection = ({ horizontal, filter, title }: TProps) => {
   }, []);
 
   const onPressMore = useCallback(() => {
-    navigate('FilteredShop', { filter, subtitle: title });
-  }, [title, filter, navigate]);
+    navigate('FilteredShop', { category, filter, subtitle: title });
+  }, [title, filter, navigate, category]);
 
   // We need to have 2 or more results to display the section
   if (!isLoading && !(rewards?.length >= 2)) return null;

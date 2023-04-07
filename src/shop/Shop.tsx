@@ -3,8 +3,19 @@ import { useTranslation } from 'react-i18next';
 
 import { SafeAreaView } from '../_components';
 import { CategoryFilters } from './_components/categoryFilters/CategoryFilters';
-import { RewardsSection } from './_components/rewardsSection/RewardsSection';
 import { WelcomeGiftsBanner } from './_components/welcomeGiftsBanner/WelcomeGiftsBanner';
+import { RewardsSection, TRewardSectionProps } from './_components/rewardsSection/RewardsSection';
+
+const SECTIONS: TRewardSectionProps[] = [
+  { filter: 'online', title: 'SHOP.SECTIONS.ONLINE' },
+  { filter: 'in de kijker', title: 'SHOP.SECTIONS.HIGHLIGHTED' },
+  { category: 'laatste kans', title: 'SHOP.SECTIONS.LAST_CHANCE' },
+  { filter: 'populair regio', title: 'SHOP.SECTIONS.POPULAR_REGION' },
+  { filter: 'stad voordelen', title: 'SHOP.SECTIONS.CITY' },
+  { filter: 'populair', title: 'SHOP.SECTIONS.POPULAR' },
+  { filter: 'sport', title: 'SHOP.SECTIONS.SPORTIVE' },
+  { category: 'Goede doel', title: 'SHOP.SECTIONS.CHARITY' },
+]
 
 const Shop = () => {
   const { t } = useTranslation();
@@ -13,11 +24,10 @@ const Shop = () => {
     <SafeAreaView edges={['left', 'right']} isScrollable>
       <WelcomeGiftsBanner />
       <CategoryFilters />
-      <RewardsSection filter="populair" horizontal title={t('SHOP.SECTIONS.POPULAR')} />
-      <RewardsSection filter="in de kijker" title={t('SHOP.SECTIONS.HIGHLIGHTED')} />
-      <RewardsSection filter="populair regio" horizontal title={t('SHOP.SECTIONS.POPULAR_REGION')} />
-      <RewardsSection filter="online" title={t('SHOP.SECTIONS.ONLINE')} />
-      <RewardsSection filter="sport" horizontal title={t('SHOP.SECTIONS.SPORT')} />
+
+      {SECTIONS.map(({ filter, category, title }, index) => (
+        <RewardsSection category={category} filter={filter} horizontal={index % 2 === 0} key={title} title={t(title)} />
+      ))}
     </SafeAreaView>
   );
 };
