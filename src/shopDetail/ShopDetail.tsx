@@ -40,10 +40,10 @@ export const ShopDetail = ({ route }: TProps) => {
           <ExternalLink href={reward.moreInfoURL} />
         </Section>}
 
-        {<Section title={t('SHOP_DETAIL.HOW_TO_COLLECT')}>
+        <Section title={t('SHOP_DETAIL.HOW_TO_COLLECT')}>
           <Typography size="small">{t(reward.online ? 'SHOP_DETAIL.COLLECT_ONLINE' : 'SHOP_DETAIL.COLLECT_OFFLINE')}</Typography>
           <HtmlRenderer source={{ html: reward.practicalInfo }} />
-        </Section>}
+        </Section>
       </Styled.Content>
     </ScrollView>
   )
