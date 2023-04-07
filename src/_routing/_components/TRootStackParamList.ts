@@ -3,6 +3,7 @@ import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { TCheckInResponse } from '../../scan/_models';
+import { TRewardType } from '../../shop/_models/reward';
 import { TFilterRewardCategory, TFilterRewardSections } from '../../shop/_queries/useGetRewards';
 
 export type TRootRoute = keyof TRootStackParamList;
@@ -33,6 +34,7 @@ export type TRootStackParamList = {
     category?: TFilterRewardCategory;
     filter?: TFilterRewardSections;
     subtitle?: string;
+    type?: TRewardType;
   };
   History: undefined;
   Login: undefined;

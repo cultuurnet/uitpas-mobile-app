@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { SafeAreaView } from '../_components';
 import { CategoryFilters } from './_components/categoryFilters/CategoryFilters';
+import { WelcomeGiftsBanner } from './_components/welcomeGiftsBanner/WelcomeGiftsBanner';
 import { RewardsSection, TRewardSectionProps } from './_components/rewardsSection/RewardsSection';
 
 const SECTIONS: TRewardSectionProps[] = [
@@ -21,6 +22,7 @@ const Shop = () => {
 
   return (
     <SafeAreaView edges={['left', 'right']} isScrollable>
+      <WelcomeGiftsBanner />
       <CategoryFilters />
 
       {SECTIONS.map(({ filter, category, title }, index) => (

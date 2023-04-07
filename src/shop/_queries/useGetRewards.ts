@@ -6,7 +6,14 @@ import { useGetMe } from '../../profile/_queries/useGetMe';
 import { TRewardCategory, TRewardsResponse, TRewardType } from '../_models/reward';
 
 export type TFilterRewardCategory = TRewardCategory | 'laatste kans';
-export type TFilterRewardSections = 'online' | 'in de kijker' | 'populair regio' | 'populair' | 'stad voordelen' | 'sport';
+export type TFilterRewardSections =
+  | 'online'
+  | 'in de kijker'
+  | 'populair regio'
+  | 'populair'
+  | 'stad voordelen'
+  | 'sport'
+  | 'welkom';
 
 export function useGetRewards({
   category,
@@ -54,8 +61,6 @@ export function useGetRewards({
         break;
       case 'populair':
         owningCardSystemIdParam = '';
-        // Remove the owningCardSystemId param so we get popular rewards for every region
-        delete params.owningCardSystemId;
         break;
       case 'populair regio':
         // No extra params needed
@@ -65,6 +70,11 @@ export function useGetRewards({
         break;
       case 'sport':
         params.sport = true;
+        break;
+      case 'welkom':
+        owningCardSystemIdParam = '';
+        params.type = 'WELCOME';
+        params.isRedeemableByPassholderId = user.id;
         break;
     }
     return [params, owningCardSystemIdParam];
