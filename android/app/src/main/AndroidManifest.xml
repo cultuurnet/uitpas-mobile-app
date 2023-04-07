@@ -32,6 +32,7 @@
         <intent>
             <action android:name="android.intent.action.VIEW" />
             <data android:scheme="https"/>
+            <data android:scheme="http"/>
         </intent>
     </queries>
 </manifest>

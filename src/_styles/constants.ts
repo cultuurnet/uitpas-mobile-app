@@ -8,6 +8,9 @@ export const generalStyles = {
       backgroundColor: theme.palette.secondary['500'],
     },
     headerTintColor: theme.palette.neutral['0'],
-    headerTitleStyle: { fontFamily: 'Poppins-SemiBold' },
+    headerTitleStyle: {
+      fontFamily: 'Poppins-SemiBold',
+      fontSize: 18,
+    },
   },
 };

@@ -104,6 +104,17 @@
       "CITY": "Voordelen in je stad"
     }
   },
+  "SHOP_DETAIL": {
+    "HEADER_TITLE": "Je voordeel",
+    "DESCRIPTION": "Omschrijving",
+    "MORE_INFO": "Meer info",
+    "LOCATION": "Waar om te ruilen?",
+    "AVAILABILITY": "Beschikbaarheid",
+    "HOW_TO_COLLECT": "Andere voordelen die je misschien interesseren",
+    "COLLECT_ONLINE": "Je kan dit voordeel in de app omruilen en ontvangt de instructies nadien.",
+    "COLLECT_OFFLINE": "Dit voordeel kan je op locatie omruilen. Laat de barcode onder “Mijn UiTPAS” zien op de hierboven vermelde locatie.",
+    "OTHER_REWARDS": "Andere voordelen die je misschien interesseren"
+  },
   "SCAN": {
     "CAMERA": {
       "DESCRIPTION": "Scan de UiTPAS QR-code",

@@ -75,13 +75,13 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
       accessibilityLabel={accessibilityLabel}
       accessibilityRole="button"
       accessibilityState={{ disabled }}
-      borderless
+      borderless={variant !== 'link'}
       disabled={disabled}
       hitSlop={hitSlop}
       onPress={handlePress}
       onPressIn={() => setIsActive(true)}
       onPressOut={() => setIsActive(false)}
-      underlayColor={underlayColor}
+      underlayColor={variant !== 'link' && underlayColor}
       {...props}
     >
       {children ? (
