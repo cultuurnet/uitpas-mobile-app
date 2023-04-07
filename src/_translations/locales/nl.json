@@ -85,6 +85,7 @@
     "BUTTON": "Bekijk alle voordelen",
     "ONLINE_REWARD": "In de app om te ruilen",
     "SHOW_MORE": "Bekijk meer",
+    "NO_RESULTS": "Er zijn geen voordelen gevonden.",
     "WELCOME": {
       "GREETING": "Welkom bij UiTPAS {{name}}!",
       "TITLE": "Bekijk nu je Welkomstvoordelen"
@@ -100,6 +101,7 @@
       "FOOD": "Eten en drinken",
       "ONLINE": "Online",
       "HIGHLIGHTED": "In de kijker",
+      "WELCOME": "Welkomstvoordelen",
       "CITY": "Voordelen in je stad"
     }
   },

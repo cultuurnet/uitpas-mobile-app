@@ -5,7 +5,7 @@ import { theme } from '../../_styles/theme';
 import Typography from '../typography/Typography';
 
 export const UserPointsButton = styled(TouchableOpacity)`
-  padding: 4px 4px 4px 8px;
+  padding: 2px 4px 2px 8px;
   border-radius: 16px;
   align-items: center;
   justify-content: center;
@@ -16,7 +16,6 @@ export const UserPointsButton = styled(TouchableOpacity)`
 
 export const PointsLabel = styled(Typography)`
   margin-right: 4px;
-  line-height: 23px;
 `;
 
 export const AvatarContainer = styled.View`

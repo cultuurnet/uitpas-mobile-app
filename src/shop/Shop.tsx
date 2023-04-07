@@ -4,12 +4,14 @@ import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from '../_components';
 import { CategoryFilters } from './_components/categoryFilters/CategoryFilters';
 import { RewardsSection } from './_components/rewardsSection/RewardsSection';
+import { WelcomeGiftsBanner } from './_components/welcomeGiftsBanner/WelcomeGiftsBanner';
 
 const Shop = () => {
   const { t } = useTranslation();
 
   return (
     <SafeAreaView edges={['left', 'right']} isScrollable>
+      <WelcomeGiftsBanner />
       <CategoryFilters />
       <RewardsSection filter="populair" horizontal title={t('SHOP.SECTIONS.POPULAR')} />
       <RewardsSection filter="in de kijker" title={t('SHOP.SECTIONS.HIGHLIGHTED')} />
