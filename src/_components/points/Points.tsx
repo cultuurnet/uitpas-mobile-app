@@ -3,7 +3,7 @@ import React from 'react'
 import Icon from '../icon/Icon';
 import * as Styled from './style';
 
-export const Points = ({ points, theme = 'primary', large }: Styled.TPointsProps) => {
+const Points = ({ points, theme = 'primary', large }: Styled.TPointsProps) => {
   const color = Styled.PointsColor[theme];
 
   return (
@@ -13,3 +13,5 @@ export const Points = ({ points, theme = 'primary', large }: Styled.TPointsProps
     </Styled.PointsContainer>
   )
 }
+
+export default Points;

@@ -2,12 +2,10 @@ import React from 'react'
 import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native';
 
-import { ExternalLink, RewardImage, Typography } from '../_components';
-import HtmlRenderer from '../_components/htmlRenderer/HtmlRenderer';
-import { Points } from '../_components/points/Points';
+import { ExternalLink, HtmlRenderer, Points, RewardImage, Typography } from '../_components';
 import { TRootStackRouteProp } from '../_routing'
 import { useGetReward } from '../shop/_queries/useGetReward';
-import { Section } from './Section';
+import { Section } from './_components/section/Section';
 import * as Styled from './style';
 
 type TProps = {
