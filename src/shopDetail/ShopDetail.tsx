@@ -1,8 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next';
-import { ScrollView, View } from 'react-native';
+import { ScrollView } from 'react-native';
 
 import { ExternalLink, RewardImage, Typography } from '../_components';
+import HtmlRenderer from '../_components/htmlRenderer/HtmlRenderer';
 import { Points } from '../_components/points/Points';
 import { TRootStackRouteProp } from '../_routing'
 import { useGetReward } from '../shop/_queries/useGetReward';
@@ -23,8 +24,8 @@ export const ShopDetail = ({ route }: TProps) => {
   return (
     <ScrollView>
       <Styled.ImageContainer>
-        <RewardImage picture={reward.pictures?.[0]}>
-          <View style={{ flexDirection: 'row' }}><Points points={reward.points} theme="white" /></View>
+        <RewardImage largeSpacing picture={reward.pictures?.[0]}>
+          <Styled.PointContainer><Points large points={reward.points} theme="white" /></Styled.PointContainer>
         </RewardImage>
       </Styled.ImageContainer>
       <Styled.Content>
@@ -41,7 +42,7 @@ export const ShopDetail = ({ route }: TProps) => {
 
         {<Section title={t('SHOP_DETAIL.HOW_TO_COLLECT')}>
           <Typography size="small">{t(reward.online ? 'SHOP_DETAIL.COLLECT_ONLINE' : 'SHOP_DETAIL.COLLECT_OFFLINE')}</Typography>
-          <Typography size="small">{reward.practicalInfo}</Typography>
+          <HtmlRenderer source={{ html: reward.practicalInfo }} />
         </Section>}
       </Styled.Content>
     </ScrollView>

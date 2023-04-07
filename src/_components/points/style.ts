@@ -5,6 +5,7 @@ import Typography from '../typography/Typography';
 
 type TPointsTheme = 'primary' | 'white';
 export type TPointsProps = {
+  large?: boolean;
   points: number;
   theme?: TPointsTheme;
 };

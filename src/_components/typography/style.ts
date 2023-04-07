@@ -3,27 +3,31 @@ import styled from 'styled-components/native';
 import { getColor } from '../../_utils/colorHelper';
 import { TTypographyProps } from './Typography';
 
+export type TFontStyle = 'light' | 'normal' | 'semibold' | 'bold';
+
+export const getFontFamily = (fontStyle: TFontStyle) => {
+  switch (fontStyle) {
+    case 'light':
+      return 'Poppins-Light';
+
+    case 'normal':
+      return 'Poppins-Regular';
+
+    case 'semibold':
+      return 'Poppins-SemiBold';
+
+    case 'bold':
+      return 'Poppins-Bold';
+  }
+};
+
 export const Typography = styled.Text<TTypographyProps>`
   color: ${({ color }) => getColor(color)};
   text-align: ${({ align }) => align};
   margin-bottom: ${({ bottomSpacing }) => (bottomSpacing ? bottomSpacing : '0px')};
   margin-top: ${({ topSpacing }) => (topSpacing ? topSpacing : '0px')};
 
-  font-family: ${({ fontStyle }) => {
-    switch (fontStyle) {
-      case 'light':
-        return 'Poppins-Light';
-
-      case 'normal':
-        return 'Poppins-Regular';
-
-      case 'semibold':
-        return 'Poppins-SemiBold';
-
-      case 'bold':
-        return 'Poppins-Bold';
-    }
-  }};
+  font-family: ${({ fontStyle }) => getFontFamily(fontStyle)};
 
   line-height: ${({ size }) => {
     switch (size) {

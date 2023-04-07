@@ -66,7 +66,7 @@ export function useGetRewards({
         // No extra params needed
         break;
       case 'stad voordelen':
-        params.organizerPostalCode = user.address.postalCode;
+        params.organizerPostalCode = user?.address?.postalCode;
         break;
       case 'sport':
         params.sport = true;
