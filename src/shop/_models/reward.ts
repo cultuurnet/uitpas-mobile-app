@@ -20,12 +20,17 @@ export type TCardSystem = {
   permanent: boolean;
 };
 
-type TPeriod = {
+export type TPeriod = {
   begin: string;
   end?: string;
 };
 
-type TRedeemConstrainPeriod = 'ABSOLUTE' | 'DAY' | 'WEEK' | 'MONTH' | 'QUARTER' | 'YEAR';
+export type TRedeemConstrainPeriod = 'ABSOLUTE' | 'DAY' | 'WEEK' | 'MONTH' | 'QUARTER' | 'YEAR';
+
+export type TRedeemConstraint = {
+  period: TRedeemConstrainPeriod;
+  volume: number;
+};
 
 export type TReward = {
   allCardSystems: boolean;
@@ -49,10 +54,7 @@ export type TReward = {
   practicalInfo: string;
   promotionalDescription: string;
   publicationPeriod: TPeriod;
-  redeemConstraint: {
-    period: TRedeemConstrainPeriod;
-    volume: number;
-  };
+  redeemConstraint: TRedeemConstraint;
   redeemPeriod: TPeriod;
   sport: boolean;
   status: TRewardStatus;
