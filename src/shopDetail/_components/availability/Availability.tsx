@@ -46,15 +46,3 @@ export const Availability = ({ redeemConstraint, redeemPeriod, unitsTaken, maxAv
     </Section>
   )
 }
-
-
-
-// Beschikbaarheid
-
-// Je kan dit voordeel nog omruilen tot {redeemPeriod.end}  Deze zin enkel tonen indien {redeemPeriod.end} in de respons zit (en niet enkel redeemPeriod.begin). De redeemperiod zal je ook nog in dag/maand/jaar moeten zetten.
-
-// Nog {maxAvailableUnits}-{unitsTaken} beschikbaar. Deze zin enkel tonen indien maxAvailableUnits in respons zit (zoniet dan er geen limiet ingesteld) én indien  indien ({maxAvailableUnits}-{unitsTaken})  < 10 én > 0 want anders niet echt relevant om te tonen, dan zijn er nog genoeg.
-
-// Je kan dit voordeel {redeemConstraint.volume} keer omruilen. Enkel tonen indien redeemConstraint.period = ABSOLUTE.
-
-// Je kan dit voordeel {redeemConstraint.volume} keer omruilen per {redeemConstraint.period}. Enkel tonen indien redeemConstraint.period NIET absolute is. De engelse periods die je terugkrijgt zal je wel nog naar NL moeten omzetten (dag, week, maand, kwartaal, jaar)
