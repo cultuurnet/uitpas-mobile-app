@@ -20,7 +20,7 @@ export const Availability = ({ redeemConstraint, redeemPeriod, unitsTaken, maxAv
   const unitsLeft = maxAvailableUnits ? maxAvailableUnits - unitsTaken : -1;
   const showUnits = unitsLeft > 0 && unitsLeft <= MIN_AVAILABLE_UNITS;
 
-  const isVisible = !!redeemPeriod?.end || showTokens || !!redeemConstraint?.period;
+  const isVisible = !!redeemPeriod?.end || showUnits || !!redeemConstraint?.period;
   if (!isVisible) return null;
 
   return (
