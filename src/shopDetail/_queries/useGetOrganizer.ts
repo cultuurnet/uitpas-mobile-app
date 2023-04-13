@@ -11,7 +11,6 @@ export function useGetOrganizer({ id }: { id: string }) {
     enabled: !!id,
     onError: (_error: TApiError) => {
       // TODO: Handle error
-      console.log(_error);
     },
   });
 }

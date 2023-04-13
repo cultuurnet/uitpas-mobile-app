@@ -31,17 +31,19 @@ type TGetInfiniteOptions<T = unknown> = InfiniteQueryObserverOptions<T, TApiErro
 
 type ApiHost = 'uitpas' | 'uitdatabank';
 
-export function usePubliqApi(host?: ApiHost = 'uitpas') {
+export function usePubliqApi(host: ApiHost = 'uitpas') {
   const { accessToken } = useAuthentication();
 
-  const defaultHeaders: Headers = useMemo(
-    () => ({
-      Authorization: `Bearer ${accessToken}`,
-    }),
-    [accessToken],
-  );
+  const apiHost = host === 'uitdatabank' ? Config.API_HOST_UITDATABANK : Config.API_HOST;
 
-  const apiHost = host === 'uitdatabank' ? Config.UITDATABANK_API_HOST : Config.API_HOST;
+  const defaultHeaders: Headers = useMemo(() => {
+    const headers = {};
+    // Uitdatabank doesn't require an access token
+    if (host !== 'uitdatabank') {
+      headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return headers;
+  }, [accessToken, host]);
 
   const get = useCallback(
     <T = unknown>(queryKey: unknown[], path: string, { headers = {}, params = {}, enabled, ...options }: TGetOptions<T> = {}) => {

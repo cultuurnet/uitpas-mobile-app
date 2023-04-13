@@ -47,7 +47,7 @@ export type TReward = {
   organizers: {
     id: string;
     name: string;
-  };
+  }[];
   owningCardSystem: TCardSystem;
   pictures: string[];
   points: number;

@@ -1,3 +1,4 @@
+export { default as Accordion } from './accordion/Accordion';
 export { default as BlurredModal } from './blurredModal/BlurredModal';
 export { default as BrandLogo } from './brandLogo/BrandLogo';
 export { default as BulletList } from './bulletList';
