@@ -6,7 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import { Icon, Reward, Typography } from '../../../_components';
 import { REWARD_TILE_WIDTH } from '../../../_components/reward/style';
 import { TMainNavigationProp } from '../../../_routing';
-import { TReward } from '../../_models/reward';
 import { TFilterRewardCategory, TFilterRewardSections, useGetRewards } from '../../_queries/useGetRewards';
 import { RewardsSectionLoader } from './RewardSection.loading';
 import * as Styled from './style';
@@ -22,10 +21,6 @@ export const RewardsSection = ({ horizontal, filter, title, category }: TRewardS
   const { t } = useTranslation();
   const { navigate } = useNavigation<TMainNavigationProp>();
   const rewards = data?.pages[0]?.member;
-
-  const onPressReward = useCallback((_reward: TReward) => {
-
-  }, []);
 
   const onPressMore = useCallback(() => {
     navigate('FilteredShop', { category, filter, subtitle: title });
@@ -52,7 +47,7 @@ export const RewardsSection = ({ horizontal, filter, title, category }: TRewardS
           decelerationRate='fast'
           horizontal
           keyExtractor={item => item.id}
-          renderItem={({ item: reward }) => <Styled.RewardTile mode="tile" onPress={() => onPressReward(reward)} reward={reward} />}
+          renderItem={({ item: reward }) => <Styled.RewardTile mode="tile" reward={reward} />}
           showsHorizontalScrollIndicator={false}
           snapToAlignment='start'
           snapToInterval={REWARD_TILE_WIDTH + Styled.RewardTileMargin}
@@ -60,7 +55,7 @@ export const RewardsSection = ({ horizontal, filter, title, category }: TRewardS
       </> : <>
         {rewards?.map((reward) => (
           <React.Fragment key={reward.id}>
-            <Reward key={reward.id} mode="list" onPress={() => onPressReward(reward)} reward={reward} />
+            <Reward key={reward.id} mode="list" reward={reward} />
             <Styled.Separator />
           </React.Fragment>
         ))}

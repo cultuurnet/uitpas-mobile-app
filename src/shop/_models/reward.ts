@@ -66,3 +66,7 @@ export type TRewardsResponse = {
   member: TReward[];
   totalItems: number;
 };
+
+export type TRewardDetail = {
+  id: string;
+};

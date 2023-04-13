@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 
 import { SafeAreaView } from '../_components';
 import { CategoryFilters } from './_components/categoryFilters/CategoryFilters';
-import { WelcomeGiftsBanner } from './_components/welcomeGiftsBanner/WelcomeGiftsBanner';
 import { RewardsSection, TRewardSectionProps } from './_components/rewardsSection/RewardsSection';
+import { WelcomeGiftsBanner } from './_components/welcomeGiftsBanner/WelcomeGiftsBanner';
 
 const SECTIONS: TRewardSectionProps[] = [
   { filter: 'online', title: 'SHOP.SECTIONS.ONLINE' },

@@ -60,11 +60,11 @@ export const ImageContainer = styled.View<{ isTile?: boolean }>`
   position: relative;
 `;
 
-export const Image = styled.Image<{ isTile?: boolean }>`
+export const Image = styled.Image<{ hasRadius?: boolean }>`
   height: 100%;
   width: 100%;
   resize-mode: cover;
-  border-radius: ${({ isTile }) => (isTile ? '0' : '8px')};
+  border-radius: ${({ hasRadius }) => (hasRadius ? '8px' : '0')};
 `;
 
 export const Gradient = styled(LinearGradient)`

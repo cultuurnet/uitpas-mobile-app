@@ -15,6 +15,7 @@ import Login from '../../login/Login';
 import Onboarding from '../../onboarding/Onboarding';
 import ProfileNotFound from '../../profile/ProfileNotFound';
 import ScanSuccess from '../../scan/ScanSuccess';
+import { ShopDetail } from '../../shopDetail/ShopDetail';
 import { storage } from '../../storage';
 import { useGetVersions } from '../../update/_queries/useGetVersions';
 import UpdateScreen from '../../update/UpdateScreen';
@@ -85,6 +86,16 @@ export const RootStackNavigator = () => {
               headerBackTitle: i18n.t('PROFILE.HISTORY.BACK_TITLE'),
               headerRight: UserPoints,
               headerTitle: i18n.t('PROFILE.HISTORY.HEADER_TITLE'),
+            }}
+          />
+          <RootStack.Screen
+            component={ShopDetail}
+            name="ShopDetail"
+            options={{
+              headerBackButtonMenuEnabled: false,
+              headerBackTitle: '',
+              headerRight: UserPoints,
+              headerTitle: i18n.t('SHOP_DETAIL.HEADER_TITLE'),
             }}
           />
         </>
