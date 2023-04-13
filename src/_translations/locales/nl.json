@@ -116,6 +116,8 @@
     "COLLECT_ONLINE": "Je kan dit voordeel in de app omruilen en ontvangt de instructies nadien.",
     "COLLECT_OFFLINE": "Dit voordeel kan je op locatie omruilen. Laat de barcode onder “Mijn UiTPAS” zien op de hierboven vermelde locatie.",
     "OTHER_REWARDS": "Andere voordelen die je misschien interesseren",
+    "SHOW_MORE": "Toon meer",
+    "SHOW_LESS": "Toon minder",
     "AVAILABILITY_DETAILS": {
       "REDEEM_UNTIL": "Je kan dit voordeel nog omruilen tot <bold>{{date}}</bold>.",
       "UNITS_LEFT": "Nog <bold>{{units}}</bold> beschikbaar.",

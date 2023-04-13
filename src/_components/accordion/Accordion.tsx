@@ -16,7 +16,7 @@ const Accordion = ({ children, title, expandedTitle }: TProps) => {
   const [expanded, toggleExpanded] = useToggle(false);
   const rotateIconAnim = useRef(new Animated.Value(0));
 
-  const rotateIconDeg = rotateIconAnim.current.interpolate({
+  const rotatingIconDeg = rotateIconAnim.current.interpolate({
     inputRange: [0, 1],
     outputRange: ['0deg', '180deg'],
   });
@@ -45,7 +45,7 @@ const Accordion = ({ children, title, expandedTitle }: TProps) => {
         <Typography color="primary.800" size="small">
           {expanded ? (expandedTitle || title) : title}
         </Typography>
-        <Animated.View style={{ transform: [{ rotate: rotateIconDeg }] }}>
+        <Animated.View style={{ transform: [{ rotate: rotatingIconDeg }] }}>
           <Icon color="primary.800" name="ChevronUp" size={14} />
         </Animated.View>
       </Styled.Handle>

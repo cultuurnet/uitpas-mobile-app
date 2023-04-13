@@ -44,7 +44,7 @@ export const ShopDetail = ({ route }: TProps) => {
         <Section title={t('SHOP_DETAIL.LOCATION')}>
           <Organizer id={firstOrganizer.id} key={firstOrganizer.id} />
           {organizers.length > 0 && (
-            <Accordion expandedTitle='Toon minder' title="Toon meer">
+            <Accordion expandedTitle={t('SHOP_DETAIL.SHOW_LESS')} title={t('SHOP_DETAIL.SHOW_MORE')}>
               {organizers.map((organizer) => <Organizer id={organizer.id} key={organizer.id} />)}
             </Accordion>
           )}

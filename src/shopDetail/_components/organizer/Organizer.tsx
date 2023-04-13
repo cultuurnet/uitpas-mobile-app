@@ -2,8 +2,7 @@ import React, { useCallback, useMemo } from 'react'
 import { Linking, Platform } from 'react-native';
 
 import { Icon, Typography } from '../../../_components';
-import { StorageKey } from '../../../_models';
-import { storage } from '../../../storage';
+import { getLanguage } from '../../../_utils/languageHelpers';
 import { useGetOrganizer } from '../../_queries/useGetOrganizer';
 import * as Styled from './style';
 
@@ -11,9 +10,8 @@ export const Organizer = ({ id }: { id: string }) => {
   const { data, isLoading } = useGetOrganizer({ id });
 
   const formattedAddress = useMemo(() => {
-    const lang = storage.getString(StorageKey.Language);
     // Fallback to nl, in case there is no translated address
-    const address = data?.address[lang] || data?.address['nl'];
+    const address = data?.address[getLanguage()] || data?.address['nl'];
     if (!address) return '';
 
     let addressString = address.streetAddress;
@@ -26,9 +24,8 @@ export const Organizer = ({ id }: { id: string }) => {
 
   // TODO: check with JM if this can happen
   const name = useMemo(() => {
-    const lang = storage.getString(StorageKey.Language);
     // Fallback to nl, in case there is no translated address
-    const name = typeof data?.name === 'string' ? data.name : data?.name[lang] || data?.name['nl'];
+    const name = typeof data?.name === 'string' ? data.name : data?.name[getLanguage()] || data?.name['nl'];
     return name;
   }, [data?.name]);
 
