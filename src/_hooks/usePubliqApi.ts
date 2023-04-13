@@ -31,13 +31,18 @@ type TGetInfiniteOptions<T = unknown> = InfiniteQueryObserverOptions<T, TApiErro
 
 type ApiHost = 'uitpas' | 'uitdatabank';
 
+const HOSTS: Record<ApiHost, string> = {
+  uitdatabank: Config.API_HOST_UITDATABANK,
+  uitpas: Config.API_HOST,
+};
+
 export function usePubliqApi(host: ApiHost = 'uitpas') {
   const { accessToken } = useAuthentication();
 
-  const apiHost = host === 'uitdatabank' ? Config.API_HOST_UITDATABANK : Config.API_HOST;
+  const apiHost = HOSTS[host];
 
   const defaultHeaders: Headers = useMemo(() => {
-    const headers = {};
+    const headers: Headers = {};
     // Uitdatabank doesn't require an access token
     if (host !== 'uitdatabank') {
       headers.Authorization = `Bearer ${accessToken}`;
