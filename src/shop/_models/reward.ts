@@ -25,7 +25,7 @@ export type TPeriod = {
   end?: string;
 };
 
-export type TRedeemConstrainPeriod = 'ABSOLUTE' | 'DAY' | 'WEEK' | 'MONTH' | 'QUARTER' | 'YEAR';
+export type TRedeemConstraintPeriod = 'ABSOLUTE' | 'DAY' | 'WEEK' | 'MONTH' | 'QUARTER' | 'YEAR';
 
 export type TRedeemConstraint = {
   period: TRedeemConstrainPeriod;
