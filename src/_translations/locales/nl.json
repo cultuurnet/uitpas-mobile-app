@@ -118,7 +118,7 @@
     "OTHER_REWARDS": "Andere voordelen die je misschien interesseren",
     "AVAILABILITY_DETAILS": {
       "REDEEM_UNTIL": "Je kan dit voordeel nog omruilen tot <bold>{{date}}</bold>.",
-      "TOKENS_LEFT": "Nog <bold>{{tokens}}</bold> beschikbaar.",
+      "UNITS_LEFT": "Nog <bold>{{units}}</bold> beschikbaar.",
       "CONSTRAINT_ABSOLUTE": "Je kan dit voordeel <bold>{{volume}}</bold> keer omruilen.",
       "CONSTRAINT": "Je kan dit voordeel <bold>{{volume}}</bold> keer omruilen per <bold>{{period}}</bold>."
     }

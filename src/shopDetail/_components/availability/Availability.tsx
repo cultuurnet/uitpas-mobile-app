@@ -13,12 +13,12 @@ type TProps = {
   unitsTaken?: number;
 }
 
-const MIN_AVAILABLE_TOKENS = 10;
+const MIN_AVAILABLE_UNITS = 10;
 
 export const Availability = ({ redeemConstraint, redeemPeriod, unitsTaken, maxAvailableUnits }: TProps) => {
   const { t } = useTranslation();
-  const tokensLeft = maxAvailableUnits ? maxAvailableUnits - unitsTaken : -1;
-  const showTokens = tokensLeft > 0 && tokensLeft <= MIN_AVAILABLE_TOKENS;
+  const unitsLeft = maxAvailableUnits ? maxAvailableUnits - unitsTaken : -1;
+  const showUnits = unitsLeft > 0 && unitsLeft <= MIN_AVAILABLE_UNITS;
 
   const isVisible = !!redeemPeriod?.end || showTokens || !!redeemConstraint?.period;
   if (!isVisible) return null;
@@ -31,10 +31,10 @@ export const Availability = ({ redeemConstraint, redeemPeriod, unitsTaken, maxAv
           values={{ date: formatISOString(redeemPeriod.end) }}
         />
       )}
-      {showTokens && (
+      {showUnits && (
         <Trans
-          i18nKey="SHOP_DETAIL.AVAILABILITY_DETAILS.TOKENS_LEFT"
-          values={{ tokens: tokensLeft }}
+          i18nKey="SHOP_DETAIL.AVAILABILITY_DETAILS.UNITS_LEFT"
+          values={{ units: unitsLeft }}
         />
       )}
       {!!redeemConstraint?.period && (
