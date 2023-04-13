@@ -37,8 +37,8 @@ const Reward = ({ reward, mode, ...props }: TProps) => {
     <Container borderless={isTile} {...props} onPress={onPress}>
       <>
         <Styled.ImageContainer isTile={isTile}>
-          <RewardImage hasRadius={!isTile} hideGradient={!isTile} picture={reward.pictures?.[0]}>
-            {renderPointsAndLabel()}
+          <RewardImage hasRadius={!isTile} picture={reward.pictures?.[0]}>
+            {isTile && renderPointsAndLabel()}
           </RewardImage>
         </Styled.ImageContainer>
         <Styled.textContainer isTile={isTile}>
