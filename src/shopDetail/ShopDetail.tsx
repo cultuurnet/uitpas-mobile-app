@@ -7,6 +7,7 @@ import { TRootStackRouteProp } from '../_routing'
 import { useGetReward } from '../shop/_queries/useGetReward';
 import { Availability } from './_components/availability/Availability';
 import { Section } from './_components/section/Section';
+import { useGetOrganizer } from './_queries/useGetOrganizer';
 import * as Styled from './style';
 
 type TProps = {
@@ -17,7 +18,8 @@ export const ShopDetail = ({ route }: TProps) => {
   const { id, reward: fallbackReward } = route.params;
   const { data } = useGetReward({ id });
   const reward = data || fallbackReward;
-
+  const { data: organizer } = useGetOrganizer({ id: reward.organizers[0].id });
+  console.log(organizer);
   const { t } = useTranslation();
 
   return (
