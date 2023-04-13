@@ -67,11 +67,11 @@ export const Image = styled.Image<{ hasRadius?: boolean }>`
   border-radius: ${({ hasRadius }) => (hasRadius ? '8px' : '0')};
 `;
 
-export const Gradient = styled(LinearGradient)`
+export const Gradient = styled(LinearGradient)<{ largeSpacing?: boolean }>`
   bottom: 0;
   justify-content: flex-end;
   left: 0;
-  padding: 8px;
+  padding: ${({ largeSpacing }) => (largeSpacing ? '16px' : '8px')};
   position: absolute;
   right: 0;
   top: 0;

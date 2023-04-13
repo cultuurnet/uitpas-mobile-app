@@ -81,24 +81,27 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
       onPress={handlePress}
       onPressIn={() => setIsActive(true)}
       onPressOut={() => setIsActive(false)}
+      rippleColor={variant === 'link' && 'transparent'}
       underlayColor={variant !== 'link' && underlayColor}
       {...props}
     >
-      {children ? (
-        children
-      ) : (
-        <Styled.ButtonText
-          $active={isActive}
-          $color={color}
-          $underline={underline}
-          $variant={variant}
-          align={props.centered ? 'center' : 'left'}
-          fontStyle={fontStyle}
-        >
-          {label}
-        </Styled.ButtonText>
-      )}
-    </Styled.ButtonElement>
+      {
+        children ? (
+          children
+        ) : (
+          <Styled.ButtonText
+            $active={isActive}
+            $color={color}
+            $underline={underline}
+            $variant={variant}
+            align={props.centered ? 'center' : 'left'}
+            fontStyle={fontStyle}
+          >
+            {label}
+          </Styled.ButtonText >
+        )
+      }
+    </Styled.ButtonElement >
   );
 };
 

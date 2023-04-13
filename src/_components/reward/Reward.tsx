@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { TRootStackNavigationProp } from '../../_routing';
 import { TReward } from '../../shop/_models/reward';
-import { Points } from '../points/Points';
+import Points from '../points/Points';
 import Typography from '../typography/Typography';
 import { InAppRewardLabel } from './InAppRewardLabel';
 import RewardImage from './RewardImage';
