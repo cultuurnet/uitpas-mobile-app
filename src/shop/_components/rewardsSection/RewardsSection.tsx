@@ -17,7 +17,7 @@ export type TRewardSectionProps = {
   title: string;
 }
 export const RewardsSection = ({ horizontal, filter, title, category }: TRewardSectionProps) => {
-  const { data, isLoading } = useGetRewards({ itemsPerPage: horizontal ? 20 : 3, section: filter });
+  const { data, isLoading } = useGetRewards({ category, itemsPerPage: horizontal ? 20 : 3, section: filter });
   const { t } = useTranslation();
   const { navigate } = useNavigation<TMainNavigationProp>();
   const rewards = data?.pages[0]?.member;

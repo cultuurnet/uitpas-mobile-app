@@ -115,7 +115,20 @@
     "HOW_TO_COLLECT": "Andere voordelen die je misschien interesseren",
     "COLLECT_ONLINE": "Je kan dit voordeel in de app omruilen en ontvangt de instructies nadien.",
     "COLLECT_OFFLINE": "Dit voordeel kan je op locatie omruilen. Laat de barcode onder “Mijn UiTPAS” zien op de hierboven vermelde locatie.",
-    "OTHER_REWARDS": "Andere voordelen die je misschien interesseren"
+    "OTHER_REWARDS": "Andere voordelen die je misschien interesseren",
+    "AVAILABILITY_DETAILS": {
+      "REDEEM_UNTIL": "Je kan dit voordeel nog omruilen tot <bold>{{date}}</bold>.",
+      "UNITS_LEFT": "Nog <bold>{{units}}</bold> beschikbaar.",
+      "CONSTRAINT_ABSOLUTE": "Je kan dit voordeel <bold>{{volume}}</bold> keer omruilen.",
+      "CONSTRAINT": "Je kan dit voordeel <bold>{{volume}}</bold> keer omruilen per <bold>{{period}}</bold>."
+    }
+  },
+  "PERIODS": {
+    "DAY": "dag",
+    "WEEK": "week",
+    "MONTH": "maand",
+    "QUARTER": "kwartaal",
+    "YEAR": "jaar"
   },
   "SCAN": {
     "CAMERA": {
