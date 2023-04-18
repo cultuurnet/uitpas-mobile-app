@@ -23,6 +23,7 @@ export const RewardsSection = ({ horizontal, filter, title, filterRewardId, hide
   const { data, isLoading } = useGetRewards({ category, itemsPerPage: horizontal ? 20 : 3, organizerId, section: filter });
   const { t } = useTranslation();
   const { navigate } = useNavigation<TMainNavigationProp>();
+  // Filter when there are rewards that shouldn't be shown (eg, when we show related rewards at the bottom a reward detail)
   const rewards = data?.pages[0]?.member?.filter?.((reward) => reward.id !== filterRewardId);
 
   const onPressMore = useCallback(() => {
