@@ -4,7 +4,7 @@ import { ScrollView } from 'react-native';
 
 import { Accordion, ExternalLink, HtmlRenderer, Points, RewardImage, Typography } from '../_components';
 import { TRootStackRouteProp } from '../_routing'
-import { theme } from '../_styles/theme';
+import { RewardsSection } from '../shop/_components/rewardsSection/RewardsSection';
 import { useGetReward } from '../shop/_queries/useGetReward';
 import { Availability } from './_components/availability/Availability';
 import { Organizer } from './_components/organizer/Organizer';
@@ -23,7 +23,7 @@ export const ShopDetail = ({ route }: TProps) => {
 
   const [firstOrganizer, ...organizers] = reward?.organizers || [];
   return (
-    <ScrollView contentContainerStyle={{ backgroundColor: theme.palette.neutral['0'] }}>
+    <ScrollView>
       <Styled.ImageContainer>
         <RewardImage largeSpacing picture={reward.pictures?.[0]}>
           <Styled.PointContainer><Points large points={reward.points} theme="white" /></Styled.PointContainer>
@@ -32,6 +32,8 @@ export const ShopDetail = ({ route }: TProps) => {
       <Styled.Content>
         <Typography fontStyle='bold' size='xxlarge'>{reward.title}</Typography>
         <Styled.Organizer color="primary.800">{firstOrganizer.name}</Styled.Organizer>
+
+        {reward.online && <Styled.InAppRewardLabel large />}
 
         <Section title={t('SHOP_DETAIL.DESCRIPTION')}>
           <HtmlRenderer source={{ html: reward.promotionalDescription }} />
@@ -45,7 +47,7 @@ export const ShopDetail = ({ route }: TProps) => {
           <Organizer id={firstOrganizer.id} key={firstOrganizer.id} />
           {organizers.length > 0 && (
             <Accordion expandedTitle={t('SHOP_DETAIL.SHOW_LESS')} title={t('SHOP_DETAIL.SHOW_MORE')}>
-              {organizers.map((organizer) => <Organizer id={organizer.id} key={organizer.id} />)}
+              {organizers.map((organizer) => <Organizer id={organizer.id} key={organizer.id} showTopBorder />)}
             </Accordion>
           )}
         </Section>
@@ -60,7 +62,9 @@ export const ShopDetail = ({ route }: TProps) => {
           <Typography size="small">{t(reward.online ? 'SHOP_DETAIL.COLLECT_ONLINE' : 'SHOP_DETAIL.COLLECT_OFFLINE')}</Typography>
           <HtmlRenderer source={{ html: reward.practicalInfo }} />
         </Section>
+
       </Styled.Content>
+      <RewardsSection filterRewardId={reward.id} hideMoreButton horizontal organizerId={reward?.organizers.map(organizer => organizer.id)} title={t('SHOP_DETAIL.OTHER_REWARDS')} />
     </ScrollView>
   )
 }

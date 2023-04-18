@@ -12,13 +12,13 @@ export const InAppRewardContainer = styled.View`
   margin-left: 4px;
 `;
 
-export const OnlineIconContainer = styled.View`
-  border-radius: ${theme.common.defaultSpacing}px;
-  padding: 5px;
+export const OnlineIconContainer = styled.View<{ large: boolean }>`
+  border-radius: ${({ large }) => (large ? '20px' : `${theme.common.defaultSpacing}px`)};
+  padding: ${({ large }) => (large ? '9px' : '5px')};
   align-items: center;
   justify-content: center;
   background-color: ${theme.palette.primary[600]};
-  margin-right: 4px;
+  margin-right: ${({ large }) => (large ? '12px' : '4px')};
 `;
 
 export const textContainer = styled.View<{ isTile?: boolean }>`

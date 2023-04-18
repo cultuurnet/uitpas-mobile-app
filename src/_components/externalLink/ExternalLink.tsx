@@ -8,23 +8,29 @@ type TProps = {
 };
 
 const ExternalLink = ({ href }: TProps) => {
-  if (!href) return null;
+  if (!href?.trim()) return null;
 
-  const url = new URL(href);
+  try {
+    let fullHref = href;
+    if (!href.startsWith('http')) fullHref = `https://${href}`;
+    const url = new URL(fullHref);
+    return (
+      <Styled.LinkButton
+        href={href}
+        inline
+        radius={false}
+        variant="link"
+      >
+        <>
+          <Icon color='primary.500' name='External' size="small" />
+          <Styled.UnderlinedLinkText color='primary.800' size="small">{url.hostname}</Styled.UnderlinedLinkText>
+        </>
+      </Styled.LinkButton>
+    );
+  } catch (error) {
+    return null;
+  }
 
-  return (
-    <Styled.LinkButton
-      href={href}
-      inline
-      radius={false}
-      variant="link"
-    >
-      <>
-        <Icon color='primary.500' name='External' size="small" />
-        <Styled.UnderlinedLinkText color='primary.800' size="small">{url.hostname}</Styled.UnderlinedLinkText>
-      </>
-    </Styled.LinkButton>
-  )
 }
 
 export default ExternalLink;

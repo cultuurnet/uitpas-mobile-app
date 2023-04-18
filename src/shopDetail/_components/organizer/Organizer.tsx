@@ -6,7 +6,12 @@ import { getLanguage } from '../../../_utils/languageHelpers';
 import { useGetOrganizer } from '../../_queries/useGetOrganizer';
 import * as Styled from './style';
 
-export const Organizer = ({ id }: { id: string }) => {
+type TProps = {
+  id: string,
+  showTopBorder?: boolean
+};
+
+export const Organizer = ({ id, showTopBorder = false }: TProps) => {
   const { data, isLoading } = useGetOrganizer({ id });
 
   const formattedAddress = useMemo(() => {
@@ -39,7 +44,7 @@ export const Organizer = ({ id }: { id: string }) => {
   if (isLoading) return null;
 
   return (
-    <Styled.Container activeOpacity={0.8} onPress={onPress}>
+    <Styled.Container activeOpacity={0.8} onPress={onPress} showTopBorder={showTopBorder}>
       <>
         <Styled.ImageContainer>
           <Icon color={'secondary.600'} name="Location" size={24} />

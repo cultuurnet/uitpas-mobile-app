@@ -13,14 +13,18 @@ import * as Styled from './style';
 export type TRewardSectionProps = {
   category?: TFilterRewardCategory;
   filter?: TFilterRewardSections;
+  filterRewardId?: string;
+  hideMoreButton?: boolean;
   horizontal?: boolean;
-  title: string;
+  organizerId?: string[];
+  title: string; // id of a reward that should be filtered out
 }
-export const RewardsSection = ({ horizontal, filter, title, category }: TRewardSectionProps) => {
-  const { data, isLoading } = useGetRewards({ category, itemsPerPage: horizontal ? 20 : 3, section: filter });
+export const RewardsSection = ({ horizontal, filter, title, filterRewardId, hideMoreButton, category, organizerId }: TRewardSectionProps) => {
+  const { data, isLoading } = useGetRewards({ category, itemsPerPage: horizontal ? 20 : 3, organizerId, section: filter });
   const { t } = useTranslation();
   const { navigate } = useNavigation<TMainNavigationProp>();
-  const rewards = data?.pages[0]?.member;
+  // Filter when there are rewards that shouldn't be shown (eg, when we show related rewards at the bottom a reward detail)
+  const rewards = data?.pages[0]?.member?.filter?.((reward) => reward.id !== filterRewardId);
 
   const onPressMore = useCallback(() => {
     navigate('FilteredShop', { category, filter, subtitle: title });
@@ -35,9 +39,11 @@ export const RewardsSection = ({ horizontal, filter, title, category }: TRewardS
     <Styled.Container>
       <Styled.Header>
         <Typography fontStyle='bold' size='large'>{title}</Typography>
-        <Styled.ShowMoreButton activeOpacity={0.8} onPress={onPressMore}>
-          <Typography color="primary.800" fontStyle='bold' size="small">{t('SHOP.SHOW_MORE')} </Typography><Icon color="primary.800" name="ArrowRight" />
-        </Styled.ShowMoreButton>
+        {!hideMoreButton &&
+          <Styled.ShowMoreButton activeOpacity={0.8} onPress={onPressMore}>
+            <Typography color="primary.800" fontStyle='bold' size="small">{t('SHOP.SHOW_MORE')} </Typography><Icon color="primary.800" name="ArrowRight" />
+          </Styled.ShowMoreButton>
+        }
       </Styled.Header>
 
       {horizontal ? <>

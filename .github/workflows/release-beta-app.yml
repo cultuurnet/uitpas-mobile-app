@@ -41,6 +41,7 @@ jobs:
           echo REACT_NATIVE_APP_AUTH0_CLIENT_ID="${{ secrets.AUTH0_CLIENT_ID }}" >> .env
           echo REACT_NATIVE_APP_ENCRYPTION_KEY="${{ secrets.ENCRYPTION_KEY }}" >> .env
           echo API_HOST="${{ secrets.API_HOST }}" >> .env
+          echo API_HOST_UITDATABANK="${{ secrets.API_HOST_UITDATABANK }}" >> .env
           echo APP_NAME="${{ secrets.APP_NAME }}" >> .env
           echo SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
           echo REACT_NATIVE_APP_VERSION_NR="${{ env.PACKAGE_VERSION }}" >> .env
@@ -87,6 +88,7 @@ jobs:
           echo REACT_NATIVE_APP_AUTH0_CLIENT_ID="${{ secrets.AUTH0_CLIENT_ID }}" >> .env
           echo REACT_NATIVE_APP_ENCRYPTION_KEY="${{ secrets.ENCRYPTION_KEY }}" >> .env
           echo API_HOST="${{ secrets.API_HOST }}" >> .env
+          echo API_HOST_UITDATABANK="${{ secrets.API_HOST_UITDATABANK }}" >> .env
           echo APP_NAME="${{ secrets.APP_NAME }}" >> .env
           echo SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
           echo REACT_NATIVE_APP_VERSION_NR="${{ env.PACKAGE_VERSION }}" >> .env
