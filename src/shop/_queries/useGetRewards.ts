@@ -19,11 +19,13 @@ export function useGetRewards({
   category,
   type = 'POINTS',
   section,
+  organizerId,
   itemsPerPage = 20,
   params: extraParams = {},
 }: {
   category?: TFilterRewardCategory;
   itemsPerPage?: number;
+  organizerId?: string[];
   params?: Record<string, string | boolean | number>;
   section?: TFilterRewardSections;
   type?: TRewardType;
@@ -31,7 +33,7 @@ export function useGetRewards({
   const api = usePubliqApi();
   const { data: user } = useGetMe();
 
-  const [params, owningCardSystemIdParam] = useMemo(() => {
+  const [params, owningCardSystemIdParam, organizers] = useMemo(() => {
     // get params, already add the default sorting
     const params: Record<string, string | boolean | number> = {
       ['sort[redeemCount]']: 'desc',
@@ -39,7 +41,7 @@ export function useGetRewards({
     };
 
     let owningCardSystemIdParam = user?.cardSystemMemberships
-      ? `?${user.cardSystemMemberships.map(membership => `owningCardSystemId=${membership.cardSystem.id}`).join('&')}`
+      ? user.cardSystemMemberships.map(membership => `owningCardSystemId=${membership.cardSystem.id}`).join('&')
       : '';
 
     // add category
@@ -48,6 +50,12 @@ export function useGetRewards({
     } else if (category) {
       params.categories = category;
       delete params['sort[redeemCount]'];
+    }
+
+    let organizers = '';
+    if (organizerId?.length > 0) {
+      if (owningCardSystemIdParam) organizers += '&';
+      organizers += `${organizerId.map(id => `organizerId=${id}`).join('&')}`;
     }
 
     // filter for a section
@@ -77,12 +85,12 @@ export function useGetRewards({
         params.isRedeemableByPassholderId = user.id;
         break;
     }
-    return [params, owningCardSystemIdParam];
-  }, [category, section, type, user]);
+    return [params, owningCardSystemIdParam, organizers];
+  }, [category, section, type, user, organizerId]);
 
   return api.getInfinite<TRewardsResponse>(
     ['rewards', JSON.stringify(params), owningCardSystemIdParam, itemsPerPage],
-    `/rewards${owningCardSystemIdParam}`,
+    `/rewards?${owningCardSystemIdParam}${organizers}`,
     {
       itemsPerPage,
       onError: (_error: TApiError) => {

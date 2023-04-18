@@ -3,7 +3,11 @@ import styled from 'styled-components/native';
 
 import { theme } from '../../../_styles/theme';
 
-export const Container = styled(TouchableOpacity)`
+export const Container = styled(TouchableOpacity)<{ showTopBorder }>`
+  border-top-width: ${({ showTopBorder }) => (showTopBorder ? '1px' : '0')};
+  border-color: ${theme.palette.neutral['100']};
+  padding-top: ${({ showTopBorder }) => (showTopBorder ? '12px' : '0')};
+  margin-top: ${({ showTopBorder }) => (showTopBorder ? '6px' : '0')};
   flex-direction: row;
 `;
 

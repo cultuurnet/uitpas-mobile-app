@@ -15,15 +15,15 @@ type TProps = {
 };
 
 const Reward = ({ reward, mode, ...props }: TProps) => {
-  const { navigate } = useNavigation<TRootStackNavigationProp>();
+  const { push } = useNavigation<TRootStackNavigationProp>();
   const isTile = mode === 'tile';
 
   const onPress = useCallback(() => {
-    navigate('ShopDetail', {
+    push('ShopDetail', {
       id: reward.id,
       reward,
     });
-  }, [reward, navigate]);
+  }, [reward, push]);
 
   const renderPointsAndLabel = useCallback(() => (
     <Styled.PointsAndLabelContainer>

@@ -7,15 +7,16 @@ import * as Styled from './style'
 
 type TProps = {
   hideLabel?: boolean;
+  large?: boolean;
 };
 
-export const InAppRewardLabel = ({ hideLabel = false }: TProps) => {
+export const InAppRewardLabel = ({ large = false, hideLabel = false, ...props }: TProps) => {
   const { t } = useTranslation();
 
   return (
-    <Styled.InAppRewardContainer>
-      <Styled.OnlineIconContainer><Icon name="Online" size={12} /></Styled.OnlineIconContainer>
-      {!hideLabel && <Typography color="primary.800" size="small">{t("SHOP.ONLINE_REWARD")}</Typography>}
+    <Styled.InAppRewardContainer {...props}>
+      <Styled.OnlineIconContainer large={large}><Icon name="Online" size={large ? 22 : 12} /></Styled.OnlineIconContainer>
+      {!hideLabel && <Typography color="primary.800" size={large ? 'normal' : "small"}>{t("SHOP.ONLINE_REWARD")}</Typography>}
     </Styled.InAppRewardContainer>
   )
 }

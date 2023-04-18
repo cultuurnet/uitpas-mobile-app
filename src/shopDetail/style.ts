@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 
 import { Typography } from '../_components';
+import { InAppRewardLabel as RewardLabel } from '../_components/reward/InAppRewardLabel';
 import { theme } from '../_styles/theme';
 
 export const ImageContainer = styled.View`
@@ -11,6 +12,8 @@ export const ImageContainer = styled.View`
 
 export const Content = styled.View`
   padding: ${theme.common.defaultSpacing}px;
+  background-color: ${theme.palette.neutral[0]};
+  margin-bottom: 24px;
 `;
 
 export const PointContainer = styled.View`
@@ -19,4 +22,9 @@ export const PointContainer = styled.View`
 
 export const Organizer = styled(Typography)`
   margin-bottom: 24px;
+`;
+
+export const InAppRewardLabel = styled(RewardLabel)`
+  margin-bottom: 24px;
+  margin-left: 0;
 `;
