@@ -17,7 +17,7 @@ export type TRewardSectionProps = {
   hideMoreButton?: boolean;
   horizontal?: boolean;
   organizerId?: string[];
-  title: string; // id of a reward that should be filterd out
+  title: string; // id of a reward that should be filtered out
 }
 export const RewardsSection = ({ horizontal, filter, title, filterRewardId, hideMoreButton, category, organizerId }: TRewardSectionProps) => {
   const { data, isLoading } = useGetRewards({ category, itemsPerPage: horizontal ? 20 : 3, organizerId, section: filter });
