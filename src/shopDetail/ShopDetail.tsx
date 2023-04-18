@@ -2,10 +2,12 @@ import React from 'react'
 import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native';
 
-import { ExternalLink, HtmlRenderer, Points, RewardImage, Typography } from '../_components';
+import { Accordion, ExternalLink, HtmlRenderer, Points, RewardImage, Typography } from '../_components';
 import { TRootStackRouteProp } from '../_routing'
+import { theme } from '../_styles/theme';
 import { useGetReward } from '../shop/_queries/useGetReward';
 import { Availability } from './_components/availability/Availability';
+import { Organizer } from './_components/organizer/Organizer';
 import { Section } from './_components/section/Section';
 import * as Styled from './style';
 
@@ -17,11 +19,11 @@ export const ShopDetail = ({ route }: TProps) => {
   const { id, reward: fallbackReward } = route.params;
   const { data } = useGetReward({ id });
   const reward = data || fallbackReward;
-
   const { t } = useTranslation();
 
+  const [firstOrganizer, ...organizers] = reward?.organizers || [];
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={{ backgroundColor: theme.palette.neutral['0'] }}>
       <Styled.ImageContainer>
         <RewardImage largeSpacing picture={reward.pictures?.[0]}>
           <Styled.PointContainer><Points large points={reward.points} theme="white" /></Styled.PointContainer>
@@ -29,7 +31,7 @@ export const ShopDetail = ({ route }: TProps) => {
       </Styled.ImageContainer>
       <Styled.Content>
         <Typography fontStyle='bold' size='xxlarge'>{reward.title}</Typography>
-        <Styled.Organizer color="primary.800">{reward.organizers[0].name}</Styled.Organizer>
+        <Styled.Organizer color="primary.800">{firstOrganizer.name}</Styled.Organizer>
 
         <Section title={t('SHOP_DETAIL.DESCRIPTION')}>
           <HtmlRenderer source={{ html: reward.promotionalDescription }} />
@@ -38,6 +40,15 @@ export const ShopDetail = ({ route }: TProps) => {
         {!!reward.moreInfoURL && <Section title={t('SHOP_DETAIL.MORE_INFO')}>
           <ExternalLink href={reward.moreInfoURL} />
         </Section>}
+
+        <Section title={t('SHOP_DETAIL.LOCATION')}>
+          <Organizer id={firstOrganizer.id} key={firstOrganizer.id} />
+          {organizers.length > 0 && (
+            <Accordion expandedTitle={t('SHOP_DETAIL.SHOW_LESS')} title={t('SHOP_DETAIL.SHOW_MORE')}>
+              {organizers.map((organizer) => <Organizer id={organizer.id} key={organizer.id} />)}
+            </Accordion>
+          )}
+        </Section>
 
         <Availability
           maxAvailableUnits={reward.maxAvailableUnits}

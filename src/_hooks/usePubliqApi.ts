@@ -29,15 +29,26 @@ type TPostOptions<T = unknown, RequestBody extends Record<string, unknown> = Rec
 };
 type TGetInfiniteOptions<T = unknown> = InfiniteQueryObserverOptions<T, TApiError> & TSharedOptions & { itemsPerPage?: number };
 
-export function usePubliqApi() {
+type ApiHost = 'uitpas' | 'uitdatabank';
+
+const HOSTS: Record<ApiHost, string> = {
+  uitdatabank: Config.API_HOST_UITDATABANK,
+  uitpas: Config.API_HOST,
+};
+
+export function usePubliqApi(host: ApiHost = 'uitpas') {
   const { accessToken } = useAuthentication();
 
-  const defaultHeaders: Headers = useMemo(
-    () => ({
-      Authorization: `Bearer ${accessToken}`,
-    }),
-    [accessToken],
-  );
+  const apiHost = HOSTS[host];
+
+  const defaultHeaders: Headers = useMemo(() => {
+    const headers: Headers = {};
+    // Uitdatabank doesn't require an access token
+    if (host !== 'uitdatabank') {
+      headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return headers;
+  }, [accessToken, host]);
 
   const get = useCallback(
     <T = unknown>(queryKey: unknown[], path: string, { headers = {}, params = {}, enabled, ...options }: TGetOptions<T> = {}) => {
@@ -45,12 +56,12 @@ export function usePubliqApi() {
       return useQuery<T, TApiError>({
         enabled: !!accessToken && (enabled === undefined || enabled),
         networkMode: 'offlineFirst',
-        queryFn: async () => HttpClient.get<T>(`${Config.API_HOST}${path}`, params, { ...defaultHeaders, ...headers }),
+        queryFn: async () => HttpClient.get<T>(`${apiHost}${path}`, params, { ...defaultHeaders, ...headers }),
         queryKey,
         ...options,
       });
     },
-    [accessToken, defaultHeaders],
+    [accessToken, defaultHeaders, apiHost],
   );
 
   const post = useCallback(
@@ -62,13 +73,13 @@ export function usePubliqApi() {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       return useMutation<T, TApiError, RequestBody>({
         mutationFn: async (body: Record<string, unknown>) =>
-          HttpClient.post<T>(`${Config.API_HOST}${path}`, body, { ...defaultHeaders, ...headers }),
+          HttpClient.post<T>(`${apiHost}${path}`, body, { ...defaultHeaders, ...headers }),
         mutationKey,
         networkMode: 'offlineFirst',
         ...options,
       });
     },
-    [defaultHeaders],
+    [defaultHeaders, apiHost],
   );
 
   const getInfinite = useCallback(
@@ -91,7 +102,7 @@ export function usePubliqApi() {
         networkMode: 'offlineFirst',
         queryFn: async ({ pageParam = 0 }) =>
           HttpClient.get(
-            `${Config.API_HOST}${path}`,
+            `${apiHost}${path}`,
             { limit: itemsPerPage, start: pageParam * itemsPerPage, ...params },
             { ...defaultHeaders, ...headers },
           ),
@@ -99,7 +110,7 @@ export function usePubliqApi() {
         ...options,
       });
     },
-    [accessToken, defaultHeaders],
+    [accessToken, defaultHeaders, apiHost],
   );
 
   return { get, getInfinite, post };
