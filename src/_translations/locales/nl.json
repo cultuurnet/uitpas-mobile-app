@@ -72,8 +72,7 @@
       "BACK_TITLE": "Profiel",
       "HEADER_TITLE": "Omgeruilde voordelen",
       "REDEEMED_ON": "Omgeruild op {{date}}"
-    },
-    "WELCOME_GIFTS_TITLE": "Dit zijn voordelen die je gratis hebt gekregen."
+    }
   },
   "PROFILE_NOT_FOUND": {
     "TITLE": "We kunnen geen UiTPAS terugvinden voor",
@@ -89,14 +88,17 @@
     "HELPDESK_CTA": "Stel ze aan een medewerker via de helpdesk."
   },
   "SHOP": {
+    "HEADER_TITLE": "Voordelen",
     "DESCRIPTION": "Je kan je UiTPAS-punten inruilen voor heel wat leuks: ga op zoek naar een korting of cadeautje dat bij jou past",
     "BUTTON": "Bekijk alle voordelen",
     "ONLINE_REWARD": "In de app om te ruilen",
     "SHOW_MORE": "Bekijk meer",
     "NO_RESULTS": "Er zijn geen voordelen gevonden.",
     "WELCOME": {
+      "HEADER_TITLE": "Welkomstvoordelen",
       "GREETING": "Welkom bij UiTPAS {{name}}!",
-      "TITLE": "Bekijk nu je Welkomstvoordelen"
+      "TITLE": "Bekijk nu je Welkomstvoordelen",
+      "BANNER_TITLE": "Dit zijn voordelen die je gratis hebt gekregen."
     },
     "SECTIONS": {
       "DO": "Doen",

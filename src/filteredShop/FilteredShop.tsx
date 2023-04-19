@@ -7,6 +7,7 @@ import { Reward, RewardLoader } from '../_components'
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing';
 import { theme } from '../_styles/theme';
 import { useGetRewards } from '../shop/_queries/useGetRewards';
+import { WelcomeHeader } from './_components/WelcomeHeader';
 import * as Styled from './style';
 
 type TProps = {
@@ -23,12 +24,13 @@ export const FilteredShop = ({ route }: TProps) => {
   const { data: rewards, fetchNextPage, isLoading: isRewardsLoading, refetch, isRefetching, isFetchingNextPage } = useGetRewards({ category, itemsPerPage: 20, section: filter, type });
 
   const members = rewards?.pages?.flatMap(({ member }) => member) ?? [];
+  const isFilteredOnWelcome = filter === 'welkom';
 
   return <FlashList
     ItemSeparatorComponent={Styled.Separator}
     ListEmptyComponent={isRewardsLoading ? <>{[1, 2, 3, 4].map(key => <RewardLoader key={key} mode='list' />)}</> : <Styled.NoContentText align="center">{t('SHOP.NO_RESULTS')}</Styled.NoContentText>}
     ListFooterComponent={isFetchingNextPage && <Styled.FooterLoadingContainer><ActivityIndicator color={theme.palette.primary['500']} /></Styled.FooterLoadingContainer>}
-    ListHeaderComponent={<Styled.Header fontStyle='bold' size='xxxlarge'>{subtitle}</Styled.Header>}
+    ListHeaderComponent={isFilteredOnWelcome ? <WelcomeHeader /> : <Styled.Header fontStyle='bold' size='xxxlarge'>{subtitle}</Styled.Header>}
     contentContainerStyle={{ paddingBottom: 105 }}
     data={members}
     estimatedItemSize={MIMIMAL_REWARD_HEIGHT}
