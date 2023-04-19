@@ -29,7 +29,7 @@ const Profile = ({ navigation }: TProps) => {
 
   const versions = useGetVersions();
 
-  const links1 = useMemo<TLinkListItem[]>(() => ([
+  const rewardSectionLinks = useMemo<TLinkListItem[]>(() => ([
     {
       iconName: 'Gift',
       label: i18n.t('PROFILE.LINKS.BENEFITS'),
@@ -47,7 +47,7 @@ const Profile = ({ navigation }: TProps) => {
     }
   ]), [t, navigation]);
 
-  const links2 = useMemo(() => {
+  const genericProfileLinks = useMemo(() => {
     const links: TLinkListItem[] = [
       {
         href: ConfigUrl.personalInfo,
@@ -100,9 +100,9 @@ const Profile = ({ navigation }: TProps) => {
             />
           )}
         </Styled.TopContainer>
-        <LinkList items={links1} />
+        <LinkList items={rewardSectionLinks} />
         <Styled.Divider />
-        <LinkList items={links2} />
+        <LinkList items={genericProfileLinks} />
         {MIAInfoFirstActiveCard && <MIANotification socialTariffInfo={MIAInfoFirstActiveCard?.socialTariff} />}
       </Styled.SafeAreaViewContainer>
       <LogoutModal isVisible={logOutModalVisible} toggleIsVisible={toggleLogOutModalVisible} />
