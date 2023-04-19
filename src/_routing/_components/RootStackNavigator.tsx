@@ -67,7 +67,7 @@ export const RootStackNavigator = () => {
             name="About"
             options={{
               headerBackTitle: i18n.t('PROFILE.ABOUT.BACK_TITLE'),
-              headerTitle: i18n.t('PROFILE.ABOUT.HEADER_TITLE'),
+              title: i18n.t('PROFILE.ABOUT.HEADER_TITLE'),
             }}
           />
           <RootStack.Screen
@@ -77,7 +77,7 @@ export const RootStackNavigator = () => {
               headerBackButtonMenuEnabled: false,
               headerBackTitle: '',
               headerRight: UserPoints,
-              headerTitle: route?.params?.filter === 'welkom' ? i18n.t('SHOP.WELCOME.HEADER_TITLE') : i18n.t('SHOP.HEADER_TITLE'),
+              title: route?.params?.filter === 'welkom' ? i18n.t('SHOP.WELCOME.HEADER_TITLE') : i18n.t('SHOP.HEADER_TITLE'),
             })}
           />
           <RootStack.Screen
@@ -86,7 +86,7 @@ export const RootStackNavigator = () => {
             options={{
               headerBackTitle: i18n.t('PROFILE.HISTORY.BACK_TITLE'),
               headerRight: UserPoints,
-              headerTitle: i18n.t('PROFILE.HISTORY.HEADER_TITLE'),
+              title: i18n.t('PROFILE.HISTORY.HEADER_TITLE'),
             }}
           />
           <RootStack.Screen
@@ -95,7 +95,7 @@ export const RootStackNavigator = () => {
             options={{
               headerBackTitle: i18n.t('PROFILE.REDEEMED_REWARDS.BACK_TITLE'),
               headerRight: UserPoints,
-              headerTitle: i18n.t('PROFILE.REDEEMED_REWARDS.HEADER_TITLE'),
+              title: i18n.t('PROFILE.REDEEMED_REWARDS.HEADER_TITLE'),
             }}
           />
           <RootStack.Screen
@@ -105,7 +105,7 @@ export const RootStackNavigator = () => {
               headerBackButtonMenuEnabled: false,
               headerBackTitle: '',
               headerRight: UserPoints,
-              headerTitle: i18n.t('SHOP_DETAIL.HEADER_TITLE'),
+              title: i18n.t('SHOP_DETAIL.HEADER_TITLE'),
             }}
           />
         </>
