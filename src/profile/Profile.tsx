@@ -47,7 +47,7 @@ const Profile = ({ navigation }: TProps) => {
     }
   ]), [t, navigation]);
 
-  const links2 = useMemo<TLinkListItem[]>(() => {
+  const links2 = useMemo(() => {
     const links: TLinkListItem[] = [
       {
         href: ConfigUrl.personalInfo,
