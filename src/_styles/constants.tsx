@@ -1,3 +1,4 @@
+import { Typography } from '../_components';
 import { theme } from './theme';
 
 export const generalStyles = {
@@ -8,9 +9,6 @@ export const generalStyles = {
       backgroundColor: theme.palette.secondary['500'],
     },
     headerTintColor: theme.palette.neutral['0'],
-    headerTitleStyle: {
-      fontFamily: 'Poppins-SemiBold',
-      fontSize: 18,
-    },
+    headerTitle: ({ children }) => <Typography color="neutral.0" fontStyle="semibold" size="xlarge">{children}</Typography>,
   },
 };
