@@ -4,9 +4,7 @@ import { ThemeColor } from '../../_styles/theme';
 import Icon, { TIconName } from '../icon/Icon';
 import * as Styled from './style';
 
-// @Sam do you have any idea why this is not working with useMemo?
-// type TLinkTypes = { href: string; onPress?: never } | { href?: never; onPress?: () => void };
-type TLinkTypes = { href?: string; onPress?: () => void };
+type TLinkTypes = { href: string; onPress?: never } | { href?: never; onPress: () => void };
 
 export type TLinkListItem = {
   iconColor?: ThemeColor;

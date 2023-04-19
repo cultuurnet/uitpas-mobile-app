@@ -47,33 +47,36 @@ const Profile = ({ navigation }: TProps) => {
     }
   ]), [t, navigation]);
 
-  const links2 = useMemo<TLinkListItem[]>(() => ([
-    {
-      href: ConfigUrl.personalInfo,
-      iconName: 'ProfileCircled',
-      label: i18n.t('PROFILE.LINKS.PERSONAL_INFO'),
-    },
-    {
-      iconName: 'Info',
-      label: i18n.t('PROFILE.LINKS.ABOUT'),
-      onPress: () => navigation.navigate('About'),
-    },
-    {
-      href: ConfigUrl.faq,
-      iconName: 'Question',
-      label: i18n.t('PROFILE.LINKS.FAQ'),
-    },
-    {
-      iconColor: 'error.600',
-      iconName: 'Logout',
-      label: i18n.t('PROFILE.LINKS.LOGOUT'),
-      labelColor: 'error.800',
-      onPress: toggleLogOutModalVisible,
-    },
-  ]), [toggleLogOutModalVisible, navigation]);
+  const links2 = useMemo<TLinkListItem[]>(() => {
+    const links: TLinkListItem[] = [
+      {
+        href: ConfigUrl.personalInfo,
+        iconName: 'ProfileCircled',
+        label: i18n.t('PROFILE.LINKS.PERSONAL_INFO'),
+      },
+      {
+        iconName: 'Info',
+        label: i18n.t('PROFILE.LINKS.ABOUT'),
+        onPress: () => navigation.navigate('About'),
+      },
+      {
+        href: ConfigUrl.faq,
+        iconName: 'Question',
+        label: i18n.t('PROFILE.LINKS.FAQ'),
+      },
+      {
+        iconColor: 'error.600',
+        iconName: 'Logout',
+        label: i18n.t('PROFILE.LINKS.LOGOUT'),
+        labelColor: 'error.800',
+        onPress: toggleLogOutModalVisible,
+      },
+    ];
+    return links;
+  }, [toggleLogOutModalVisible, navigation]);
 
   if (isPassHolderLoading) return <Spinner />;
-  
+
   if (!passHolder) {
     navigation.navigate('ProfileNotFound');
     return null;
