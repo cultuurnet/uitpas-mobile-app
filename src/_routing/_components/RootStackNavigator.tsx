@@ -73,12 +73,12 @@ export const RootStackNavigator = () => {
           <RootStack.Screen
             component={FilteredShop}
             name="FilteredShop"
-            options={{
+            options={({ route }) => ({
               headerBackButtonMenuEnabled: false,
               headerBackTitle: '',
               headerRight: UserPoints,
-              headerTitle: i18n.t('NAVIGATION.SHOP'),
-            }}
+              headerTitle: route?.params?.filter === 'welkom' ? i18n.t('SHOP.WELCOME.HEADER_TITLE') : i18n.t('SHOP.HEADER_TITLE'),
+            })}
           />
           <RootStack.Screen
             component={History}
