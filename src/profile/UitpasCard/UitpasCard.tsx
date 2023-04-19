@@ -17,6 +17,7 @@ type TProps = {
 
 const UitpasCard: FC<TProps> = ({ passHolder }) => {
   const { width } = useWindowDimensions();
+  
   const [cardModalVisible, toggleCardModalVisible] = useToggle(false);
   const activeUitpasCards = passHolder.cardSystemMemberships.filter(card => card.status === 'ACTIVE' && card.uitpasNumber);
   const [firstActiveCard] = activeUitpasCards;

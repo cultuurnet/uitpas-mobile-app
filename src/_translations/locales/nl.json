@@ -42,7 +42,8 @@
     "VALID_UNTIL": "Geldig tot en met",
     "LINKS": {
       "BENEFITS": "Mijn welkomstvoordelen",
-      "HISTORY": "Historiek",
+      "REDEEMED_REWARDS": "Omgeruilde voordelen",
+      "HISTORY": "Spaargeschiedenis",
       "LOGOUT": "Afmelden",
       "ABOUT": "Over deze app",
       "PERSONAL_INFO": "Mijn persoonlijke gegevens",
@@ -61,11 +62,18 @@
     "HISTORY": {
       "EMPTY": "Je hebt nog geen punten gespaard of ingeruild.",
       "BACK_TITLE": "Profiel",
-      "HEADER_TITLE": "Historiek",
+      "HEADER_TITLE": "Spaargeschiedenis",
       "POINTS": "{{points}} punten",
       "POINT": "{{points}} punt",
       "POINTS_TITLE": "{{title}}"
-    }
+    },
+    "REDEEMED_REWARDS": {
+      "EMPTY": "Je hebt nog geen voordelen ingeruild.",
+      "BACK_TITLE": "Profiel",
+      "HEADER_TITLE": "Omgeruilde voordelen",
+      "REDEEMED_ON": "Omgeruild op {{date}}"
+    },
+    "WELCOME_GIFTS_TITLE": "Dit zijn voordelen die je gratis hebt gekregen."
   },
   "PROFILE_NOT_FOUND": {
     "TITLE": "We kunnen geen UiTPAS terugvinden voor",

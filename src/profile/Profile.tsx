@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { LinkList, Spinner } from '../_components';
 import { TLinkListItem } from '../_components/linkList/LinkList';
@@ -24,20 +25,29 @@ const Profile = ({ navigation }: TProps) => {
   const [logOutModalVisible, toggleLogOutModalVisible] = useToggle(false);
   const { data: passHolder, isLoading: isPassHolderLoading } = useGetMe();
   const [isUitpasInfoClosed, setIsUitpasInfoClosed] = useState(storage.getBoolean(StorageKey.IsUitpasInfoClosed));
+  const { t } = useTranslation();
 
   const versions = useGetVersions();
 
-  const links: TLinkListItem[] = [
+  const links1 = useMemo<TLinkListItem[]>(() => ([
     {
-      href: ConfigUrl.welcomeBenefits,
       iconName: 'Gift',
       label: i18n.t('PROFILE.LINKS.BENEFITS'),
+      onPress: () => navigation.navigate('FilteredShop', { filter: 'welkom', subtitle: t('PROFILE.WELCOME_GIFTS_TITLE') }),
+    },
+    {
+      iconName: 'Gift',
+      label: i18n.t('PROFILE.LINKS.REDEEMED_REWARDS'),
+      onPress: () => navigation.navigate('RedeemedRewards'),
     },
     {
       iconName: 'History',
       label: i18n.t('PROFILE.LINKS.HISTORY'),
       onPress: () => navigation.navigate('History'),
-    },
+    }
+  ]), [t, navigation]);
+
+  const links2 = useMemo<TLinkListItem[]>(() => ([
     {
       href: ConfigUrl.personalInfo,
       iconName: 'ProfileCircled',
@@ -60,9 +70,10 @@ const Profile = ({ navigation }: TProps) => {
       labelColor: 'error.800',
       onPress: toggleLogOutModalVisible,
     },
-  ];
+  ]), [toggleLogOutModalVisible, navigation]);
 
   if (isPassHolderLoading) return <Spinner />;
+  
   if (!passHolder) {
     navigation.navigate('ProfileNotFound');
     return null;
@@ -86,7 +97,9 @@ const Profile = ({ navigation }: TProps) => {
             />
           )}
         </Styled.TopContainer>
-        <LinkList items={links} />
+        <LinkList items={links1} />
+        <Styled.Divider />
+        <LinkList items={links2} />
         {MIAInfoFirstActiveCard && <MIANotification socialTariffInfo={MIAInfoFirstActiveCard?.socialTariff} />}
       </Styled.SafeAreaViewContainer>
       <LogoutModal isVisible={logOutModalVisible} toggleIsVisible={toggleLogOutModalVisible} />
