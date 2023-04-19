@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import { Icon, Typography } from '../../_components';
 
 export const NotificationContainer = styled.View`
-  margin: 0px 20px 20px 20px;
+  margin: 20px;
   position: relative;
   background-color: ${({ theme }) => theme.palette.primary['300']};
   padding: 15px;

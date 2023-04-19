@@ -41,6 +41,7 @@ export type TRootStackParamList = {
   MainNavigator: { screen: TMainRoute };
   Onboarding: undefined;
   ProfileNotFound: undefined;
+  RedeemedRewards: undefined;
   ScanSuccess: TCheckInResponse;
   ShopDetail: { id: string; reward?: TReward };
   Update: undefined;

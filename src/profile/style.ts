@@ -20,10 +20,15 @@ export const ActionButton = styled(Button)`
 
 export const SafeAreaViewContainer = styled(SafeAreaView)`
   background-color: ${({ theme }) => theme.palette.neutral['100']};
+  padding-bottom: 40px;
 `;
 
 export const TopContent = styled.View`
   padding: 40px 16px;
+`;
+
+export const Divider = styled.View`
+  height: 4px;
 `;
 
 // Extra large offset to "counter" the bounce effect of the scrollview
@@ -31,7 +36,7 @@ export const TopContent = styled.View`
 const BOUNCE_SCROLLVIEW_FIX = 1000;
 export const TopContainerHalf = styled.View`
   position: absolute;
-  top: -${BOUNCE_SCROLLVIEW_FIX};
+  top: -${BOUNCE_SCROLLVIEW_FIX}px;
   right: 0;
   left: 0;
   height: ${BOUNCE_SCROLLVIEW_FIX + 116}px;

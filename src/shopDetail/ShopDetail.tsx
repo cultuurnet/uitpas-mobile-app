@@ -26,7 +26,7 @@ export const ShopDetail = ({ route }: TProps) => {
     <ScrollView>
       <Styled.ImageContainer>
         <RewardImage largeSpacing picture={reward.pictures?.[0]}>
-          <Styled.PointContainer><Points large points={reward.points} theme="white" /></Styled.PointContainer>
+          {!!reward.points && <Styled.PointContainer><Points large points={reward.points} theme="white" /></Styled.PointContainer>}
         </RewardImage>
       </Styled.ImageContainer>
       <Styled.Content>

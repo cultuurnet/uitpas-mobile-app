@@ -14,6 +14,7 @@ import History from '../../history/History';
 import Login from '../../login/Login';
 import Onboarding from '../../onboarding/Onboarding';
 import ProfileNotFound from '../../profile/ProfileNotFound';
+import { RedeemedRewards } from '../../redeemedRewards/RedeemedRewards';
 import ScanSuccess from '../../scan/ScanSuccess';
 import { ShopDetail } from '../../shopDetail/ShopDetail';
 import { storage } from '../../storage';
@@ -86,6 +87,15 @@ export const RootStackNavigator = () => {
               headerBackTitle: i18n.t('PROFILE.HISTORY.BACK_TITLE'),
               headerRight: UserPoints,
               headerTitle: i18n.t('PROFILE.HISTORY.HEADER_TITLE'),
+            }}
+          />
+          <RootStack.Screen
+            component={RedeemedRewards}
+            name="RedeemedRewards"
+            options={{
+              headerBackTitle: i18n.t('PROFILE.REDEEMED_REWARDS.BACK_TITLE'),
+              headerRight: UserPoints,
+              headerTitle: i18n.t('PROFILE.REDEEMED_REWARDS.HEADER_TITLE'),
             }}
           />
           <RootStack.Screen
