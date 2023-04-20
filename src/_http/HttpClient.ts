@@ -20,14 +20,15 @@ class HttpClient {
     let url = HttpClient.getUrl(route);
     if (params) {
       for (const property in params) {
-        if (params[property] !== null && params[property] !== undefined) {
+        const param = params[property];
+        if (param !== null && param !== undefined) {
           // When the property is an array, loop over all the values and append them to the url
-          if (Array.isArray(params[property])) {
-            (params[property] as string[]).forEach(value => {
+          if (Array.isArray(param)) {
+            (param as string[]).forEach(value => {
               url = HttpClient.addQueryStringParameter(url, property, `${value}`, true);
             });
           } else {
-            url = HttpClient.addQueryStringParameter(url, property, `${params[property]}`);
+            url = HttpClient.addQueryStringParameter(url, property, `${param}`);
           }
         }
       }
