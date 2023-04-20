@@ -20,6 +20,8 @@ const CATEGORIES: TCategoryListItem[] = [
   { icon: 'Clock', label: 'SHOP.SECTIONS.LAST_CHANCE', params: { category: 'laatste kans' } },
 ];
 
+const HIDE_SHADOW_OFFSET = 24;
+
 export const CategoryFilters = () => {
   const { t } = useTranslation();
   const { width: deviceWidth } = useWindowDimensions();
@@ -45,7 +47,7 @@ export const CategoryFilters = () => {
             contentSize: { width }
           }
         }) => {
-          if (width - deviceWidth - 20 > x) {
+          if (width - deviceWidth - HIDE_SHADOW_OFFSET > x) {
             // We are not at the end, so set the boolean to false
             toggleIsAtEnd(false);
           } else {
