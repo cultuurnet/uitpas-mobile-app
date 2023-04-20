@@ -12,9 +12,17 @@ export const Button = Styled(PillButton)`
   margin-right: 8px;
 `;
 
-export const Gradient = Styled(LinearGradient)`
+export const GradientRight = Styled(LinearGradient)`
   position: absolute;
   right: 0;
+  width: 80px;
+  top: 0;
+  bottom: 0;
+`;
+
+export const GradientLeft = Styled(LinearGradient)`
+  position: absolute;
+  left: 0;
   width: 80px;
   top: 0;
   bottom: 0;

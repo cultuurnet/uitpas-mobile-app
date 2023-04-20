@@ -20,12 +20,13 @@ const CATEGORIES: TCategoryListItem[] = [
   { icon: 'Clock', label: 'SHOP.SECTIONS.LAST_CHANCE', params: { category: 'laatste kans' } },
 ];
 
-const HIDE_SHADOW_OFFSET = 24;
+const HIDE_SHADOW_OFFSET = 12;
 
 export const CategoryFilters = () => {
   const { t } = useTranslation();
   const { width: deviceWidth } = useWindowDimensions();
   const [isAtEnd, toggleIsAtEnd] = useState(false);
+  const [isAtbegin, toggleIsAtBegin] = useState(true);
   const { navigate } = useStackNavigation<TRootStackParamList>();
 
   const onPress = useCallback((params: TCategoryListItem['params'], label: string) => {
@@ -53,12 +54,25 @@ export const CategoryFilters = () => {
           } else {
             toggleIsAtEnd(true);
           }
+
+          if (HIDE_SHADOW_OFFSET < x) {
+            toggleIsAtBegin(false)
+          } else {
+            toggleIsAtBegin(true)
+          }
         }}
         renderItem={({ item }) => <Styled.Button icon={item.icon} label={t(item.label)} onPress={() => onPress(item.params, item.label)} />}
         scrollEventThrottle={16}
         showsHorizontalScrollIndicator={false}
       />
-      <Styled.Gradient
+      <Styled.GradientLeft
+        accessible={false}
+        colors={[`${theme.palette.neutral[100]}00`, `${theme.palette.neutral[100]}${isAtbegin ? '00' : ''}`]}
+        end={{ x: 0, y: 0 }}
+        pointerEvents='none'
+        start={{ x: 1, y: 0 }}
+      />
+      <Styled.GradientRight
         accessible={false}
         colors={[`${theme.palette.neutral[100]}00`, `${theme.palette.neutral[100]}${isAtEnd ? '00' : ''}`]}
         end={{ x: 1, y: 0 }}
