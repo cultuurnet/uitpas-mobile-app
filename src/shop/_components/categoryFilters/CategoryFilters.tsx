@@ -1,5 +1,6 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next';
+import { useWindowDimensions } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 
 import { TIconName } from '../../../_components/icon/Icon';
@@ -21,11 +22,14 @@ const CATEGORIES: TCategoryListItem[] = [
 
 export const CategoryFilters = () => {
   const { t } = useTranslation();
+  const { width: deviceWidth } = useWindowDimensions();
+  const [isAtEnd, toggleIsAtEnd] = useState(false);
   const { navigate } = useStackNavigation<TRootStackParamList>();
 
   const onPress = useCallback((params: TCategoryListItem['params'], label: string) => {
     navigate('FilteredShop', { ...params, subtitle: t(label) });
   }, [navigate, t]);
+
 
 
   return (
@@ -35,8 +39,29 @@ export const CategoryFilters = () => {
         data={CATEGORIES}
         horizontal
         keyExtractor={item => item.icon}
+        onScroll={({
+          nativeEvent: {
+            contentOffset: { x },
+            contentSize: { width }
+          }
+        }) => {
+          if (width - deviceWidth - 20 > x) {
+            // We are not at the end, so set the boolean to false
+            toggleIsAtEnd(false);
+          } else {
+            toggleIsAtEnd(true);
+          }
+        }}
         renderItem={({ item }) => <Styled.Button icon={item.icon} label={t(item.label)} onPress={() => onPress(item.params, item.label)} />}
+        scrollEventThrottle={16}
         showsHorizontalScrollIndicator={false}
+      />
+      <Styled.Gradient
+        accessible={false}
+        colors={[`${theme.palette.neutral[100]}00`, `${theme.palette.neutral[100]}${isAtEnd ? '00' : ''}`]}
+        end={{ x: 1, y: 0 }}
+        pointerEvents='none'
+        start={{ x: 0, y: 0 }}
       />
     </Styled.Container>
   )
