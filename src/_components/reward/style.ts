@@ -3,25 +3,31 @@ import styled from 'styled-components/native';
 
 import { theme } from '../../_styles/theme';
 import TouchableRipple from '../touchableRipple/TouchableRipple';
+import Typography from '../typography/Typography';
 
 export const REWARD_TILE_WIDTH = 200;
 
 export const InAppRewardContainer = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-left: 4px;
 `;
 
-export const OnlineIconContainer = styled.View<{ large: boolean }>`
-  border-radius: ${({ large }) => (large ? '20px' : `${theme.common.defaultSpacing}px`)};
-  padding: ${({ large }) => (large ? '9px' : '5px')};
-  align-items: center;
-  justify-content: center;
+export const InAppRewardContent = styled.View`
   background-color: ${theme.palette.primary[600]};
-  margin-right: ${({ large }) => (large ? '12px' : '4px')};
+  border-top-right-radius: ${theme.common.defaultSpacing}px;
+  border-bottom-right-radius: ${theme.common.defaultSpacing}px;
+  padding-right: 8px;
+  padding-left: 4px;
+  height: 20px;
+  margin-left: -1px;
 `;
 
-export const textContainer = styled.View<{ isTile?: boolean }>`
+export const InAppRewardLabel = styled(Typography)`
+  font-size: 12px;
+  line-height: 20px;
+`;
+
+export const TextContainer = styled.View<{ isTile?: boolean }>`
   min-height: ${({ isTile }) => (isTile ? '102px' : '0')};
   padding: ${({ isTile }) => (isTile ? '8px' : '0')};
   ${({ isTile }) => (isTile ? '' : 'flex: 1;')};

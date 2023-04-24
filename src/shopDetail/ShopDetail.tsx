@@ -33,8 +33,6 @@ export const ShopDetail = ({ route }: TProps) => {
         <Typography fontStyle='bold' size='xxlarge'>{reward.title}</Typography>
         <Styled.Organizer color="primary.800">{firstOrganizer.name}</Styled.Organizer>
 
-        {reward.online && <Styled.InAppRewardLabel large />}
-
         <Section title={t('SHOP_DETAIL.DESCRIPTION')}>
           <HtmlRenderer source={{ html: reward.promotionalDescription }} />
         </Section>
