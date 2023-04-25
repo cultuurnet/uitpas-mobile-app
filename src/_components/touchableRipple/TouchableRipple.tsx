@@ -22,6 +22,7 @@ type TProps = TouchableWithoutFeedbackProps & {
   children: React.ReactNode;
   disabled?: boolean;
   hitSlop?: number;
+  loading?: boolean;
   onPress?: () => void;
   rippleColor?: string;
   style?: StyleProp<ViewStyle>;
@@ -37,9 +38,10 @@ const TouchableRipple = ({
   underlayColor,
   children,
   hitSlop,
+  loading,
   ...rest
 }: TProps) => {
-  const disabled = disabledProp || !rest.onPress;
+  const disabled = disabledProp || loading || !rest.onPress;
   const calculatedRippleColor = rippleColor || color(theme.palette.primary['900']).alpha(0.2).rgb().string();
 
   // A workaround for ripple on Android P is to use useForeground + overflow: 'hidden'

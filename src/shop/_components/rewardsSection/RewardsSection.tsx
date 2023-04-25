@@ -19,7 +19,7 @@ export type TRewardSectionProps = {
   organizerId?: string[];
   title: string; // id of a reward that should be filtered out
 }
-export const RewardsSection = ({ horizontal, filter, title, filterRewardId, hideMoreButton, category, organizerId }: TRewardSectionProps) => {
+export const RewardsSection = ({ horizontal, filter, title, filterRewardId, hideMoreButton, category, organizerId, ...props }: TRewardSectionProps) => {
   const { data, isLoading } = useGetRewards({ category, itemsPerPage: horizontal ? 20 : 3, organizerId, section: filter });
   const { t } = useTranslation();
   const { navigate } = useNavigation<TMainNavigationProp>();
@@ -36,7 +36,7 @@ export const RewardsSection = ({ horizontal, filter, title, filterRewardId, hide
   if (isLoading) return <RewardsSectionLoader horizontal={horizontal} />;
 
   return (
-    <Styled.Container>
+    <Styled.Container {...props}>
       <Styled.Header>
         <Typography fontStyle='bold' size='large'>{title}</Typography>
         {!hideMoreButton &&
