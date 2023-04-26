@@ -21,7 +21,7 @@ type TSharedOptions = {
 };
 type TGetOptions<T = unknown> = Omit<UseQueryOptions<T, TApiError>, 'networkMode' | 'queryFn' | 'queryKey'> & TSharedOptions;
 
-type TPostOptions<T = unknown, RequestBody extends Record<string, unknown> = Record<string, unknown>> = Omit<
+export type TPostOptions<T = unknown, RequestBody extends Record<string, unknown> = Record<string, unknown>> = Omit<
   UseMutationOptions<T, TApiError, RequestBody>,
   'queryFn' | 'mutationKey' | 'networkMode'
 > & {

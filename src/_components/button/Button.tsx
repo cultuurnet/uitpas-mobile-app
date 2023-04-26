@@ -2,6 +2,7 @@ import { FC, ReactNode, useCallback, useState } from 'react';
 import { Linking } from 'react-native';
 
 import { ThemeColor } from '../../_styles/theme';
+import Spinner from '../spinner/Spinner';
 import { TTypographyProps } from '../typography/Typography';
 import * as Styled from './style';
 
@@ -41,6 +42,7 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
   onPress,
   href,
   label,
+  loading,
   variant = 'contained',
   color,
   underline = true,
@@ -68,6 +70,7 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
   return (
     <Styled.ButtonElement
       $active={isActive}
+      $color={color}
       $inline={inline}
       $radius={radius}
       $variant={variant}
@@ -85,7 +88,9 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
       underlayColor={variant !== 'link' && underlayColor}
       {...props}
     >
-      {
+      {loading ?
+        <Spinner color={color || 'neutral.0'} fullScreen={false} size={24} />
+        :
         children ? (
           children
         ) : (
@@ -98,10 +103,10 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
             fontStyle={fontStyle}
           >
             {label}
-          </Styled.ButtonText >
+          </Styled.ButtonText>
         )
       }
-    </Styled.ButtonElement >
+    </Styled.ButtonElement>
   );
 };
 

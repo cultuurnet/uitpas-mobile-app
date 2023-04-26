@@ -133,7 +133,17 @@
       "UNITS_LEFT": "Nog <bold>{{units}}</bold> beschikbaar.",
       "CONSTRAINT_ABSOLUTE": "Je kan dit voordeel <bold>{{volume}}</bold> keer omruilen.",
       "CONSTRAINT": "Je kan dit voordeel <bold>{{volume}}</bold> keer omruilen per <bold>{{period}}</bold>."
+    },
+    "REDEEM": {
+      "BUTTON": "Nu omruilen",
+      "MODAL_TITLE": "Voordeel omruilen",
+      "MODAL_DESCRIPTION": "Ben je zeker dat je <bold>{{points}} punten</bold> wil omruilen voor het voordeel <bold>\"{{title}}\"</bold>",
+      "MODAL_BUTTON_CONFIRM": "Omruilen",
+      "MODAL_BUTTON_CANCEL": "Annuleren"
     }
+  },
+  "REDEEMED_REWARD": {
+    "HEADER_TITLE": "Omgeruild voordeel"
   },
   "PERIODS": {
     "DAY": "dag",
