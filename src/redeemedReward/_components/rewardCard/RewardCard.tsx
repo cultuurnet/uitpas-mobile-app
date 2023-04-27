@@ -11,7 +11,7 @@ type TProps = {
 export const RewardCard = ({ reward }: TProps) => {
   return (
     <Styled.Container>
-      <Styled.Image hasRadius isTile={false} picture={reward.pictures?.[0]} />
+      <Styled.Image hasRadius picture={reward.pictures?.[0]} />
       <Styled.TextContainer>
         <Typography fontStyle='bold'>{reward.title}</Typography>
         <Typography color='primary.800' size='small'>{reward.organizers[0].name}</Typography>

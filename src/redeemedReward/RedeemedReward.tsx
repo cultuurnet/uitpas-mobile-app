@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Image, ScrollView } from 'react-native';
 
 import { GiftOpen } from '../_assets/images';
-import { ClipboardButton, EnlargeHeader, HtmlRenderer, Trans, Typography } from '../_components';
+import { ClipboardButton, EnlargedHeader, HtmlRenderer, Trans, Typography } from '../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing';
 import { formatISOString } from '../_utils/dateHelpers';
 import { RewardCard } from './_components/rewardCard/RewardCard';
@@ -22,7 +22,7 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
 
   return (
     <ScrollView>
-      <EnlargeHeader height={84} />
+      <EnlargedHeader height={84} />
       <Styled.Content>
 
         <RewardCard reward={redeemedReward?.reward} />
