@@ -5,7 +5,7 @@ on:
 
 jobs:
   lint:
-    name: Lint
+    name: Lint and type check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -19,3 +19,5 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Run ESLint
         run: yarn run lint --fix
+      - name: Check TS errors
+        run: yarn run tsc
