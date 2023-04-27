@@ -3,7 +3,7 @@ import { ScrollView, useWindowDimensions, View } from 'react-native';
 
 import { ThemeColor } from '../../_styles/theme';
 import { getColor } from '../../_utils/colorHelper';
-import { FocusAwareStatusBar } from '..';
+import FocusAwareStatusBar from '../statusBar/FocusAwareStatusBar';
 import * as Styled from './style';
 
 type TProps = {

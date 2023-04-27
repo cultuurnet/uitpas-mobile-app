@@ -2,6 +2,7 @@ import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+import { TRedeemedReward } from '../../redeemedRewards/_models/redeemedReward';
 import { TCheckInResponse } from '../../scan/_models';
 import { TReward, TRewardType } from '../../shop/_models/reward';
 import { TFilterRewardCategory, TFilterRewardSections } from '../../shop/_queries/useGetRewards';
@@ -41,7 +42,7 @@ export type TRootStackParamList = {
   MainNavigator: { screen: TMainRoute };
   Onboarding: undefined;
   ProfileNotFound: undefined;
-  RedeemedReward: undefined;
+  RedeemedReward: { redeemedReward: TRedeemedReward };
   RedeemedRewards: undefined;
   ScanSuccess: TCheckInResponse;
   ShopDetail: { id: string; reward?: TReward };
