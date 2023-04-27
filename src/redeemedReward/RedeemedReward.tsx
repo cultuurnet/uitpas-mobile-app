@@ -40,9 +40,9 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
           values={{ date: formatISOString(redeemedReward.redeemDate, 'dd/MM/yyyy') }}
         />
 
-        <HtmlRenderer source={{ html: redeemedReward.redeemInfo.text }} />
+        <HtmlRenderer fontSize={16} source={{ html: redeemedReward.redeemInfo.text }} />
 
-        <Button color="primary.700" onPress={() => navigation.goBack()} variant="outline"></Button>
+        <Button color="primary.700" label={t('REDEEMED_REWARD.GO_BACK')} onPress={() => navigation.goBack()} variant="outline" />
       </Styled.Content>
     </ScrollView>
   )

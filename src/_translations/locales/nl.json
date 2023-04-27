@@ -146,7 +146,8 @@
     "HEADER_TITLE": "Omgeruild voordeel",
     "SUCCESS_TITLE": "Gelukt!",
     "SUCCESS_MESSAGE": "Je hebt net {{points}} punten omgeruild. Je vindt deze gegevens ook steeds terug in je spaargeschiedenis.",
-    "TRADED_AT": "Je ontving dit voordeel op <bold color='primary.800'>{{date}}</bold>."
+    "TRADED_AT": "Je ontving dit voordeel op <bold color='primary.800'>{{date}}</bold>.",
+    "GO_BACK": "Sluiten"
   },
   "PERIODS": {
     "DAY": "dag",
