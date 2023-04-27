@@ -96,7 +96,7 @@ export const RootStackNavigator = () => {
             component={RedeemedRewards}
             name="RedeemedRewards"
             options={{
-              headerBackTitle: i18n.t('PROFILE.REDEEMED_REWARDS.BACK_TITLE'),
+              headerBackTitle: '',
               headerRight: UserPoints,
               title: i18n.t('PROFILE.REDEEMED_REWARDS.HEADER_TITLE'),
             }}
@@ -104,10 +104,10 @@ export const RootStackNavigator = () => {
           <RootStack.Screen
             component={RedeemedReward}
             name="RedeemedReward"
-            options={({ navigation }) => ({
+            options={({ navigation, route }) => ({
               headerBackTitle: '',
-              headerRight: props => <HeaderBackButton {...props} backImage={() => <Icon color="neutral.0" name="Close" size={14} />} onPress={() => navigation.popToTop()} />,
-              presentation: 'modal',
+              headerRight: props => route.params?.isModal ? <HeaderBackButton {...props} backImage={() => <Icon color="neutral.0" name="Close" size={14} />} onPress={() => navigation.popToTop()} /> : null,
+              presentation: route.params?.isModal ? 'modal' : 'card',
               title: i18n.t('REDEEMED_REWARD.HEADER_TITLE'),
             })}
           />

@@ -17,7 +17,7 @@ type TProps = {
 const RedeemedReward = ({ route, navigation }: TProps) => {
   const { t } = useTranslation();
   const redeemedReward = route.params?.redeemedReward;
-
+  const isModal = route.params?.isModal;
   if (!redeemedReward) return null;
 
   return (
@@ -25,7 +25,7 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
       <EnlargedHeader height={84} />
       <Styled.Content>
 
-        <RewardCard reward={redeemedReward?.reward} />
+        <RewardCard isButton={!isModal} reward={redeemedReward?.reward} />
 
         <Styled.SuccessContainer>
           <Image source={GiftOpen} />
@@ -65,7 +65,7 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
             </Styled.LinkButton>
           ))}
 
-        <Styled.CloseButton color="primary.700" label={t('REDEEMED_REWARD.GO_BACK')} onPress={() => navigation.popToTop()} variant="outline" />
+        {isModal && <Styled.CloseButton color="primary.700" label={t('REDEEMED_REWARD.GO_BACK')} onPress={() => navigation.popToTop()} variant="outline" />}
       </Styled.Content>
     </ScrollView>
   )

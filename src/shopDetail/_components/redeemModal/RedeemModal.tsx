@@ -23,7 +23,7 @@ const RedeemModal: FC<TRedeemModalProps> = ({ isVisible, toggleIsVisible, reward
   const { mutate: redeemReward, isLoading, error } = useRedeemReward({
     onSuccess: (redeemedReward) => {
       toggleIsVisible();
-      navigate('RedeemedReward', { redeemedReward });
+      navigate('RedeemedReward', { isModal: true, redeemedReward });
     }
   });
   const activeCard = useActiveCard();

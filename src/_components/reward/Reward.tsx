@@ -12,20 +12,25 @@ import * as Styled from './style';
 type TProps = {
   isRedeemed?: boolean;
   mode: 'list' | 'tile',
+  onPress?: () => void;
   reward: TReward;
   subtitle?: string;
 };
 
-const Reward = ({ reward, isRedeemed, subtitle, mode, ...props }: TProps) => {
+const Reward = ({ reward, isRedeemed, subtitle, onPress, mode, ...props }: TProps) => {
   const { push } = useNavigation<TRootStackNavigationProp>();
   const isTile = mode === 'tile';
 
-  const onPress = useCallback(() => {
-    push('ShopDetail', {
-      id: reward.id,
-      reward,
-    });
-  }, [reward, push]);
+  const onPressReward = useCallback(() => {
+    if (onPress) {
+      return onPress();
+    } else {
+      push('ShopDetail', {
+        id: reward.id,
+        reward,
+      });
+    }
+  }, [reward, push, onPress]);
 
   const renderPointsAndLabel = useCallback(() => (
     (!!reward.points || reward.online) && !isRedeemed && (
@@ -37,7 +42,7 @@ const Reward = ({ reward, isRedeemed, subtitle, mode, ...props }: TProps) => {
 
   const Container = isTile ? Styled.RewardTileContainer : Styled.RewardListContainer;
   return (
-    <Container borderless={isTile} {...props} onPress={onPress}>
+    <Container borderless={isTile} {...props} onPress={onPressReward}>
       <>
         <Styled.ImageContainer isTile={isTile}>
           <RewardImage hasRadius={!isTile} picture={reward.pictures?.[0]}>
