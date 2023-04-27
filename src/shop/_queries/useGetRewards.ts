@@ -41,7 +41,7 @@ export function useGetRewards({
       type,
     };
 
-    params.owningCardSystemId = user.cardSystemMemberships.map(membership => String(membership.cardSystem.id));
+    params.owningCardSystemId = user?.cardSystemMemberships.map(membership => String(membership.cardSystem.id));
 
     // add category
     if (category === 'laatste kans') {
@@ -77,7 +77,7 @@ export function useGetRewards({
       case 'welkom':
         delete params.owningCardSystemId;
         params.type = 'WELCOME';
-        params.isRedeemableByPassholderId = user.id;
+        params.isRedeemableByPassholderId = user?.id;
         break;
     }
     return params;
