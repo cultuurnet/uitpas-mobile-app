@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 
 import { usePubliqApi } from '../../_hooks/usePubliqApi';
 import { TApiError } from '../../_http';
+import { Params } from '../../_http/HttpClient';
 import { useGetMe } from '../../profile/_queries/useGetMe';
 import { TRewardCategory, TRewardsResponse, TRewardType } from '../_models/reward';
 
@@ -26,23 +27,21 @@ export function useGetRewards({
   category?: TFilterRewardCategory;
   itemsPerPage?: number;
   organizerId?: string[];
-  params?: Record<string, string | boolean | number>;
+  params?: Params;
   section?: TFilterRewardSections;
   type?: TRewardType;
 } = {}) {
   const api = usePubliqApi();
   const { data: user } = useGetMe();
 
-  const [params, owningCardSystemIdParam, organizers] = useMemo(() => {
+  const params = useMemo(() => {
     // get params, already add the default sorting
-    const params: Record<string, string | boolean | number> = {
+    const params: Params = {
       ['sort[redeemCount]']: 'desc',
       type,
     };
 
-    let owningCardSystemIdParam = user?.cardSystemMemberships
-      ? user.cardSystemMemberships.map(membership => `owningCardSystemId=${membership.cardSystem.id}`).join('&')
-      : '';
+    params.owningCardSystemId = user?.cardSystemMemberships.map(membership => String(membership.cardSystem.id));
 
     // add category
     if (category === 'laatste kans') {
@@ -52,11 +51,7 @@ export function useGetRewards({
       delete params['sort[redeemCount]'];
     }
 
-    let organizers = '';
-    if (organizerId?.length > 0) {
-      if (owningCardSystemIdParam) organizers += '&';
-      organizers += `${organizerId.map(id => `organizerId=${id}`).join('&')}`;
-    }
+    params.organizerId = organizerId;
 
     // filter for a section
     switch (section) {
@@ -68,7 +63,7 @@ export function useGetRewards({
         params.featured = true;
         break;
       case 'populair':
-        owningCardSystemIdParam = '';
+        delete params.owningCardSystemId;
         break;
       case 'populair regio':
         // No extra params needed
@@ -80,23 +75,19 @@ export function useGetRewards({
         params.sport = true;
         break;
       case 'welkom':
-        owningCardSystemIdParam = '';
+        delete params.owningCardSystemId;
         params.type = 'WELCOME';
-        params.isRedeemableByPassholderId = user.id;
+        params.isRedeemableByPassholderId = user?.id;
         break;
     }
-    return [params, owningCardSystemIdParam, organizers];
+    return params;
   }, [category, section, type, user, organizerId]);
 
-  return api.getInfinite<TRewardsResponse>(
-    ['rewards', JSON.stringify(params), owningCardSystemIdParam, itemsPerPage],
-    `/rewards?${owningCardSystemIdParam}${organizers}`,
-    {
-      itemsPerPage,
-      onError: (_error: TApiError) => {
-        // TODO: Handle error
-      },
-      params: { ...params, ...extraParams },
+  return api.getInfinite<TRewardsResponse>(['rewards', JSON.stringify(params), itemsPerPage], `/rewards`, {
+    itemsPerPage,
+    onError: (_error: TApiError) => {
+      // TODO: Handle error
     },
-  );
+    params: { ...params, ...extraParams },
+  });
 }

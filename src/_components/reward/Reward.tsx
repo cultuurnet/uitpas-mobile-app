@@ -31,7 +31,7 @@ const Reward = ({ reward, isRedeemed, subtitle, mode, ...props }: TProps) => {
     (!!reward.points || reward.online) && !isRedeemed && (
       <Styled.PointsAndLabelContainer>
         {!!reward.points && <Points points={reward.points} theme={isTile ? 'white' : 'primary'} />}
-        {reward.online && <InAppRewardLabel hideLabel={isTile} />}
+        {reward.online && <InAppRewardLabel />}
       </Styled.PointsAndLabelContainer>
     )), [isTile, reward.points, reward.online, isRedeemed]);
 
@@ -44,11 +44,11 @@ const Reward = ({ reward, isRedeemed, subtitle, mode, ...props }: TProps) => {
             {isTile && renderPointsAndLabel()}
           </RewardImage>
         </Styled.ImageContainer>
-        <Styled.textContainer isTile={isTile}>
+        <Styled.TextContainer isTile={isTile}>
           <Typography fontStyle='bold' size='small'>{reward.title}</Typography>
           <Typography size='small'>{subtitle || reward.organizers[0].name}</Typography>
           {!isTile && renderPointsAndLabel()}
-        </Styled.textContainer>
+        </Styled.TextContainer>
       </>
     </Container>
   );

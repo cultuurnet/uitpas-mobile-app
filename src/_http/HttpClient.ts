@@ -5,7 +5,7 @@ import { log } from '../_utils/logger';
 import { TApiError } from './HttpError';
 import { HttpStatus } from './HttpStatus';
 
-export type Params = Record<string, string | number | boolean | null | undefined>;
+export type Params = Record<string, string | number | boolean | null | undefined | string[]>;
 export type Headers = Record<string, string>;
 
 class HttpClient {
@@ -20,18 +20,26 @@ class HttpClient {
     let url = HttpClient.getUrl(route);
     if (params) {
       for (const property in params) {
-        if (params[property] !== null && params[property] !== undefined) {
-          url = HttpClient.addQueryStringParameter(url, property, `${params[property]}`);
+        const param = params[property];
+        if (param !== null && param !== undefined) {
+          // When the property is an array, loop over all the values and append them to the url
+          if (Array.isArray(param)) {
+            (param as string[]).forEach(value => {
+              url = HttpClient.addQueryStringParameter(url, property, `${value}`, true);
+            });
+          } else {
+            url = HttpClient.addQueryStringParameter(url, property, `${param}`);
+          }
         }
       }
     }
     return url;
   }
 
-  static addQueryStringParameter(uri: string, key: string, value: string): string {
+  static addQueryStringParameter(uri: string, key: string, value: string, allowDuplicates?: boolean): string {
     const regex = new RegExp(`([?&])${key}=.*?(&|$)`, 'i');
     const separator = uri.indexOf('?') !== -1 ? '&' : '?';
-    if (uri.match(regex)) {
+    if (!allowDuplicates && uri.match(regex)) {
       return uri.replace(regex, `$1${key}=${value}$2`);
     }
     return `${uri + separator + key}=${value}`;
