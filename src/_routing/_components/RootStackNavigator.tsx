@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import SplashScreen from 'react-native-lottie-splash-screen';
+import { HeaderBackButton } from '@react-navigation/elements';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { Icon } from '../../_components';
 import UserPoints from '../../_components/userPoints/UserPoints';
 import { useAuthentication } from '../../_context';
 import { StorageKey } from '../../_models';
@@ -102,11 +104,12 @@ export const RootStackNavigator = () => {
           <RootStack.Screen
             component={RedeemedReward}
             name="RedeemedReward"
-            options={{
+            options={({ navigation }) => ({
               headerBackTitle: '',
+              headerRight: props => <HeaderBackButton {...props} backImage={() => <Icon color="neutral.0" name="Close" size={14} />} onPress={() => navigation.popToTop()} />,
               presentation: 'modal',
               title: i18n.t('REDEEMED_REWARD.HEADER_TITLE'),
-            }}
+            })}
           />
           <RootStack.Screen
             component={ShopDetail}
