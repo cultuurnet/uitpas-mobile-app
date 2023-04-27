@@ -6,10 +6,10 @@ type TProps = {
   height?: number;
 };
 
-const EnlargeHeader = ({ height = 116 }: TProps) => {
+const EnlargedHeader = ({ height = 116 }: TProps) => {
   return (
     <Styled.TopContainerHalf height={height} />
   )
 }
 
-export default EnlargeHeader;
+export default EnlargedHeader;

@@ -5,7 +5,7 @@ export { default as BulletList } from './bulletList';
 export { default as Button } from './button/Button';
 export { default as Checkbox } from './checkbox/Checkbox';
 export { default as DiagonalSplitView } from './diagonalSplitView/DiagonalSplitView';
-export { default as EnlargeHeader } from './enlargeHeader/EnlargeHeader';
+export { default as EnlargedHeader } from './enlargedHeader/EnlargedHeader';
 export { default as ExternalLink } from './externalLink/ExternalLink';
 export { default as FocusAwareStatusBar } from './statusBar/FocusAwareStatusBar';
 export { default as HtmlRenderer } from './htmlRenderer/HtmlRenderer';
