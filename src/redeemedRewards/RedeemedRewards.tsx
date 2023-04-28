@@ -4,6 +4,7 @@ import { ActivityIndicator, RefreshControl } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 
 import { Reward, RewardLoader } from '../_components'
+import { TRootStackNavigationProp } from '../_routing';
 import { theme } from '../_styles/theme';
 import { formatISOString } from '../_utils/dateHelpers';
 import { useGetRedeemedRewards } from './_queries/useGetRedeemedRewards';
@@ -12,7 +13,11 @@ import * as Styled from './style';
 // When everything fits on 1 line, and device font-size is not increased, the height of a listitem is 125
 const MIMIMAL_REWARD_HEIGHT = 125;
 
-export const RedeemedRewards = () => {
+type TProps = {
+  navigation: TRootStackNavigationProp<'RedeemedRewards'>;
+};
+
+export const RedeemedRewards = ({ navigation }: TProps) => {
   const { t } = useTranslation();
   const { data: rewards, fetchNextPage, isLoading: isRewardsLoading, refetch, isRefetching, isFetchingNextPage } = useGetRedeemedRewards();
 
@@ -40,6 +45,7 @@ export const RedeemedRewards = () => {
       <Reward
         isRedeemed
         mode='list'
+        onPress={() => navigation.navigate('RedeemedReward', { redeemedReward: item })}
         reward={item.reward}
         subtitle={t("PROFILE.REDEEMED_REWARDS.REDEEMED_ON", { date: formatISOString(item.redeemDate, 'dd/MM/yyyy') })}
       />
