@@ -62,9 +62,7 @@ export const ShopDetail = ({ route }: TProps) => {
             <HtmlRenderer source={{ html: reward.promotionalDescription }} />
           </Section>
 
-          {!!reward.moreInfoURL && <Section title={t('SHOP_DETAIL.MORE_INFO')}>
-            <ExternalLink href={reward.moreInfoURL} />
-          </Section>}
+          {!!reward.moreInfoURL && <Styled.MoreInfoLink href={reward.moreInfoURL} />}
 
           <Section title={t('SHOP_DETAIL.LOCATION')}>
             <Organizer id={firstOrganizer.id} key={firstOrganizer.id} />
