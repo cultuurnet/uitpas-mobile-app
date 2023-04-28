@@ -70,7 +70,7 @@
     "REDEEMED_REWARDS": {
       "EMPTY": "Je hebt nog geen voordelen ingeruild.",
       "BACK_TITLE": "Profiel",
-      "HEADER_TITLE": "Omgeruilde voordelen",
+      "HEADER_TITLE": "Omgeruild",
       "REDEEMED_ON": "Omgeruild op {{date}}"
     }
   },

@@ -70,6 +70,7 @@ export const Image = styled.Image<{ hasRadius?: boolean }>`
   height: 100%;
   width: 100%;
   resize-mode: cover;
+  background-color: ${theme.palette.neutral[200]};
   border-radius: ${({ hasRadius }) => (hasRadius ? '8px' : '0')};
 `;
 
