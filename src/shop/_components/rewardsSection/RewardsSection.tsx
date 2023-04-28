@@ -38,7 +38,7 @@ export const RewardsSection = ({ horizontal, filter, title, filterRewardId, hide
   return (
     <Styled.Container {...props}>
       <Styled.Header>
-        <Typography fontStyle='bold' size='large'>{title}</Typography>
+        <Styled.SectionTile fontStyle='bold' size='large'>{title}</Styled.SectionTile>
         {!hideMoreButton &&
           <Styled.ShowMoreButton activeOpacity={0.8} onPress={onPressMore}>
             <Typography color="primary.800" fontStyle='bold' size="small">{t('SHOP.SHOW_MORE')} </Typography><Icon color="primary.800" name="ArrowRight" />

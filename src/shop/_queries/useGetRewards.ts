@@ -14,6 +14,7 @@ export type TFilterRewardSections =
   | 'populair'
   | 'stad voordelen'
   | 'sport'
+  | 'interessant'
   | 'welkom';
 
 export function useGetRewards({
@@ -64,6 +65,10 @@ export function useGetRewards({
         break;
       case 'populair':
         delete params.owningCardSystemId;
+        break;
+      case 'interessant':
+        delete params.owningCardSystemId;
+        params.isInterestingForPassholderId = user?.id;
         break;
       case 'populair regio':
         // No extra params needed

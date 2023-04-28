@@ -8,13 +8,14 @@ import { RewardsSection, TRewardSectionProps } from './_components/rewardsSectio
 import { WelcomeGiftsBanner } from './_components/welcomeGiftsBanner/WelcomeGiftsBanner';
 
 const SECTIONS: TRewardSectionProps[] = [
-  { filter: 'online', title: 'SHOP.SECTIONS.ONLINE' },
+  { filter: 'online', horizontal: true, title: 'SHOP.SECTIONS.ONLINE' },
+  { filter: 'interessant', horizontal: true, title: 'SHOP.SECTIONS.INTERESTING' },
   { filter: 'in de kijker', title: 'SHOP.SECTIONS.HIGHLIGHTED' },
-  { category: 'laatste kans', title: 'SHOP.SECTIONS.LAST_CHANCE' },
+  { category: 'laatste kans', horizontal: true, title: 'SHOP.SECTIONS.LAST_CHANCE' },
   { filter: 'populair regio', title: 'SHOP.SECTIONS.POPULAR_REGION' },
-  { filter: 'stad voordelen', title: 'SHOP.SECTIONS.CITY' },
+  { filter: 'stad voordelen', horizontal: true, title: 'SHOP.SECTIONS.CITY' },
   { filter: 'populair', title: 'SHOP.SECTIONS.POPULAR' },
-  { filter: 'sport', title: 'SHOP.SECTIONS.SPORTIVE' },
+  { filter: 'sport', horizontal: true, title: 'SHOP.SECTIONS.SPORTIVE' },
   { category: 'Goede doel', title: 'SHOP.SECTIONS.CHARITY' },
 ]
 
@@ -27,8 +28,8 @@ const Shop = () => {
       <WelcomeGiftsBanner />
       <CategoryFilters />
 
-      {SECTIONS.map(({ filter, category, title }, index) => (
-        <RewardsSection category={category} filter={filter} horizontal={index % 2 === 0} key={title} title={t(title, { city: user?.address?.city || t('SHOP.SECTIONS.CITY_FALLBACK') })} />
+      {SECTIONS.map(({ filter, category, title, horizontal }) => (
+        <RewardsSection category={category} filter={filter} horizontal={horizontal} key={title} title={t(title, { city: user?.address?.city || t('SHOP.SECTIONS.CITY_FALLBACK') })} />
       ))}
     </SafeAreaView>
   );
