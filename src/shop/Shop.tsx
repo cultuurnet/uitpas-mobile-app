@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { SafeAreaView } from '../_components';
+import { useGetMe } from '../profile/_queries/useGetMe';
 import { CategoryFilters } from './_components/categoryFilters/CategoryFilters';
 import { RewardsSection, TRewardSectionProps } from './_components/rewardsSection/RewardsSection';
 import { WelcomeGiftsBanner } from './_components/welcomeGiftsBanner/WelcomeGiftsBanner';
@@ -20,6 +21,7 @@ const SECTIONS: TRewardSectionProps[] = [
 
 const Shop = () => {
   const { t } = useTranslation();
+  const { data: user } = useGetMe();
 
   return (
     <SafeAreaView edges={['left', 'right']} isScrollable>
@@ -27,7 +29,7 @@ const Shop = () => {
       <CategoryFilters />
 
       {SECTIONS.map(({ filter, category, title, horizontal }) => (
-        <RewardsSection category={category} filter={filter} horizontal={horizontal} key={title} title={t(title)} />
+        <RewardsSection category={category} filter={filter} horizontal={horizontal} key={title} title={t(title, { city: user?.address?.city || t('SHOP.SECTIONS.CITY_FALLBACK') })} />
       ))}
     </SafeAreaView>
   );

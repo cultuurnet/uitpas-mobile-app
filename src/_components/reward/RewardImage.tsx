@@ -10,12 +10,12 @@ type TProps = {
   picture?: string;
 }
 
-const RewardImage = ({ children, picture, hasRadius = false, largeSpacing = false }: TProps) => {
+const RewardImage = ({ children, picture, hasRadius = false, largeSpacing = false, ...props }: TProps) => {
   const [isImageError, setIsImageError] = useState(false);
 
   return (
     <>
-      <Styled.Image hasRadius={hasRadius} onError={() => setIsImageError(true)} source={!isImageError && picture ? { uri: picture } : Gift} />
+      <Styled.Image hasRadius={hasRadius} onError={() => setIsImageError(true)} source={!isImageError && picture ? { uri: picture } : Gift} {...props} />
       {!!children && <Styled.Gradient colors={['#00000000', '#00000000', '#000000']} largeSpacing={largeSpacing}>
         {children}
       </Styled.Gradient>}

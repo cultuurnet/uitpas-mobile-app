@@ -41,7 +41,7 @@ export const RedeemedRewards = () => {
         isRedeemed
         mode='list'
         reward={item.reward}
-        subtitle={t("PROFILE.REDEEMED_REWARDS.REDEEMED_ON", { date: formatISOString(item.redeemDate, 'dd/MM') })}
+        subtitle={t("PROFILE.REDEEMED_REWARDS.REDEEMED_ON", { date: formatISOString(item.redeemDate, 'dd/MM/yyyy') })}
       />
     )}
   />;
