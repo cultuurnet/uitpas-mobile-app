@@ -55,7 +55,6 @@ const UitpasCard: FC<TProps> = ({ passHolder, isLarge }) => {
           <Styled.BottomCardView />
         </Styled.ContentContainer>
       </Styled.CardContainer>
-      {/* <CardModal firstActiveCard={firstActiveCard} isVisible={cardModalVisible} toggleIsVisible={toggleCardModalVisible} /> */}
     </>
   );
 };
