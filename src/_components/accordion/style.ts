@@ -5,9 +5,9 @@ import Typography from '../typography/Typography';
 
 export const Handle = styled.TouchableOpacity`
   flex-direction: row;
-  padding: 8px 12px;
+  padding: 16px 0 8px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: ${theme.palette.neutral['0']};
 `;
 

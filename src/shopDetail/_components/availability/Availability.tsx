@@ -28,18 +28,21 @@ export const Availability = ({ redeemConstraint, redeemPeriod, unitsTaken, maxAv
       {!!redeemPeriod?.end && (
         <Trans
           i18nKey="SHOP_DETAIL.AVAILABILITY_DETAILS.REDEEM_UNTIL"
+          size="small"
           values={{ date: formatISOString(redeemPeriod.end) }}
         />
       )}
       {showUnits && (
         <Trans
           i18nKey="SHOP_DETAIL.AVAILABILITY_DETAILS.UNITS_LEFT"
+          size="small"
           values={{ units: unitsLeft }}
         />
       )}
       {!!redeemConstraint?.period && (
         <Trans
           i18nKey={redeemConstraint.period === 'ABSOLUTE' ? "SHOP_DETAIL.AVAILABILITY_DETAILS.CONSTRAINT_ABSOLUTE" : "SHOP_DETAIL.AVAILABILITY_DETAILS.CONSTRAINT"}
+          size="small"
           values={{ period: t(`PERIODS.${redeemConstraint.period}`), volume: redeemConstraint.volume }}
         />
       )}

@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { Reward } from '../../../_components';
+import { Reward, Typography } from '../../../_components';
 import { theme } from '../../../_styles/theme';
 
 export const Container = styled.View`
@@ -13,6 +13,10 @@ export const Header = styled.View`
   align-items: center;
   margin-bottom: 8px;
   padding-horizontal: 16px;
+`;
+
+export const SectionTile = styled(Typography)`
+  flex: 1;
 `;
 
 export const ShowMoreButton = styled.TouchableOpacity`

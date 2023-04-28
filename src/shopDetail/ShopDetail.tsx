@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native';
 
-import { Accordion, Button, ExternalLink, HtmlRenderer, Points, RewardImage, Typography } from '../_components';
+import { Accordion, Button, HtmlRenderer, Points, RewardImage, Typography } from '../_components';
 import { useToggle } from '../_hooks';
 import { TRootStackRouteProp } from '../_routing'
 import { getLanguage } from '../_utils/languageHelpers';
@@ -62,9 +62,7 @@ export const ShopDetail = ({ route }: TProps) => {
             <HtmlRenderer source={{ html: reward.promotionalDescription }} />
           </Section>
 
-          {!!reward.moreInfoURL && <Section title={t('SHOP_DETAIL.MORE_INFO')}>
-            <ExternalLink href={reward.moreInfoURL} />
-          </Section>}
+          {!!reward.moreInfoURL && <Styled.MoreInfoLink href={reward.moreInfoURL} />}
 
           <Section title={t('SHOP_DETAIL.LOCATION')}>
             <Organizer id={firstOrganizer.id} key={firstOrganizer.id} />

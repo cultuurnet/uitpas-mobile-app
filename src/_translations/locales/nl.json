@@ -70,7 +70,7 @@
     "REDEEMED_REWARDS": {
       "EMPTY": "Je hebt nog geen voordelen ingeruild.",
       "BACK_TITLE": "Profiel",
-      "HEADER_TITLE": "Omgeruilde voordelen",
+      "HEADER_TITLE": "Omgeruild",
       "REDEEMED_ON": "Omgeruild op {{date}}"
     }
   },
@@ -109,11 +109,13 @@
       "SPORT": "Sport",
       "SPORTIVE": "Sportieve voordelen",
       "POPULAR": "Populair buiten je regio",
+      "INTERESTING": "Misschien iets voor jou?",
       "FOOD": "Eten en drinken",
       "ONLINE": "In de app om te ruilen",
       "HIGHLIGHTED": "In de kijker",
       "WELCOME": "Welkomstvoordelen",
-      "CITY": "Voordelen in je stad"
+      "CITY": "Voordelen in {{city}}",
+      "CITY_FALLBACK": "je gemeente"
     }
   },
   "SHOP_DETAIL": {
@@ -143,7 +145,12 @@
     }
   },
   "REDEEMED_REWARD": {
-    "HEADER_TITLE": "Omgeruild voordeel"
+    "HEADER_TITLE": "Omgeruild voordeel",
+    "SUCCESS_TITLE": "Gelukt!",
+    "SUCCESS_MESSAGE": "Je hebt net {{points}} punten omgeruild. Je vindt deze gegevens ook steeds terug in je spaargeschiedenis.",
+    "TRADED_AT": "Je ontving dit voordeel op <bold color='primary.800'>{{date}}</bold>.",
+    "GO_BACK": "Sluiten",
+    "YOUR_CODE": "Uw persoonlijke code"
   },
   "PERIODS": {
     "DAY": "dag",

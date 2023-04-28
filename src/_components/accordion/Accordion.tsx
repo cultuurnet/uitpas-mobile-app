@@ -41,7 +41,7 @@ const Accordion = ({ children, title, expandedTitle }: TProps) => {
         </Styled.Content>
       )}
       <Styled.Handle activeOpacity={0.8} onPress={handleToggle}>
-        <Styled.Label color="primary.800" size="small">
+        <Styled.Label color="primary.800" fontStyle='bold' size="small">
           {expanded ? (expandedTitle || title) : title}
         </Styled.Label>
         <Animated.View style={{ transform: [{ rotate: rotatingIconDeg }] }}>

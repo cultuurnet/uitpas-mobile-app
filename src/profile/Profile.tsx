@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable } from 'react-native';
 
-import { LinkList, Spinner } from '../_components';
+import { EnlargedHeader, LinkList, Spinner } from '../_components';
 import { TLinkListItem } from '../_components/linkList/LinkList';
 import { ConfigUrl } from '../_config';
 import { useToggle } from '../_hooks';
@@ -39,7 +39,7 @@ const Profile = ({ navigation }: TProps) => {
       onPress: () => navigation.navigate('FilteredShop', { filter: 'welkom', subtitle: t('PROFILE.WELCOME_GIFTS_TITLE') }),
     },
     {
-      iconName: 'Gift',
+      iconName: 'CircledCheck',
       label: i18n.t('PROFILE.LINKS.REDEEMED_REWARDS'),
       onPress: () => navigation.navigate('RedeemedRewards'),
     },
@@ -91,8 +91,7 @@ const Profile = ({ navigation }: TProps) => {
     <>
       <Styled.SafeAreaViewContainer edges={['left', 'right']} isScrollable>
         <Styled.TopContainer>
-          <Styled.TopContainerHalf />
-
+          <EnlargedHeader />
           <Pressable onPress={toggleCardModalVisible}>
             <UitpasCard passHolder={passHolder} />
           </Pressable>
