@@ -8,7 +8,7 @@ export const Separator = styled.View`
 `;
 
 export const NoContentText = styled(Typography)`
-  padding: 0 16px;
+  padding: ${theme.common.defaultSpacing}px;
 `;
 
 export const FooterLoadingContainer = styled.View`
