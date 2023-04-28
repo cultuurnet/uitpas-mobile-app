@@ -9,6 +9,6 @@ export const generalStyles = {
       backgroundColor: theme.palette.secondary['500'],
     },
     headerTintColor: theme.palette.neutral['0'],
-    headerTitle: ({ children }) => <Typography color="neutral.0" fontStyle="semibold" size="xlarge">{children}</Typography>,
+    headerTitle: ({ children }) => <Typography color="neutral.0" fontStyle="semibold" size="large">{children}</Typography>,
   },
 };

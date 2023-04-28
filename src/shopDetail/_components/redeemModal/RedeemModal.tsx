@@ -18,12 +18,12 @@ type TRedeemModalProps = {
 };
 
 const RedeemModal: FC<TRedeemModalProps> = ({ isVisible, toggleIsVisible, rewardId, points, title }) => {
-  const { navigate } = useNavigation<TRootStackNavigationProp>();
+  const { navigate } = useNavigation<TRootStackNavigationProp<'ShopDetail'>>();
 
   const { mutate: redeemReward, isLoading, error } = useRedeemReward({
-    onSuccess: () => {
+    onSuccess: (redeemedReward) => {
       toggleIsVisible();
-      navigate('RedeemedReward');
+      navigate('RedeemedReward', { redeemedReward });
     }
   });
   const activeCard = useActiveCard();

@@ -5,8 +5,9 @@ import { getFocusedRouteNameFromRoute, RouteProp } from '@react-navigation/nativ
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import { t } from 'i18next';
 
-import { NavigationBar, NavigationButton, UserPoints } from '../../_components';
+import { NavigationBar, NavigationButton } from '../../_components';
 import TabBarIcon from '../../_components/tabBarIcon/TabBarIcon';
+import UserPoints from '../../_components/userPoints/UserPoints';
 import { theme } from '../../_styles/theme';
 import { useGetMe } from '../../profile/_queries/useGetMe';
 import Profile from '../../profile/Profile';

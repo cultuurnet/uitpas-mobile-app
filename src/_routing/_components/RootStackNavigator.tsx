@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import SplashScreen from 'react-native-lottie-splash-screen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { UserPoints } from '../../_components';
+import UserPoints from '../../_components/userPoints/UserPoints';
 import { useAuthentication } from '../../_context';
 import { StorageKey } from '../../_models';
 import { generalStyles } from '../../_styles/constants';

@@ -7,10 +7,11 @@ import { getFontFamily } from '../typography/style';
 
 
 type Props = {
+  fontSize?: number;
   source: HTMLSource;
 };
 
-const HtmlRenderer: FC<Props> = ({ source }) => {
+const HtmlRenderer: FC<Props> = ({ source, fontSize = 14 }) => {
   const { width } = useWindowDimensions();
 
   return (
@@ -19,7 +20,7 @@ const HtmlRenderer: FC<Props> = ({ source }) => {
       baseStyle={{
         color: theme.palette.neutral[900],
         fontFamily: getFontFamily('normal'),
-        fontSize: 14,
+        fontSize,
         lineHeight: 20,
       }}
       contentWidth={width}
