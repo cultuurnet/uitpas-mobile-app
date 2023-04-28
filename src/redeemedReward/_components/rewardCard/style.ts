@@ -1,9 +1,9 @@
 import styled from 'styled-components/native';
 
-import { RewardImage } from '../../../_components';
+import { Icon, RewardImage, TouchableRipple } from '../../../_components';
 import { theme } from '../../../_styles/theme';
 
-export const Container = styled.View`
+export const Container = styled(TouchableRipple)`
   background-color: ${theme.palette.neutral[0]};
   border-radius: 16px;
   border: 8px solid ${theme.palette.primary[800]};
@@ -16,11 +16,17 @@ export const Container = styled.View`
   shadow-opacity: 0.1;
   shadow-radius: 10px;
   align-items: center;
+  position: relative;
 `;
 
 export const Image = styled(RewardImage)`
   width: 70px;
   height: 70px;
+`;
+export const Arrow = styled(Icon)`
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
 `;
 
 export const TextContainer = styled.View`

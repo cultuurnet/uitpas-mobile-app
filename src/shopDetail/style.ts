@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 
+import { ExternalLink } from '../_components';
 import { InAppRewardLabel as RewardLabel } from '../_components/reward/InAppRewardLabel';
 import Typography from '../_components/typography/Typography';
 import { theme } from '../_styles/theme';
@@ -18,6 +19,10 @@ export const Content = styled.View`
 
 export const Title = styled(Typography)`
   line-height: 26px;
+`;
+
+export const MoreInfoLink = styled(ExternalLink)`
+  margin-bottom: ${theme.common.defaultSpacing}px;
 `;
 
 export const RedeemContent = styled.View`

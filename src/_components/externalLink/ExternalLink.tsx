@@ -5,9 +5,10 @@ import * as Styled from './style';
 
 type TProps = {
   href: string;
+  label?: string;
 };
 
-const ExternalLink = ({ href }: TProps) => {
+const ExternalLink = ({ href, label, ...props }: TProps) => {
   if (!href?.trim()) return null;
 
   try {
@@ -20,10 +21,11 @@ const ExternalLink = ({ href }: TProps) => {
         inline
         radius={false}
         variant="link"
+        {...props}
       >
         <>
           <Icon color='primary.500' name='External' size="small" />
-          <Styled.UnderlinedLinkText color='primary.800' size="small">{url.hostname}</Styled.UnderlinedLinkText>
+          <Styled.UnderlinedLinkText color='primary.800' size="small">{label || url.hostname}</Styled.UnderlinedLinkText>
         </>
       </Styled.LinkButton>
     );

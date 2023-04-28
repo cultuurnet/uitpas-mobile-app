@@ -3,6 +3,7 @@ export { default as BlurredModal } from './blurredModal/BlurredModal';
 export { default as BrandLogo } from './brandLogo/BrandLogo';
 export { default as BulletList } from './bulletList';
 export { default as Button } from './button/Button';
+export { default as ClipboardButton } from './clipboardButton/ClipboardButton';
 export { default as Checkbox } from './checkbox/Checkbox';
 export { default as DiagonalSplitView } from './diagonalSplitView/DiagonalSplitView';
 export { default as EnlargedHeader } from './enlargedHeader/EnlargedHeader';

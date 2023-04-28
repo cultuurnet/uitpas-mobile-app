@@ -36,7 +36,7 @@ const Profile = ({ navigation }: TProps) => {
       onPress: () => navigation.navigate('FilteredShop', { filter: 'welkom', subtitle: t('PROFILE.WELCOME_GIFTS_TITLE') }),
     },
     {
-      iconName: 'Gift',
+      iconName: 'CircledCheck',
       label: i18n.t('PROFILE.LINKS.REDEEMED_REWARDS'),
       onPress: () => navigation.navigate('RedeemedRewards'),
     },
