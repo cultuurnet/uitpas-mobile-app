@@ -55,9 +55,9 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
         {/* Only show the link when it's available. When it's a charity reward, we show a link, otherwise we use a button  */}
         {!!redeemedReward?.redeemInfo?.link && (redeemedReward.reward.categories.includes('Goede doel')
           ? (
-            <Styled.LinkInlineButton href={redeemedReward?.redeemInfo?.link} label={redeemedReward?.redeemInfo?.label} />
+            <Styled.LinkInlineButton href={redeemedReward.redeemInfo.link} label={redeemedReward?.redeemInfo?.label} />
           ) : (
-            <Styled.LinkButton href={redeemedReward?.redeemInfo?.link}>
+            <Styled.LinkButton href={redeemedReward.redeemInfo.link}>
               <>
                 <Typography color="neutral.0" fontStyle='bold'>{redeemedReward?.redeemInfo?.label}</Typography>
                 <Styled.ExternalIcon color="neutral.0" name="External" size={14} />
