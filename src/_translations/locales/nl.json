@@ -113,7 +113,8 @@
       "ONLINE": "In de app om te ruilen",
       "HIGHLIGHTED": "In de kijker",
       "WELCOME": "Welkomstvoordelen",
-      "CITY": "Voordelen in je stad"
+      "CITY": "Voordelen in {{city}}",
+      "CITY_FALLBACK": "je gemeente"
     }
   },
   "SHOP_DETAIL": {
