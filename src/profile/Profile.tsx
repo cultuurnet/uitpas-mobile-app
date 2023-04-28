@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Pressable } from 'react-native';
 
 import { EnlargedHeader, LinkList, Spinner } from '../_components';
 import { TLinkListItem } from '../_components/linkList/LinkList';
@@ -11,6 +12,7 @@ import i18n from '../_translations/i18n';
 import { storage } from '../storage';
 import { useGetVersions } from '../update/_queries/useGetVersions';
 import { useGetMe } from './_queries/useGetMe';
+import CardModal from './CardModal/CardModal';
 import LogoutModal from './LogOutModal';
 import MIANotification from './MIANotification/MIANotification';
 import * as Styled from './style';
@@ -26,6 +28,7 @@ const Profile = ({ navigation }: TProps) => {
   const { data: passHolder, isLoading: isPassHolderLoading } = useGetMe();
   const [isUitpasInfoClosed, setIsUitpasInfoClosed] = useState(storage.getBoolean(StorageKey.IsUitpasInfoClosed));
   const { t } = useTranslation();
+  const [cardModalVisible, toggleCardModalVisible] = useToggle(false);
 
   const versions = useGetVersions();
 
@@ -89,7 +92,11 @@ const Profile = ({ navigation }: TProps) => {
       <Styled.SafeAreaViewContainer edges={['left', 'right']} isScrollable>
         <Styled.TopContainer>
           <EnlargedHeader />
-          <UitpasCard passHolder={passHolder} />
+          <Pressable onPress={toggleCardModalVisible}>
+            <UitpasCard passHolder={passHolder} />
+          </Pressable>
+          <CardModal isVisible={cardModalVisible} toggleIsVisible={toggleCardModalVisible} />
+
           {versions?.isBehindTarget && <UpdateNotification />}
           {!isUitpasInfoClosed && (
             <UitpasInfo

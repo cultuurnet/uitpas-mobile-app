@@ -1,22 +1,22 @@
 import React, { FC, useEffect } from 'react';
 import { Modal, StatusBar } from 'react-native';
-import Barcode from 'react-native-barcode-svg';
 
-import { BrandLogo, Typography } from '../../_components';
+import { Icon } from '../../_components';
 import { useFullScreenBrightness } from '../../_hooks/useFullscreenBrightness';
 import { theme } from '../../_styles/theme';
-import { TCardSystemMembership } from '../_models';
-import { applyBarcodeMask } from '../_util/mask';
+import { useGetMe } from '../_queries/useGetMe';
+import UitpasCard from '../UitpasCard/UitpasCard';
 import * as Styled from './style';
 
 type TCardModalProps = {
-  firstActiveCard: TCardSystemMembership;
   isVisible: boolean;
   toggleIsVisible: () => void;
 };
 
-const CardModal: FC<TCardModalProps> = ({ isVisible, toggleIsVisible, firstActiveCard }) => {
+const CardModal: FC<TCardModalProps> = ({ isVisible, toggleIsVisible }) => {
   const { resetScreen, brightenScreen } = useFullScreenBrightness();
+  const { data: passHolder } = useGetMe();
+
   useEffect(() => {
     isVisible ? brightenScreen() : resetScreen();
   }, [isVisible, brightenScreen, resetScreen]);
@@ -30,19 +30,14 @@ const CardModal: FC<TCardModalProps> = ({ isVisible, toggleIsVisible, firstActiv
       visible={isVisible}
     >
       {isVisible && <StatusBar backgroundColor={theme.palette.neutral['900']} barStyle="light-content" />}
+
       <Styled.BlurContainer onPress={toggleIsVisible} underlayColor="rgba(0, 0, 0, 0.85)">
-        <Styled.ModalContainer>
-          <Styled.CloseButton color="neutral.0" name="Close" onPress={toggleIsVisible} size={15} />
-          <Styled.LogoContainer>
-            <BrandLogo height={40} inverse />
-          </Styled.LogoContainer>
-          <Styled.BarcodeContainer>
-            <Barcode format="CODE128" height={100} singleBarWidth={2} value={firstActiveCard.uitpasNumber} />
-            <Typography fontStyle="semibold" size="large" topSpacing="10px">
-              {applyBarcodeMask(firstActiveCard.uitpasNumber)}
-            </Typography>
-          </Styled.BarcodeContainer>
-        </Styled.ModalContainer>
+        <>
+          <Styled.CloseButton>
+            <Icon color="neutral.0" name="Close" onPress={toggleIsVisible} size={14} />
+          </Styled.CloseButton>
+          <UitpasCard isLarge passHolder={passHolder} />
+        </>
       </Styled.BlurContainer>
     </Modal>
   );

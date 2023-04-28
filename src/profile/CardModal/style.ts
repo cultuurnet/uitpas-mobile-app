@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 
-import { Button, Icon } from '../../_components';
+import { Button } from '../../_components';
+import { theme } from '../../_styles/theme';
 
 export const BlurContainer = styled(Button)`
   align-items: center;
@@ -9,11 +10,15 @@ export const BlurContainer = styled(Button)`
   justify-content: center;
 `;
 
-export const CloseButton = styled(Icon)`
-  padding: 5px;
-  position: absolute;
-  top: 7px;
-  right: 7px;
+export const CloseButton = styled.Pressable`
+  align-items: center;
+  justify-content: center;
+  margin-top: -42px; 
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  border: 2px solid ${theme.palette.neutral[0]};
+  align-self: flex-end;
 `;
 
 export const ModalContainer = styled.View`

@@ -9,7 +9,6 @@ import * as Styled from './style';
 const UserPoints = () => {
   const { data: user, isLoading, isError } = useGetMe();
   const [cardModalVisible, toggleCardModalVisible] = useToggle(false);
-  const firstActiveCard = user?.cardSystemMemberships?.filter(card => card.status === 'ACTIVE' && card.uitpasNumber)?.[0];
 
   if (isLoading || isError) return null;
   const initials = `${user.firstName?.[0] || ''}${user.name?.[0] || ''}`;
@@ -23,7 +22,7 @@ const UserPoints = () => {
           </Styled.AvatarContainer>}
         </>
       </Styled.UserPointsButton>
-      <CardModal firstActiveCard={firstActiveCard} isVisible={cardModalVisible} toggleIsVisible={toggleCardModalVisible} />
+      <CardModal isVisible={cardModalVisible} toggleIsVisible={toggleCardModalVisible} />
     </>
   )
 }
