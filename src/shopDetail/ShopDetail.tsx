@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native';
 
-import { Accordion, Button, ExternalLink, HtmlRenderer, Points, RewardImage, Typography } from '../_components';
+import { Accordion, Button, HtmlRenderer, Points, RewardImage, Typography } from '../_components';
 import { useToggle } from '../_hooks';
 import { TRootStackRouteProp } from '../_routing'
 import { getLanguage } from '../_utils/languageHelpers';
