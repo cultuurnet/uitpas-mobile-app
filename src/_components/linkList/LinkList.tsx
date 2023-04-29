@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Linking } from 'react-native';
 
 import { ThemeColor } from '../../_styles/theme';
 import Icon, { TIconName } from '../icon/Icon';
@@ -23,14 +24,7 @@ const LinkList: FC<TProps> = ({ items, title, ...props }) => {
     return (
       <Styled.LinkItem key={item.label}>
         {item.href ? (
-          <Styled.LinkButton
-            color={item.labelColor || 'neutral.900'}
-            fontStyle="normal"
-            href={item.href}
-            label={item.label}
-            radius={false}
-            variant="link"
-          >
+          <Styled.LinkButton onPress={() => Linking.openURL(item.href)}>
             <>
               <Icon color={item.iconColor || 'primary.600'} name={item.iconName} />
               <Styled.UnderlinedLinkText>{item.label}</Styled.UnderlinedLinkText>
@@ -38,13 +32,7 @@ const LinkList: FC<TProps> = ({ items, title, ...props }) => {
             </>
           </Styled.LinkButton>
         ) : (
-          <Styled.LinkButton
-            fontStyle="normal"
-            label={item.label}
-            onPress={item.onPress}
-            radius={false}
-            variant="link"
-          >
+          <Styled.LinkButton onPress={item.onPress}>
             <>
               <Icon color={item.iconColor || 'primary.600'} name={item.iconName} />
               <Styled.LinkText color={item.labelColor || 'neutral.900'}>{item.label}</Styled.LinkText>
