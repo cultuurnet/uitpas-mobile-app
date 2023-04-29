@@ -35,10 +35,9 @@ export const Organizer = ({ id, showTopBorder = false }: TProps) => {
   }, [data?.name]);
 
   const onPress = useCallback(() => {
-    const prefix = Platform.OS === 'ios' ? 'maps:' : 'geo:';
-    const coordinatesString = `${data?.geo.latitude},${data?.geo.longitude}`;
-    Linking.openURL(`${prefix}${coordinatesString}?q=${coordinatesString}`);
-  }, [data?.geo]);
+    const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(formattedAddress)}`;
+    Linking.openURL(url);
+  }, [formattedAddress]);
 
   if (isError) return null;
 
