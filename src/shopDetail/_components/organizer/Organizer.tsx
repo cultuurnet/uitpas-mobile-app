@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react'
-import { Linking, Platform } from 'react-native';
+import { Linking } from 'react-native';
 
 import { Icon, SkeletonLoader, Typography } from '../../../_components';
 import { getLanguage } from '../../../_utils/languageHelpers';
