@@ -71,7 +71,7 @@ export const MainNavigator: FC = () => {
           height: 60 + insets.bottom,
           padding: 10,
           position: 'absolute',
-          shadowOpacity: 0,
+          shadowOpacity: 0.1,
         },
       })}
     >

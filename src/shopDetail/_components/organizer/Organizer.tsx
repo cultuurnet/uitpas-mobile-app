@@ -35,10 +35,16 @@ export const Organizer = ({ id, showTopBorder = false }: TProps) => {
   }, [data?.name]);
 
   const onPress = useCallback(() => {
-    const prefix = Platform.OS === 'ios' ? 'maps:' : 'geo:';
-    const coordinatesString = `${data?.geo.latitude},${data?.geo.longitude}`;
-    Linking.openURL(`${prefix}${coordinatesString}?q=${coordinatesString}`);
-  }, [data?.geo]);
+    let url = '';
+    if (Platform.OS === 'ios') {
+      url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(formattedAddress)}`;
+    } else {
+      const coordinatesString = `${data?.geo.latitude},${data?.geo.longitude}`;
+      const prefix = 'geo:';
+      url = `${prefix}${coordinatesString}?q=${encodeURIComponent(formattedAddress)}`;
+    }
+    Linking.openURL(url);
+  }, [formattedAddress, data?.geo]);
 
   if (isError) return null;
 
