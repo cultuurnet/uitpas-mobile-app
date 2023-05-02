@@ -1,3 +1,4 @@
+import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import styled from 'styled-components/native';
 
@@ -66,7 +67,7 @@ export const ImageContainer = styled.View<{ isTile?: boolean }>`
   position: relative;
 `;
 
-export const Image = styled.Image<{ hasRadius?: boolean }>`
+export const Image = styled(FastImage)<{ hasRadius?: boolean }>`
   height: 100%;
   width: 100%;
   resize-mode: cover;
