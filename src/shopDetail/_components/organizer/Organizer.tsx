@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react'
-import { Linking } from 'react-native';
+import { Linking, Platform } from 'react-native';
 
 import { Icon, SkeletonLoader, Typography } from '../../../_components';
 import { getLanguage } from '../../../_utils/languageHelpers';
@@ -35,9 +35,16 @@ export const Organizer = ({ id, showTopBorder = false }: TProps) => {
   }, [data?.name]);
 
   const onPress = useCallback(() => {
-    const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(formattedAddress)}`;
+    let url = '';
+    if (Platform.OS === 'ios') {
+      url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(formattedAddress)}`;
+    } else {
+      const coordinatesString = `${data?.geo.latitude},${data?.geo.longitude}`;
+      const prefix = 'geo:';
+      url = `${prefix}${coordinatesString}?q=${encodeURIComponent(formattedAddress)}`;
+    }
     Linking.openURL(url);
-  }, [formattedAddress]);
+  }, [formattedAddress, data?.geo]);
 
   if (isError) return null;
 
