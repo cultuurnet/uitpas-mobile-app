@@ -36,7 +36,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          ref: develop
+          ref: ${{ github.event.inputs.release_type == 'beta' && 'develop' || 'main' }}
 
       - name: Bump version in package.json
         id: version
