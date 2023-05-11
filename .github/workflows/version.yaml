@@ -40,6 +40,7 @@ jobs:
 
       - name: Bump version in package.json
         id: version
+        base: ${{ github.event.inputs.release_type == 'beta' && 'develop' || 'main' }}
         run: |
           yarn config set version-git-tag false
 
