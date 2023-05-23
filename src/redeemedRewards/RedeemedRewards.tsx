@@ -19,13 +19,27 @@ type TProps = {
 
 export const RedeemedRewards = ({ navigation }: TProps) => {
   const { t } = useTranslation();
-  const { data: rewards, fetchNextPage, isLoading: isRewardsLoading, refetch, isRefetching, isFetchingNextPage } = useGetRedeemedRewards();
+  const {
+    data: rewards,
+    fetchNextPage,
+    isLoading: isRewardsLoading,
+    refetch,
+    isError,
+    isRefetching,
+    isFetchingNextPage
+  } = useGetRedeemedRewards();
 
   const members = rewards?.pages?.flatMap(({ member }) => member) ?? [];
 
   return <FlashList
     ItemSeparatorComponent={Styled.Separator}
-    ListEmptyComponent={isRewardsLoading ? <>{[1, 2, 3, 4].map(key => <RewardLoader key={key} mode='list' />)}</> : <Styled.NoContentText align="center">{t('PROFILE.REDEEMED_REWARDS.EMPTY')}</Styled.NoContentText>}
+    ListEmptyComponent={isRewardsLoading ? (<>
+      {[1, 2, 3, 4].map(key => <RewardLoader key={key} mode='list' />)}
+    </>) : (
+      <Styled.NoContentText align="center">
+        {t(isError ? 'PROFILE.REDEEMED_REWARDS.ERROR' : 'PROFILE.REDEEMED_REWARDS.EMPTY')}
+      </Styled.NoContentText>
+    )}
     ListFooterComponent={isFetchingNextPage && <Styled.FooterLoadingContainer><ActivityIndicator color={theme.palette.primary['500']} /></Styled.FooterLoadingContainer>}
     contentContainerStyle={{ paddingBottom: 105 }}
     data={members}

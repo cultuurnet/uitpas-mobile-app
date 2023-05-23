@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Image, ScrollView } from 'react-native';
 
 import { GiftOpen } from '../_assets/images';
-import { ClipboardButton, EnlargedHeader, HtmlRenderer, Trans, Typography } from '../_components';
+import { EnlargedHeader, HtmlRenderer, Trans, Typography } from '../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing';
 import { formatISOString } from '../_utils/dateHelpers';
 import { RewardCard } from './_components/rewardCard/RewardCard';
@@ -22,18 +22,19 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
 
   return (
     <ScrollView>
-      <EnlargedHeader height={84} />
+      <EnlargedHeader height={isModal ? 244 : 84} />
       <Styled.Content>
+        {isModal && (
+          <Styled.SuccessContainer>
+            <Image source={GiftOpen} />
+            <Styled.SuccessContent>
+              <Typography bottomSpacing='8px' color="neutral.0" fontStyle='bold' size='large'>{t('REDEEMED_REWARD.SUCCESS_TITLE')}</Typography>
+              <Typography color="neutral.0" size="small">{t('REDEEMED_REWARD.SUCCESS_MESSAGE', { points: redeemedReward.reward.points })}</Typography>
+            </Styled.SuccessContent>
+          </Styled.SuccessContainer>
+        )}
 
         <RewardCard isButton={!isModal} reward={redeemedReward?.reward} />
-
-        <Styled.SuccessContainer>
-          <Image source={GiftOpen} />
-          <Styled.SuccessContent>
-            <Typography bottomSpacing='8px' color="secondary.900" fontStyle='bold' size='large'>{t('REDEEMED_REWARD.SUCCESS_TITLE')}</Typography>
-            <Typography color="secondary.900" size="small">{t('REDEEMED_REWARD.SUCCESS_MESSAGE', { points: redeemedReward.reward.points })}</Typography>
-          </Styled.SuccessContent>
-        </Styled.SuccessContainer>
 
         <Trans
           bottomSpacing='8px'
@@ -41,14 +42,14 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
           values={{ date: formatISOString(redeemedReward.redeemDate, 'dd/MM/yyyy') }}
         />
 
-        <HtmlRenderer fontSize={16} source={{ html: redeemedReward.redeemInfo.text }} />
+        {!!redeemedReward?.redeemInfo?.text && <HtmlRenderer fontSize={16} source={{ html: redeemedReward.redeemInfo.text }} />}
 
         {/* Added spacer because we can't set margin bottom on the HtmlRenderer */}
         <Styled.Spacer />
 
         {!!redeemedReward?.redeemCode && <>
           <Typography bottomSpacing='16px' color="primary.800" fontStyle="bold">{t('REDEEMED_REWARD.YOUR_CODE')}</Typography>
-          <ClipboardButton label={redeemedReward.redeemCode} />
+          <Styled.CopyButton label={redeemedReward.redeemCode} />
         </>
         }
 

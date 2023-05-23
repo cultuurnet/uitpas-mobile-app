@@ -10,7 +10,7 @@ type TProps = {
   label: string;
 }
 
-const ClipboardButton = ({ label }: TProps) => {
+const ClipboardButton = ({ label, ...props }: TProps) => {
   const [isCopied, setIsCopied] = useState(false);
 
   const onPress = useCallback(() => {
@@ -24,7 +24,7 @@ const ClipboardButton = ({ label }: TProps) => {
   }, [label]);
 
   return (
-    <Styled.Container onPress={onPress} underlayColor={theme.palette.primary[200]}>
+    <Styled.Container {...props} onPress={onPress} underlayColor={theme.palette.primary[200]}>
       <>
         <Typography>{label}</Typography>
         <Icon color="primary.800" name={isCopied ? 'Check' : 'Copy'} size={24} />

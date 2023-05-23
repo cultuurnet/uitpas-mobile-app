@@ -17,6 +17,7 @@ export const ButtonElement = styled(TouchableRipple)<{
   $variant: TButtonPropsBase['variant'];
   centered?: TButtonPropsBase['centered'];
   disabled: TButtonPropsBase['disabled'];
+  loading: TButtonPropsBase['loading'];
 }>`
   align-self: ${({ $inline, centered }) => (centered ? 'center' : $inline ? 'flex-start' : 'stretch')};
   align-items: center;
