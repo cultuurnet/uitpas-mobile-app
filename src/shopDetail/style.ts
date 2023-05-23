@@ -18,7 +18,7 @@ export const Content = styled.View`
 `;
 
 export const Title = styled(Typography)`
-  line-height: 26px;
+  line-height: 28px;
 `;
 
 export const MoreInfoLink = styled(ExternalLink)`
