@@ -69,6 +69,7 @@
     },
     "REDEEMED_REWARDS": {
       "EMPTY": "Je hebt nog geen voordelen ingeruild.",
+      "ERROR": "We konden je ingeruilde voordelen niet ophalen, probeer later opnieuw.",
       "BACK_TITLE": "Profiel",
       "HEADER_TITLE": "Omgeruild",
       "REDEEMED_ON": "Omgeruild op {{date}}"
