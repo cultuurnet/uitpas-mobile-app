@@ -19,7 +19,15 @@ type TProps = {
 
 export const RedeemedRewards = ({ navigation }: TProps) => {
   const { t } = useTranslation();
-  const { data: rewards, fetchNextPage, isLoading: isRewardsLoading, refetch, isError, isRefetching, isFetchingNextPage } = useGetRedeemedRewards();
+  const {
+    data: rewards,
+    fetchNextPage,
+    isLoading: isRewardsLoading,
+    refetch,
+    isError,
+    isRefetching,
+    isFetchingNextPage
+  } = useGetRedeemedRewards();
 
   const members = rewards?.pages?.flatMap(({ member }) => member) ?? [];
 

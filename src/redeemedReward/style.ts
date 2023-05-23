@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { Button, ExternalLink, Icon } from '../_components';
+import { Button, ClipboardButton, ExternalLink, Icon } from '../_components';
 import { theme } from '../_styles/theme';
 
 export const Content = styled.View`
@@ -11,10 +11,9 @@ export const SuccessContainer = styled.View`
   flex-direction: row;
   align-items: center;
   padding: ${theme.common.defaultSpacing}px;
-  background-color: ${theme.palette.secondary[200]};
-  border: 1px solid ${theme.palette.secondary[300]};
+  background-color: ${theme.palette.secondary[600]};
   border-radius: 8px;
-  margin-bottom: 24px;
+  margin-top: 24px;
 `;
 
 export const SuccessContent = styled.View`
@@ -32,6 +31,10 @@ export const CloseButton = styled(Button)`
 
 export const ExternalIcon = styled(Icon)`
   margin-left: 8px;
+`;
+
+export const CopyButton = styled(ClipboardButton)`
+  margin-bottom: 24px;
 `;
 
 export const LinkButton = styled(Button)`

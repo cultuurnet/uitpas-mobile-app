@@ -131,6 +131,8 @@
     "OTHER_REWARDS": "Andere voordelen die je misschien interesseren",
     "SHOW_MORE": "Toon meer",
     "SHOW_LESS": "Toon minder",
+    "GENERIC_REDEEM_ERROR": "Er is iets misgegaan",
+    "RETRY": "Probeer opnieuw",
     "AVAILABILITY_DETAILS": {
       "REDEEM_UNTIL": "Je kan dit voordeel nog omruilen tot <bold>{{date}}</bold>.",
       "UNITS_LEFT": "Nog <bold>{{units}}</bold> beschikbaar.",
@@ -142,7 +144,8 @@
       "MODAL_TITLE": "Voordeel omruilen",
       "MODAL_DESCRIPTION": "Ben je zeker dat je <bold>{{points}} punten</bold> wil omruilen voor het voordeel <bold>\"{{title}}\"</bold>",
       "MODAL_BUTTON_CONFIRM": "Omruilen",
-      "MODAL_BUTTON_CANCEL": "Annuleren"
+      "MODAL_BUTTON_CANCEL": "Annuleren",
+      "MODAL_GENERIC_ERROR": "We konden je voordeel niet omruilen, probeer later opnieuw."
     }
   },
   "REDEEMED_REWARD": {
