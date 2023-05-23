@@ -42,7 +42,7 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
           values={{ date: formatISOString(redeemedReward.redeemDate, 'dd/MM/yyyy') }}
         />
 
-        <HtmlRenderer fontSize={16} source={{ html: redeemedReward.redeemInfo.text }} />
+        {!!redeemedReward?.redeemInfo?.text && <HtmlRenderer fontSize={16} source={{ html: redeemedReward.redeemInfo.text }} />}
 
         {/* Added spacer because we can't set margin bottom on the HtmlRenderer */}
         <Styled.Spacer />
