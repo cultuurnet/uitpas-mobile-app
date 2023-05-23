@@ -38,7 +38,7 @@ const RedeemModal: FC<TRedeemModalProps> = ({ isVisible, toggleIsVisible, reward
         {t('SHOP_DETAIL.REDEEM.MODAL_TITLE')}
       </Typography>
       <Trans i18nKey="SHOP_DETAIL.REDEEM.MODAL_DESCRIPTION" values={{ points, title }} />
-      {!!error && <Typography bottomSpacing='12px' color="error.500" size="small" topSpacing='12px'>{error?.endUserMessage?.[getLanguage()]}</Typography>}
+      {!!error && <Typography bottomSpacing='12px' color="error.500" size="small" topSpacing='12px'>{error?.endUserMessage?.[getLanguage()] || t('SHOP_DETAIL.REDEEM.MODAL_GENERIC_ERROR')}</Typography>}
       <Styled.ButtonContainer>
         <Styled.FirstButton label={t('SHOP_DETAIL.REDEEM.MODAL_BUTTON_CONFIRM')} loading={isLoading} onPress={handleConfirm} />
         <Button color="primary.700" label={t('SHOP_DETAIL.REDEEM.MODAL_BUTTON_CANCEL')} onPress={toggleIsVisible} variant='outline' />
