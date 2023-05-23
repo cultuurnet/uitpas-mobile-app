@@ -81,6 +81,7 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
       borderless={variant !== 'link'}
       disabled={disabled}
       hitSlop={hitSlop}
+      loading={loading}
       onPress={handlePress}
       onPressIn={() => setIsActive(true)}
       onPressOut={() => setIsActive(false)}

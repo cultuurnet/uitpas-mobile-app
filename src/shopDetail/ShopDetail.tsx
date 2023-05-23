@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native';
 
@@ -22,7 +22,12 @@ export const ShopDetail = ({ route }: TProps) => {
   const { id, reward: fallbackReward } = route.params;
   const { data } = useGetReward({ id });
   const reward = data || fallbackReward;
-  const { data: redeemStatus, isLoading: isRedeemStatusLoading, error: redeemError } = useGetRedeemStatus({ id: reward.id });
+  const {
+    data: redeemStatus,
+    isLoading: isRedeemStatusLoading,
+    error: redeemError,
+    refetch: refetchRedeemStatus
+  } = useGetRedeemStatus({ id: reward.id });
   const [isRedeemModalConfirmationOpen, toggleRedeemModalConfirmationOpen] = useToggle(false);
   const { t } = useTranslation();
 
@@ -31,6 +36,23 @@ export const ShopDetail = ({ route }: TProps) => {
   const isInAppRedeemable = reward?.online && redeemStatus?.redeemable;
   // If we have a redeembutton, it needs to be sticky, otherwise we don't have sticky content
   const stickyHeaderIndices = isInAppRedeemable ? [2] : [];
+
+  const renderRedeemError = useCallback(() => {
+    const errorMessage = redeemStatus?.message || redeemError?.endUserMessage?.[getLanguage()];
+    if (!errorMessage) {
+      return (
+        <Styled.GenericRedeemError>
+          <Styled.GenericRedeemErrorText color="neutral.600">{t('SHOP_DETAIL.GENERIC_REDEEM_ERROR')}</Styled.GenericRedeemErrorText>
+          <Button label={t('SHOP_DETAIL.RETRY')} onPress={refetchRedeemStatus} />
+        </Styled.GenericRedeemError>
+      );
+    }
+    return (
+      <Styled.RedeemError>
+        <Typography color="neutral.0">{errorMessage}</Typography>
+      </Styled.RedeemError>
+    );
+  }, [redeemStatus?.message, redeemError?.endUserMessage, refetchRedeemStatus, t]);
 
   return (
     <>
@@ -45,14 +67,12 @@ export const ShopDetail = ({ route }: TProps) => {
           <Typography color="primary.800">{firstOrganizer.name}</Typography>
         </Styled.Content>
 
-        {reward?.online && !isRedeemStatusLoading &&
+        {reward?.online &&
           <Styled.RedeemContent>
-            {redeemStatus?.redeemable ?
-              <Button label={t('SHOP_DETAIL.REDEEM.BUTTON')} onPress={toggleRedeemModalConfirmationOpen} />
+            {redeemStatus?.redeemable || isRedeemStatusLoading ?
+              <Button label={t('SHOP_DETAIL.REDEEM.BUTTON')} loading={isRedeemStatusLoading} onPress={toggleRedeemModalConfirmationOpen} />
               :
-              <Styled.RedeemError>
-                <Typography color="neutral.0">{redeemStatus?.message || redeemError?.endUserMessage?.[getLanguage()]}</Typography>
-              </Styled.RedeemError>
+              renderRedeemError()
             }
           </Styled.RedeemContent>
         }
