@@ -51,7 +51,7 @@ const Reward = ({ reward, isRedeemed, subtitle, onPress, mode, ...props }: TProp
         </Styled.ImageContainer>
         <Styled.TextContainer isTile={isTile}>
           <Typography fontStyle='bold' size='small'>{reward.title}</Typography>
-          <Typography size='small'>{subtitle || reward.organizers[0].name}</Typography>
+          <Typography size='small'>{subtitle || reward.organizers[0]?.name}</Typography>
           {!isTile && renderPointsAndLabel()}
         </Styled.TextContainer>
       </>

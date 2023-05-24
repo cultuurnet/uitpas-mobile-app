@@ -20,7 +20,7 @@ export const RewardCard = ({ reward, isButton }: TProps) => {
         <Styled.Image hasRadius picture={reward.pictures?.[0]} />
         <Styled.TextContainer>
           <Typography fontStyle='bold'>{reward.title}</Typography>
-          <Typography color='primary.800' size='small'>{reward.organizers[0].name}</Typography>
+          <Typography color='primary.800' size='small'>{reward.organizers[0]?.name}</Typography>
         </Styled.TextContainer>
         {isButton && <Styled.Arrow color="primary.800" name="ArrowRight" size="small" />}
       </>
