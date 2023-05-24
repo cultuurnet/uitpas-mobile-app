@@ -81,20 +81,22 @@ const Camera = ({ navigation }: TProps) => {
     return <CameraSettings />;
   }
 
-  if (!hasCameraPermission || device == null) {
+  if (device == null) {
     return <Spinner />;
   }
 
   return (
     <View onLayout={handleLayoutChange} style={StyleSheet.absoluteFill}>
       <FocusAwareStatusBar backgroundColor={theme.palette.neutral['900']} barStyle="light-content" translucent />
-      <VisionCamera
-        device={device}
-        frameProcessor={frameProcessor}
-        frameProcessorFps={5}
-        isActive={isActive}
-        style={{ height: overlayDimensions[1], width: overlayDimensions[0] }}
-      />
+      {overlayDimensions[0] !== 0 &&
+        <VisionCamera
+          device={device}
+          frameProcessor={frameProcessor}
+          frameProcessorFps={5}
+          isActive={isActive}
+          style={{ height: overlayDimensions[1], width: overlayDimensions[0] }}
+        />
+      }
 
       <CameraOverlay config={overlay} isLoading={isLoading} settings={overlaySettings} />
     </View>
