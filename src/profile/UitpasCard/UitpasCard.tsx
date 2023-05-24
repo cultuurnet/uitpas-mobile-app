@@ -31,7 +31,7 @@ const UitpasCard: FC<TProps> = ({ passHolder, isLarge }) => {
               <Typography color="neutral.0" size="small">
                 {isLarge
                   ? activeUitpasCards.map(card => card.cardSystem.name).join(', ')
-                  : `${firstActiveCard.cardSystem.name}${activeUitpasCards.length > 1 && ', ...'}`
+                  : `${firstActiveCard.cardSystem.name}${activeUitpasCards.length > 1 ? ', ...' : ''}`
                 }
               </Typography>
             </View>
