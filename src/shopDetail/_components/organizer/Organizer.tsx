@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from 'react'
+import { useTranslation } from 'react-i18next';
 import { Linking, Platform } from 'react-native';
 
 import { Icon, SkeletonLoader, Typography } from '../../../_components';
@@ -7,12 +8,14 @@ import { useGetOrganizer } from '../../_queries/useGetOrganizer';
 import * as Styled from './style';
 
 type TProps = {
+  fallbackName?: string,
   id: string,
   showTopBorder?: boolean
 };
 
-export const Organizer = ({ id, showTopBorder = false }: TProps) => {
+export const Organizer = ({ id, fallbackName, showTopBorder = false }: TProps) => {
   const { data, isLoading, isError } = useGetOrganizer({ id });
+  const { t } = useTranslation();
 
   const formattedAddress = useMemo(() => {
     // Fallback to nl, in case there is no translated address
@@ -27,7 +30,6 @@ export const Organizer = ({ id, showTopBorder = false }: TProps) => {
     return addressString.trim();
   }, [data?.address]);
 
-  // TODO: check with JM if this can happen
   const name = useMemo(() => {
     // Fallback to nl, in case there is no translated address
     const name = typeof data?.name === 'string' ? data.name : data?.name[getLanguage()] || data?.name['nl'];
@@ -46,10 +48,8 @@ export const Organizer = ({ id, showTopBorder = false }: TProps) => {
     Linking.openURL(url);
   }, [formattedAddress, data?.geo]);
 
-  if (isError) return null;
-
   return (
-    <Styled.Container activeOpacity={0.8} disabled={isLoading} onPress={onPress} showTopBorder={showTopBorder}>
+    <Styled.Container activeOpacity={0.8} disabled={isLoading || isError} onPress={onPress} showTopBorder={showTopBorder}>
       <>
         <Styled.ImageContainer>
           <Icon color={'secondary.600'} name="Location" size={24} />
@@ -59,8 +59,8 @@ export const Organizer = ({ id, showTopBorder = false }: TProps) => {
             <SkeletonLoader layout={[{ height: 14, width: 200 }]} />
             <SkeletonLoader layout={[{ height: 14, width: 260 }]} />
           </> : <>
-            <Typography size='small'>{name}</Typography>
-            <Typography size='small'>{formattedAddress}</Typography>
+            <Typography size='small'>{name || fallbackName}</Typography>
+            <Typography color={isError ? "neutral.300" : "neutral.900"} size='small'>{isError ? t('ERROR.ORGANIZER_ADDRESS') : formattedAddress}</Typography>
           </>}
         </Styled.Content>
       </>
