@@ -67,7 +67,12 @@ export const ShopDetail = ({ route }: TProps) => {
           <Typography color="primary.800">{firstOrganizer.name}</Typography>
         </Styled.Content>
 
-        {reward?.online &&
+        {/* 
+          When it's an online reward show either a redeembutton or the errormessage on why it's not redeemable
+          Also show a loading indicator when it's an online reward
+          When it's a physical reward, only show the errormessage on why it's not redeemable, no loader or no redeem button
+        */}
+        {reward?.online ?
           <Styled.RedeemContent>
             {redeemStatus?.redeemable || isRedeemStatusLoading ?
               <Button label={t('SHOP_DETAIL.REDEEM.BUTTON')} loading={isRedeemStatusLoading} onPress={toggleRedeemModalConfirmationOpen} />
@@ -75,6 +80,7 @@ export const ShopDetail = ({ route }: TProps) => {
               renderRedeemError()
             }
           </Styled.RedeemContent>
+          : ((!redeemStatus?.redeemable && !isRedeemStatusLoading) || redeemError) && <Styled.RedeemContent>{renderRedeemError()}</Styled.RedeemContent>
         }
 
         <Styled.Content>
