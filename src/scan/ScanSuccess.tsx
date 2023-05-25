@@ -40,7 +40,7 @@ const ScanSuccess: FC = ({ route, navigation }: TProps) => {
           </Styled.BottomContainer>
           <Button
             label={t('SCAN.SUCCESS.CTA')}
-            onPress={() => navigation.replace('MainNavigator', { screen: 'ProfileNavigator' } as unknown as undefined)} // Types in react-navigation package are incorrect...
+            onPress={() => navigation.reset({ index: 0, routes: [{ name: 'MainNavigator', params: { screen: 'Profile' } }] })}
           />
         </>
       }
