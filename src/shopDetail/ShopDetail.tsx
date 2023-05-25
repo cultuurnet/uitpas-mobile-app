@@ -64,7 +64,7 @@ export const ShopDetail = ({ route }: TProps) => {
         </Styled.ImageContainer>
         <Styled.Content>
           <Styled.Title fontStyle='bold' size='xxlarge'>{reward.title}</Styled.Title>
-          <Typography color="primary.800">{firstOrganizer.name}</Typography>
+          <Typography color="primary.800">{firstOrganizer?.name}</Typography>
         </Styled.Content>
 
         {/* 
@@ -91,7 +91,7 @@ export const ShopDetail = ({ route }: TProps) => {
           {!!reward.moreInfoURL && <Styled.MoreInfoLink href={reward.moreInfoURL} />}
 
           <Section title={t('SHOP_DETAIL.LOCATION')}>
-            <Organizer fallbackName={firstOrganizer.name} id={firstOrganizer.id} key={firstOrganizer.id} />
+            <Organizer fallbackName={firstOrganizer?.name} id={firstOrganizer?.id} key={firstOrganizer?.id} />
             {organizers.length > 0 && (
               <Accordion expandedTitle={t('SHOP_DETAIL.SHOW_LESS')} title={t('SHOP_DETAIL.SHOW_MORE')}>
                 {organizers.map((organizer) => <Organizer fallbackName={organizer.name} id={organizer.id} key={organizer.id} showTopBorder />)}
