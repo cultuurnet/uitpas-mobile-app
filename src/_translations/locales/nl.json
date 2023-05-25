@@ -183,6 +183,7 @@
     "TITLE": "Er is iets misgegaan!",
     "DEFAULT_MESSAGE": "Controleer alvast even je internetverbinding en probeer opnieuw.",
     "HELP": "Meld een probleem",
-    "CTA": "Sluiten"
+    "CTA": "Sluiten",
+    "ORGANIZER_ADDRESS": "Geen adres gevonden"
   }
 }
