@@ -26,7 +26,7 @@ const ClipboardButton = ({ label, ...props }: TProps) => {
   return (
     <Styled.Container {...props} onPress={onPress} underlayColor={theme.palette.primary[200]}>
       <>
-        <Typography>{label}</Typography>
+        <Typography selectable>{label}</Typography>
         <Icon color="primary.800" name={isCopied ? 'Check' : 'Copy'} size={24} />
       </>
     </Styled.Container>
