@@ -95,6 +95,9 @@
     "ONLINE_REWARD": "In de app omruilen",
     "SHOW_MORE": "Bekijk meer",
     "NO_RESULTS": "Er zijn geen voordelen gevonden.",
+    "SEARCH": {
+      "PLACEHOLDER": "Leuke voordelen, gemeentes,..."
+    },
     "WELCOME": {
       "HEADER_TITLE": "Welkomstvoordelen",
       "GREETING": "Welkom bij UiTPAS {{name}}!",

@@ -22,10 +22,12 @@ export function useGetRewards({
   type = 'POINTS',
   section,
   organizerId,
+  freeText,
   itemsPerPage = 20,
   params: extraParams = {},
 }: {
   category?: TFilterRewardCategory;
+  freeText?: string;
   itemsPerPage?: number;
   organizerId?: string[];
   params?: Params;
@@ -86,8 +88,13 @@ export function useGetRewards({
         params.isRedeemableByPassholderId = user?.id;
         break;
     }
+
+    if (freeText) {
+      params.text = freeText;
+    }
+
     return params;
-  }, [category, section, type, user, organizerId]);
+  }, [category, section, type, user, organizerId, freeText]);
 
   return api.getInfinite<TRewardsResponse>(['rewards', JSON.stringify(params), itemsPerPage], `/rewards`, {
     itemsPerPage,

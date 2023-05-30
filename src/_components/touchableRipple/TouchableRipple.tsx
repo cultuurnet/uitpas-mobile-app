@@ -56,7 +56,7 @@ const TouchableRipple = ({
         hitSlop={hitSlop}
         useForeground={useForeground}
       >
-        <View style={style}>{React.Children.only(children)}</View>
+        <View style={style}>{children}</View>
       </TouchableNativeFeedback >
     );
   }
@@ -69,7 +69,9 @@ const TouchableRipple = ({
       underlayColor={underlayColor ?? color(calculatedRippleColor).fade(0.5).rgb().string()}
       {...rest}
     >
-      {React.Children.only(children)}
+      <>
+        {children}
+      </>
     </TouchableHighlight>
   );
 };

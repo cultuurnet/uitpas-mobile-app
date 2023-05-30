@@ -58,6 +58,7 @@ export const MainNavigator: FC = () => {
     headerShown: false,
     tabBarActiveTintColor: theme.palette.secondary['500'],
     tabBarBackground: () => <NavigationBar />,
+    tabBarHideOnKeyboard: true,
     tabBarInactiveTintColor: theme.palette.neutral['500'],
     tabBarItemStyle: {
       height: 40,
