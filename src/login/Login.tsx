@@ -14,8 +14,9 @@ import * as Styled from './style';
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
+
   const { t } = useTranslation();
-  const { authorize } = useAuthentication();
+  const { authorize, isInitialized } = useAuthentication();
   const navigation = useStackNavigation();
   const { height } = useWindowDimensions();
 
@@ -49,7 +50,7 @@ const Login = () => {
     }
   };
 
-  if (isLoading) {
+  if (isLoading || !isInitialized) {
     return <Spinner />;
   }
 
