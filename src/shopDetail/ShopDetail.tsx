@@ -100,7 +100,7 @@ export const ShopDetail = ({ route }: TProps) => {
             unitsTaken={reward.unitsTaken} />
 
           <Section title={t('SHOP_DETAIL.HOW_TO_COLLECT')}>
-            <Typography bottomSpacing='24px' size="small">{t(reward.online ? 'SHOP_DETAIL.COLLECT_ONLINE' : 'SHOP_DETAIL.COLLECT_OFFLINE')}</Typography>
+            <Typography bottomSpacing='24px' selectable size="small">{t(reward.online ? 'SHOP_DETAIL.COLLECT_ONLINE' : 'SHOP_DETAIL.COLLECT_OFFLINE')}</Typography>
             <HtmlRenderer source={{ html: reward.practicalInfo }} />
           </Section>
 

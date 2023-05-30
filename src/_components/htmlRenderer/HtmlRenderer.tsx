@@ -24,6 +24,7 @@ const HtmlRenderer: FC<Props> = ({ source, fontSize = 14 }) => {
         lineHeight: 20,
       }}
       contentWidth={width}
+      defaultTextProps={{ selectable: true }}
       pressableHightlightColor="transparent"
       source={source}
       systemFonts={[getFontFamily('normal'), getFontFamily('bold')]}
