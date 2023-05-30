@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getFocusedRouteNameFromRoute, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import { t } from 'i18next';
@@ -28,8 +28,13 @@ export const useMainHeaderProps = (enabled?: boolean): ((route: RouteProp<TRootS
           title: t('NAVIGATION.SHOP'),
         };
       case 'Camera':
+        // To prevent "jumping" of the screen, we show the header, but make him transparent and so invisible
         return {
-          headerShown: false,
+          headerStyle: {
+            backgroundColor: 'transparent',
+          },
+          headerTransparent: true,
+          title: ''
         };
       case 'Profile':
         return {
@@ -49,31 +54,33 @@ export const MainNavigator: FC = () => {
   const Tab = createBottomTabNavigator<TMainParamsList>();
   const insets = useSafeAreaInsets();
 
+  const screenOptions = useCallback<() => BottomTabNavigationOptions>(() => ({
+    headerShown: false,
+    tabBarActiveTintColor: theme.palette.secondary['500'],
+    tabBarBackground: () => <NavigationBar />,
+    tabBarInactiveTintColor: theme.palette.neutral['500'],
+    tabBarItemStyle: {
+      height: 40,
+    },
+    tabBarLabelStyle: {
+      fontSize: 12,
+      marginTop: 3,
+    },
+    tabBarStyle: {
+      backgroundColor: 'transparent',
+      borderTopWidth: 0,
+      elevation: 0,
+      height: 60 + insets.bottom,
+      padding: 10,
+      position: 'absolute',
+      shadowOpacity: 0.1, // only for iOS, on android, we draw a borderLine in NavigationBar.tsx
+    },
+  }), [insets.bottom]);
+
   return (
     <Tab.Navigator
       backBehavior="history"
-      screenOptions={() => ({
-        headerShown: false,
-        tabBarActiveTintColor: theme.palette.secondary['500'],
-        tabBarBackground: () => <NavigationBar />,
-        tabBarInactiveTintColor: theme.palette.neutral['500'],
-        tabBarItemStyle: {
-          height: 40,
-        },
-        tabBarLabelStyle: {
-          fontSize: 12,
-          marginTop: 3,
-        },
-        tabBarStyle: {
-          backgroundColor: 'transparent',
-          borderTopWidth: 0,
-          elevation: 0,
-          height: 60 + insets.bottom,
-          padding: 10,
-          position: 'absolute',
-          shadowOpacity: 0.1, // only for iOS, on android, we draw a borderLine in NavigationBar.tsx
-        },
-      })}
+      screenOptions={screenOptions}
     >
       <Tab.Screen
         component={Shop}
@@ -115,6 +122,6 @@ export const MainNavigator: FC = () => {
           title: t('NAVIGATION.PROFILE'),
         }}
       />
-    </Tab.Navigator>
+    </ Tab.Navigator>
   );
 };
