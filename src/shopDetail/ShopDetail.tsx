@@ -85,10 +85,10 @@ export const ShopDetail = ({ route }: TProps) => {
           {!!reward.moreInfoURL && <Styled.MoreInfoLink href={reward.moreInfoURL} />}
 
           <Section title={t('SHOP_DETAIL.LOCATION')}>
-            <Organizer id={firstOrganizer.id} key={firstOrganizer.id} />
+            <Organizer fallbackName={firstOrganizer.name} id={firstOrganizer.id} key={firstOrganizer.id} />
             {organizers.length > 0 && (
               <Accordion expandedTitle={t('SHOP_DETAIL.SHOW_LESS')} title={t('SHOP_DETAIL.SHOW_MORE')}>
-                {organizers.map((organizer) => <Organizer id={organizer.id} key={organizer.id} showTopBorder />)}
+                {organizers.map((organizer) => <Organizer fallbackName={organizer.name} id={organizer.id} key={organizer.id} showTopBorder />)}
               </Accordion>
             )}
           </Section>
