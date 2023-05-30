@@ -24,9 +24,11 @@ export function useGetRewards({
   organizerId,
   freeText,
   itemsPerPage = 20,
+  enabled = true,
   params: extraParams = {},
 }: {
   category?: TFilterRewardCategory;
+  enabled?: boolean;
   freeText?: string;
   itemsPerPage?: number;
   organizerId?: string[];
@@ -97,10 +99,8 @@ export function useGetRewards({
   }, [category, section, type, user, organizerId, freeText]);
 
   return api.getInfinite<TRewardsResponse>(['rewards', JSON.stringify(params), itemsPerPage], `/rewards`, {
+    enabled,
     itemsPerPage,
-    onError: (_error: TApiError) => {
-      // TODO: Handle error
-    },
     params: { ...params, ...extraParams },
   });
 }

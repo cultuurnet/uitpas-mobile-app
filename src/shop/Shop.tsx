@@ -2,12 +2,14 @@ import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { EnlargedHeader, SafeAreaView, Typography } from '../_components';
+import { EnlargedHeader, Reward, SafeAreaView, Typography } from '../_components';
 import { TMainNavigationProp } from '../_routing';
 import { useGetMe } from '../profile/_queries/useGetMe';
 import { CategoryFilters } from './_components/categoryFilters/CategoryFilters';
+import { RewardsSectionLoader } from './_components/rewardsSection/RewardSection.loading';
 import { RewardsSection, TRewardSectionProps } from './_components/rewardsSection/RewardsSection';
 import { WelcomeGiftsBanner } from './_components/welcomeGiftsBanner/WelcomeGiftsBanner';
+import { useGetRewards } from './_queries/useGetRewards';
 import * as Styled from './style';
 
 const SECTIONS: TRewardSectionProps[] = [
@@ -32,6 +34,9 @@ const Shop = ({ navigation }: TProps) => {
   const { top } = useSafeAreaInsets();
   const { t } = useTranslation();
   const { data: user } = useGetMe();
+
+  const { data: searchResults, isLoading: isSearchLoading } = useGetRewards({ enabled: search.length > 0, freeText: search });
+  const results = searchResults?.pages?.flatMap(({ member }) => member) ?? [];
 
   const onFocus = useCallback(() => {
     navigation.getParent().setOptions({ headerShown: false })
@@ -61,30 +66,43 @@ const Shop = ({ navigation }: TProps) => {
       </Styled.SearchContainer>
       {isSearchOpen ?
         <Styled.SearchResulstsContainer>
-          <Styled.PopularItem>
-            <Styled.PopularItemIcon name="Popular" size={20} />
-            <Typography color="primary.800">City</Typography>
-          </Styled.PopularItem>
-          <Styled.Separator />
-          <Styled.PopularItem onPress={() => setSearch('Zwembeurt')}>
-            <Styled.PopularItemIcon name="Popular" size={20} />
-            <Typography color="primary.800">Zwembeurt</Typography>
-          </Styled.PopularItem>
-          <Styled.Separator />
-          <Styled.PopularItem onPress={() => setSearch('Koffie')}>
-            <Styled.PopularItemIcon name="Popular" size={20} />
-            <Typography color="primary.800">Koffie</Typography>
-          </Styled.PopularItem>
-          <Styled.Separator />
-          <Styled.PopularItem onPress={() => setSearch('Boek')}>
-            <Styled.PopularItemIcon name="Popular" size={20} />
-            <Typography color="primary.800">Boek</Typography>
-          </Styled.PopularItem>
-          <Styled.Separator />
-          <Styled.PopularItem onPress={() => setSearch('Film')}>
-            <Styled.PopularItemIcon name="Popular" size={20} />
-            <Typography color="primary.800">Film</Typography>
-          </Styled.PopularItem>
+          {search.length > 0 ?
+            (isSearchLoading ? (
+              <RewardsSectionLoader />
+            ) : (
+              results.length > 0 ?
+                results.map(reward => <Reward key={reward.id} mode='list' reward={reward} />)
+                : <Typography>Geen resultaten gevonden</Typography>
+            ))
+            : (
+              <>
+                <Styled.PopularItem onPress={() => setSearch(user.address.city)}>
+                  <Styled.PopularItemIcon name="Popular" size={20} />
+                  <Typography color="primary.800">{user.address.city}</Typography>
+                </Styled.PopularItem>
+                <Styled.Separator />
+                <Styled.PopularItem onPress={() => setSearch('Zwembeurt')}>
+                  <Styled.PopularItemIcon name="Popular" size={20} />
+                  <Typography color="primary.800">Zwembeurt</Typography>
+                </Styled.PopularItem>
+                <Styled.Separator />
+                <Styled.PopularItem onPress={() => setSearch('Koffie')}>
+                  <Styled.PopularItemIcon name="Popular" size={20} />
+                  <Typography color="primary.800">Koffie</Typography>
+                </Styled.PopularItem>
+                <Styled.Separator />
+                <Styled.PopularItem onPress={() => setSearch('Boek')}>
+                  <Styled.PopularItemIcon name="Popular" size={20} />
+                  <Typography color="primary.800">Boek</Typography>
+                </Styled.PopularItem>
+                <Styled.Separator />
+                <Styled.PopularItem onPress={() => setSearch('Film')}>
+                  <Styled.PopularItemIcon name="Popular" size={20} />
+                  <Typography color="primary.800">Film</Typography>
+                </Styled.PopularItem>
+              </>
+            )
+          }
         </Styled.SearchResulstsContainer>
         :
         <>
