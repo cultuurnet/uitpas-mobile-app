@@ -50,6 +50,16 @@ const Shop = ({ navigation }: TProps) => {
 
   const stickyHeaderIndices = isSearchOpen ? [1] : [];
 
+
+  /* TODO: 
+   * - Move everything of search into a seperate component
+   * - Check if we can use a flashlist instead of scrollview
+   * - Check if performance is better when we put search into seperate screen instead of this screen with a boolean
+   * - Check styling on Android
+   * - Better loading indicator
+   * - Check search results, because lazy loading doesn't seem to work
+   * 
+   * */
   return (
     <SafeAreaView edges={['left', 'right']} isScrollable stickyHeaderIndices={stickyHeaderIndices}>
       <EnlargedHeader height={30} />

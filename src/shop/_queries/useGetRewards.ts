@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 
 import { usePubliqApi } from '../../_hooks/usePubliqApi';
-import { TApiError } from '../../_http';
 import { Params } from '../../_http/HttpClient';
 import { useGetMe } from '../../profile/_queries/useGetMe';
 import { TRewardCategory, TRewardsResponse, TRewardType } from '../_models/reward';
