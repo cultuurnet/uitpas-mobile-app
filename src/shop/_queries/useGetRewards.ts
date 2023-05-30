@@ -74,6 +74,7 @@ export function useGetRewards({
         // No extra params needed
         break;
       case 'stad voordelen':
+        delete params.owningCardSystemId;
         params.organizerPostalCode = user?.address?.postalCode;
         break;
       case 'sport':
