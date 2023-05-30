@@ -31,7 +31,7 @@ const Camera = ({ navigation }: TProps) => {
   const [isActive, setIsActive] = useState(true);
   const { back: device } = useCameraDevices();
   const { hasCameraPermission } = useCameraPermission();
-  const [overlayDimensions, setOverlayDimensions] = useState<[number, number]>([0, 0]);
+  const [overlayDimensions, setOverlayDimensions] = useState({ height: 0, width: 0 });
   const overlay = useOverlayDimensions(overlayDimensions, overlaySettings);
   const { mutateAsync, isLoading } = useCheckin();
   const frameProcessor = useFrameProcessor(
@@ -53,7 +53,8 @@ const Camera = ({ navigation }: TProps) => {
   );
 
   function handleLayoutChange({ nativeEvent: { layout } }: LayoutChangeEvent) {
-    setOverlayDimensions([layout.width, layout.height]);
+    const { width, height } = layout;
+    setOverlayDimensions({ height, width });
   }
 
   async function onBarCodeDetected(barcode: Barcode, frame: Frame) {
@@ -88,13 +89,13 @@ const Camera = ({ navigation }: TProps) => {
   return (
     <View onLayout={handleLayoutChange} style={StyleSheet.absoluteFill}>
       <FocusAwareStatusBar backgroundColor={theme.palette.neutral['900']} barStyle="light-content" translucent />
-      {overlayDimensions[0] !== 0 &&
+      {overlayDimensions.width !== 0 &&
         <VisionCamera
           device={device}
           frameProcessor={frameProcessor}
           frameProcessorFps={5}
           isActive={isActive}
-          style={{ height: overlayDimensions[1], width: overlayDimensions[0] }}
+          style={overlayDimensions}
         />
       }
 
