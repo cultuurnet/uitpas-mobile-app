@@ -44,10 +44,12 @@ export const RootStackNavigator = () => {
   }, [isAuthenticated, isPolicyApprovedInStorage]);
 
   return (
-    <RootStack.Navigator screenOptions={{
-      ...generalStyles.navigationHeader,
-      gestureEnabled: true
-    }}>
+    <RootStack.Navigator
+      screenOptions={{
+        ...generalStyles.navigationHeader,
+        gestureEnabled: true,
+      }}
+    >
       <RootStack.Group screenOptions={{ headerShown: false }}>
         {!isAuthenticated && !isPolicyApprovedInStorage && <RootStack.Screen component={Onboarding} name="Onboarding" />}
         {isAuthenticated && versions?.isBehindMinVersion && <RootStack.Screen component={UpdateScreen} name="Update" />}
@@ -55,9 +57,12 @@ export const RootStackNavigator = () => {
       </RootStack.Group>
       {isAuthenticated && (
         <>
-          <RootStack.Screen component={MainNavigator} name="MainNavigator" options={({ route }) => ({
-            ...getMainHeaderProps(route),
-          })}
+          <RootStack.Screen
+            component={MainNavigator}
+            name="MainNavigator"
+            options={({ route }) => ({
+              ...getMainHeaderProps(route),
+            })}
           />
           <RootStack.Group screenOptions={{ headerShown: false }}>
             <RootStack.Screen component={ProfileNotFound} name="ProfileNotFound" options={{ gestureEnabled: false }} />
@@ -106,7 +111,15 @@ export const RootStackNavigator = () => {
             name="RedeemedReward"
             options={({ navigation, route }) => ({
               headerBackTitle: '',
-              headerRight: props => route.params?.isModal ? <HeaderBackButton {...props} backImage={() => <Icon color="neutral.0" name="Close" size={14} />} onPress={() => navigation.popToTop()} /> : null,
+              headerRight: props =>
+                route.params?.isModal ? (
+                  <HeaderBackButton
+                    {...props}
+                    backImage={() => <Icon color="neutral.0" name="Close" size={14} />}
+                    onPress={() => navigation.pop()}
+                    style={{ marginRight: -10, padding: 10 }}
+                  />
+                ) : null,
               presentation: route.params?.isModal ? 'modal' : 'card',
               title: i18n.t('REDEEMED_REWARD.HEADER_TITLE'),
             })}
