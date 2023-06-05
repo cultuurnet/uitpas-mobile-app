@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useWindowDimensions, View } from 'react-native';
+import { useWindowDimensions } from 'react-native';
 import Barcode from 'react-native-barcode-svg';
 
 import { BrandLogo, Typography } from '../../_components';
@@ -24,17 +24,16 @@ const UitpasCard: FC<TProps> = ({ passHolder, isLarge }) => {
       <Styled.CardContainer>
         <Styled.ContentContainer screenWidth={width}>
           <Styled.UserInfoContainer>
-            <View>
+            <Styled.CardsView>
               <Typography color="neutral.0" fontStyle="bold">
                 {`${passHolder.firstName} ${passHolder.name}`}
               </Typography>
               <Typography color="neutral.0" size="small">
                 {isLarge
                   ? activeUitpasCards.map(card => card.cardSystem.name).join(', ')
-                  : `${firstActiveCard.cardSystem.name}${activeUitpasCards.length > 1 ? ', ...' : ''}`
-                }
+                  : `${firstActiveCard.cardSystem.name}${activeUitpasCards.length > 1 ? ', ...' : ''}`}
               </Typography>
-            </View>
+            </Styled.CardsView>
             <Styled.PointsView>
               <Typography color="neutral.0" fontStyle="bold" size="xlarge">
                 {passHolder.points}
@@ -48,8 +47,15 @@ const UitpasCard: FC<TProps> = ({ passHolder, isLarge }) => {
             <BrandLogo height={16} inverse />
           </Styled.LogoContainer>
           <Styled.BarcodeContainer isLarge={isLarge}>
-            <Barcode format="CODE128" height={isLarge ? 80 : 40} singleBarWidth={isLarge ? 2 : 1.4} value={firstActiveCard.uitpasNumber} />
-            <Typography size={isLarge ? 'normal' : 'small'} topSpacing={isLarge ? '8px' : ''}>{applyBarcodeMask(firstActiveCard.uitpasNumber)}</Typography>
+            <Barcode
+              format="CODE128"
+              height={isLarge ? 80 : 40}
+              singleBarWidth={isLarge ? 2 : 1.4}
+              value={firstActiveCard.uitpasNumber}
+            />
+            <Typography size={isLarge ? 'normal' : 'small'} topSpacing={isLarge ? '8px' : ''}>
+              {applyBarcodeMask(firstActiveCard.uitpasNumber)}
+            </Typography>
           </Styled.BarcodeContainer>
           <Styled.Triangle screenWidth={width} />
           <Styled.BottomCardView />
