@@ -91,7 +91,7 @@ export function useGetRewards({
     }
 
     if (freeText) {
-      params.text = freeText;
+      params.text = `${freeText}*`;
     }
 
     return params;

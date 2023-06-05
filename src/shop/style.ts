@@ -3,9 +3,9 @@ import styled from 'styled-components/native';
 import { Icon, TouchableRipple } from '../_components';
 import { theme } from '../_styles/theme';
 
-export const SearchContainer = styled.View<{ paddingTop: number }>`
+export const SearchContainer = styled.View<{ paddingTop?: number }>`
   background-color: ${theme.palette.secondary[500]};
-  padding: ${({ paddingTop }) =>
+  padding: ${({ paddingTop = 0 }) =>
     `${theme.common.defaultSpacing / 2 + paddingTop}px ${theme.common.defaultSpacing}px ${theme.common.defaultSpacing / 2}px`};
   position: relative;
 `;
@@ -23,6 +23,12 @@ export const SearchIcon = styled(Icon)`
   position: absolute;
   bottom: 23px;
   left: 30px;
+`;
+
+export const BackIcon = styled(Icon)`
+  position: absolute;
+  bottom: 10.5px;
+  left: 15px;
 `;
 
 export const SearchResulstsContainer = styled.View`
