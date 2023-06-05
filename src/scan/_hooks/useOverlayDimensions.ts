@@ -14,10 +14,10 @@ export type TOverlayDimensions = {
 };
 
 export function useOverlayDimensions(
-  screenDimensions: [number, number],
+  screenDimensions: { height: number; width: number },
   { padding, strokeWidth, cornerLength }: TOverlayDimensions,
 ) {
-  const [screenWidth, screenHeight] = screenDimensions;
+  const { width: screenWidth, height: screenHeight } = screenDimensions;
 
   return useMemo(() => {
     const sideLength = screenWidth - padding * 2;

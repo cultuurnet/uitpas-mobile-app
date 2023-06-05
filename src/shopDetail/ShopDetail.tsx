@@ -54,6 +54,31 @@ export const ShopDetail = ({ route }: TProps) => {
     );
   }, [redeemStatus?.message, redeemError?.endUserMessage, refetchRedeemStatus, t]);
 
+  const renderRedeemStatus = useCallback(() => {
+    /* 
+      When it's an online reward show either a redeembutton or the errormessage on why it's not redeemable
+      Also show a loading indicator when it's an online reward
+      When it's a physical reward, only show the errormessage on why it's not redeemable, no loader or no redeem button
+    */
+    if (reward?.online) {
+      return (
+        <Styled.RedeemContent>
+          {
+            redeemStatus?.redeemable || isRedeemStatusLoading ?
+              <Button label={t('SHOP_DETAIL.REDEEM.BUTTON')} loading={isRedeemStatusLoading} onPress={toggleRedeemModalConfirmationOpen} />
+              :
+              renderRedeemError()
+          }
+        </Styled.RedeemContent>
+      );
+    }
+    return ((!redeemStatus?.redeemable && !isRedeemStatusLoading) || redeemError) && (
+      <Styled.RedeemContent>
+        {renderRedeemError()}
+      </Styled.RedeemContent>
+    );
+  }, [isRedeemStatusLoading, redeemError, redeemStatus?.redeemable, reward?.online, t, toggleRedeemModalConfirmationOpen, renderRedeemError]);
+
   return (
     <>
       <ScrollView stickyHeaderIndices={stickyHeaderIndices}>
@@ -67,21 +92,7 @@ export const ShopDetail = ({ route }: TProps) => {
           <Typography color="primary.800">{firstOrganizer?.name}</Typography>
         </Styled.Content>
 
-        {/* 
-          When it's an online reward show either a redeembutton or the errormessage on why it's not redeemable
-          Also show a loading indicator when it's an online reward
-          When it's a physical reward, only show the errormessage on why it's not redeemable, no loader or no redeem button
-        */}
-        {reward?.online ?
-          <Styled.RedeemContent>
-            {redeemStatus?.redeemable || isRedeemStatusLoading ?
-              <Button label={t('SHOP_DETAIL.REDEEM.BUTTON')} loading={isRedeemStatusLoading} onPress={toggleRedeemModalConfirmationOpen} />
-              :
-              renderRedeemError()
-            }
-          </Styled.RedeemContent>
-          : ((!redeemStatus?.redeemable && !isRedeemStatusLoading) || redeemError) && <Styled.RedeemContent>{renderRedeemError()}</Styled.RedeemContent>
-        }
+        {renderRedeemStatus()}
 
         <Styled.Content>
           <Section title={t('SHOP_DETAIL.DESCRIPTION')}>

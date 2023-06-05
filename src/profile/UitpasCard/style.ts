@@ -17,8 +17,13 @@ export const UserInfoContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   margin: 15px;
+  z-index: 2;
 `;
 
+export const CardsView = styled.View`
+  display: flex;
+  flex: 1;
+`;
 export const CardContainer = styled.View`
   position: relative;
   margin: 25px 0px;
