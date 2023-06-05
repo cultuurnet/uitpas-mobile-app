@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { EnlargedHeader, Reward, SafeAreaView, Typography } from '../_components';
-import { TMainNavigationProp } from '../_routing';
+import { TRootStackNavigationProp } from '../_routing';
 import { useGetMe } from '../profile/_queries/useGetMe';
 import { RewardsSectionLoader } from './_components/rewardsSection/RewardSection.loading';
 import { useGetRewards } from './_queries/useGetRewards';
 import * as Styled from './style';
 
 type TProps = {
-  navigation: TMainNavigationProp<'Shop'>;
+  navigation: TRootStackNavigationProp<'Search'>;
 };
 
 export const Search = ({ navigation }: TProps) => {
