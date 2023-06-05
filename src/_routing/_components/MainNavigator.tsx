@@ -12,7 +12,6 @@ import { theme } from '../../_styles/theme';
 import { useGetMe } from '../../profile/_queries/useGetMe';
 import Profile from '../../profile/Profile';
 import Camera from '../../scan/camera/Camera';
-import { Search } from '../../shop/Search';
 import Shop from '../../shop/Shop';
 import { TMainParamsList, TRootStackParamList } from './TRootStackParamList';
 
