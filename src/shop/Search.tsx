@@ -50,7 +50,7 @@ export const Search = ({ navigation }: TProps) => {
       <Styled.SearchResulstsContainer>
         {search.length > 0 ? (
           isSearchLoading ? (
-            <RewardsSectionLoader />
+            <RewardsSectionLoader showHeader={false} />
           ) : results.length > 0 ? (
             rewards
           ) : (
