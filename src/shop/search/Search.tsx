@@ -10,6 +10,17 @@ import { RewardsSectionLoader } from '../_components/rewardsSection/RewardSectio
 import { useGetRewards } from '../_queries/useGetRewards';
 import * as Styled from './style';
 
+type SearchTerm = {
+  keyword: string;
+  label: string;
+};
+const SEARCH_TERMS: SearchTerm[] = [
+  { keyword: 'Zwembeurt', label: 'SHOP.SEARCH.SEARCH_TERMS.SWIMMING' },
+  { keyword: 'Koffie', label: 'SHOP.SEARCH.SEARCH_TERMS.COFFEE' },
+  { keyword: 'Boek', label: 'SHOP.SEARCH.SEARCH_TERMS.BOOK' },
+  { keyword: 'Film', label: 'SHOP.SEARCH.SEARCH_TERMS.MOVIE' },
+];
+
 type TProps = {
   navigation: TRootStackNavigationProp<'Search'>;
 };
@@ -62,25 +73,15 @@ export const Search = ({ navigation }: TProps) => {
               <Typography color="primary.800">{user.address.city}</Typography>
             </Styled.PopularItem>
             <Styled.Separator />
-            <Styled.PopularItem onPress={() => setSearch('Zwembeurt')}>
-              <Styled.PopularItemIcon name="Popular" size={20} />
-              <Typography color="primary.800">{t('SHOP.SEARCH.SEARCH_TERMS.SWIMMING')}</Typography>
-            </Styled.PopularItem>
-            <Styled.Separator />
-            <Styled.PopularItem onPress={() => setSearch('Koffie')}>
-              <Styled.PopularItemIcon name="Popular" size={20} />
-              <Typography color="primary.800">{t('SHOP.SEARCH.SEARCH_TERMS.COFFEE')}</Typography>
-            </Styled.PopularItem>
-            <Styled.Separator />
-            <Styled.PopularItem onPress={() => setSearch('Boek')}>
-              <Styled.PopularItemIcon name="Popular" size={20} />
-              <Typography color="primary.800">{t('SHOP.SEARCH.SEARCH_TERMS.BOOK')}</Typography>
-            </Styled.PopularItem>
-            <Styled.Separator />
-            <Styled.PopularItem onPress={() => setSearch('Film')}>
-              <Styled.PopularItemIcon name="Popular" size={20} />
-              <Typography color="primary.800">{t('SHOP.SEARCH.SEARCH_TERMS.MOVIE')}</Typography>
-            </Styled.PopularItem>
+            {SEARCH_TERMS.map(({ keyword, label }) => (
+              <>
+                <Styled.PopularItem key={keyword} onPress={() => setSearch(keyword)}>
+                  <Styled.PopularItemIcon name="Popular" size={20} />
+                  <Typography color="primary.800">{t(label)}</Typography>
+                </Styled.PopularItem>
+                <Styled.Separator />
+              </>
+            ))}
           </>
         )}
       </Styled.SearchResulstsContainer>
