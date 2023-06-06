@@ -1,12 +1,13 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { FlashList } from '@shopify/flash-list';
 
-import { EnlargedHeader, Reward, SafeAreaView, Typography } from '../_components';
-import { TRootStackNavigationProp } from '../_routing';
-import { useGetMe } from '../profile/_queries/useGetMe';
-import { RewardsSectionLoader } from './_components/rewardsSection/RewardSection.loading';
-import { useGetRewards } from './_queries/useGetRewards';
+import { EnlargedHeader, Reward, SafeAreaView, Typography } from '../../_components';
+import { TRootStackNavigationProp } from '../../_routing';
+import { useGetMe } from '../../profile/_queries/useGetMe';
+import { RewardsSectionLoader } from '../_components/rewardsSection/RewardSection.loading';
+import { useGetRewards } from '../_queries/useGetRewards';
 import * as Styled from './style';
 
 type TProps = {
@@ -27,18 +28,11 @@ export const Search = ({ navigation }: TProps) => {
     navigation.pop();
   }, [navigation]);
 
-  const rewards = useMemo(() => results.map(reward => <Reward key={reward.id} mode="list" reward={reward} />), [results]);
   const backIcon = useMemo(
     () => <Styled.BackIcon color="primary.700" name="ChevronLeft" onPress={onClose} size={22} />,
     [onClose],
   );
 
-  /* TODO:
-   * - Check if we can use a flashlist instead of scrollview
-   * - Check styling on Android
-   * - Better loading indicator
-   *
-   * */
   return (
     <SafeAreaView edges={['left', 'right']} isScrollable stickyHeaderIndices={[1]}>
       <EnlargedHeader height={30} />
@@ -51,10 +45,15 @@ export const Search = ({ navigation }: TProps) => {
         {search.length > 0 ? (
           isSearchLoading ? (
             <RewardsSectionLoader showHeader={false} />
-          ) : results.length > 0 ? (
-            rewards
           ) : (
-            <Typography>Geen resultaten gevonden</Typography>
+            <FlashList
+              ItemSeparatorComponent={() => <Styled.RewardSeparator />}
+              ListEmptyComponent={<Styled.NoContentText align="center">{t('SHOP.NO_RESULTS')}</Styled.NoContentText>}
+              data={results}
+              estimatedItemSize={117}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => <Reward mode="list" reward={item} />}
+            />
           )
         ) : (
           <>
@@ -65,22 +64,22 @@ export const Search = ({ navigation }: TProps) => {
             <Styled.Separator />
             <Styled.PopularItem onPress={() => setSearch('Zwembeurt')}>
               <Styled.PopularItemIcon name="Popular" size={20} />
-              <Typography color="primary.800">Zwembeurt</Typography>
+              <Typography color="primary.800">{t('SHOP.SEARCH.SEARCH_TERMS.SWIMMING')}</Typography>
             </Styled.PopularItem>
             <Styled.Separator />
             <Styled.PopularItem onPress={() => setSearch('Koffie')}>
               <Styled.PopularItemIcon name="Popular" size={20} />
-              <Typography color="primary.800">Koffie</Typography>
+              <Typography color="primary.800">{t('SHOP.SEARCH.SEARCH_TERMS.COFFEE')}</Typography>
             </Styled.PopularItem>
             <Styled.Separator />
             <Styled.PopularItem onPress={() => setSearch('Boek')}>
               <Styled.PopularItemIcon name="Popular" size={20} />
-              <Typography color="primary.800">Boek</Typography>
+              <Typography color="primary.800">{t('SHOP.SEARCH.SEARCH_TERMS.BOOK')}</Typography>
             </Styled.PopularItem>
             <Styled.Separator />
             <Styled.PopularItem onPress={() => setSearch('Film')}>
               <Styled.PopularItemIcon name="Popular" size={20} />
-              <Typography color="primary.800">Film</Typography>
+              <Typography color="primary.800">{t('SHOP.SEARCH.SEARCH_TERMS.MOVIE')}</Typography>
             </Styled.PopularItem>
           </>
         )}

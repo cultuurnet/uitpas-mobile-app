@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -18,13 +18,22 @@ export type TRewardSectionProps = {
   horizontal?: boolean;
   organizerId?: string[];
   title: string; // id of a reward that should be filtered out
-}
-export const RewardsSection = ({ horizontal, filter, title, filterRewardId, hideMoreButton, category, organizerId, ...props }: TRewardSectionProps) => {
+};
+export const RewardsSection = ({
+  horizontal,
+  filter,
+  title,
+  filterRewardId,
+  hideMoreButton,
+  category,
+  organizerId,
+  ...props
+}: TRewardSectionProps) => {
   const { data, isLoading } = useGetRewards({ category, itemsPerPage: horizontal ? 20 : 3, organizerId, section: filter });
   const { t } = useTranslation();
   const { navigate } = useNavigation<TMainNavigationProp>();
   // Filter when there are rewards that shouldn't be shown (eg, when we show related rewards at the bottom a reward detail)
-  const rewards = data?.pages[0]?.member?.filter?.((reward) => reward.id !== filterRewardId);
+  const rewards = data?.pages[0]?.member?.filter?.(reward => reward.id !== filterRewardId);
 
   const onPressMore = useCallback(() => {
     navigate('FilteredShop', { category, filter, subtitle: title });
@@ -38,34 +47,43 @@ export const RewardsSection = ({ horizontal, filter, title, filterRewardId, hide
   return (
     <Styled.Container {...props}>
       <Styled.Header>
-        <Styled.SectionTile fontStyle='bold' size='large'>{title}</Styled.SectionTile>
-        {!hideMoreButton &&
+        <Styled.SectionTile fontStyle="bold" size="large">
+          {title}
+        </Styled.SectionTile>
+        {!hideMoreButton && (
           <Styled.ShowMoreButton activeOpacity={0.8} onPress={onPressMore}>
-            <Typography color="primary.800" fontStyle='bold' size="small">{t('SHOP.SHOW_MORE')} </Typography><Icon color="primary.800" name="ArrowRight" />
+            <Typography color="primary.800" fontStyle="bold" size="small">
+              {t('SHOP.SHOW_MORE')}{' '}
+            </Typography>
+            <Icon color="primary.800" name="ArrowRight" />
           </Styled.ShowMoreButton>
-        }
+        )}
       </Styled.Header>
 
-      {horizontal ? <>
-        <FlatList
-          contentContainerStyle={Styled.ContentContainerStyle}
-          data={rewards}
-          decelerationRate='fast'
-          horizontal
-          keyExtractor={item => item.id}
-          renderItem={({ item: reward }) => <Styled.RewardTile mode="tile" reward={reward} />}
-          showsHorizontalScrollIndicator={false}
-          snapToAlignment='start'
-          snapToInterval={REWARD_TILE_WIDTH + Styled.RewardTileMargin}
-        />
-      </> : <>
-        {rewards?.map((reward) => (
-          <React.Fragment key={reward.id}>
-            <Reward key={reward.id} mode="list" reward={reward} />
-            <Styled.Separator />
-          </React.Fragment>
-        ))}
-      </>}
+      {horizontal ? (
+        <>
+          <FlatList
+            contentContainerStyle={Styled.ContentContainerStyle}
+            data={rewards}
+            decelerationRate="fast"
+            horizontal
+            keyExtractor={item => item.id}
+            renderItem={({ item: reward }) => <Styled.RewardTile mode="tile" reward={reward} />}
+            showsHorizontalScrollIndicator={false}
+            snapToAlignment="start"
+            snapToInterval={REWARD_TILE_WIDTH + Styled.RewardTileMargin}
+          />
+        </>
+      ) : (
+        <>
+          {rewards?.map(reward => (
+            <React.Fragment key={reward.id}>
+              <Reward key={reward.id} mode="list" reward={reward} />
+              <Styled.Separator />
+            </React.Fragment>
+          ))}
+        </>
+      )}
     </Styled.Container>
-  )
-}
+  );
+};

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useWindowDimensions } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
@@ -10,7 +10,11 @@ import { theme } from '../../../_styles/theme';
 import { TFilterRewardCategory, TFilterRewardSections } from '../../_queries/useGetRewards';
 import * as Styled from './style';
 
-type TCategoryListItem = { icon: TIconName; label: string; params: { category?: TFilterRewardCategory, filter?: TFilterRewardSections } };
+type TCategoryListItem = {
+  icon: TIconName;
+  label: string;
+  params: { category?: TFilterRewardCategory; filter?: TFilterRewardSections };
+};
 const CATEGORIES: TCategoryListItem[] = [
   { icon: 'Sport', label: 'SHOP.SECTIONS.SPORT', params: { filter: 'sport' } },
   { icon: 'Activity', label: 'SHOP.SECTIONS.DO', params: { category: 'Doen' } },
@@ -29,24 +33,26 @@ export const CategoryFilters = () => {
   const [isAtbegin, toggleIsAtBegin] = useState(true);
   const { navigate } = useStackNavigation<TRootStackParamList>();
 
-  const onPress = useCallback((params: TCategoryListItem['params'], label: string) => {
-    navigate('FilteredShop', { ...params, subtitle: t(label) });
-  }, [navigate, t]);
-
-
+  const onPress = useCallback(
+    (params: TCategoryListItem['params'], label: string) => {
+      navigate('FilteredShop', { ...params, subtitle: t(label) });
+    },
+    [navigate, t],
+  );
 
   return (
     <Styled.Container>
       <FlashList
         contentContainerStyle={{ paddingHorizontal: theme.common.defaultSpacing }}
         data={CATEGORIES}
+        estimatedItemSize={147}
         horizontal
         keyExtractor={item => item.icon}
         onScroll={({
           nativeEvent: {
             contentOffset: { x },
-            contentSize: { width }
-          }
+            contentSize: { width },
+          },
         }) => {
           if (width - deviceWidth - HIDE_SHADOW_OFFSET > x) {
             // We are not at the end, so set the boolean to false
@@ -56,12 +62,14 @@ export const CategoryFilters = () => {
           }
 
           if (HIDE_SHADOW_OFFSET < x) {
-            toggleIsAtBegin(false)
+            toggleIsAtBegin(false);
           } else {
-            toggleIsAtBegin(true)
+            toggleIsAtBegin(true);
           }
         }}
-        renderItem={({ item }) => <Styled.Button icon={item.icon} label={t(item.label)} onPress={() => onPress(item.params, item.label)} />}
+        renderItem={({ item }) => (
+          <Styled.Button icon={item.icon} label={t(item.label)} onPress={() => onPress(item.params, item.label)} />
+        )}
         scrollEventThrottle={16}
         showsHorizontalScrollIndicator={false}
       />
@@ -69,16 +77,16 @@ export const CategoryFilters = () => {
         accessible={false}
         colors={[`${theme.palette.neutral[100]}00`, `${theme.palette.neutral[100]}${isAtbegin ? '00' : ''}`]}
         end={{ x: 0, y: 0 }}
-        pointerEvents='none'
+        pointerEvents="none"
         start={{ x: 1, y: 0 }}
       />
       <Styled.GradientRight
         accessible={false}
         colors={[`${theme.palette.neutral[100]}00`, `${theme.palette.neutral[100]}${isAtEnd ? '00' : ''}`]}
         end={{ x: 1, y: 0 }}
-        pointerEvents='none'
+        pointerEvents="none"
         start={{ x: 0, y: 0 }}
       />
     </Styled.Container>
-  )
-}
+  );
+};

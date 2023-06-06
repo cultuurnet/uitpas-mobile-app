@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { Icon, TouchableRipple } from '../_components';
+import { Icon, TouchableRipple, Typography } from '../_components';
 import { theme } from '../_styles/theme';
 
 export const SearchContainer = styled.View<{ paddingTop?: number }>`
@@ -23,35 +23,4 @@ export const SearchIcon = styled(Icon)`
   position: absolute;
   bottom: 23px;
   left: 30px;
-`;
-
-export const BackIcon = styled(Icon)`
-  position: absolute;
-  bottom: 10.5px;
-  left: 15px;
-`;
-
-export const SearchResulstsContainer = styled.View`
-  flex: 1;
-  flex-grow: 1;
-  background-color: ${theme.palette.neutral[100]};
-`;
-
-export const PopularItem = styled(TouchableRipple)`
-  padding: 12px;
-  padding-left: 16px;
-  flex-direction: row;
-  align-items: center;
-`;
-
-export const PopularItemIcon = styled(Icon)`
-  margin-left: 4px;
-  margin-right: 10px;
-`;
-
-export const Separator = styled.View`
-  height: 1px;
-  width: 100%;
-  margin-left: 16px;
-  background-color: ${theme.palette.neutral[200]};
 `;
