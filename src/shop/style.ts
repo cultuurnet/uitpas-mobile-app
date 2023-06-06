@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { Icon, TouchableRipple, Typography } from '../_components';
+import { Icon } from '../_components';
 import { theme } from '../_styles/theme';
 
 export const SearchContainer = styled.View<{ paddingTop?: number }>`
