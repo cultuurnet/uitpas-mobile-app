@@ -19,6 +19,7 @@ import ProfileNotFound from '../../profile/ProfileNotFound';
 import RedeemedReward from '../../redeemedReward/RedeemedReward';
 import { RedeemedRewards } from '../../redeemedRewards/RedeemedRewards';
 import ScanSuccess from '../../scan/ScanSuccess';
+import { Search } from '../../shop/search/Search';
 import { ShopDetail } from '../../shopDetail/ShopDetail';
 import { storage } from '../../storage';
 import { useGetVersions } from '../../update/_queries/useGetVersions';
@@ -68,6 +69,7 @@ export const RootStackNavigator = () => {
             <RootStack.Screen component={ProfileNotFound} name="ProfileNotFound" options={{ gestureEnabled: false }} />
             <RootStack.Screen component={ScanSuccess} name="ScanSuccess" options={{ gestureEnabled: false }} />
             <RootStack.Screen component={Error} name="Error" options={{ gestureEnabled: false }} />
+            <RootStack.Screen component={Search} name="Search" />
           </RootStack.Group>
 
           <RootStack.Screen

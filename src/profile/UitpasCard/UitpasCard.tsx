@@ -16,7 +16,7 @@ type TProps = {
 const UitpasCard: FC<TProps> = ({ passHolder, isLarge }) => {
   const { width } = useWindowDimensions();
 
-  const activeUitpasCards = passHolder.cardSystemMemberships.filter(card => card.status === 'ACTIVE' && card.uitpasNumber);
+  const activeUitpasCards = passHolder.cardSystemMemberships.filter(card => card.status === 'ACTIVE');
   const [firstActiveCard] = activeUitpasCards;
 
   return (
@@ -47,15 +47,19 @@ const UitpasCard: FC<TProps> = ({ passHolder, isLarge }) => {
             <BrandLogo height={16} inverse />
           </Styled.LogoContainer>
           <Styled.BarcodeContainer isLarge={isLarge}>
-            <Barcode
-              format="CODE128"
-              height={isLarge ? 80 : 40}
-              singleBarWidth={isLarge ? 2 : 1.4}
-              value={firstActiveCard.uitpasNumber}
-            />
-            <Typography size={isLarge ? 'normal' : 'small'} topSpacing={isLarge ? '8px' : ''}>
-              {applyBarcodeMask(firstActiveCard.uitpasNumber)}
-            </Typography>
+            {firstActiveCard.uitpasNumber && (
+              <>
+                <Barcode
+                  format="CODE128"
+                  height={isLarge ? 80 : 40}
+                  singleBarWidth={isLarge ? 2 : 1.4}
+                  value={firstActiveCard.uitpasNumber || ''}
+                />
+                <Typography size={isLarge ? 'normal' : 'small'} topSpacing={isLarge ? '8px' : ''}>
+                  {applyBarcodeMask(firstActiveCard.uitpasNumber)}
+                </Typography>
+              </>
+            )}
           </Styled.BarcodeContainer>
           <Styled.Triangle screenWidth={width} />
           <Styled.BottomCardView />

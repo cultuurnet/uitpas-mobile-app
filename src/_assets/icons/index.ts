@@ -24,6 +24,7 @@ export const Logout = require('./logout.png');
 export const Online = require('./online.png');
 export const Point = require('./point.png');
 export const PointAdd = require('./pointAdd.png');
+export const Popular = require('./popular.png');
 export const Profile = require('./profile.png');
 export const ProfileCircled = require('./profileCircled.png');
 export const ProfileFilled = require('./profileFilled.png');

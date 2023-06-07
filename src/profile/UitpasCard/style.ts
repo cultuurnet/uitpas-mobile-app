@@ -44,6 +44,7 @@ export const PointsView = styled.View`
 `;
 
 export const BarcodeContainer = styled.View<{ isLarge: boolean }>`
+  min-height: 75px;
   align-items: center;
   padding: ${({ isLarge }) => (isLarge ? '24px 0' : '8px 0')};
   background-color: ${({ theme }) => theme.palette.neutral['0']};
