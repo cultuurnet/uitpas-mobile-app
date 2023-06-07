@@ -45,6 +45,7 @@ export type TRootStackParamList = {
   RedeemedReward: { isModal?: boolean; redeemedReward: TRedeemedReward };
   RedeemedRewards: undefined;
   ScanSuccess: TCheckInResponse;
+  Search: undefined;
   ShopDetail: { id: string; reward?: TReward };
   Update: undefined;
 };

@@ -6,14 +6,28 @@ import { ThemeColor } from '../../_styles/theme';
 import FocusAwareStatusBar from '../statusBar/FocusAwareStatusBar';
 import * as Styled from './style';
 
-export type TSafeAreaViewProps = { backgroundColor?: ThemeColor; barStyle?: StatusBarStyle, isScrollable?: boolean } & RNSafeAreaViewProps;
+export type TSafeAreaViewProps = {
+  backgroundColor?: ThemeColor;
+  barStyle?: StatusBarStyle;
+  isScrollable?: boolean;
+  stickyHeaderIndices?: number[];
+} & RNSafeAreaViewProps;
 
-const SafeAreaView: FC<TSafeAreaViewProps> = ({ children, backgroundColor = 'neutral.100', isScrollable = true, barStyle = 'light-content', ...props }) => {
+const SafeAreaView: FC<TSafeAreaViewProps> = ({
+  children,
+  backgroundColor = 'neutral.100',
+  stickyHeaderIndices,
+  isScrollable = true,
+  barStyle = 'light-content',
+  ...props
+}) => {
   if (isScrollable) {
     return (
       <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} isScrollable={isScrollable} {...props}>
         <FocusAwareStatusBar barStyle={barStyle} />
-        <ScrollView contentContainerStyle={{ paddingBottom: 95 }}>{children}</ScrollView>
+        <ScrollView contentContainerStyle={{ paddingBottom: 95 }} stickyHeaderIndices={stickyHeaderIndices}>
+          {children}
+        </ScrollView>
       </Styled.SafeAreaViewContainer>
     );
   } else {

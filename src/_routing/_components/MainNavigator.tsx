@@ -15,7 +15,9 @@ import Camera from '../../scan/camera/Camera';
 import Shop from '../../shop/Shop';
 import { TMainParamsList, TRootStackParamList } from './TRootStackParamList';
 
-export const useMainHeaderProps = (enabled?: boolean): ((route: RouteProp<TRootStackParamList, "MainNavigator">) => NativeStackNavigationOptions) => {
+export const useMainHeaderProps = (
+  enabled?: boolean,
+): ((route: RouteProp<TRootStackParamList, 'MainNavigator'>) => NativeStackNavigationOptions) => {
   const { data: passHolder } = useGetMe(enabled);
 
   return route => {
@@ -34,54 +36,56 @@ export const useMainHeaderProps = (enabled?: boolean): ((route: RouteProp<TRootS
             backgroundColor: 'transparent',
           },
           headerTransparent: true,
-          title: ''
+          title: '',
         };
       case 'Profile':
         return {
           headerTitleAlign: 'left',
           headerTitleStyle: {
             fontFamily: 'Poppins-SemiBold',
-            fontSize: 20
+            fontSize: 20,
           },
           title: t('PROFILE.HELLO', { name: passHolder?.firstName }),
         };
-      default: return {};
+      default:
+        return {};
     }
   };
-}
+};
 
 export const MainNavigator: FC = () => {
   const Tab = createBottomTabNavigator<TMainParamsList>();
   const insets = useSafeAreaInsets();
 
-  const screenOptions = useCallback<() => BottomTabNavigationOptions>(() => ({
-    headerShown: false,
-    tabBarActiveTintColor: theme.palette.secondary['500'],
-    tabBarBackground: () => <NavigationBar />,
-    tabBarInactiveTintColor: theme.palette.neutral['500'],
-    tabBarItemStyle: {
-      height: 40,
-    },
-    tabBarLabelStyle: {
-      fontSize: 12,
-      marginTop: 3,
-    },
-    tabBarStyle: {
-      backgroundColor: 'transparent',
-      borderTopWidth: 0,
-      elevation: 0,
-      height: 60 + insets.bottom,
-      padding: 10,
-      position: 'absolute',
-      shadowOpacity: 0.1, // only for iOS, on android, we draw a borderLine in NavigationBar.tsx
-    },
-  }), [insets.bottom]);
+  const screenOptions = useCallback<() => BottomTabNavigationOptions>(
+    () => ({
+      headerShown: false,
+      tabBarActiveTintColor: theme.palette.secondary['500'],
+      tabBarBackground: () => <NavigationBar />,
+      tabBarHideOnKeyboard: true,
+      tabBarInactiveTintColor: theme.palette.neutral['500'],
+      tabBarItemStyle: {
+        height: 40,
+      },
+      tabBarLabelStyle: {
+        fontSize: 12,
+        marginTop: 3,
+      },
+      tabBarStyle: {
+        backgroundColor: 'transparent',
+        borderTopWidth: 0,
+        elevation: 0,
+        height: 60 + insets.bottom,
+        padding: 10,
+        position: 'absolute',
+        shadowOpacity: 0.1, // only for iOS, on android, we draw a borderLine in NavigationBar.tsx
+      },
+    }),
+    [insets.bottom],
+  );
 
   return (
-    <Tab.Navigator
-      backBehavior="history"
-      screenOptions={screenOptions}
-    >
+    <Tab.Navigator backBehavior="history" screenOptions={screenOptions}>
       <Tab.Screen
         component={Shop}
         name="Shop"
@@ -122,6 +126,6 @@ export const MainNavigator: FC = () => {
           title: t('NAVIGATION.PROFILE'),
         }}
       />
-    </ Tab.Navigator>
+    </Tab.Navigator>
   );
 };

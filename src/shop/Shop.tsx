@@ -1,11 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { SafeAreaView } from '../_components';
+import { EnlargedHeader, SafeAreaView } from '../_components';
+import { TMainNavigationProp } from '../_routing';
 import { useGetMe } from '../profile/_queries/useGetMe';
 import { CategoryFilters } from './_components/categoryFilters/CategoryFilters';
 import { RewardsSection, TRewardSectionProps } from './_components/rewardsSection/RewardsSection';
 import { WelcomeGiftsBanner } from './_components/welcomeGiftsBanner/WelcomeGiftsBanner';
+import * as Styled from './style';
 
 const SECTIONS: TRewardSectionProps[] = [
   { filter: 'online', horizontal: true, title: 'SHOP.SECTIONS.ONLINE' },
@@ -17,20 +19,41 @@ const SECTIONS: TRewardSectionProps[] = [
   { filter: 'populair', title: 'SHOP.SECTIONS.POPULAR' },
   { filter: 'sport', horizontal: true, title: 'SHOP.SECTIONS.SPORTIVE' },
   { category: 'Goede doel', title: 'SHOP.SECTIONS.CHARITY' },
-]
+];
 
-const Shop = () => {
+type TProps = {
+  navigation: TMainNavigationProp<'Shop'>;
+};
+
+const Shop = ({ navigation }: TProps) => {
   const { t } = useTranslation();
   const { data: user } = useGetMe();
 
   return (
     <SafeAreaView edges={['left', 'right']} isScrollable>
-      <WelcomeGiftsBanner />
-      <CategoryFilters />
-
-      {SECTIONS.map(({ filter, category, title, horizontal }) => (
-        <RewardsSection category={category} filter={filter} horizontal={horizontal} key={title} title={t(title, { city: user?.address?.city || t('SHOP.SECTIONS.CITY_FALLBACK') })} />
-      ))}
+      <EnlargedHeader height={30} />
+      <Styled.SearchContainer>
+        <Styled.SearchInput
+          editable={false}
+          onPressIn={() => navigation.push('Search')}
+          placeholder={t('SHOP.SEARCH.PLACEHOLDER')}
+          value=""
+        />
+        <Styled.SearchIcon color="primary.700" name="Search" size={18} />
+      </Styled.SearchContainer>
+      <>
+        <WelcomeGiftsBanner />
+        <CategoryFilters />
+        {SECTIONS.map(({ filter, category, title, horizontal }) => (
+          <RewardsSection
+            category={category}
+            filter={filter}
+            horizontal={horizontal}
+            key={title}
+            title={t(title, { city: user?.address?.city || t('SHOP.SECTIONS.CITY_FALLBACK') })}
+          />
+        ))}
+      </>
     </SafeAreaView>
   );
 };

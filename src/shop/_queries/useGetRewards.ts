@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 
 import { usePubliqApi } from '../../_hooks/usePubliqApi';
-import { TApiError } from '../../_http';
 import { Params } from '../../_http/HttpClient';
 import { useGetMe } from '../../profile/_queries/useGetMe';
 import { TRewardCategory, TRewardsResponse, TRewardType } from '../_models/reward';
@@ -22,10 +21,14 @@ export function useGetRewards({
   type = 'POINTS',
   section,
   organizerId,
+  freeText,
   itemsPerPage = 20,
+  enabled = true,
   params: extraParams = {},
 }: {
   category?: TFilterRewardCategory;
+  enabled?: boolean;
+  freeText?: string;
   itemsPerPage?: number;
   organizerId?: string[];
   params?: Params;
@@ -86,14 +89,17 @@ export function useGetRewards({
         params.isRedeemableByPassholderId = user?.id;
         break;
     }
+
+    if (freeText) {
+      params.text = `${freeText}*`;
+    }
+
     return params;
-  }, [category, section, type, user, organizerId]);
+  }, [category, section, type, user, organizerId, freeText]);
 
   return api.getInfinite<TRewardsResponse>(['rewards', JSON.stringify(params), itemsPerPage], `/rewards`, {
+    enabled,
     itemsPerPage,
-    onError: (_error: TApiError) => {
-      // TODO: Handle error
-    },
     params: { ...params, ...extraParams },
   });
 }
