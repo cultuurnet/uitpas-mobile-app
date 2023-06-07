@@ -33,12 +33,9 @@ const Shop = ({ navigation }: TProps) => {
     <SafeAreaView edges={['left', 'right']} isScrollable>
       <EnlargedHeader height={30} />
       <Styled.SearchContainer>
-        <Styled.SearchInput
-          editable={false}
-          onPressIn={() => navigation.push('Search')}
-          placeholder={t('SHOP.SEARCH.PLACEHOLDER')}
-          value=""
-        />
+        <Styled.SearchButton onPress={() => navigation.push('Search')}>
+          <Styled.SearchInput editable={false} placeholder={t('SHOP.SEARCH.PLACEHOLDER')} pointerEvents="none" />
+        </Styled.SearchButton>
         <Styled.SearchIcon color="primary.700" name="Search" size={18} />
       </Styled.SearchContainer>
       <>

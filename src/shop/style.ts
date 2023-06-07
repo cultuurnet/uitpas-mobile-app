@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { Icon } from '../_components';
+import { Icon, TouchableRipple } from '../_components';
 import { theme } from '../_styles/theme';
 
 export const SearchContainer = styled.View<{ paddingTop?: number }>`
@@ -8,6 +8,10 @@ export const SearchContainer = styled.View<{ paddingTop?: number }>`
   padding: ${({ paddingTop = 0 }) =>
     `${theme.common.defaultSpacing / 2 + paddingTop}px ${theme.common.defaultSpacing}px ${theme.common.defaultSpacing / 2}px`};
   position: relative;
+`;
+
+export const SearchButton = styled(TouchableRipple)`
+  border-radius: 16px;
 `;
 
 export const SearchInput = styled.TextInput`
