@@ -34,13 +34,7 @@ const Shop = ({ navigation }: TProps) => {
       <EnlargedHeader height={30} />
       <Styled.SearchContainer>
         <Styled.SearchButton onPress={() => navigation.push('Search')}>
-          <Styled.SearchInput
-            editable={false}
-            onPressIn={() => navigation.push('Search')}
-            placeholder={t('SHOP.SEARCH.PLACEHOLDER')}
-            pointerEvents="none"
-            value=""
-          />
+          <Styled.SearchInput editable={false} placeholder={t('SHOP.SEARCH.PLACEHOLDER')} pointerEvents="none" />
         </Styled.SearchButton>
         <Styled.SearchIcon color="primary.700" name="Search" size={18} />
       </Styled.SearchContainer>
