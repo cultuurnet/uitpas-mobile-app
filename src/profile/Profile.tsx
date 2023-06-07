@@ -22,7 +22,7 @@ import UpdateNotification from './UpdateNotification/UpdateNotification';
 
 type TProps = {
   navigation: TMainNavigationProp<'Profile'>;
-}
+};
 const Profile = ({ navigation }: TProps) => {
   const [logOutModalVisible, toggleLogOutModalVisible] = useToggle(false);
   const { data: passHolder, isLoading: isPassHolderLoading } = useGetMe();
@@ -32,23 +32,26 @@ const Profile = ({ navigation }: TProps) => {
 
   const versions = useGetVersions();
 
-  const rewardSectionLinks = useMemo<TLinkListItem[]>(() => ([
-    {
-      iconName: 'Gift',
-      label: i18n.t('PROFILE.LINKS.BENEFITS'),
-      onPress: () => navigation.navigate('FilteredShop', { filter: 'welkom', subtitle: t('PROFILE.WELCOME_GIFTS_TITLE') }),
-    },
-    {
-      iconName: 'CircledCheck',
-      label: i18n.t('PROFILE.LINKS.REDEEMED_REWARDS'),
-      onPress: () => navigation.navigate('RedeemedRewards'),
-    },
-    {
-      iconName: 'History',
-      label: i18n.t('PROFILE.LINKS.HISTORY'),
-      onPress: () => navigation.navigate('History'),
-    }
-  ]), [t, navigation]);
+  const rewardSectionLinks = useMemo<TLinkListItem[]>(
+    () => [
+      {
+        iconName: 'Gift',
+        label: i18n.t('PROFILE.LINKS.BENEFITS'),
+        onPress: () => navigation.navigate('FilteredShop', { filter: 'welkom', subtitle: t('PROFILE.WELCOME_GIFTS_TITLE') }),
+      },
+      {
+        iconName: 'CircledCheck',
+        label: i18n.t('PROFILE.LINKS.REDEEMED_REWARDS'),
+        onPress: () => navigation.navigate('RedeemedRewards'),
+      },
+      {
+        iconName: 'History',
+        label: i18n.t('PROFILE.LINKS.HISTORY'),
+        onPress: () => navigation.navigate('History'),
+      },
+    ],
+    [t, navigation],
+  );
 
   const genericProfileLinks = useMemo(() => {
     const links: TLinkListItem[] = [
@@ -109,8 +112,8 @@ const Profile = ({ navigation }: TProps) => {
         </Styled.TopContainer>
         <LinkList items={rewardSectionLinks} />
         <Styled.Divider />
-        <LinkList items={genericProfileLinks} />
         {MIAInfoFirstActiveCard && <MIANotification socialTariffInfo={MIAInfoFirstActiveCard?.socialTariff} />}
+        <LinkList items={genericProfileLinks} />
       </Styled.SafeAreaViewContainer>
       <LogoutModal isVisible={logOutModalVisible} toggleIsVisible={toggleLogOutModalVisible} />
     </>
