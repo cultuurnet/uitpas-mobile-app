@@ -27,8 +27,14 @@ export const SearchIcon = styled(Icon)`
 
 export const BackIcon = styled(Icon)`
   position: absolute;
-  bottom: 10.5px;
-  left: 15px;
+  bottom: 20px;
+  left: 27.5px;
+`;
+
+export const ResetIcon = styled(Icon)`
+  position: absolute;
+  bottom: 25px;
+  right: 35px;
 `;
 
 export const SearchResulstsContainer = styled.View`
@@ -44,11 +50,11 @@ export const PopularItem = styled(TouchableRipple)`
 `;
 
 export const RewardSeparator = styled.View`
-  border: 0.5px solid ${theme.palette.neutral[100]};
+  border: 1px solid ${theme.palette.neutral[100]};
 `;
 
 export const NoContentText = styled(Typography)`
-  padding-top: 15px;
+  padding-top: ${theme.common.defaultSpacing}px;
 `;
 
 export const PopularItemIcon = styled(Icon)`

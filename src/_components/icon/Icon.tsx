@@ -18,8 +18,8 @@ export type TIconProps = {
 } & Omit<ImageProps, 'source'>;
 
 const Icon = ({ size, name, color, style = {}, onPress, disabled = false, borderless = false, ...imageProps }: TIconProps) => {
-  const BareIcon = () => (
-    <Styled.Icon {...imageProps} color={color} resizeMode="contain" size={size} source={Icons[name]} style={style} />
+  const BareIcon = ({ iconStyle = {} }: { iconStyle?: StyleProp<ImageStyle> }) => (
+    <Styled.Icon {...imageProps} color={color} resizeMode="contain" size={size} source={Icons[name]} style={iconStyle} />
   );
 
   return onPress ? (
@@ -27,7 +27,7 @@ const Icon = ({ size, name, color, style = {}, onPress, disabled = false, border
       <BareIcon />
     </Styled.IconButton>
   ) : (
-    <BareIcon />
+    <BareIcon iconStyle={style} />
   );
 };
 

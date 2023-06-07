@@ -30,10 +30,15 @@ const Shop = ({ navigation }: TProps) => {
   const { data: user } = useGetMe();
 
   return (
-    <SafeAreaView edges={['left', 'right']} isScrollable stickyHeaderIndices={[]}>
+    <SafeAreaView edges={['left', 'right']} isScrollable>
       <EnlargedHeader height={30} />
       <Styled.SearchContainer>
-        <Styled.SearchInput onFocus={() => navigation.push('Search')} placeholder={t('SHOP.SEARCH.PLACEHOLDER')} value="" />
+        <Styled.SearchInput
+          editable={false}
+          onPressIn={() => navigation.push('Search')}
+          placeholder={t('SHOP.SEARCH.PLACEHOLDER')}
+          value=""
+        />
         <Styled.SearchIcon color="primary.700" name="Search" size={18} />
       </Styled.SearchContainer>
       <>

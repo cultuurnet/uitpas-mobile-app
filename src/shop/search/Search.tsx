@@ -46,10 +46,10 @@ export const Search = ({ navigation }: TProps) => {
 
   return (
     <SafeAreaView edges={['left', 'right']} isScrollable stickyHeaderIndices={[1]}>
-      <EnlargedHeader height={30} />
       <Styled.SearchContainer paddingTop={top}>
         <Styled.SearchInput autoFocus onChangeText={setSearch} placeholder={t('SHOP.SEARCH.PLACEHOLDER')} value={search} />
         {backIcon}
+        {search.length > 0 && <Styled.ResetIcon color="primary.700" name="Close" onPress={() => setSearch('')} size={14} />}
       </Styled.SearchContainer>
 
       <Styled.SearchResulstsContainer>
