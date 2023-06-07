@@ -118,7 +118,8 @@ export const RootStackNavigator = () => {
                   <HeaderBackButton
                     {...props}
                     backImage={() => <Icon color="neutral.0" name="Close" size={14} />}
-                    onPress={() => navigation.popToTop()}
+                    onPress={() => navigation.pop()}
+                    style={{ marginRight: -10, padding: 10 }}
                   />
                 ) : null,
               presentation: route.params?.isModal ? 'modal' : 'card',
