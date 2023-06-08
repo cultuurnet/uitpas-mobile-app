@@ -20,11 +20,11 @@ export const SearchInput = styled.TextInput`
   color: ${theme.palette.neutral[600]};
   font-family: Poppins-Regular;
   background-color: ${theme.palette.neutral[0]};
-  padding: 12px 12px 12px 44px;
+  padding: 16px 12px 12px 44px;
 `;
 
 export const SearchIcon = styled(Icon)`
   position: absolute;
-  bottom: 23px;
+  bottom: 26px;
   left: 30px;
 `;
