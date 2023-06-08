@@ -43,9 +43,11 @@ export const Search = ({ navigation }: TProps) => {
     <SafeAreaView edges={['left', 'right']} isScrollable stickyHeaderIndices={[1]}>
       <EnlargedHeader height={30} />
       <Styled.SearchContainer paddingTop={top}>
-        <Styled.SearchInput autoFocus onChangeText={setSearch} placeholder={t('SHOP.SEARCH.PLACEHOLDER')} value={search} />
-        <Styled.BackIcon color="primary.700" name="ChevronLeft" onPress={onClose} size={22} />
-        {search.length > 0 && <Styled.ResetIcon color="primary.700" name="Close" onPress={() => setSearch('')} size={14} />}
+        <Styled.SearchInput autoFocus multiline numberOfLines={1} onChangeText={setSearch} value={search} />
+        <Styled.BackIcon borderless color="primary.700" name="ChevronLeft" onPress={onClose} size={24} />
+        {search.length > 0 && (
+          <Styled.ResetIcon borderless color="primary.700" name="Close" onPress={() => setSearch('')} size={14} />
+        )}
       </Styled.SearchContainer>
 
       <Styled.SearchResulstsContainer>

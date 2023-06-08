@@ -17,23 +17,19 @@ export const SearchInput = styled.TextInput`
   font-family: Poppins-Regular;
   background-color: ${theme.palette.neutral[0]};
   padding: 12px 12px 12px 44px;
-`;
-
-export const SearchIcon = styled(Icon)`
-  position: absolute;
-  bottom: 23px;
-  left: 30px;
+  line-height: 22px;
+  text-align-vertical: center;
 `;
 
 export const BackIcon = styled(Icon)`
   position: absolute;
-  bottom: 20px;
+  bottom: 21px;
   left: 27.5px;
 `;
 
 export const ResetIcon = styled(Icon)`
   position: absolute;
-  bottom: 25px;
+  bottom: 26px;
   right: 35px;
 `;
 
