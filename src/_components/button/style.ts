@@ -11,11 +11,13 @@ export const ButtonContainer = styled.View<Pick<TButtonPropsBase, 'inline' | 'ce
 
 export const ButtonElement = styled(TouchableRipple)<{
   $active: boolean;
+  $color: TButtonPropsBase['color'];
   $inline: TButtonPropsBase['inline'];
   $radius: TButtonPropsBase['radius'];
   $variant: TButtonPropsBase['variant'];
   centered?: TButtonPropsBase['centered'];
   disabled: TButtonPropsBase['disabled'];
+  loading: TButtonPropsBase['loading'];
 }>`
   align-self: ${({ $inline, centered }) => (centered ? 'center' : $inline ? 'flex-start' : 'stretch')};
   align-items: center;
@@ -27,9 +29,11 @@ export const ButtonElement = styled(TouchableRipple)<{
     }
     return 'transparent';
   }};
+  overflow: hidden;
   padding: ${({ $variant, $inline }) =>
     $inline && $variant !== 'link' ? '12px 16px' : $variant !== 'link' ? '12px 20px' : '0px'};
-  border: ${({ $variant, theme }) => ($variant === 'outline' ? `2px solid ${theme.palette.neutral['0']}` : 'none')};
+  border: ${({ $variant, theme, $color }) =>
+    $variant === 'outline' ? `2px solid ${$color ? getColor($color) : theme.palette.neutral['0']}` : 'none'};
 `;
 
 export const ButtonText = styled(Typography)<{

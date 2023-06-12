@@ -1,21 +1,23 @@
 import { FC } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { useWindowDimensions } from 'react-native';
-import { RouteProp, useRoute } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 
 import { PointsSuccess } from '../_assets/animations';
 import { Button, DiagonalSplitView, Typography } from '../_components';
-import { useStackNavigation } from '../_hooks';
-import { TRootParams } from '../_routing/_components/RootStackNavigator';
+import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing';
 import * as Styled from './style';
 
-const ScanSuccess: FC = () => {
+type TProps = {
+  navigation: TRootStackNavigationProp<'ScanSuccess'>;
+  route: TRootStackRouteProp<'ScanSuccess'>;
+}
+
+const ScanSuccess: FC = ({ route, navigation }: TProps) => {
   const {
     params: { addedPoints, totalPoints },
-  } = useRoute<RouteProp<TRootParams, 'ScanSuccess'>>();
+  } = route;
   const { height } = useWindowDimensions();
-  const navigation = useStackNavigation<TRootParams>();
   const { t } = useTranslation();
 
   return (
@@ -38,7 +40,7 @@ const ScanSuccess: FC = () => {
           </Styled.BottomContainer>
           <Button
             label={t('SCAN.SUCCESS.CTA')}
-            onPress={() => navigation.replace('MainNavigator', { screen: 'ProfileNavigator' } as unknown as undefined)} // Types in react-navigation package are incorrect...
+            onPress={() => navigation.reset({ index: 0, routes: [{ name: 'MainNavigator', params: { screen: 'Profile' } }] })}
           />
         </>
       }

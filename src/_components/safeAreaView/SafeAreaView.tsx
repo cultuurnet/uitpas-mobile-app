@@ -1,26 +1,39 @@
 import { FC } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, StatusBarStyle } from 'react-native';
 import { NativeSafeAreaViewProps as RNSafeAreaViewProps } from 'react-native-safe-area-context';
 
 import { ThemeColor } from '../../_styles/theme';
-import { getColor } from '../../_utils/colorHelper';
-import { FocusAwareStatusBar } from '..';
+import FocusAwareStatusBar from '../statusBar/FocusAwareStatusBar';
 import * as Styled from './style';
 
-export type TSafeAreaViewProps = { backgroundColor?: ThemeColor; isScrollable?: boolean } & RNSafeAreaViewProps;
+export type TSafeAreaViewProps = {
+  backgroundColor?: ThemeColor;
+  barStyle?: StatusBarStyle;
+  isScrollable?: boolean;
+  stickyHeaderIndices?: number[];
+} & RNSafeAreaViewProps;
 
-const SafeAreaView: FC<TSafeAreaViewProps> = ({ children, backgroundColor = 'neutral.100', isScrollable = true, ...props }) => {
+const SafeAreaView: FC<TSafeAreaViewProps> = ({
+  children,
+  backgroundColor = 'neutral.100',
+  stickyHeaderIndices,
+  isScrollable = true,
+  barStyle = 'light-content',
+  ...props
+}) => {
   if (isScrollable) {
     return (
       <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} isScrollable={isScrollable} {...props}>
-        <FocusAwareStatusBar backgroundColor={getColor(backgroundColor)} barStyle="dark-content" />
-        <ScrollView contentContainerStyle={{ paddingBottom: 95 }}>{children}</ScrollView>
+        <FocusAwareStatusBar barStyle={barStyle} />
+        <ScrollView contentContainerStyle={{ paddingBottom: 95 }} stickyHeaderIndices={stickyHeaderIndices}>
+          {children}
+        </ScrollView>
       </Styled.SafeAreaViewContainer>
     );
   } else {
     return (
       <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} isScrollable={isScrollable} {...props}>
-        <FocusAwareStatusBar backgroundColor={getColor(backgroundColor)} barStyle="dark-content" />
+        <FocusAwareStatusBar barStyle={barStyle} />
         {children}
       </Styled.SafeAreaViewContainer>
     );

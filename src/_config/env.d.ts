@@ -3,6 +3,7 @@ import 'react-native-config';
 declare module 'react-native-config' {
   type ConfigKeys =
     | 'API_HOST'
+    | 'API_HOST_UITDATABANK'
     | 'APP_NAME'
     | 'NODE_ENV'
     | 'REACT_NATIVE_APP_AUTH0_CLIENT_ID'

@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Pressable } from 'react-native';
 
-import { LinkList, Spinner, Typography } from '../_components';
+import { EnlargedHeader, LinkList, Spinner } from '../_components';
 import { TLinkListItem } from '../_components/linkList/LinkList';
 import { ConfigUrl } from '../_config';
-import { useStackNavigation, useToggle } from '../_hooks';
+import { useToggle } from '../_hooks';
 import { StorageKey } from '../_models';
-import { TProfileParams } from '../_routing/_components/ProfileNavigator';
-import { TRootParams } from '../_routing/_components/RootStackNavigator';
+import { TMainNavigationProp } from '../_routing/_components/TRootStackParamList';
 import i18n from '../_translations/i18n';
 import { storage } from '../storage';
 import { useGetVersions } from '../update/_queries/useGetVersions';
 import { useGetMe } from './_queries/useGetMe';
+import CardModal from './CardModal/CardModal';
 import LogoutModal from './LogOutModal';
 import MIANotification from './MIANotification/MIANotification';
 import * as Styled from './style';
@@ -18,64 +20,87 @@ import UitpasCard from './UitpasCard/UitpasCard';
 import UitpasInfo from './UitpasInfo/UitpasInfo';
 import UpdateNotification from './UpdateNotification/UpdateNotification';
 
-const Profile = () => {
+type TProps = {
+  navigation: TMainNavigationProp<'Profile'>;
+};
+const Profile = ({ navigation }: TProps) => {
   const [logOutModalVisible, toggleLogOutModalVisible] = useToggle(false);
   const { data: passHolder, isLoading: isPassHolderLoading } = useGetMe();
   const [isUitpasInfoClosed, setIsUitpasInfoClosed] = useState(storage.getBoolean(StorageKey.IsUitpasInfoClosed));
-  const { navigate } = useStackNavigation<TProfileParams & TRootParams>();
+  const { t } = useTranslation();
+  const [cardModalVisible, toggleCardModalVisible] = useToggle(false);
+
   const versions = useGetVersions();
 
-  const links: TLinkListItem[] = [
-    {
-      href: ConfigUrl.welcomeBenefits,
-      iconName: 'Gift',
-      label: i18n.t('PROFILE.LINKS.BENEFITS'),
-    },
-    {
-      iconName: 'History',
-      label: i18n.t('PROFILE.LINKS.HISTORY'),
-      onPress: () => navigate('History'),
-    },
-    {
-      href: ConfigUrl.personalInfo,
-      iconName: 'ProfileCircled',
-      label: i18n.t('PROFILE.LINKS.PERSONAL_INFO'),
-    },
-    {
-      iconName: 'Info',
-      label: i18n.t('PROFILE.LINKS.ABOUT'),
-      onPress: () => navigate('About'),
-    },
-    {
-      href: ConfigUrl.faq,
-      iconName: 'Question',
-      label: i18n.t('PROFILE.LINKS.FAQ'),
-    },
-    {
-      iconColor: 'error.600',
-      iconName: 'Logout',
-      label: i18n.t('PROFILE.LINKS.LOGOUT'),
-      labelColor: 'error.800',
-      onPress: toggleLogOutModalVisible,
-    },
-  ];
+  const rewardSectionLinks = useMemo<TLinkListItem[]>(
+    () => [
+      {
+        iconName: 'Gift',
+        label: i18n.t('PROFILE.LINKS.BENEFITS'),
+        onPress: () => navigation.navigate('FilteredShop', { filter: 'welkom', subtitle: t('PROFILE.WELCOME_GIFTS_TITLE') }),
+      },
+      {
+        iconName: 'CircledCheck',
+        label: i18n.t('PROFILE.LINKS.REDEEMED_REWARDS'),
+        onPress: () => navigation.navigate('RedeemedRewards'),
+      },
+      {
+        iconName: 'History',
+        label: i18n.t('PROFILE.LINKS.HISTORY'),
+        onPress: () => navigation.navigate('History'),
+      },
+    ],
+    [t, navigation],
+  );
+
+  const genericProfileLinks = useMemo(() => {
+    const links: TLinkListItem[] = [
+      {
+        href: ConfigUrl.personalInfo,
+        iconName: 'ProfileCircled',
+        label: i18n.t('PROFILE.LINKS.PERSONAL_INFO'),
+      },
+      {
+        iconName: 'Info',
+        label: i18n.t('PROFILE.LINKS.ABOUT'),
+        onPress: () => navigation.navigate('About'),
+      },
+      {
+        href: ConfigUrl.faq,
+        iconName: 'Question',
+        label: i18n.t('PROFILE.LINKS.FAQ'),
+      },
+      {
+        iconColor: 'error.600',
+        iconName: 'Logout',
+        label: i18n.t('PROFILE.LINKS.LOGOUT'),
+        labelColor: 'error.800',
+        onPress: toggleLogOutModalVisible,
+      },
+    ];
+    return links;
+  }, [toggleLogOutModalVisible, navigation]);
 
   if (isPassHolderLoading) return <Spinner />;
+
   if (!passHolder) {
-    return navigate('ProfileNotFound');
+    navigation.navigate('ProfileNotFound');
+    return null;
   }
   const [MIAInfoFirstActiveCard] = passHolder.cardSystemMemberships.filter(
     card => card.status === 'ACTIVE' && card.socialTariff && !card.socialTariff.expired,
   );
   return (
     <>
-      <Styled.SafeAreaViewContainer edges={['top']} isScrollable>
+      <Styled.SafeAreaViewContainer edges={['left', 'right']} isScrollable>
         <Styled.TopContainer>
-          <Typography fontStyle="bold" size="large">
-            {i18n.t('PROFILE.HELLO', { name: passHolder.firstName })}
-          </Typography>
+          <EnlargedHeader />
+          <Pressable onPress={toggleCardModalVisible}>
+            <UitpasCard passHolder={passHolder} />
+          </Pressable>
+          <CardModal isVisible={cardModalVisible} toggleIsVisible={toggleCardModalVisible} />
+
           {versions?.isBehindTarget && <UpdateNotification />}
-          <UitpasCard passHolder={passHolder} />
           {!isUitpasInfoClosed && (
             <UitpasInfo
               onClose={() => {
@@ -85,8 +110,10 @@ const Profile = () => {
             />
           )}
         </Styled.TopContainer>
-        <LinkList items={links} />
+        <LinkList items={rewardSectionLinks} />
+        <Styled.Divider />
         {MIAInfoFirstActiveCard && <MIANotification socialTariffInfo={MIAInfoFirstActiveCard?.socialTariff} />}
+        <LinkList items={genericProfileLinks} />
       </Styled.SafeAreaViewContainer>
       <LogoutModal isVisible={logOutModalVisible} toggleIsVisible={toggleLogOutModalVisible} />
     </>

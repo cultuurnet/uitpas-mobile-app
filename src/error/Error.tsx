@@ -1,18 +1,30 @@
-import { FC } from 'react';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RouteProp, useRoute } from '@react-navigation/native';
 
 import { Error as ErrorImage } from '../_assets/images';
 import { Button, DiagonalSplitView, Typography } from '../_components';
 import { ConfigUrl } from '../_config';
-import { TRootParams } from '../_routing/_components/RootStackNavigator';
+import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing/_components/TRootStackParamList';
 import * as Styled from './style';
 
-const Error: FC = () => {
+type TProps = {
+  navigation: TRootStackNavigationProp<'Error'>;
+  route: TRootStackRouteProp<'Error'>;
+}
+
+const Error = ({ route, navigation }: TProps) => {
   const {
-    params: { message, onClose },
-  } = useRoute<RouteProp<TRootParams, 'Error'>>();
+    params: { message, gotoAfterClose },
+  } = route;
   const { t } = useTranslation();
+
+  const onClose = useCallback(() => {
+    if (typeof gotoAfterClose === 'string') {
+      return navigation.reset({ index: 0, routes: [{ name: gotoAfterClose }] });
+    } else {
+      return navigation.reset({ index: 0, routes: [{ name: gotoAfterClose[0], params: { screen: gotoAfterClose[1] } }] });
+    }
+  }, [gotoAfterClose, navigation]);
 
   return (
     <DiagonalSplitView

@@ -42,7 +42,8 @@
     "VALID_UNTIL": "Geldig tot en met",
     "LINKS": {
       "BENEFITS": "Mijn welkomstvoordelen",
-      "HISTORY": "Historiek",
+      "REDEEMED_REWARDS": "Omgeruilde voordelen",
+      "HISTORY": "Spaargeschiedenis",
       "LOGOUT": "Afmelden",
       "ABOUT": "Over deze app",
       "PERSONAL_INFO": "Mijn persoonlijke gegevens",
@@ -61,10 +62,17 @@
     "HISTORY": {
       "EMPTY": "Je hebt nog geen punten gespaard of ingeruild.",
       "BACK_TITLE": "Profiel",
-      "HEADER_TITLE": "Historiek",
+      "HEADER_TITLE": "Spaargeschiedenis",
       "POINTS": "{{points}} punten",
       "POINT": "{{points}} punt",
       "POINTS_TITLE": "{{title}}"
+    },
+    "REDEEMED_REWARDS": {
+      "EMPTY": "Je hebt nog geen voordelen ingeruild.",
+      "ERROR": "We konden je ingeruilde voordelen niet ophalen, probeer later opnieuw.",
+      "BACK_TITLE": "Profiel",
+      "HEADER_TITLE": "Omgeruild",
+      "REDEEMED_ON": "Omgeruild op {{date}}"
     }
   },
   "PROFILE_NOT_FOUND": {
@@ -81,8 +89,88 @@
     "HELPDESK_CTA": "Stel ze aan een medewerker via de helpdesk."
   },
   "SHOP": {
+    "HEADER_TITLE": "Voordelen",
     "DESCRIPTION": "Je kan je UiTPAS-punten inruilen voor heel wat leuks: ga op zoek naar een korting of cadeautje dat bij jou past",
-    "BUTTON": "Bekijk alle voordelen"
+    "BUTTON": "Bekijk alle voordelen",
+    "ONLINE_REWARD": "In de app omruilen",
+    "SHOW_MORE": "Bekijk meer",
+    "NO_RESULTS": "Er zijn geen voordelen gevonden.",
+    "SEARCH": {
+      "PLACEHOLDER": "Leuke voordelen, gemeentes,...",
+      "SEARCH_TERMS": {
+        "SWIMMING": "Zwembeurt",
+        "COFFEE": "Koffie",
+        "BOOK": "Boek",
+        "MOVIE": "Film"
+      }
+    },
+    "WELCOME": {
+      "HEADER_TITLE": "Welkomstvoordelen",
+      "GREETING": "Welkom bij UiTPAS {{name}}!",
+      "TITLE": "Bekijk nu je Welkomstvoordelen",
+      "BANNER_TITLE": "Dit zijn voordelen die je gratis hebt gekregen."
+    },
+    "SECTIONS": {
+      "DO": "Doen",
+      "GADGET": "Gadget of item",
+      "CHARITY": "Goede doel",
+      "LAST_CHANCE": "Laatste kans",
+      "POPULAR_REGION": "Populair in jouw regio",
+      "SPORT": "Sport",
+      "SPORTIVE": "Sportieve voordelen",
+      "POPULAR": "Populair buiten je regio",
+      "INTERESTING": "Misschien iets voor jou?",
+      "FOOD": "Eten en drinken",
+      "ONLINE": "In de app om te ruilen",
+      "HIGHLIGHTED": "In de kijker",
+      "WELCOME": "Welkomstvoordelen",
+      "CITY": "Voordelen in {{city}}",
+      "CITY_FALLBACK": "je gemeente"
+    }
+  },
+  "SHOP_DETAIL": {
+    "HEADER_TITLE": "Je voordeel",
+    "DESCRIPTION": "Omschrijving",
+    "MORE_INFO": "Meer info",
+    "LOCATION": "Waar om te ruilen?",
+    "AVAILABILITY": "Beschikbaarheid",
+    "HOW_TO_COLLECT": "Hoe omruilen?",
+    "COLLECT_ONLINE": "Je kan dit voordeel in de app omruilen en ontvangt de instructies nadien.",
+    "COLLECT_OFFLINE": "Dit voordeel kan je op locatie omruilen. Laat de barcode onder “Mijn UiTPAS” zien op de hierboven vermelde locatie.",
+    "OTHER_REWARDS": "Andere voordelen die je misschien interesseren",
+    "SHOW_MORE": "Toon meer",
+    "SHOW_LESS": "Toon minder",
+    "GENERIC_REDEEM_ERROR": "Er is iets misgegaan",
+    "RETRY": "Probeer opnieuw",
+    "AVAILABILITY_DETAILS": {
+      "REDEEM_UNTIL": "Je kan dit voordeel nog omruilen tot <bold>{{date}}</bold>.",
+      "UNITS_LEFT": "Nog <bold>{{units}}</bold> beschikbaar.",
+      "CONSTRAINT_ABSOLUTE": "Je kan dit voordeel <bold>{{volume}}</bold> keer omruilen.",
+      "CONSTRAINT": "Je kan dit voordeel <bold>{{volume}}</bold> keer omruilen per <bold>{{period}}</bold>."
+    },
+    "REDEEM": {
+      "BUTTON": "Nu omruilen",
+      "MODAL_TITLE": "Voordeel omruilen",
+      "MODAL_DESCRIPTION": "Ben je zeker dat je <bold>{{points}} punten</bold> wil omruilen voor het voordeel <bold>\"{{title}}\"</bold>",
+      "MODAL_BUTTON_CONFIRM": "Omruilen",
+      "MODAL_BUTTON_CANCEL": "Annuleren",
+      "MODAL_GENERIC_ERROR": "We konden je voordeel niet omruilen, probeer later opnieuw."
+    }
+  },
+  "REDEEMED_REWARD": {
+    "HEADER_TITLE": "Omgeruild voordeel",
+    "SUCCESS_TITLE": "Gelukt!",
+    "SUCCESS_MESSAGE": "Je hebt net {{points}} punten omgeruild. Je vindt deze gegevens ook steeds terug in je spaargeschiedenis.",
+    "TRADED_AT": "Je ontving dit voordeel op <bold color='primary.800'>{{date}}</bold>.",
+    "GO_BACK": "Sluiten",
+    "YOUR_CODE": "Uw persoonlijke code"
+  },
+  "PERIODS": {
+    "DAY": "dag",
+    "WEEK": "week",
+    "MONTH": "maand",
+    "QUARTER": "kwartaal",
+    "YEAR": "jaar"
   },
   "SCAN": {
     "CAMERA": {
@@ -104,6 +192,7 @@
     "TITLE": "Er is iets misgegaan!",
     "DEFAULT_MESSAGE": "Controleer alvast even je internetverbinding en probeer opnieuw.",
     "HELP": "Meld een probleem",
-    "CTA": "Sluiten"
+    "CTA": "Sluiten",
+    "ORGANIZER_ADDRESS": "Geen adres gevonden"
   }
 }

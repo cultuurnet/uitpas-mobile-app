@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect, useMemo } from 'react';
+import { FC, ReactNode, useCallback, useEffect, useMemo } from 'react';
 import { createTracker, EventContext } from '@snowplow/react-native-tracker';
 
 import { TrackingConfig } from '../_config';
@@ -17,7 +17,7 @@ const TrackingProvider: FC<TTrackerProviderProps> = ({ children, currentRoute })
   const { user } = useAuthentication();
   const { data, isFetched } = useGetMe();
 
-  const globalContexts: EventContext[] = [
+  const globalContexts: EventContext[] = useMemo(() => [
     {
       data: {
         environment: ConfigEnvironment,
@@ -26,15 +26,15 @@ const TrackingProvider: FC<TTrackerProviderProps> = ({ children, currentRoute })
     },
     ...(isFetched && data?.id
       ? [
-          {
-            data: {
-              id: data?.id,
-            },
-            schema: TrackingConfig.passHolderSchema,
+        {
+          data: {
+            id: data?.id,
           },
-        ]
+          schema: TrackingConfig.passHolderSchema,
+        },
+      ]
       : []),
-  ];
+  ], [isFetched, data?.id]);
 
   const tracker = useMemo(() => {
     if (!TrackingConfig.isEnabled) return;
@@ -66,7 +66,7 @@ const TrackingProvider: FC<TTrackerProviderProps> = ({ children, currentRoute })
     });
   }, [tracker, globalContexts]);
 
-  function trackScreenViewEvent(name: TRoute) {
+  const trackScreenViewEvent = useCallback((name: TRoute) => {
     log.debug('Track screenViewEvent', JSON.stringify({ globalContexts, name }, undefined, 2));
 
     if (!TrackingConfig.isEnabled) {
@@ -74,7 +74,7 @@ const TrackingProvider: FC<TTrackerProviderProps> = ({ children, currentRoute })
     }
 
     return tracker.trackScreenViewEvent({ name });
-  }
+  }, [tracker, globalContexts]);
 
   useEffect(() => {
     if (!user?.sub) return;
@@ -86,7 +86,7 @@ const TrackingProvider: FC<TTrackerProviderProps> = ({ children, currentRoute })
   useEffect(() => {
     if (!currentRoute) return;
     trackScreenViewEvent(currentRoute);
-  }, [currentRoute]);
+  }, [currentRoute, trackScreenViewEvent]);
 
   return <>{children}</>;
 };

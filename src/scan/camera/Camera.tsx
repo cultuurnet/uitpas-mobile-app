@@ -6,9 +6,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import { Barcode, BarcodeFormat, scanBarcodes } from 'vision-camera-code-scanner';
 
 import { FocusAwareStatusBar, Spinner } from '../../_components';
-import { useStackNavigation } from '../../_hooks';
 import { TApiError } from '../../_http';
-import { TRootParams } from '../../_routing/_components/RootStackNavigator';
+import { TMainNavigationProp } from '../../_routing/_components/TRootStackParamList';
 import { theme } from '../../_styles/theme';
 import { log } from '../../_utils/logger';
 import { useCameraPermission } from '../_hooks';
@@ -24,14 +23,17 @@ const overlaySettings: TOverlayDimensions = {
   strokeWidth: 4,
 };
 
-const Camera = () => {
+type TProps = {
+  navigation: TMainNavigationProp<'Camera'>;
+}
+
+const Camera = ({ navigation }: TProps) => {
   const [isActive, setIsActive] = useState(true);
   const { back: device } = useCameraDevices();
   const { hasCameraPermission } = useCameraPermission();
-  const [overlayDimensions, setOverlayDimensions] = useState<[number, number]>([0, 0]);
+  const [overlayDimensions, setOverlayDimensions] = useState({ height: 0, width: 0 });
   const overlay = useOverlayDimensions(overlayDimensions, overlaySettings);
   const { mutateAsync, isLoading } = useCheckin();
-  const { navigate, ...navigation } = useStackNavigation<TRootParams>();
   const frameProcessor = useFrameProcessor(
     frame => {
       'worklet';
@@ -51,7 +53,8 @@ const Camera = () => {
   );
 
   function handleLayoutChange({ nativeEvent: { layout } }: LayoutChangeEvent) {
-    setOverlayDimensions([layout.width, layout.height]);
+    const { width, height } = layout;
+    setOverlayDimensions({ height, width });
   }
 
   async function onBarCodeDetected(barcode: Barcode, frame: Frame) {
@@ -62,14 +65,13 @@ const Camera = () => {
       try {
         setIsActive(false);
         const response = await mutateAsync({ checkinCode: barcode.displayValue });
-        navigate('ScanSuccess', response);
+        navigation.navigate('ScanSuccess', response);
       } catch (error) {
         const { endUserMessage } = error as TApiError;
 
-        // @TODO: error handling
-        navigate('Error', {
+        navigation.navigate('Error', {
+          gotoAfterClose: ['MainNavigator', 'Profile'],
           message: endUserMessage?.nl,
-          onClose: () => navigation.replace('MainNavigator', { screen: 'ProfileNavigator' } as unknown as undefined), // Types in react-navigation package are incorrect...
         });
         log.error(error);
       }
@@ -80,20 +82,22 @@ const Camera = () => {
     return <CameraSettings />;
   }
 
-  if (!hasCameraPermission || device == null) {
+  if (device == null) {
     return <Spinner />;
   }
 
   return (
     <View onLayout={handleLayoutChange} style={StyleSheet.absoluteFill}>
-      <FocusAwareStatusBar backgroundColor={theme.palette.neutral['100']} barStyle="light-content" translucent />
-      <VisionCamera
-        device={device}
-        frameProcessor={frameProcessor}
-        frameProcessorFps={5}
-        isActive={isActive}
-        style={{ height: overlayDimensions[1], width: overlayDimensions[0] }}
-      />
+      <FocusAwareStatusBar backgroundColor={theme.palette.neutral['900']} barStyle="light-content" translucent />
+      {overlayDimensions.width !== 0 &&
+        <VisionCamera
+          device={device}
+          frameProcessor={frameProcessor}
+          frameProcessorFps={5}
+          isActive={isActive}
+          style={overlayDimensions}
+        />
+      }
 
       <CameraOverlay config={overlay} isLoading={isLoading} settings={overlaySettings} />
     </View>

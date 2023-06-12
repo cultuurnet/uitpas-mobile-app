@@ -1,11 +1,11 @@
 import styled from 'styled-components/native';
 
-import Button from '../button/Button';
+import TouchableRipple from '../touchableRipple/TouchableRipple';
 import Typography from '../typography/Typography';
 
-export const LinkButton = styled(Button)`
+export const LinkButton = styled(TouchableRipple)`
   flex: 1;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: row;
   padding: 16px 20px;
 `;
@@ -16,7 +16,7 @@ export const LinkText = styled(Typography)`
 
 export const UnderlinedLinkText = styled(Typography)`
   margin-left: 20px;
-  text-decoration: underline;
+  flex: 1;
 `;
 
 export const HeaderText = styled(Typography)`
@@ -29,7 +29,7 @@ export const LinkContainer = styled.View`
   border-top-color: ${({ theme }) => theme.palette.neutral['200']};
   border-bottom-width: 1px;
   border-top-width: 0.25px;
-  margin: 20px 0px;
+  margin: 20px 0px 0px;
 `;
 
 export const LinkItem = styled.View`

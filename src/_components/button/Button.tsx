@@ -2,6 +2,7 @@ import { FC, ReactNode, useCallback, useState } from 'react';
 import { Linking } from 'react-native';
 
 import { ThemeColor } from '../../_styles/theme';
+import Spinner from '../spinner/Spinner';
 import { TTypographyProps } from '../typography/Typography';
 import * as Styled from './style';
 
@@ -41,6 +42,7 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
   onPress,
   href,
   label,
+  loading,
   variant = 'contained',
   color,
   underline = true,
@@ -68,6 +70,7 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
   return (
     <Styled.ButtonElement
       $active={isActive}
+      $color={color}
       $inline={inline}
       $radius={radius}
       $variant={variant}
@@ -75,28 +78,35 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
       accessibilityLabel={accessibilityLabel}
       accessibilityRole="button"
       accessibilityState={{ disabled }}
+      borderless={variant !== 'link'}
       disabled={disabled}
       hitSlop={hitSlop}
+      loading={loading}
       onPress={handlePress}
       onPressIn={() => setIsActive(true)}
       onPressOut={() => setIsActive(false)}
-      underlayColor={underlayColor}
+      rippleColor={variant === 'link' && 'transparent'}
+      underlayColor={variant !== 'link' && underlayColor}
       {...props}
     >
-      {children ? (
-        children
-      ) : (
-        <Styled.ButtonText
-          $active={isActive}
-          $color={color}
-          $underline={underline}
-          $variant={variant}
-          align={props.centered ? 'center' : 'left'}
-          fontStyle={fontStyle}
-        >
-          {label}
-        </Styled.ButtonText>
-      )}
+      {loading ?
+        <Spinner color={color || 'neutral.0'} fullScreen={false} size={24} />
+        :
+        children ? (
+          children
+        ) : (
+          <Styled.ButtonText
+            $active={isActive}
+            $color={color}
+            $underline={underline}
+            $variant={variant}
+            align={props.centered ? 'center' : 'left'}
+            fontStyle={fontStyle}
+          >
+            {label}
+          </Styled.ButtonText>
+        )
+      }
     </Styled.ButtonElement>
   );
 };
