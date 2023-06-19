@@ -64,3 +64,7 @@ export const Separator = styled.View`
   margin-left: 16px;
   background-color: ${theme.palette.neutral[200]};
 `;
+
+export const SearchFilters = styled.View`
+  padding: 16px 24px;
+`;

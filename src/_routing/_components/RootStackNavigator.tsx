@@ -3,6 +3,7 @@ import SplashScreen from 'react-native-lottie-splash-screen';
 import { HeaderBackButton } from '@react-navigation/elements';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { Close, CloseWhite } from '../../_assets/icons';
 import { Icon } from '../../_components';
 import UserPoints from '../../_components/userPoints/UserPoints';
 import { useAuthentication } from '../../_context';
@@ -20,6 +21,7 @@ import RedeemedReward from '../../redeemedReward/RedeemedReward';
 import { RedeemedRewards } from '../../redeemedRewards/RedeemedRewards';
 import ScanSuccess from '../../scan/ScanSuccess';
 import { Search } from '../../shop/search/Search';
+import { SearchFilters } from '../../shop/searchFilters/SearchFilters';
 import { ShopDetail } from '../../shopDetail/ShopDetail';
 import { storage } from '../../storage';
 import { useGetVersions } from '../../update/_queries/useGetVersions';
@@ -134,6 +136,15 @@ export const RootStackNavigator = () => {
               headerBackTitle: '',
               headerRight: UserPoints,
               title: i18n.t('SHOP_DETAIL.HEADER_TITLE'),
+            }}
+          />
+          <RootStack.Screen
+            component={SearchFilters}
+            name="SearchFilters"
+            options={{
+              headerBackImageSource: CloseWhite,
+              presentation: 'modal',
+              title: i18n.t('SHOP.SEARCH.FILTERS.HEADER_TITLE'),
             }}
           />
         </>
