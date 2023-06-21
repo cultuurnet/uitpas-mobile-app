@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { theme } from '../../_styles/theme';
 import Icon, { TIconName } from '../icon/Icon';
 import * as Styled from './style';
 

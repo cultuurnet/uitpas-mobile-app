@@ -3,7 +3,7 @@ import SplashScreen from 'react-native-lottie-splash-screen';
 import { HeaderBackButton } from '@react-navigation/elements';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { Close, CloseWhite } from '../../_assets/icons';
+import { CloseWhite } from '../../_assets/icons';
 import { Icon } from '../../_components';
 import UserPoints from '../../_components/userPoints/UserPoints';
 import { useAuthentication } from '../../_context';
