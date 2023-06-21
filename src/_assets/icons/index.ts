@@ -12,7 +12,6 @@ export const ChevronUp = require('./chevronUp.png');
 export const CircledCheck = require('./circledCheck.png');
 export const Clock = require('./clock.png');
 export const Close = require('./close.png');
-export const CloseWhite = require('./closeWhite.png');
 export const Copy = require('./copy.png');
 export const External = require('./external.png');
 export const Filter = require('./filter.png');

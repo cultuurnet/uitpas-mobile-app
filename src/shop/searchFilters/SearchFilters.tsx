@@ -22,7 +22,7 @@ export const SearchFilters = ({ navigation, route }: TProps) => {
   }
 
   return (
-    <Styled.Container contentContainerStyle={{ flex: 1 }}>
+    <Styled.Container contentContainerStyle={{ flexGrow: 1 }}>
       <Styled.RegionFilter>
         <Styled.RegionFilterText>
           <Typography fontStyle="bold">{t('SHOP.SEARCH.FILTERS.REGION.TITLE')}</Typography>

@@ -21,14 +21,14 @@ export const PillButtonLabel = styled(Typography)`
   margin-left: 8px;
 `;
 
-export const PillButtonCount = styled(Typography)`
+export const PillButtonAmount = styled(Typography)`
   margin-left: 8px;
   font-size: 10px;
   line-height: 14px;
   padding: 2px 6px;
   background: white;
-  color: ${theme.palette.primary[800]};
   border-radius: 9px;
-  font-weight: bold;
   overflow: hidden;
+  min-width: 18px;
+  text-align: center;
 `;

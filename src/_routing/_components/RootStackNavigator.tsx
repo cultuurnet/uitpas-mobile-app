@@ -3,7 +3,7 @@ import SplashScreen from 'react-native-lottie-splash-screen';
 import { HeaderBackButton } from '@react-navigation/elements';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { CloseWhite } from '../../_assets/icons';
+import { Close } from '../../_assets/icons';
 import { Icon } from '../../_components';
 import UserPoints from '../../_components/userPoints/UserPoints';
 import { useAuthentication } from '../../_context';
@@ -141,11 +141,20 @@ export const RootStackNavigator = () => {
           <RootStack.Screen
             component={SearchFilters}
             name="SearchFilters"
-            options={{
-              headerBackImageSource: CloseWhite,
+            options={({ navigation }) => ({
+              headerBackTitle: '',
+              headerBackVisible: false,
+              headerRight: props => (
+                <HeaderBackButton
+                  {...props}
+                  backImage={() => <Icon color="neutral.0" name="Close" size={14} />}
+                  onPress={() => navigation.pop()}
+                  style={{ marginRight: -10, padding: 10 }}
+                />
+              ),
               presentation: 'modal',
               title: i18n.t('SHOP.SEARCH.FILTERS.HEADER_TITLE'),
-            }}
+            })}
           />
         </>
       )}

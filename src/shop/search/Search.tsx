@@ -50,7 +50,7 @@ export const Search = ({ navigation, route }: TProps) => {
     navigation.pop();
   }, [navigation]);
 
-  const appliedFiltersCount = useMemo(
+  const appliedFiltersAmount = useMemo(
     () =>
       Object.keys(filters).reduce((count, filterKey) => {
         if (filters[filterKey] === initialFilters[filterKey]) {
@@ -81,7 +81,7 @@ export const Search = ({ navigation, route }: TProps) => {
             <>
               <Styled.SearchFilters>
                 <PillButton
-                  count={appliedFiltersCount}
+                  amount={appliedFiltersAmount}
                   icon="Filter"
                   label={t('SHOP.SEARCH.FILTERS.CTA')}
                   onPress={() => navigation.push('SearchFilters', { filters })}
