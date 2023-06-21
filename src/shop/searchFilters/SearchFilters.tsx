@@ -1,15 +1,25 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Switch, View } from 'react-native';
+import { Switch } from 'react-native';
 
 import { Button, Typography } from '../../_components';
+import { TRootStackNavigationProp, TRootStackRouteProp } from '../../_routing';
 import { theme } from '../../_styles/theme';
 import * as Styled from './style';
 
-export const SearchFilters = () => {
+type TProps = {
+  navigation: TRootStackNavigationProp<'SearchFilters'>;
+  route: TRootStackRouteProp<'SearchFilters'>;
+};
+
+export const SearchFilters = ({ navigation, route }: TProps) => {
   const { t } = useTranslation();
-  /* TODO: store this in context */
-  const [isRegionFiltered, setIsRegionFiltered] = useState(false);
+  const { filters } = route.params;
+  const [updatedFilters, setUpdatedFilters] = useState(filters);
+
+  function onSubmit() {
+    navigation.navigate('Search', { filters: updatedFilters });
+  }
 
   return (
     <Styled.Container contentContainerStyle={{ flex: 1 }}>
@@ -19,19 +29,14 @@ export const SearchFilters = () => {
           <Typography>{t('SHOP.SEARCH.FILTERS.REGION.DESCRIPTION')}</Typography>
         </Styled.RegionFilterText>
         <Switch
-          onValueChange={value => setIsRegionFiltered(value)}
+          onValueChange={value => setUpdatedFilters({ ...updatedFilters, includeAllCardSystems: value })}
           trackColor={{ false: theme.palette.neutral['200'], true: theme.palette.primary['600'] }}
-          value={isRegionFiltered}
+          value={updatedFilters['includeAllCardSystems']}
         />
       </Styled.RegionFilter>
 
       <Styled.Actions>
-        <Button
-          label={t('SHOP.SEARCH.FILTERS.APPLY')}
-          onPress={() => {
-            /* Apply filters */
-          }}
-        />
+        <Button label={t('SHOP.SEARCH.FILTERS.APPLY')} onPress={onSubmit} />
       </Styled.Actions>
     </Styled.Container>
   );

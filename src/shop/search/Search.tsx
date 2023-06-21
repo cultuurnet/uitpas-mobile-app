@@ -1,14 +1,14 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FlashList } from '@shopify/flash-list';
 
 import { EnlargedHeader, PillButton, Reward, SafeAreaView, Typography } from '../../_components';
-import { TRootStackNavigationProp } from '../../_routing';
+import { TRootStackNavigationProp, TRootStackRouteProp } from '../../_routing';
 import { useGetMe } from '../../profile/_queries/useGetMe';
 import { RewardsSectionLoader } from '../_components/rewardsSection/RewardSection.loading';
+import { TSearchFilters } from '../_models/searchFilters';
 import { useGetRewards } from '../_queries/useGetRewards';
-import { SearchFilters } from '../searchFilters/SearchFilters';
 import * as Styled from './style';
 
 type SearchTerm = {
@@ -24,21 +24,43 @@ const SEARCH_TERMS: SearchTerm[] = [
 
 type TProps = {
   navigation: TRootStackNavigationProp<'Search'>;
+  route: TRootStackRouteProp<'Search'>;
 };
 
-export const Search = ({ navigation }: TProps) => {
+const initialFilters: TSearchFilters = {
+  includeAllCardSystems: false,
+};
+
+export const Search = ({ navigation, route }: TProps) => {
   const [search, setSearch] = useState('');
   const { top } = useSafeAreaInsets();
   const { t } = useTranslation();
   const { data: user } = useGetMe();
+  const { filters = initialFilters } = route.params || {};
 
-  const { data: searchResults, isLoading: isSearchLoading } = useGetRewards({ enabled: search.length > 0, freeText: search });
+  const { data: searchResults, isLoading: isSearchLoading } = useGetRewards({
+    enabled: search.length > 0,
+    filters,
+    freeText: search,
+  });
   const results = useMemo(() => searchResults?.pages?.flatMap(({ member }) => member) ?? [], [searchResults]);
 
   const onClose = useCallback(() => {
     setSearch('');
     navigation.pop();
   }, [navigation]);
+
+  const appliedFiltersCount = useMemo(
+    () =>
+      Object.keys(filters).reduce((count, filterKey) => {
+        if (filters[filterKey] === initialFilters[filterKey]) {
+          return count;
+        }
+
+        return count + 1;
+      }, 0),
+    [filters],
+  );
 
   return (
     <SafeAreaView edges={['left', 'right']} isScrollable stickyHeaderIndices={[1]}>
@@ -59,9 +81,10 @@ export const Search = ({ navigation }: TProps) => {
             <>
               <Styled.SearchFilters>
                 <PillButton
+                  count={appliedFiltersCount}
                   icon="Filter"
                   label={t('SHOP.SEARCH.FILTERS.CTA')}
-                  onPress={() => navigation.push('SearchFilters')}
+                  onPress={() => navigation.push('SearchFilters', { filters })}
                 />
               </Styled.SearchFilters>
               <FlashList
