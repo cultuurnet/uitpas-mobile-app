@@ -12,3 +12,11 @@ export function normalizeTime(value: string): string {
   if (onlyNums.length <= 2) return onlyNums;
   return `${onlyNums.slice(0, 2)}:${onlyNums.slice(2, 4)}`;
 }
+
+export function normalizeUrl(url: string): string {
+  if (!/^https?:\/\//i.test(url)) {
+    return `https://${url}`;
+  }
+
+  return url;
+}

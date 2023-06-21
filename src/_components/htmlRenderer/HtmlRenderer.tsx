@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { TouchableOpacity, useWindowDimensions } from 'react-native';
-import RenderHtml, { HTMLSource } from 'react-native-render-html';
+import RenderHtml, { Element, HTMLSource } from 'react-native-render-html';
 
 import { theme } from '../../_styles/theme';
+import { normalizeUrl } from '../../_utils/normalizeHelpers';
 import { getFontFamily } from '../typography/style';
-
 
 type Props = {
   fontSize?: number;
@@ -13,6 +13,12 @@ type Props = {
 
 const HtmlRenderer: FC<Props> = ({ source, fontSize = 14 }) => {
   const { width } = useWindowDimensions();
+
+  function onElement(element: Element) {
+    if (element.tagName === 'a') {
+      element.attribs['href'] = normalizeUrl(element.attribs['href']);
+    }
+  }
 
   return (
     <RenderHtml
@@ -25,6 +31,9 @@ const HtmlRenderer: FC<Props> = ({ source, fontSize = 14 }) => {
       }}
       contentWidth={width}
       defaultTextProps={{ selectable: true }}
+      domVisitors={{
+        onElement,
+      }}
       pressableHightlightColor="transparent"
       source={source}
       systemFonts={[getFontFamily('normal'), getFontFamily('bold')]}
