@@ -63,7 +63,7 @@ export const Search = ({ navigation, route }: TProps) => {
   );
 
   return (
-    <SafeAreaView edges={['left', 'right']} isScrollable stickyHeaderIndices={[1]}>
+    <SafeAreaView edges={['left', 'right']} isScrollable keyboardShouldPersistTaps="handled" stickyHeaderIndices={[1]}>
       <EnlargedHeader height={30} />
       <Styled.SearchContainer paddingTop={top}>
         <Styled.SearchInput autoFocus numberOfLines={1} onChangeText={setSearch} value={search} />
@@ -93,6 +93,7 @@ export const Search = ({ navigation, route }: TProps) => {
                 data={results}
                 estimatedItemSize={117}
                 keyExtractor={item => item.id}
+                keyboardShouldPersistTaps="handled"
                 renderItem={({ item }) => <Reward mode="list" reward={item} />}
               />
             </>
