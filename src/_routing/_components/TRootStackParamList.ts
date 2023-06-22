@@ -5,6 +5,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TRedeemedReward } from '../../redeemedRewards/_models/redeemedReward';
 import { TCheckInResponse } from '../../scan/_models';
 import { TReward, TRewardType } from '../../shop/_models/reward';
+import { TSearchFilters } from '../../shop/_models/searchFilters';
 import { TFilterRewardCategory, TFilterRewardSections } from '../../shop/_queries/useGetRewards';
 
 export type TRootRoute = keyof TRootStackParamList;
@@ -45,7 +46,8 @@ export type TRootStackParamList = {
   RedeemedReward: { isModal?: boolean; redeemedReward: TRedeemedReward };
   RedeemedRewards: undefined;
   ScanSuccess: TCheckInResponse;
-  Search: undefined;
+  Search: { filters?: TSearchFilters };
+  SearchFilters: { filters: TSearchFilters };
   ShopDetail: { id: string; reward?: TReward };
   Update: undefined;
 };

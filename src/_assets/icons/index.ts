@@ -14,6 +14,7 @@ export const Clock = require('./clock.png');
 export const Close = require('./close.png');
 export const Copy = require('./copy.png');
 export const External = require('./external.png');
+export const Filter = require('./filter.png');
 export const Food = require('./food.png');
 export const Gift = require('./gift.png');
 export const History = require('./history.png');

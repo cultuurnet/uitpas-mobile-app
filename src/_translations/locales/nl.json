@@ -102,6 +102,15 @@
         "COFFEE": "Koffie",
         "BOOK": "Boek",
         "MOVIE": "Film"
+      },
+      "FILTERS": {
+        "HEADER_TITLE": "Filteren",
+        "CTA": "Filteren",
+        "REGION": {
+          "TITLE": "Buiten jouw regio(s)",
+          "DESCRIPTION": "Toon ook voordelen van organisatoren buiten mijn regio"
+        },
+        "APPLY": "Toepassen"
       }
     },
     "WELCOME": {

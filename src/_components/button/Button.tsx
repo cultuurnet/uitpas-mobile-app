@@ -89,24 +89,22 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
       underlayColor={variant !== 'link' && underlayColor}
       {...props}
     >
-      {loading ?
+      {loading ? (
         <Spinner color={color || 'neutral.0'} fullScreen={false} size={24} />
-        :
-        children ? (
-          children
-        ) : (
-          <Styled.ButtonText
-            $active={isActive}
-            $color={color}
-            $underline={underline}
-            $variant={variant}
-            align={props.centered ? 'center' : 'left'}
-            fontStyle={fontStyle}
-          >
-            {label}
-          </Styled.ButtonText>
-        )
-      }
+      ) : children ? (
+        children
+      ) : (
+        <Styled.ButtonText
+          $active={isActive}
+          $color={color}
+          $underline={underline}
+          $variant={variant}
+          align={props.centered ? 'center' : 'left'}
+          fontStyle={fontStyle}
+        >
+          {label}
+        </Styled.ButtonText>
+      )}
     </Styled.ButtonElement>
   );
 };

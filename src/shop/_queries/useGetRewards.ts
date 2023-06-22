@@ -4,6 +4,7 @@ import { usePubliqApi } from '../../_hooks/usePubliqApi';
 import { Params } from '../../_http/HttpClient';
 import { useGetMe } from '../../profile/_queries/useGetMe';
 import { TRewardCategory, TRewardsResponse, TRewardType } from '../_models/reward';
+import { TSearchFilters } from '../_models/searchFilters';
 
 export type TFilterRewardCategory = TRewardCategory | 'laatste kans';
 export type TFilterRewardSections =
@@ -25,9 +26,11 @@ export function useGetRewards({
   itemsPerPage = 20,
   enabled = true,
   params: extraParams = {},
+  filters,
 }: {
   category?: TFilterRewardCategory;
   enabled?: boolean;
+  filters?: TSearchFilters;
   freeText?: string;
   itemsPerPage?: number;
   organizerId?: string[];
@@ -45,7 +48,10 @@ export function useGetRewards({
       type,
     };
 
-    params.owningCardSystemId = user?.cardSystemMemberships.map(membership => String(membership.cardSystem.id));
+    params.owningCardSystemId =
+      filters !== undefined && filters?.['includeAllCardSystems']
+        ? undefined
+        : user?.cardSystemMemberships.map(membership => String(membership.cardSystem.id));
 
     // add category
     if (category === 'laatste kans') {
@@ -95,7 +101,7 @@ export function useGetRewards({
     }
 
     return params;
-  }, [category, section, type, user, organizerId, freeText]);
+  }, [category, section, type, user, organizerId, freeText, filters]);
 
   return api.getInfinite<TRewardsResponse>(['rewards', JSON.stringify(params), itemsPerPage], `/rewards`, {
     enabled,
