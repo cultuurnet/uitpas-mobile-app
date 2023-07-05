@@ -4,6 +4,7 @@ import Barcode from 'react-native-barcode-svg';
 
 import { BrandLogo, Typography } from '../../_components';
 import i18n from '../../_translations/i18n';
+import { getPassHolderRegions } from '../../_utils/userHelper';
 import { TPassHolder } from '../_models';
 import { applyBarcodeMask } from '../_util/mask';
 import * as Styled from './style';
@@ -16,8 +17,8 @@ type TProps = {
 const UitpasCard: FC<TProps> = ({ passHolder, isLarge }) => {
   const { width } = useWindowDimensions();
 
-  const activeUitpasCards = passHolder.cardSystemMemberships.filter(card => card.status === 'ACTIVE');
-  const [firstActiveCard] = activeUitpasCards;
+  const passHolderRegions = getPassHolderRegions(passHolder);
+  const [firstPassHolderRegion] = passHolderRegions;
 
   return (
     <>
@@ -30,8 +31,8 @@ const UitpasCard: FC<TProps> = ({ passHolder, isLarge }) => {
               </Typography>
               <Typography color="neutral.0" size="small">
                 {isLarge
-                  ? activeUitpasCards.map(card => card.cardSystem.name).join(', ')
-                  : `${firstActiveCard.cardSystem.name}${activeUitpasCards.length > 1 ? ', ...' : ''}`}
+                  ? passHolderRegions.map(card => card.cardSystem.name).join(', ')
+                  : `${firstPassHolderRegion}${passHolderRegions.length > 1 ? ', ...' : ''}`}
               </Typography>
             </Styled.CardsView>
             <Styled.PointsView>
@@ -47,16 +48,16 @@ const UitpasCard: FC<TProps> = ({ passHolder, isLarge }) => {
             <BrandLogo height={16} inverse />
           </Styled.LogoContainer>
           <Styled.BarcodeContainer isLarge={isLarge}>
-            {firstActiveCard.uitpasNumber && (
+            {firstPassHolderRegion.uitpasNumber && (
               <>
                 <Barcode
                   format="CODE128"
                   height={isLarge ? 80 : 40}
                   singleBarWidth={isLarge ? 2 : 1.4}
-                  value={firstActiveCard.uitpasNumber || ''}
+                  value={firstPassHolderRegion.uitpasNumber || ''}
                 />
                 <Typography size={isLarge ? 'normal' : 'small'} topSpacing={isLarge ? '8px' : ''}>
-                  {applyBarcodeMask(firstActiveCard.uitpasNumber)}
+                  {applyBarcodeMask(firstPassHolderRegion.uitpasNumber)}
                 </Typography>
               </>
             )}
