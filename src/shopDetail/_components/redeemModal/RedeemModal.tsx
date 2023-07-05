@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { t } from 'i18next';
 
@@ -34,6 +34,12 @@ const RedeemModal: FC<TRedeemModalProps> = ({ reward, isVisible, toggleIsVisible
   });
   const activeCard = useActiveCard();
   const { trackSelfDescribingEvent } = useTracking();
+
+  useEffect(() => {
+    if (!error) return;
+
+    trackSelfDescribingEvent('errorMessage', { message: error?.type }, { reward: rewardContext });
+  }, [error, trackSelfDescribingEvent, rewardContext]);
 
   const handleConfirm = useCallback(() => {
     trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-confirm' }, { reward: rewardContext });

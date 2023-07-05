@@ -10,5 +10,6 @@ export const TrackingConfig = {
 
 export const trackingSchemes: Record<keyof TTrackingContexts | keyof TTrackingEvents, string> = {
   buttonClick: 'iglu:be.general/button_click/jsonschema/1-0-0',
+  errorMessage: 'iglu:be.general/error_message/jsonschema/1-0-0',
   reward: 'iglu:be.uitpas-mobile/reward/jsonschema/1-0-0',
 } as const;

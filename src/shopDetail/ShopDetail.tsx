@@ -62,12 +62,23 @@ export const ShopDetail = ({ route }: TProps) => {
         </Styled.GenericRedeemError>
       );
     }
+
+    trackSelfDescribingEvent('errorMessage', { message: redeemStatus.reason }, { reward: rewardContext });
+
     return (
       <Styled.RedeemError>
         <Typography color="neutral.0">{errorMessage}</Typography>
       </Styled.RedeemError>
     );
-  }, [redeemStatus?.message, redeemError?.endUserMessage, refetchRedeemStatus, t]);
+  }, [
+    redeemStatus?.reason,
+    redeemStatus?.message,
+    redeemError?.endUserMessage,
+    refetchRedeemStatus,
+    t,
+    trackSelfDescribingEvent,
+    rewardContext,
+  ]);
 
   const renderRedeemStatus = useCallback(() => {
     /*
