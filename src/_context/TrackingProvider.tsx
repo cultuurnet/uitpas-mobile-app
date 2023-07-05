@@ -1,14 +1,16 @@
 import { createContext, useCallback, useContext, useEffect, useMemo } from 'react';
 import { createTracker, EventContext as EventTrackingData } from '@snowplow/react-native-tracker';
 
-import { TrackingConfig } from '../_config';
+import { TrackingConfig, trackingSchemes } from '../_config';
 import { ConfigEnvironment } from '../_config/environments';
+import { TTrackingData, TTrackingEvents } from '../_models';
 import { log } from '../_utils/logger';
 import { useGetMe } from '../profile/_queries/useGetMe';
 import { useAuthentication } from './AuthenticationContext';
 
 type TTrackingContext = {
-  trackScreenViewEvent: (name: string, trackingData?: EventTrackingData[]) => Promise<void>;
+  trackScreenViewEvent: (name: string, trackingData?: TTrackingData) => Promise<void>;
+  trackSelfDescribingEvent: <T extends keyof TTrackingEvents>(type: T, data: TTrackingEvents[T]) => Promise<void>;
 };
 
 const TrackingContext = createContext<TTrackingContext>(null);
@@ -72,14 +74,40 @@ const TrackingProvider = ({ children }) => {
   }, [tracker, globalTrackingData]);
 
   const trackScreenViewEvent = useCallback(
-    (name: string, trackingData?: EventTrackingData[]) => {
-      log.debug('Track screenViewEvent', JSON.stringify({ globalTrackingData, name, trackingData }, undefined, 2));
+    (name: string, trackingData?: TTrackingData) => {
+      const mappedTrackingData = Object.keys(trackingData || []).map(
+        (key): EventTrackingData => ({
+          data: trackingData[key],
+          schema: trackingSchemes[key],
+        }),
+      );
+      log.debug(
+        'Track screenViewEvent',
+        JSON.stringify({ globalTrackingData, name, trackingData: mappedTrackingData }, undefined, 2),
+      );
 
       if (!TrackingConfig.isEnabled) {
         return Promise.resolve();
       }
 
-      return tracker.trackScreenViewEvent({ name }, trackingData);
+      return tracker.trackScreenViewEvent({ name }, mappedTrackingData);
+    },
+    [tracker, globalTrackingData],
+  );
+
+  const trackSelfDescribingEvent = useCallback(
+    <T extends keyof TTrackingEvents>(type: T, data: TTrackingEvents[T]) => {
+      const mappedData = {
+        data,
+        schema: trackingSchemes[type],
+      };
+      log.debug('Track selfDescribingEvent', JSON.stringify({ data: mappedData, globalTrackingData }, undefined, 2));
+
+      if (!TrackingConfig.isEnabled) {
+        return Promise.resolve();
+      }
+
+      return tracker.trackSelfDescribingEvent(mappedData);
     },
     [tracker, globalTrackingData],
   );
@@ -91,7 +119,9 @@ const TrackingProvider = ({ children }) => {
     tracker?.setUserId(user.sub);
   }, [user?.sub, tracker]);
 
-  return <TrackingContext.Provider value={{ trackScreenViewEvent }}>{children}</TrackingContext.Provider>;
+  return (
+    <TrackingContext.Provider value={{ trackScreenViewEvent, trackSelfDescribingEvent }}>{children}</TrackingContext.Provider>
+  );
 };
 
 export default TrackingProvider;

@@ -20,3 +20,7 @@ export function normalizeUrl(url: string): string {
 
   return url;
 }
+
+export function normalizeForSlug(input: string): string {
+  return input?.replaceAll(' ', '-').toLowerCase();
+}
