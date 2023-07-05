@@ -8,7 +8,7 @@ import { useGetMe } from '../profile/_queries/useGetMe';
 import { useAuthentication } from './AuthenticationContext';
 
 type TTrackingContext = {
-  trackScreenViewEvent: (name) => Promise<void>;
+  trackScreenViewEvent: (name: string, contexts?: EventContext[]) => Promise<void>;
 };
 
 const TrackingContext = createContext<TTrackingContext>(null);
@@ -72,14 +72,14 @@ const TrackingProvider = ({ children }) => {
   }, [tracker, globalContexts]);
 
   const trackScreenViewEvent = useCallback(
-    (name: string) => {
-      log.debug('Track screenViewEvent', JSON.stringify({ globalContexts, name }, undefined, 2));
+    (name: string, contexts?: EventContext[]) => {
+      log.debug('Track screenViewEvent', JSON.stringify({ contexts, globalContexts, name }, undefined, 2));
 
       if (!TrackingConfig.isEnabled) {
         return Promise.resolve();
       }
 
-      return tracker.trackScreenViewEvent({ name });
+      return tracker.trackScreenViewEvent({ name }, contexts);
     },
     [tracker, globalContexts],
   );

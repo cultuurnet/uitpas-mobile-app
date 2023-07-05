@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native';
 
-import { Accordion, Button, HtmlRenderer, Points, RewardImage, Typography } from '../_components';
+import { Accordion, Analytics, Button, HtmlRenderer, Points, RewardImage, Typography } from '../_components';
 import { useToggle } from '../_hooks';
 import { TRootStackRouteProp } from '../_routing';
 import { getLanguage } from '../_utils/languageHelpers';
@@ -95,6 +95,17 @@ export const ShopDetail = ({ route }: TProps) => {
 
   return (
     <>
+      <Analytics
+        contexts={{
+          reward: {
+            id: reward.id,
+            online: reward.online,
+            title: reward.title,
+            welcome: reward.type === 'WELCOME',
+          },
+        }}
+        screenName="reward"
+      />
       <ScrollView stickyHeaderIndices={stickyHeaderIndices}>
         <Styled.ImageContainer>
           <RewardImage largeSpacing picture={reward.pictures?.[0]}>
