@@ -108,7 +108,7 @@
         "CTA": "Filteren",
         "REGION": {
           "TITLE": "Buiten jouw regio(s)",
-          "DESCRIPTION": "Toon ook voordelen van organisatoren buiten mijn regio"
+          "DESCRIPTION": "Toon ook voordelen van organisatoren buiten {{regions}}."
         },
         "APPLY": "Toepassen"
       }

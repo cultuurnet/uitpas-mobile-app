@@ -5,6 +5,8 @@ import { Switch } from 'react-native';
 import { Button, Typography } from '../../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../../_routing';
 import { theme } from '../../_styles/theme';
+import { getPassHolderRegions } from '../../_utils/userHelper';
+import { useGetMe } from '../../profile/_queries/useGetMe';
 import * as Styled from './style';
 
 type TProps = {
@@ -16,6 +18,8 @@ export const SearchFilters = ({ navigation, route }: TProps) => {
   const { t } = useTranslation();
   const { filters } = route.params;
   const [updatedFilters, setUpdatedFilters] = useState(filters);
+  const { data: passHolder } = useGetMe();
+  const regions = getPassHolderRegions(passHolder);
 
   function onSubmit() {
     navigation.navigate('Search', { filters: updatedFilters });
@@ -26,7 +30,9 @@ export const SearchFilters = ({ navigation, route }: TProps) => {
       <Styled.RegionFilter>
         <Styled.RegionFilterText>
           <Typography fontStyle="bold">{t('SHOP.SEARCH.FILTERS.REGION.TITLE')}</Typography>
-          <Typography>{t('SHOP.SEARCH.FILTERS.REGION.DESCRIPTION')}</Typography>
+          <Typography>
+            {t('SHOP.SEARCH.FILTERS.REGION.DESCRIPTION', { regions: regions.map(card => card.cardSystem.name).join(', ') })}
+          </Typography>
         </Styled.RegionFilterText>
         <Switch
           onValueChange={value => setUpdatedFilters({ ...updatedFilters, includeAllCardSystems: value })}
