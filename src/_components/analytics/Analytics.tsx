@@ -1,19 +1,10 @@
 import { useEffect } from 'react';
-import { EventContext } from '@snowplow/react-native-tracker';
 
 import { useTracking } from '../../_context';
-import { TRewardContext } from '../../_models/tracking';
-
-type TContexts = {
-  reward: TRewardContext;
-};
-
-export const schemes: Record<keyof TContexts, string> = {
-  reward: 'iglu:be.uitpas-mobile/reward/jsonschema/1-0-0',
-} as const;
+import { TTrackingContexts } from '../../_models/tracking';
 
 type TProps = {
-  contexts?: TContexts;
+  contexts?: TTrackingContexts;
   screenName?: string;
 };
 
@@ -23,14 +14,7 @@ const Analytics = ({ screenName, contexts }: TProps) => {
   useEffect(() => {
     if (!screenName) return;
 
-    const mappedContexts = Object.keys(contexts || []).map(
-      (key): EventContext => ({
-        data: contexts[key],
-        schema: schemes[key],
-      }),
-    );
-
-    trackScreenViewEvent(screenName, mappedContexts);
+    trackScreenViewEvent(screenName, contexts);
   }, [screenName, trackScreenViewEvent, contexts]);
 
   return null;

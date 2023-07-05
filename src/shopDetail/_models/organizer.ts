@@ -6,23 +6,23 @@ export type TOrganizerAddress = {
 };
 
 export type TOrganizer = {
-  '@id': string;
   '@context': string;
-  mainLanguage: string;
-  name: string;
+  '@id': string;
   address: Record<string, TOrganizerAddress>;
-  hiddenLabels?: string[];
+  completedLanguages: string[];
   contactPoint: {
-    phone: string[];
     email: string[];
+    phone: string[];
     url: string[];
   };
-  workflowStatus: string;
-  languages: string[];
-  completedLanguages: string[];
-  modified: string;
   geo: {
     latitude: number;
     longitude: number;
   };
+  hiddenLabels?: string[];
+  languages: string[];
+  mainLanguage: string;
+  modified: string;
+  name: string;
+  workflowStatus: string;
 };
