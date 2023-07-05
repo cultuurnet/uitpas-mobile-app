@@ -10,7 +10,11 @@ import { useAuthentication } from './AuthenticationContext';
 
 type TTrackingContext = {
   trackScreenViewEvent: (name: string, contexts?: TTrackingContexts) => Promise<void>;
-  trackSelfDescribingEvent: <T extends keyof TTrackingEvents>(type: T, data: TTrackingEvents[T]) => Promise<void>;
+  trackSelfDescribingEvent: <T extends keyof TTrackingEvents>(
+    type: T,
+    data: TTrackingEvents[T],
+    contexts?: TTrackingContexts,
+  ) => Promise<void>;
 };
 
 const TrackingContext = createContext<TTrackingContext>(null);
@@ -93,18 +97,24 @@ const TrackingProvider = ({ children }) => {
   );
 
   const trackSelfDescribingEvent = useCallback(
-    <T extends keyof TTrackingEvents>(type: T, data: TTrackingEvents[T]) => {
+    <T extends keyof TTrackingEvents>(type: T, data: TTrackingEvents[T], contexts?: TTrackingContexts) => {
       const mappedData = {
         data,
         schema: trackingSchemes[type],
       };
+      const mappedContexts = Object.keys(contexts || []).map(
+        (key): EventContext => ({
+          data: contexts[key],
+          schema: trackingSchemes[key],
+        }),
+      );
       log.debug('Track selfDescribingEvent', JSON.stringify({ data: mappedData, globalContexts }, undefined, 2));
 
       if (!TrackingConfig.isEnabled) {
         return Promise.resolve();
       }
 
-      return tracker.trackSelfDescribingEvent(mappedData);
+      return tracker.trackSelfDescribingEvent(mappedData, mappedContexts);
     },
     [tracker, globalContexts],
   );
