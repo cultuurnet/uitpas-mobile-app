@@ -5,7 +5,7 @@ import { Config } from 'react-native-config';
 import { useToggle } from '../_hooks';
 import { useAppState } from '../_hooks/useAppState';
 import { TAuth0User } from '../_models';
-import { queryClient } from '../_providers/QueryClientProvider';
+import { queryClient } from './QueryClientProvider';
 import { log } from '../_utils/logger';
 import { getIdTokenProfileClaims } from './util';
 
@@ -21,9 +21,9 @@ type TAuthenticationContext = {
 };
 
 export const AuthenticationContext = createContext<TAuthenticationContext>({
-  authorize: async () => { },
+  authorize: async () => {},
   isInitialized: false,
-  logout: async () => { },
+  logout: async () => {},
 });
 
 export const useAuthentication = () => useContext(AuthenticationContext);
@@ -85,18 +85,21 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
     checkAndRenewCredentials();
   }, [checkAndRenewCredentials]);
 
-  const authorize = useCallback(async (...options) => {
-    try {
-      const credentials = await client.webAuth.authorize(...options);
-      await client.credentialsManager.saveCredentials(credentials);
-      setAccessToken(credentials.accessToken);
-      setIsAuthenticated(true);
-      setUser(getIdTokenProfileClaims(credentials.idToken) as TAuth0User);
-    } catch (e) {
-      logout();
-      log.error(e);
-    }
-  }, [client, setIsAuthenticated, logout]);
+  const authorize = useCallback(
+    async (...options) => {
+      try {
+        const credentials = await client.webAuth.authorize(...options);
+        await client.credentialsManager.saveCredentials(credentials);
+        setAccessToken(credentials.accessToken);
+        setIsAuthenticated(true);
+        setUser(getIdTokenProfileClaims(credentials.idToken) as TAuth0User);
+      } catch (e) {
+        logout();
+        log.error(e);
+      }
+    },
+    [client, setIsAuthenticated, logout],
+  );
 
   return (
     <AuthenticationContext.Provider

@@ -5,7 +5,7 @@ import { Config } from 'react-native-config';
 import { EventArg } from '@react-navigation/native';
 
 import { Person } from '../_assets/images';
-import { BrandLogo, DiagonalSplitView, Spinner } from '../_components';
+import { Analytics, BrandLogo, DiagonalSplitView, Spinner } from '../_components';
 import { ConfigUrl } from '../_config';
 import { useAuthentication } from '../_context';
 import { useStackNavigation } from '../_hooks';
@@ -55,25 +55,28 @@ const Login = () => {
   }
 
   return (
-    <DiagonalSplitView
-      bottomContent={
-        <Styled.BottomContainer>
-          <Styled.ListItem centered href={ConfigUrl.register} label={t('LOGIN.REGISTER')} variant="link" />
-          <Styled.ListItem label={t('LOGIN.CTA')} onPress={handleLogin} />
-        </Styled.BottomContainer>
-      }
-      diagonalContainerHeight={150}
-      topContent={
-        <Styled.TopContainer>
-          <BrandLogo height={48} inverse />
-          <Styled.IntroText align="center" color="neutral.0">
-            {t('LOGIN.INTRO')}
-          </Styled.IntroText>
+    <>
+      <Analytics screenName="Login" />
+      <DiagonalSplitView
+        bottomContent={
+          <Styled.BottomContainer>
+            <Styled.ListItem centered href={ConfigUrl.register} label={t('LOGIN.REGISTER')} variant="link" />
+            <Styled.ListItem label={t('LOGIN.CTA')} onPress={handleLogin} />
+          </Styled.BottomContainer>
+        }
+        diagonalContainerHeight={150}
+        topContent={
+          <Styled.TopContainer>
+            <BrandLogo height={48} inverse />
+            <Styled.IntroText align="center" color="neutral.0">
+              {t('LOGIN.INTRO')}
+            </Styled.IntroText>
 
-          {height > 600 && <Styled.Illustration source={Person} />}
-        </Styled.TopContainer>
-      }
-    />
+            {height > 600 && <Styled.Illustration source={Person} />}
+          </Styled.TopContainer>
+        }
+      />
+    </>
   );
 };
 
