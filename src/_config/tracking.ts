@@ -21,4 +21,5 @@ export const trackingSchemes: Record<keyof TTrackingData | keyof TTrackingEvents
   linkClick: 'iglu:com.snowplowanalytics.snowplow/link_click/jsonschema/1-0-1',
   reward: 'iglu:be.uitpas-mobile/reward/jsonschema/1-0-0',
   successMessage: 'iglu:be.general/success_message/jsonschema/1-0-0',
+  swimlaneInteraction: 'iglu:be.general/swimlane_interaction/jsonschema/1-0-0',
 } as const;

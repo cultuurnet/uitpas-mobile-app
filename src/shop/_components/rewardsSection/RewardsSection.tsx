@@ -5,7 +5,9 @@ import { useNavigation } from '@react-navigation/native';
 
 import { Icon, Reward, Typography } from '../../../_components';
 import { REWARD_TILE_WIDTH } from '../../../_components/reward/style';
+import { useTracking } from '../../../_context';
 import { TMainNavigationProp } from '../../../_routing';
+import { getRewardTrackingData } from '../../../_utils';
 import { TFilterRewardCategory, TFilterRewardSections, useGetRewards } from '../../_queries/useGetRewards';
 import { RewardsSectionLoader } from './RewardSection.loading';
 import * as Styled from './style';
@@ -32,12 +34,22 @@ export const RewardsSection = ({
   const { data, isLoading } = useGetRewards({ category, itemsPerPage: horizontal ? 20 : 3, organizerId, section: filter });
   const { t } = useTranslation();
   const { navigate } = useNavigation<TMainNavigationProp>();
+  const { trackSelfDescribingEvent } = useTracking();
   // Filter when there are rewards that shouldn't be shown (eg, when we show related rewards at the bottom a reward detail)
   const rewards = data?.pages[0]?.member?.filter?.(reward => reward.id !== filterRewardId);
 
   const onPressMore = useCallback(() => {
+    trackSelfDescribingEvent('swimlaneInteraction', {
+      action: 'click-view-more',
+      algo: {
+        name: 'default',
+        version: '0',
+      },
+      'swimlane-direction': horizontal ? 'horizontal' : 'vertical',
+      'swimlane-title': title,
+    });
     navigate('FilteredShop', { category, filter, subtitle: title });
-  }, [title, filter, navigate, category]);
+  }, [title, filter, navigate, category, horizontal, trackSelfDescribingEvent]);
 
   // We need to have 2 or more results to display the section
   if (!isLoading && !(rewards?.length >= 2)) return null;
@@ -68,7 +80,38 @@ export const RewardsSection = ({
             decelerationRate="fast"
             horizontal
             keyExtractor={item => item.id}
-            renderItem={({ item: reward }) => <Styled.RewardTile mode="tile" reward={reward} />}
+            onTouchEnd={() => {
+              trackSelfDescribingEvent('swimlaneInteraction', {
+                action: 'swipe',
+                algo: {
+                  name: 'default',
+                  version: '0',
+                },
+                'swimlane-direction': horizontal ? 'horizontal' : 'vertical',
+                'swimlane-title': title,
+              });
+            }}
+            renderItem={({ item: reward }) => (
+              <Styled.RewardTile
+                mode="tile"
+                onPress={() => {
+                  trackSelfDescribingEvent(
+                    'swimlaneInteraction',
+                    {
+                      action: 'click',
+                      algo: {
+                        name: 'default',
+                        version: '0',
+                      },
+                      'swimlane-direction': horizontal ? 'horizontal' : 'vertical',
+                      'swimlane-title': title,
+                    },
+                    { reward: getRewardTrackingData(reward) },
+                  );
+                }}
+                reward={reward}
+              />
+            )}
             showsHorizontalScrollIndicator={false}
             snapToAlignment="start"
             snapToInterval={REWARD_TILE_WIDTH + Styled.RewardTileMargin}
