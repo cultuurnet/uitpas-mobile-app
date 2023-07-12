@@ -5,7 +5,7 @@ import { Config } from 'react-native-config';
 import { useToggle } from '../_hooks';
 import { useAppState } from '../_hooks/useAppState';
 import { TAuth0User } from '../_models';
-import { log } from '../_utils/logger';
+import { log } from '../_utils';
 import { queryClient } from './QueryClientProvider';
 import { getIdTokenProfileClaims } from './util';
 

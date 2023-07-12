@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import i18n from '../../_translations/i18n';
-import { formatDate } from '../../_utils/dateHelpers';
+import { formatDate } from '../../_utils';
 import { TCardSystemMembership } from '../_models';
 import * as Styled from './style';
 

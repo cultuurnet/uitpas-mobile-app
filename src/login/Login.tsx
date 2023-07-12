@@ -9,7 +9,7 @@ import { Analytics, BrandLogo, DiagonalSplitView, Spinner } from '../_components
 import { ConfigUrl } from '../_config';
 import { useAuthentication } from '../_context';
 import { useStackNavigation } from '../_hooks';
-import { log } from '../_utils/logger';
+import { log } from '../_utils';
 import * as Styled from './style';
 
 const Login = () => {

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components/native';
 
-import { getColor } from '../../_utils/colorHelper';
+import { getColor } from '../../_utils';
 import TouchableRipple from '../touchableRipple/TouchableRipple';
 import { TIconProps } from './Icon';
 

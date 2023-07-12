@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { getColor } from '../../_utils/colorHelper';
+import { getColor } from '../../_utils';
 import { TTypographyProps } from './Typography';
 
 export type TFontStyle = 'light' | 'normal' | 'semibold' | 'bold';

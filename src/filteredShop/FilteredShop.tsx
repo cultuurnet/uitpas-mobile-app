@@ -6,6 +6,7 @@ import { FlashList } from '@shopify/flash-list';
 import { Analytics, Reward, RewardLoader } from '../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing';
 import { theme } from '../_styles/theme';
+import { normalizeForSlug } from '../_utils';
 import { useGetRewards } from '../shop/_queries/useGetRewards';
 import { WelcomeHeader } from './_components/WelcomeHeader';
 import * as Styled from './style';
@@ -35,7 +36,9 @@ export const FilteredShop = ({ route }: TProps) => {
 
   return (
     <>
-      <Analytics screenName={isFilteredOnWelcome ? 'welcome-rewards' : `rewardshop-list-${filter.replace(' ', '-')}`} />
+      <Analytics
+        screenName={isFilteredOnWelcome ? 'welcome-rewards' : `rewardshop-list-${normalizeForSlug(category || filter)}`}
+      />
       <FlashList
         ItemSeparatorComponent={Styled.Separator}
         ListEmptyComponent={

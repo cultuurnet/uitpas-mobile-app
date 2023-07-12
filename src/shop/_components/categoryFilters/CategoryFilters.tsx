@@ -4,9 +4,11 @@ import { useWindowDimensions } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 
 import { TIconName } from '../../../_components/icon/Icon';
+import { useTracking } from '../../../_context';
 import { useStackNavigation } from '../../../_hooks';
 import { TRootStackParamList } from '../../../_routing';
 import { theme } from '../../../_styles/theme';
+import { normalizeForSlug } from '../../../_utils';
 import { TFilterRewardCategory, TFilterRewardSections } from '../../_queries/useGetRewards';
 import * as Styled from './style';
 
@@ -32,12 +34,16 @@ export const CategoryFilters = () => {
   const [isAtEnd, toggleIsAtEnd] = useState(false);
   const [isAtbegin, toggleIsAtBegin] = useState(true);
   const { navigate } = useStackNavigation<TRootStackParamList>();
+  const { trackSelfDescribingEvent } = useTracking();
 
   const onPress = useCallback(
     (params: TCategoryListItem['params'], label: string) => {
+      trackSelfDescribingEvent('buttonClick', {
+        button_name: `rewardshop-filter-${normalizeForSlug(params?.category || params?.filter)}`,
+      });
       navigate('FilteredShop', { ...params, subtitle: t(label) });
     },
-    [navigate, t],
+    [navigate, t, trackSelfDescribingEvent],
   );
 
   return (

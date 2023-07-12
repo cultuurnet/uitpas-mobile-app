@@ -4,7 +4,7 @@ import Barcode from 'react-native-barcode-svg';
 
 import { BrandLogo, Typography } from '../../_components';
 import i18n from '../../_translations/i18n';
-import { getPassHolderRegions } from '../../_utils/userHelper';
+import { getPassHolderRegions } from '../../_utils';
 import { TPassHolder } from '../_models';
 import { applyBarcodeMask } from '../_util/mask';
 import * as Styled from './style';

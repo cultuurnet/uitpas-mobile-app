@@ -6,7 +6,7 @@ import { FlashList } from '@shopify/flash-list';
 import { Analytics, Reward, RewardLoader } from '../_components';
 import { TRootStackNavigationProp } from '../_routing';
 import { theme } from '../_styles/theme';
-import { formatISOString } from '../_utils/dateHelpers';
+import { formatISOString } from '../_utils';
 import { useGetRedeemedRewards } from './_queries/useGetRedeemedRewards';
 import * as Styled from './style';
 
