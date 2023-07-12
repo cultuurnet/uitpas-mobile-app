@@ -96,7 +96,7 @@ export const ShopDetail = ({ route }: TProps) => {
   return (
     <>
       <Analytics
-        contexts={{
+        data={{
           reward: {
             id: reward.id,
             online: reward.online,

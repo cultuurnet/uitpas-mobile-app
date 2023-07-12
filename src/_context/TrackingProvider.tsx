@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo } from 'react';
-import { createTracker, EventContext } from '@snowplow/react-native-tracker';
+import { createTracker, EventContext as EventTrackingData } from '@snowplow/react-native-tracker';
 
 import { TrackingConfig } from '../_config';
 import { ConfigEnvironment } from '../_config/environments';
@@ -8,7 +8,7 @@ import { useGetMe } from '../profile/_queries/useGetMe';
 import { useAuthentication } from './AuthenticationContext';
 
 type TTrackingContext = {
-  trackScreenViewEvent: (name: string, contexts?: EventContext[]) => Promise<void>;
+  trackScreenViewEvent: (name: string, trackingData?: EventTrackingData[]) => Promise<void>;
 };
 
 const TrackingContext = createContext<TTrackingContext>(null);
@@ -19,7 +19,7 @@ const TrackingProvider = ({ children }) => {
   const { user } = useAuthentication();
   const { data, isFetched } = useGetMe();
 
-  const globalContexts: EventContext[] = useMemo(
+  const globalTrackingData: EventTrackingData[] = useMemo(
     () => [
       {
         data: {
@@ -66,22 +66,22 @@ const TrackingProvider = ({ children }) => {
     if (!tracker) return;
     tracker.removeGlobalContexts('user-environment');
     tracker.addGlobalContexts({
-      globalContexts,
+      globalContexts: globalTrackingData,
       tag: 'user-environment',
     });
-  }, [tracker, globalContexts]);
+  }, [tracker, globalTrackingData]);
 
   const trackScreenViewEvent = useCallback(
-    (name: string, contexts?: EventContext[]) => {
-      log.debug('Track screenViewEvent', JSON.stringify({ contexts, globalContexts, name }, undefined, 2));
+    (name: string, trackingData?: EventTrackingData[]) => {
+      log.debug('Track screenViewEvent', JSON.stringify({ globalTrackingData, name, trackingData }, undefined, 2));
 
       if (!TrackingConfig.isEnabled) {
         return Promise.resolve();
       }
 
-      return tracker.trackScreenViewEvent({ name }, contexts);
+      return tracker.trackScreenViewEvent({ name }, trackingData);
     },
-    [tracker, globalContexts],
+    [tracker, globalTrackingData],
   );
 
   useEffect(() => {
