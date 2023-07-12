@@ -5,7 +5,7 @@ import { Switch } from 'react-native';
 import { Button, Typography } from '../../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../../_routing';
 import { theme } from '../../_styles/theme';
-import { getPassHolderRegions } from '../../_utils/userHelper';
+import { getPassHolderRegions } from '../../_utils';
 import { useGetMe } from '../../profile/_queries/useGetMe';
 import * as Styled from './style';
 

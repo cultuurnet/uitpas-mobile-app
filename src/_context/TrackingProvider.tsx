@@ -4,7 +4,7 @@ import { createTracker, EventContext as EventTrackingData } from '@snowplow/reac
 import { TrackingConfig, trackingSchemes } from '../_config';
 import { ConfigEnvironment } from '../_config/environments';
 import { TTrackingData, TTrackingEvents } from '../_models';
-import { log } from '../_utils/logger';
+import { log } from '../_utils';
 import { useGetMe } from '../profile/_queries/useGetMe';
 import { useAuthentication } from './AuthenticationContext';
 

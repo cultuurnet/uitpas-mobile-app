@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { ScrollView, useWindowDimensions, View } from 'react-native';
 
 import { ThemeColor } from '../../_styles/theme';
-import { getColor } from '../../_utils/colorHelper';
+import { getColor } from '../../_utils';
 import FocusAwareStatusBar from '../statusBar/FocusAwareStatusBar';
 import * as Styled from './style';
 

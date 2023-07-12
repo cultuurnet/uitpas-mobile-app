@@ -5,7 +5,7 @@ import { Image, ScrollView } from 'react-native';
 import { GiftOpen } from '../_assets/images';
 import { EnlargedHeader, HtmlRenderer, Trans, Typography } from '../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing';
-import { formatISOString } from '../_utils/dateHelpers';
+import { formatISOString } from '../_utils';
 import { RewardCard } from './_components/rewardCard/RewardCard';
 import * as Styled from './style';
 
