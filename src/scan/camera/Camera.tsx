@@ -5,7 +5,7 @@ import { Camera as VisionCamera, Frame, useCameraDevices, useFrameProcessor } fr
 import { useFocusEffect } from '@react-navigation/native';
 import { Barcode, BarcodeFormat, scanBarcodes } from 'vision-camera-code-scanner';
 
-import { FocusAwareStatusBar, Spinner } from '../../_components';
+import { Analytics, FocusAwareStatusBar, Spinner } from '../../_components';
 import { TApiError } from '../../_http';
 import { TMainNavigationProp } from '../../_routing/_components/TRootStackParamList';
 import { theme } from '../../_styles/theme';
@@ -25,7 +25,7 @@ const overlaySettings: TOverlayDimensions = {
 
 type TProps = {
   navigation: TMainNavigationProp<'Camera'>;
-}
+};
 
 const Camera = ({ navigation }: TProps) => {
   const [isActive, setIsActive] = useState(true);
@@ -87,20 +87,23 @@ const Camera = ({ navigation }: TProps) => {
   }
 
   return (
-    <View onLayout={handleLayoutChange} style={StyleSheet.absoluteFill}>
-      <FocusAwareStatusBar backgroundColor={theme.palette.neutral['900']} barStyle="light-content" translucent />
-      {overlayDimensions.width !== 0 &&
-        <VisionCamera
-          device={device}
-          frameProcessor={frameProcessor}
-          frameProcessorFps={5}
-          isActive={isActive}
-          style={overlayDimensions}
-        />
-      }
+    <>
+      <Analytics screenName="Camera" />
+      <View onLayout={handleLayoutChange} style={StyleSheet.absoluteFill}>
+        <FocusAwareStatusBar backgroundColor={theme.palette.neutral['900']} barStyle="light-content" translucent />
+        {overlayDimensions.width !== 0 && (
+          <VisionCamera
+            device={device}
+            frameProcessor={frameProcessor}
+            frameProcessorFps={5}
+            isActive={isActive}
+            style={overlayDimensions}
+          />
+        )}
 
-      <CameraOverlay config={overlay} isLoading={isLoading} settings={overlaySettings} />
-    </View>
+        <CameraOverlay config={overlay} isLoading={isLoading} settings={overlaySettings} />
+      </View>
+    </>
   );
 };
 

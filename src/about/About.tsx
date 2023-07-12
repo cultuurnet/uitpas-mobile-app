@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform, ScrollView } from 'react-native';
 import { Config } from 'react-native-config';
 
-import { Button, Typography } from '../_components';
+import { Analytics, Button, Typography } from '../_components';
 import LinkList, { TLinkListItem } from '../_components/linkList/LinkList';
 import { ConfigUrl } from '../_config';
 import i18n from '../_translations/i18n';
@@ -28,15 +28,18 @@ const links: TLinkListItem[] = [
 
 const About = () => {
   return (
-    <ScrollView>
-      <LinkList items={links} title={i18n.t('PROFILE.ABOUT.VERSION', { version: Config.REACT_NATIVE_APP_VERSION_NR })} />
-      <Styled.NotificationContainer>
-        <Typography bottomSpacing="20px" color="secondary.900">
-          {i18n.t('PROFILE.ABOUT.CONSTRUCTION_WARNING')}
-        </Typography>
-        <Button href={ConfigUrl.helpdesk} inline label={i18n.t('PROFILE.ABOUT.REPORT_PROBLEM')} />
-      </Styled.NotificationContainer>
-    </ScrollView>
+    <>
+      <Analytics screenName="About" />
+      <ScrollView>
+        <LinkList items={links} title={i18n.t('PROFILE.ABOUT.VERSION', { version: Config.REACT_NATIVE_APP_VERSION_NR })} />
+        <Styled.NotificationContainer>
+          <Typography bottomSpacing="20px" color="secondary.900">
+            {i18n.t('PROFILE.ABOUT.CONSTRUCTION_WARNING')}
+          </Typography>
+          <Button href={ConfigUrl.helpdesk} inline label={i18n.t('PROFILE.ABOUT.REPORT_PROBLEM')} />
+        </Styled.NotificationContainer>
+      </ScrollView>
+    </>
   );
 };
 

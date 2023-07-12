@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable } from 'react-native';
 
-import { EnlargedHeader, LinkList, Spinner } from '../_components';
+import { Analytics, EnlargedHeader, LinkList, Spinner } from '../_components';
 import { TLinkListItem } from '../_components/linkList/LinkList';
 import { ConfigUrl } from '../_config';
 import { useToggle } from '../_hooks';
@@ -92,6 +92,7 @@ const Profile = ({ navigation }: TProps) => {
   );
   return (
     <>
+      <Analytics screenName="Profile" />
       <Styled.SafeAreaViewContainer edges={['left', 'right']} isScrollable>
         <Styled.TopContainer>
           <EnlargedHeader />

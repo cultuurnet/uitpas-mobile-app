@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 import { TRootStackNavigationProp } from '../../_routing';
@@ -11,7 +11,7 @@ import * as Styled from './style';
 
 type TProps = {
   isRedeemed?: boolean;
-  mode: 'list' | 'tile',
+  mode: 'list' | 'tile';
   onPress?: () => void;
   reward: TReward;
   subtitle?: string;
@@ -32,13 +32,17 @@ const Reward = ({ reward, isRedeemed, subtitle, onPress, mode, ...props }: TProp
     }
   }, [reward, push, onPress]);
 
-  const renderPointsAndLabel = useCallback(() => (
-    (!!reward.points || reward.online) && !isRedeemed && (
-      <Styled.PointsAndLabelContainer>
-        {!!reward.points && <Points points={reward.points} theme={isTile ? 'white' : 'primary'} />}
-        {reward.online && <InAppRewardLabel />}
-      </Styled.PointsAndLabelContainer>
-    )), [isTile, reward.points, reward.online, isRedeemed]);
+  const renderPointsAndLabel = useCallback(
+    () =>
+      (!!reward.points || reward.online) &&
+      !isRedeemed && (
+        <Styled.PointsAndLabelContainer>
+          {!!reward.points && <Points points={reward.points} theme={isTile ? 'white' : 'primary'} />}
+          {reward.online && <InAppRewardLabel />}
+        </Styled.PointsAndLabelContainer>
+      ),
+    [isTile, reward.points, reward.online, isRedeemed],
+  );
 
   const Container = isTile ? Styled.RewardTileContainer : Styled.RewardListContainer;
   return (
@@ -50,13 +54,15 @@ const Reward = ({ reward, isRedeemed, subtitle, onPress, mode, ...props }: TProp
           </RewardImage>
         </Styled.ImageContainer>
         <Styled.TextContainer isTile={isTile}>
-          <Typography fontStyle='bold' size='small'>{reward.title}</Typography>
-          <Typography size='small'>{subtitle || reward.organizers[0]?.name}</Typography>
+          <Typography fontStyle="bold" size="small">
+            {reward.title}
+          </Typography>
+          <Typography size="small">{subtitle || reward.organizers[0]?.name}</Typography>
           {!isTile && renderPointsAndLabel()}
         </Styled.TextContainer>
       </>
     </Container>
   );
-}
+};
 
 export default Reward;
