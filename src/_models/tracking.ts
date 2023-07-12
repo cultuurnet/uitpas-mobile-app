@@ -1,6 +1,6 @@
 import { TReward } from '../shop/_models/reward';
 
-export type TRewardContext = Pick<TReward, 'id' | 'title' | 'online'> & {
+export type TRewardTrackingData = Pick<TReward, 'id' | 'title' | 'online'> & {
   welcome: boolean;
 };
 
@@ -8,8 +8,8 @@ export type TButtonClickEvent = {
   button_name: string;
 };
 
-export type TTrackingContexts = {
-  reward?: TRewardContext;
+export type TTrackingData = {
+  reward?: TRewardTrackingData;
 };
 
 export type TTrackingEvents = {

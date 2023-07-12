@@ -8,7 +8,7 @@ import { useTracking } from '../../../_context';
 import { useStackNavigation } from '../../../_hooks';
 import { TRootStackParamList } from '../../../_routing';
 import { theme } from '../../../_styles/theme';
-import { normalizeForSlug } from '../../../_utils/normalizeHelpers';
+import { normalizeForSlug } from '../../../_utils';
 import { TFilterRewardCategory, TFilterRewardSections } from '../../_queries/useGetRewards';
 import * as Styled from './style';
 

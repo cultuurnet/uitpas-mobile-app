@@ -9,7 +9,7 @@ import { Analytics, FocusAwareStatusBar, Spinner } from '../../_components';
 import { TApiError } from '../../_http';
 import { TMainNavigationProp } from '../../_routing/_components/TRootStackParamList';
 import { theme } from '../../_styles/theme';
-import { log } from '../../_utils/logger';
+import { log } from '../../_utils';
 import { useCameraPermission } from '../_hooks';
 import { TOverlayDimensions, useOverlayDimensions } from '../_hooks/useOverlayDimensions';
 import { useCheckin } from '../_queries/useCheckin';

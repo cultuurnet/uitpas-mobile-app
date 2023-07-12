@@ -1,19 +1,19 @@
 import { createContext, useCallback, useContext, useEffect, useMemo } from 'react';
-import { createTracker, EventContext } from '@snowplow/react-native-tracker';
+import { createTracker, EventContext as EventTrackingData } from '@snowplow/react-native-tracker';
 
 import { TrackingConfig, trackingSchemes } from '../_config';
 import { ConfigEnvironment } from '../_config/environments';
-import { TTrackingContexts, TTrackingEvents } from '../_models';
-import { log } from '../_utils/logger';
+import { TTrackingData, TTrackingEvents } from '../_models';
+import { log } from '../_utils';
 import { useGetMe } from '../profile/_queries/useGetMe';
 import { useAuthentication } from './AuthenticationContext';
 
 type TTrackingContext = {
-  trackScreenViewEvent: (name: string, contexts?: TTrackingContexts) => Promise<void>;
+  trackScreenViewEvent: (name: string, trackingData?: TTrackingData) => Promise<void>;
   trackSelfDescribingEvent: <T extends keyof TTrackingEvents>(
     type: T,
-    data: TTrackingEvents[T],
-    contexts?: TTrackingContexts,
+    eventData: TTrackingEvents[T],
+    trackingData?: TTrackingData,
   ) => Promise<void>;
 };
 
@@ -25,7 +25,7 @@ const TrackingProvider = ({ children }) => {
   const { user } = useAuthentication();
   const { data, isFetched } = useGetMe();
 
-  const globalContexts: EventContext[] = useMemo(
+  const globalTrackingData: EventTrackingData[] = useMemo(
     () => [
       {
         data: {
@@ -72,51 +72,54 @@ const TrackingProvider = ({ children }) => {
     if (!tracker) return;
     tracker.removeGlobalContexts('user-environment');
     tracker.addGlobalContexts({
-      globalContexts,
+      globalContexts: globalTrackingData,
       tag: 'user-environment',
     });
-  }, [tracker, globalContexts]);
+  }, [tracker, globalTrackingData]);
 
   const trackScreenViewEvent = useCallback(
-    (name: string, contexts?: TTrackingContexts) => {
-      const mappedContexts = Object.keys(contexts || []).map(
-        (key): EventContext => ({
-          data: contexts[key],
+    (name: string, trackingData?: TTrackingData) => {
+      const mappedTrackingData = Object.keys(trackingData || []).map(
+        (key): EventTrackingData => ({
+          data: trackingData[key],
           schema: trackingSchemes[key],
         }),
       );
-      log.debug('Track screenViewEvent', JSON.stringify({ contexts: mappedContexts, globalContexts, name }, undefined, 2));
+      log.debug(
+        'Track screenViewEvent',
+        JSON.stringify({ globalTrackingData, name, trackingData: mappedTrackingData }, undefined, 2),
+      );
 
       if (!TrackingConfig.isEnabled) {
         return Promise.resolve();
       }
 
-      return tracker.trackScreenViewEvent({ name }, mappedContexts);
+      return tracker.trackScreenViewEvent({ name }, mappedTrackingData);
     },
-    [tracker, globalContexts],
+    [tracker, globalTrackingData],
   );
 
   const trackSelfDescribingEvent = useCallback(
-    <T extends keyof TTrackingEvents>(type: T, data: TTrackingEvents[T], contexts?: TTrackingContexts) => {
-      const mappedData = {
-        data,
+    <T extends keyof TTrackingEvents>(type: T, eventData: TTrackingEvents[T], trackingData?: TTrackingData) => {
+      const mappedEventData = {
+        data: eventData,
         schema: trackingSchemes[type],
       };
-      const mappedContexts = Object.keys(contexts || []).map(
-        (key): EventContext => ({
-          data: contexts[key],
+      const mappedTrackingData = Object.keys(trackingData || []).map(
+        (key): EventTrackingData => ({
+          data: trackingData[key],
           schema: trackingSchemes[key],
         }),
       );
-      log.debug('Track selfDescribingEvent', JSON.stringify({ data: mappedData, globalContexts }, undefined, 2));
+      log.debug('Track selfDescribingEvent', JSON.stringify({ eventData: mappedEventData, globalTrackingData }, undefined, 2));
 
       if (!TrackingConfig.isEnabled) {
         return Promise.resolve();
       }
 
-      return tracker.trackSelfDescribingEvent(mappedData, mappedContexts);
+      return tracker.trackSelfDescribingEvent(mappedEventData, mappedTrackingData);
     },
-    [tracker, globalContexts],
+    [tracker, globalTrackingData],
   );
 
   useEffect(() => {
