@@ -1,9 +1,11 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native';
 
 import { Accordion, Analytics, Button, HtmlRenderer, Points, RewardImage, Typography } from '../_components';
+import { useTracking } from '../_context';
 import { useToggle } from '../_hooks';
+import { TRewardTrackingData } from '../_models';
 import { TRootStackRouteProp } from '../_routing';
 import { getLanguage, normalizeUrl } from '../_utils';
 import { useGetReward } from '../shop/_queries/useGetReward';
@@ -30,6 +32,16 @@ export const ShopDetail = ({ route }: TProps) => {
   } = useGetRedeemStatus({ id: reward.id });
   const [isRedeemModalConfirmationOpen, toggleRedeemModalConfirmationOpen] = useToggle(false);
   const { t } = useTranslation();
+  const { trackSelfDescribingEvent } = useTracking();
+  const rewardTrackingData: TRewardTrackingData = useMemo(
+    () => ({
+      id: reward.id,
+      online: reward.online,
+      title: reward.title,
+      welcome: reward.type === 'WELCOME',
+    }),
+    [reward],
+  );
 
   const [firstOrganizer, ...organizers] = reward?.organizers || [];
 
@@ -69,7 +81,10 @@ export const ShopDetail = ({ route }: TProps) => {
             <Button
               label={t('SHOP_DETAIL.REDEEM.BUTTON')}
               loading={isRedeemStatusLoading}
-              onPress={toggleRedeemModalConfirmationOpen}
+              onPress={() => {
+                trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-cta' }, { reward: rewardTrackingData });
+                toggleRedeemModalConfirmationOpen();
+              }}
             />
           ) : (
             renderRedeemError()
@@ -90,21 +105,13 @@ export const ShopDetail = ({ route }: TProps) => {
     t,
     toggleRedeemModalConfirmationOpen,
     renderRedeemError,
+    trackSelfDescribingEvent,
+    rewardTrackingData,
   ]);
 
   return (
     <>
-      <Analytics
-        data={{
-          reward: {
-            id: reward.id,
-            online: reward.online,
-            title: reward.title,
-            welcome: reward.type === 'WELCOME',
-          },
-        }}
-        screenName="reward"
-      />
+      <Analytics data={{ reward: rewardTrackingData }} screenName="reward" />
       <ScrollView stickyHeaderIndices={stickyHeaderIndices}>
         <Styled.ImageContainer>
           <RewardImage largeSpacing picture={reward.pictures?.[0]}>
@@ -166,9 +173,8 @@ export const ShopDetail = ({ route }: TProps) => {
       </ScrollView>
       <RedeemModal
         isVisible={isRedeemModalConfirmationOpen}
-        points={reward?.points}
-        rewardId={reward?.id}
-        title={reward?.title}
+        reward={reward}
+        rewardTrackingData={rewardTrackingData}
         toggleIsVisible={toggleRedeemModalConfirmationOpen}
       />
     </>

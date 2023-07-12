@@ -10,7 +10,11 @@ import { useAuthentication } from './AuthenticationContext';
 
 type TTrackingContext = {
   trackScreenViewEvent: (name: string, trackingData?: TTrackingData) => Promise<void>;
-  trackSelfDescribingEvent: <T extends keyof TTrackingEvents>(type: T, data: TTrackingEvents[T]) => Promise<void>;
+  trackSelfDescribingEvent: <T extends keyof TTrackingEvents>(
+    type: T,
+    eventData: TTrackingEvents[T],
+    trackingData?: TTrackingData,
+  ) => Promise<void>;
 };
 
 const TrackingContext = createContext<TTrackingContext>(null);
@@ -96,18 +100,24 @@ const TrackingProvider = ({ children }) => {
   );
 
   const trackSelfDescribingEvent = useCallback(
-    <T extends keyof TTrackingEvents>(type: T, data: TTrackingEvents[T]) => {
-      const mappedData = {
-        data,
+    <T extends keyof TTrackingEvents>(type: T, eventData: TTrackingEvents[T], trackingData?: TTrackingData) => {
+      const mappedEventData = {
+        data: eventData,
         schema: trackingSchemes[type],
       };
-      log.debug('Track selfDescribingEvent', JSON.stringify({ data: mappedData, globalTrackingData }, undefined, 2));
+      const mappedTrackingData = Object.keys(trackingData || []).map(
+        (key): EventTrackingData => ({
+          data: trackingData[key],
+          schema: trackingSchemes[key],
+        }),
+      );
+      log.debug('Track selfDescribingEvent', JSON.stringify({ eventData: mappedEventData, globalTrackingData }, undefined, 2));
 
       if (!TrackingConfig.isEnabled) {
         return Promise.resolve();
       }
 
-      return tracker.trackSelfDescribingEvent(mappedData);
+      return tracker.trackSelfDescribingEvent(mappedEventData, mappedTrackingData);
     },
     [tracker, globalTrackingData],
   );
