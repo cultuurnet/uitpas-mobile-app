@@ -111,7 +111,10 @@ const TrackingProvider = ({ children }) => {
           schema: trackingSchemes[key],
         }),
       );
-      log.debug('Track selfDescribingEvent', JSON.stringify({ eventData: mappedEventData, globalTrackingData }, undefined, 2));
+      log.debug(
+        'Track selfDescribingEvent',
+        JSON.stringify({ eventData: mappedEventData, globalTrackingData, trackingData: mappedTrackingData }, undefined, 2),
+      );
 
       if (!TrackingConfig.isEnabled) {
         return Promise.resolve();

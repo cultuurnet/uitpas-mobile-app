@@ -7,7 +7,7 @@ import { useTracking } from '../_context';
 import { useToggle } from '../_hooks';
 import { TRewardTrackingData } from '../_models';
 import { TRootStackRouteProp } from '../_routing';
-import { getLanguage, normalizeUrl } from '../_utils';
+import { getLanguage, getRewardTrackingData, normalizeUrl } from '../_utils';
 import { useGetReward } from '../shop/_queries/useGetReward';
 import { Availability } from './_components/availability/Availability';
 import { Organizer } from './_components/organizer/Organizer';
@@ -33,21 +33,17 @@ export const ShopDetail = ({ route }: TProps) => {
   const [isRedeemModalConfirmationOpen, toggleRedeemModalConfirmationOpen] = useToggle(false);
   const { t } = useTranslation();
   const { trackSelfDescribingEvent } = useTracking();
-  const rewardTrackingData: TRewardTrackingData = useMemo(
-    () => ({
-      id: reward.id,
-      online: reward.online,
-      title: reward.title,
-      welcome: reward.type === 'WELCOME',
-    }),
-    [reward],
-  );
+  const rewardTrackingData = getRewardTrackingData(reward);
 
   const [firstOrganizer, ...organizers] = reward?.organizers || [];
 
   const isInAppRedeemable = reward?.online && redeemStatus?.redeemable;
   // If we have a redeembutton, it needs to be sticky, otherwise we don't have sticky content
   const stickyHeaderIndices = isInAppRedeemable ? [2] : [];
+
+  const handleLinkPress = () => {
+    trackSelfDescribingEvent('linkClick', { targetUrl: normalizeUrl(reward.moreInfoURL) }, { reward: rewardTrackingData });
+  };
 
   const renderRedeemError = useCallback(() => {
     const errorMessage = redeemStatus?.message || redeemError?.endUserMessage?.[getLanguage()];
@@ -144,10 +140,10 @@ export const ShopDetail = ({ route }: TProps) => {
 
         <Styled.Content>
           <Section title={t('SHOP_DETAIL.DESCRIPTION')}>
-            <HtmlRenderer source={{ html: reward.promotionalDescription }} />
+            <HtmlRenderer onLinkPress={handleLinkPress} source={{ html: reward.promotionalDescription }} />
           </Section>
 
-          {!!reward.moreInfoURL && <Styled.MoreInfoLink href={normalizeUrl(reward.moreInfoURL)} />}
+          {!!reward.moreInfoURL && <Styled.MoreInfoLink href={normalizeUrl(reward.moreInfoURL)} onPress={handleLinkPress} />}
 
           <Section title={t('SHOP_DETAIL.LOCATION')}>
             <Organizer fallbackName={firstOrganizer?.name} id={firstOrganizer?.id} key={firstOrganizer?.id} />
@@ -185,7 +181,6 @@ export const ShopDetail = ({ route }: TProps) => {
       <RedeemModal
         isVisible={isRedeemModalConfirmationOpen}
         reward={reward}
-        rewardTrackingData={rewardTrackingData}
         toggleIsVisible={toggleRedeemModalConfirmationOpen}
       />
     </>

@@ -12,6 +12,10 @@ export type TErrorMessageEvent = {
   message: string;
 };
 
+export type TLinkClickEvent = {
+  targetUrl: string;
+};
+
 export type TTrackingData = {
   reward?: TRewardTrackingData;
 };
@@ -19,4 +23,5 @@ export type TTrackingData = {
 export type TTrackingEvents = {
   buttonClick?: TButtonClickEvent;
   errorMessage?: TErrorMessageEvent;
+  linkClick?: TLinkClickEvent;
 };
