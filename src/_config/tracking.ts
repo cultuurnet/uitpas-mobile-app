@@ -20,4 +20,5 @@ export const trackingSchemes: Record<keyof TTrackingData | keyof TTrackingEvents
   errorMessage: 'iglu:be.general/error_message/jsonschema/1-0-0',
   linkClick: 'iglu:com.snowplowanalytics.snowplow/link_click/jsonschema/1-0-1',
   reward: 'iglu:be.uitpas-mobile/reward/jsonschema/1-0-0',
+  successMessage: 'iglu:be.general/success_message/jsonschema/1-0-0',
 } as const;

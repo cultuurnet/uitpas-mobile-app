@@ -4,7 +4,6 @@ import { t } from 'i18next';
 
 import { BlurredModal, Button, Trans, Typography } from '../../../_components';
 import { useTracking } from '../../../_context';
-import { TRewardTrackingData } from '../../../_models';
 import { TRootStackNavigationProp } from '../../../_routing';
 import { getLanguage, getRewardTrackingData } from '../../../_utils';
 import { useActiveCard } from '../../../profile/_queries/useActiveCard';

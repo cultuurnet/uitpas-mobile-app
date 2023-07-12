@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, ScrollView } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 
 import { GiftOpen } from '../_assets/images';
 import { EnlargedHeader, HtmlRenderer, Trans, Typography } from '../_components';
@@ -20,6 +21,16 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
   const { trackSelfDescribingEvent } = useTracking();
   const redeemedReward = route.params?.redeemedReward;
   const isModal = route.params?.isModal;
+
+  useFocusEffect(
+    useCallback(() => {
+      if (!isModal) return;
+      if (!redeemedReward) return;
+
+      trackSelfDescribingEvent('successMessage', { message: 'reward-redemeed' });
+    }, [trackSelfDescribingEvent, isModal, redeemedReward]),
+  );
+
   if (!redeemedReward) return null;
 
   function handleLinkPress() {
