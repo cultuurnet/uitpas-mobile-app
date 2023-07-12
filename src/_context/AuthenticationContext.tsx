@@ -5,8 +5,8 @@ import { Config } from 'react-native-config';
 import { useToggle } from '../_hooks';
 import { useAppState } from '../_hooks/useAppState';
 import { TAuth0User } from '../_models';
-import { queryClient } from './QueryClientProvider';
 import { log } from '../_utils/logger';
+import { queryClient } from './QueryClientProvider';
 import { getIdTokenProfileClaims } from './util';
 
 // Types are not optimal, because the @types/react-native-auth0 packages is not up-to-date.
