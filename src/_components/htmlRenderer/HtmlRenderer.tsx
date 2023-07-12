@@ -3,7 +3,7 @@ import { TouchableOpacity, useWindowDimensions } from 'react-native';
 import RenderHtml, { Element, HTMLSource } from 'react-native-render-html';
 
 import { theme } from '../../_styles/theme';
-import { normalizeUrl } from '../../_utils/normalizeHelpers';
+import { normalizeUrl } from '../../_utils';
 import { getFontFamily } from '../typography/style';
 
 type Props = {

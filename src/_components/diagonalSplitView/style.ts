@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 import { ThemeColor } from '../../_styles/theme';
-import { getColor } from '../../_utils/colorHelper';
+import { getColor } from '../../_utils';
 import SafeAreaView from '../safeAreaView/SafeAreaView';
 
 export const TopSafeAreaViewContainer = styled(SafeAreaView)<{ backgroundColor: ThemeColor }>`

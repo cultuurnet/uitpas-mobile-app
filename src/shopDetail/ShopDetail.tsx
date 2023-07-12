@@ -5,10 +5,9 @@ import { ScrollView } from 'react-native';
 import { Accordion, Analytics, Button, HtmlRenderer, Points, RewardImage, Typography } from '../_components';
 import { useTracking } from '../_context';
 import { useToggle } from '../_hooks';
-import { TRewardContext } from '../_models';
+import { TRewardTrackingData } from '../_models';
 import { TRootStackRouteProp } from '../_routing';
-import { getLanguage } from '../_utils/languageHelpers';
-import { normalizeUrl } from '../_utils/normalizeHelpers';
+import { getLanguage, normalizeUrl } from '../_utils';
 import { useGetReward } from '../shop/_queries/useGetReward';
 import { Availability } from './_components/availability/Availability';
 import { Organizer } from './_components/organizer/Organizer';
@@ -34,7 +33,7 @@ export const ShopDetail = ({ route }: TProps) => {
   const [isRedeemModalConfirmationOpen, toggleRedeemModalConfirmationOpen] = useToggle(false);
   const { t } = useTranslation();
   const { trackSelfDescribingEvent } = useTracking();
-  const rewardContext: TRewardContext = useMemo(
+  const rewardTrackingData: TRewardTrackingData = useMemo(
     () => ({
       id: reward.id,
       online: reward.online,
@@ -63,7 +62,7 @@ export const ShopDetail = ({ route }: TProps) => {
       );
     }
 
-    trackSelfDescribingEvent('errorMessage', { message: redeemStatus.reason }, { reward: rewardContext });
+    trackSelfDescribingEvent('errorMessage', { message: redeemStatus.reason }, { reward: rewardTrackingData });
 
     return (
       <Styled.RedeemError>
@@ -77,7 +76,7 @@ export const ShopDetail = ({ route }: TProps) => {
     refetchRedeemStatus,
     t,
     trackSelfDescribingEvent,
-    rewardContext,
+    rewardTrackingData,
   ]);
 
   const renderRedeemStatus = useCallback(() => {
@@ -94,7 +93,7 @@ export const ShopDetail = ({ route }: TProps) => {
               label={t('SHOP_DETAIL.REDEEM.BUTTON')}
               loading={isRedeemStatusLoading}
               onPress={() => {
-                trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-cta' }, { reward: rewardContext });
+                trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-cta' }, { reward: rewardTrackingData });
                 toggleRedeemModalConfirmationOpen();
               }}
             />
@@ -118,12 +117,12 @@ export const ShopDetail = ({ route }: TProps) => {
     toggleRedeemModalConfirmationOpen,
     renderRedeemError,
     trackSelfDescribingEvent,
-    rewardContext,
+    rewardTrackingData,
   ]);
 
   return (
     <>
-      <Analytics contexts={{ reward: rewardContext }} screenName="reward" />
+      <Analytics data={{ reward: rewardTrackingData }} screenName="reward" />
       <ScrollView stickyHeaderIndices={stickyHeaderIndices}>
         <Styled.ImageContainer>
           <RewardImage largeSpacing picture={reward.pictures?.[0]}>
@@ -186,7 +185,7 @@ export const ShopDetail = ({ route }: TProps) => {
       <RedeemModal
         isVisible={isRedeemModalConfirmationOpen}
         reward={reward}
-        rewardContext={rewardContext}
+        rewardTrackingData={rewardTrackingData}
         toggleIsVisible={toggleRedeemModalConfirmationOpen}
       />
     </>

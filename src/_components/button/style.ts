@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { getColor } from '../../_utils/colorHelper';
+import { getColor } from '../../_utils';
 import TouchableRipple from '../touchableRipple/TouchableRipple';
 import Typography from '../typography/Typography';
 import { TButtonPropsBase } from './Button';

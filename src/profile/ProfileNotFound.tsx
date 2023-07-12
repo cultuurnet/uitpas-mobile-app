@@ -5,7 +5,7 @@ import { EventArg } from '@react-navigation/native';
 import { Analytics, DiagonalSplitView, Typography } from '../_components';
 import { useAuthentication } from '../_context';
 import { useStackNavigation } from '../_hooks';
-import { log } from '../_utils/logger';
+import { log } from '../_utils';
 import ProfileNotFoundContent from './ProfileNotFoundContent';
 import * as Styled from './style';
 

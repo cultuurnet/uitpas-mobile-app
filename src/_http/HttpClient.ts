@@ -1,7 +1,7 @@
 import { Config } from 'react-native-config';
 import axios, { AxiosError, AxiosResponse, ResponseType } from 'axios';
 
-import { log } from '../_utils/logger';
+import { log } from '../_utils';
 import { TApiError } from './HttpError';
 import { HttpStatus } from './HttpStatus';
 

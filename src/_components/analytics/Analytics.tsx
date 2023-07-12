@@ -1,21 +1,24 @@
-import { useEffect } from 'react';
+import { useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 
 import { useTracking } from '../../_context';
-import { TTrackingContexts } from '../../_models/tracking';
+import { TTrackingData } from '../../_models/tracking';
 
 type TProps = {
-  contexts?: TTrackingContexts;
+  data?: TTrackingData;
   screenName?: string;
 };
 
-const Analytics = ({ screenName, contexts }: TProps) => {
+const Analytics = ({ screenName, data }: TProps) => {
   const { trackScreenViewEvent } = useTracking();
 
-  useEffect(() => {
-    if (!screenName) return;
+  useFocusEffect(
+    useCallback(() => {
+      if (!screenName) return;
 
-    trackScreenViewEvent(screenName, contexts);
-  }, [screenName, trackScreenViewEvent, contexts]);
+      trackScreenViewEvent(screenName, data);
+    }, [screenName, trackScreenViewEvent, data]),
+  );
 
   return null;
 };

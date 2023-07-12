@@ -4,9 +4,9 @@ import { t } from 'i18next';
 
 import { BlurredModal, Button, Trans, Typography } from '../../../_components';
 import { useTracking } from '../../../_context';
-import { TRewardContext } from '../../../_models';
+import { TRewardTrackingData } from '../../../_models';
 import { TRootStackNavigationProp } from '../../../_routing';
-import { getLanguage } from '../../../_utils/languageHelpers';
+import { getLanguage } from '../../../_utils';
 import { useActiveCard } from '../../../profile/_queries/useActiveCard';
 import { TReward } from '../../../shop/_models/reward';
 import { useRedeemReward } from '../../_queries/useRedeemReward';
@@ -15,11 +15,11 @@ import * as Styled from './style';
 type TRedeemModalProps = {
   isVisible: boolean;
   reward: TReward;
-  rewardContext: TRewardContext;
+  rewardTrackingData: TRewardTrackingData;
   toggleIsVisible: () => void;
 };
 
-const RedeemModal: FC<TRedeemModalProps> = ({ reward, isVisible, toggleIsVisible, rewardContext }) => {
+const RedeemModal: FC<TRedeemModalProps> = ({ reward, isVisible, toggleIsVisible, rewardTrackingData }) => {
   const { navigate } = useNavigation<TRootStackNavigationProp<'ShopDetail'>>();
 
   const {
@@ -38,16 +38,16 @@ const RedeemModal: FC<TRedeemModalProps> = ({ reward, isVisible, toggleIsVisible
   useEffect(() => {
     if (!error) return;
 
-    trackSelfDescribingEvent('errorMessage', { message: error?.type }, { reward: rewardContext });
-  }, [error, trackSelfDescribingEvent, rewardContext]);
+    trackSelfDescribingEvent('errorMessage', { message: error?.type }, { reward: rewardTrackingData });
+  }, [error, trackSelfDescribingEvent, rewardTrackingData]);
 
   const handleConfirm = useCallback(() => {
-    trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-confirm' }, { reward: rewardContext });
+    trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-confirm' }, { reward: rewardTrackingData });
     redeemReward({ rewardId: reward.id, uitpasNumber: activeCard.uitpasNumber });
-  }, [reward, redeemReward, activeCard.uitpasNumber, trackSelfDescribingEvent, rewardContext]);
+  }, [reward, redeemReward, activeCard.uitpasNumber, trackSelfDescribingEvent, rewardTrackingData]);
 
   const handleCancel = () => {
-    trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-cancel' }, { reward: rewardContext });
+    trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-cancel' }, { reward: rewardTrackingData });
     toggleIsVisible();
   };
 
