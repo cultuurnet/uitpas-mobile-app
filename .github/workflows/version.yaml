@@ -45,7 +45,7 @@ jobs:
 
           if [[ ${{ github.event.inputs.release_type }} == 'beta' ]]; then
              echo 'in beta'
-            if [[ ${{ github.event.inputs.version_bump }} == 'prelease' ]]; then
+            if [[ ${{ github.event.inputs.version_bump }} == 'prerelease' ]]; then
               echo 'in if'
               yarn version --prerelease
             else
