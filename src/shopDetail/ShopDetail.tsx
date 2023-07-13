@@ -1,11 +1,10 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native';
 
 import { Accordion, Analytics, Button, HtmlRenderer, Points, RewardImage, Typography } from '../_components';
 import { useTracking } from '../_context';
 import { useToggle } from '../_hooks';
-import { TRewardTrackingData } from '../_models';
 import { TRootStackRouteProp } from '../_routing';
 import { getLanguage, getRewardTrackingData, normalizeUrl } from '../_utils';
 import { useGetReward } from '../shop/_queries/useGetReward';
