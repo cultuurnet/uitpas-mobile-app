@@ -5,4 +5,5 @@ export * from './logger';
 export * from './normalizeHelpers';
 export * from './objectHelpers';
 export * from './queryHelpers';
+export * from './trackingHelper';
 export * from './userHelper';

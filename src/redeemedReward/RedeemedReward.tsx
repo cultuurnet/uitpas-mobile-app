@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, ScrollView } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 
 import { GiftOpen } from '../_assets/images';
 import { EnlargedHeader, HtmlRenderer, Trans, Typography } from '../_components';
+import { useTracking } from '../_context';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing';
-import { formatISOString } from '../_utils';
+import { formatISOString, getRewardTrackingData } from '../_utils';
 import { RewardCard } from './_components/rewardCard/RewardCard';
 import * as Styled from './style';
 
@@ -16,9 +18,30 @@ type TProps = {
 
 const RedeemedReward = ({ route, navigation }: TProps) => {
   const { t } = useTranslation();
+  const { trackSelfDescribingEvent } = useTracking();
   const redeemedReward = route.params?.redeemedReward;
   const isModal = route.params?.isModal;
+
+  useFocusEffect(
+    useCallback(() => {
+      if (!isModal) return;
+      if (!redeemedReward) return;
+
+      trackSelfDescribingEvent('successMessage', { message: 'reward-redemeed' });
+    }, [trackSelfDescribingEvent, isModal, redeemedReward]),
+  );
+
   if (!redeemedReward) return null;
+
+  function handleLinkPress() {
+    trackSelfDescribingEvent(
+      'linkClick',
+      { targetUrl: redeemedReward.redeemInfo.link },
+      {
+        reward: getRewardTrackingData(redeemedReward.reward),
+      },
+    );
+  }
 
   return (
     <ScrollView>
@@ -46,7 +69,9 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
           values={{ date: formatISOString(redeemedReward.redeemDate, 'dd/MM/yyyy') }}
         />
 
-        {!!redeemedReward?.redeemInfo?.text && <HtmlRenderer fontSize={16} source={{ html: redeemedReward.redeemInfo.text }} />}
+        {!!redeemedReward?.redeemInfo?.text && (
+          <HtmlRenderer fontSize={16} onLinkPress={handleLinkPress} source={{ html: redeemedReward.redeemInfo.text }} />
+        )}
 
         {/* Added spacer because we can't set margin bottom on the HtmlRenderer */}
         <Styled.Spacer />
@@ -63,9 +88,13 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
         {/* Only show the link when it's available. When it's a charity reward, we show a link, otherwise we use a button  */}
         {!!redeemedReward?.redeemInfo?.link &&
           (redeemedReward.reward.categories.includes('Goede doel') ? (
-            <Styled.LinkInlineButton href={redeemedReward.redeemInfo.link} label={redeemedReward?.redeemInfo?.label} />
+            <Styled.LinkInlineButton
+              href={redeemedReward.redeemInfo.link}
+              label={redeemedReward?.redeemInfo?.label}
+              onPress={handleLinkPress}
+            />
           ) : (
-            <Styled.LinkButton href={redeemedReward.redeemInfo.link}>
+            <Styled.LinkButton href={redeemedReward.redeemInfo.link} onPress={handleLinkPress}>
               <>
                 <Typography color="neutral.0" fontStyle="bold">
                   {redeemedReward?.redeemInfo?.label}

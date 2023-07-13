@@ -6,7 +6,7 @@ import Spinner from '../spinner/Spinner';
 import { TTypographyProps } from '../typography/Typography';
 import * as Styled from './style';
 
-export type TButtonPropsBase = {
+export type TButtonProps = {
   accessibilityHint?: string;
   accessibilityLabel?: string;
   centered?: boolean;
@@ -15,26 +15,18 @@ export type TButtonPropsBase = {
   disabled?: boolean;
   fontStyle?: TTypographyProps['fontStyle'];
   hitSlop?: number;
+  href?: string;
   inline?: boolean;
   label?: string;
   loading?: boolean;
+  onPress?: () => void;
   radius?: boolean;
   underlayColor?: string;
   underline?: boolean;
   variant?: 'contained' | 'outline' | 'link';
 };
 
-type TButtonProps = TButtonPropsBase & {
-  href?: never;
-  onPress: () => void;
-};
-
-type TButtonLinkProps = TButtonPropsBase & {
-  href: string;
-  onPress?: never;
-};
-
-const Button: FC<TButtonProps | TButtonLinkProps> = ({
+const Button: FC<TButtonProps> = ({
   accessibilityHint,
   accessibilityLabel,
   disabled,
@@ -59,11 +51,12 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
     const supported = await Linking.canOpenURL(href);
 
     if (supported) {
+      onPress?.();
       await Linking.openURL(href);
     } else {
       // @TODO: error handling
     }
-  }, [href]);
+  }, [href, onPress]);
 
   const handlePress = href ? openURL : onPress;
 

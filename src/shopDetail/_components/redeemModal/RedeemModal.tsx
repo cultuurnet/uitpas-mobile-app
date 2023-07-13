@@ -1,12 +1,11 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { t } from 'i18next';
 
 import { BlurredModal, Button, Trans, Typography } from '../../../_components';
 import { useTracking } from '../../../_context';
-import { TRewardTrackingData } from '../../../_models';
 import { TRootStackNavigationProp } from '../../../_routing';
-import { getLanguage } from '../../../_utils';
+import { getLanguage, getRewardTrackingData } from '../../../_utils';
 import { useActiveCard } from '../../../profile/_queries/useActiveCard';
 import { TReward } from '../../../shop/_models/reward';
 import { useRedeemReward } from '../../_queries/useRedeemReward';
@@ -15,12 +14,12 @@ import * as Styled from './style';
 type TRedeemModalProps = {
   isVisible: boolean;
   reward: TReward;
-  rewardTrackingData: TRewardTrackingData;
   toggleIsVisible: () => void;
 };
 
-const RedeemModal: FC<TRedeemModalProps> = ({ reward, isVisible, toggleIsVisible, rewardTrackingData }) => {
+const RedeemModal: FC<TRedeemModalProps> = ({ reward, isVisible, toggleIsVisible }) => {
   const { navigate } = useNavigation<TRootStackNavigationProp<'ShopDetail'>>();
+  const rewardTrackingData = getRewardTrackingData(reward);
 
   const {
     mutate: redeemReward,
@@ -34,6 +33,12 @@ const RedeemModal: FC<TRedeemModalProps> = ({ reward, isVisible, toggleIsVisible
   });
   const activeCard = useActiveCard();
   const { trackSelfDescribingEvent } = useTracking();
+
+  useEffect(() => {
+    if (!error) return;
+
+    trackSelfDescribingEvent('errorMessage', { message: error?.type }, { reward: rewardTrackingData });
+  }, [error, trackSelfDescribingEvent, rewardTrackingData]);
 
   const handleConfirm = useCallback(() => {
     trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-confirm' }, { reward: rewardTrackingData });
