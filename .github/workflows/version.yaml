@@ -44,9 +44,12 @@ jobs:
           yarn config set version-git-tag false
 
           if [[ ${{ github.event.inputs.release_type }} == 'beta' ]]; then
+             echo 'in beta'
             if [[ ${{ github.event.inputs.version_bump }} == 'prelease' ]]; then
+              echo 'in if'
               yarn version --prerelease
             else
+              echo 'in else'
               yarn version --preid beta --pre${{ github.event.inputs.version_bump }}
             fi
           else
