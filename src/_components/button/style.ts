@@ -3,21 +3,21 @@ import styled from 'styled-components/native';
 import { getColor } from '../../_utils';
 import TouchableRipple from '../touchableRipple/TouchableRipple';
 import Typography from '../typography/Typography';
-import { TButtonPropsBase } from './Button';
+import { TButtonProps } from './Button';
 
-export const ButtonContainer = styled.View<Pick<TButtonPropsBase, 'inline' | 'centered'>>`
+export const ButtonContainer = styled.View<Pick<TButtonProps, 'inline' | 'centered'>>`
   align-self: ${({ inline, centered }) => (centered ? 'center' : inline ? 'flex-start' : 'stretch')};
 `;
 
 export const ButtonElement = styled(TouchableRipple)<{
   $active: boolean;
-  $color: TButtonPropsBase['color'];
-  $inline: TButtonPropsBase['inline'];
-  $radius: TButtonPropsBase['radius'];
-  $variant: TButtonPropsBase['variant'];
-  centered?: TButtonPropsBase['centered'];
-  disabled: TButtonPropsBase['disabled'];
-  loading: TButtonPropsBase['loading'];
+  $color: TButtonProps['color'];
+  $inline: TButtonProps['inline'];
+  $radius: TButtonProps['radius'];
+  $variant: TButtonProps['variant'];
+  centered?: TButtonProps['centered'];
+  disabled: TButtonProps['disabled'];
+  loading: TButtonProps['loading'];
 }>`
   align-self: ${({ $inline, centered }) => (centered ? 'center' : $inline ? 'flex-start' : 'stretch')};
   align-items: center;
@@ -38,9 +38,9 @@ export const ButtonElement = styled(TouchableRipple)<{
 
 export const ButtonText = styled(Typography)<{
   $active: boolean;
-  $color: TButtonPropsBase['color'];
+  $color: TButtonProps['color'];
   $underline: boolean;
-  $variant: TButtonPropsBase['variant'];
+  $variant: TButtonProps['variant'];
 }>`
   color: ${({ $variant, $active, $color, theme }) => {
     if ($color) return getColor($color);
