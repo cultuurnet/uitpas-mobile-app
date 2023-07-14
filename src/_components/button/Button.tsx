@@ -1,7 +1,7 @@
 import { FC, ReactNode, useCallback, useState } from 'react';
-import { Linking } from 'react-native';
 
 import { ThemeColor } from '../../_styles/theme';
+import { openExternalURL } from '../../_utils';
 import Spinner from '../spinner/Spinner';
 import { TTypographyProps } from '../typography/Typography';
 import * as Styled from './style';
@@ -48,14 +48,8 @@ const Button: FC<TButtonProps> = ({
   const [isActive, setIsActive] = useState(false);
 
   const openURL = useCallback(async () => {
-    const supported = await Linking.canOpenURL(href);
-
-    if (supported) {
-      onPress?.();
-      await Linking.openURL(href);
-    } else {
-      // @TODO: error handling
-    }
+    await openExternalURL(href);
+    onPress?.();
   }, [href, onPress]);
 
   const handlePress = href ? openURL : onPress;

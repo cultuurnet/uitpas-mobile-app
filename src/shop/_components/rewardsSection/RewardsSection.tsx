@@ -33,7 +33,7 @@ export const RewardsSection = ({
 }: TRewardSectionProps) => {
   const { data, isLoading } = useGetRewards({ category, itemsPerPage: horizontal ? 20 : 3, organizerId, section: filter });
   const { t } = useTranslation();
-  const { navigate } = useNavigation<TMainNavigationProp>();
+  const { navigate, push } = useNavigation<TMainNavigationProp>();
   const { trackSelfDescribingEvent } = useTracking();
   // Filter when there are rewards that shouldn't be shown (eg, when we show related rewards at the bottom a reward detail)
   const rewards = data?.pages[0]?.member?.filter?.(reward => reward.id !== filterRewardId);
@@ -108,6 +108,11 @@ export const RewardsSection = ({
                     },
                     { reward: getRewardTrackingData(reward) },
                   );
+
+                  push('ShopDetail', {
+                    id: reward.id,
+                    reward,
+                  });
                 }}
                 reward={reward}
               />

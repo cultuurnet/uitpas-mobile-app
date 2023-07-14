@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import { TouchableOpacity, useWindowDimensions } from 'react-native';
+import { GestureResponderEvent, TouchableOpacity, useWindowDimensions } from 'react-native';
 import RenderHtml, { Element, HTMLSource, RenderersProps } from 'react-native-render-html';
 
 import { theme } from '../../_styles/theme';
-import { normalizeUrl } from '../../_utils';
+import { normalizeUrl, openExternalURL } from '../../_utils';
 import { getFontFamily } from '../typography/style';
 
 type Props = {
@@ -14,11 +14,20 @@ type Props = {
 
 const HtmlRenderer: FC<Props> = ({ source, fontSize = 14, onLinkPress }) => {
   const { width } = useWindowDimensions();
-
   function onElement(element: Element) {
     if (element.tagName === 'a') {
       element.attribs['href'] = normalizeUrl(element.attribs['href']);
     }
+  }
+
+  function handleLinkPress(
+    event: GestureResponderEvent,
+    href: string,
+    htmlAttribs: Record<string, string>,
+    target: '_blank' | '_self' | '_parent' | '_top',
+  ) {
+    onLinkPress?.(event, href, htmlAttribs, target);
+    openExternalURL(href);
   }
 
   return (
@@ -36,7 +45,7 @@ const HtmlRenderer: FC<Props> = ({ source, fontSize = 14, onLinkPress }) => {
         onElement,
       }}
       pressableHightlightColor="transparent"
-      renderersProps={{ a: { onPress: onLinkPress } }}
+      renderersProps={{ a: { onPress: handleLinkPress } }}
       source={source}
       systemFonts={[getFontFamily('normal'), getFontFamily('bold')]}
       tagsStyles={{
