@@ -7,3 +7,4 @@ export * from './objectHelpers';
 export * from './queryHelpers';
 export * from './trackingHelper';
 export * from './userHelper';
+export * from './urlHelper';
