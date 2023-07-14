@@ -32,7 +32,7 @@ const UitpasCard: FC<TProps> = ({ passHolder, isLarge }) => {
               <Typography color="neutral.0" size="small">
                 {isLarge
                   ? passHolderRegions.map(card => card.cardSystem.name).join(', ')
-                  : `${firstPassHolderRegion}${passHolderRegions.length > 1 ? ', ...' : ''}`}
+                  : `${firstPassHolderRegion?.cardSystem?.name}${passHolderRegions.length > 1 ? ', ...' : ''}`}
               </Typography>
             </Styled.CardsView>
             <Styled.PointsView>
