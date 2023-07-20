@@ -37,12 +37,12 @@ export const Search = ({ navigation, route }: TProps) => {
   const { top } = useSafeAreaInsets();
   const { t } = useTranslation();
   const { data: user } = useGetMe();
-  const { filters = initialFilters } = route.params || {};
-
+  const { filters = initialFilters, sort = '-redeemCount' } = route.params || {};
   const { data: searchResults, isLoading: isSearchLoading } = useGetRewards({
     enabled: search.length > 0,
     filters,
     freeText: search,
+    sort,
   });
   const results = useMemo(() => searchResults?.pages?.flatMap(({ member }) => member) ?? [], [searchResults]);
 
@@ -85,7 +85,7 @@ export const Search = ({ navigation, route }: TProps) => {
                   amount={appliedFiltersAmount}
                   icon="Filter"
                   label={t('SHOP.SEARCH.FILTERS.CTA')}
-                  onPress={() => navigation.push('SearchFilters', { filters })}
+                  onPress={() => navigation.push('SearchFilters', { filters, sort })}
                 />
               </Styled.SearchFilters>
               <FlashList

@@ -7,6 +7,7 @@ import { TRootStackNavigationProp, TRootStackRouteProp } from '../../_routing';
 import { theme } from '../../_styles/theme';
 import { getPassHolderRegions } from '../../_utils';
 import { useGetMe } from '../../profile/_queries/useGetMe';
+import { TFilterRewardSorting } from '../_queries/useGetRewards';
 import * as Styled from './style';
 
 type TProps = {
@@ -14,15 +15,17 @@ type TProps = {
   route: TRootStackRouteProp<'SearchFilters'>;
 };
 
+const SORT_FILTERS: TFilterRewardSorting[] = ['-redeemCount', '-creationDate', 'points', '-points'];
+
 export const SearchFilters = ({ navigation, route }: TProps) => {
   const { t } = useTranslation();
-  const { filters } = route.params;
-  const [updatedFilters, setUpdatedFilters] = useState(filters);
+  const { filters, sort = '-redeemCount' } = route.params;
+  const [updatedFilters, setUpdatedFilters] = useState({ filters, sort });
   const { data: passHolder } = useGetMe();
   const regions = getPassHolderRegions(passHolder);
 
   function onSubmit() {
-    navigation.navigate('Search', { filters: updatedFilters });
+    navigation.navigate('Search', updatedFilters);
   }
 
   return (
@@ -35,11 +38,21 @@ export const SearchFilters = ({ navigation, route }: TProps) => {
           </Typography>
         </Styled.RegionFilterText>
         <Switch
-          onValueChange={value => setUpdatedFilters({ ...updatedFilters, includeAllCardSystems: value })}
+          onValueChange={value => setUpdatedFilters({ ...updatedFilters, filters: { ...filters, includeAllCardSystems: value } })}
           trackColor={{ false: theme.palette.neutral['200'], true: theme.palette.primary['600'] }}
-          value={updatedFilters['includeAllCardSystems']}
+          value={updatedFilters.filters['includeAllCardSystems']}
         />
       </Styled.RegionFilter>
+
+      {SORT_FILTERS.map(sortFilter => (
+        <Styled.FilterCheckbox
+          isChecked={updatedFilters.sort === sortFilter}
+          key={sortFilter}
+          label={<Typography>Meest omgeruild</Typography>}
+          onChange={() => setUpdatedFilters({ ...updatedFilters, sort: sortFilter })}
+          position="right"
+        />
+      ))}
 
       <Styled.Actions>
         <Button label={t('SHOP.SEARCH.FILTERS.APPLY')} onPress={onSubmit} />

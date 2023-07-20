@@ -17,6 +17,16 @@ export type TFilterRewardSections =
   | 'interessant'
   | 'welkom';
 
+export type TFilterRewardSorting =
+  | '-redeemCount'
+  | 'redeemCount'
+  | 'creationDate'
+  | '-creationDate'
+  | 'name'
+  | '-name'
+  | 'points'
+  | '-points';
+
 export function useGetRewards({
   category,
   type = 'POINTS',
@@ -27,6 +37,7 @@ export function useGetRewards({
   enabled = true,
   params: extraParams = {},
   filters,
+  sort = '-redeemCount',
 }: {
   category?: TFilterRewardCategory;
   enabled?: boolean;
@@ -36,6 +47,7 @@ export function useGetRewards({
   organizerId?: string[];
   params?: Params;
   section?: TFilterRewardSections;
+  sort?: TFilterRewardSorting;
   type?: TRewardType;
 } = {}) {
   const api = usePubliqApi();
@@ -44,7 +56,7 @@ export function useGetRewards({
   const params = useMemo(() => {
     // get params, already add the default sorting
     const params: Params = {
-      ['sort[redeemCount]']: 'desc',
+      sort,
       type,
     };
 
@@ -60,7 +72,7 @@ export function useGetRewards({
       params.forKids = true;
     } else if (category) {
       params.categories = category;
-      delete params['sort[redeemCount]'];
+      delete params.sort;
     }
 
     params.organizerId = organizerId;
@@ -69,7 +81,7 @@ export function useGetRewards({
     switch (section) {
       case 'online':
         params.online = true;
-        delete params['sort[redeemCount]'];
+        delete params.sort;
         break;
       case 'in de kijker':
         params.featured = true;
@@ -104,8 +116,7 @@ export function useGetRewards({
     }
 
     return params;
-  }, [category, section, type, user, organizerId, freeText, filters]);
-
+  }, [category, section, type, user, organizerId, freeText, filters, sort]);
   return api.getInfinite<TRewardsResponse>(['rewards', JSON.stringify(params), itemsPerPage], `/rewards`, {
     enabled,
     itemsPerPage,
