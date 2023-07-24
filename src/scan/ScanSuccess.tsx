@@ -4,7 +4,7 @@ import { useWindowDimensions } from 'react-native';
 import LottieView from 'lottie-react-native';
 
 import { PointsSuccess } from '../_assets/animations';
-import { BoldTrans, Button, DiagonalSplitView, Typography } from '../_components';
+import { Button, DiagonalSplitView, Trans, Typography } from '../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing';
 import * as Styled from './style';
 
@@ -31,7 +31,7 @@ const ScanSuccess: FC = ({ route, navigation }: TProps) => {
               </Typography>
             </Styled.SavedPoints>
             <Typography align="center">
-              <BoldTrans
+              <Trans
                 i18nKey={`SCAN.SUCCESS.DESCRIPTION${addedPoints > 1 ? '_MULTIPLE' : ''}`}
                 values={{ addedPoints, totalPoints }}
               />
