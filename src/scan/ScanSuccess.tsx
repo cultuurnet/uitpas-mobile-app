@@ -1,17 +1,17 @@
 import { FC } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { useWindowDimensions } from 'react-native';
 import LottieView from 'lottie-react-native';
 
 import { PointsSuccess } from '../_assets/animations';
-import { Button, DiagonalSplitView, Typography } from '../_components';
+import { BoldTrans, Button, DiagonalSplitView, Typography } from '../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing';
 import * as Styled from './style';
 
 type TProps = {
   navigation: TRootStackNavigationProp<'ScanSuccess'>;
   route: TRootStackRouteProp<'ScanSuccess'>;
-}
+};
 
 const ScanSuccess: FC = ({ route, navigation }: TProps) => {
   const {
@@ -31,8 +31,7 @@ const ScanSuccess: FC = ({ route, navigation }: TProps) => {
               </Typography>
             </Styled.SavedPoints>
             <Typography align="center">
-              <Trans
-                components={{ bold: <Typography fontStyle="bold" /> }}
+              <BoldTrans
                 i18nKey={`SCAN.SUCCESS.DESCRIPTION${addedPoints > 1 ? '_MULTIPLE' : ''}`}
                 values={{ addedPoints, totalPoints }}
               />

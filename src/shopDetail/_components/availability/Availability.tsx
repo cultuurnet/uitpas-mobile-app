@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Trans } from '../../../_components';
+import { BoldTrans } from '../../../_components';
 import { formatISOString } from '../../../_utils';
 import { TPeriod, TRedeemConstraint } from '../../../shop/_models/reward';
 import { Section } from '../section/Section';
@@ -26,7 +26,7 @@ export const Availability = ({ redeemConstraint, redeemPeriod, unitsTaken, maxAv
   return (
     <Section title={t('SHOP_DETAIL.AVAILABILITY')}>
       {!!redeemPeriod?.end && (
-        <Trans
+        <BoldTrans
           i18nKey="SHOP_DETAIL.AVAILABILITY_DETAILS.REDEEM_UNTIL"
           selectable
           size="small"
@@ -34,10 +34,10 @@ export const Availability = ({ redeemConstraint, redeemPeriod, unitsTaken, maxAv
         />
       )}
       {showUnits && (
-        <Trans i18nKey="SHOP_DETAIL.AVAILABILITY_DETAILS.UNITS_LEFT" selectable size="small" values={{ units: unitsLeft }} />
+        <BoldTrans i18nKey="SHOP_DETAIL.AVAILABILITY_DETAILS.UNITS_LEFT" selectable size="small" values={{ units: unitsLeft }} />
       )}
       {!!redeemConstraint?.period && (
-        <Trans
+        <BoldTrans
           i18nKey={
             redeemConstraint.period === 'ABSOLUTE'
               ? 'SHOP_DETAIL.AVAILABILITY_DETAILS.CONSTRAINT_ABSOLUTE'

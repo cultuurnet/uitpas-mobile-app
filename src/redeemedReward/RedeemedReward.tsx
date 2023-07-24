@@ -4,7 +4,7 @@ import { Image, ScrollView } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 
 import { GiftOpen } from '../_assets/images';
-import { EnlargedHeader, HtmlRenderer, Trans, Typography } from '../_components';
+import { BoldTrans, EnlargedHeader, HtmlRenderer, Typography } from '../_components';
 import { useTracking } from '../_context';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing';
 import { formatISOString, getRewardTrackingData } from '../_utils';
@@ -63,7 +63,7 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
 
         <RewardCard isButton={!isModal} reward={redeemedReward?.reward} />
 
-        <Trans
+        <BoldTrans
           bottomSpacing="8px"
           i18nKey="REDEEMED_REWARD.TRADED_AT"
           values={{ date: formatISOString(redeemedReward.redeemDate, 'dd/MM/yyyy') }}

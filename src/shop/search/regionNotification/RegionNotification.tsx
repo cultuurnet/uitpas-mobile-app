@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { ScrollView } from 'react-native';
 
-import { Button, Typography } from '../../../_components';
+import { Button, ButtonTrans, Trans, Typography } from '../../../_components';
 import { TSearchFilters } from '../../_models/searchFilters';
 import { useGetRewards } from '../../_queries/useGetRewards';
 import * as Styled from './style';
@@ -22,10 +22,12 @@ export const RegionNotification: FC<TProps> = ({ onPress, filters, search }) => 
     <>
       <ScrollView>
         <Styled.NotificationContainer>
-          <Typography bottomSpacing="15px" color="secondary.900">
-            {`Er zijn ook nog ${searchOutOfRegionResults?.pages?.[0]?.totalItems} voordelen gevonden van organisatoren buiten jouw regio`}
-          </Typography>
-          <Button inline label={'Zoek ook buiten mijn regio'} onPress={onPress} />
+          <ButtonTrans
+            buttonOnPress={onPress}
+            defaults={`Er zijn ook nog {{amount}} voordelen gevonden van organisatoren buiten jouw regio. \n<button>{{region}}</button>`}
+            parent={Typography}
+            values={{ amount: searchOutOfRegionResults?.pages?.[0]?.totalItems, region: 'Zoek ook buiten mijn regio' }}
+          />
         </Styled.NotificationContainer>
       </ScrollView>
     </>

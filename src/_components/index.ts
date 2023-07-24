@@ -23,6 +23,7 @@ export { default as SafeAreaView } from './safeAreaView/SafeAreaView';
 export { default as SkeletonLoader } from './skeletonLoader/SkeletonLoader';
 export { default as Spinner } from './spinner/Spinner';
 export { default as TouchableRipple } from './touchableRipple/TouchableRipple';
-export { default as Trans } from './trans/Trans';
+export { default as BoldTrans } from './trans/BoldTrans';
+export { default as ButtonTrans } from './trans/ButtonTrans';
 export { default as Typography } from './typography/Typography';
 export { default as Analytics } from './analytics/Analytics';
