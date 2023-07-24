@@ -21,6 +21,7 @@ const CATEGORIES: TCategoryListItem[] = [
   { icon: 'Sport', label: 'SHOP.SECTIONS.SPORT', params: { filter: 'sport' } },
   { icon: 'Activity', label: 'SHOP.SECTIONS.DO', params: { category: 'Doen' } },
   { icon: 'Charity', label: 'SHOP.SECTIONS.CHARITY', params: { category: 'Goede doel' } },
+  { icon: 'Child', label: 'SHOP.SECTIONS.FOR_KIDS', params: { category: 'forKids' } },
   { icon: 'Bag', label: 'SHOP.SECTIONS.GADGET', params: { category: 'Gadget of item' } },
   { icon: 'Food', label: 'SHOP.SECTIONS.FOOD', params: { category: 'Eten en drinken' } },
   { icon: 'Clock', label: 'SHOP.SECTIONS.LAST_CHANCE', params: { category: 'laatste kans' } },

@@ -41,3 +41,4 @@ export const SocialTariff = require('./socialtariff.png');
 export const Sport = require('./sport.png');
 export const User = require('./user.png');
 export const Warning = require('./warning.png');
+export const Child = require('./child.png');

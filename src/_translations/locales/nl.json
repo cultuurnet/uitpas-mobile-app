@@ -103,6 +103,8 @@
         "BOOK": "Boek",
         "MOVIE": "Film"
       },
+      "REGION_HINT": "Er zijn ook nog {{amount}} voordelen gevonden van organisatoren buiten {{regions}}. \n<button>Zoek ook buiten mijn regio</button>",
+      "REGION_HINT_EMPTY": "Er zijn nog {{amount}} voordelen gevonden van organisatoren buiten {{regions}}. \n<button>Zoek ook buiten mijn regio</button>",
       "FILTERS": {
         "HEADER_TITLE": "Filteren",
         "CTA": "Filteren",
@@ -123,6 +125,7 @@
       "DO": "Doen",
       "GADGET": "Gadget of item",
       "CHARITY": "Een goed doel steunen",
+      "FOR_KIDS": "Leuk voor kinderen",
       "LAST_CHANCE": "Laatste kans",
       "POPULAR_REGION": "Populair in jouw regio",
       "SPORT": "Sport",

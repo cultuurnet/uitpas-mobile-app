@@ -9,6 +9,7 @@ import { useGetMe } from '../../profile/_queries/useGetMe';
 import { RewardsSectionLoader } from '../_components/rewardsSection/RewardSection.loading';
 import { TSearchFilters } from '../_models/searchFilters';
 import { useGetRewards } from '../_queries/useGetRewards';
+import { RegionNotification } from './regionNotification/RegionNotification';
 import * as Styled from './style';
 
 type SearchTerm = {
@@ -66,7 +67,7 @@ export const Search = ({ navigation, route }: TProps) => {
     <SafeAreaView edges={['left', 'right']} isScrollable keyboardShouldPersistTaps="handled" stickyHeaderIndices={[1]}>
       <EnlargedHeader height={30} />
       <Styled.SearchContainer paddingTop={top}>
-        <Styled.SearchInput autoFocus numberOfLines={1} onChangeText={setSearch} value={search} />
+        <Styled.SearchInput autoFocus numberOfLines={1} onChangeText={setSearch} returnKeyType="search" value={search} />
         <Styled.BackIcon borderless color="primary.700" name="ChevronLeft" onPress={onClose} size={24} />
         {search.length > 0 && (
           <Styled.ResetIcon borderless color="primary.700" name="Close" onPress={() => setSearch('')} size={14} />
@@ -96,6 +97,14 @@ export const Search = ({ navigation, route }: TProps) => {
                 keyboardShouldPersistTaps="handled"
                 renderItem={({ item }) => <Reward mode="list" reward={item} />}
               />
+              {!filters.includeAllCardSystems && (
+                <RegionNotification
+                  filters={filters}
+                  onPress={() => navigation.navigate('Search', { filters: { ...filters, includeAllCardSystems: true } })}
+                  search={search}
+                  searchAmount={searchResults?.pages?.[0]?.totalItems}
+                />
+              )}
             </>
           )
         ) : (

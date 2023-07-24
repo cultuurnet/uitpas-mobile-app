@@ -6,7 +6,7 @@ import { useGetMe } from '../../profile/_queries/useGetMe';
 import { TRewardCategory, TRewardsResponse, TRewardType } from '../_models/reward';
 import { TSearchFilters } from '../_models/searchFilters';
 
-export type TFilterRewardCategory = TRewardCategory | 'laatste kans';
+export type TFilterRewardCategory = TRewardCategory | 'laatste kans' | 'forKids';
 export type TFilterRewardSections =
   | 'online'
   | 'in de kijker'
@@ -56,6 +56,8 @@ export function useGetRewards({
     // add category
     if (category === 'laatste kans') {
       params.lastChance = true;
+    } else if (category === 'forKids') {
+      params.forKids = true;
     } else if (category) {
       params.categories = category;
       delete params['sort[redeemCount]'];
@@ -73,6 +75,7 @@ export function useGetRewards({
         params.featured = true;
         break;
       case 'populair':
+        params.featured = true;
         delete params.owningCardSystemId;
         break;
       case 'interessant':
