@@ -102,6 +102,7 @@ export const Search = ({ navigation, route }: TProps) => {
                   filters={filters}
                   onPress={() => navigation.navigate('Search', { filters: { ...filters, includeAllCardSystems: true } })}
                   search={search}
+                  searchAmount={searchResults?.pages?.[0]?.totalItems}
                 />
               )}
             </>
