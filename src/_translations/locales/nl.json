@@ -148,7 +148,7 @@
     "AVAILABILITY": "Beschikbaarheid",
     "HOW_TO_COLLECT": "Hoe omruilen?",
     "COLLECT_ONLINE": "Ruil dit voordeel om in de app: je krijgt achteraf de nodige instructies.",
-    "COLLECT_OFFLINE": "Dit voordeel kan je op locatie omruilen. Laat de barcode onder UiTPAS zien op de hierboven vermelde locatie.",
+    "COLLECT_OFFLINE": "Om dit voordeel om te ruilen moet je naar een van de locaties hierboven. Toon je <button>UiTPAS</button> aan een medewerker om je punten te ruilen.",
     "OTHER_REWARDS": "Meer voordelen op deze locatie",
     "SHOW_MORE": "Toon meer",
     "SHOW_LESS": "Toon minder",
@@ -172,7 +172,7 @@
   "REDEEMED_REWARD": {
     "HEADER_TITLE": "Je omgeruild voordeel",
     "SUCCESS_TITLE": "Gelukt!",
-    "SUCCESS_MESSAGE": "Je hebt {{points}} punten omgeruild. Je vindt deze informatie ook terug in je omgeruilde voordelen, en in de e-mail die we je gestuurd hebben.",
+    "SUCCESS_MESSAGE": "Je hebt {{points}} punten omgeruild. Je vindt deze informatie ook terug in je <button>omgeruilde voordelen</button>, en in de e-mail die we je gestuurd hebben.",
     "TRADED_AT": "Je ontving dit voordeel op <bold color='primary.800'>{{date}}</bold>.",
     "GO_BACK": "Sluiten",
     "YOUR_CODE": "Uw persoonlijke code"
