@@ -9,6 +9,7 @@ import { useGetMe } from '../../profile/_queries/useGetMe';
 import { RewardsSectionLoader } from '../_components/rewardsSection/RewardSection.loading';
 import { TSearchFilters } from '../_models/searchFilters';
 import { useGetRewards } from '../_queries/useGetRewards';
+import { RegionNotification } from './regionNotification/RegionNotification';
 import * as Styled from './style';
 
 type SearchTerm = {
@@ -96,6 +97,14 @@ export const Search = ({ navigation, route }: TProps) => {
                 keyboardShouldPersistTaps="handled"
                 renderItem={({ item }) => <Reward mode="list" reward={item} />}
               />
+              {!filters.includeAllCardSystems && (
+                <RegionNotification
+                  filters={filters}
+                  onPress={() => navigation.navigate('Search', { filters: { ...filters, includeAllCardSystems: true } })}
+                  search={search}
+                  searchAmount={searchResults?.pages?.[0]?.totalItems}
+                />
+              )}
             </>
           )
         ) : (
