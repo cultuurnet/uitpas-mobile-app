@@ -36,8 +36,8 @@ export const RegionNotification: FC<TProps> = ({ onPress, filters, search, searc
       <ScrollView>
         <Styled.NotificationContainer>
           <Trans
-            buttonOnPress={onPress}
             i18nKey={`SHOP.SEARCH.REGION_HINT${searchAmount === 0 ? '_EMPTY' : ''}`}
+            onButtonPress={onPress}
             parent={Typography}
             size="small"
             values={{ amount: calculatedAmount, regions: regions?.map(card => card.cardSystem.name).join(', ') }}
