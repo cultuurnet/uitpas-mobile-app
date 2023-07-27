@@ -1,5 +1,7 @@
 import styled from 'styled-components/native';
 
+import { theme } from '../../../_styles/theme';
+
 export const NotificationContainer = styled.View`
-  margin: 15px 15px;
+  padding: ${theme.common.defaultSpacing}px;
 `;

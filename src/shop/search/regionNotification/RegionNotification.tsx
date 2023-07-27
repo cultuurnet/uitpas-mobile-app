@@ -1,5 +1,4 @@
 import React, { FC, useMemo } from 'react';
-import { ScrollView } from 'react-native';
 
 import { Trans, Typography } from '../../../_components';
 import { getPassHolderRegions } from '../../../_utils';
@@ -32,18 +31,14 @@ export const RegionNotification: FC<TProps> = ({ onPress, filters, search, searc
 
   if (calculatedAmount === 0) return null;
   return (
-    <>
-      <ScrollView>
-        <Styled.NotificationContainer>
-          <Trans
-            i18nKey={`SHOP.SEARCH.REGION_HINT${searchAmount === 0 ? '_EMPTY' : ''}`}
-            onButtonPress={onPress}
-            parent={Typography}
-            size="small"
-            values={{ amount: calculatedAmount, regions: regions?.map(card => card.cardSystem.name).join(', ') }}
-          />
-        </Styled.NotificationContainer>
-      </ScrollView>
-    </>
+    <Styled.NotificationContainer>
+      <Trans
+        i18nKey={`SHOP.SEARCH.REGION_HINT${searchAmount === 0 ? '_EMPTY' : ''}`}
+        onButtonPress={onPress}
+        parent={Typography}
+        size="small"
+        values={{ amount: calculatedAmount, regions: regions?.map(card => card.cardSystem.name).join(', ') }}
+      />
+    </Styled.NotificationContainer>
   );
 };
