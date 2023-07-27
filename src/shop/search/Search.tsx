@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Keyboard } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FlashList } from '@shopify/flash-list';
 
@@ -38,7 +39,6 @@ export const Search = ({ navigation, route }: TProps) => {
   const { t } = useTranslation();
   const { data: user } = useGetMe();
   const { filters = initialFilters } = route.params || {};
-
   const { data: searchResults, isLoading: isSearchLoading } = useGetRewards({
     enabled: search.length > 0,
     filters,
@@ -50,6 +50,11 @@ export const Search = ({ navigation, route }: TProps) => {
     setSearch('');
     navigation.pop();
   }, [navigation]);
+
+  function onSearch(keyword: string) {
+    Keyboard.dismiss();
+    setSearch(keyword);
+  }
 
   const appliedFiltersAmount = useMemo(
     () =>
@@ -109,14 +114,14 @@ export const Search = ({ navigation, route }: TProps) => {
           )
         ) : (
           <>
-            <Styled.PopularItem key={`search-${user.address.city}`} onPress={() => setSearch(user.address.city)}>
+            <Styled.PopularItem key={`search-${user.address.city}`} onPress={() => onSearch(user.address.city)}>
               <Styled.PopularItemIcon name="Popular" size={20} />
               <Typography color="primary.800">{user.address.city}</Typography>
             </Styled.PopularItem>
             <Styled.Separator />
             {SEARCH_TERMS.map(({ keyword, label }) => (
               <>
-                <Styled.PopularItem key={`search-${keyword}`} onPress={() => setSearch(keyword)}>
+                <Styled.PopularItem key={`search-${keyword}`} onPress={() => onSearch(keyword)}>
                   <Styled.PopularItemIcon name="Popular" size={20} />
                   <Typography color="primary.800">{t(label)}</Typography>
                 </Styled.PopularItem>
