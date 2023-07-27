@@ -75,6 +75,7 @@ export function useGetRewards({
         params.featured = true;
         break;
       case 'populair':
+        params.featured = true;
         delete params.owningCardSystemId;
         break;
       case 'interessant':
