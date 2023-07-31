@@ -71,7 +71,7 @@
       "EMPTY": "Je hebt nog geen voordelen ingeruild.",
       "ERROR": "We konden je ingeruilde voordelen niet ophalen, probeer later opnieuw.",
       "BACK_TITLE": "Profiel",
-      "HEADER_TITLE": "Omgeruild",
+      "HEADER_TITLE": "Al omgeruild",
       "REDEEMED_ON": "Omgeruild op {{date}}"
     }
   },
@@ -94,20 +94,22 @@
     "BUTTON": "Bekijk alle voordelen",
     "ONLINE_REWARD": "In de app omruilen",
     "SHOW_MORE": "Bekijk meer",
-    "NO_RESULTS": "Er zijn geen voordelen gevonden.",
+    "NO_RESULTS": "Helaas, er zijn momenteel geen voordelen in deze categorie.",
     "SEARCH": {
-      "PLACEHOLDER": "Leuke voordelen, gemeentes,...",
+      "PLACEHOLDER": "Leuke voordelen, gemeenten,...",
       "SEARCH_TERMS": {
         "SWIMMING": "Zwembeurt",
         "COFFEE": "Koffie",
         "BOOK": "Boek",
         "MOVIE": "Film"
       },
+      "REGION_HINT": "Er zijn ook nog {{amount}} voordelen gevonden van organisatoren buiten {{regions}}. \n<button>Zoek ook buiten mijn regio</button>",
+      "REGION_HINT_EMPTY": "Er zijn nog {{amount}} voordelen gevonden van organisatoren buiten {{regions}}. \n<button>Zoek ook buiten mijn regio</button>",
       "FILTERS": {
         "HEADER_TITLE": "Filteren",
         "CTA": "Filteren",
         "REGION": {
-          "TITLE": "Buiten jouw regio(s)",
+          "TITLE": "Ook buiten mijn UiTPAS-regio zoeken",
           "DESCRIPTION": "Toon ook voordelen van organisatoren buiten {{regions}}."
         },
         "APPLY": "Toepassen"
@@ -117,21 +119,21 @@
       "HEADER_TITLE": "Welkomstvoordelen",
       "GREETING": "Welkom bij UiTPAS {{name}}!",
       "TITLE": "Bekijk nu je Welkomstvoordelen",
-      "BANNER_TITLE": "Dit zijn voordelen die je gratis hebt gekregen."
+      "BANNER_TITLE": "Meteen genieten van je UiTPAS? Deze welkomstvoordelen kan je nu gebruiken."
     },
     "SECTIONS": {
       "DO": "Doen",
       "GADGET": "Gadget of item",
-      "CHARITY": "Goede doel",
-      "FOR_KIDS": "Voor kinderen",
+      "CHARITY": "Een goed doel steunen",
+      "FOR_KIDS": "Leuk voor kinderen",
       "LAST_CHANCE": "Laatste kans",
       "POPULAR_REGION": "Populair in jouw regio",
       "SPORT": "Sport",
       "SPORTIVE": "Sportieve voordelen",
-      "POPULAR": "Populair buiten je regio",
-      "INTERESTING": "Misschien iets voor jou?",
+      "POPULAR": "Eropuit in andere regio's",
+      "INTERESTING": "Bij je favoriete locaties",
       "FOOD": "Eten en drinken",
-      "ONLINE": "In de app om te ruilen",
+      "ONLINE": "Meteen in de app omruilen",
       "HIGHLIGHTED": "In de kijker",
       "WELCOME": "Welkomstvoordelen",
       "CITY": "Voordelen in {{city}}",
@@ -139,15 +141,15 @@
     }
   },
   "SHOP_DETAIL": {
-    "HEADER_TITLE": "Je voordeel",
-    "DESCRIPTION": "Omschrijving",
+    "HEADER_TITLE": "Voordeel",
+    "DESCRIPTION": "Over het voordeel",
     "MORE_INFO": "Meer info",
-    "LOCATION": "Waar om te ruilen?",
+    "LOCATION": "Waar omruilen?",
     "AVAILABILITY": "Beschikbaarheid",
     "HOW_TO_COLLECT": "Hoe omruilen?",
-    "COLLECT_ONLINE": "Je kan dit voordeel in de app omruilen en ontvangt de instructies nadien.",
-    "COLLECT_OFFLINE": "Dit voordeel kan je op locatie omruilen. Laat de barcode onder “Mijn UiTPAS” zien op de hierboven vermelde locatie.",
-    "OTHER_REWARDS": "Andere voordelen die je misschien interesseren",
+    "COLLECT_ONLINE": "Ruil dit voordeel om in de app: je krijgt achteraf de nodige instructies.",
+    "COLLECT_OFFLINE": "Om dit voordeel om te ruilen moet je naar een van de locaties hierboven. Toon je <button>UiTPAS</button> aan een medewerker om je punten te ruilen.",
+    "OTHER_REWARDS": "Meer voordelen op deze locatie",
     "SHOW_MORE": "Toon meer",
     "SHOW_LESS": "Toon minder",
     "GENERIC_REDEEM_ERROR": "Er is iets misgegaan",
@@ -161,16 +163,16 @@
     "REDEEM": {
       "BUTTON": "Nu omruilen",
       "MODAL_TITLE": "Voordeel omruilen",
-      "MODAL_DESCRIPTION": "Ben je zeker dat je <bold>{{points}} punten</bold> wil omruilen voor het voordeel <bold>\"{{title}}\"</bold>",
-      "MODAL_BUTTON_CONFIRM": "Omruilen",
+      "MODAL_DESCRIPTION": "Ben je zeker dat je <bold>{{points}} punten</bold> wil omruilen voor <bold>\"{{title}}\"</bold>",
+      "MODAL_BUTTON_CONFIRM": "Bevestigen",
       "MODAL_BUTTON_CANCEL": "Annuleren",
       "MODAL_GENERIC_ERROR": "We konden je voordeel niet omruilen, probeer later opnieuw."
     }
   },
   "REDEEMED_REWARD": {
-    "HEADER_TITLE": "Omgeruild voordeel",
+    "HEADER_TITLE": "Je omgeruild voordeel",
     "SUCCESS_TITLE": "Gelukt!",
-    "SUCCESS_MESSAGE": "Je hebt net {{points}} punten omgeruild. Je vindt deze gegevens ook steeds terug in je spaargeschiedenis.",
+    "SUCCESS_MESSAGE": "Je hebt {{points}} punten omgeruild. Je vindt deze informatie ook terug in je <button>omgeruilde voordelen</button>, en in de e-mail die we je gestuurd hebben.",
     "TRADED_AT": "Je ontving dit voordeel op <bold color='primary.800'>{{date}}</bold>.",
     "GO_BACK": "Sluiten",
     "YOUR_CODE": "Uw persoonlijke code"

@@ -1,8 +1,7 @@
 import styled from 'styled-components/native';
 
+import { theme } from '../../../_styles/theme';
+
 export const NotificationContainer = styled.View`
-  margin: 15px 15px;
-  background-color: ${({ theme }) => theme.palette.primary['300']};
-  padding: 20px;
-  border-radius: 10px;
+  padding: ${theme.common.defaultSpacing}px;
 `;

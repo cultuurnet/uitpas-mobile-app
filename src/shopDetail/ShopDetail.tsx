@@ -2,11 +2,12 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native';
 
-import { Accordion, Analytics, Button, HtmlRenderer, Points, RewardImage, Typography } from '../_components';
+import { Accordion, Analytics, Button, HtmlRenderer, Points, RewardImage, Trans, Typography } from '../_components';
 import { useTracking } from '../_context';
 import { useToggle } from '../_hooks';
 import { TRootStackRouteProp } from '../_routing';
 import { getLanguage, getRewardTrackingData, normalizeUrl } from '../_utils';
+import CardModal from '../profile/CardModal/CardModal';
 import { useGetReward } from '../shop/_queries/useGetReward';
 import { Availability } from './_components/availability/Availability';
 import { Organizer } from './_components/organizer/Organizer';
@@ -30,6 +31,7 @@ export const ShopDetail = ({ route }: TProps) => {
     refetch: refetchRedeemStatus,
   } = useGetRedeemStatus({ id: reward.id });
   const [isRedeemModalConfirmationOpen, toggleRedeemModalConfirmationOpen] = useToggle(false);
+  const [cardModalVisible, toggleCardModalVisible] = useToggle(false);
   const { t } = useTranslation();
   const { trackSelfDescribingEvent } = useTracking();
   const rewardTrackingData = getRewardTrackingData(reward);
@@ -163,9 +165,13 @@ export const ShopDetail = ({ route }: TProps) => {
           />
 
           <Section title={t('SHOP_DETAIL.HOW_TO_COLLECT')}>
-            <Typography bottomSpacing="24px" selectable size="small">
-              {t(reward.online ? 'SHOP_DETAIL.COLLECT_ONLINE' : 'SHOP_DETAIL.COLLECT_OFFLINE')}
-            </Typography>
+            <Trans
+              bottomSpacing="24px"
+              i18nKey={reward.online ? 'SHOP_DETAIL.COLLECT_ONLINE' : 'SHOP_DETAIL.COLLECT_OFFLINE'}
+              onButtonPress={toggleCardModalVisible}
+              selectable
+              size="small"
+            />
             <HtmlRenderer source={{ html: reward.practicalInfo }} />
           </Section>
         </Styled.Content>
@@ -177,6 +183,7 @@ export const ShopDetail = ({ route }: TProps) => {
           title={t('SHOP_DETAIL.OTHER_REWARDS')}
         />
       </ScrollView>
+      <CardModal isVisible={cardModalVisible} toggleIsVisible={toggleCardModalVisible} />
       <RedeemModal
         isVisible={isRedeemModalConfirmationOpen}
         reward={reward}

@@ -54,9 +54,28 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
               <Typography bottomSpacing="8px" color="neutral.0" fontStyle="bold" size="large">
                 {t('REDEEMED_REWARD.SUCCESS_TITLE')}
               </Typography>
-              <Typography color="neutral.0" size="small">
-                {t('REDEEMED_REWARD.SUCCESS_MESSAGE', { points: redeemedReward.reward.points })}
-              </Typography>
+              <Trans
+                color="neutral.0"
+                i18nKey={'REDEEMED_REWARD.SUCCESS_MESSAGE'}
+                onButtonPress={() => {
+                  navigation.reset({
+                    index: 0,
+                    routes: [
+                      {
+                        name: 'MainNavigator',
+                        params: {
+                          screen: 'Profile',
+                        },
+                      },
+                      {
+                        name: 'RedeemedRewards',
+                      },
+                    ],
+                  });
+                }}
+                size="small"
+                values={{ points: redeemedReward.reward.points }}
+              />
             </Styled.SuccessContent>
           </Styled.SuccessContainer>
         )}

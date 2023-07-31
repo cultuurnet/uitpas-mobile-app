@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
-import { ScrollView } from 'react-native';
+import React, { FC, useMemo } from 'react';
 
-import { Button, Typography } from '../../../_components';
+import { Trans, Typography } from '../../../_components';
+import { getPassHolderRegions } from '../../../_utils';
+import { useGetMe } from '../../../profile/_queries/useGetMe';
 import { TSearchFilters } from '../../_models/searchFilters';
 import { useGetRewards } from '../../_queries/useGetRewards';
 import * as Styled from './style';
@@ -10,24 +11,34 @@ type TProps = {
   filters: TSearchFilters;
   onPress: () => void;
   search: string;
+  searchAmount: number;
 };
 
-export const RegionNotification: FC<TProps> = ({ onPress, filters, search }) => {
+export const RegionNotification: FC<TProps> = ({ onPress, filters, search, searchAmount }) => {
   const { data: searchOutOfRegionResults } = useGetRewards({
     enabled: !filters.includeAllCardSystems && search.length > 0,
     filters: { ...filters, includeAllCardSystems: true },
     freeText: search,
   });
+  const { data: passHolder } = useGetMe();
+
+  const regions = getPassHolderRegions(passHolder);
+  const calculatedAmount = useMemo(
+    () =>
+      searchOutOfRegionResults?.pages?.[0]?.totalItems > 2 ? searchOutOfRegionResults?.pages?.[0]?.totalItems - searchAmount : 0,
+    [searchOutOfRegionResults, searchAmount],
+  );
+
+  if (calculatedAmount === 0) return null;
   return (
-    <>
-      <ScrollView>
-        <Styled.NotificationContainer>
-          <Typography bottomSpacing="15px" color="secondary.900">
-            {`Er zijn ook nog ${searchOutOfRegionResults?.pages?.[0]?.totalItems} voordelen gevonden van organisatoren buiten jouw regio`}
-          </Typography>
-          <Button inline label={'Zoek ook buiten mijn regio'} onPress={onPress} />
-        </Styled.NotificationContainer>
-      </ScrollView>
-    </>
+    <Styled.NotificationContainer>
+      <Trans
+        i18nKey={`SHOP.SEARCH.REGION_HINT${searchAmount === 0 ? '_EMPTY' : ''}`}
+        onButtonPress={onPress}
+        parent={Typography}
+        size="small"
+        values={{ amount: calculatedAmount, regions: regions?.map(card => card.cardSystem.name).join(', ') }}
+      />
+    </Styled.NotificationContainer>
   );
 };
