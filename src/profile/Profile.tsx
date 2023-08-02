@@ -37,7 +37,7 @@ const Profile = ({ navigation }: TProps) => {
       {
         iconName: 'Gift',
         label: i18n.t('PROFILE.LINKS.BENEFITS'),
-        onPress: () => navigation.navigate('FilteredShop', { filter: 'welkom', subtitle: t('PROFILE.WELCOME_GIFTS_TITLE') }),
+        onPress: () => navigation.navigate('FilteredShop', { section: 'welkom', subtitle: t('PROFILE.WELCOME_GIFTS_TITLE') }),
       },
       {
         iconName: 'CircledCheck',

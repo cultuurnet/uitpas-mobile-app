@@ -21,7 +21,6 @@ export function getFiltersForSection(section: TFilterRewardSection): TSearchFilt
         online: true,
         withoutSorting: true,
       };
-    //delete params.sort;
     case 'in de kijker':
       return {
         featured: true,
