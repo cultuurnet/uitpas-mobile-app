@@ -88,7 +88,7 @@ export const RootStackNavigator = () => {
               headerBackButtonMenuEnabled: false,
               headerBackTitle: '',
               headerRight: UserPoints,
-              title: route?.params?.filter === 'welkom' ? i18n.t('SHOP.WELCOME.HEADER_TITLE') : i18n.t('SHOP.HEADER_TITLE'),
+              title: route?.params?.section === 'welkom' ? i18n.t('SHOP.WELCOME.HEADER_TITLE') : i18n.t('SHOP.HEADER_TITLE'),
             })}
           />
           <RootStack.Screen

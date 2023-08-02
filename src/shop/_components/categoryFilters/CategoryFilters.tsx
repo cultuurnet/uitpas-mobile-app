@@ -9,13 +9,13 @@ import { useStackNavigation } from '../../../_hooks';
 import { TRootStackParamList } from '../../../_routing';
 import { theme } from '../../../_styles/theme';
 import { normalizeForSlug } from '../../../_utils';
-import { TFilterRewardCategory, TFilterRewardSections } from '../../_queries/useGetRewards';
+import { TFilterRewardCategory, TFilterRewardSection } from '../../_utils/reward';
 import * as Styled from './style';
 
 type TCategoryListItem = {
   icon: TIconName;
   label: string;
-  params: { category?: TFilterRewardCategory; filter?: TFilterRewardSections };
+  params: { category?: TFilterRewardCategory; filter?: TFilterRewardSection };
 };
 const CATEGORIES: TCategoryListItem[] = [
   { icon: 'Sport', label: 'SHOP.SECTIONS.SPORT', params: { filter: 'sport' } },

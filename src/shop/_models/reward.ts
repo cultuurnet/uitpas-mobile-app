@@ -2,7 +2,7 @@ import { TCity } from '../../profile/_models';
 
 export type TRewardCategory = 'Eten en drinken' | 'Doen' | 'Gadget of item' | 'Goede doel';
 export type TRewardStatus = 'ACTIVE' | 'INACTIVE' | 'DELETED';
-export type TRewardType = 'POINTS' | 'WELCOME';
+export type TRewardType = 'POINTS' | 'WELCOME' | 'ANY';
 
 export type TCardSystem = {
   allowsCardlessRegistration: boolean;

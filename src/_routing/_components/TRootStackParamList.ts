@@ -6,7 +6,8 @@ import { TRedeemedReward } from '../../redeemedRewards/_models/redeemedReward';
 import { TCheckInResponse } from '../../scan/_models';
 import { TReward, TRewardType } from '../../shop/_models/reward';
 import { TSearchFilters } from '../../shop/_models/searchFilters';
-import { TFilterRewardCategory, TFilterRewardSections, TFilterRewardSorting } from '../../shop/_queries/useGetRewards';
+import { TFilterRewardSorting } from '../../shop/_queries/useGetRewards';
+import { TFilterRewardCategory, TFilterRewardSection } from '../../shop/_utils/reward';
 
 export type TRootRoute = keyof TRootStackParamList;
 export type TMainRoute = keyof TMainParamsList;
@@ -34,7 +35,7 @@ export type TRootStackParamList = {
   };
   FilteredShop: {
     category?: TFilterRewardCategory;
-    filter?: TFilterRewardSections;
+    section?: TFilterRewardSection;
     subtitle?: string;
     type?: TRewardType;
   };

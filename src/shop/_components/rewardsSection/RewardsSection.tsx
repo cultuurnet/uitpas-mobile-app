@@ -8,22 +8,24 @@ import { REWARD_TILE_WIDTH } from '../../../_components/reward/style';
 import { useTracking } from '../../../_context';
 import { TMainNavigationProp } from '../../../_routing';
 import { getRewardTrackingData } from '../../../_utils';
-import { TFilterRewardCategory, TFilterRewardSections, useGetRewards } from '../../_queries/useGetRewards';
+import { useGetRewards } from '../../_queries/useGetRewards';
+import { getFiltersForCategory, getFiltersForSection, TFilterRewardCategory, TFilterRewardSection } from '../../_utils/reward';
 import { RewardsSectionLoader } from './RewardSection.loading';
 import * as Styled from './style';
 
 export type TRewardSectionProps = {
   category?: TFilterRewardCategory;
-  filter?: TFilterRewardSections;
   filterRewardId?: string;
   hideMoreButton?: boolean;
   horizontal?: boolean;
   organizerId?: string[];
+  section?: TFilterRewardSection;
   title: string; // id of a reward that should be filtered out
 };
+
 export const RewardsSection = ({
   horizontal,
-  filter,
+  section,
   title,
   filterRewardId,
   hideMoreButton,
@@ -31,7 +33,11 @@ export const RewardsSection = ({
   organizerId,
   ...props
 }: TRewardSectionProps) => {
-  const { data, isLoading } = useGetRewards({ category, itemsPerPage: horizontal ? 20 : 3, organizerId, section: filter });
+  const { data, isLoading } = useGetRewards({
+    filters: { ...getFiltersForSection(section), ...getFiltersForCategory(category) },
+    itemsPerPage: horizontal ? 20 : 3,
+    organizerId,
+  });
   const { t } = useTranslation();
   const { navigate, push } = useNavigation<TMainNavigationProp>();
   const { trackSelfDescribingEvent } = useTracking();
@@ -48,8 +54,8 @@ export const RewardsSection = ({
       'swimlane-direction': horizontal ? 'horizontal' : 'vertical',
       'swimlane-title': title,
     });
-    navigate('FilteredShop', { category, filter, subtitle: title });
-  }, [title, filter, navigate, category, horizontal, trackSelfDescribingEvent]);
+    navigate('FilteredShop', { category, section, subtitle: title });
+  }, [title, section, navigate, category, horizontal, trackSelfDescribingEvent]);
 
   // We need to have 2 or more results to display the section
   if (!isLoading && !(rewards?.length >= 2)) return null;
