@@ -63,7 +63,7 @@ export const Search = ({ navigation, route }: TProps) => {
         if (filters[filterKey] === initialFilters[filterKey]) {
           return count;
         }
-
+        if (filterKey === 'categories') return count + filters[filterKey].length;
         return count + 1;
       }, 0),
     [filters],
@@ -88,7 +88,7 @@ export const Search = ({ navigation, route }: TProps) => {
             <>
               <Styled.SearchFilters>
                 <PillButton
-                  amount={appliedFiltersAmount}
+                  amount={appliedFiltersAmount + (sort !== '-redeemCount' ? 1 : 0)}
                   icon="Filter"
                   label={t('SHOP.SEARCH.FILTERS.CTA')}
                   onPress={() => navigation.push('SearchFilters', { filters, sort })}
