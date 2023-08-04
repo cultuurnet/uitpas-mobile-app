@@ -15,10 +15,10 @@ import * as Styled from './style';
 type TCategoryListItem = {
   icon: TIconName;
   label: string;
-  params: { category?: TFilterRewardCategory; filter?: TFilterRewardSection };
+  params: { category?: TFilterRewardCategory; section?: TFilterRewardSection };
 };
 const CATEGORIES: TCategoryListItem[] = [
-  { icon: 'Sport', label: 'SHOP.SECTIONS.SPORT', params: { filter: 'sport' } },
+  { icon: 'Sport', label: 'SHOP.SECTIONS.SPORT', params: { section: 'sport' } },
   { icon: 'Activity', label: 'SHOP.SECTIONS.DO', params: { category: 'Doen' } },
   { icon: 'Charity', label: 'SHOP.SECTIONS.CHARITY', params: { category: 'Goede doel' } },
   { icon: 'Child', label: 'SHOP.SECTIONS.FOR_KIDS', params: { category: 'forKids' } },
@@ -40,7 +40,7 @@ export const CategoryFilters = () => {
   const onPress = useCallback(
     (params: TCategoryListItem['params'], label: string) => {
       trackSelfDescribingEvent('buttonClick', {
-        button_name: `rewardshop-filter-${normalizeForSlug(params?.category || params?.filter)}`,
+        button_name: `rewardshop-filter-${normalizeForSlug(params?.category || params?.section)}`,
       });
       navigate('FilteredShop', { ...params, subtitle: t(label) });
     },
