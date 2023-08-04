@@ -17,27 +17,27 @@ type TProps = {
   route: TRootStackRouteProp<'SearchFilters'>;
 };
 
-type TFilter<T> = {
+type Filter<T> = {
   filter: T;
   title: string;
 };
 
-const SORT_FILTERS: TFilter<TFilterRewardSorting>[] = [
-  { filter: '-redeemCount', title: 'Meest omgeruild' },
-  { filter: '-creationDate', title: 'Meest recent toegevoegd' },
-  { filter: 'points', title: 'Punten laag - hoog' },
-  { filter: '-points', title: 'Punten hoog - laag' },
+const SORT_FILTERS: Filter<TFilterRewardSorting>[] = [
+  { filter: '-redeemCount', title: 'SHOP.SEARCH.FILTERS.SORT.EXCHANGED' },
+  { filter: '-creationDate', title: 'SHOP.SEARCH.FILTERS.SORT.ADDED' },
+  { filter: 'points', title: 'SHOP.SEARCH.FILTERS.SORT.POINTS_LOW_HIGH' },
+  { filter: '-points', title: 'SHOP.SEARCH.FILTERS.SORT.POINTS_HIGH_LOW' },
 ];
-const CATEGORY_FILTER: TFilter<TRewardCategory>[] = [
-  { filter: 'Doen', title: 'Doen' },
-  { filter: 'Goede doel', title: 'Goede doel' },
-  { filter: 'Gadget of item', title: 'Gadgets' },
-  { filter: 'Eten en drinken', title: 'Eten & drinkens' },
+const CATEGORY_FILTER: Filter<TRewardCategory>[] = [
+  { filter: 'Doen', title: 'SHOP.SEARCH.FILTERS.CATEGORY.DOING' },
+  { filter: 'Goede doel', title: 'SHOP.SEARCH.FILTERS.CATEGORY.CHARITY' },
+  { filter: 'Gadget of item', title: 'SHOP.SEARCH.FILTERS.CATEGORY.GADGET' },
+  { filter: 'Eten en drinken', title: 'SHOP.SEARCH.FILTERS.CATEGORY.FOOD_DRINKS' },
 ];
-const SECTION_FILTER: TFilter<keyof Pick<TSearchFilters, 'online' | 'forKids' | 'sport'>>[] = [
-  { filter: 'online', title: 'In de app om te ruilen' },
-  { filter: 'forKids', title: 'Leuk voor kinderen' },
-  { filter: 'sport', title: 'Sportieve voordelen' },
+const SECTION_FILTER: Filter<keyof Pick<TSearchFilters, 'online' | 'forKids' | 'sport'>>[] = [
+  { filter: 'online', title: 'SHOP.SEARCH.FILTERS.SECTION.ONLINE' },
+  { filter: 'forKids', title: 'SHOP.SEARCH.FILTERS.SECTION.KIDS' },
+  { filter: 'sport', title: 'SHOP.SEARCH.FILTERS.SECTION.SPORT' },
 ];
 
 export const SearchFilters = ({ navigation, route }: TProps) => {
@@ -69,26 +69,26 @@ export const SearchFilters = ({ navigation, route }: TProps) => {
         />
       </Styled.RegionFilter>
       <Styled.SectionTitle color="primary.800" fontStyle="bold" size="large">
-        Sorteren op
+        {t('SHOP.SEARCH.FILTERS.SORT.TITLE')}
       </Styled.SectionTitle>
       {SORT_FILTERS.map(sortFilter => (
         <Styled.FilterCheckbox
           isChecked={updatedFilters.sort === sortFilter.filter}
           key={sortFilter.filter}
-          label={<Typography>{sortFilter.title}</Typography>}
+          label={<Typography>{t(sortFilter.title)}</Typography>}
           onChange={() => setUpdatedFilters({ ...updatedFilters, sort: sortFilter.filter })}
           position="right"
           type="Radio"
         />
       ))}
       <Styled.SectionTitle color="primary.800" fontStyle="bold" size="large">
-        Type voordelen
+        {t('SHOP.SEARCH.FILTERS.CATEGORY.TITLE')}
       </Styled.SectionTitle>
       {CATEGORY_FILTER.map(categoryFilter => (
         <Styled.FilterCheckbox
           isChecked={updatedFilters.filters.categories?.includes(categoryFilter.filter)}
           key={categoryFilter.filter}
-          label={<Typography>{categoryFilter.title}</Typography>}
+          label={<Typography>{t(categoryFilter.title)}</Typography>}
           onChange={value =>
             setUpdatedFilters({
               ...updatedFilters,
@@ -104,13 +104,13 @@ export const SearchFilters = ({ navigation, route }: TProps) => {
         />
       ))}
       <Styled.SectionTitle color="primary.800" fontStyle="bold" size="large">
-        Toon enkel
+        {t('SHOP.SEARCH.FILTERS.SECTION.TITLE')}
       </Styled.SectionTitle>
       {SECTION_FILTER.map(sectionFilter => (
         <Styled.FilterCheckbox
           isChecked={updatedFilters.filters[sectionFilter.filter]}
           key={sectionFilter.filter}
-          label={<Typography>{sectionFilter.filter}</Typography>}
+          label={<Typography>{t(sectionFilter.title)}</Typography>}
           onChange={value =>
             setUpdatedFilters({
               ...updatedFilters,

@@ -112,6 +112,26 @@
           "TITLE": "Ook buiten mijn UiTPAS-regio zoeken",
           "DESCRIPTION": "Toon ook voordelen van organisatoren buiten {{regions}}."
         },
+        "SORT": {
+          "TITLE": "Sorteren op",
+          "EXCHANGED": "Meest omgeruild",
+          "ADDED": "Meest recent toegevoegd",
+          "POINTS_LOW_HIGH": "Punten laag - hoog",
+          "POINTS_HIGH_LOW": "Punten hoog - laag"
+        },
+        "CATEGORY": {
+          "TITLE": "Type voordelen",
+          "DOING": "Doen",
+          "GADGET": "Gadgets",
+          "CHARITY": "Goede doel",
+          "FOOD_DRINKS": "Eten & drinken"
+        },
+        "SECTION": {
+          "TITLE": "Toon enkel",
+          "ONLINE": "In de app om te ruilen",
+          "KIDS": "Leuk voor kinderen",
+          "SPORT": "Sportieve voordelen"
+        },
         "APPLY": "Toepassen"
       }
     },
