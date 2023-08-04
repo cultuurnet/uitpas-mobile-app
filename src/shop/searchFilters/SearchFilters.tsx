@@ -78,6 +78,7 @@ export const SearchFilters = ({ navigation, route }: TProps) => {
           label={<Typography>{sortFilter.title}</Typography>}
           onChange={() => setUpdatedFilters({ ...updatedFilters, sort: sortFilter.filter })}
           position="right"
+          type="Radio"
         />
       ))}
       <Styled.SectionTitle color="primary.800" fontStyle="bold" size="large">
