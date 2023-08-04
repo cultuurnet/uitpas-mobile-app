@@ -55,7 +55,7 @@ export const SearchFilters = ({ navigation, route }: TProps) => {
     <Styled.Container>
       <Styled.RegionFilter>
         <Styled.RegionFilterText>
-          <Typography color="primary.800" fontStyle="bold" size="large">
+          <Typography bottomSpacing="5px" color="primary.800" fontStyle="bold" size="large">
             {t('SHOP.SEARCH.FILTERS.REGION.TITLE')}
           </Typography>
           <Typography>

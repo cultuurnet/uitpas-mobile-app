@@ -109,8 +109,8 @@
         "HEADER_TITLE": "Filteren",
         "CTA": "Filteren",
         "REGION": {
-          "TITLE": "Ook buiten mijn UiTPAS-regio zoeken",
-          "DESCRIPTION": "Toon ook voordelen van organisatoren buiten {{regions}}."
+          "TITLE": "Buiten jouw regio(s)",
+          "DESCRIPTION": "Toon ook voordelen van organisatoren buiten mijn regio."
         },
         "SORT": {
           "TITLE": "Sorteren op",

@@ -63,6 +63,7 @@ export const Search = ({ navigation, route }: TProps) => {
         if (filters[filterKey] === initialFilters[filterKey]) {
           return count;
         }
+        if (!filters[filterKey]) return count;
         if (filterKey === 'categories') return count + filters[filterKey].length;
         return count + 1;
       }, 0),

@@ -30,5 +30,5 @@ export const FilterCheckbox = styled(Checkbox)`
 `;
 
 export const SectionTitle = styled(Typography)`
-  margin: 15px 0 5px;
+  margin: 15px 0px 0px;
 `;
