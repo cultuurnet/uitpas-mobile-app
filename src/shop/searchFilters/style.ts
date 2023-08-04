@@ -18,7 +18,7 @@ export const RegionFilterText = styled.View`
 `;
 
 export const Actions = styled.View`
-  margin-top: 16px;
+  margin-top: 26px;
 `;
 
 export const FilterCheckbox = styled(Checkbox)`
