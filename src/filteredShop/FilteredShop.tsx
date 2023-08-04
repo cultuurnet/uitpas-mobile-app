@@ -8,6 +8,7 @@ import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing';
 import { theme } from '../_styles/theme';
 import { normalizeForSlug } from '../_utils';
 import { useGetRewards } from '../shop/_queries/useGetRewards';
+import { getFiltersForCategory, getFiltersForSection } from '../shop/_utils/reward';
 import { WelcomeHeader } from './_components/WelcomeHeader';
 import * as Styled from './style';
 
@@ -20,7 +21,7 @@ type TProps = {
 const MIMIMAL_REWARD_HEIGHT = 125;
 
 export const FilteredShop = ({ route }: TProps) => {
-  const { subtitle, filter, category, type } = route.params || {};
+  const { subtitle, section, category, type } = route.params || {};
   const { t } = useTranslation();
   const {
     data: rewards,
@@ -29,15 +30,18 @@ export const FilteredShop = ({ route }: TProps) => {
     refetch,
     isRefetching,
     isFetchingNextPage,
-  } = useGetRewards({ category, itemsPerPage: 20, section: filter, type });
+  } = useGetRewards({
+    filters: { ...getFiltersForSection(section), ...getFiltersForCategory(category), type },
+    itemsPerPage: 20,
+  });
 
   const members = rewards?.pages?.flatMap(({ member }) => member) ?? [];
-  const isFilteredOnWelcome = filter === 'welkom';
+  const isFilteredOnWelcome = section === 'welkom';
 
   return (
     <>
       <Analytics
-        screenName={isFilteredOnWelcome ? 'welcome-rewards' : `rewardshop-list-${normalizeForSlug(category || filter)}`}
+        screenName={isFilteredOnWelcome ? 'welcome-rewards' : `rewardshop-list-${normalizeForSlug(category || section)}`}
       />
       <FlashList
         ItemSeparatorComponent={Styled.Separator}

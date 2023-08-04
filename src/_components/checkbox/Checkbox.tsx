@@ -11,9 +11,21 @@ type TProps = {
   label?: React.ReactNode;
   name?: string;
   onChange?: (value: boolean, name: string) => void;
+  position?: 'left' | 'right';
+  type?: 'Checkbox' | 'Radio';
 };
 
-const Checkbox: FC<TProps> = ({ isChecked, onChange, name, label, checkedColor = 'primary.700', iconSize, ...props }) => {
+const Checkbox: FC<TProps> = ({
+  isChecked,
+  onChange,
+  name,
+  label,
+  checkedColor = 'primary.700',
+  iconSize,
+  position = 'left',
+  type = 'Checkbox',
+  ...props
+}) => {
   return (
     <Styled.ButtonElement
       accessibilityRole="checkbox"
@@ -22,8 +34,9 @@ const Checkbox: FC<TProps> = ({ isChecked, onChange, name, label, checkedColor =
       onPress={() => onChange(!isChecked, name)}
       {...props}
     >
-      <Icon color={checkedColor} name={isChecked ? 'CheckboxChecked' : 'CheckboxUnchecked'} size={iconSize} />
-      {label}
+      {position === 'right' && label}
+      <Icon color={checkedColor} name={isChecked ? `${type}Checked` : `${type}Unchecked`} size={iconSize} />
+      {position === 'left' && label}
     </Styled.ButtonElement>
   );
 };

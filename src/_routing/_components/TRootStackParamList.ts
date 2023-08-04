@@ -6,7 +6,8 @@ import { TRedeemedReward } from '../../redeemedRewards/_models/redeemedReward';
 import { TCheckInResponse } from '../../scan/_models';
 import { TReward, TRewardType } from '../../shop/_models/reward';
 import { TSearchFilters } from '../../shop/_models/searchFilters';
-import { TFilterRewardCategory, TFilterRewardSections } from '../../shop/_queries/useGetRewards';
+import { TFilterRewardSorting } from '../../shop/_queries/useGetRewards';
+import { TFilterRewardCategory, TFilterRewardSection } from '../../shop/_utils/reward';
 
 export type TRootRoute = keyof TRootStackParamList;
 export type TMainRoute = keyof TMainParamsList;
@@ -34,7 +35,7 @@ export type TRootStackParamList = {
   };
   FilteredShop: {
     category?: TFilterRewardCategory;
-    filter?: TFilterRewardSections;
+    section?: TFilterRewardSection;
     subtitle?: string;
     type?: TRewardType;
   };
@@ -46,8 +47,8 @@ export type TRootStackParamList = {
   RedeemedReward: { isModal?: boolean; redeemedReward: TRedeemedReward };
   RedeemedRewards: undefined;
   ScanSuccess: TCheckInResponse;
-  Search: { filters?: TSearchFilters };
-  SearchFilters: { filters: TSearchFilters };
+  Search: { category?: TFilterRewardCategory; filters?: TSearchFilters; sort?: TFilterRewardSorting };
+  SearchFilters: { category?: TFilterRewardCategory; filters: TSearchFilters; sort: TFilterRewardSorting };
   ShopDetail: { id: string; reward?: TReward };
   Update: undefined;
 };
