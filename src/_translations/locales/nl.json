@@ -103,8 +103,9 @@
         "BOOK": "Boek",
         "MOVIE": "Film"
       },
-      "REGION_HINT": "Er zijn ook nog {{amount}} voordelen gevonden van organisatoren buiten {{regions}}. \n<button>Zoek ook buiten mijn regio</button>",
-      "REGION_HINT_EMPTY": "Er zijn nog {{amount}} voordelen gevonden van organisatoren buiten {{regions}}. \n<button>Zoek ook buiten mijn regio</button>",
+      "REGION_HINT": "Er zijn ook nog {{amount}} voordelen gevonden van organisatoren buiten {{regions}}",
+      "REGION_HINT_EMPTY": "Er zijn nog {{amount}} voordelen gevonden van organisatoren buiten {{regions}}",
+      "REGION_HINT_CTA": "Toon ook voordelen buiten mijn UiTPAS-regio",
       "FILTERS": {
         "HEADER_TITLE": "Filteren",
         "CTA": "Filteren",

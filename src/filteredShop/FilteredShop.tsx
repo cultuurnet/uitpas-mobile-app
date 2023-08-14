@@ -53,7 +53,7 @@ export const FilteredShop = ({ route }: TProps) => {
               ))}
             </>
           ) : (
-            <Styled.NoContentText align="center">{t('SHOP.NO_RESULTS')}</Styled.NoContentText>
+            <Styled.NoContentText size="small">{t('SHOP.NO_RESULTS')}</Styled.NoContentText>
           )
         }
         ListFooterComponent={
