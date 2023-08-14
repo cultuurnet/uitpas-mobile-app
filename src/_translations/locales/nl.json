@@ -97,6 +97,7 @@
     "NO_RESULTS": "Helaas, er zijn momenteel geen voordelen in deze categorie.",
     "SEARCH": {
       "PLACEHOLDER": "Leuke voordelen, gemeenten,...",
+      "NO_RESULTS": "Helaas, we vinden momenteel geen voordelen voor jou.",
       "SEARCH_TERMS": {
         "SWIMMING": "Zwembeurt",
         "COFFEE": "Koffie",
@@ -168,7 +169,7 @@
     "AVAILABILITY": "Beschikbaarheid",
     "HOW_TO_COLLECT": "Hoe omruilen?",
     "COLLECT_ONLINE": "Ruil dit voordeel om in de app: je krijgt achteraf de nodige instructies.",
-    "COLLECT_OFFLINE": "Om dit voordeel om te ruilen moet je naar een van de locaties hierboven. Toon je <button>UiTPAS</button> aan een medewerker om je punten te ruilen.",
+    "COLLECT_OFFLINE": "Om dit voordeel om te ruilen moet je naar een van de locaties hierboven. Toon <button>je UiTPAS</button> aan een medewerker om je punten te ruilen.",
     "OTHER_REWARDS": "Meer voordelen op deze locatie",
     "SHOW_MORE": "Toon meer",
     "SHOW_LESS": "Toon minder",
