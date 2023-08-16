@@ -107,7 +107,7 @@ export const Search = ({ navigation, route }: TProps) => {
                 ItemSeparatorComponent={() => <Styled.RewardSeparator />}
                 ListEmptyComponent={
                   <Styled.NoContentText align="center" size="small">
-                    {t('SHOP.NO_RESULTS')}
+                    {t('SHOP.SEARCH.NO_RESULTS')}
                   </Styled.NoContentText>
                 }
                 data={results}

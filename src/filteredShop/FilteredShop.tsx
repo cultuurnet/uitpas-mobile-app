@@ -18,7 +18,7 @@ type TProps = {
 };
 
 // When everything fits on 1 line, and device font-size is not increased, the height of a listitem is 125
-const MIMIMAL_REWARD_HEIGHT = 125;
+const MINIMAL_REWARD_HEIGHT = 125;
 
 export const FilteredShop = ({ route }: TProps) => {
   const { subtitle, section, category, type } = route.params || {};
@@ -74,7 +74,7 @@ export const FilteredShop = ({ route }: TProps) => {
         }
         contentContainerStyle={{ paddingBottom: 105 }}
         data={members}
-        estimatedItemSize={MIMIMAL_REWARD_HEIGHT}
+        estimatedItemSize={MINIMAL_REWARD_HEIGHT}
         keyExtractor={item => item.id}
         onEndReached={!isRewardsLoading ? fetchNextPage : () => {}}
         onEndReachedThreshold={0.1}
