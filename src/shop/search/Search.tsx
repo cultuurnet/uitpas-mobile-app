@@ -8,8 +8,8 @@ import { EnlargedHeader, PillButton, Reward, SafeAreaView, Typography } from '..
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../../_routing';
 import { useGetMe } from '../../profile/_queries/useGetMe';
 import { RewardsSectionLoader } from '../_components/rewardsSection/RewardSection.loading';
-import { TSearchFilters } from '../_models/searchFilters';
 import { useGetRewards } from '../_queries/useGetRewards';
+import { initialFilters } from '../config';
 import { RegionNotification } from './regionNotification/RegionNotification';
 import * as Styled from './style';
 
@@ -27,10 +27,6 @@ const SEARCH_TERMS: SearchTerm[] = [
 type TProps = {
   navigation: TRootStackNavigationProp<'Search'>;
   route: TRootStackRouteProp<'Search'>;
-};
-
-const initialFilters: TSearchFilters = {
-  includeAllCardSystems: false,
 };
 
 export const Search = ({ navigation, route }: TProps) => {

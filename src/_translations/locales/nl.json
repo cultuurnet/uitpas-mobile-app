@@ -108,9 +108,10 @@
       "FILTERS": {
         "HEADER_TITLE": "Filteren",
         "CTA": "Filteren",
+        "RESET": "Filters wissen",
         "REGION": {
           "TITLE": "Buiten jouw regio(s)",
-          "DESCRIPTION": "Toon ook voordelen van organisatoren buiten mijn regio."
+          "DESCRIPTION": "Toon ook voordelen van organisatoren buiten {{regions}}."
         },
         "SORT": {
           "TITLE": "Sorteren op",

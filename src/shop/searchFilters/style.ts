@@ -1,15 +1,16 @@
 import styled from 'styled-components/native';
 
-import { Checkbox, SafeAreaView, Typography } from '../../_components';
+import { Button as ButtonComponent, Checkbox, Typography } from '../../_components';
 
-export const Container = styled(SafeAreaView)`
-  background-color: ${({ theme }) => theme.palette.neutral[0]};
-  padding: 0px 16px;
+export const Container = styled.View`
+  flex: 1;
+  background-color: ${({ theme }) => theme.palette.neutral['0']};
 `;
 
 export const RegionFilter = styled.View`
   flex-direction: row;
   align-items: center;
+  padding: 0 16px;
 `;
 
 export const RegionFilterText = styled.View`
@@ -18,17 +19,23 @@ export const RegionFilterText = styled.View`
 `;
 
 export const Actions = styled.View`
-  margin-top: 26px;
+  margin-top: auto;
+  padding: 16px;
 `;
 
-export const FilterCheckbox = styled(Checkbox)`
+export const Button = styled(ButtonComponent)`
+  margin-bottom: 8px;
+`;
+
+export const FilterCheckbox = styled(Checkbox)<{ isLast: boolean }>`
   justify-content: space-between;
-  padding: 15px 0px;
+  padding: 16px;
   border-style: solid;
-  border-bottom-width: 1px;
-  border-bottom-color: ${({ theme }) => theme.palette.neutral['200']};
+  border-bottom-width: 0.5px;
+  border-bottom-color: ${({ theme, isLast }) => (isLast ? 'transparent' : theme.palette.neutral['200'])};
 `;
 
 export const SectionTitle = styled(Typography)`
-  margin: 15px 0px 0px;
+  padding: 0 16px;
+  margin-top: 24px;
 `;
