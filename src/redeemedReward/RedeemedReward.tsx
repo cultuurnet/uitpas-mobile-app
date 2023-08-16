@@ -75,6 +75,7 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
                 }}
                 size="small"
                 values={{ points: redeemedReward.reward.points }}
+                variant="light"
               />
             </Styled.SuccessContent>
           </Styled.SuccessContainer>

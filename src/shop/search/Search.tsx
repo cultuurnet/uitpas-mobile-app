@@ -97,7 +97,7 @@ export const Search = ({ navigation, route }: TProps) => {
               </Styled.SearchFilters>
               <FlashList
                 ItemSeparatorComponent={() => <Styled.RewardSeparator />}
-                ListEmptyComponent={<Styled.NoContentText align="center">{t('SHOP.NO_RESULTS')}</Styled.NoContentText>}
+                ListEmptyComponent={<Styled.NoContentText align="center">{t('SHOP.SEARCH.NO_RESULTS')}</Styled.NoContentText>}
                 data={results}
                 estimatedItemSize={117}
                 keyExtractor={item => item.id}
