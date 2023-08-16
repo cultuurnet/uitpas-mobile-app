@@ -39,7 +39,11 @@ export const Search = ({ navigation, route }: TProps) => {
   const { t } = useTranslation();
   const { data: user } = useGetMe();
   const { filters = initialFilters, sort = '-redeemCount' } = route.params || {};
-  const { data: searchResults, isLoading: isSearchLoading } = useGetRewards({
+  const {
+    data: searchResults,
+    isLoading: isSearchLoading,
+    fetchNextPage,
+  } = useGetRewards({
     enabled: search.length > 0,
     filters,
     freeText: search,
@@ -102,6 +106,8 @@ export const Search = ({ navigation, route }: TProps) => {
                 estimatedItemSize={117}
                 keyExtractor={item => item.id}
                 keyboardShouldPersistTaps="handled"
+                onEndReached={!isSearchLoading ? fetchNextPage : null}
+                onEndReachedThreshold={0.1}
                 renderItem={({ item }) => <Reward mode="list" reward={item} />}
               />
               {!filters.includeAllCardSystems && (
