@@ -24,7 +24,11 @@ export const Actions = styled.View`
 `;
 
 export const Button = styled(ButtonComponent)`
-  margin-bottom: 8px;
+  margin-bottom: 16px;
+`;
+
+export const ResetButton = styled(ButtonComponent)`
+  margin: 16px 16px 0;
 `;
 
 export const FilterCheckbox = styled(Checkbox)<{ isLast: boolean }>`
