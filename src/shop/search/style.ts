@@ -33,7 +33,7 @@ export const ResetIcon = styled(Icon)`
   right: 35px;
 `;
 
-export const SearchResulstsContainer = styled.View`
+export const SearchResultsContainer = styled.View`
   flex: 1;
   background-color: ${theme.palette.neutral[100]};
 `;

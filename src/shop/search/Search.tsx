@@ -1,6 +1,7 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Keyboard } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FlashList } from '@shopify/flash-list';
 
@@ -47,6 +48,8 @@ export const Search = ({ navigation, route }: TProps) => {
   });
   const results = useMemo(() => searchResults?.pages?.flatMap(({ member }) => member) ?? [], [searchResults]);
 
+  const ref = useRef<ScrollView>(null);
+
   const onClose = useCallback(() => {
     setSearch('');
     navigation.pop();
@@ -55,6 +58,11 @@ export const Search = ({ navigation, route }: TProps) => {
   function onSearch(keyword: string) {
     Keyboard.dismiss();
     setSearch(keyword);
+  }
+
+  function onSearchOutsideRegion() {
+    ref.current?.scrollTo({ animated: false, y: 0 });
+    navigation.navigate('Search', { filters: { ...filters, includeAllCardSystems: true } });
   }
 
   const appliedFiltersAmount = useMemo(
@@ -71,7 +79,7 @@ export const Search = ({ navigation, route }: TProps) => {
   );
 
   return (
-    <SafeAreaView edges={['left', 'right']} isScrollable keyboardShouldPersistTaps="handled" stickyHeaderIndices={[1]}>
+    <SafeAreaView edges={['left', 'right']} isScrollable keyboardShouldPersistTaps="handled" ref={ref} stickyHeaderIndices={[1]}>
       <EnlargedHeader height={30} />
       <Styled.SearchContainer paddingTop={top}>
         <Styled.SearchInput autoFocus numberOfLines={1} onChangeText={setSearch} returnKeyType="search" value={search} />
@@ -81,7 +89,7 @@ export const Search = ({ navigation, route }: TProps) => {
         )}
       </Styled.SearchContainer>
 
-      <Styled.SearchResulstsContainer>
+      <Styled.SearchResultsContainer>
         {search.length > 0 ? (
           isSearchLoading ? (
             <RewardsSectionLoader showHeader={false} />
@@ -97,7 +105,11 @@ export const Search = ({ navigation, route }: TProps) => {
               </Styled.SearchFilters>
               <FlashList
                 ItemSeparatorComponent={() => <Styled.RewardSeparator />}
-                ListEmptyComponent={<Styled.NoContentText align="center">{t('SHOP.SEARCH.NO_RESULTS')}</Styled.NoContentText>}
+                ListEmptyComponent={
+                  <Styled.NoContentText align="center" size="small">
+                    {t('SHOP.SEARCH.NO_RESULTS')}
+                  </Styled.NoContentText>
+                }
                 data={results}
                 estimatedItemSize={117}
                 keyExtractor={item => item.id}
@@ -109,7 +121,7 @@ export const Search = ({ navigation, route }: TProps) => {
               {!filters.includeAllCardSystems && (
                 <RegionNotification
                   filters={filters}
-                  onPress={() => navigation.navigate('Search', { filters: { ...filters, includeAllCardSystems: true } })}
+                  onPress={onSearchOutsideRegion}
                   search={search}
                   searchAmount={searchResults?.pages?.[0]?.totalItems}
                 />
@@ -134,7 +146,7 @@ export const Search = ({ navigation, route }: TProps) => {
             ))}
           </>
         )}
-      </Styled.SearchResulstsContainer>
+      </Styled.SearchResultsContainer>
     </SafeAreaView>
   );
 };

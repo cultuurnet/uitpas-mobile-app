@@ -1,4 +1,5 @@
 import React, { FC, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Trans, Typography } from '../../../_components';
 import { getPassHolderRegions } from '../../../_utils';
@@ -20,12 +21,13 @@ export const RegionNotification: FC<TProps> = ({ onPress, filters, search, searc
     filters: { ...filters, includeAllCardSystems: true },
     freeText: search,
   });
+  const { t } = useTranslation();
   const { data: passHolder } = useGetMe();
 
   const regions = getPassHolderRegions(passHolder);
   const calculatedAmount = useMemo(
     () =>
-      searchOutOfRegionResults?.pages?.[0]?.totalItems > 2 ? searchOutOfRegionResults?.pages?.[0]?.totalItems - searchAmount : 0,
+      searchOutOfRegionResults?.pages?.[0]?.totalItems > 0 ? searchOutOfRegionResults?.pages?.[0]?.totalItems - searchAmount : 0,
     [searchOutOfRegionResults, searchAmount],
   );
 
@@ -33,12 +35,18 @@ export const RegionNotification: FC<TProps> = ({ onPress, filters, search, searc
   return (
     <Styled.NotificationContainer>
       <Trans
+        align="center"
         i18nKey={`SHOP.SEARCH.REGION_HINT${searchAmount === 0 ? '_EMPTY' : ''}`}
-        onButtonPress={onPress}
         parent={Typography}
         size="small"
         values={{ amount: calculatedAmount, regions: regions?.map(card => card.cardSystem.name).join(', ') }}
       />
+
+      <Styled.Cta onPress={onPress}>
+        <Styled.Link align="center" fontStyle="bold">
+          {t('SHOP.SEARCH.REGION_HINT_CTA')}
+        </Styled.Link>
+      </Styled.Cta>
     </Styled.NotificationContainer>
   );
 };
