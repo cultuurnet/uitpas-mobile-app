@@ -7,7 +7,7 @@ import { TCheckInResponse } from '../../scan/_models';
 import { TReward, TRewardType } from '../../shop/_models/reward';
 import { TSearchFilters } from '../../shop/_models/searchFilters';
 import { TFilterRewardSorting } from '../../shop/_queries/useGetRewards';
-import { TFilterRewardCategory, TFilterRewardSection } from '../../shop/_utils/reward';
+import { TFilterRewardCategory, TFilterRewardSection } from '../../shop/_hooks/useRewardFilters';
 
 export type TRootRoute = keyof TRootStackParamList;
 export type TMainRoute = keyof TMainParamsList;

@@ -41,18 +41,12 @@ export function useGetRewards({
   const { data: user } = useGetMe();
 
   const params = useMemo(() => {
-    const { featured, forKids, lastChance, online, sport, type, categories, withoutSorting } = filters;
+    const { withoutSorting } = filters;
     // get params, already add the default sorting
     const params: Params = {
-      categories,
-      featured,
-      forKids,
-      lastChance,
-      online,
+      ...filters,
       organizerId,
       sort,
-      sport,
-      type,
     };
 
     // applying specific filters

@@ -5,11 +5,11 @@ export type TSearchFilters = {
   featured?: boolean;
   forKids?: boolean;
   includeAllCardSystems?: boolean;
-  isInterestingForPassholderId?: boolean;
-  isRedeemableByPassholderId?: boolean;
+  isInterestingForPassholderId?: string;
+  isRedeemableByPassholderId?: string;
   lastChance?: boolean;
   online?: boolean;
-  organizerPostalCode?: boolean;
+  organizerPostalCode?: string;
   sport?: boolean;
   type?: TRewardType;
   withoutSorting?: boolean;

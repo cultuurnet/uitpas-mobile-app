@@ -16,7 +16,7 @@ export const WelcomeGiftsBanner = () => {
   const { navigate } = useNavigation<TMainNavigationProp>();
 
   const creationDate = parseISO(user?.creationDate);
-  if (!isValid(creationDate) || isBefore(creationDate, subMonths(new Date(), 2))) return null;
+  if (!__DEV__ && (!isValid(creationDate) || isBefore(creationDate, subMonths(new Date(), 2)))) return null;
 
   return (
     <Styled.Container
