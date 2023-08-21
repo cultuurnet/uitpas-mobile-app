@@ -7,8 +7,8 @@ import { Analytics, Reward, RewardLoader } from '../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing';
 import { theme } from '../_styles/theme';
 import { normalizeForSlug } from '../_utils';
+import { useRewardFilters } from '../shop/_hooks/useRewardFilters';
 import { useGetRewards } from '../shop/_queries/useGetRewards';
-import { getFiltersForCategory, getFiltersForSection } from '../shop/_utils/reward';
 import { WelcomeHeader } from './_components/WelcomeHeader';
 import * as Styled from './style';
 
@@ -22,6 +22,7 @@ const MINIMAL_REWARD_HEIGHT = 125;
 
 export const FilteredShop = ({ route }: TProps) => {
   const { subtitle, section, category, type } = route.params || {};
+  const { getFiltersForCategory, getFiltersForSection } = useRewardFilters();
   const { t } = useTranslation();
   const {
     data: rewards,
@@ -31,7 +32,7 @@ export const FilteredShop = ({ route }: TProps) => {
     isRefetching,
     isFetchingNextPage,
   } = useGetRewards({
-    filters: { ...getFiltersForSection(section), ...getFiltersForCategory(category), type },
+    filters: { type, ...getFiltersForSection(section), ...getFiltersForCategory(category) },
     itemsPerPage: 20,
   });
 
