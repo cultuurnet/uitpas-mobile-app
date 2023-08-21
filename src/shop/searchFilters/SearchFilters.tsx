@@ -70,7 +70,7 @@ export const SearchFilters = ({ navigation, route }: TProps) => {
           </Styled.RegionFilterText>
           <Switch
             onValueChange={value =>
-              setUpdatedFilters({ ...updatedFilters, filters: { ...filters, includeAllCardSystems: value } })
+              setUpdatedFilters({ ...updatedFilters, filters: { ...updatedFilters.filters, includeAllCardSystems: value } })
             }
             trackColor={{ false: theme.palette.neutral['200'], true: theme.palette.primary['600'] }}
             value={updatedFilters.filters['includeAllCardSystems']}
@@ -134,9 +134,10 @@ export const SearchFilters = ({ navigation, route }: TProps) => {
             position="right"
           />
         ))}
+
+        <Styled.ResetButton color="primary.700" label={t('SHOP.SEARCH.FILTERS.RESET')} onPress={onReset} variant="outline" />
       </ScrollView>
       <Styled.Actions>
-        <Styled.Button color="primary.700" label={t('SHOP.SEARCH.FILTERS.RESET')} onPress={onReset} variant="outline" />
         <Styled.Button label={t('SHOP.SEARCH.FILTERS.APPLY')} onPress={onSubmit} />
       </Styled.Actions>
     </Styled.Container>
