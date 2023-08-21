@@ -27,7 +27,7 @@ export const WelcomeGiftsBanner = () => {
         <Styled.Gift source={GiftHalf} />
         <Styled.TextContainer>
           <Styled.Greeting color="neutral.0" size="small">
-            {t('SHOP.WELCOME.GREETING', { name: user.firstName })}
+            {t('SHOP.WELCOME.GREETING', { name: user?.firstName })}
           </Styled.Greeting>
           <Styled.Title color="neutral.0" fontStyle="bold" size="xxlarge">
             {t('SHOP.WELCOME.TITLE')}
