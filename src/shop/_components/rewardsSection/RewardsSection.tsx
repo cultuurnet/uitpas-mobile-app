@@ -94,7 +94,7 @@ export const RewardsSection = ({
                   name: 'default',
                   version: '0',
                 },
-                'swimlane-direction': horizontal ? 'horizontal' : 'vertical',
+                'swimlane-direction': 'horizontal',
                 'swimlane-title': title,
               });
             }}
@@ -110,7 +110,7 @@ export const RewardsSection = ({
                         name: 'default',
                         version: '0',
                       },
-                      'swimlane-direction': horizontal ? 'horizontal' : 'vertical',
+                      'swimlane-direction': 'horizontal',
                       'swimlane-title': title,
                     },
                     { reward: getRewardTrackingData(reward) },
@@ -133,7 +133,31 @@ export const RewardsSection = ({
         <>
           {rewards?.map(reward => (
             <React.Fragment key={reward.id}>
-              <Reward key={reward.id} mode="list" reward={reward} />
+              <Reward
+                key={reward.id}
+                mode="list"
+                onPress={() => {
+                  trackSelfDescribingEvent(
+                    'swimlaneInteraction',
+                    {
+                      action: 'click',
+                      algo: {
+                        name: 'default',
+                        version: '0',
+                      },
+                      'swimlane-direction': 'vertical',
+                      'swimlane-title': title,
+                    },
+                    { reward: getRewardTrackingData(reward) },
+                  );
+
+                  push('ShopDetail', {
+                    id: reward.id,
+                    reward,
+                  });
+                }}
+                reward={reward}
+              />
               <Styled.Separator />
             </React.Fragment>
           ))}

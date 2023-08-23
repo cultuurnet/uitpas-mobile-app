@@ -27,7 +27,13 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
       if (!isModal) return;
       if (!redeemedReward) return;
 
-      trackSelfDescribingEvent('successMessage', { message: 'reward-redemeed' });
+      trackSelfDescribingEvent(
+        'successMessage',
+        { message: 'reward-redemeed' },
+        {
+          reward: getRewardTrackingData(redeemedReward.reward),
+        },
+      );
     }, [trackSelfDescribingEvent, isModal, redeemedReward]),
   );
 
