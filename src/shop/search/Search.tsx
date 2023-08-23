@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Keyboard } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FlashList } from '@shopify/flash-list';
 
@@ -9,6 +8,7 @@ import { EnlargedHeader, PillButton, Reward, SafeAreaView, Typography } from '..
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../../_routing';
 import { useGetMe } from '../../profile/_queries/useGetMe';
 import { RewardsSectionLoader } from '../_components/rewardsSection/RewardSection.loading';
+import { TReward } from '../_models/reward';
 import { useGetRewards } from '../_queries/useGetRewards';
 import { initialFilters } from '../config';
 import { RegionNotification } from './regionNotification/RegionNotification';
@@ -48,7 +48,7 @@ export const Search = ({ navigation, route }: TProps) => {
   });
   const results = useMemo(() => searchResults?.pages?.flatMap(({ member }) => member) ?? [], [searchResults]);
 
-  const ref = useRef<ScrollView>(null);
+  const ref = useRef<FlashList<TReward>>(null);
 
   const onClose = useCallback(() => {
     setSearch('');
@@ -61,7 +61,7 @@ export const Search = ({ navigation, route }: TProps) => {
   }
 
   function onSearchOutsideRegion() {
-    ref.current?.scrollTo({ animated: false, y: 0 });
+    ref.current?.scrollToOffset({ animated: false, offset: 0 });
     navigation.navigate('Search', { filters: { ...filters, includeAllCardSystems: true } });
   }
 
@@ -79,7 +79,7 @@ export const Search = ({ navigation, route }: TProps) => {
   );
 
   return (
-    <SafeAreaView edges={['left', 'right']} isScrollable keyboardShouldPersistTaps="handled" ref={ref} stickyHeaderIndices={[1]}>
+    <SafeAreaView edges={['left', 'right']} isScrollable={false} keyboardShouldPersistTaps="handled" stickyHeaderIndices={[1]}>
       <EnlargedHeader height={30} />
       <Styled.SearchContainer paddingTop={top}>
         <Styled.SearchInput autoFocus numberOfLines={1} onChangeText={setSearch} returnKeyType="search" value={search} />
@@ -94,39 +94,42 @@ export const Search = ({ navigation, route }: TProps) => {
           isSearchLoading ? (
             <RewardsSectionLoader showHeader={false} />
           ) : (
-            <>
-              <Styled.SearchFilters>
-                <PillButton
-                  amount={appliedFiltersAmount + (sort !== '-redeemCount' ? 1 : 0)}
-                  icon="Filter"
-                  label={t('SHOP.SEARCH.FILTERS.CTA')}
-                  onPress={() => navigation.push('SearchFilters', { filters, sort })}
-                />
-              </Styled.SearchFilters>
-              <FlashList
-                ItemSeparatorComponent={() => <Styled.RewardSeparator />}
-                ListEmptyComponent={
-                  <Styled.NoContentText align="center" size="small">
-                    {t('SHOP.SEARCH.NO_RESULTS')}
-                  </Styled.NoContentText>
-                }
-                data={results}
-                estimatedItemSize={117}
-                keyExtractor={item => item.id}
-                keyboardShouldPersistTaps="handled"
-                onEndReached={!isSearchLoading ? fetchNextPage : null}
-                onEndReachedThreshold={0.1}
-                renderItem={({ item }) => <Reward mode="list" reward={item} />}
-              />
-              {!filters.includeAllCardSystems && (
-                <RegionNotification
-                  filters={filters}
-                  onPress={onSearchOutsideRegion}
-                  search={search}
-                  searchAmount={searchResults?.pages?.[0]?.totalItems}
-                />
-              )}
-            </>
+            <FlashList
+              ItemSeparatorComponent={() => <Styled.RewardSeparator />}
+              ListEmptyComponent={
+                <Styled.NoContentText align="center" size="small">
+                  {t('SHOP.SEARCH.NO_RESULTS')}
+                </Styled.NoContentText>
+              }
+              ListFooterComponent={
+                !filters.includeAllCardSystems && (
+                  <RegionNotification
+                    filters={filters}
+                    onPress={onSearchOutsideRegion}
+                    search={search}
+                    searchAmount={searchResults?.pages?.[0]?.totalItems}
+                  />
+                )
+              }
+              ListHeaderComponent={
+                <Styled.SearchFilters>
+                  <PillButton
+                    amount={appliedFiltersAmount + (sort !== '-redeemCount' ? 1 : 0)}
+                    icon="Filter"
+                    label={t('SHOP.SEARCH.FILTERS.CTA')}
+                    onPress={() => navigation.push('SearchFilters', { filters, sort })}
+                  />
+                </Styled.SearchFilters>
+              }
+              data={results}
+              estimatedItemSize={117}
+              keyExtractor={item => item.id}
+              keyboardShouldPersistTaps="handled"
+              onEndReached={!isSearchLoading ? fetchNextPage : null}
+              onEndReachedThreshold={0.1}
+              ref={ref}
+              renderItem={({ item }) => <Reward mode="list" reward={item} />}
+            />
           )
         ) : (
           <>
