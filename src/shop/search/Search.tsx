@@ -98,7 +98,7 @@ export const Search = ({ navigation, route }: TProps) => {
               ItemSeparatorComponent={() => <Styled.RewardSeparator />}
               ListEmptyComponent={
                 <Styled.NoContentText align="center" size="small">
-                  {t('SHOP.SEARCH.NO_RESULTS')}
+                  {t(filters.includeAllCardSystems ? 'SHOP.SEARCH.NO_RESULTS' : 'SHOP.SEARCH.NO_RESULTS_REGION')}
                 </Styled.NoContentText>
               }
               ListFooterComponent={

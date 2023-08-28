@@ -39,7 +39,7 @@ export const RegionNotification: FC<TProps> = ({ onPress, filters, search, searc
         i18nKey={`SHOP.SEARCH.REGION_HINT${searchAmount === 0 ? '_EMPTY' : ''}`}
         parent={Typography}
         size="small"
-        values={{ amount: calculatedAmount, regions: regions?.map(card => card.cardSystem.name).join(', ') }}
+        values={{ count: calculatedAmount, regions: regions?.map(card => card.cardSystem.name).join(', ') }}
       />
 
       <Styled.Cta onPress={onPress}>
