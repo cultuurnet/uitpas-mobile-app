@@ -51,6 +51,8 @@ export const RewardSeparator = styled.View`
 
 export const NoContentText = styled(Typography)`
   padding-top: ${theme.common.defaultSpacing}px;
+  padding-left: 24px;
+  padding-right: 24px;
 `;
 
 export const PopularItemIcon = styled(Icon)`

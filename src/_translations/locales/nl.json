@@ -97,15 +97,18 @@
     "NO_RESULTS": "Helaas, er zijn momenteel geen voordelen in deze categorie.",
     "SEARCH": {
       "PLACEHOLDER": "Leuke voordelen, gemeenten,...",
-      "NO_RESULTS": "Helaas, we vinden momenteel geen voordelen voor jou.",
+      "NO_RESULTS_REGION": "Helaas, we vinden geen voordelen in je UiTPAS-regio die overeenkomen met je zoekopdracht.",
+      "NO_RESULTS": "Helaas, we vinden geen voordelen die overeenkomen met je zoekopdracht.",
       "SEARCH_TERMS": {
         "SWIMMING": "Zwembeurt",
         "COFFEE": "Koffie",
         "BOOK": "Boek",
         "MOVIE": "Film"
       },
-      "REGION_HINT": "Er zijn ook nog {{amount}} voordelen gevonden van organisatoren buiten {{regions}}",
-      "REGION_HINT_EMPTY": "Er zijn nog {{amount}} voordelen gevonden van organisatoren buiten {{regions}}",
+      "REGION_HINT": "Er is ook nog {{count}} voordeel gevonden van organisatoren buiten {{regions}}",
+      "REGION_HINT_plural": "Er zijn ook nog {{count}} voordelen gevonden van organisatoren buiten {{regions}}",
+      "REGION_HINT_EMPTY": "Er is nog {{count}} voordeel gevonden van organisatoren buiten {{regions}}",
+      "REGION_HINT_EMPTY_plural": "Er zijn nog {{count}} voordelen gevonden van organisatoren buiten {{regions}}",
       "REGION_HINT_CTA": "Toon ook voordelen buiten mijn UiTPAS-regio",
       "FILTERS": {
         "HEADER_TITLE": "Filteren",
