@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Keyboard } from 'react-native';
+import { Keyboard, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FlashList } from '@shopify/flash-list';
 
@@ -80,76 +80,78 @@ export const Search = ({ navigation, route }: TProps) => {
 
   return (
     <SafeAreaView edges={['left', 'right']} isScrollable={false} keyboardShouldPersistTaps="handled" stickyHeaderIndices={[1]}>
-      <EnlargedHeader height={30} />
-      <Styled.SearchContainer paddingTop={top}>
-        <Styled.SearchInput autoFocus numberOfLines={1} onChangeText={setSearch} returnKeyType="search" value={search} />
-        <Styled.BackIcon borderless color="primary.700" name="ChevronLeft" onPress={onClose} size={24} />
-        {search.length > 0 && (
-          <Styled.ResetIcon borderless color="primary.700" name="Close" onPress={() => setSearch('')} size={14} />
-        )}
-      </Styled.SearchContainer>
+      <Styled.ViewContainer behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <EnlargedHeader height={30} />
+        <Styled.SearchContainer paddingTop={top}>
+          <Styled.SearchInput autoFocus numberOfLines={1} onChangeText={setSearch} returnKeyType="search" value={search} />
+          <Styled.BackIcon borderless color="primary.700" name="ChevronLeft" onPress={onClose} size={24} />
+          {search.length > 0 && (
+            <Styled.ResetIcon borderless color="primary.700" name="Close" onPress={() => setSearch('')} size={14} />
+          )}
+        </Styled.SearchContainer>
 
-      <Styled.SearchResultsContainer>
-        {search.length > 0 ? (
-          isSearchLoading ? (
-            <RewardsSectionLoader showHeader={false} />
+        <Styled.SearchResultsContainer>
+          {search.length > 0 ? (
+            isSearchLoading ? (
+              <RewardsSectionLoader showHeader={false} />
+            ) : (
+              <FlashList
+                ItemSeparatorComponent={() => <Styled.RewardSeparator />}
+                ListEmptyComponent={
+                  <Styled.NoContentText align="center" size="small">
+                    {t(filters.includeAllCardSystems ? 'SHOP.SEARCH.NO_RESULTS' : 'SHOP.SEARCH.NO_RESULTS_REGION')}
+                  </Styled.NoContentText>
+                }
+                ListFooterComponent={
+                  !filters.includeAllCardSystems && (
+                    <RegionNotification
+                      filters={filters}
+                      onPress={onSearchOutsideRegion}
+                      search={search}
+                      searchAmount={searchResults?.pages?.[0]?.totalItems}
+                    />
+                  )
+                }
+                ListHeaderComponent={
+                  <Styled.SearchFilters>
+                    <PillButton
+                      amount={appliedFiltersAmount + (sort !== '-redeemCount' ? 1 : 0)}
+                      icon="Filter"
+                      label={t('SHOP.SEARCH.FILTERS.CTA')}
+                      onPress={() => navigation.push('SearchFilters', { filters, sort })}
+                    />
+                  </Styled.SearchFilters>
+                }
+                data={results}
+                estimatedItemSize={117}
+                keyExtractor={item => item.id}
+                keyboardShouldPersistTaps="handled"
+                onEndReached={!isSearchLoading ? fetchNextPage : null}
+                onEndReachedThreshold={0.1}
+                ref={ref}
+                renderItem={({ item }) => <Reward mode="list" reward={item} />}
+              />
+            )
           ) : (
-            <FlashList
-              ItemSeparatorComponent={() => <Styled.RewardSeparator />}
-              ListEmptyComponent={
-                <Styled.NoContentText align="center" size="small">
-                  {t(filters.includeAllCardSystems ? 'SHOP.SEARCH.NO_RESULTS' : 'SHOP.SEARCH.NO_RESULTS_REGION')}
-                </Styled.NoContentText>
-              }
-              ListFooterComponent={
-                !filters.includeAllCardSystems && (
-                  <RegionNotification
-                    filters={filters}
-                    onPress={onSearchOutsideRegion}
-                    search={search}
-                    searchAmount={searchResults?.pages?.[0]?.totalItems}
-                  />
-                )
-              }
-              ListHeaderComponent={
-                <Styled.SearchFilters>
-                  <PillButton
-                    amount={appliedFiltersAmount + (sort !== '-redeemCount' ? 1 : 0)}
-                    icon="Filter"
-                    label={t('SHOP.SEARCH.FILTERS.CTA')}
-                    onPress={() => navigation.push('SearchFilters', { filters, sort })}
-                  />
-                </Styled.SearchFilters>
-              }
-              data={results}
-              estimatedItemSize={117}
-              keyExtractor={item => item.id}
-              keyboardShouldPersistTaps="handled"
-              onEndReached={!isSearchLoading ? fetchNextPage : null}
-              onEndReachedThreshold={0.1}
-              ref={ref}
-              renderItem={({ item }) => <Reward mode="list" reward={item} />}
-            />
-          )
-        ) : (
-          <>
-            <Styled.PopularItem key={`search-${user.address.city}`} onPress={() => onSearch(user.address.city)}>
-              <Styled.PopularItemIcon name="Popular" size={20} />
-              <Typography color="primary.800">{user.address.city}</Typography>
-            </Styled.PopularItem>
-            <Styled.Separator />
-            {SEARCH_TERMS.map(({ keyword, label }) => (
-              <>
-                <Styled.PopularItem key={`search-${keyword}`} onPress={() => onSearch(keyword)}>
-                  <Styled.PopularItemIcon name="Popular" size={20} />
-                  <Typography color="primary.800">{t(label)}</Typography>
-                </Styled.PopularItem>
-                <Styled.Separator />
-              </>
-            ))}
-          </>
-        )}
-      </Styled.SearchResultsContainer>
+            <>
+              <Styled.PopularItem key={`search-${user.address.city}`} onPress={() => onSearch(user.address.city)}>
+                <Styled.PopularItemIcon name="Popular" size={20} />
+                <Typography color="primary.800">{user.address.city}</Typography>
+              </Styled.PopularItem>
+              <Styled.Separator />
+              {SEARCH_TERMS.map(({ keyword, label }) => (
+                <>
+                  <Styled.PopularItem key={`search-${keyword}`} onPress={() => onSearch(keyword)}>
+                    <Styled.PopularItemIcon name="Popular" size={20} />
+                    <Typography color="primary.800">{t(label)}</Typography>
+                  </Styled.PopularItem>
+                  <Styled.Separator />
+                </>
+              ))}
+            </>
+          )}
+        </Styled.SearchResultsContainer>
+      </Styled.ViewContainer>
     </SafeAreaView>
   );
 };
