@@ -10,6 +10,10 @@ export const SearchContainer = styled.View<{ paddingTop?: number }>`
   position: relative;
 `;
 
+export const ViewContainer = styled.KeyboardAvoidingView`
+  flex: 1;
+`;
+
 export const SearchInput = styled.TextInput`
   border-radius: 16px;
   font-size: 16px;
