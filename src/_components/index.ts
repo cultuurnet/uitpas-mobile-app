@@ -25,3 +25,4 @@ export { default as Spinner } from './spinner/Spinner';
 export { default as TouchableRipple } from './touchableRipple/TouchableRipple';
 export { default as Trans } from './trans/Trans';
 export { default as Typography } from './typography/Typography';
+export { default as Analytics } from './analytics/Analytics';

@@ -4,8 +4,10 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { TRedeemedReward } from '../../redeemedRewards/_models/redeemedReward';
 import { TCheckInResponse } from '../../scan/_models';
+import { TFilterRewardCategory, TFilterRewardSection } from '../../shop/_hooks/useRewardFilters';
 import { TReward, TRewardType } from '../../shop/_models/reward';
-import { TFilterRewardCategory, TFilterRewardSections } from '../../shop/_queries/useGetRewards';
+import { TSearchFilters } from '../../shop/_models/searchFilters';
+import { TFilterRewardSorting } from '../../shop/_queries/useGetRewards';
 
 export type TRootRoute = keyof TRootStackParamList;
 export type TMainRoute = keyof TMainParamsList;
@@ -33,7 +35,7 @@ export type TRootStackParamList = {
   };
   FilteredShop: {
     category?: TFilterRewardCategory;
-    filter?: TFilterRewardSections;
+    section?: TFilterRewardSection;
     subtitle?: string;
     type?: TRewardType;
   };
@@ -45,7 +47,8 @@ export type TRootStackParamList = {
   RedeemedReward: { isModal?: boolean; redeemedReward: TRedeemedReward };
   RedeemedRewards: undefined;
   ScanSuccess: TCheckInResponse;
-  Search: undefined;
+  Search: { category?: TFilterRewardCategory; filters?: TSearchFilters; sort?: TFilterRewardSorting };
+  SearchFilters: { category?: TFilterRewardCategory; filters: TSearchFilters; sort: TFilterRewardSorting };
   ShopDetail: { id: string; reward?: TReward };
   Update: undefined;
 };

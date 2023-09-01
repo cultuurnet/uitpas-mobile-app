@@ -3,7 +3,7 @@ import { t } from 'i18next';
 
 import { BlurredModal, Typography } from '../_components';
 import { useAuthentication } from '../_context';
-import { log } from '../_utils/logger';
+import { log } from '../_utils';
 import * as Styled from './style';
 
 type TLogOutModalProps = {

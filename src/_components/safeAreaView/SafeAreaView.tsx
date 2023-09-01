@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { ScrollView, StatusBarStyle } from 'react-native';
+import { forwardRef } from 'react';
+import { ScrollView, ScrollViewProps, StatusBarStyle } from 'react-native';
 import { NativeSafeAreaViewProps as RNSafeAreaViewProps } from 'react-native-safe-area-context';
 
 import { ThemeColor } from '../../_styles/theme';
@@ -11,33 +11,45 @@ export type TSafeAreaViewProps = {
   barStyle?: StatusBarStyle;
   isScrollable?: boolean;
   stickyHeaderIndices?: number[];
-} & RNSafeAreaViewProps;
+} & RNSafeAreaViewProps &
+  Pick<ScrollViewProps, 'keyboardShouldPersistTaps'>;
 
-const SafeAreaView: FC<TSafeAreaViewProps> = ({
-  children,
-  backgroundColor = 'neutral.100',
-  stickyHeaderIndices,
-  isScrollable = true,
-  barStyle = 'light-content',
-  ...props
-}) => {
-  if (isScrollable) {
-    return (
-      <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} isScrollable={isScrollable} {...props}>
-        <FocusAwareStatusBar barStyle={barStyle} />
-        <ScrollView contentContainerStyle={{ paddingBottom: 95 }} stickyHeaderIndices={stickyHeaderIndices}>
+const SafeAreaView = forwardRef<ScrollView, TSafeAreaViewProps>(
+  (
+    {
+      children,
+      backgroundColor = 'neutral.100',
+      stickyHeaderIndices,
+      isScrollable = true,
+      barStyle = 'light-content',
+      keyboardShouldPersistTaps,
+      ...props
+    },
+    ref,
+  ) => {
+    if (isScrollable) {
+      return (
+        <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} isScrollable={isScrollable} {...props}>
+          <FocusAwareStatusBar barStyle={barStyle} />
+          <ScrollView
+            contentContainerStyle={{ paddingBottom: 95 }}
+            keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+            ref={ref}
+            stickyHeaderIndices={stickyHeaderIndices}
+          >
+            {children}
+          </ScrollView>
+        </Styled.SafeAreaViewContainer>
+      );
+    } else {
+      return (
+        <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} isScrollable={isScrollable} {...props}>
+          <FocusAwareStatusBar barStyle={barStyle} />
           {children}
-        </ScrollView>
-      </Styled.SafeAreaViewContainer>
-    );
-  } else {
-    return (
-      <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} isScrollable={isScrollable} {...props}>
-        <FocusAwareStatusBar barStyle={barStyle} />
-        {children}
-      </Styled.SafeAreaViewContainer>
-    );
-  }
-};
+        </Styled.SafeAreaViewContainer>
+      );
+    }
+  },
+);
 
 export default SafeAreaView;

@@ -10,6 +10,10 @@ export const SearchContainer = styled.View<{ paddingTop?: number }>`
   position: relative;
 `;
 
+export const ViewContainer = styled.KeyboardAvoidingView`
+  flex: 1;
+`;
+
 export const SearchInput = styled.TextInput`
   border-radius: 16px;
   font-size: 16px;
@@ -33,7 +37,7 @@ export const ResetIcon = styled(Icon)`
   right: 35px;
 `;
 
-export const SearchResulstsContainer = styled.View`
+export const SearchResultsContainer = styled.View`
   flex: 1;
   background-color: ${theme.palette.neutral[100]};
 `;
@@ -51,6 +55,8 @@ export const RewardSeparator = styled.View`
 
 export const NoContentText = styled(Typography)`
   padding-top: ${theme.common.defaultSpacing}px;
+  padding-left: 24px;
+  padding-right: 24px;
 `;
 
 export const PopularItemIcon = styled(Icon)`
@@ -63,4 +69,8 @@ export const Separator = styled.View`
   width: 100%;
   margin-left: 16px;
   background-color: ${theme.palette.neutral[200]};
+`;
+
+export const SearchFilters = styled.View`
+  padding: 16px 24px;
 `;

@@ -1,16 +1,16 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Linking, Platform } from 'react-native';
 
 import { Icon, SkeletonLoader, Typography } from '../../../_components';
-import { getLanguage } from '../../../_utils/languageHelpers';
+import { getLanguage } from '../../../_utils';
 import { useGetOrganizer } from '../../_queries/useGetOrganizer';
 import * as Styled from './style';
 
 type TProps = {
-  fallbackName?: string,
-  id: string,
-  showTopBorder?: boolean
+  fallbackName?: string;
+  id: string;
+  showTopBorder?: boolean;
 };
 
 export const Organizer = ({ id, fallbackName, showTopBorder = false }: TProps) => {
@@ -55,15 +55,21 @@ export const Organizer = ({ id, fallbackName, showTopBorder = false }: TProps) =
           <Icon color={'secondary.600'} name="Location" size={24} />
         </Styled.ImageContainer>
         <Styled.Content>
-          {isLoading ? <>
-            <SkeletonLoader layout={[{ height: 14, width: 200 }]} />
-            <SkeletonLoader layout={[{ height: 14, width: 260 }]} />
-          </> : <>
-            <Typography size='small'>{name || fallbackName}</Typography>
-            <Typography color={isError ? "neutral.300" : "neutral.900"} size='small'>{isError ? t('ERROR.ORGANIZER_ADDRESS') : formattedAddress}</Typography>
-          </>}
+          {isLoading ? (
+            <>
+              <SkeletonLoader layout={[{ height: 14, width: 200 }]} />
+              <SkeletonLoader layout={[{ height: 14, width: 260 }]} />
+            </>
+          ) : (
+            <>
+              <Typography size="small">{name || fallbackName}</Typography>
+              <Typography color={isError ? 'neutral.300' : 'neutral.900'} size="small">
+                {isError ? t('ERROR.ORGANIZER_ADDRESS') : formattedAddress}
+              </Typography>
+            </>
+          )}
         </Styled.Content>
       </>
     </Styled.Container>
-  )
-}
+  );
+};

@@ -1,12 +1,12 @@
 import { FC, ReactNode, useCallback, useState } from 'react';
-import { Linking } from 'react-native';
 
 import { ThemeColor } from '../../_styles/theme';
+import { openExternalURL } from '../../_utils';
 import Spinner from '../spinner/Spinner';
 import { TTypographyProps } from '../typography/Typography';
 import * as Styled from './style';
 
-export type TButtonPropsBase = {
+export type TButtonProps = {
   accessibilityHint?: string;
   accessibilityLabel?: string;
   centered?: boolean;
@@ -15,26 +15,18 @@ export type TButtonPropsBase = {
   disabled?: boolean;
   fontStyle?: TTypographyProps['fontStyle'];
   hitSlop?: number;
+  href?: string;
   inline?: boolean;
   label?: string;
   loading?: boolean;
+  onPress?: () => void;
   radius?: boolean;
   underlayColor?: string;
   underline?: boolean;
   variant?: 'contained' | 'outline' | 'link';
 };
 
-type TButtonProps = TButtonPropsBase & {
-  href?: never;
-  onPress: () => void;
-};
-
-type TButtonLinkProps = TButtonPropsBase & {
-  href: string;
-  onPress?: never;
-};
-
-const Button: FC<TButtonProps | TButtonLinkProps> = ({
+const Button: FC<TButtonProps> = ({
   accessibilityHint,
   accessibilityLabel,
   disabled,
@@ -56,14 +48,9 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
   const [isActive, setIsActive] = useState(false);
 
   const openURL = useCallback(async () => {
-    const supported = await Linking.canOpenURL(href);
-
-    if (supported) {
-      await Linking.openURL(href);
-    } else {
-      // @TODO: error handling
-    }
-  }, [href]);
+    await openExternalURL(href);
+    onPress?.();
+  }, [href, onPress]);
 
   const handlePress = href ? openURL : onPress;
 
@@ -89,24 +76,22 @@ const Button: FC<TButtonProps | TButtonLinkProps> = ({
       underlayColor={variant !== 'link' && underlayColor}
       {...props}
     >
-      {loading ?
+      {loading ? (
         <Spinner color={color || 'neutral.0'} fullScreen={false} size={24} />
-        :
-        children ? (
-          children
-        ) : (
-          <Styled.ButtonText
-            $active={isActive}
-            $color={color}
-            $underline={underline}
-            $variant={variant}
-            align={props.centered ? 'center' : 'left'}
-            fontStyle={fontStyle}
-          >
-            {label}
-          </Styled.ButtonText>
-        )
-      }
+      ) : children ? (
+        children
+      ) : (
+        <Styled.ButtonText
+          $active={isActive}
+          $color={color}
+          $underline={underline}
+          $variant={variant}
+          align={props.centered ? 'center' : 'left'}
+          fontStyle={fontStyle}
+        >
+          {label}
+        </Styled.ButtonText>
+      )}
     </Styled.ButtonElement>
   );
 };

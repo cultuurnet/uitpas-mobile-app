@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Trans } from '../../../_components';
-import { formatISOString } from '../../../_utils/dateHelpers';
+import { formatISOString } from '../../../_utils';
 import { TPeriod, TRedeemConstraint } from '../../../shop/_models/reward';
 import { Section } from '../section/Section';
 
@@ -11,7 +11,7 @@ type TProps = {
   redeemConstraint: TRedeemConstraint;
   redeemPeriod: TPeriod;
   unitsTaken?: number;
-}
+};
 
 const MIN_AVAILABLE_UNITS = 10;
 
@@ -34,21 +34,20 @@ export const Availability = ({ redeemConstraint, redeemPeriod, unitsTaken, maxAv
         />
       )}
       {showUnits && (
-        <Trans
-          i18nKey="SHOP_DETAIL.AVAILABILITY_DETAILS.UNITS_LEFT"
-          selectable
-          size="small"
-          values={{ units: unitsLeft }}
-        />
+        <Trans i18nKey="SHOP_DETAIL.AVAILABILITY_DETAILS.UNITS_LEFT" selectable size="small" values={{ units: unitsLeft }} />
       )}
       {!!redeemConstraint?.period && (
         <Trans
-          i18nKey={redeemConstraint.period === 'ABSOLUTE' ? "SHOP_DETAIL.AVAILABILITY_DETAILS.CONSTRAINT_ABSOLUTE" : "SHOP_DETAIL.AVAILABILITY_DETAILS.CONSTRAINT"}
+          i18nKey={
+            redeemConstraint.period === 'ABSOLUTE'
+              ? 'SHOP_DETAIL.AVAILABILITY_DETAILS.CONSTRAINT_ABSOLUTE'
+              : 'SHOP_DETAIL.AVAILABILITY_DETAILS.CONSTRAINT'
+          }
           selectable
           size="small"
           values={{ period: t(`PERIODS.${redeemConstraint.period}`), volume: redeemConstraint.volume }}
         />
       )}
     </Section>
-  )
-}
+  );
+};

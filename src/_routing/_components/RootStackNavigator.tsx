@@ -20,6 +20,7 @@ import RedeemedReward from '../../redeemedReward/RedeemedReward';
 import { RedeemedRewards } from '../../redeemedRewards/RedeemedRewards';
 import ScanSuccess from '../../scan/ScanSuccess';
 import { Search } from '../../shop/search/Search';
+import { SearchFilters } from '../../shop/searchFilters/SearchFilters';
 import { ShopDetail } from '../../shopDetail/ShopDetail';
 import { storage } from '../../storage';
 import { useGetVersions } from '../../update/_queries/useGetVersions';
@@ -87,7 +88,7 @@ export const RootStackNavigator = () => {
               headerBackButtonMenuEnabled: false,
               headerBackTitle: '',
               headerRight: UserPoints,
-              title: route?.params?.filter === 'welkom' ? i18n.t('SHOP.WELCOME.HEADER_TITLE') : i18n.t('SHOP.HEADER_TITLE'),
+              title: route?.params?.section === 'welkom' ? i18n.t('SHOP.WELCOME.HEADER_TITLE') : i18n.t('SHOP.HEADER_TITLE'),
             })}
           />
           <RootStack.Screen
@@ -135,6 +136,24 @@ export const RootStackNavigator = () => {
               headerRight: UserPoints,
               title: i18n.t('SHOP_DETAIL.HEADER_TITLE'),
             }}
+          />
+          <RootStack.Screen
+            component={SearchFilters}
+            name="SearchFilters"
+            options={({ navigation }) => ({
+              headerBackTitle: '',
+              headerBackVisible: false,
+              headerRight: props => (
+                <HeaderBackButton
+                  {...props}
+                  backImage={() => <Icon color="neutral.0" name="Close" size={14} />}
+                  onPress={() => navigation.pop()}
+                  style={{ marginRight: -10, padding: 10 }}
+                />
+              ),
+              presentation: 'modal',
+              title: i18n.t('SHOP.SEARCH.FILTERS.HEADER_TITLE'),
+            })}
           />
         </>
       )}

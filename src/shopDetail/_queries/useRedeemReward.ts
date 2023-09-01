@@ -1,5 +1,5 @@
+import { queryClient } from '../../_context';
 import { TPostOptions, usePubliqApi } from '../../_hooks/usePubliqApi';
-import { queryClient } from '../../_providers/QueryClientProvider';
 import { TRedeemedReward } from '../../redeemedRewards/_models/redeemedReward';
 
 export function useRedeemReward(options: TPostOptions<TRedeemedReward>) {
