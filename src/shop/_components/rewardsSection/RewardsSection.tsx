@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -15,12 +15,14 @@ import * as Styled from './style';
 
 export type TRewardSectionProps = {
   category?: TFilterRewardCategory;
+  // id of a reward that should be filtered out
   filterRewardId?: string;
   hideMoreButton?: boolean;
   horizontal?: boolean;
+  onLoaded?: () => void;
   organizerId?: string[];
   section?: TFilterRewardSection;
-  title: string; // id of a reward that should be filtered out
+  title: string;
 };
 
 export const RewardsSection = ({
@@ -31,6 +33,7 @@ export const RewardsSection = ({
   hideMoreButton,
   category,
   organizerId,
+  onLoaded,
   ...props
 }: TRewardSectionProps) => {
   const { getFiltersForCategory, getFiltersForSection } = useRewardFilters();
@@ -58,9 +61,13 @@ export const RewardsSection = ({
     navigate('FilteredShop', { category, section, subtitle: title });
   }, [title, section, navigate, category, horizontal, trackSelfDescribingEvent]);
 
+  useEffect(() => {
+    if (isLoading) return;
+    onLoaded?.();
+  }, [isLoading, onLoaded]);
+
   // We need to have 2 or more results to display the section
   if (!isLoading && !(rewards?.length >= 2)) return null;
-
   if (isLoading) return <RewardsSectionLoader horizontal={horizontal} />;
 
   return (

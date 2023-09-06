@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Analytics, EnlargedHeader, SafeAreaView } from '../_components';
@@ -28,6 +28,15 @@ type TProps = {
 const Shop = ({ navigation }: TProps) => {
   const { t } = useTranslation();
   const { data: user } = useGetMe();
+  const [sections, setSections] = useState<TRewardSectionProps[]>(SECTIONS.slice(0, 2));
+
+  // Gradually adds all sections with a delay of 300ms
+  // (After loading first 3 sections from the start)
+  const onSectionLoaded = () => {
+    if (sections.length < SECTIONS.length) {
+      setSections([...sections, SECTIONS[sections.length]]);
+    }
+  };
 
   return (
     <>
@@ -43,11 +52,12 @@ const Shop = ({ navigation }: TProps) => {
         <>
           <WelcomeGiftsBanner />
           <CategoryFilters />
-          {SECTIONS.map(({ section, category, title, horizontal }) => (
+          {sections.map(({ section, category, title, horizontal }) => (
             <RewardsSection
               category={category}
               horizontal={horizontal}
               key={title}
+              onLoaded={onSectionLoaded}
               section={section}
               title={t(title, { city: user?.address?.city || t('SHOP.SECTIONS.CITY_FALLBACK') })}
             />
