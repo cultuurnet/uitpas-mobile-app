@@ -65,7 +65,8 @@ export function useGetRewards({
 
     return params;
   }, [user, organizerId, freeText, filters, sort]);
-  return api.getInfinite<TRewardsResponse>(['rewards', JSON.stringify(params), itemsPerPage], `/rewards`, {
+
+  return api.getInfinite<TRewardsResponse>(['rewards', params, itemsPerPage], `/rewards`, {
     enabled,
     itemsPerPage,
     params: { ...params, ...extraParams },
