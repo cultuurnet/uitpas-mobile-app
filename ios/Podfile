@@ -16,6 +16,7 @@ target 'reactnative_uitpas' do
   pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
   pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
   pod 'Permission-PhotoLibraryAddOnly', :path => "#{permissions_path}/PhotoLibraryAddOnly"
+  pod 'react-native-config', :path => '../node_modules/react-native-config'
 
 
   use_react_native!(
