@@ -24,7 +24,7 @@ const Onboarding = () => {
       <Analytics screenName="Onboarding" />
       <SafeAreaView backgroundColor="neutral.0" barStyle="dark-content" isScrollable={false}>
         <Styled.TopContainer>
-          <Styled.TitleText color="secondary.700" fontStyle="bold" size="large">
+          <Styled.TitleText color="primary.800" fontStyle="bold" size="large">
             {t('ONBOARDING.TITLE')}
           </Styled.TitleText>
           {height > 600 && <Styled.Image source={Counter} />}

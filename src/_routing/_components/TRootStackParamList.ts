@@ -33,6 +33,7 @@ export type TRootStackParamList = {
     gotoAfterClose?: [TRootRoute, TMainRoute] | keyof TRootStackParamList;
     message: string;
   };
+  FamilyOnboarding: undefined;
   FilteredShop: {
     category?: TFilterRewardCategory;
     section?: TFilterRewardSection;
