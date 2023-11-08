@@ -27,6 +27,7 @@ export const BulletListItem = styled(BulletListComp.Item)`
 
 export const Footer = styled.View`
   padding-horizontal: 16px;
+  padding-bottom: 16px;
 `;
 
 export const ConfirmButton = styled(Button)`

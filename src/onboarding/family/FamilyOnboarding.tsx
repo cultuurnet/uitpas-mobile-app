@@ -17,7 +17,7 @@ const BULLET_ITEMS = [
   { text: 'ONBOARDING.FAMILY.TEXT_4' },
 ];
 
-const FamilyOnboarding = () => {
+export const FamilyOnboarding = () => {
   const { isLoading, isFetched, data: hasFamilyMembers } = useHasFamilyMembers();
   const { dismissFamilyOnboarding } = useOnboarding();
 
@@ -63,5 +63,3 @@ const FamilyOnboarding = () => {
     </SafeAreaView>
   );
 };
-
-export default FamilyOnboarding;

@@ -4,7 +4,7 @@ import { usePubliqApi } from '../../../_hooks/usePubliqApi';
 import { TFamilyMember } from '../../../profile/_models';
 import { useGetMe } from '../../../profile/_queries/useGetMe';
 
-export function useHasFamilyMembers() {
+export const useHasFamilyMembers = () => {
   const api = usePubliqApi();
   const { data: user } = useGetMe();
   const [hasFamilyMembers, setHasFamilyMembers] = useState(false);
@@ -16,4 +16,4 @@ export function useHasFamilyMembers() {
   });
 
   return { ...response, data: hasFamilyMembers };
-}
+};

@@ -14,7 +14,7 @@ import Error from '../../error/Error';
 import { FilteredShop } from '../../filteredShop/FilteredShop';
 import History from '../../history/History';
 import Login from '../../login/Login';
-import FamilyOnboarding from '../../onboarding/family/FamilyOnboarding';
+import { FamilyOnboarding } from '../../onboarding/family/FamilyOnboarding';
 import Onboarding from '../../onboarding/Onboarding';
 import ProfileNotFound from '../../profile/ProfileNotFound';
 import RedeemedReward from '../../redeemedReward/RedeemedReward';
