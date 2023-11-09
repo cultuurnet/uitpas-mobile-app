@@ -232,5 +232,9 @@
     "HELP": "Meld een probleem",
     "CTA": "Sluiten",
     "ORGANIZER_ADDRESS": "Geen adres gevonden"
+  },
+  "DATE_PICKER": {
+    "CONFIRM": "Bevestigen",
+    "CANCEL": "Annuleren"
   }
 }
