@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 import { Button, Checkbox, Typography } from '../_components';
 
 export const TopContainer = styled.View`
+  flex: 1;
   padding: 0px 16px;
   align-items: center;
 `;
@@ -35,16 +36,12 @@ export const ConfirmViewContainer = styled.View`
 `;
 
 export const BottomContainer = styled.View`
-  position: absolute;
-  bottom: 35px;
-  width: 100%;
+  padding-horizontal: 16px;
+  padding-bottom: 16px;
 `;
 
 export const LinkButton = styled(Button)`
   margin: 0 5px;
 `;
 
-export const ConfirmButton = styled(Button)`
-  margin: 0 auto;
-  width: 90%;
-`;
+export const ConfirmButton = styled(Button)``;
