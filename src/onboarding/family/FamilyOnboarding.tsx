@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, useWindowDimensions } from 'react-native';
 
@@ -11,24 +11,26 @@ import { useHasFamilyMembers } from './_queries/useHasFamilyMembers';
 import * as Styled from './style';
 
 const BULLET_ITEMS = [
-  { text: 'ONBOARDING.FAMILY.TEXT_1' },
-  { text: 'ONBOARDING.FAMILY.TEXT_2' },
-  { text: 'ONBOARDING.FAMILY.TEXT_3' },
-  { text: 'ONBOARDING.FAMILY.TEXT_4' },
+  { text: 'ONBOARDING.FAMILY.BULLET_1' },
+  { text: 'ONBOARDING.FAMILY.BULLET_2' },
+  { text: 'ONBOARDING.FAMILY.BULLET_3' },
+  { text: 'ONBOARDING.FAMILY.BULLET_4' },
 ];
 
 export const FamilyOnboarding = () => {
   const { isLoading, isFetchedAfterMount, data: hasFamilyMembers } = useHasFamilyMembers();
+
   const { dismissFamilyOnboarding } = useOnboarding();
+  const resolveFamilyOnboarding = useCallback(() => {
+    dismissFamilyOnboarding();
+    storage.set(StorageKey.HasSeenFamilyOnboarding, true);
+  }, [dismissFamilyOnboarding]);
 
   useEffect(() => {
-    if (isFetchedAfterMount) {
-      storage.set(StorageKey.HasSeenFamilyOnboarding, true);
-      if (hasFamilyMembers) {
-        dismissFamilyOnboarding();
-      }
+    if (isFetchedAfterMount && hasFamilyMembers) {
+      resolveFamilyOnboarding;
     }
-  }, [dismissFamilyOnboarding, hasFamilyMembers, isFetchedAfterMount]);
+  }, [hasFamilyMembers, isFetchedAfterMount, resolveFamilyOnboarding]);
 
   const { t } = useTranslation();
   const { height: windowHeight } = useWindowDimensions();
@@ -63,7 +65,7 @@ export const FamilyOnboarding = () => {
           <Styled.SkipButton
             color="primary.700"
             label={t('ONBOARDING.FAMILY.SKIP')}
-            onPress={dismissFamilyOnboarding}
+            onPress={resolveFamilyOnboarding}
             variant="outline"
           />
         </Styled.Footer>
