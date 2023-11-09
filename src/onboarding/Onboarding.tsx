@@ -1,4 +1,4 @@
-import { useWindowDimensions } from 'react-native';
+import { Platform, useWindowDimensions } from 'react-native';
 import { t } from 'i18next';
 
 import { Counter } from '../_assets/images';
@@ -22,7 +22,11 @@ const Onboarding = () => {
   return (
     <>
       <Analytics screenName="Onboarding" />
-      <SafeAreaView backgroundColor="neutral.0" barStyle="dark-content" isScrollable={false}>
+      <SafeAreaView
+        backgroundColor="neutral.0"
+        barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
+        isScrollable={false}
+      >
         <Styled.TopContainer>
           <Styled.TitleText color="primary.800" fontStyle="bold" size="large">
             {t('ONBOARDING.TITLE')}

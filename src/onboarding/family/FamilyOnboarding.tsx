@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useWindowDimensions } from 'react-native';
+import { Platform, useWindowDimensions } from 'react-native';
 import { t } from 'i18next';
 
 import { Family } from '../../_assets/images';
@@ -18,28 +18,32 @@ const BULLET_ITEMS = [
 ];
 
 export const FamilyOnboarding = () => {
-  const { isLoading, isFetched, data: hasFamilyMembers } = useHasFamilyMembers();
+  const { isLoading, isFetchedAfterMount, data: hasFamilyMembers } = useHasFamilyMembers();
   const { dismissFamilyOnboarding } = useOnboarding();
 
   useEffect(() => {
-    if (isFetched) {
+    if (isFetchedAfterMount) {
       storage.set(StorageKey.HasSeenFamilyOnboarding, true);
       if (hasFamilyMembers) {
         dismissFamilyOnboarding();
       }
     }
-  }, [dismissFamilyOnboarding, hasFamilyMembers, isFetched]);
+  }, [dismissFamilyOnboarding, hasFamilyMembers, isFetchedAfterMount]);
 
   const { height: windowHeight } = useWindowDimensions();
 
   if (isLoading) {
-    return <Spinner />;
+    return <Spinner statusBarStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'} />;
   }
 
   return (
     <>
       <Analytics screenName="FamilyOnboarding" />
-      <SafeAreaView backgroundColor="neutral.0" barStyle="dark-content" isScrollable={false}>
+      <SafeAreaView
+        backgroundColor="neutral.0"
+        barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
+        isScrollable={false}
+      >
         <Styled.Body>
           <Styled.Title align="center" color="primary.800" fontStyle="bold" size="large">
             {t('ONBOARDING.FAMILY.TITLE')}
