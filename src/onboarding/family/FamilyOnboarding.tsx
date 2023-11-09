@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Platform, useWindowDimensions } from 'react-native';
+import { Platform } from 'react-native';
 
 import { Family } from '../../_assets/images';
 import { Analytics, SafeAreaView, Spinner, Typography } from '../../_components';
@@ -33,7 +33,6 @@ export const FamilyOnboarding = () => {
   }, [hasFamilyMembers, isFetchedAfterMount, resolveFamilyOnboarding]);
 
   const { t } = useTranslation();
-  const { height: windowHeight } = useWindowDimensions();
 
   if (isLoading) {
     return <Spinner statusBarStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'} />;
@@ -42,16 +41,12 @@ export const FamilyOnboarding = () => {
   return (
     <>
       <Analytics screenName="FamilyOnboarding" />
-      <SafeAreaView
-        backgroundColor="neutral.0"
-        barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
-        isScrollable={false}
-      >
+      <SafeAreaView backgroundColor="neutral.0" barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}>
         <Styled.Body>
           <Styled.Title align="center" color="primary.800" fontStyle="bold" size="large">
             {t('ONBOARDING.FAMILY.TITLE')}
           </Styled.Title>
-          {windowHeight > 700 && <Styled.Hero source={Family} />}
+          <Styled.Hero source={Family} />
           <Styled.BulletList>
             {BULLET_ITEMS.map(({ text }, index) => (
               <Styled.BulletListItem key={index}>
