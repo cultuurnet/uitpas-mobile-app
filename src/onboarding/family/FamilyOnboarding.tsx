@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Platform, useWindowDimensions } from 'react-native';
-import { t } from 'i18next';
 
 import { Family } from '../../_assets/images';
 import { Analytics, SafeAreaView, Spinner, Typography } from '../../_components';
@@ -30,6 +30,7 @@ export const FamilyOnboarding = () => {
     }
   }, [dismissFamilyOnboarding, hasFamilyMembers, isFetchedAfterMount]);
 
+  const { t } = useTranslation();
   const { height: windowHeight } = useWindowDimensions();
 
   if (isLoading) {
