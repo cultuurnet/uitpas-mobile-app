@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Analytics, EnlargedHeader, SafeAreaView } from '../_components';
+import { Analytics, EnlargedHeader } from '../_components';
 import { TMainNavigationProp } from '../_routing';
 import { useGetMe } from '../profile/_queries/useGetMe';
 import { CategoryFilters } from './_components/categoryFilters/CategoryFilters';
@@ -41,7 +41,7 @@ const Shop = ({ navigation }: TProps) => {
   return (
     <>
       <Analytics screenName="rewardshop" />
-      <SafeAreaView edges={['left', 'right']} isScrollable>
+      <Styled.SafeAreaViewContainer edges={['left', 'right']} isScrollable>
         <EnlargedHeader height={30} />
         <Styled.SearchContainer>
           <Styled.SearchButton onPress={() => navigation.push('Search')}>
@@ -61,7 +61,7 @@ const Shop = ({ navigation }: TProps) => {
             title={t(title, { city: user?.address?.city || t('SHOP.SECTIONS.CITY_FALLBACK') })}
           />
         ))}
-      </SafeAreaView>
+      </Styled.SafeAreaViewContainer>
     </>
   );
 };

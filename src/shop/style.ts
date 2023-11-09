@@ -1,7 +1,11 @@
 import styled from 'styled-components/native';
 
-import { Icon, TouchableRipple } from '../_components';
+import { Icon, SafeAreaView, TouchableRipple } from '../_components';
 import { theme } from '../_styles/theme';
+
+export const SafeAreaViewContainer = styled(SafeAreaView)`
+  padding-bottom: 95px;
+`;
 
 export const SearchContainer = styled.View<{ paddingTop?: number }>`
   background-color: ${theme.palette.secondary[500]};
