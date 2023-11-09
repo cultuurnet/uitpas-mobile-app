@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Icon } from '../../_components';
 import UserPoints from '../../_components/userPoints/UserPoints';
-import { useAuthentication } from '../../_context';
+import { useAuthentication, useOnboarding } from '../../_context';
 import { StorageKey } from '../../_models';
 import { generalStyles } from '../../_styles/constants';
 import i18n from '../../_translations/i18n';
@@ -14,6 +14,7 @@ import Error from '../../error/Error';
 import { FilteredShop } from '../../filteredShop/FilteredShop';
 import History from '../../history/History';
 import Login from '../../login/Login';
+import { FamilyOnboarding } from '../../onboarding/family/FamilyOnboarding';
 import Onboarding from '../../onboarding/Onboarding';
 import ProfileNotFound from '../../profile/ProfileNotFound';
 import RedeemedReward from '../../redeemedReward/RedeemedReward';
@@ -32,6 +33,7 @@ const RootStack = createNativeStackNavigator<TRootStackParamList>();
 
 export const RootStackNavigator = () => {
   const { isAuthenticated, isInitialized } = useAuthentication();
+  const { withFamilyOnboarding } = useOnboarding();
   const versions = useGetVersions();
   const getMainHeaderProps = useMainHeaderProps(isAuthenticated);
   const isPolicyApprovedInStorage = storage.getBoolean(StorageKey.IsPolicyApproved);
@@ -55,9 +57,10 @@ export const RootStackNavigator = () => {
       <RootStack.Group screenOptions={{ headerShown: false }}>
         {!isAuthenticated && !isPolicyApprovedInStorage && <RootStack.Screen component={Onboarding} name="Onboarding" />}
         {isAuthenticated && versions?.isBehindMinVersion && <RootStack.Screen component={UpdateScreen} name="Update" />}
+        {isAuthenticated && withFamilyOnboarding && <RootStack.Screen component={FamilyOnboarding} name="FamilyOnboarding" />}
         {!isAuthenticated && <RootStack.Screen component={Login} name="Login" />}
       </RootStack.Group>
-      {isAuthenticated && (
+      {isAuthenticated && !withFamilyOnboarding && (
         <>
           <RootStack.Screen
             component={MainNavigator}
@@ -72,7 +75,6 @@ export const RootStackNavigator = () => {
             <RootStack.Screen component={Error} name="Error" options={{ gestureEnabled: false }} />
             <RootStack.Screen component={Search} name="Search" />
           </RootStack.Group>
-
           <RootStack.Screen
             component={About}
             name="About"

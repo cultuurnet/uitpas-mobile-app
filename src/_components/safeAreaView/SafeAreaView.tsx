@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { ScrollView, ScrollViewProps, StatusBarStyle } from 'react-native';
+import { ScrollView, ScrollViewProps, StatusBarStyle, StyleProp, ViewStyle } from 'react-native';
 import { NativeSafeAreaViewProps as RNSafeAreaViewProps } from 'react-native-safe-area-context';
 
 import { ThemeColor } from '../../_styles/theme';
@@ -11,6 +11,7 @@ export type TSafeAreaViewProps = {
   barStyle?: StatusBarStyle;
   isScrollable?: boolean;
   stickyHeaderIndices?: number[];
+  style?: StyleProp<ViewStyle>;
 } & RNSafeAreaViewProps &
   Pick<ScrollViewProps, 'keyboardShouldPersistTaps'>;
 
@@ -29,10 +30,10 @@ const SafeAreaView = forwardRef<ScrollView, TSafeAreaViewProps>(
   ) => {
     if (isScrollable) {
       return (
-        <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} isScrollable={isScrollable} {...props}>
+        <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} {...props}>
           <FocusAwareStatusBar barStyle={barStyle} />
           <ScrollView
-            contentContainerStyle={{ paddingBottom: 95 }}
+            contentContainerStyle={[{ flexGrow: 1 }, props.style]}
             keyboardShouldPersistTaps={keyboardShouldPersistTaps}
             ref={ref}
             stickyHeaderIndices={stickyHeaderIndices}
@@ -43,7 +44,7 @@ const SafeAreaView = forwardRef<ScrollView, TSafeAreaViewProps>(
       );
     } else {
       return (
-        <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} isScrollable={isScrollable} {...props}>
+        <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} {...props}>
           <FocusAwareStatusBar barStyle={barStyle} />
           {children}
         </Styled.SafeAreaViewContainer>
