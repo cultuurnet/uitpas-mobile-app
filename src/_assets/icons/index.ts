@@ -33,6 +33,7 @@ export const ProfileFilled = require('./profileFilled.png');
 export const QR = require('./QR.png');
 export const QRInstruction = require('./QRInstruction.png');
 export const Question = require('./question.png');
+export const QuestionFilled = require('./questionFilled.png');
 export const RadioChecked = require('./radioChecked.png');
 export const RadioUnchecked = require('./radioUnchecked.png');
 export const Search = require('./search.png');

@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TextInputProps } from 'react-native';
+import { TextInputProps, View } from 'react-native';
 
 import * as Styled from './style';
 
@@ -10,13 +10,13 @@ type TTextInputProps = TextInputProps & {
   label?: string | ReactElement;
 };
 
-const TextInput = ({ description, label, ...inputProps }: TTextInputProps) => {
+const TextInput = ({ description, label, style, ...inputProps }: TTextInputProps) => {
   return (
-    <>
+    <View style={style}>
       {label && <TextInputLabel text={label} />}
       <Styled.TextInput {...inputProps} />
       {description && <TextInputDescription text={description} />}
-    </>
+    </View>
   );
 };
 
@@ -36,7 +36,7 @@ export const TextInputLabel = ({ text }: TTextInputLabelProps) => {
       </Styled.Label>
     );
   }
-  return text;
+  return <Styled.LabelContainer>{text}</Styled.LabelContainer>;
 };
 
 type TTextInputDescriptionProps = {
@@ -49,5 +49,5 @@ export const TextInputDescription = ({ text }: TTextInputDescriptionProps) => {
   if (typeof text === 'string') {
     return <Styled.Description size="small">{t(text)}</Styled.Description>;
   }
-  return text;
+  return <Styled.DescriptionContainer>{text}</Styled.DescriptionContainer>;
 };

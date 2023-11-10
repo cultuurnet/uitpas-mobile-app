@@ -6,6 +6,7 @@ import { Family } from '../../_assets/images';
 import { Analytics, SafeAreaView, Spinner, Typography } from '../../_components';
 import { useOnboarding } from '../../_context';
 import { StorageKey } from '../../_models';
+import { TMainNavigationProp } from '../../_routing';
 import { storage } from '../../storage';
 import { useHasFamilyMembers } from './_queries/useHasFamilyMembers';
 import * as Styled from './style';
@@ -17,7 +18,11 @@ const BULLET_ITEMS = [
   { text: 'ONBOARDING.FAMILY.BULLET_4' },
 ];
 
-export const FamilyOnboarding = () => {
+type TProps = {
+  navigation: TMainNavigationProp<'Profile'>;
+};
+
+export const FamilyOnboarding = ({ navigation }: TProps) => {
   const { isLoading, isFetchedAfterMount, data: hasFamilyMembers } = useHasFamilyMembers();
 
   const { dismissFamilyOnboarding } = useOnboarding();
@@ -28,11 +33,16 @@ export const FamilyOnboarding = () => {
 
   useEffect(() => {
     if (isFetchedAfterMount && hasFamilyMembers) {
-      resolveFamilyOnboarding;
+      resolveFamilyOnboarding();
     }
   }, [hasFamilyMembers, isFetchedAfterMount, resolveFamilyOnboarding]);
 
   const { t } = useTranslation();
+
+  const goToFamilyOverview = () => {
+    navigation.navigate('AddFamilyMember');
+    storage.set(StorageKey.HasSeenFamilyOnboarding, true);
+  };
 
   if (isLoading) {
     return <Spinner statusBarStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'} />;
@@ -56,7 +66,7 @@ export const FamilyOnboarding = () => {
           </Styled.BulletList>
         </Styled.Body>
         <Styled.Footer>
-          <Styled.ConfirmButton disabled label={t('ONBOARDING.FAMILY.CONFIRM')} onPress={() => {}} />
+          <Styled.ConfirmButton label={t('ONBOARDING.FAMILY.CONFIRM')} onPress={goToFamilyOverview} />
           <Styled.SkipButton
             color="primary.700"
             label={t('ONBOARDING.FAMILY.SKIP')}

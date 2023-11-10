@@ -1,16 +1,19 @@
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import RnDatePicker from 'react-native-date-picker';
 
 import FakeTextInput from '../textInput/fakeTextInput/FakeTextInput';
+import { format } from 'date-fns';
 
 type TProps = {
   date: Date;
+  description?: string | ReactElement;
   isError?: boolean;
+  label?: string | ReactElement;
   onSelectDate: (date: Date) => void;
 };
 
-const DatePicker = ({ date, isError, onSelectDate }: TProps) => {
+const DatePicker = ({ date, onSelectDate, ...textInputProps }: TProps) => {
   const { t } = useTranslation();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -30,11 +33,11 @@ const DatePicker = ({ date, isError, onSelectDate }: TProps) => {
 
   return (
     <>
-      <FakeTextInput isError={isError} onPress={handleOpen} value={date.toLocaleDateString()} />
+      <FakeTextInput {...textInputProps} onPress={handleOpen} value={format(date, 'dd/MM/yyyy')} />
       <RnDatePicker
         cancelText={t('DATE_PICKER.CANCEL')}
         confirmText={t('DATE_PICKER.CONFIRM')}
-        date={date}
+        date={date ?? new Date()}
         modal
         mode="date"
         onCancel={handleClose}

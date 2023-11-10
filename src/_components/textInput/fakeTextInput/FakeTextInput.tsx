@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
-import { Text } from 'react-native';
 
+import Typography from '../../typography/Typography';
 import { TextInputDescription, TextInputLabel } from '../TextInput';
 import * as Styled from './style';
 
@@ -17,7 +17,7 @@ const FakeTextInput = ({ description, label, value, ...touchableProps }: TProps)
     <>
       {label && <TextInputLabel text={label} />}
       <Styled.Touchable {...touchableProps}>
-        <Text>{value}</Text>
+        <Typography>{value}</Typography>
       </Styled.Touchable>
       {description && <TextInputDescription text={description} />}
     </>
