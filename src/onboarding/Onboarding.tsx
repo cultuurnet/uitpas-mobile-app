@@ -1,7 +1,7 @@
 import { t } from 'i18next';
 
 import { Counter } from '../_assets/images';
-import { Analytics, SafeAreaView, Typography } from '../_components';
+import { Analytics, Button, SafeAreaView, Typography } from '../_components';
 import { ConfigUrl } from '../_config';
 import { useStackNavigation, useToggle } from '../_hooks';
 import { StorageKey } from '../_models';
@@ -44,7 +44,7 @@ const Onboarding = () => {
           />
         </Styled.TopContainer>
         <Styled.BottomContainer>
-          <Styled.ConfirmButton disabled={!isChecked} label={t('ONBOARDING.CONFIRM')} onPress={onPress} />
+          <Button disabled={!isChecked} label={t('ONBOARDING.CONFIRM')} onPress={onPress} />
         </Styled.BottomContainer>
       </SafeAreaView>
     </>
