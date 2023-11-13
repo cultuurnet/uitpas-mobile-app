@@ -1,9 +1,9 @@
 import { ReactElement, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import RnDatePicker from 'react-native-date-picker';
+import { format } from 'date-fns';
 
 import FakeTextInput from '../textInput/fakeTextInput/FakeTextInput';
-import { format } from 'date-fns';
 
 type TProps = {
   date: Date;
@@ -33,7 +33,7 @@ const DatePicker = ({ date, onSelectDate, ...textInputProps }: TProps) => {
 
   return (
     <>
-      <FakeTextInput {...textInputProps} onPress={handleOpen} value={format(date, 'dd/MM/yyyy')} />
+      <FakeTextInput {...textInputProps} onPress={handleOpen} value={date ? format(date, 'dd/MM/yyyy') : ''} />
       <RnDatePicker
         cancelText={t('DATE_PICKER.CANCEL')}
         confirmText={t('DATE_PICKER.CONFIRM')}

@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useHeaderHeight } from '@react-navigation/elements';
 
 import { Analytics, Button, Typography } from '../../../_components';
+import { openExternalURL } from '../../../_utils';
 import { applyBarcodeMask } from '../../../profile/_util/mask';
 import * as Styled from './style';
 
@@ -46,9 +47,13 @@ export const AddFamilyMember = () => {
                 <Styled.UitpasNumberInput
                   description={
                     <Typography size="small">
-                      {t('ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER_DESCRIPTION')}
-                      <Styled.UitpasNumberDescriptionLink color="primary.700" size="small">
-                        {t('ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER_DESCRIPTION_LINK')}
+                      {t('ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER_DESCRIPTION_1')}
+                      <Styled.UitpasNumberDescriptionLink
+                        color="primary.700"
+                        onPress={() => openExternalURL(t('ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER_DESCRIPTION_LINK'))}
+                        size="small"
+                      >
+                        {t('ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER_DESCRIPTION_2')}
                       </Styled.UitpasNumberDescriptionLink>
                     </Typography>
                   }
