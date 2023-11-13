@@ -168,6 +168,14 @@ export const RootStackNavigator = () => {
               title: i18n.t('SHOP.SEARCH.FILTERS.HEADER_TITLE'),
             })}
           />
+          <RootStack.Screen
+            component={AddFamilyMember}
+            name="AddFamilyMember"
+            options={{
+              headerBackTitle: '',
+              title: i18n.t('ONBOARDING.FAMILY.ADD_MEMBER.TITLE'),
+            }}
+          />
         </>
       )}
     </RootStack.Navigator>

@@ -61,6 +61,11 @@ const Profile = ({ navigation }: TProps) => {
         label: i18n.t('PROFILE.LINKS.PERSONAL_INFO'),
       },
       {
+        iconName: 'Family',
+        label: i18n.t('PROFILE.LINKS.MY_FAMILY'),
+        onPress: () => navigation.navigate('AddFamilyMember'),
+      },
+      {
         iconName: 'Info',
         label: i18n.t('PROFILE.LINKS.ABOUT'),
         onPress: () => navigation.navigate('About'),
