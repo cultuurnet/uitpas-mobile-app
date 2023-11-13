@@ -4,7 +4,6 @@ import { theme } from '../../_styles/theme';
 import Typography from '../typography/Typography';
 
 export const TextInput = styled.TextInput<{ isError?: boolean }>`
-  height: 44px;
   border-color: ${({ theme, isError }) => (!isError ? theme.palette.neutral['200'] : theme.palette.error['500'])};
   border-width: 1px;
   border-radius: 8px;
@@ -12,7 +11,7 @@ export const TextInput = styled.TextInput<{ isError?: boolean }>`
   font-family: 'Poppins-Regular';
   font-size: 16px;
   padding-horizontal: 16px;
-  padding-vertical: 12px;
+  padding-vertical: 8px;
 `;
 
 export const Label = styled(Typography)`
