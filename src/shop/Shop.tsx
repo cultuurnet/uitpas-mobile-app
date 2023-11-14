@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Analytics, EnlargedHeader, SafeAreaView } from '../_components';
+import { Analytics, EnlargedHeader } from '../_components';
 import { TMainNavigationProp } from '../_routing';
 import { useGetMe } from '../profile/_queries/useGetMe';
 import { CategoryFilters } from './_components/categoryFilters/CategoryFilters';
@@ -41,7 +41,7 @@ const Shop = ({ navigation }: TProps) => {
   return (
     <>
       <Analytics screenName="rewardshop" />
-      <SafeAreaView edges={['left', 'right']} isScrollable>
+      <Styled.SafeAreaViewContainer edges={['left', 'right']} isScrollable>
         <EnlargedHeader height={30} />
         <Styled.SearchContainer>
           <Styled.SearchButton onPress={() => navigation.push('Search')}>
@@ -49,21 +49,19 @@ const Shop = ({ navigation }: TProps) => {
           </Styled.SearchButton>
           <Styled.SearchIcon color="primary.700" name="Search" size={18} />
         </Styled.SearchContainer>
-        <>
-          <WelcomeGiftsBanner />
-          <CategoryFilters />
-          {sections.map(({ section, category, title, horizontal }) => (
-            <RewardsSection
-              category={category}
-              horizontal={horizontal}
-              key={title}
-              onLoaded={onSectionLoaded}
-              section={section}
-              title={t(title, { city: user?.address?.city || t('SHOP.SECTIONS.CITY_FALLBACK') })}
-            />
-          ))}
-        </>
-      </SafeAreaView>
+        <WelcomeGiftsBanner />
+        <CategoryFilters />
+        {sections.map(({ section, category, title, horizontal }) => (
+          <RewardsSection
+            category={category}
+            horizontal={horizontal}
+            key={title}
+            onLoaded={onSectionLoaded}
+            section={section}
+            title={t(title, { city: user?.address?.city || t('SHOP.SECTIONS.CITY_FALLBACK') })}
+          />
+        ))}
+      </Styled.SafeAreaViewContainer>
     </>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useWindowDimensions } from 'react-native';
+import { Platform, useWindowDimensions } from 'react-native';
 import { Config } from 'react-native-config';
 import { EventArg } from '@react-navigation/native';
 
@@ -51,7 +51,7 @@ const Login = () => {
   };
 
   if (isLoading || !isInitialized) {
-    return <Spinner />;
+    return <Spinner statusBarStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'} />;
   }
 
   return (
