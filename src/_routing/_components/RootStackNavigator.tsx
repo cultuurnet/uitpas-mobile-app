@@ -72,7 +72,6 @@ export const RootStackNavigator = () => {
             <RootStack.Screen component={Error} name="Error" options={{ gestureEnabled: false }} />
             <RootStack.Screen component={Search} name="Search" />
           </RootStack.Group>
-
           <RootStack.Screen
             component={About}
             name="About"

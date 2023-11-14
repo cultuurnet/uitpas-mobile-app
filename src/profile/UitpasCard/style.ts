@@ -1,7 +1,5 @@
 import styled from 'styled-components/native';
 
-import { SafeAreaView } from '../../_components';
-
 const CARD_MARGIN = 20;
 
 export const ContentContainer = styled.View<{ screenWidth: number }>`
@@ -27,10 +25,6 @@ export const CardsView = styled.View`
 export const CardContainer = styled.View`
   position: relative;
   margin: 25px 0px;
-`;
-
-export const SafeAreaViewContainer = styled(SafeAreaView)`
-  background-color: ${({ theme }) => theme.palette.neutral['100']};
 `;
 
 export const LogoContainer = styled.View`
