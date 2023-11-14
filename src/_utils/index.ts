@@ -2,6 +2,7 @@ export * from './colorHelper';
 export * from './dateHelpers';
 export * from './languageHelpers';
 export * from './logger';
+export * from './maskHelpers';
 export * from './normalizeHelpers';
 export * from './objectHelpers';
 export * from './queryHelpers';

@@ -6,8 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useHeaderHeight } from '@react-navigation/elements';
 
 import { Button, Typography } from '../../../_components';
-import { openExternalURL } from '../../../_utils';
-import { applyBarcodeMask } from '../../../profile/_util/mask';
+import { applyBarcodeMask, openExternalURL } from '../../../_utils';
 import * as Styled from './style';
 
 type TFormData = {
@@ -95,7 +94,8 @@ export const AddFamilyMember = () => {
       </Styled.InnerContainer>
       <Styled.StickyFooter style={{ marginBottom: bottom }}>
         <Button label={t('ONBOARDING.FAMILY.ADD_MEMBER.ADD')} onPress={handleSubmit(addMember)} />
-        {/* <Styled.CancelButton color="primary.700" label={t('ONBOARDING.FAMILY.ADD_MEMBER.CANCEL')} variant="outline" /> */}
+        {/* TODO: Uncomment in UIT-212 
+        <Styled.CancelButton color="primary.700" label={t('ONBOARDING.FAMILY.ADD_MEMBER.CANCEL')} variant="outline" /> */}
       </Styled.StickyFooter>
     </Styled.ScreenContainer>
   );
