@@ -18,7 +18,7 @@ const BULLET_ITEMS = [
 ];
 
 export const FamilyOnboarding = () => {
-  const { isLoading, isFetchedAfterMount, data: hasFamilyMembers } = useHasFamilyMembers();
+  const { isLoading, isFetched, data: hasFamilyMembers } = useHasFamilyMembers();
 
   const { dismissFamilyOnboarding } = useOnboarding();
   const resolveFamilyOnboarding = useCallback(() => {
@@ -27,10 +27,10 @@ export const FamilyOnboarding = () => {
   }, [dismissFamilyOnboarding]);
 
   useEffect(() => {
-    if (isFetchedAfterMount && hasFamilyMembers) {
-      resolveFamilyOnboarding;
+    if (isFetched && hasFamilyMembers) {
+      resolveFamilyOnboarding();
     }
-  }, [hasFamilyMembers, isFetchedAfterMount, resolveFamilyOnboarding]);
+  }, [hasFamilyMembers, isFetched, resolveFamilyOnboarding]);
 
   const { t } = useTranslation();
 
