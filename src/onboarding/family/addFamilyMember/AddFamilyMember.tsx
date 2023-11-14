@@ -5,7 +5,7 @@ import { Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useHeaderHeight } from '@react-navigation/elements';
 
-import { Analytics, Button, Typography } from '../../../_components';
+import { Button, Typography } from '../../../_components';
 import { openExternalURL } from '../../../_utils';
 import { applyBarcodeMask } from '../../../profile/_util/mask';
 import * as Styled from './style';
@@ -36,7 +36,6 @@ export const AddFamilyMember = () => {
 
   return (
     <Styled.ScreenContainer behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={headerHeight - 16}>
-      <Analytics screenName="AddFamilyMember" />
       <Styled.InnerContainer contentContainerStyle={{ flexGrow: 1 }}>
         <Styled.Form>
           <Styled.FormBody>
