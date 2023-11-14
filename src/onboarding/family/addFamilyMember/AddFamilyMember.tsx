@@ -6,8 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useHeaderHeight } from '@react-navigation/elements';
 
 import { Button, Typography } from '../../../_components';
-import { openExternalURL } from '../../../_utils';
-import { applyBarcodeMask } from '../../../profile/_util/mask';
+import { applyBarcodeMask, openExternalURL } from '../../../_utils';
 import * as Styled from './style';
 
 type TFormData = {
