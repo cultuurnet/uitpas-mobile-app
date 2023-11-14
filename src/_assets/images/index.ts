@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 export const Counter = require('./counter.png');
 export const Error = require('./error.png');
+export const Family = require('./family.png');
 export const Gift = require('./gift.png');
 export const GiftHalf = require('./giftHalf.png');
 export const GiftOpen = require('./giftOpen.png');
