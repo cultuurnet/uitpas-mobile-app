@@ -15,6 +15,7 @@ import { FilteredShop } from '../../filteredShop/FilteredShop';
 import History from '../../history/History';
 import Login from '../../login/Login';
 import { AddFamilyMember, FamilyOnboarding } from '../../onboarding/family';
+import { FamilyOverview } from '../../onboarding/family/familyOverview/FamilyOverview';
 import Onboarding from '../../onboarding/Onboarding';
 import ProfileNotFound from '../../profile/ProfileNotFound';
 import RedeemedReward from '../../redeemedReward/RedeemedReward';
@@ -62,6 +63,7 @@ export const RootStackNavigator = () => {
       {isAuthenticated && withFamilyOnboarding && (
         <RootStack.Group screenOptions={{ headerShown: true }}>
           <RootStack.Screen component={FamilyOnboarding} name="FamilyOnboarding" options={{ headerShown: false }} />
+          <RootStack.Screen component={FamilyOverview} name="FamilyOverview" />
           <RootStack.Screen
             component={AddFamilyMember}
             name="AddFamilyMember"
@@ -167,6 +169,14 @@ export const RootStackNavigator = () => {
               presentation: 'modal',
               title: i18n.t('SHOP.SEARCH.FILTERS.HEADER_TITLE'),
             })}
+          />
+          <RootStack.Screen
+            component={FamilyOverview}
+            name="FamilyOverview"
+            options={{
+              headerBackTitle: '',
+              title: i18n.t('ONBOARDING.FAMILY.OVERVIEW.TITLE'),
+            }}
           />
           <RootStack.Screen
             component={AddFamilyMember}

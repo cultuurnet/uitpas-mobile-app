@@ -35,6 +35,7 @@ export type TRootStackParamList = {
     message: string;
   };
   FamilyOnboarding: undefined;
+  FamilyOverview: undefined;
   FilteredShop: {
     category?: TFilterRewardCategory;
     section?: TFilterRewardSection;
