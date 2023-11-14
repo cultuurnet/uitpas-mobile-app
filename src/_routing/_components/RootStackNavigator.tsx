@@ -33,7 +33,7 @@ const RootStack = createNativeStackNavigator<TRootStackParamList>();
 
 export const RootStackNavigator = () => {
   const { isAuthenticated, isInitialized } = useAuthentication();
-  const { withFamilyOnboarding } = useOnboarding();
+  const { showFamilyOnboarding } = useOnboarding();
   const versions = useGetVersions();
   const getMainHeaderProps = useMainHeaderProps(isAuthenticated);
   const isPolicyApprovedInStorage = storage.getBoolean(StorageKey.IsPolicyApproved);
@@ -59,7 +59,7 @@ export const RootStackNavigator = () => {
         {isAuthenticated && versions?.isBehindMinVersion && <RootStack.Screen component={UpdateScreen} name="Update" />}
         {!isAuthenticated && <RootStack.Screen component={Login} name="Login" />}
       </RootStack.Group>
-      {isAuthenticated && withFamilyOnboarding && (
+      {isAuthenticated && showFamilyOnboarding && (
         <RootStack.Group screenOptions={{ headerShown: true }}>
           <RootStack.Screen component={FamilyOnboarding} name="FamilyOnboarding" options={{ headerShown: false }} />
           <RootStack.Screen
@@ -71,7 +71,7 @@ export const RootStackNavigator = () => {
           />
         </RootStack.Group>
       )}
-      {isAuthenticated && !withFamilyOnboarding && (
+      {isAuthenticated && !showFamilyOnboarding && (
         <>
           <RootStack.Screen
             component={MainNavigator}

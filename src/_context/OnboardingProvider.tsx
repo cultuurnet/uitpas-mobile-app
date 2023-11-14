@@ -5,28 +5,25 @@ import { storage } from '../storage';
 
 type TOnboardingContext = {
   dismissFamilyOnboarding: () => void;
-  withFamilyOnboarding: boolean;
+  showFamilyOnboarding: boolean;
 };
 
-const OnboardingContext = createContext<TOnboardingContext>({
-  dismissFamilyOnboarding: () => {},
-  withFamilyOnboarding: !storage.getBoolean(StorageKey.HasSeenFamilyOnboarding),
-});
+const OnboardingContext = createContext<TOnboardingContext>(null);
 
 export const useOnboarding = () => useContext(OnboardingContext);
 
 const OnboardingProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [withFamilyOnboarding, setWithFamilyOnboarding] = useState(!storage.getBoolean(StorageKey.HasSeenFamilyOnboarding));
+  const [showFamilyOnboarding, setShowFamilyOnboarding] = useState(!storage.getBoolean(StorageKey.HasSeenFamilyOnboarding));
 
   const dismissFamilyOnboarding = useCallback(() => {
-    setWithFamilyOnboarding(false);
+    setShowFamilyOnboarding(false);
   }, []);
 
   return (
     <OnboardingContext.Provider
       value={{
         dismissFamilyOnboarding,
-        withFamilyOnboarding,
+        showFamilyOnboarding,
       }}
     >
       {children}
