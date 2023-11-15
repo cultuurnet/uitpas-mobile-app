@@ -116,10 +116,12 @@ const Profile = ({ navigation }: TProps) => {
             />
           )}
         </Styled.TopContainer>
-        <LinkList items={rewardSectionLinks} />
-        <Styled.Divider />
-        {MIAInfoFirstActiveCard && <MIANotification socialTariffInfo={MIAInfoFirstActiveCard?.socialTariff} />}
-        <LinkList items={genericProfileLinks} />
+        <Styled.BottomContainer>
+          <LinkList items={rewardSectionLinks} />
+          <Styled.Divider />
+          {MIAInfoFirstActiveCard && <MIANotification socialTariffInfo={MIAInfoFirstActiveCard?.socialTariff} />}
+          <LinkList items={genericProfileLinks} />
+        </Styled.BottomContainer>
       </Styled.SafeAreaViewContainer>
       <LogoutModal isVisible={logOutModalVisible} toggleIsVisible={toggleLogOutModalVisible} />
     </>
