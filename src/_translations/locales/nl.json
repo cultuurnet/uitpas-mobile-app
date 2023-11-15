@@ -32,6 +32,7 @@
       "SKIP": "Nee, voorlopig niet",
       "OVERVIEW": {
         "TITLE": "Gezinsoverzicht",
+        "YOU": "(jij)",
         "ADD_MEMBER": "Gezinslid toevoegen",
         "DONE": "Klaar",
         "CANCEL": "Annuleren"

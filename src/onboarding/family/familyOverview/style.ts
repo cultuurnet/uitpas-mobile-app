@@ -4,8 +4,25 @@ import { Button, TouchableRipple, Typography } from '../../../_components';
 import { theme } from '../../../_styles/theme';
 
 export const Header = styled.View`
+  justify-content: center;
+  align-items: center;
   height: 133px;
   background-color: ${theme.palette.primary['700']};
+  padding: 16px;
+  margin-bottom: 8px;
+`;
+
+export const MyAvatar = styled.Image`
+  width: 64px;
+  height: 64px;
+  border: 4px solid ${theme.palette.neutral['0']};
+  border-radius: 32px;
+`;
+
+export const MyName = styled(Typography)`
+  font-size: 14px;
+  line-height: 21px;
+  margin-top: 16px;
 `;
 
 export const FormItemContainer = styled.View`
@@ -32,6 +49,7 @@ export const FormItem = styled.View`
 
 export const FormItemLabel = styled(Typography)`
   font-size: 14px;
+  line-height: 21px;
 `;
 
 export const FamilyMemberAvatar = styled.Image`
@@ -49,6 +67,5 @@ export const AddIconContainer = styled.View`
 `;
 
 export const ConfirmButton = styled(Button)`
-  margin-horizontal: 16px;
-  margin-bottom: 16px;
+  margin: 16px;
 `;

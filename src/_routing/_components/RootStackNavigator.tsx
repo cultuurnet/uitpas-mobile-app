@@ -61,17 +61,26 @@ export const RootStackNavigator = () => {
         {!isAuthenticated && <RootStack.Screen component={Login} name="Login" />}
       </RootStack.Group>
       {isAuthenticated && showFamilyOnboarding && (
-        <RootStack.Group screenOptions={{ headerShown: true }}>
+        <RootStack.Group navigationKey={showFamilyOnboarding.toString()} screenOptions={{ headerShown: true }}>
           <RootStack.Screen
             component={FamilyOnboarding}
             name="FamilyOnboarding"
             options={{ gestureEnabled: false, headerShown: false }}
           />
-          <RootStack.Screen component={FamilyOverview} name="FamilyOverview" />
+          <RootStack.Screen
+            component={FamilyOverview}
+            name="FamilyOverview"
+            options={{
+              gestureEnabled: false,
+              headerBackVisible: false,
+              title: i18n.t('ONBOARDING.FAMILY.OVERVIEW.TITLE'),
+            }}
+          />
           <RootStack.Screen
             component={AddFamilyMember}
             name="AddFamilyMember"
             options={{
+              headerBackTitle: '',
               title: i18n.t('ONBOARDING.FAMILY.ADD_MEMBER.TITLE'),
             }}
           />

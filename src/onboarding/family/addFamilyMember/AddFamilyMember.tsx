@@ -28,7 +28,6 @@ export const AddFamilyMember = () => {
 
   const headerHeight = useHeaderHeight();
   const { bottom } = useSafeAreaInsets();
-
   const { t } = useTranslation();
 
   const addMember = () => {};
