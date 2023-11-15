@@ -29,7 +29,21 @@
       "BULLET_3": "Ruil voordelen om voor al je gezinleden in dezelfde app",
       "BULLET_4": "Bekijk de historiek van jou en je gezinsleden",
       "CONFIRM": "Ja, stel mijn gezin samen",
-      "SKIP": "Nee, voorlopig niet"
+      "SKIP": "Nee, voorlopig niet",
+      "ADD_MEMBER": {
+        "TITLE": "Gezinslid toevoegen",
+        "UITPAS_NUMBER": "UiTPAS nummer",
+        "UITPAS_NUMBER_INFO": "Je UiTPAS nummer kan je vinden achteraan je UiTPAS of in de welkomstmail die je kreeg toen je je UiTPAS kocht.",
+        "UITPAS_NUMBER_DESCRIPTION_1": "Heeft je gezinslid nog geen UiTPAS, ",
+        "UITPAS_NUMBER_DESCRIPTION_2": "bekijk hier de verkooppunten",
+        "UITPAS_NUMBER_DESCRIPTION_LINK": "https://www.uitpas.be/activiteiten-in-de-regio",
+        "BIRTHDATE": "Geboortedatum",
+        "MISSING_FIELDS": "Je hebt niet alle inputvelden ingevuld",
+        "INFO": "Als je iemand toevoegt als gezinslid, delen we jouw persoonlijke data. Gezinsleden kunnen er altijd zelf voor kiezen om uit jouw gezin te stappen.",
+        "ADD": "Toevoegen",
+        "CANCEL": "Annuleren",
+        "CLOSE": "Sluiten"
+      }
     }
   },
   "AUTHENTICATION": {
@@ -56,6 +70,7 @@
       "LOGOUT": "Afmelden",
       "ABOUT": "Over deze app",
       "PERSONAL_INFO": "Mijn persoonlijke gegevens",
+      "MY_FAMILY": "Mijn gezin",
       "FAQ": "Veelgestelde vragen"
     },
     "ABOUT": {

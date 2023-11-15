@@ -9,16 +9,25 @@ export const TextInput = styled.TextInput<{ isError?: boolean }>`
   border-radius: 8px;
   color: ${theme.palette.neutral['900']};
   font-family: 'Poppins-Regular';
-  height: 44px;
+  font-size: 16px;
   padding-horizontal: 16px;
-  padding-vertical: 12px;
+  padding-vertical: 8px;
 `;
 
 export const Label = styled(Typography)`
   font-size: 12px;
+  line-height: 18px;
+  margin-bottom: 4px;
+`;
+
+export const LabelContainer = styled.View`
   margin-bottom: 4px;
 `;
 
 export const Description = styled(Typography)`
+  margin-top: 8px;
+`;
+
+export const DescriptionContainer = styled.View`
   margin-top: 8px;
 `;
