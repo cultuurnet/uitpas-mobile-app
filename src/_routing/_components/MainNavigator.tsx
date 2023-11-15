@@ -77,7 +77,6 @@ export const MainNavigator: FC = () => {
         elevation: 0,
         height: 60 + insets.bottom,
         padding: 10,
-        position: 'absolute',
         shadowOpacity: 0.1, // only for iOS, on android, we draw a borderLine in NavigationBar.tsx
       },
     }),
