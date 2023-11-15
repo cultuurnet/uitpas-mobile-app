@@ -14,7 +14,7 @@ import Error from '../../error/Error';
 import { FilteredShop } from '../../filteredShop/FilteredShop';
 import History from '../../history/History';
 import Login from '../../login/Login';
-import { FamilyOnboarding } from '../../onboarding/family/FamilyOnboarding';
+import { AddFamilyMember, FamilyOnboarding } from '../../onboarding/family';
 import Onboarding from '../../onboarding/Onboarding';
 import ProfileNotFound from '../../profile/ProfileNotFound';
 import RedeemedReward from '../../redeemedReward/RedeemedReward';
@@ -57,9 +57,24 @@ export const RootStackNavigator = () => {
       <RootStack.Group screenOptions={{ headerShown: false }}>
         {!isAuthenticated && !isPolicyApprovedInStorage && <RootStack.Screen component={Onboarding} name="Onboarding" />}
         {isAuthenticated && versions?.isBehindMinVersion && <RootStack.Screen component={UpdateScreen} name="Update" />}
-        {isAuthenticated && showFamilyOnboarding && <RootStack.Screen component={FamilyOnboarding} name="FamilyOnboarding" />}
         {!isAuthenticated && <RootStack.Screen component={Login} name="Login" />}
       </RootStack.Group>
+      {isAuthenticated && showFamilyOnboarding && (
+        <RootStack.Group screenOptions={{ headerShown: true }}>
+          <RootStack.Screen
+            component={FamilyOnboarding}
+            name="FamilyOnboarding"
+            options={{ gestureEnabled: false, headerShown: false }}
+          />
+          <RootStack.Screen
+            component={AddFamilyMember}
+            name="AddFamilyMember"
+            options={{
+              title: i18n.t('ONBOARDING.FAMILY.ADD_MEMBER.TITLE'),
+            }}
+          />
+        </RootStack.Group>
+      )}
       {isAuthenticated && !showFamilyOnboarding && (
         <>
           <RootStack.Screen
@@ -156,6 +171,14 @@ export const RootStackNavigator = () => {
               presentation: 'modal',
               title: i18n.t('SHOP.SEARCH.FILTERS.HEADER_TITLE'),
             })}
+          />
+          <RootStack.Screen
+            component={AddFamilyMember}
+            name="AddFamilyMember"
+            options={{
+              headerBackTitle: '',
+              title: i18n.t('ONBOARDING.FAMILY.ADD_MEMBER.TITLE'),
+            }}
           />
         </>
       )}
