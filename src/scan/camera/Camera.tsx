@@ -38,11 +38,11 @@ const Camera = ({ navigation }: TProps) => {
     frame => {
       'worklet';
       const barcodes = scanBarcodes(frame, [BarcodeFormat.QR_CODE]);
-      if (barcodes.length > 0) {
+      if (isActive && !isLoading && barcodes.length > 0) {
         runOnJS(onBarCodeDetected)(barcodes[0], frame);
       }
     },
-    [overlayDimensions],
+    [overlayDimensions, isActive, isLoading],
   );
 
   useFocusEffect(
@@ -61,7 +61,7 @@ const Camera = ({ navigation }: TProps) => {
     const frameWidth = frame.width > frame.height ? frame.height : frame.width;
     const frameHeight = frame.width > frame.height ? frame.width : frame.height;
 
-    if (isInRange(barcode, overlay.regionDefinition, [frameWidth, frameHeight])) {
+    if (isActive && !isLoading && isInRange(barcode, overlay.regionDefinition, [frameWidth, frameHeight])) {
       try {
         setIsActive(false);
         const response = await mutateAsync({ checkinCode: barcode.displayValue });
