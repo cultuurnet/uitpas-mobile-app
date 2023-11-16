@@ -84,7 +84,7 @@ export const FamilyOverview = ({ navigation }: TProps) => {
                     </Styled.FormItemLabel>
                   </Styled.FormItem>
                 </Styled.FormItemButton>
-                {familyMembers.length % 2 === 1 && <Styled.FormItemContainer />}
+                {familyMembers?.length % 2 === 1 && <Styled.FormItemContainer />}
               </>
             );
           }
