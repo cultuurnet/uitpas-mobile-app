@@ -1,5 +1,6 @@
 export * from './colorHelper';
 export * from './dateHelpers';
+export * from './imageHelpers';
 export * from './languageHelpers';
 export * from './logger';
 export * from './maskHelpers';
