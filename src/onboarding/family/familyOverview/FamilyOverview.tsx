@@ -16,8 +16,7 @@ type TProps = {
 
 enum TFormItemType {
   FamilyMemberItem,
-  AddFamilyMemberButton,
-  EmptyItem,
+  FamilyMemberAddButton,
 }
 
 export const FamilyOverview = ({ navigation }: TProps) => {
@@ -30,11 +29,7 @@ export const FamilyOverview = ({ navigation }: TProps) => {
       familyMembers
         ?.filter(({ mainFamilyMember }) => !mainFamilyMember)
         ?.map(item => ({ ...item, type: TFormItemType.FamilyMemberItem as const })) ?? [];
-    return [
-      ...otherFamilyMembers,
-      { type: TFormItemType.AddFamilyMemberButton as const },
-      ...(otherFamilyMembers?.length % 2 === 0 ? [{ type: TFormItemType.EmptyItem } as const] : []),
-    ];
+    return [...otherFamilyMembers, { type: TFormItemType.FamilyMemberAddButton as const }];
   }, [familyMembers]);
 
   const { showFamilyOnboarding, dismissFamilyOnboarding } = useOnboarding();
@@ -76,22 +71,24 @@ export const FamilyOverview = ({ navigation }: TProps) => {
                 </Styled.FormItem>
               </Styled.FormItemContainer>
             );
-          } else if (formItem.type === TFormItemType.AddFamilyMemberButton) {
+          } else if (formItem.type === TFormItemType.FamilyMemberAddButton) {
             return (
-              <Styled.FormItemButton onPress={() => navigation.navigate('AddFamilyMember')}>
-                <Styled.FormItem>
-                  <Styled.AddIconContainer>
-                    <Icon name="Plus" />
-                  </Styled.AddIconContainer>
-                  <Styled.FormItemLabel align="center" color="primary.700" fontStyle="semibold" numberOfLines={2}>
-                    {t('ONBOARDING.FAMILY.OVERVIEW.ADD_MEMBER')}
-                  </Styled.FormItemLabel>
-                </Styled.FormItem>
-              </Styled.FormItemButton>
+              <>
+                <Styled.FormItemButton onPress={() => navigation.navigate('AddFamilyMember')}>
+                  <Styled.FormItem>
+                    <Styled.AddIconContainer>
+                      <Icon name="Plus" />
+                    </Styled.AddIconContainer>
+                    <Styled.FormItemLabel align="center" color="primary.700" fontStyle="semibold" numberOfLines={2}>
+                      {t('ONBOARDING.FAMILY.OVERVIEW.ADD_MEMBER')}
+                    </Styled.FormItemLabel>
+                  </Styled.FormItem>
+                </Styled.FormItemButton>
+                {familyMembers.length % 2 === 1 && <Styled.FormItemContainer />}
+              </>
             );
-          } else if (formItem.type === TFormItemType.EmptyItem) {
-            return <Styled.FormItemContainer />;
           }
+          return null;
         }}
       />
       <View style={{ marginBottom: bottom }}>

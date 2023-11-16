@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 export * from './avatars';
-export * from './avatars/getAvatarByNameOrDefault';
 export const Counter = require('./counter.png');
 export const Error = require('./error.png');
 export const Family = require('./family.png');
