@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { FlatList, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { getAvatarByNameOrDefault } from '../../../_assets/images';
 import { Icon } from '../../../_components';
 import { useOnboarding } from '../../../_context';
 import { TMainNavigationProp } from '../../../_routing';
+import { getAvatarByNameOrDefault } from '../../../_utils';
 import { useGetFamilyMembers } from '../_queries/useGetFamilyMembers';
 import * as Styled from './style';
 
@@ -89,18 +89,14 @@ export const FamilyOverview = ({ navigation }: TProps) => {
                 </Styled.FormItem>
               </Styled.FormItemButton>
             );
-          } else {
+          } else if (formItem.type === TFormItemType.EmptyItem) {
             return <Styled.FormItemContainer />;
           }
         }}
       />
       <View style={{ marginBottom: bottom }}>
         <Styled.ConfirmButton
-          label={
-            familyMembers?.filter(({ mainFamilyMember }) => !mainFamilyMember).length > 0
-              ? t('ONBOARDING.FAMILY.OVERVIEW.DONE')
-              : t('ONBOARDING.FAMILY.OVERVIEW.CANCEL')
-          }
+          label={familyMembers?.length > 1 ? t('ONBOARDING.FAMILY.OVERVIEW.DONE') : t('ONBOARDING.FAMILY.OVERVIEW.CANCEL')}
           onPress={handleSubmit}
         />
       </View>
