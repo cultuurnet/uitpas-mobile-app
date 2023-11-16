@@ -20,7 +20,6 @@ export const ActionButton = styled(Button)`
 
 export const SafeAreaViewContainer = styled(SafeAreaView)`
   background-color: ${({ theme }) => theme.palette.neutral['100']};
-  padding-bottom: 95px;
 `;
 
 export const TopContent = styled.View`
@@ -35,6 +34,10 @@ export const TopContainer = styled.View`
   position: relative;
   /* background-color: ${({ theme }) => theme.palette.secondary['500']}; */
   padding: 0px 20px 5px 20px;
+`;
+
+export const BottomContainer = styled.View`
+  padding-bottom: 24px;
 `;
 
 export const ErrorMessage = styled(Typography)`
