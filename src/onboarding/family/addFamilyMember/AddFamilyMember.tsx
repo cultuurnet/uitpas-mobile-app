@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useHeaderHeight } from '@react-navigation/elements';
 
 import { Button, Typography } from '../../../_components';
+import { useStackNavigation } from '../../../_hooks';
 import { applyBarcodeMask, openExternalURL } from '../../../_utils';
 import * as Styled from './style';
 
@@ -25,7 +26,7 @@ export const AddFamilyMember = () => {
       uitpasNumber: '',
     },
   });
-
+  const navigation = useStackNavigation();
   const headerHeight = useHeaderHeight();
   const { bottom } = useSafeAreaInsets();
 
@@ -94,8 +95,12 @@ export const AddFamilyMember = () => {
       </Styled.InnerContainer>
       <Styled.StickyFooter style={{ marginBottom: bottom }}>
         <Button label={t('ONBOARDING.FAMILY.ADD_MEMBER.ADD')} onPress={handleSubmit(addMember)} />
-        {/* TODO: Uncomment in UIT-212 
-        <Styled.CancelButton color="primary.700" label={t('ONBOARDING.FAMILY.ADD_MEMBER.CANCEL')} variant="outline" /> */}
+        <Styled.CancelButton
+          color="primary.700"
+          label={t('ONBOARDING.FAMILY.ADD_MEMBER.CANCEL')}
+          onPress={() => navigation.navigate('FamilyInformation')}
+          variant="outline"
+        />
       </Styled.StickyFooter>
     </Styled.ScreenContainer>
   );

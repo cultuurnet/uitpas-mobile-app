@@ -2,6 +2,7 @@
 export const Activity = require('./activity.png');
 export const ArrowLeft = require('./arrowLeft.png');
 export const ArrowRight = require('./arrowRight.png');
+export const ArrowUp = require('./arrowUp.png');
 export const Bag = require('./bag.png');
 export const Charity = require('./charity.png');
 export const Check = require('./check.png');
