@@ -30,6 +30,7 @@ export type TMainRouteProp<RouteName extends TMainRoute = TMainRoute> = RoutePro
 export type TRootStackParamList = {
   About: undefined;
   AddFamilyMember: undefined;
+  AddFamilyMemberError: { description: string };
   Error: {
     gotoAfterClose?: [TRootRoute, TMainRoute] | keyof TRootStackParamList;
     message: string;
