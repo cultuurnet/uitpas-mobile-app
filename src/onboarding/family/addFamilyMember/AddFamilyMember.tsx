@@ -29,7 +29,6 @@ export const AddFamilyMember = () => {
   const navigation = useStackNavigation();
   const headerHeight = useHeaderHeight();
   const { bottom } = useSafeAreaInsets();
-
   const { t } = useTranslation();
 
   const addMember = () => {};

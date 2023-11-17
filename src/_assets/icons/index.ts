@@ -26,6 +26,7 @@ export const Info = require('./info.png');
 export const Location = require('./location.png');
 export const Logout = require('./logout.png');
 export const Online = require('./online.png');
+export const Plus = require('./plus.png');
 export const Point = require('./point.png');
 export const PointAdd = require('./pointAdd.png');
 export const Popular = require('./popular.png');
