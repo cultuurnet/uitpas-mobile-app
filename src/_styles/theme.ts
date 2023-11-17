@@ -5,6 +5,9 @@ import { ObjectDotNotation } from '../_models';
 export const theme = {
   // Use hashes
   palette: {
+    opacity: {
+      '0': 'transparent',
+    },
     neutral: {
       '0': '#ffffff',
       '100': '#EAECEC',

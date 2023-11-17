@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ShopFaded } from '../../../_assets/images';
-import { Button, Typography } from '../../../_components';
+import { Button, SafeAreaView, Typography } from '../../../_components';
 import { useOnboarding } from '../../../_context';
 import * as Styled from './style';
 
@@ -16,7 +16,7 @@ export const FamilyInformation: React.FC = () => {
     <>
       <Styled.ArrowUp name="ArrowUp" size={120} />
       <Styled.BackgroundImage source={ShopFaded} />
-      <Styled.SafeAreaView edges={['bottom']}>
+      <SafeAreaView backgroundColor="opacity.0" edges={['bottom']}>
         <Styled.ContentContainer>
           <Styled.CenteredView top={top}>
             <Typography color="neutral.0" fontStyle="bold" size="large">
@@ -34,7 +34,7 @@ export const FamilyInformation: React.FC = () => {
             </Typography>
           </Button>
         </Styled.ButtonContainer>
-      </Styled.SafeAreaView>
+      </SafeAreaView>
     </>
   );
 };
