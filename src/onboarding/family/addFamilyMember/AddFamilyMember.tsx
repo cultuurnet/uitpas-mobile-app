@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useHeaderHeight } from '@react-navigation/elements';
 
 import { Button, Typography } from '../../../_components';
+import { queryClient } from '../../../_context';
 import { TMainNavigationProp } from '../../../_routing';
 import { applyBarcodeMask, DEFAULT_AVATAR_NAME, openExternalURL } from '../../../_utils';
 import { TRegistrationTokenRequest, useGetRegistrationToken, useRegisterFamilyMember } from '../_queries';
@@ -37,7 +38,6 @@ export const AddFamilyMember = ({ navigation }: TProps) => {
     isLoading: registrationTokenIsLoading,
   } = useGetRegistrationToken();
   const { mutateAsync: registerFamilyMember } = useRegisterFamilyMember(registrationTokenResponse?.token);
-
   useEffect(() => {
     const registerFamilyMemberTask = async () => {
       try {
@@ -45,6 +45,7 @@ export const AddFamilyMember = ({ navigation }: TProps) => {
           icon: DEFAULT_AVATAR_NAME,
           uitpasNumber: getFormValues().uitpasNumber.replaceAll(' ', ''),
         });
+        queryClient.invalidateQueries(['family-members']);
         // TODO: Navigate to success screen
       } catch (error) {
         navigation.navigate('AddFamilyMemberError', { description: error.endUserMessage.nl });
