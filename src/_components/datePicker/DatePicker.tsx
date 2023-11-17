@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 import FakeTextInput from '../textInput/fakeTextInput/FakeTextInput';
 
 type TProps = {
-  date: Date;
+  date?: Date;
   description?: string | ReactElement;
   isError?: boolean;
   label?: string | ReactElement;

@@ -30,6 +30,13 @@
       "BULLET_4": "Bekijk de historiek van jou en je gezinsleden",
       "CONFIRM": "Ja, stel mijn gezin samen",
       "SKIP": "Nee, voorlopig niet",
+      "OVERVIEW": {
+        "TITLE": "Gezinsoverzicht",
+        "YOU": "(jij)",
+        "ADD_MEMBER": "Gezinslid toevoegen",
+        "DONE": "Klaar",
+        "CANCEL": "Annuleren"
+      },
       "ADD_MEMBER": {
         "TITLE": "Gezinslid toevoegen",
         "UITPAS_NUMBER": "UiTPAS nummer",

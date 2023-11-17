@@ -15,6 +15,7 @@ import { FilteredShop } from '../../filteredShop/FilteredShop';
 import History from '../../history/History';
 import Login from '../../login/Login';
 import { AddFamilyMember, FamilyOnboarding } from '../../onboarding/family';
+import { FamilyOverview } from '../../onboarding/family/familyOverview/FamilyOverview';
 import Onboarding from '../../onboarding/Onboarding';
 import ProfileNotFound from '../../profile/ProfileNotFound';
 import RedeemedReward from '../../redeemedReward/RedeemedReward';
@@ -60,16 +61,26 @@ export const RootStackNavigator = () => {
         {!isAuthenticated && <RootStack.Screen component={Login} name="Login" />}
       </RootStack.Group>
       {isAuthenticated && showFamilyOnboarding && (
-        <RootStack.Group screenOptions={{ headerShown: true }}>
+        <RootStack.Group navigationKey={showFamilyOnboarding.toString()} screenOptions={{ headerShown: true }}>
           <RootStack.Screen
             component={FamilyOnboarding}
             name="FamilyOnboarding"
             options={{ gestureEnabled: false, headerShown: false }}
           />
           <RootStack.Screen
+            component={FamilyOverview}
+            name="FamilyOverview"
+            options={{
+              gestureEnabled: false,
+              headerBackVisible: false,
+              title: i18n.t('ONBOARDING.FAMILY.OVERVIEW.TITLE'),
+            }}
+          />
+          <RootStack.Screen
             component={AddFamilyMember}
             name="AddFamilyMember"
             options={{
+              headerBackTitle: '',
               title: i18n.t('ONBOARDING.FAMILY.ADD_MEMBER.TITLE'),
             }}
           />
@@ -171,6 +182,14 @@ export const RootStackNavigator = () => {
               presentation: 'modal',
               title: i18n.t('SHOP.SEARCH.FILTERS.HEADER_TITLE'),
             })}
+          />
+          <RootStack.Screen
+            component={FamilyOverview}
+            name="FamilyOverview"
+            options={{
+              headerBackTitle: '',
+              title: i18n.t('ONBOARDING.FAMILY.OVERVIEW.TITLE'),
+            }}
           />
           <RootStack.Screen
             component={AddFamilyMember}

@@ -40,7 +40,7 @@ export const FamilyOnboarding = ({ navigation }: TProps) => {
   const { t } = useTranslation();
 
   const goToFamilyOverview = () => {
-    navigation.navigate('AddFamilyMember');
+    navigation.navigate('FamilyOverview');
     storage.set(StorageKey.HasSeenFamilyOnboarding, true);
   };
 
