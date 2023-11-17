@@ -16,7 +16,7 @@ export const FamilyInformation: React.FC = () => {
     <>
       <Styled.ArrowUp name="ArrowUp" size={120} />
       <Styled.BackgroundImage source={ShopFaded} />
-      <Styled.SafeAreaView edges={['bottom']} style={{ flex: 1 }}>
+      <Styled.SafeAreaView edges={['bottom']}>
         <Styled.ContentContainer>
           <Styled.CenteredView top={top}>
             <Typography color="neutral.0" fontStyle="bold" size="large">
