@@ -61,7 +61,7 @@ const Camera = ({ navigation }: TProps) => {
     const frameWidth = frame.width > frame.height ? frame.height : frame.width;
     const frameHeight = frame.width > frame.height ? frame.width : frame.height;
 
-    if (isActive && !isLoading && isInRange(barcode, overlay.regionDefinition, [frameWidth, frameHeight])) {
+    if (isInRange(barcode, overlay.regionDefinition, [frameWidth, frameHeight])) {
       try {
         setIsActive(false);
         const response = await mutateAsync({ checkinCode: barcode.displayValue });
