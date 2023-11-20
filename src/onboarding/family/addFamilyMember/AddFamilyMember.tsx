@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Platform } from 'react-native';
@@ -32,27 +32,26 @@ export const AddFamilyMember = ({ navigation }: TProps) => {
   });
 
   const {
-    data: registrationTokenResponse,
-    error: registrationTokenError,
-    mutate: getRegistrationToken,
+    error: registrationTokenError, // Inline error
     isLoading: registrationTokenIsLoading,
-  } = useGetRegistrationToken();
-  const { mutateAsync: registerFamilyMember } = useRegisterFamilyMember(registrationTokenResponse?.token);
-  useEffect(() => {
-    const registerFamilyMemberTask = async () => {
+    mutate: getRegistrationToken,
+  } = useGetRegistrationToken({
+    onSuccess: async ({ token }) => {
       try {
         await registerFamilyMember({
-          icon: DEFAULT_AVATAR_NAME,
-          uitpasNumber: getFormValues().uitpasNumber.replaceAll(' ', ''),
+          body: {
+            icon: DEFAULT_AVATAR_NAME,
+            uitpasNumber: getFormValues().uitpasNumber.replaceAll(' ', ''),
+          },
+          headers: { 'x-registration-token': token },
         });
         queryClient.invalidateQueries(['family-members']);
-        // TODO: Navigate to success screen
       } catch (error) {
-        navigation.navigate('AddFamilyMemberError', { description: error.endUserMessage.nl });
+        navigation.navigate('AddFamilyMemberError', { description: error.endUserMessage.nl }); // End-of-flow error
       }
-    };
-    registrationTokenResponse?.token && registerFamilyMemberTask();
-  }, [getFormValues, navigation, registerFamilyMember, registrationTokenResponse?.token]);
+    },
+  });
+  const { mutateAsync: registerFamilyMember, isLoading: registerFamilyMemberIsLoading } = useRegisterFamilyMember();
 
   const headerHeight = useHeaderHeight();
   const { bottom } = useSafeAreaInsets();
@@ -123,8 +122,8 @@ export const AddFamilyMember = ({ navigation }: TProps) => {
       <Styled.StickyFooter style={{ marginBottom: bottom }}>
         <Button
           label={t('ONBOARDING.FAMILY.ADD_MEMBER.ADD')}
-          loading={registrationTokenIsLoading}
-          onPress={handleSubmit(formData => getRegistrationToken(formData))}
+          loading={registrationTokenIsLoading || registerFamilyMemberIsLoading}
+          onPress={handleSubmit(getRegistrationToken)}
         />
         {registrationTokenError?.status === 403 && (
           <Styled.CancelButton color="primary.700" label={t('ONBOARDING.FAMILY.ADD_MEMBER.CANCEL')} variant="outline" />

@@ -1,18 +1,18 @@
 import { usePubliqApi } from '../../../_hooks/usePubliqApi';
+import { Headers } from '../../../_http/HttpClient';
 import { useGetMe } from '../../../profile/_queries/useGetMe';
 
-type TRegisterFamilyMemberBody = {
-  icon: string;
-  uitpasNumber: string;
+type TRegisterFamilyMemberParams = {
+  body: {
+    icon: string;
+    uitpasNumber: string;
+  };
+  headers: Headers;
 };
 
-export const useRegisterFamilyMember = (registrationToken: string) => {
+export const useRegisterFamilyMember = () => {
   const { data: user } = useGetMe();
   const api = usePubliqApi();
 
-  return api.post<string, TRegisterFamilyMemberBody>(
-    ['family-member-registration', registrationToken],
-    `/passholders/${user?.id}/family-members`,
-    { headers: { 'x-registration-token': registrationToken } },
-  );
+  return api.post<string, TRegisterFamilyMemberParams>(['family-member-registration'], `/passholders/${user?.id}/family-members`);
 };
