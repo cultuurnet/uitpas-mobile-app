@@ -35,6 +35,7 @@ export type TRootStackParamList = {
     gotoAfterClose?: [TRootRoute, TMainRoute] | keyof TRootStackParamList;
     message: string;
   };
+  FamilyInformation: undefined;
   FamilyOnboarding: undefined;
   FamilyOverview: undefined;
   FilteredShop: {

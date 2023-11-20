@@ -14,7 +14,13 @@ import Error from '../../error/Error';
 import { FilteredShop } from '../../filteredShop/FilteredShop';
 import History from '../../history/History';
 import Login from '../../login/Login';
-import { AddFamilyMember, AddFamilyMemberError, FamilyOnboarding, FamilyOverview } from '../../onboarding/family';
+import {
+  AddFamilyMember,
+  AddFamilyMemberError,
+  FamilyInformation,
+  FamilyOnboarding,
+  FamilyOverview,
+} from '../../onboarding/family';
 import Onboarding from '../../onboarding/Onboarding';
 import ProfileNotFound from '../../profile/ProfileNotFound';
 import RedeemedReward from '../../redeemedReward/RedeemedReward';
@@ -89,6 +95,14 @@ export const RootStackNavigator = () => {
             options={{
               gestureEnabled: false,
               headerShown: false,
+            }}
+          />
+          <RootStack.Screen
+            component={FamilyInformation}
+            name="FamilyInformation"
+            options={{
+              headerRight: UserPoints,
+              title: i18n.t('NAVIGATION.SHOP'),
             }}
           />
         </RootStack.Group>
