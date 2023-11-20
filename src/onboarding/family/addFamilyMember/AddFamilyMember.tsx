@@ -25,7 +25,6 @@ export const AddFamilyMember = () => {
       uitpasNumber: '',
     },
   });
-
   const headerHeight = useHeaderHeight();
   const { bottom } = useSafeAreaInsets();
   const { t } = useTranslation();
@@ -93,8 +92,8 @@ export const AddFamilyMember = () => {
       </Styled.InnerContainer>
       <Styled.StickyFooter style={{ marginBottom: bottom }}>
         <Button label={t('ONBOARDING.FAMILY.ADD_MEMBER.ADD')} onPress={handleSubmit(addMember)} />
-        {/* TODO: Uncomment in UIT-212 
-        <Styled.CancelButton color="primary.700" label={t('ONBOARDING.FAMILY.ADD_MEMBER.CANCEL')} variant="outline" /> */}
+        {/* TODO: Uncomment in UIT-212
+       <Styled.CancelButton color="primary.700" label={t('ONBOARDING.FAMILY.ADD_MEMBER.CANCEL')} variant="outline" /> */}
       </Styled.StickyFooter>
     </Styled.ScreenContainer>
   );
