@@ -16,6 +16,7 @@ import History from '../../history/History';
 import Login from '../../login/Login';
 import { AddFamilyMember, FamilyInformation, FamilyOnboarding, FamilyOverview } from '../../onboarding/family';
 import Onboarding from '../../onboarding/Onboarding';
+import { FamiliesOverview } from '../../profile/family/FamiliesOverview';
 import ProfileNotFound from '../../profile/ProfileNotFound';
 import RedeemedReward from '../../redeemedReward/RedeemedReward';
 import { RedeemedRewards } from '../../redeemedRewards/RedeemedRewards';
@@ -204,6 +205,14 @@ export const RootStackNavigator = () => {
             options={{
               headerBackTitle: '',
               title: i18n.t('ONBOARDING.FAMILY.ADD_MEMBER.TITLE'),
+            }}
+          />
+          <RootStack.Screen
+            component={FamiliesOverview}
+            name="FamiliesOverview"
+            options={{
+              headerBackTitle: '',
+              title: i18n.t('PROFILE.LINKS.MY_FAMILY'),
             }}
           />
         </>
