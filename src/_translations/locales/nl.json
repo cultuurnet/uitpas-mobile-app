@@ -55,6 +55,11 @@
           "BACK_TO_FAMILY_OVERVIEW": "Terug naar gezinsoverzicht"
         }
       },
+      "EDIT_MEMBER": {
+        "TITLE": "Gezinslid wijzigen",
+        "DESCRIPTION": "Kies de weergave van het gezinslid",
+        "SAVE": "Opslaan"
+      },
       "INFORMATION": {
         "INFO_TITLE": "Bekijk je gezin via deze knop",
         "INFO": "Hier kan je snel je gezinssamenstelling raadplegen en alle UiTPAS kaarten raadplegen.",
