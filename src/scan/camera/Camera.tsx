@@ -64,7 +64,7 @@ const Camera = ({ navigation }: TProps) => {
     if (isInRange(barcode, overlay.regionDefinition, [frameWidth, frameHeight])) {
       try {
         setIsActive(false);
-        const response = await mutateAsync({ checkinCode: barcode.displayValue });
+        const response = await mutateAsync({ body: { checkinCode: barcode.displayValue } });
         navigation.navigate('ScanSuccess', response);
       } catch (error) {
         const { endUserMessage } = error as TApiError;

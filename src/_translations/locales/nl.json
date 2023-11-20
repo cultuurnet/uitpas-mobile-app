@@ -49,7 +49,16 @@
         "INFO": "Als je iemand toevoegt als gezinslid, delen we jouw persoonlijke data. Gezinsleden kunnen er altijd zelf voor kiezen om uit jouw gezin te stappen.",
         "ADD": "Toevoegen",
         "CANCEL": "Annuleren",
-        "CLOSE": "Sluiten"
+        "CLOSE": "Sluiten",
+        "ERROR": {
+          "TITLE": "Gezinslid kan niet toegevoegd worden",
+          "BACK_TO_FAMILY_OVERVIEW": "Terug naar gezinsoverzicht"
+        }
+      },
+      "INFORMATION": {
+        "INFO_TITLE": "Bekijk je gezin via deze knop",
+        "INFO": "Hier kan je snel je gezinssamenstelling raadplegen en alle UiTPAS kaarten raadplegen.",
+        "CONTINUE": "Verdergaan"
       }
     }
   },

@@ -8,7 +8,7 @@ import { useOnboarding } from '../../_context';
 import { StorageKey } from '../../_models';
 import { TMainNavigationProp } from '../../_routing';
 import { storage } from '../../storage';
-import { useHasFamilyMembers } from './_queries/useHasFamilyMembers';
+import { useHasFamilyMembers } from './_queries';
 import * as Styled from './style';
 
 const BULLET_ITEMS = [

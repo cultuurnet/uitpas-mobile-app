@@ -19,5 +19,3 @@ export const Animals6 = require('./animals-6.png');
 export const Animals7 = require('./animals-7.png');
 export const Animals8 = require('./animals-8.png');
 export const Animals9 = require('./animals-9.png');
-
-export const DEFAULT_AVATAR = Emoji0;

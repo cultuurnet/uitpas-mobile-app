@@ -8,7 +8,6 @@ export const useHasFamilyMembers = () => {
 
   const response = api.get<TFamilyMember[]>(['family-members'], `/passholders/${user?.id}/family-members`, {
     enabled: !!user?.id,
-    retry: false,
   });
 
   return { ...response, data: response.data?.some?.(({ mainFamilyMember }) => !mainFamilyMember) };
