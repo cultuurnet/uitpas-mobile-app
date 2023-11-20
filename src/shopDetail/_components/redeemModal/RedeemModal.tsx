@@ -42,7 +42,7 @@ const RedeemModal: FC<TRedeemModalProps> = ({ reward, isVisible, toggleIsVisible
 
   const handleConfirm = useCallback(() => {
     trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-confirm' }, { reward: rewardTrackingData });
-    redeemReward({ rewardId: reward.id, uitpasNumber: activeCard.uitpasNumber });
+    redeemReward({ body: { rewardId: reward.id, uitpasNumber: activeCard.uitpasNumber } });
   }, [reward, redeemReward, activeCard.uitpasNumber, trackSelfDescribingEvent, rewardTrackingData]);
 
   const handleCancel = () => {

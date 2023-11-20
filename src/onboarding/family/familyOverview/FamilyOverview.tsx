@@ -7,7 +7,7 @@ import { Icon } from '../../../_components';
 import { useOnboarding } from '../../../_context';
 import { TMainNavigationProp } from '../../../_routing';
 import { getAvatarByNameOrDefault } from '../../../_utils';
-import { useGetFamilyMembers } from '../_queries/useGetFamilyMembers';
+import { useGetFamilyMembers } from '../_queries';
 import * as Styled from './style';
 
 type TProps = {

@@ -6,6 +6,7 @@ import { theme } from '../../../_styles/theme';
 
 export const ScreenContainer = styled(KeyboardAvoidingView)`
   flex: 1;
+  background-color: ${theme.palette.neutral['0']};
 `;
 
 export const InnerContainer = styled.ScrollView`
