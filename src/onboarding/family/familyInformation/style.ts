@@ -1,4 +1,3 @@
-import { SafeAreaView as RNSafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 
 import { Icon, Typography } from '../../../_components';
@@ -14,10 +13,6 @@ export const BackgroundImage = styled.Image`
   position: absolute;
   width: 100%;
   height: 100%;
-`;
-
-export const SafeAreaView = styled(RNSafeAreaView)`
-  flex: 1;
 `;
 
 export const ContentContainer = styled.View`
