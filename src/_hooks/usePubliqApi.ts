@@ -72,12 +72,12 @@ export function usePubliqApi(host: ApiHost = 'uitpas') {
     <T = unknown, MutationParams extends TMutationParams = TMutationParams>(
       mutationKey: unknown[],
       path: string,
-      { headers = {}, ...options }: TPostOptions<T> = {},
+      options: TPostOptions<T> = {},
     ) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       return useMutation<T, TApiError, MutationParams>({
         mutationFn: async ({ body, headers: extraHeaders }) =>
-          HttpClient.post<T>(`${apiHost}${path}`, body, { ...defaultHeaders, ...headers, ...extraHeaders }),
+          HttpClient.post<T>(`${apiHost}${path}`, body, { ...defaultHeaders, ...extraHeaders }),
         mutationKey,
         networkMode: 'offlineFirst',
         ...options,

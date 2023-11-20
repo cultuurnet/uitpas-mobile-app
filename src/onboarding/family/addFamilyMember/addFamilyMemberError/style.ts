@@ -1,11 +1,6 @@
 import styled from 'styled-components/native';
 
-import { SafeAreaView, Typography } from '../../../../_components';
-import { theme } from '../../../../_styles/theme';
-
-export const SafeAreaViewContainer = styled(SafeAreaView)`
-  background-color: ${theme.palette.neutral['0']};
-`;
+import { Typography } from '../../../../_components';
 
 export const Body = styled.View`
   flex: 1;
