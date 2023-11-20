@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Platform } from 'react-native';
@@ -123,7 +123,7 @@ export const AddFamilyMember = ({ navigation }: TProps) => {
         <Button
           label={t('ONBOARDING.FAMILY.ADD_MEMBER.ADD')}
           loading={registrationTokenIsLoading || registerFamilyMemberIsLoading}
-          onPress={handleSubmit(getRegistrationToken)}
+          onPress={handleSubmit(formData => getRegistrationToken(formData))}
         />
         {registrationTokenError?.status === 403 && (
           <Styled.CancelButton color="primary.700" label={t('ONBOARDING.FAMILY.ADD_MEMBER.CANCEL')} variant="outline" />

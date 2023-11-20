@@ -27,7 +27,10 @@ export type TPostOptions<T = unknown, RequestBody extends Record<string, unknown
 > & {
   headers?: Headers;
 };
-type TMutationParams = { body?: Record<string, unknown>; headers?: Headers };
+export type TMutationParams<RequestBody extends Record<string, unknown> = Record<string, unknown>> = {
+  body?: RequestBody;
+  headers?: Headers;
+};
 type TGetInfiniteOptions<T = unknown> = InfiniteQueryObserverOptions<T, TApiError> & TSharedOptions & { itemsPerPage?: number };
 
 type ApiHost = 'uitpas' | 'uitdatabank';
