@@ -8,6 +8,7 @@ import { useOnboarding } from '../../../_context';
 import { TMainNavigationProp } from '../../../_routing';
 import { getAvatarByNameOrDefault } from '../../../_utils';
 import { useGetFamilyMembers } from '../_queries';
+import DeleteFamilyMember from '../deleteFamilyMember/DeleteFamilyMember';
 import * as Styled from './style';
 
 type TProps = {
@@ -68,6 +69,11 @@ export const FamilyOverview = ({ navigation }: TProps) => {
                   <Styled.FormItemLabel color="primary.700" fontStyle="semibold" numberOfLines={1}>
                     {formItem.firstName}
                   </Styled.FormItemLabel>
+                  <DeleteFamilyMember
+                    familyMemberId={formItem.passholderId}
+                    name={formItem.name}
+                    style={{ flexDirection: 'row', position: 'absolute', right: 0, top: 0 }}
+                  />
                 </Styled.FormItem>
               </Styled.FormItemContainer>
             );

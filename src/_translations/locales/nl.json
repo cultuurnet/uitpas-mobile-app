@@ -37,6 +37,15 @@
         "DONE": "Klaar",
         "CANCEL": "Annuleren"
       },
+      "DELETE_MEMBER": {
+        "CTA": "Gezinslid verwijderen",
+        "CONFIRMATION_MODAL": {
+          "TITLE": "Gezinslid verwijderen",
+          "DESCRIPTION": "Ben je zeker dat je <bold>{{name}}</bold> wil verwijderen uit je gezin?",
+          "CONFIRM": "Verwijderen",
+          "CANCEL": "Annuleren"
+        }
+      },
       "ADD_MEMBER": {
         "TITLE": "Gezinslid toevoegen",
         "UITPAS_NUMBER": "UiTPAS nummer",
