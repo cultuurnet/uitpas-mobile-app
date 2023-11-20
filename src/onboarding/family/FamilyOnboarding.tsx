@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Platform } from 'react-native';
 
 import { Family } from '../../_assets/images';
-import { SafeAreaView, Spinner, Typography } from '../../_components';
+import { Button, SafeAreaView, Spinner, Typography } from '../../_components';
 import { useOnboarding } from '../../_context';
 import { StorageKey } from '../../_models';
 import { TMainNavigationProp } from '../../_routing';
@@ -65,12 +65,7 @@ export const FamilyOnboarding = ({ navigation }: TProps) => {
       </Styled.Body>
       <Styled.Footer>
         <Styled.ConfirmButton label={t('ONBOARDING.FAMILY.CONFIRM')} onPress={goToFamilyOverview} />
-        <Styled.SkipButton
-          color="primary.700"
-          label={t('ONBOARDING.FAMILY.SKIP')}
-          onPress={resolveFamilyOnboarding}
-          variant="outline"
-        />
+        <Button color="primary.700" label={t('ONBOARDING.FAMILY.SKIP')} onPress={resolveFamilyOnboarding} variant="outline" />
       </Styled.Footer>
     </SafeAreaView>
   );

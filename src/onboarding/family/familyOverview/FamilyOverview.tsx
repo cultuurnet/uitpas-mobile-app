@@ -74,16 +74,18 @@ export const FamilyOverview = ({ navigation }: TProps) => {
           } else if (formItem.type === TFormItemType.FamilyMemberAddButton) {
             return (
               <>
-                <Styled.FormItemButton onPress={() => navigation.navigate('AddFamilyMember')}>
-                  <Styled.FormItem>
-                    <Styled.AddIconContainer>
-                      <Icon name="Plus" />
-                    </Styled.AddIconContainer>
-                    <Styled.FormItemLabel align="center" color="primary.700" fontStyle="semibold" numberOfLines={2}>
-                      {t('ONBOARDING.FAMILY.OVERVIEW.ADD_MEMBER')}
-                    </Styled.FormItemLabel>
-                  </Styled.FormItem>
-                </Styled.FormItemButton>
+                <Styled.FormItemButtonWrapper>
+                  <Styled.FormItemButton borderless onPress={() => navigation.navigate('AddFamilyMember')}>
+                    <Styled.FormItem>
+                      <Styled.AddIconContainer>
+                        <Icon name="Plus" />
+                      </Styled.AddIconContainer>
+                      <Styled.FormItemLabel align="center" color="primary.700" fontStyle="semibold" numberOfLines={2}>
+                        {t('ONBOARDING.FAMILY.OVERVIEW.ADD_MEMBER')}
+                      </Styled.FormItemLabel>
+                    </Styled.FormItem>
+                  </Styled.FormItemButton>
+                </Styled.FormItemButtonWrapper>
                 {familyMembers?.length % 2 === 1 && <Styled.FormItemContainer />}
               </>
             );

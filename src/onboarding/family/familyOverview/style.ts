@@ -31,11 +31,15 @@ export const FormItemContainer = styled.View`
   margin-horizontal: 8px;
 `;
 
+export const FormItemButtonWrapper = styled.View`
+  margin-horizontal: 8px;
+  border-radius: 16px;
+  overflow: hidden;
+`;
+
 export const FormItemButton = styled(TouchableRipple)`
   flex: 1;
   height: 133px;
-  border-radius: 16px;
-  margin-horizontal: 8px;
 `;
 
 export const FormItem = styled.View`
