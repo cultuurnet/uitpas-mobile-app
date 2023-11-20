@@ -27,6 +27,10 @@ export type TPostOptions<T = unknown, RequestBody extends Record<string, unknown
 > & {
   headers?: Headers;
 };
+export type TMutationParams<RequestBody extends Record<string, unknown> = Record<string, unknown>> = {
+  body?: RequestBody;
+  headers?: Headers;
+};
 type TGetInfiniteOptions<T = unknown> = InfiniteQueryObserverOptions<T, TApiError> & TSharedOptions & { itemsPerPage?: number };
 
 type ApiHost = 'uitpas' | 'uitdatabank';
@@ -65,15 +69,15 @@ export function usePubliqApi(host: ApiHost = 'uitpas') {
   );
 
   const post = useCallback(
-    <T = unknown, RequestBody extends Record<string, unknown> = Record<string, unknown>>(
+    <T = unknown, MutationParams extends TMutationParams = TMutationParams>(
       mutationKey: unknown[],
       path: string,
-      { headers = {}, ...options }: TPostOptions<T> = {},
+      options: TPostOptions<T> = {},
     ) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      return useMutation<T, TApiError, RequestBody>({
-        mutationFn: async (body: Record<string, unknown>) =>
-          HttpClient.post<T>(`${apiHost}${path}`, body, { ...defaultHeaders, ...headers }),
+      return useMutation<T, TApiError, MutationParams>({
+        mutationFn: async ({ body, headers: extraHeaders }) =>
+          HttpClient.post<T>(`${apiHost}${path}`, body, { ...defaultHeaders, ...extraHeaders }),
         mutationKey,
         networkMode: 'offlineFirst',
         ...options,

@@ -14,7 +14,13 @@ import Error from '../../error/Error';
 import { FilteredShop } from '../../filteredShop/FilteredShop';
 import History from '../../history/History';
 import Login from '../../login/Login';
-import { AddFamilyMember, FamilyInformation, FamilyOnboarding, FamilyOverview } from '../../onboarding/family';
+import {
+  AddFamilyMember,
+  AddFamilyMemberError,
+  FamilyInformation,
+  FamilyOnboarding,
+  FamilyOverview,
+} from '../../onboarding/family';
 import Onboarding from '../../onboarding/Onboarding';
 import ProfileNotFound from '../../profile/ProfileNotFound';
 import RedeemedReward from '../../redeemedReward/RedeemedReward';
@@ -81,6 +87,14 @@ export const RootStackNavigator = () => {
             options={{
               headerBackTitle: '',
               title: i18n.t('ONBOARDING.FAMILY.ADD_MEMBER.TITLE'),
+            }}
+          />
+          <RootStack.Screen
+            component={AddFamilyMemberError}
+            name="AddFamilyMemberError"
+            options={{
+              gestureEnabled: false,
+              headerShown: false,
             }}
           />
           <RootStack.Screen
@@ -190,22 +204,34 @@ export const RootStackNavigator = () => {
               title: i18n.t('SHOP.SEARCH.FILTERS.HEADER_TITLE'),
             })}
           />
-          <RootStack.Screen
-            component={FamilyOverview}
-            name="FamilyOverview"
-            options={{
+          <RootStack.Group
+            screenOptions={{
               headerBackTitle: '',
-              title: i18n.t('ONBOARDING.FAMILY.OVERVIEW.TITLE'),
             }}
-          />
-          <RootStack.Screen
-            component={AddFamilyMember}
-            name="AddFamilyMember"
-            options={{
-              headerBackTitle: '',
-              title: i18n.t('ONBOARDING.FAMILY.ADD_MEMBER.TITLE'),
-            }}
-          />
+          >
+            <RootStack.Screen
+              component={FamilyOverview}
+              name="FamilyOverview"
+              options={{
+                title: i18n.t('ONBOARDING.FAMILY.OVERVIEW.TITLE'),
+              }}
+            />
+            <RootStack.Screen
+              component={AddFamilyMember}
+              name="AddFamilyMember"
+              options={{
+                title: i18n.t('ONBOARDING.FAMILY.ADD_MEMBER.TITLE'),
+              }}
+            />
+            <RootStack.Screen
+              component={AddFamilyMemberError}
+              name="AddFamilyMemberError"
+              options={{
+                gestureEnabled: false,
+                headerShown: false,
+              }}
+            />
+          </RootStack.Group>
         </>
       )}
     </RootStack.Navigator>
