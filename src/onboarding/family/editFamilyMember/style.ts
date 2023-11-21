@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { Button, TouchableRipple, Typography } from '../../../_components';
+import { TouchableRipple, Typography } from '../../../_components';
 import { theme } from '../../../_styles/theme';
 
 export const ScreenContainer = styled.View`
