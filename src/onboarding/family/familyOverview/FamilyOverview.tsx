@@ -44,18 +44,20 @@ export const FamilyOverview = ({ navigation }: TProps) => {
     <>
       <FlatList
         ListHeaderComponent={
-          <Styled.Header onPress={() => navigation.navigate('EditFamilyMember', { mainFamilyMember: true, member: me })}>
-            <>
-              <View>
-                <Styled.MyAvatar resizeMode="contain" source={getAvatarByNameOrDefault(me?.icon)} />
-                <Styled.EditProfileIconContainer>
-                  <Icon color="neutral.0" name="Edit" size={12} />
-                </Styled.EditProfileIconContainer>
-              </View>
-              <Styled.MyName color="neutral.0" fontStyle="semibold" numberOfLines={1}>
-                {me?.firstName} {t('ONBOARDING.FAMILY.OVERVIEW.YOU')}
-              </Styled.MyName>
-            </>
+          <Styled.Header>
+            <Styled.HeaderContent onPress={() => navigation.navigate('EditFamilyMember', { mainFamilyMember: true, member: me })}>
+              <>
+                <View>
+                  <Styled.MyAvatar resizeMode="contain" source={getAvatarByNameOrDefault(me?.icon)} />
+                  <Styled.EditProfileIconContainer>
+                    <Icon color="neutral.0" name="Edit" size={12} />
+                  </Styled.EditProfileIconContainer>
+                </View>
+                <Styled.MyName color="neutral.0" fontStyle="semibold" numberOfLines={1}>
+                  {me?.firstName} {t('ONBOARDING.FAMILY.OVERVIEW.YOU')}
+                </Styled.MyName>
+              </>
+            </Styled.HeaderContent>
           </Styled.Header>
         }
         columnWrapperStyle={{ margin: 8 }}

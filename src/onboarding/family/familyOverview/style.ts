@@ -3,13 +3,17 @@ import styled from 'styled-components/native';
 import { Button, TouchableRipple, Typography } from '../../../_components';
 import { theme } from '../../../_styles/theme';
 
-export const Header = styled(TouchableRipple)`
-  justify-content: center;
+export const Header = styled.View`
   align-items: center;
   height: 133px;
   background-color: ${theme.palette.primary['700']};
   padding: 16px;
   margin-bottom: 8px;
+`;
+
+export const HeaderContent = styled(TouchableRipple)`
+  width: 60%;
+  align-items: center;
 `;
 
 export const MyAvatar = styled.Image`
