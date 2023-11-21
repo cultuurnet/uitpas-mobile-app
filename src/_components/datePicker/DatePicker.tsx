@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import RnDatePicker from 'react-native-date-picker';
 import { format } from 'date-fns';
 
-import { getCorrectLocale } from '../../_utils';
 import FakeTextInput from '../textInput/fakeTextInput/FakeTextInput';
 
 type TProps = {
@@ -39,7 +38,7 @@ const DatePicker = ({ date, onSelectDate, ...textInputProps }: TProps) => {
         cancelText={t('DATE_PICKER.CANCEL')}
         confirmText={t('DATE_PICKER.CONFIRM')}
         date={date ?? new Date()}
-        locale={getCorrectLocale().code}
+        locale="nl"
         modal
         mode="date"
         onCancel={handleClose}

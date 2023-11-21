@@ -48,6 +48,11 @@ export const FormItem = styled.View`
   padding: 16px;
 `;
 
+export const FormItemBody = styled.View`
+  flex: 1;
+  justify-content: center;
+`;
+
 export const FormItemLabel = styled(Typography)`
   font-size: 14px;
   line-height: 21px;

@@ -91,9 +91,11 @@ export const FamilyOverview = ({ navigation }: TProps) => {
                 <Styled.FormItemButtonWrapper>
                   <TouchableRipple borderless onPress={() => navigation.navigate('AddFamilyMember')}>
                     <Styled.FormItem>
-                      <Styled.AddIconContainer>
-                        <Icon name="Plus" />
-                      </Styled.AddIconContainer>
+                      <Styled.FormItemBody>
+                        <Styled.AddIconContainer>
+                          <Icon name="Plus" />
+                        </Styled.AddIconContainer>
+                      </Styled.FormItemBody>
                       <Styled.FormItemLabel align="center" color="primary.700" fontStyle="semibold" numberOfLines={2}>
                         {t('ONBOARDING.FAMILY.OVERVIEW.ADD_MEMBER')}
                       </Styled.FormItemLabel>
