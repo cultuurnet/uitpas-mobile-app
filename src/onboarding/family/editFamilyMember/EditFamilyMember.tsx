@@ -18,7 +18,7 @@ type TProps = {
 };
 
 export const EditFamilyMember = ({ navigation, route }: TProps) => {
-  const { member } = route.params;
+  const { member, mainFamilyMember } = route.params;
 
   const [selectedAvatar, setSelectedAvatar] = useState(getValidAvatarNameOrDefault(member.icon));
   const sortedAvatars = useMemo(() => {
@@ -48,7 +48,9 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
   return (
     <Styled.ScreenContainer>
       <FlatList
-        ListFooterComponent={<DeleteFamilyMember familyMemberId={member.passholderId} name={member.firstName} />}
+        ListFooterComponent={
+          !mainFamilyMember && <DeleteFamilyMember familyMemberId={member.passholderId} name={member.firstName} />
+        }
         ListFooterComponentStyle={{ width: '100%' }}
         ListHeaderComponent={
           <Styled.Header>

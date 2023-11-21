@@ -103,6 +103,7 @@ export const RootStackNavigator = () => {
             component={EditFamilyMember}
             name="EditFamilyMember"
             options={{
+              headerBackTitle: '',
               title: i18n.t('ONBOARDING.FAMILY.EDIT_MEMBER.TITLE'),
             }}
           />
@@ -111,6 +112,7 @@ export const RootStackNavigator = () => {
             name="FamilyInformation"
             options={{
               gestureEnabled: false,
+              headerBackVisible: false,
               headerRight: UserPoints,
               title: i18n.t('NAVIGATION.SHOP'),
             }}
@@ -246,15 +248,6 @@ export const RootStackNavigator = () => {
               name="EditFamilyMember"
               options={{
                 title: i18n.t('ONBOARDING.FAMILY.EDIT_MEMBER.TITLE'),
-              }}
-            />
-            <RootStack.Screen
-              component={FamilyInformation}
-              name="FamilyInformation"
-              options={{
-                gestureEnabled: false,
-                headerRight: UserPoints,
-                title: i18n.t('NAVIGATION.SHOP'),
               }}
             />
             <RootStack.Screen

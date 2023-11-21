@@ -2,13 +2,13 @@ import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+import { TFamilyMember } from '../../profile/_models';
 import { TRedeemedReward } from '../../redeemedRewards/_models/redeemedReward';
 import { TCheckInResponse } from '../../scan/_models';
 import { TFilterRewardCategory, TFilterRewardSection } from '../../shop/_hooks/useRewardFilters';
 import { TReward, TRewardType } from '../../shop/_models/reward';
 import { TSearchFilters } from '../../shop/_models/searchFilters';
 import { TFilterRewardSorting } from '../../shop/_queries/useGetRewards';
-import { TFamilyMember } from '../../profile/_models';
 
 export type TRootRoute = keyof TRootStackParamList;
 export type TMainRoute = keyof TMainParamsList;
@@ -32,7 +32,7 @@ export type TRootStackParamList = {
   About: undefined;
   AddFamilyMember: undefined;
   AddFamilyMemberError: { description: string };
-  EditFamilyMember: { member: TFamilyMember };
+  EditFamilyMember: { mainFamilyMember?: boolean; member: TFamilyMember };
   Error: {
     gotoAfterClose?: [TRootRoute, TMainRoute] | keyof TRootStackParamList;
     message: string;

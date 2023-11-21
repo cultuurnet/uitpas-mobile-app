@@ -20,6 +20,9 @@ enum TFormItemType {
 }
 
 export const FamilyOverview = ({ navigation }: TProps) => {
+  const { bottom } = useSafeAreaInsets();
+  const { t } = useTranslation();
+
   const { data: familyMembers } = useGetFamilyMembers();
   const me = useMemo(() => {
     return familyMembers?.filter(({ mainFamilyMember }) => mainFamilyMember)?.[0];
@@ -31,23 +34,17 @@ export const FamilyOverview = ({ navigation }: TProps) => {
         ?.map(item => ({ ...item, type: TFormItemType.FamilyMemberItem as const })) ?? [];
     return [...otherFamilyMembers, { type: TFormItemType.FamilyMemberAddButton as const }];
   }, [familyMembers]);
-
-  const { showFamilyOnboarding, dismissFamilyOnboarding } = useOnboarding();
-
-  const { bottom } = useSafeAreaInsets();
-  const { t } = useTranslation();
+  const { showFamilyOnboarding } = useOnboarding();
 
   const handleSubmit = () => {
-    if (showFamilyOnboarding) {
-      dismissFamilyOnboarding();
-    }
+    showFamilyOnboarding ? navigation.navigate('FamilyInformation') : navigation.goBack();
   };
 
   return (
     <>
       <FlatList
         ListHeaderComponent={
-          <Styled.Header onPress={() => navigation.navigate('EditFamilyMember', { member: me })}>
+          <Styled.Header onPress={() => navigation.navigate('EditFamilyMember', { mainFamilyMember: true, member: me })}>
             <>
               <View>
                 <Styled.MyAvatar resizeMode="contain" source={getAvatarByNameOrDefault(me?.icon)} />
