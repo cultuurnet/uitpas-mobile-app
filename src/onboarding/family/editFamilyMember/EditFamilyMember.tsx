@@ -4,16 +4,19 @@ import { FlatList } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import * as Avatars from '../../../_assets/images/avatars';
-import { Button, SafeAreaView, Typography } from '../../../_components';
-import { TRootStackRouteProp } from '../../../_routing';
+import { Button, Icon, Typography } from '../../../_components';
+import { queryClient } from '../../../_context';
+import { TMainNavigationProp, TRootStackRouteProp } from '../../../_routing';
 import { applyBarcodeMask, getAvatarByNameOrDefault, getValidAvatarNameOrDefault } from '../../../_utils';
+import { useEditFamilyMember } from '../_queries';
 import * as Styled from './style';
 
 type TProps = {
+  navigation: TMainNavigationProp<'Profile'>;
   route: TRootStackRouteProp<'EditFamilyMember'>;
 };
 
-export const EditFamilyMember = ({ route }: TProps) => {
+export const EditFamilyMember = ({ navigation, route }: TProps) => {
   const { member } = route.params;
 
   const [selectedAvatar, setSelectedAvatar] = useState(getValidAvatarNameOrDefault(member.icon));
@@ -30,43 +33,64 @@ export const EditFamilyMember = ({ route }: TProps) => {
     });
     return avatars;
   }, []);
+  const { mutate: editFamilyMember } = useEditFamilyMember(member.passholderId);
 
   const { bottom } = useSafeAreaInsets();
   const { t } = useTranslation();
 
+  const handleDelete = () => {};
+
+  const handleSubmit = () => {
+    editFamilyMember({ body: { icon: selectedAvatar } });
+    queryClient.invalidateQueries(['family-members']);
+    navigation.goBack();
+  };
+
   return (
     <Styled.ScreenContainer>
-      <SafeAreaView backgroundColor="neutral.0" edges={['bottom']}>
-        <FlatList
-          ListHeaderComponent={
-            <Styled.Header>
-              <Typography fontStyle="bold" numberOfLines={1} size="xxlarge">
-                {member.firstName}
-              </Typography>
-              <Styled.UitpasNumber color="primary.700" fontStyle="bold">
-                {applyBarcodeMask(member.uitpasNumber)}
-              </Styled.UitpasNumber>
-              <Styled.SelectedAvatarImage resizeMode="contain" source={getAvatarByNameOrDefault(member.icon)} />
-              <Styled.Description color="primary.700" fontStyle="semibold">
-                {t('ONBOARDING.FAMILY.EDIT_MEMBER.DESCRIPTION')}
-              </Styled.Description>
-            </Styled.Header>
-          }
-          columnWrapperStyle={{ padding: 8 }}
-          contentContainerStyle={{ alignItems: 'center', paddingHorizontal: 8 }}
-          data={sortedAvatars}
-          numColumns={5}
-          renderItem={({ item: avatar }) => (
-            <Styled.AvatarItemBorder isSelected={avatar === selectedAvatar} onPress={() => setSelectedAvatar(avatar)}>
-              <Styled.AvatarItemContainer>
-                <Styled.AvatarItemImage resizeMode="contain" source={getAvatarByNameOrDefault(avatar)} />
-              </Styled.AvatarItemContainer>
-            </Styled.AvatarItemBorder>
-          )}
-        />
-      </SafeAreaView>
+      <FlatList
+        ListFooterComponent={
+          <Styled.ListFooter>
+            <Icon name="Delete" />
+            <Styled.DeleteMemberButton
+              color="error.800"
+              fontStyle="normal"
+              label={t('ONBOARDING.FAMILY.EDIT_MEMBER.DELETE_MEMBER')}
+              onPress={handleDelete}
+              underline={false}
+              variant="link"
+            />
+          </Styled.ListFooter>
+        }
+        ListFooterComponentStyle={{ width: '100%' }}
+        ListHeaderComponent={
+          <Styled.Header>
+            <Typography fontStyle="bold" numberOfLines={1} size="xxlarge">
+              {member.firstName}
+            </Typography>
+            <Styled.UitpasNumber color="primary.700" fontStyle="bold">
+              {applyBarcodeMask(member.uitpasNumber)}
+            </Styled.UitpasNumber>
+            <Styled.SelectedAvatarImage resizeMode="contain" source={getAvatarByNameOrDefault(selectedAvatar)} />
+            <Styled.Description color="primary.700" fontStyle="semibold">
+              {t('ONBOARDING.FAMILY.EDIT_MEMBER.DESCRIPTION')}
+            </Styled.Description>
+          </Styled.Header>
+        }
+        columnWrapperStyle={{ padding: 8 }}
+        contentContainerStyle={{ alignItems: 'center', paddingHorizontal: 8 }}
+        data={sortedAvatars}
+        numColumns={5}
+        renderItem={({ item: avatar }) => (
+          <Styled.AvatarItemBorder isSelected={avatar === selectedAvatar} onPress={() => setSelectedAvatar(avatar)}>
+            <Styled.AvatarItemContainer>
+              <Styled.AvatarItemImage resizeMode="contain" source={getAvatarByNameOrDefault(avatar)} />
+            </Styled.AvatarItemContainer>
+          </Styled.AvatarItemBorder>
+        )}
+      />
       <Styled.StickyFooter style={{ marginBottom: bottom }}>
-        <Button label={t('ONBOARDING.FAMILY.EDIT_MEMBER.SAVE')} onPress={() => {}} />
+        <Button label={t('ONBOARDING.FAMILY.EDIT_MEMBER.SAVE')} onPress={handleSubmit} />
       </Styled.StickyFooter>
     </Styled.ScreenContainer>
   );
