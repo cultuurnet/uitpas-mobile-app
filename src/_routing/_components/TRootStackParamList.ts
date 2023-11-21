@@ -2,6 +2,7 @@ import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+import { TFamilyMember } from '../../profile/_models';
 import { TRedeemedReward } from '../../redeemedRewards/_models/redeemedReward';
 import { TCheckInResponse } from '../../scan/_models';
 import { TFilterRewardCategory, TFilterRewardSection } from '../../shop/_hooks/useRewardFilters';
@@ -31,6 +32,7 @@ export type TRootStackParamList = {
   About: undefined;
   AddFamilyMember: undefined;
   AddFamilyMemberError: { description: string };
+  EditFamilyMember: { mainFamilyMember?: boolean; member: TFamilyMember };
   Error: {
     gotoAfterClose?: [TRootRoute, TMainRoute] | keyof TRootStackParamList;
     message: string;

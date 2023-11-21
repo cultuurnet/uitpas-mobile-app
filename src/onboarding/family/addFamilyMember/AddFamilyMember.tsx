@@ -126,9 +126,6 @@ export const AddFamilyMember = ({ navigation }: TProps) => {
           loading={registrationTokenIsLoading || registerFamilyMemberIsLoading}
           onPress={handleSubmit(formData => getRegistrationToken(formData))}
         />
-        {registrationTokenError?.status === 403 && (
-          <Styled.CancelButton color="primary.700" label={t('ONBOARDING.FAMILY.ADD_MEMBER.CANCEL')} variant="outline" />
-        )}
       </Styled.StickyFooter>
     </Styled.ScreenContainer>
   );

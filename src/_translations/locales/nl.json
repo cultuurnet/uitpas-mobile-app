@@ -37,6 +37,15 @@
         "DONE": "Klaar",
         "CANCEL": "Annuleren"
       },
+      "DELETE_MEMBER": {
+        "CTA": "Gezinslid verwijderen",
+        "CONFIRMATION_MODAL": {
+          "TITLE": "Gezinslid verwijderen",
+          "DESCRIPTION": "Ben je zeker dat je <bold>{{name}}</bold> wil verwijderen uit je gezin?",
+          "CONFIRM": "Verwijderen",
+          "CANCEL": "Annuleren"
+        }
+      },
       "ADD_MEMBER": {
         "TITLE": "Gezinslid toevoegen",
         "UITPAS_NUMBER": "UiTPAS nummer",
@@ -54,6 +63,12 @@
           "TITLE": "Gezinslid kan niet toegevoegd worden",
           "BACK_TO_FAMILY_OVERVIEW": "Terug naar gezinsoverzicht"
         }
+      },
+      "EDIT_MEMBER": {
+        "TITLE": "Gezinslid wijzigen",
+        "DESCRIPTION": "Kies de weergave van het gezinslid",
+        "SAVE": "Opslaan",
+        "DELETE_MEMBER": "Gezinslid verwijderen"
       },
       "INFORMATION": {
         "INFO_TITLE": "Bekijk je gezin via deze knop",

@@ -85,6 +85,40 @@ export function usePubliqApi(host: ApiHost = 'uitpas') {
     [defaultHeaders, apiHost],
   );
 
+  const put = useCallback(
+    <T = unknown, MutationParams extends TMutationParams = TMutationParams>(
+      mutationKey: unknown[],
+      path: string,
+      options: TPostOptions<T> = {},
+    ) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      return useMutation<T, TApiError, MutationParams>({
+        mutationFn: async ({ body, headers }) => HttpClient.put<T>(`${apiHost}${path}`, body, { ...defaultHeaders, ...headers }),
+        mutationKey,
+        networkMode: 'offlineFirst',
+        ...options,
+      });
+    },
+    [defaultHeaders, apiHost],
+  );
+
+  const deleteMutation = useCallback(
+    <T = unknown, MutationParams extends TMutationParams = TMutationParams>(
+      mutationKey: unknown[],
+      path: string,
+      options: TPostOptions<T> = {},
+    ) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      return useMutation<T, TApiError, MutationParams>({
+        mutationFn: async ({ headers }) => HttpClient.delete<T>(`${apiHost}${path}`, { ...defaultHeaders, ...headers }),
+        mutationKey,
+        networkMode: 'offlineFirst',
+        ...options,
+      });
+    },
+    [defaultHeaders, apiHost],
+  );
+
   const getInfinite = useCallback(
     <T extends TPaginatedResponse = TPaginatedResponse>(
       queryKey: unknown[],
@@ -116,5 +150,5 @@ export function usePubliqApi(host: ApiHost = 'uitpas') {
     [accessToken, defaultHeaders, apiHost],
   );
 
-  return { get, getInfinite, post };
+  return { deleteMutation, get, getInfinite, post, put };
 }
