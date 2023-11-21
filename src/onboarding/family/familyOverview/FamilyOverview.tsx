@@ -86,7 +86,7 @@ export const FamilyOverview = ({ navigation }: TProps) => {
             return (
               <>
                 <Styled.FormItemButtonWrapper>
-                  <TouchableRipple borderless onPress={() => navigation.navigate('AddFamilyMember')}>
+                  <TouchableRipple borderless onPress={() => navigation.navigate('AddFamilyMember', { familyMembers })}>
                     <Styled.FormItem>
                       <Styled.FormItemBody>
                         <Styled.AddIconContainer>
