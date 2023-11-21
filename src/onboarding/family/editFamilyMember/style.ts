@@ -43,16 +43,6 @@ export const AvatarItemImage = styled.Image`
   height: 48px;
 `;
 
-export const ListFooter = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  margin-top: 24px;
-`;
-
-export const DeleteMemberButton = styled(Button)`
-  margin-left: 8px;
-`;
-
 export const StickyFooter = styled.View`
   padding-horizontal: 16px;
   padding-top: 16px;

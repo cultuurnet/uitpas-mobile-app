@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ImageStyle, StyleProp } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-import { BlurredModal, Icon, TouchableRipple, Trans, Typography } from '../../../_components';
+import { BlurredModal, Icon, Trans } from '../../../_components';
 import { queryClient } from '../../../_context';
 import { useDeleteFamilyMember } from '../_queries';
 import * as Styled from './style';
@@ -10,10 +10,10 @@ import * as Styled from './style';
 type TProps = {
   familyMemberId: string;
   name: string;
-  style?: StyleProp<ImageStyle>;
 };
 
-const DeleteFamilyMember = ({ style, name, familyMemberId }: TProps) => {
+const DeleteFamilyMember = ({ name, familyMemberId }: TProps) => {
+  const navigation = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
   const { mutateAsync, isLoading } = useDeleteFamilyMember(familyMemberId);
   const { t } = useTranslation();
@@ -26,16 +26,22 @@ const DeleteFamilyMember = ({ style, name, familyMemberId }: TProps) => {
     await mutateAsync({});
     queryClient.invalidateQueries(['family-members']);
     handleToggleIsVisible();
+    navigation.goBack();
   };
 
   return (
     <>
-      <TouchableRipple onPress={handleToggleIsVisible} style={style}>
-        <>
-          <Icon name="Delete" size="small" style={style} />
-          <Typography color="error.800">{t('ONBOARDING.FAMILY.DELETE_MEMBER.CTA')}</Typography>
-        </>
-      </TouchableRipple>
+      <Styled.DeleteButtonContainer>
+        <Icon name="Delete" />
+        <Styled.DeleteButton
+          color="error.800"
+          fontStyle="normal"
+          label={t('ONBOARDING.FAMILY.EDIT_MEMBER.DELETE_MEMBER')}
+          onPress={handleToggleIsVisible}
+          underline={false}
+          variant="link"
+        />
+      </Styled.DeleteButtonContainer>
       <BlurredModal isVisible={isVisible} toggleIsVisible={handleToggleIsVisible}>
         <Styled.Title fontStyle="bold" size="large">
           {t('ONBOARDING.FAMILY.DELETE_MEMBER.CONFIRMATION_MODAL.TITLE')}

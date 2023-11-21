@@ -4,11 +4,12 @@ import { FlatList } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import * as Avatars from '../../../_assets/images/avatars';
-import { Button, Icon, Typography } from '../../../_components';
+import { Button, Typography } from '../../../_components';
 import { queryClient } from '../../../_context';
 import { TMainNavigationProp, TRootStackRouteProp } from '../../../_routing';
 import { applyBarcodeMask, getAvatarByNameOrDefault, getValidAvatarNameOrDefault } from '../../../_utils';
 import { useEditFamilyMember } from '../_queries';
+import DeleteFamilyMember from '../deleteFamilyMember/DeleteFamilyMember';
 import * as Styled from './style';
 
 type TProps = {
@@ -38,8 +39,6 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
   const { bottom } = useSafeAreaInsets();
   const { t } = useTranslation();
 
-  const handleDelete = () => {};
-
   const handleSubmit = () => {
     editFamilyMember({ body: { icon: selectedAvatar } });
     queryClient.invalidateQueries(['family-members']);
@@ -49,19 +48,7 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
   return (
     <Styled.ScreenContainer>
       <FlatList
-        ListFooterComponent={
-          <Styled.ListFooter>
-            <Icon name="Delete" />
-            <Styled.DeleteMemberButton
-              color="error.800"
-              fontStyle="normal"
-              label={t('ONBOARDING.FAMILY.EDIT_MEMBER.DELETE_MEMBER')}
-              onPress={handleDelete}
-              underline={false}
-              variant="link"
-            />
-          </Styled.ListFooter>
-        }
+        ListFooterComponent={<DeleteFamilyMember familyMemberId={member.passholderId} name={member.firstName} />}
         ListFooterComponentStyle={{ width: '100%' }}
         ListHeaderComponent={
           <Styled.Header>
