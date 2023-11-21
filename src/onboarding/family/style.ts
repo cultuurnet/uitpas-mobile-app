@@ -18,7 +18,7 @@ export const Hero = styled.Image`
 `;
 
 export const BulletList = styled.View`
-  margin-horizontal: 16px;
+  flex: 1;
 `;
 
 export const BulletListItem = styled(BulletListComp.Item)`
@@ -32,5 +32,3 @@ export const Footer = styled.View`
 export const ConfirmButton = styled(Button)`
   margin-bottom: 16px;
 `;
-
-export const SkipButton = styled(Button)``;

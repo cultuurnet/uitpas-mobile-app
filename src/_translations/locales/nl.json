@@ -98,6 +98,12 @@
       "MY_FAMILY": "Mijn gezin",
       "FAQ": "Veelgestelde vragen"
     },
+    "FAMILY": {
+      "FAMILY_COMPOSITION": {
+        "TITLE": "Mijn gezinssamenstelling",
+        "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
+      }
+    },
     "ABOUT": {
       "VERSION": "Versie {{version}}",
       "HEADER_TITLE": "Over deze app",

@@ -46,6 +46,7 @@ export const AddFamilyMember = ({ navigation }: TProps) => {
           headers: { 'x-registration-token': token },
         });
         queryClient.invalidateQueries(['family-members']);
+        navigation.navigate('FamilyOverview');
       } catch (error) {
         navigation.navigate('AddFamilyMemberError', { description: error.endUserMessage.nl }); // End-of-flow error
       }
