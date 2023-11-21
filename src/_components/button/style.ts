@@ -11,6 +11,7 @@ export const ButtonContainer = styled.View<Pick<TButtonProps, 'inline' | 'center
 
 export const ButtonElement = styled(TouchableRipple)<{
   $active: boolean;
+  $backgroundColor: TButtonProps['backgroundColor'];
   $color: TButtonProps['color'];
   $inline: TButtonProps['inline'];
   $radius: TButtonProps['radius'];
@@ -23,7 +24,10 @@ export const ButtonElement = styled(TouchableRipple)<{
   align-items: center;
   border-radius: ${({ $inline, $radius }) => (!$radius ? '0px' : $inline ? '24px' : '16px')};
   opacity: ${({ disabled }) => (disabled ? 0.4 : 1)};
-  background-color: ${({ $active, $variant, theme }) => {
+  background-color: ${({ $active, $variant, $backgroundColor, theme }) => {
+    if ($backgroundColor) {
+      return getColor($backgroundColor);
+    }
     if ($variant === 'contained') {
       return $active ? theme.palette.primary['900'] : theme.palette.primary['700'];
     }

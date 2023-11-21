@@ -12,10 +12,14 @@ export const DeleteButtonContainer = styled.View`
   margin-top: 24px;
 `;
 
-export const DeleteButton = styled(Button)`
+export const DeleteMemberButton = styled(Button)`
   margin-left: 8px;
 `;
 
-export const CloseButton = styled(Button)`
+export const DeleteModalButton = styled(Button)`
+  margin-top: 32px;
+`;
+
+export const CloseModalButton = styled(Button)`
   margin-top: 16px;
 `;

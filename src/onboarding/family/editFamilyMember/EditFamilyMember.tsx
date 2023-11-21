@@ -34,13 +34,13 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
     });
     return avatars;
   }, []);
-  const { mutate: editFamilyMember } = useEditFamilyMember(member.passholderId);
+  const { mutateAsync: editFamilyMember, isLoading } = useEditFamilyMember(member.passholderId);
 
   const { bottom } = useSafeAreaInsets();
   const { t } = useTranslation();
 
-  const handleSubmit = () => {
-    editFamilyMember({ body: { icon: selectedAvatar } });
+  const handleSubmit = async () => {
+    await editFamilyMember({ body: { icon: selectedAvatar } });
     queryClient.invalidateQueries(['family-members']);
     navigation.goBack();
   };
@@ -77,7 +77,7 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
         )}
       />
       <Styled.StickyFooter style={{ marginBottom: bottom + 16 }}>
-        <Button label={t('ONBOARDING.FAMILY.EDIT_MEMBER.SAVE')} onPress={handleSubmit} />
+        <Button label={t('ONBOARDING.FAMILY.EDIT_MEMBER.SAVE')} loading={isLoading} onPress={handleSubmit} />
       </Styled.StickyFooter>
     </Styled.ScreenContainer>
   );

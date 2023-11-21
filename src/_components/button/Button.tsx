@@ -9,6 +9,7 @@ import * as Styled from './style';
 export type TButtonProps = {
   accessibilityHint?: string;
   accessibilityLabel?: string;
+  backgroundColor?: ThemeColor;
   centered?: boolean;
   children?: ReactNode;
   color?: ThemeColor;
@@ -37,6 +38,7 @@ const Button: FC<TButtonProps> = ({
   loading,
   variant = 'contained',
   color,
+  backgroundColor,
   underline = true,
   fontStyle = 'bold',
   inline,
@@ -57,6 +59,7 @@ const Button: FC<TButtonProps> = ({
   return (
     <Styled.ButtonElement
       $active={isActive}
+      $backgroundColor={backgroundColor}
       $color={color}
       $inline={inline}
       $radius={radius}

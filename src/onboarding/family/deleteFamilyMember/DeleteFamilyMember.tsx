@@ -33,7 +33,7 @@ const DeleteFamilyMember = ({ name, familyMemberId }: TProps) => {
     <>
       <Styled.DeleteButtonContainer>
         <Icon name="Delete" />
-        <Styled.DeleteButton
+        <Styled.DeleteMemberButton
           color="error.800"
           fontStyle="normal"
           label={t('ONBOARDING.FAMILY.EDIT_MEMBER.DELETE_MEMBER')}
@@ -47,14 +47,15 @@ const DeleteFamilyMember = ({ name, familyMemberId }: TProps) => {
           {t('ONBOARDING.FAMILY.DELETE_MEMBER.CONFIRMATION_MODAL.TITLE')}
         </Styled.Title>
         <Trans i18nKey="ONBOARDING.FAMILY.DELETE_MEMBER.CONFIRMATION_MODAL.DESCRIPTION" values={{ name }} />
-        <Styled.DeleteButton
+        <Styled.DeleteModalButton
+          backgroundColor="error.700"
           fontStyle="semibold"
           label={t('ONBOARDING.FAMILY.DELETE_MEMBER.CONFIRMATION_MODAL.CONFIRM')}
           loading={isLoading}
           onPress={handleDelete}
           underline={false}
         />
-        <Styled.CloseButton
+        <Styled.CloseModalButton
           color="primary.700"
           fontStyle="semibold"
           label={t('ONBOARDING.FAMILY.DELETE_MEMBER.CONFIRMATION_MODAL.CANCEL')}
