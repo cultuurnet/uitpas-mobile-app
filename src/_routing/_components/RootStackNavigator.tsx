@@ -17,6 +17,7 @@ import Login from '../../login/Login';
 import {
   AddFamilyMember,
   AddFamilyMemberError,
+  EditFamilyMember,
   FamilyInformation,
   FamilyOnboarding,
   FamilyOverview,
@@ -99,9 +100,17 @@ export const RootStackNavigator = () => {
             }}
           />
           <RootStack.Screen
+            component={EditFamilyMember}
+            name="EditFamilyMember"
+            options={{
+              title: i18n.t('ONBOARDING.FAMILY.EDIT_MEMBER.TITLE'),
+            }}
+          />
+          <RootStack.Screen
             component={FamilyInformation}
             name="FamilyInformation"
             options={{
+              gestureEnabled: false,
               headerRight: UserPoints,
               title: i18n.t('NAVIGATION.SHOP'),
             }}
@@ -230,6 +239,22 @@ export const RootStackNavigator = () => {
               options={{
                 gestureEnabled: false,
                 headerShown: false,
+              }}
+            />
+            <RootStack.Screen
+              component={EditFamilyMember}
+              name="EditFamilyMember"
+              options={{
+                title: i18n.t('ONBOARDING.FAMILY.EDIT_MEMBER.TITLE'),
+              }}
+            />
+            <RootStack.Screen
+              component={FamilyInformation}
+              name="FamilyInformation"
+              options={{
+                gestureEnabled: false,
+                headerRight: UserPoints,
+                title: i18n.t('NAVIGATION.SHOP'),
               }}
             />
             <RootStack.Screen
