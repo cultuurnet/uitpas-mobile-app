@@ -76,8 +76,24 @@ export function usePubliqApi(host: ApiHost = 'uitpas') {
     ) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       return useMutation<T, TApiError, MutationParams>({
-        mutationFn: async ({ body, headers: extraHeaders }) =>
-          HttpClient.post<T>(`${apiHost}${path}`, body, { ...defaultHeaders, ...extraHeaders }),
+        mutationFn: async ({ body, headers }) => HttpClient.post<T>(`${apiHost}${path}`, body, { ...defaultHeaders, ...headers }),
+        mutationKey,
+        networkMode: 'offlineFirst',
+        ...options,
+      });
+    },
+    [defaultHeaders, apiHost],
+  );
+
+  const put = useCallback(
+    <T = unknown, MutationParams extends TMutationParams = TMutationParams>(
+      mutationKey: unknown[],
+      path: string,
+      options: TPostOptions<T> = {},
+    ) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      return useMutation<T, TApiError, MutationParams>({
+        mutationFn: async ({ body, headers }) => HttpClient.put<T>(`${apiHost}${path}`, body, { ...defaultHeaders, ...headers }),
         mutationKey,
         networkMode: 'offlineFirst',
         ...options,
@@ -134,5 +150,5 @@ export function usePubliqApi(host: ApiHost = 'uitpas') {
     [accessToken, defaultHeaders, apiHost],
   );
 
-  return { deleteMutation, get, getInfinite, post };
+  return { deleteMutation, get, getInfinite, post, put };
 }

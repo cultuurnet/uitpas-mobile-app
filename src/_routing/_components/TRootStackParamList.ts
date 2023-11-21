@@ -8,6 +8,7 @@ import { TFilterRewardCategory, TFilterRewardSection } from '../../shop/_hooks/u
 import { TReward, TRewardType } from '../../shop/_models/reward';
 import { TSearchFilters } from '../../shop/_models/searchFilters';
 import { TFilterRewardSorting } from '../../shop/_queries/useGetRewards';
+import { TFamilyMember } from '../../profile/_models';
 
 export type TRootRoute = keyof TRootStackParamList;
 export type TMainRoute = keyof TMainParamsList;
@@ -31,10 +32,12 @@ export type TRootStackParamList = {
   About: undefined;
   AddFamilyMember: undefined;
   AddFamilyMemberError: { description: string };
+  EditFamilyMember: { member: TFamilyMember };
   Error: {
     gotoAfterClose?: [TRootRoute, TMainRoute] | keyof TRootStackParamList;
     message: string;
   };
+  FamiliesOverview: undefined;
   FamilyInformation: undefined;
   FamilyOnboarding: undefined;
   FamilyOverview: undefined;

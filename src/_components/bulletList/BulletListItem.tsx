@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { StyleProp, View, ViewStyle } from 'react-native';
+import { StyleProp, ViewStyle } from 'react-native';
 
 import * as Styled from './style';
 
@@ -12,7 +12,7 @@ const BulletListItem: FC<TProps> = ({ children, style }: TProps) => {
   return (
     <Styled.BulletListItem style={style}>
       <Styled.Disk />
-      <View>{children}</View>
+      <Styled.Description>{children}</Styled.Description>
     </Styled.BulletListItem>
   );
 };

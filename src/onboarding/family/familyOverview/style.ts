@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import { Button, TouchableRipple, Typography } from '../../../_components';
 import { theme } from '../../../_styles/theme';
 
-export const Header = styled.View`
+export const Header = styled(TouchableRipple)`
   justify-content: center;
   align-items: center;
   height: 133px;
@@ -31,11 +31,12 @@ export const FormItemContainer = styled.View`
   margin-horizontal: 8px;
 `;
 
-export const FormItemButton = styled(TouchableRipple)`
+export const FormItemButtonWrapper = styled.View`
   flex: 1;
   height: 133px;
-  border-radius: 16px;
   margin-horizontal: 8px;
+  border-radius: 16px;
+  overflow: hidden;
 `;
 
 export const FormItem = styled.View`
@@ -47,6 +48,11 @@ export const FormItem = styled.View`
   padding: 16px;
 `;
 
+export const FormItemBody = styled.View`
+  flex: 1;
+  justify-content: center;
+`;
+
 export const FormItemLabel = styled(Typography)`
   font-size: 14px;
   line-height: 21px;
@@ -55,6 +61,18 @@ export const FormItemLabel = styled(Typography)`
 export const FamilyMemberAvatar = styled.Image`
   width: 64px;
   height: 64px;
+`;
+
+export const EditProfileIconContainer = styled.View`
+  position: absolute;
+  bottom: -3px;
+  right: -3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  justify-content: center;
+  align-items: center;
+  background-color: ${theme.palette.neutral['900']};
 `;
 
 export const AddIconContainer = styled.View`

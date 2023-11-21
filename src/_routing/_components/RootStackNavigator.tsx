@@ -17,11 +17,13 @@ import Login from '../../login/Login';
 import {
   AddFamilyMember,
   AddFamilyMemberError,
+  EditFamilyMember,
   FamilyInformation,
   FamilyOnboarding,
   FamilyOverview,
 } from '../../onboarding/family';
 import Onboarding from '../../onboarding/Onboarding';
+import { FamiliesOverview } from '../../profile/family/FamiliesOverview';
 import ProfileNotFound from '../../profile/ProfileNotFound';
 import RedeemedReward from '../../redeemedReward/RedeemedReward';
 import { RedeemedRewards } from '../../redeemedRewards/RedeemedRewards';
@@ -98,9 +100,17 @@ export const RootStackNavigator = () => {
             }}
           />
           <RootStack.Screen
+            component={EditFamilyMember}
+            name="EditFamilyMember"
+            options={{
+              title: i18n.t('ONBOARDING.FAMILY.EDIT_MEMBER.TITLE'),
+            }}
+          />
+          <RootStack.Screen
             component={FamilyInformation}
             name="FamilyInformation"
             options={{
+              gestureEnabled: false,
               headerRight: UserPoints,
               title: i18n.t('NAVIGATION.SHOP'),
             }}
@@ -229,6 +239,30 @@ export const RootStackNavigator = () => {
               options={{
                 gestureEnabled: false,
                 headerShown: false,
+              }}
+            />
+            <RootStack.Screen
+              component={EditFamilyMember}
+              name="EditFamilyMember"
+              options={{
+                title: i18n.t('ONBOARDING.FAMILY.EDIT_MEMBER.TITLE'),
+              }}
+            />
+            <RootStack.Screen
+              component={FamilyInformation}
+              name="FamilyInformation"
+              options={{
+                gestureEnabled: false,
+                headerRight: UserPoints,
+                title: i18n.t('NAVIGATION.SHOP'),
+              }}
+            />
+            <RootStack.Screen
+              component={FamiliesOverview}
+              name="FamiliesOverview"
+              options={{
+                headerBackTitle: '',
+                title: i18n.t('PROFILE.LINKS.MY_FAMILY'),
               }}
             />
           </RootStack.Group>

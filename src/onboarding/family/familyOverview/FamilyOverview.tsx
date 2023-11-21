@@ -3,12 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { FlatList, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { Icon } from '../../../_components';
+import { Icon, TouchableRipple } from '../../../_components';
 import { useOnboarding } from '../../../_context';
 import { TMainNavigationProp } from '../../../_routing';
 import { getAvatarByNameOrDefault } from '../../../_utils';
 import { useGetFamilyMembers } from '../_queries';
-import DeleteFamilyMember from '../deleteFamilyMember/DeleteFamilyMember';
 import * as Styled from './style';
 
 type TProps = {
@@ -48,11 +47,18 @@ export const FamilyOverview = ({ navigation }: TProps) => {
     <>
       <FlatList
         ListHeaderComponent={
-          <Styled.Header>
-            <Styled.MyAvatar source={getAvatarByNameOrDefault(me?.icon)} />
-            <Styled.MyName color="neutral.0" fontStyle="semibold" numberOfLines={1}>
-              {me?.firstName} {t('ONBOARDING.FAMILY.OVERVIEW.YOU')}
-            </Styled.MyName>
+          <Styled.Header onPress={() => navigation.navigate('EditFamilyMember', { member: me })}>
+            <>
+              <View>
+                <Styled.MyAvatar resizeMode="contain" source={getAvatarByNameOrDefault(me?.icon)} />
+                <Styled.EditProfileIconContainer>
+                  <Icon color="neutral.0" name="Edit" size={12} />
+                </Styled.EditProfileIconContainer>
+              </View>
+              <Styled.MyName color="neutral.0" fontStyle="semibold" numberOfLines={1}>
+                {me?.firstName} {t('ONBOARDING.FAMILY.OVERVIEW.YOU')}
+              </Styled.MyName>
+            </>
           </Styled.Header>
         }
         columnWrapperStyle={{ margin: 8 }}
@@ -63,33 +69,39 @@ export const FamilyOverview = ({ navigation }: TProps) => {
         renderItem={({ item: formItem }) => {
           if (formItem.type === TFormItemType.FamilyMemberItem) {
             return (
-              <Styled.FormItemContainer>
-                <Styled.FormItem>
-                  <Styled.FamilyMemberAvatar source={getAvatarByNameOrDefault(formItem?.icon)} />
-                  <Styled.FormItemLabel color="primary.700" fontStyle="semibold" numberOfLines={1}>
-                    {formItem.firstName}
-                  </Styled.FormItemLabel>
-                  <DeleteFamilyMember
-                    familyMemberId={formItem.passholderId}
-                    name={formItem.name}
-                    style={{ flexDirection: 'row', position: 'absolute', right: 0, top: 0 }}
-                  />
-                </Styled.FormItem>
-              </Styled.FormItemContainer>
+              <Styled.FormItemButtonWrapper>
+                <TouchableRipple borderless onPress={() => navigation.navigate('EditFamilyMember', { member: formItem })}>
+                  <Styled.FormItem>
+                    <View>
+                      <Styled.FamilyMemberAvatar resizeMode="contain" source={getAvatarByNameOrDefault(formItem?.icon)} />
+                      <Styled.EditProfileIconContainer>
+                        <Icon color="neutral.0" name="Edit" size={12} />
+                      </Styled.EditProfileIconContainer>
+                    </View>
+                    <Styled.FormItemLabel color="primary.700" fontStyle="semibold" numberOfLines={1}>
+                      {formItem.firstName}
+                    </Styled.FormItemLabel>
+                  </Styled.FormItem>
+                </TouchableRipple>
+              </Styled.FormItemButtonWrapper>
             );
           } else if (formItem.type === TFormItemType.FamilyMemberAddButton) {
             return (
               <>
-                <Styled.FormItemButton onPress={() => navigation.navigate('AddFamilyMember')}>
-                  <Styled.FormItem>
-                    <Styled.AddIconContainer>
-                      <Icon name="Plus" />
-                    </Styled.AddIconContainer>
-                    <Styled.FormItemLabel align="center" color="primary.700" fontStyle="semibold" numberOfLines={2}>
-                      {t('ONBOARDING.FAMILY.OVERVIEW.ADD_MEMBER')}
-                    </Styled.FormItemLabel>
-                  </Styled.FormItem>
-                </Styled.FormItemButton>
+                <Styled.FormItemButtonWrapper>
+                  <TouchableRipple borderless onPress={() => navigation.navigate('AddFamilyMember')}>
+                    <Styled.FormItem>
+                      <Styled.FormItemBody>
+                        <Styled.AddIconContainer>
+                          <Icon name="Plus" />
+                        </Styled.AddIconContainer>
+                      </Styled.FormItemBody>
+                      <Styled.FormItemLabel align="center" color="primary.700" fontStyle="semibold" numberOfLines={2}>
+                        {t('ONBOARDING.FAMILY.OVERVIEW.ADD_MEMBER')}
+                      </Styled.FormItemLabel>
+                    </Styled.FormItem>
+                  </TouchableRipple>
+                </Styled.FormItemButtonWrapper>
                 {familyMembers?.length % 2 === 1 && <Styled.FormItemContainer />}
               </>
             );

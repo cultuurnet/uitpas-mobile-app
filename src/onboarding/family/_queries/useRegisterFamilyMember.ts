@@ -1,14 +1,10 @@
-import { usePubliqApi } from '../../../_hooks/usePubliqApi';
-import { Headers } from '../../../_http/HttpClient';
+import { TMutationParams, usePubliqApi } from '../../../_hooks/usePubliqApi';
 import { useGetMe } from '../../../profile/_queries/useGetMe';
 
-type TRegisterFamilyMemberParams = {
-  body: {
-    icon: string;
-    uitpasNumber: string;
-  };
-  headers: Headers;
-};
+type TRegisterFamilyMemberParams = TMutationParams<{
+  icon: string;
+  uitpasNumber: string;
+}>;
 
 export const useRegisterFamilyMember = () => {
   const { data: user } = useGetMe();

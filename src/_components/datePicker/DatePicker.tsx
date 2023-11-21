@@ -38,11 +38,13 @@ const DatePicker = ({ date, onSelectDate, ...textInputProps }: TProps) => {
         cancelText={t('DATE_PICKER.CANCEL')}
         confirmText={t('DATE_PICKER.CONFIRM')}
         date={date ?? new Date()}
+        locale="nl"
         modal
         mode="date"
         onCancel={handleClose}
         onConfirm={handleConfirm}
         open={isOpen}
+        title={null}
       />
     </>
   );
