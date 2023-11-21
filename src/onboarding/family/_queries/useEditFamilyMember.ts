@@ -1,5 +1,3 @@
-import { MutateOptions, useMutation } from '@tanstack/react-query';
-
 import { TMutationParams, usePubliqApi } from '../../../_hooks/usePubliqApi';
 import { useGetMe } from '../../../profile/_queries/useGetMe';
 
