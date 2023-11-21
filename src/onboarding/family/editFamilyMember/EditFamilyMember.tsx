@@ -89,7 +89,7 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
           </Styled.AvatarItemBorder>
         )}
       />
-      <Styled.StickyFooter style={{ marginBottom: bottom }}>
+      <Styled.StickyFooter style={{ marginBottom: bottom + 16 }}>
         <Button label={t('ONBOARDING.FAMILY.EDIT_MEMBER.SAVE')} onPress={handleSubmit} />
       </Styled.StickyFooter>
     </Styled.ScreenContainer>
