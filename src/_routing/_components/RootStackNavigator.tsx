@@ -23,6 +23,7 @@ import {
   FamilyOverview,
 } from '../../onboarding/family';
 import Onboarding from '../../onboarding/Onboarding';
+import { FamiliesOverview } from '../../profile/family/FamiliesOverview';
 import ProfileNotFound from '../../profile/ProfileNotFound';
 import RedeemedReward from '../../redeemedReward/RedeemedReward';
 import { RedeemedRewards } from '../../redeemedRewards/RedeemedRewards';
@@ -254,6 +255,14 @@ export const RootStackNavigator = () => {
                 gestureEnabled: false,
                 headerRight: UserPoints,
                 title: i18n.t('NAVIGATION.SHOP'),
+              }}
+            />
+            <RootStack.Screen
+              component={FamiliesOverview}
+              name="FamiliesOverview"
+              options={{
+                headerBackTitle: '',
+                title: i18n.t('PROFILE.LINKS.MY_FAMILY'),
               }}
             />
           </RootStack.Group>
