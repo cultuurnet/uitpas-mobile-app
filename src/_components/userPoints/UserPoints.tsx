@@ -54,7 +54,7 @@ const UserPoints = () => {
             key={member.passholderId}
             resizeMode="contain"
             source={getAvatarByNameOrDefault(member.icon)}
-            style={[{ zIndex: 3 - index }, index > 0 && { marginLeft: -10 }]}
+            style={[{ zIndex: numberOfAvatarsToShow - index - 1 }, index > 0 && { marginLeft: -10 }]}
           />
         ))}
         {moreCount > 0 && (
