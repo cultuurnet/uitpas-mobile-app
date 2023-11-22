@@ -4,7 +4,6 @@ import styled from 'styled-components/native';
 import { theme } from '../../_styles/theme';
 import Icon from '../icon/Icon';
 import Typography from '../typography/Typography';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export const UserPointsButton = styled.TouchableOpacity`
   padding: 2px 4px 2px 8px;
@@ -30,7 +29,7 @@ export const AvatarContainer = styled.View`
   text-align: center;
 `;
 
-export const FamilyPointsButton = styled(TouchableOpacity)`
+export const FamilyPointsButton = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   align-self: flex-start;
