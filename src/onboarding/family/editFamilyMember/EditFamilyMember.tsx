@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { FlatList } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import * as Avatars from '../../../_assets/images/avatars';
+import * as AnimalAvatars from '../../../_assets/images/avatars/animalAvatars';
+import * as EmojiAvatars from '../../../_assets/images/avatars/emojiAvatars';
 import { Button, Typography } from '../../../_components';
 import { queryClient } from '../../../_context';
 import { TMainNavigationProp, TRootStackRouteProp } from '../../../_routing';
@@ -22,17 +23,7 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
 
   const [selectedAvatar, setSelectedAvatar] = useState(getValidAvatarNameOrDefault(member.icon));
   const sortedAvatars = useMemo(() => {
-    const avatars = Object.keys(Avatars).slice();
-    avatars.sort((item, item2) => {
-      if (item.includes('Emoji') && !item2.includes('Emoji')) {
-        return -1;
-      }
-      if (item2.includes('Emoji') && !item.includes('Emoji')) {
-        return 1;
-      }
-      return item.localeCompare(item2);
-    });
-    return avatars;
+    return [...Object.keys(EmojiAvatars), ...Object.keys(AnimalAvatars)];
   }, []);
   const { mutateAsync: editFamilyMember, isLoading } = useEditFamilyMember(member.passholderId);
 

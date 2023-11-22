@@ -7,18 +7,20 @@ import { useHeaderHeight } from '@react-navigation/elements';
 
 import { Button, Typography } from '../../../_components';
 import { queryClient } from '../../../_context';
-import { TMainNavigationProp } from '../../../_routing';
-import { applyBarcodeMask, DEFAULT_AVATAR_NAME, openExternalURL } from '../../../_utils';
+import { TMainNavigationProp, TRootStackRouteProp } from '../../../_routing';
+import { applyBarcodeMask, getRandomUniqueAvatar, openExternalURL } from '../../../_utils';
 import { TRegistrationTokenRequest, useGetRegistrationToken, useRegisterFamilyMember } from '../_queries';
 import * as Styled from './style';
 
 type TProps = {
   navigation: TMainNavigationProp<'Profile'>;
+  route: TRootStackRouteProp<'AddFamilyMember'>;
 };
 
 type TFormData = TRegistrationTokenRequest;
 
-export const AddFamilyMember = ({ navigation }: TProps) => {
+export const AddFamilyMember = ({ navigation, route }: TProps) => {
+  const { familyMembers } = route.params;
   const {
     control: formControl,
     formState: { errors },
@@ -40,7 +42,7 @@ export const AddFamilyMember = ({ navigation }: TProps) => {
       try {
         await registerFamilyMember({
           body: {
-            icon: DEFAULT_AVATAR_NAME,
+            icon: getRandomUniqueAvatar(familyMembers),
             uitpasNumber: getFormValues().uitpasNumber.replaceAll(' ', ''),
           },
           headers: { 'x-registration-token': token },
