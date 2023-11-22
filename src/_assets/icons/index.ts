@@ -8,6 +8,7 @@ export const Charity = require('./charity.png');
 export const Check = require('./check.png');
 export const CheckboxChecked = require('./checkboxChecked.png');
 export const CheckboxUnchecked = require('./checkboxUnchecked.png');
+export const Chevron = require('./chevron.png');
 export const ChevronLeft = require('./chevronLeft.png');
 export const ChevronUp = require('./chevronUp.png');
 export const Child = require('./child.png');

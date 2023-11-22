@@ -45,7 +45,7 @@ export const FamilyOverview = ({ navigation }: TProps) => {
       <FlatList
         ListHeaderComponent={
           <Styled.Header>
-            <Styled.HeaderContent onPress={() => navigation.navigate('EditFamilyMember', { mainFamilyMember: true, member: me })}>
+            <Styled.HeaderContent onPress={() => navigation.navigate('EditFamilyMember', { member: me })}>
               <>
                 <View>
                   <Styled.MyAvatar resizeMode="contain" source={getAvatarByNameOrDefault(me?.icon)} />
