@@ -54,7 +54,7 @@ export const FamilyOverview = ({ navigation }: TProps) => {
                   </Styled.EditProfileIconContainer>
                 </View>
                 <Styled.MyName color="neutral.0" fontStyle="semibold" numberOfLines={1}>
-                  {me?.firstName} {t('ONBOARDING.FAMILY.OVERVIEW.YOU')}
+                  {me?.passholder?.firstName} {t('ONBOARDING.FAMILY.OVERVIEW.YOU')}
                 </Styled.MyName>
               </>
             </Styled.HeaderContent>
@@ -63,7 +63,7 @@ export const FamilyOverview = ({ navigation }: TProps) => {
         columnWrapperStyle={{ margin: 8 }}
         contentContainerStyle={{ paddingBottom: 8 }}
         data={formItems}
-        keyExtractor={item => `${item.type}${item.type === TFormItemType.FamilyMemberItem ? item.passholderId : ''}`}
+        keyExtractor={item => `${item.type}${item.type === TFormItemType.FamilyMemberItem ? item.passholder.id : ''}`}
         numColumns={2}
         renderItem={({ item: formItem }) => {
           if (formItem.type === TFormItemType.FamilyMemberItem) {
@@ -78,7 +78,7 @@ export const FamilyOverview = ({ navigation }: TProps) => {
                       </Styled.EditProfileIconContainer>
                     </View>
                     <Styled.FormItemLabel color="primary.700" fontStyle="semibold" numberOfLines={1}>
-                      {formItem.firstName}
+                      {formItem.passholder.firstName}
                     </Styled.FormItemLabel>
                   </Styled.FormItem>
                 </TouchableRipple>
