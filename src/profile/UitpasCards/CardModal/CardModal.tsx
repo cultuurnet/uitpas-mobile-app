@@ -1,10 +1,10 @@
 import React, { FC, useEffect } from 'react';
 import { Modal, StatusBar } from 'react-native';
 
-import { Icon } from '../../_components';
-import { useFullScreenBrightness } from '../../_hooks/useFullscreenBrightness';
-import { theme } from '../../_styles/theme';
-import { useGetMe } from '../_queries/useGetMe';
+import { Icon } from '../../../_components';
+import { useFullScreenBrightness } from '../../../_hooks/useFullscreenBrightness';
+import { theme } from '../../../_styles/theme';
+import { useGetMe } from '../../_queries/useGetMe';
 import UitpasCard from '../UitpasCard/UitpasCard';
 import * as Styled from './style';
 

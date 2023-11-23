@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
-import { Button } from '../../_components';
-import { theme } from '../../_styles/theme';
+import { Button } from '../../../_components';
+import { theme } from '../../../_styles/theme';
 
 export const BlurContainer = styled(Button)`
   align-items: center;

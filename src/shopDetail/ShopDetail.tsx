@@ -7,7 +7,7 @@ import { useTracking } from '../_context';
 import { useToggle } from '../_hooks';
 import { TRootStackRouteProp } from '../_routing';
 import { getLanguage, getRewardTrackingData, normalizeUrl } from '../_utils';
-import CardModal from '../profile/CardModal/CardModal';
+import CardModal from '../profile/UitpasCards/CardModal/CardModal';
 import { useGetReward } from '../shop/_queries/useGetReward';
 import { Availability } from './_components/availability/Availability';
 import { Organizer } from './_components/organizer/Organizer';

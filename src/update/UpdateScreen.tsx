@@ -5,7 +5,7 @@ import { Analytics, DiagonalSplitView, Spinner, Typography } from '../_component
 import { ConfigUrl } from '../_config';
 import i18n from '../_translations/i18n';
 import { useGetMe } from '../profile/_queries/useGetMe';
-import UitpasCard from '../profile/UitpasCard/UitpasCard';
+import UitpasCard from '../profile/UitpasCards/UitpasCard/UitpasCard';
 import * as Styled from './style';
 
 const UpdateScreen = () => {

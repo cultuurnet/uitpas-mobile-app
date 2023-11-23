@@ -4,7 +4,7 @@ import { useStackNavigation, useToggle } from '../../_hooks';
 import { getAvatarByNameOrDefault } from '../../_utils';
 import { useGetFamilyMembers } from '../../onboarding/family/_queries';
 import { useGetMe } from '../../profile/_queries/useGetMe';
-import CardModal from '../../profile/CardModal/CardModal';
+import CardModal from '../../profile/UitpasCards/CardModal/CardModal';
 import Typography from '../typography/Typography';
 import * as Styled from './style';
 

@@ -2,10 +2,10 @@ import React, { FC } from 'react';
 import { useWindowDimensions } from 'react-native';
 import Barcode from 'react-native-barcode-svg';
 
-import { BrandLogo, Typography } from '../../_components';
-import i18n from '../../_translations/i18n';
-import { applyBarcodeMask, getPassHolderRegions } from '../../_utils';
-import { TPassHolder } from '../_models';
+import { BrandLogo, Typography } from '../../../_components';
+import i18n from '../../../_translations/i18n';
+import { applyBarcodeMask, getPassHolderRegions } from '../../../_utils';
+import { TPassHolder } from '../../_models';
 import * as Styled from './style';
 
 type TProps = {
