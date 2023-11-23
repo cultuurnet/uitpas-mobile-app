@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -18,16 +18,19 @@ type TProps = {
   route: TRootStackRouteProp<'EditFamilyMember'>;
 };
 
+const SORTED_AVATARS = [...Object.keys(EmojiAvatars), ...Object.keys(AnimalAvatars)];
+
 export const EditFamilyMember = ({ navigation, route }: TProps) => {
   const {
-    member: { passholderId, firstName, uitpasNumber, icon, name },
+    member: {
+      passholder: { id: passholderId, firstName, name },
+      uitpasNumber,
+      icon,
+    },
     mainFamilyMember,
   } = route.params;
 
   const [selectedAvatar, setSelectedAvatar] = useState(getValidAvatarNameOrDefault(icon));
-  const sortedAvatars = useMemo(() => {
-    return [...Object.keys(EmojiAvatars), ...Object.keys(AnimalAvatars)];
-  }, []);
   const { mutateAsync: editFamilyMember, isLoading } = useEditFamilyMember(passholderId);
 
   const { bottom } = useSafeAreaInsets();
@@ -46,7 +49,7 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
         ListFooterComponentStyle={{ width: '100%' }}
         ListHeaderComponent={
           <Styled.Header>
-            <Typography fontStyle="bold" numberOfLines={2} size="xxlarge">
+            <Typography align="center" fontStyle="bold" size="xxlarge">
               {`${firstName} ${name}`}
             </Typography>
             <Styled.UitpasNumber color="primary.700" fontStyle="bold">
@@ -60,7 +63,7 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
         }
         columnWrapperStyle={{ padding: 8 }}
         contentContainerStyle={{ alignItems: 'center', paddingHorizontal: 8 }}
-        data={sortedAvatars}
+        data={SORTED_AVATARS}
         numColumns={5}
         renderItem={({ item: avatar }) => (
           <Styled.AvatarItemBorder isSelected={avatar === selectedAvatar} onPress={() => setSelectedAvatar(avatar)}>
