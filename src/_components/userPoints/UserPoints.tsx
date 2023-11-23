@@ -38,7 +38,7 @@ const UserPoints = () => {
             )}
           </>
         </Styled.UserPointsButton>
-        <CardModal isVisible={cardModalVisible} toggleIsVisible={toggleCardModalVisible} />
+        <CardModal isVisible={cardModalVisible} passHolder={user} toggleIsVisible={toggleCardModalVisible} />
       </>
     );
   }
