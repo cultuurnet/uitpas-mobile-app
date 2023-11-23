@@ -51,7 +51,7 @@ const UserPoints = () => {
       <Styled.FamilyPointsButton onPress={() => navigation.navigate('MainNavigator', { screen: 'Profile' })}>
         {familyMembers.slice(0, numberOfAvatarsToShow).map((member, index) => (
           <Styled.AvatarImage
-            key={member.passholderId}
+            key={member.passholder.id}
             resizeMode="contain"
             source={getAvatarByNameOrDefault(member.icon)}
             style={[{ zIndex: numberOfAvatarsToShow - index - 1 }, index > 0 && { marginLeft: -10 }]}
