@@ -27,10 +27,10 @@ const UitpasCard: FC<TProps> = ({ passHolder, scale = 1, icon, isLarge }) => {
         <Styled.UserInfoContainer>
           {icon && <Styled.UserAvatar source={getAvatarByNameOrDefault(icon)} />}
           <Styled.CardsView>
-            <Typography color="neutral.0" fontStyle="bold" numberOfLines={1}>
+            <Typography color="neutral.0" fontStyle="bold" numberOfLines={!isLarge ? 1 : null}>
               {`${passHolder.firstName} ${passHolder.name}`}
             </Typography>
-            <Typography color="neutral.0" ellipsizeMode="clip" numberOfLines={1} size="small">
+            <Typography color="neutral.0" ellipsizeMode="clip" numberOfLines={!isLarge ? 1 : null} size="small">
               {isLarge
                 ? passHolderRegions.map(card => card.cardSystem.name).join(', ')
                 : `${firstPassHolderRegion?.cardSystem?.name}${passHolderRegions.length > 1 ? ', ...' : ''}`}

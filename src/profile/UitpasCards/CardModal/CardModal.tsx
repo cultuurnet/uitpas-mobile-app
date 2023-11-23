@@ -9,12 +9,13 @@ import UitpasCard from '../UitpasCard/UitpasCard';
 import * as Styled from './style';
 
 type TCardModalProps = {
+  icon?: string;
   isVisible: boolean;
   passHolder: TPassHolder;
   toggleIsVisible: () => void;
 };
 
-const CardModal: FC<TCardModalProps> = ({ passHolder, isVisible, toggleIsVisible }) => {
+const CardModal: FC<TCardModalProps> = ({ passHolder, icon, isVisible, toggleIsVisible }) => {
   const { resetScreen, brightenScreen } = useFullScreenBrightness();
 
   useEffect(() => {
@@ -35,7 +36,7 @@ const CardModal: FC<TCardModalProps> = ({ passHolder, isVisible, toggleIsVisible
           <Styled.CloseButton>
             <Icon color="neutral.0" name="Close" onPress={toggleIsVisible} size={14} />
           </Styled.CloseButton>
-          <UitpasCard isLarge passHolder={passHolder} />
+          <UitpasCard icon={icon} isLarge passHolder={passHolder} />
         </>
       </Styled.BlurContainer>
     </Modal>

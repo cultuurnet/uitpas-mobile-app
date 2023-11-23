@@ -3,7 +3,7 @@ import { FlatList, Pressable, useWindowDimensions } from 'react-native';
 
 import { useToggle } from '../../_hooks';
 import { useGetFamilyMembers } from '../../onboarding/family/_queries';
-import { TPassHolder } from '../_models';
+import { TFamilyMember } from '../_models';
 import CardModal from './CardModal/CardModal';
 import * as Styled from './style';
 import { CARD_ITEM_DIVIDER_WIDTH, CARD_ITEM_SCALE } from './style';
@@ -13,12 +13,12 @@ import UitpasCard from './UitpasCard/UitpasCard';
 export const UitpasCards = () => {
   const { width: screenWidth } = useWindowDimensions();
   const [cardModalVisible, toggleCardModalVisible] = useToggle(false);
-  const [selectedPassHolder, setSelectedPassHolder] = useState<TPassHolder>(null);
+  const [selectedFamilyMember, setSelectedFamilyMember] = useState<TFamilyMember>(null);
 
   const { data: familyMembers } = useGetFamilyMembers();
 
-  const handleCardPress = (passHolder: TPassHolder) => {
-    setSelectedPassHolder(passHolder);
+  const handlePressCard = (familyMember: TFamilyMember) => {
+    setSelectedFamilyMember(familyMember);
     toggleCardModalVisible();
   };
 
@@ -30,16 +30,25 @@ export const UitpasCards = () => {
         data={familyMembers}
         horizontal
         keyExtractor={item => item.uitpasNumber}
-        renderItem={({ item: { icon, passholder: passHolder } }) => (
-          <Pressable onPress={() => handleCardPress(passHolder)}>
-            <UitpasCard icon={familyMembers.length > 1 ? icon : null} passHolder={passHolder} scale={CARD_ITEM_SCALE} />
+        renderItem={({ item: familyMember }) => (
+          <Pressable onPress={() => handlePressCard(familyMember)}>
+            <UitpasCard
+              icon={familyMembers.length > 1 ? familyMember.icon : null}
+              passHolder={familyMember.passholder}
+              scale={familyMembers.length > 1 ? CARD_ITEM_SCALE : 1}
+            />
           </Pressable>
         )}
         showsHorizontalScrollIndicator={false}
         snapToAlignment="start"
         snapToInterval={getCardWidth(screenWidth, CARD_ITEM_SCALE) + CARD_ITEM_DIVIDER_WIDTH}
       />
-      <CardModal isVisible={cardModalVisible} passHolder={selectedPassHolder} toggleIsVisible={toggleCardModalVisible} />
+      <CardModal
+        icon={familyMembers.length > 1 ? selectedFamilyMember?.icon : null}
+        isVisible={cardModalVisible}
+        passHolder={selectedFamilyMember?.passholder}
+        toggleIsVisible={toggleCardModalVisible}
+      />
     </>
   );
 };
