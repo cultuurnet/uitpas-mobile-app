@@ -25,7 +25,7 @@ export const UitpasCards = () => {
   return (
     <>
       <FlatList
-        ItemSeparatorComponent={() => <Styled.CardItemDivider />}
+        ItemSeparatorComponent={Styled.CardItemDivider}
         contentContainerStyle={{ paddingHorizontal: 20 }}
         data={familyMembers}
         horizontal
@@ -33,6 +33,7 @@ export const UitpasCards = () => {
         renderItem={({ item: familyMember }) => (
           <Pressable onPress={() => handlePressCard(familyMember)}>
             <UitpasCard
+              hasYouSuffix={familyMembers.length > 1 && familyMember.mainFamilyMember}
               icon={familyMembers.length > 1 ? familyMember.icon : null}
               passHolder={familyMember.passholder}
               scale={familyMembers.length > 1 ? CARD_ITEM_SCALE : 1}

@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useWindowDimensions } from 'react-native';
 import Barcode from 'react-native-barcode-svg';
 
@@ -9,13 +10,15 @@ import { TPassHolder } from '../../_models';
 import * as Styled from './style';
 
 type TProps = {
+  hasYouSuffix?: boolean;
   icon?: string;
   isLarge?: boolean;
   passHolder: TPassHolder;
-  scale?: number;
+  scale?: number; // Defaults to 1, i.e. full width
 };
 
-const UitpasCard: FC<TProps> = ({ passHolder, scale = 1, icon, isLarge }) => {
+const UitpasCard: FC<TProps> = ({ passHolder, hasYouSuffix, icon, scale = 1, isLarge }) => {
+  const { t } = useTranslation();
   const { width: screenWidth } = useWindowDimensions();
 
   const passHolderRegions = getPassHolderRegions(passHolder);
@@ -29,6 +32,7 @@ const UitpasCard: FC<TProps> = ({ passHolder, scale = 1, icon, isLarge }) => {
           <Styled.CardsView>
             <Typography color="neutral.0" fontStyle="bold" numberOfLines={!isLarge ? 1 : null}>
               {`${passHolder.firstName} ${passHolder.name}`}
+              {hasYouSuffix ? ` ${t('PROFILE.YOU')}` : ''}
             </Typography>
             <Typography color="neutral.0" ellipsizeMode="clip" numberOfLines={!isLarge ? 1 : null} size="small">
               {isLarge
