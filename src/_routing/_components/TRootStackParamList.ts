@@ -30,7 +30,7 @@ export type TMainRouteProp<RouteName extends TMainRoute = TMainRoute> = RoutePro
 
 export type TRootStackParamList = {
   About: undefined;
-  AddFamilyMember: undefined;
+  AddFamilyMember: { familyMembers: TFamilyMember[] };
   AddFamilyMemberError: { description: string };
   EditFamilyMember: { member: TFamilyMember };
   Error: {
