@@ -100,9 +100,9 @@ const Profile = ({ navigation }: TProps) => {
     <>
       <Analytics screenName="Profile" />
       <Styled.SafeAreaViewContainer edges={['left', 'right']} isScrollable>
+        <EnlargedHeader />
+        <UitpasCards />
         <Styled.TopContainer>
-          <EnlargedHeader />
-          <UitpasCards />
           {versions?.isBehindTarget && <UpdateNotification />}
           {!isUitpasInfoClosed && (
             <UitpasInfo

@@ -23,7 +23,7 @@ type TProps = {
 export const EditFamilyMember = ({ navigation, route }: TProps) => {
   const {
     member: {
-      passholder: { id: passholderId, firstName, name },
+      passholder: { id: passHolderId, firstName, name },
       uitpasNumber,
       mainFamilyMember,
       icon,
@@ -31,7 +31,7 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
   } = route.params;
 
   const [selectedAvatar, setSelectedAvatar] = useState(getValidAvatarNameOrDefault(icon));
-  const { mutateAsync: editFamilyMember, isLoading } = useEditFamilyMember(passholderId);
+  const { mutateAsync: editFamilyMember, isLoading } = useEditFamilyMember(passHolderId);
 
   const { bottom } = useSafeAreaInsets();
   const { t } = useTranslation();
@@ -45,7 +45,7 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
   return (
     <Styled.ScreenContainer>
       <FlatList
-        ListFooterComponent={!mainFamilyMember && <DeleteFamilyMember familyMemberId={passholderId} name={firstName} />}
+        ListFooterComponent={!mainFamilyMember && <DeleteFamilyMember familyMemberId={passHolderId} name={firstName} />}
         ListFooterComponentStyle={{ width: '100%' }}
         ListHeaderComponent={
           <Styled.Header>
