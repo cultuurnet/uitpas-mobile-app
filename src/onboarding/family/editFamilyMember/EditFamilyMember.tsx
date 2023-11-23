@@ -19,13 +19,16 @@ type TProps = {
 };
 
 export const EditFamilyMember = ({ navigation, route }: TProps) => {
-  const { member, mainFamilyMember } = route.params;
+  const {
+    member: { passholderId, firstName, uitpasNumber, icon, name },
+    mainFamilyMember,
+  } = route.params;
 
-  const [selectedAvatar, setSelectedAvatar] = useState(getValidAvatarNameOrDefault(member.icon));
+  const [selectedAvatar, setSelectedAvatar] = useState(getValidAvatarNameOrDefault(icon));
   const sortedAvatars = useMemo(() => {
     return [...Object.keys(EmojiAvatars), ...Object.keys(AnimalAvatars)];
   }, []);
-  const { mutateAsync: editFamilyMember, isLoading } = useEditFamilyMember(member.passholderId);
+  const { mutateAsync: editFamilyMember, isLoading } = useEditFamilyMember(passholderId);
 
   const { bottom } = useSafeAreaInsets();
   const { t } = useTranslation();
@@ -39,17 +42,15 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
   return (
     <Styled.ScreenContainer>
       <FlatList
-        ListFooterComponent={
-          !mainFamilyMember && <DeleteFamilyMember familyMemberId={member.passholderId} name={member.firstName} />
-        }
+        ListFooterComponent={!mainFamilyMember && <DeleteFamilyMember familyMemberId={passholderId} name={firstName} />}
         ListFooterComponentStyle={{ width: '100%' }}
         ListHeaderComponent={
           <Styled.Header>
-            <Typography fontStyle="bold" numberOfLines={1} size="xxlarge">
-              {member.firstName}
+            <Typography fontStyle="bold" numberOfLines={2} size="xxlarge">
+              {`${firstName} ${name}`}
             </Typography>
             <Styled.UitpasNumber color="primary.700" fontStyle="bold">
-              {applyBarcodeMask(member.uitpasNumber)}
+              {applyBarcodeMask(uitpasNumber)}
             </Styled.UitpasNumber>
             <Styled.SelectedAvatarImage resizeMode="contain" source={getAvatarByNameOrDefault(selectedAvatar)} />
             <Styled.Description color="primary.700" fontStyle="semibold">
