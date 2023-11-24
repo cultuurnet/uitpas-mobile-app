@@ -7,11 +7,13 @@ import { useTracking } from '../_context';
 import { useToggle } from '../_hooks';
 import { TRootStackRouteProp } from '../_routing';
 import { getLanguage, getRewardTrackingData, normalizeUrl } from '../_utils';
+import { useHasFamilyMembers } from '../onboarding/family/_queries';
 import { useGetMe } from '../profile/_queries/useGetMe';
 import CardModal from '../profile/UitpasCards/CardModal/CardModal';
 import { useGetReward } from '../shop/_queries/useGetReward';
 import { Availability } from './_components/availability/Availability';
 import { Organizer } from './_components/organizer/Organizer';
+import { RedeemFamilyMembers } from './_components/redeemFamilyMembers/RedeemFamilyMembers';
 import RedeemModal from './_components/redeemModal/RedeemModal';
 import { Section } from './_components/section/Section';
 import { useGetRedeemStatus } from './_queries/useGetRedeemStatus';
@@ -31,7 +33,8 @@ export const ShopDetail = ({ route }: TProps) => {
     isLoading: isRedeemStatusLoading,
     error: redeemError,
     refetch: refetchRedeemStatus,
-  } = useGetRedeemStatus({ id: reward.id });
+  } = useGetRedeemStatus({ passHolder, rewardId: reward.id });
+  const hasFamilyMembers = useHasFamilyMembers();
   const [isRedeemModalConfirmationOpen, toggleRedeemModalConfirmationOpen] = useToggle(false);
   const [cardModalVisible, toggleCardModalVisible] = useToggle(false);
   const { t } = useTranslation();
@@ -176,7 +179,14 @@ export const ShopDetail = ({ route }: TProps) => {
             />
             <HtmlRenderer source={{ html: reward.practicalInfo }} />
           </Section>
+
+          {hasFamilyMembers && (
+            <Section title={t('SHOP_DETAIL.WHO_CAN_REDEEM.TITLE')}>
+              <RedeemFamilyMembers rewardId={reward.id} />
+            </Section>
+          )}
         </Styled.Content>
+
         <Styled.RelatedRewards
           filterRewardId={reward.id}
           hideMoreButton
