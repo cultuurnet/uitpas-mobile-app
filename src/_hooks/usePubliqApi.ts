@@ -2,9 +2,11 @@ import { useCallback, useMemo } from 'react';
 import { Config } from 'react-native-config';
 import {
   InfiniteQueryObserverOptions,
+  NetworkMode,
   useInfiniteQuery,
   useMutation,
   UseMutationOptions,
+  useQueries,
   useQuery,
   UseQueryOptions,
 } from '@tanstack/react-query';
@@ -31,6 +33,11 @@ export type TMutationParams<RequestBody extends Record<string, unknown> = Record
   body?: RequestBody;
   headers?: Headers;
 };
+type TGetAllConfig<T> = {
+  options?: TGetOptions<T>;
+  path: string;
+  queryKey: unknown[];
+}[];
 type TGetInfiniteOptions<T = unknown> = InfiniteQueryObserverOptions<T, TApiError> & TSharedOptions & { itemsPerPage?: number };
 
 type ApiHost = 'uitpas' | 'uitdatabank';
@@ -63,6 +70,24 @@ export function usePubliqApi(host: ApiHost = 'uitpas') {
         queryFn: async () => HttpClient.get<T>(`${apiHost}${path}`, params, { ...defaultHeaders, ...headers }),
         queryKey,
         ...options,
+      });
+    },
+    [accessToken, defaultHeaders, apiHost],
+  );
+
+  const getAll = useCallback(
+    <T = unknown>(calls: TGetAllConfig<T>) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      return useQueries({
+        queries: calls.map(({ queryKey, path, options: { headers = {}, params = {}, enabled, ...extraOptions } }) => {
+          return {
+            enabled: !!accessToken && (enabled === undefined || enabled),
+            networkMode: 'offlineFirst' as const,
+            queryFn: async () => HttpClient.get<T>(`${apiHost}${path}`, params, { ...defaultHeaders, ...headers }),
+            queryKey,
+            ...extraOptions,
+          };
+        }),
       });
     },
     [accessToken, defaultHeaders, apiHost],
@@ -150,5 +175,5 @@ export function usePubliqApi(host: ApiHost = 'uitpas') {
     [accessToken, defaultHeaders, apiHost],
   );
 
-  return { deleteMutation, get, getInfinite, post, put };
+  return { deleteMutation, get, getAll, getInfinite, post, put };
 }
