@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, View } from 'react-native';
+import { LayoutChangeEvent, Platform, ScrollView, View } from 'react-native';
 
 import { Accordion, Analytics, Button, HtmlRenderer, Points, RewardImage, Trans, Typography } from '../_components';
 import { useTracking } from '../_context';
@@ -36,7 +36,7 @@ export const ShopDetail = ({ route }: TProps) => {
     refetch: refetchRedeemStatus,
   } = useGetRedeemStatus({ passHolder, rewardId: reward.id });
   const hasFamilyMembers = useHasFamilyMembers();
-  const [familyMembersSectionPosition, setFamilyMemberSectionPosition] = useState<number>();
+  const [familyMembersSectionOffset, setFamilyMemberSectionOffset] = useState(0);
   const [isRedeemModalConfirmationOpen, toggleRedeemModalConfirmationOpen] = useToggle(false);
   const [cardModalVisible, toggleCardModalVisible] = useToggle(false);
   const { t } = useTranslation();
@@ -49,6 +49,11 @@ export const ShopDetail = ({ route }: TProps) => {
   const isInAppRedeemable = reward?.online && redeemStatus?.redeemable;
   // If we have a redeembutton, it needs to be sticky, otherwise we don't have sticky content
   const stickyHeaderIndices = isInAppRedeemable ? [2] : [];
+
+  const updateFamilyMembersSectionPosition = (event: LayoutChangeEvent) => {
+    event.persist();
+    setFamilyMemberSectionOffset(offset => offset + event.nativeEvent.layout.y);
+  };
 
   const handleLinkPress = () => {
     trackSelfDescribingEvent('linkClick', { targetUrl: normalizeUrl(reward.moreInfoURL) }, { reward: rewardTrackingData });
@@ -97,7 +102,10 @@ export const ShopDetail = ({ route }: TProps) => {
             <Button
               label={t('SHOP_DETAIL.REDEEM.BUTTON')}
               loading={isRedeemStatusLoading}
-              onPress={() => scrollViewRef.current?.scrollTo({ animated: true, y: familyMembersSectionPosition })}
+              onPress={() => {
+                const stickyOffset = 48 + 16;
+                scrollViewRef.current?.scrollTo({ animated: true, y: familyMembersSectionOffset - stickyOffset });
+              }}
             />
           ) : (
             renderRedeemError()
@@ -117,7 +125,7 @@ export const ShopDetail = ({ route }: TProps) => {
     redeemError,
     renderRedeemError,
     t,
-    familyMembersSectionPosition,
+    familyMembersSectionOffset,
   ]);
 
   const handleRedeem = (familyMember: TFamilyMember) => {
@@ -151,7 +159,7 @@ export const ShopDetail = ({ route }: TProps) => {
 
         {renderRedeemStatus()}
 
-        <Styled.Content>
+        <Styled.Content onLayout={updateFamilyMembersSectionPosition}>
           <Section title={t('SHOP_DETAIL.DESCRIPTION')}>
             <HtmlRenderer onLinkPress={handleLinkPress} source={{ html: reward.promotionalDescription }} />
           </Section>
@@ -188,7 +196,7 @@ export const ShopDetail = ({ route }: TProps) => {
           </Section>
 
           {hasFamilyMembers && (
-            <View onLayout={event => setFamilyMemberSectionPosition(event.nativeEvent.layout.y)}>
+            <View onLayout={updateFamilyMembersSectionPosition}>
               <Section title={t('SHOP_DETAIL.WHO_CAN_REDEEM.TITLE')}>
                 <RedeemFamilyMembers onRedeem={handleRedeem} rewardId={reward.id} />
               </Section>
