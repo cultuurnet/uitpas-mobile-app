@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LayoutChangeEvent, Platform, ScrollView, View } from 'react-native';
+import { LayoutChangeEvent, ScrollView, View } from 'react-native';
 
 import { Accordion, Analytics, Button, HtmlRenderer, Points, RewardImage, Trans, Typography } from '../_components';
 import { useTracking } from '../_context';
