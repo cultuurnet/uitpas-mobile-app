@@ -35,7 +35,7 @@ export const ShopDetail = ({ route }: TProps) => {
     error: redeemError,
     refetch: refetchRedeemStatus,
   } = useGetRedeemStatus({ passHolder, rewardId: reward.id });
-  const hasFamilyMembers = useHasFamilyMembers();
+  const { data: hasFamilyMembers } = useHasFamilyMembers();
   const [familyMembersSectionOffset, setFamilyMemberSectionOffset] = useState(0);
   const [isRedeemModalConfirmationOpen, toggleRedeemModalConfirmationOpen] = useToggle(false);
   const [cardModalVisible, toggleCardModalVisible] = useToggle(false);
