@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { Accordion, Analytics, Button, HtmlRenderer, Points, RewardImage, Trans, Typography } from '../_components';
 import { useTracking } from '../_context';
@@ -8,6 +8,7 @@ import { useToggle } from '../_hooks';
 import { TRootStackRouteProp } from '../_routing';
 import { getLanguage, getRewardTrackingData, normalizeUrl } from '../_utils';
 import { useHasFamilyMembers } from '../onboarding/family/_queries';
+import { TFamilyMember } from '../profile/_models';
 import { useGetMe } from '../profile/_queries/useGetMe';
 import CardModal from '../profile/UitpasCards/CardModal/CardModal';
 import { useGetReward } from '../shop/_queries/useGetReward';
@@ -35,10 +36,12 @@ export const ShopDetail = ({ route }: TProps) => {
     refetch: refetchRedeemStatus,
   } = useGetRedeemStatus({ passHolder, rewardId: reward.id });
   const hasFamilyMembers = useHasFamilyMembers();
+  const [familyMembersSectionPosition, setFamilyMemberSectionPosition] = useState<number>();
   const [isRedeemModalConfirmationOpen, toggleRedeemModalConfirmationOpen] = useToggle(false);
   const [cardModalVisible, toggleCardModalVisible] = useToggle(false);
   const { t } = useTranslation();
   const { trackSelfDescribingEvent } = useTracking();
+  const scrollViewRef = useRef(null);
   const rewardTrackingData = getRewardTrackingData(reward);
 
   const [firstOrganizer, ...organizers] = reward?.organizers || [];
@@ -94,10 +97,7 @@ export const ShopDetail = ({ route }: TProps) => {
             <Button
               label={t('SHOP_DETAIL.REDEEM.BUTTON')}
               loading={isRedeemStatusLoading}
-              onPress={() => {
-                trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-cta' }, { reward: rewardTrackingData });
-                toggleRedeemModalConfirmationOpen();
-              }}
+              onPress={() => scrollViewRef.current?.scrollTo({ animated: true, y: familyMembersSectionPosition })}
             />
           ) : (
             renderRedeemError()
@@ -111,21 +111,28 @@ export const ShopDetail = ({ route }: TProps) => {
       )
     );
   }, [
+    reward?.online,
+    redeemStatus?.redeemable,
     isRedeemStatusLoading,
     redeemError,
-    redeemStatus?.redeemable,
-    reward?.online,
-    t,
-    toggleRedeemModalConfirmationOpen,
     renderRedeemError,
-    trackSelfDescribingEvent,
-    rewardTrackingData,
+    t,
+    familyMembersSectionPosition,
   ]);
+
+  const handleRedeem = (familyMember: TFamilyMember) => {
+    if (familyMember.mainFamilyMember) {
+      trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-cta' }, { reward: rewardTrackingData });
+      toggleRedeemModalConfirmationOpen();
+    } else {
+      // TODO: UIT-203
+    }
+  };
 
   return (
     <>
       <Analytics data={{ reward: rewardTrackingData }} screenName="reward" />
-      <ScrollView stickyHeaderIndices={stickyHeaderIndices}>
+      <ScrollView ref={scrollViewRef} stickyHeaderIndices={stickyHeaderIndices}>
         <Styled.ImageContainer>
           <RewardImage largeSpacing picture={reward.pictures?.[0]}>
             {!!reward.points && (
@@ -181,9 +188,11 @@ export const ShopDetail = ({ route }: TProps) => {
           </Section>
 
           {hasFamilyMembers && (
-            <Section title={t('SHOP_DETAIL.WHO_CAN_REDEEM.TITLE')}>
-              <RedeemFamilyMembers rewardId={reward.id} />
-            </Section>
+            <View onLayout={event => setFamilyMemberSectionPosition(event.nativeEvent.layout.y)}>
+              <Section title={t('SHOP_DETAIL.WHO_CAN_REDEEM.TITLE')}>
+                <RedeemFamilyMembers onRedeem={handleRedeem} rewardId={reward.id} />
+              </Section>
+            </View>
           )}
         </Styled.Content>
 

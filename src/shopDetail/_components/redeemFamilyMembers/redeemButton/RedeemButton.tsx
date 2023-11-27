@@ -8,10 +8,11 @@ import * as Styled from './style';
 
 type TProps = {
   familyMember: TFamilyMember;
+  onPress: () => void;
   rewardId: string;
 };
 
-export const RedeemButton = ({ familyMember, rewardId }: TProps) => {
+export const RedeemButton = ({ familyMember, onPress, rewardId }: TProps) => {
   const { t } = useTranslation();
   const [showUnredeemableModal, toggleUnredeemableModal] = useToggle(false);
 
@@ -43,5 +44,5 @@ export const RedeemButton = ({ familyMember, rewardId }: TProps) => {
     );
   }
 
-  return <Styled.RedeemButton fontSize="small" label={t('SHOP_DETAIL.WHO_CAN_REDEEM.REDEEM')} />;
+  return <Styled.RedeemButton fontSize="small" label={t('SHOP_DETAIL.WHO_CAN_REDEEM.REDEEM')} onPress={onPress} />;
 };
