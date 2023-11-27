@@ -27,6 +27,7 @@ import { FamiliesOverview } from '../../profile/family/FamiliesOverview';
 import ProfileNotFound from '../../profile/ProfileNotFound';
 import RedeemedReward from '../../redeemedReward/RedeemedReward';
 import { RedeemedRewards } from '../../redeemedRewards/RedeemedRewards';
+import CheckInMore from '../../scan/checkInMore/CheckInMore';
 import ScanSuccess from '../../scan/ScanSuccess';
 import { Search } from '../../shop/search/Search';
 import { SearchFilters } from '../../shop/searchFilters/SearchFilters';
@@ -127,6 +128,11 @@ export const RootStackNavigator = () => {
             options={({ route }) => ({
               ...getMainHeaderProps(route),
             })}
+          />
+          <RootStack.Screen
+            component={CheckInMore}
+            name="CheckInMore"
+            options={{ headerTitle: 'Met wie ben je vandaag op stap?', presentation: 'fullScreenModal' }}
           />
           <RootStack.Group screenOptions={{ headerShown: false }}>
             <RootStack.Screen component={ProfileNotFound} name="ProfileNotFound" options={{ gestureEnabled: false }} />

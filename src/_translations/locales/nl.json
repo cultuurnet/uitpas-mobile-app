@@ -284,7 +284,8 @@
     "SUCCESS": {
       "DESCRIPTION": "Hopla, weer een punt erbij!\nJe hebt nu <bold>{{totalPoints}} UiTPAS-punten.</bold>",
       "DESCRIPTION_MULTIPLE": "Hopla, weer {{addedPoints}} punten erbij!\nJe hebt nu <bold>{{totalPoints}} UiTPAS-punten.</bold>",
-      "CTA": "Sluiten"
+      "CLOSE": "Sluiten",
+      "SCAN_MORE": "Ik was niet alleen"
     }
   },
   "ERROR": {

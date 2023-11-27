@@ -6,6 +6,7 @@ import LottieView from 'lottie-react-native';
 import { PointsSuccess } from '../_assets/animations';
 import { Button, DiagonalSplitView, Trans, Typography } from '../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing';
+import { useHasFamilyMembers } from '../onboarding/family/_queries';
 import * as Styled from './style';
 
 type TProps = {
@@ -14,8 +15,9 @@ type TProps = {
 };
 
 const ScanSuccess: FC = ({ route, navigation }: TProps) => {
+  const { data: hasFamilyMembers } = useHasFamilyMembers();
   const {
-    params: { addedPoints, totalPoints },
+    params: { addedPoints, totalPoints, checkinCode },
   } = route;
   const { height } = useWindowDimensions();
   const { t } = useTranslation();
@@ -37,13 +39,23 @@ const ScanSuccess: FC = ({ route, navigation }: TProps) => {
               />
             </Typography>
           </Styled.BottomContainer>
+          {hasFamilyMembers && (
+            <Styled.ScanMoreButton
+              label={t('SCAN.SUCCESS.SCAN_MORE')}
+              onPress={() =>
+                navigation.navigate('CheckInMore', { checkinCode: 'https://test.uitpas.be/?qr=ndm24bawzzswzunwa2hotji8' })
+              }
+            />
+          )}
           <Button
-            label={t('SCAN.SUCCESS.CTA')}
+            color="primary.700"
+            label={t('SCAN.SUCCESS.CLOSE')}
             onPress={() => navigation.reset({ index: 0, routes: [{ name: 'MainNavigator', params: { screen: 'Profile' } }] })}
+            variant="outline"
           />
         </>
       }
-      topContent={<LottieView autoPlay loop source={PointsSuccess} style={{ height: height / 2.5 }} />}
+      topContent={<LottieView autoPlay loop source={PointsSuccess} style={{ height: height / 3 }} />}
     />
   );
 };

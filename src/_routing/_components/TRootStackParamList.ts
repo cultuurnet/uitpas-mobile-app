@@ -32,6 +32,7 @@ export type TRootStackParamList = {
   About: undefined;
   AddFamilyMember: { familyMembers: TFamilyMember[] };
   AddFamilyMemberError: { description: string };
+  CheckInMore: { checkinCode: string };
   EditFamilyMember: { mainFamilyMember?: boolean; member: TFamilyMember };
   Error: {
     gotoAfterClose?: [TRootRoute, TMainRoute] | keyof TRootStackParamList;
