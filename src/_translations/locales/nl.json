@@ -262,7 +262,9 @@
       "POINTS": "{{count}} punt",
       "POINTS_plural": "{{count}} punten",
       "REDEEM": "Omruilen",
-      "UNREDEEMABLE": "Niet mogelijk"
+      "UNREDEEMABLE": "Niet mogelijk",
+      "UNREDEEMABLE_MODAL_TITLE": "Onmogelijk om voordeel in te ruilen",
+      "UNREDEEMABLE_MODAL_CLOSE": "Sluiten"
     }
   },
   "REDEEMED_REWARD": {

@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
-import { Button } from '../../../../_components';
+import { BlurredModal, Button, Typography } from '../../../../_components';
+import { useToggle } from '../../../../_hooks';
 import { TFamilyMember } from '../../../../profile/_models';
 import { useGetRedeemStatus } from '../../../_queries/useGetRedeemStatus';
 import * as Styled from './style';
@@ -12,6 +13,7 @@ type TProps = {
 
 export const RedeemButton = ({ familyMember, rewardId }: TProps) => {
   const { t } = useTranslation();
+  const [showUnredeemableModal, toggleUnredeemableModal] = useToggle(false);
 
   const { error, isLoading } = useGetRedeemStatus({ passHolder: familyMember.passholder, rewardId });
 
@@ -21,9 +23,23 @@ export const RedeemButton = ({ familyMember, rewardId }: TProps) => {
 
   if (error) {
     return (
-      <Styled.UnredeemableStatus color="primary.700" fontStyle="normal" size="small">
-        {t('SHOP_DETAIL.WHO_CAN_REDEEM.UNREDEEMABLE')}
-      </Styled.UnredeemableStatus>
+      <>
+        <Styled.UnredeemableStatus color="primary.700" fontStyle="normal" onPress={toggleUnredeemableModal} size="small">
+          {t('SHOP_DETAIL.WHO_CAN_REDEEM.UNREDEEMABLE')}
+        </Styled.UnredeemableStatus>
+        <BlurredModal isVisible={showUnredeemableModal} toggleIsVisible={toggleUnredeemableModal}>
+          <Styled.UnredeemableModalTitle fontStyle="bold" size="large">
+            {t('SHOP_DETAIL.WHO_CAN_REDEEM.UNREDEEMABLE_MODAL_TITLE')}
+          </Styled.UnredeemableModalTitle>
+          <Typography>{error.endUserMessage.nl}</Typography>
+          <Styled.UnredeemableModalCloseButton
+            fontStyle="semibold"
+            label={t('SHOP_DETAIL.WHO_CAN_REDEEM.UNREDEEMABLE_MODAL_CLOSE')}
+            underline={false}
+            variant="link"
+          />
+        </BlurredModal>
+      </>
     );
   }
 
