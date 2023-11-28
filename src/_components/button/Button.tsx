@@ -14,6 +14,7 @@ export type TButtonProps = {
   children?: ReactNode;
   color?: ThemeColor;
   disabled?: boolean;
+  fontSize?: TTypographyProps['size'];
   fontStyle?: TTypographyProps['fontStyle'];
   hitSlop?: number;
   href?: string;
@@ -40,6 +41,7 @@ const Button: FC<TButtonProps> = ({
   color,
   backgroundColor,
   underline = true,
+  fontSize = 'normal',
   fontStyle = 'bold',
   inline,
   hitSlop,
@@ -91,6 +93,7 @@ const Button: FC<TButtonProps> = ({
           $variant={variant}
           align={props.centered ? 'center' : 'left'}
           fontStyle={fontStyle}
+          size={fontSize}
         >
           {label}
         </Styled.ButtonText>

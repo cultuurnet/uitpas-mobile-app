@@ -33,7 +33,7 @@ export type TRootStackParamList = {
   AddFamilyMember: { familyMembers: TFamilyMember[] };
   AddFamilyMemberError: { description: string };
   CheckInMore: { checkinCode: string };
-  EditFamilyMember: { mainFamilyMember?: boolean; member: TFamilyMember };
+  EditFamilyMember: { member: TFamilyMember };
   Error: {
     gotoAfterClose?: [TRootRoute, TMainRoute] | keyof TRootStackParamList;
     message: string;

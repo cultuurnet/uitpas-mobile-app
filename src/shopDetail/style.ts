@@ -14,6 +14,7 @@ export const ImageContainer = styled.View`
 
 export const Content = styled.View`
   padding: ${theme.common.defaultSpacing}px;
+  padding-bottom: 0px;
   background-color: ${theme.palette.neutral[0]};
 `;
 

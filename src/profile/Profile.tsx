@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable } from 'react-native';
 
 import { Analytics, EnlargedHeader, LinkList, Spinner } from '../_components';
 import { TLinkListItem } from '../_components/linkList/LinkList';
@@ -12,24 +11,24 @@ import i18n from '../_translations/i18n';
 import { storage } from '../storage';
 import { useGetVersions } from '../update/_queries/useGetVersions';
 import { useGetMe } from './_queries/useGetMe';
-import CardModal from './CardModal/CardModal';
 import LogoutModal from './LogOutModal';
 import MIANotification from './MIANotification/MIANotification';
 import * as Styled from './style';
-import UitpasCard from './UitpasCard/UitpasCard';
+import { UitpasCards } from './UitpasCards/UitpasCards';
 import UitpasInfo from './UitpasInfo/UitpasInfo';
 import UpdateNotification from './UpdateNotification/UpdateNotification';
 
 type TProps = {
   navigation: TMainNavigationProp<'Profile'>;
 };
-const Profile = ({ navigation }: TProps) => {
-  const [logOutModalVisible, toggleLogOutModalVisible] = useToggle(false);
-  const { data: passHolder, isLoading: isPassHolderLoading } = useGetMe();
-  const [isUitpasInfoClosed, setIsUitpasInfoClosed] = useState(storage.getBoolean(StorageKey.IsUitpasInfoClosed));
-  const { t } = useTranslation();
-  const [cardModalVisible, toggleCardModalVisible] = useToggle(false);
 
+const Profile = ({ navigation }: TProps) => {
+  const { t } = useTranslation();
+
+  const [logOutModalVisible, toggleLogOutModalVisible] = useToggle(false);
+  const [isUitpasInfoClosed, setIsUitpasInfoClosed] = useState(storage.getBoolean(StorageKey.IsUitpasInfoClosed));
+
+  const { data: passHolder, isLoading: isPassHolderLoading } = useGetMe();
   const versions = useGetVersions();
 
   const rewardSectionLinks = useMemo<TLinkListItem[]>(
@@ -92,20 +91,18 @@ const Profile = ({ navigation }: TProps) => {
     navigation.navigate('ProfileNotFound');
     return null;
   }
+
   const [MIAInfoFirstActiveCard] = passHolder.cardSystemMemberships.filter(
     card => card.status === 'ACTIVE' && card.socialTariff && !card.socialTariff.expired,
   );
+
   return (
     <>
       <Analytics screenName="Profile" />
       <Styled.SafeAreaViewContainer edges={['left', 'right']} isScrollable>
+        <EnlargedHeader />
+        <UitpasCards />
         <Styled.TopContainer>
-          <EnlargedHeader />
-          <Pressable onPress={toggleCardModalVisible}>
-            <UitpasCard passHolder={passHolder} />
-          </Pressable>
-          <CardModal isVisible={cardModalVisible} toggleIsVisible={toggleCardModalVisible} />
-
           {versions?.isBehindTarget && <UpdateNotification />}
           {!isUitpasInfoClosed && (
             <UitpasInfo
