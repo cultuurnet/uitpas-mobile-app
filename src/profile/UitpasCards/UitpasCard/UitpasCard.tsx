@@ -28,7 +28,7 @@ const UitpasCard: FC<TProps> = ({ passHolder, hasYouSuffix, icon, scale = 1, isL
     <Styled.CardContainer>
       <Styled.ContentContainer scale={scale} screenWidth={screenWidth}>
         <Styled.UserInfoContainer>
-          {icon && <Styled.UserAvatar source={getAvatarByNameOrDefault(icon)} />}
+          {icon && <Styled.UserAvatar resizeMode="contain" source={getAvatarByNameOrDefault(icon)} />}
           <Styled.CardsView>
             <Typography color="neutral.0" fontStyle="bold" numberOfLines={!isLarge ? 1 : null}>
               {`${passHolder.firstName} ${passHolder.name}`}
