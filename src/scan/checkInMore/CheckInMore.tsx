@@ -1,26 +1,91 @@
-import { FC, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { FC, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { FlatList } from 'react-native';
 
-import { Button, SafeAreaView, Typography } from '../../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../../_routing';
 import { getAvatarByNameOrDefault } from '../../_utils';
 import { useGetFamilyMembers } from '../../onboarding/family/_queries';
 import { TFamilyMember } from '../../profile/_models';
 import { TCheckInResponse } from '../_models';
 import { useCheckin } from '../_queries/useCheckin';
-import * as Styled from '../style';
+import * as Styled from './style';
 
 type TProps = {
   navigation: TRootStackNavigationProp<'ScanSuccess'>;
   route: TRootStackRouteProp<'CheckInMore'>;
 };
 
-const isFulfilled = <T,>(input: PromiseSettledResult<T>): input is PromiseFulfilledResult<T> => input.status === 'fulfilled';
+const CheckInMore: FC = ({ navigation, route }: TProps) => {
+  const {
+    params: { checkinCode },
+  } = route;
 
-function mapMembersAndResponses(
+  const { t } = useTranslation();
+
+  const { data: familyMembers } = useGetFamilyMembers();
+  const otherFamilyMembers = useMemo(() => {
+    return familyMembers?.filter(({ mainFamilyMember }) => !mainFamilyMember) ?? [];
+  }, [familyMembers]);
+  const [checkedFamilyMembers, setCheckedFamilyMembers] = useState<TFamilyMember[]>([]);
+  const { mutateAsync: checkIn, isLoading } = useCheckin();
+
+  const updateCheckedFamilyMembers = (value: boolean, member: TFamilyMember) => {
+    if (value) {
+      setCheckedFamilyMembers(currentCheckedFamilyMembers => [...currentCheckedFamilyMembers, member]);
+    } else {
+      setCheckedFamilyMembers(currentCheckedFamilyMembers => currentCheckedFamilyMembers.filter(item => item !== member));
+    }
+  };
+
+  const handleCheckins = async () => {
+    const promises = checkedFamilyMembers.map(member => {
+      return checkIn({ body: { checkinCode }, path: `/passholders/${member.passholder.id}/checkins` });
+    });
+    const responses = await Promise.allSettled(promises);
+    const familyMemberResponses = mapFamilyMembersToResponses(checkedFamilyMembers, responses);
+    navigation.navigate('FamilyScanSummary', { familyMemberResponses });
+  };
+
+  return (
+    <Styled.SafeAreaViewContainer backgroundColor="neutral.0" edges={['bottom']} isScrollable={false}>
+      <FlatList
+        ItemSeparatorComponent={Styled.Divider}
+        contentContainerStyle={{ padding: 16 }}
+        data={otherFamilyMembers}
+        keyExtractor={item => item.uitpasNumber}
+        renderItem={({ item: familyMember }) => (
+          <Styled.FamilyMemberCheckbox
+            checkedColor="neutral.0"
+            iconSize={24}
+            isChecked={checkedFamilyMembers.includes(familyMember)}
+            key={familyMember.uitpasNumber}
+            label={
+              <Styled.FamilyMemberLabel>
+                <Styled.FamilyMemberName color={checkedFamilyMembers.includes(familyMember) ? 'neutral.0' : 'neutral.900'}>
+                  {familyMember.passholder.firstName}
+                </Styled.FamilyMemberName>
+                <Styled.FamilyMemberAvatar resizeMode="contain" source={getAvatarByNameOrDefault(familyMember?.icon)} />
+              </Styled.FamilyMemberLabel>
+            }
+            onChange={value => updateCheckedFamilyMembers(value, familyMember)}
+            unCheckedColor="primary.700"
+          />
+        )}
+      />
+      <Styled.CheckinButton
+        disabled={checkedFamilyMembers.length === 0}
+        label={t('SCAN.FAMILY_MEMBERS.CHECKIN')}
+        loading={isLoading}
+        onPress={handleCheckins}
+      />
+    </Styled.SafeAreaViewContainer>
+  );
+};
+
+const mapFamilyMembersToResponses = (
   members: TFamilyMember[],
   responses: PromiseSettledResult<TCheckInResponse>[],
-): { member: TFamilyMember; response: TCheckInResponse }[] {
+): { member: TFamilyMember; response: TCheckInResponse }[] => {
   return members.map((member, index) => {
     const response = responses[index];
     return {
@@ -28,67 +93,6 @@ function mapMembersAndResponses(
       response: response.status === 'fulfilled' ? response.value : response.reason,
     };
   });
-}
-
-const CheckInMore: FC = ({ navigation, route }: TProps) => {
-  const { data: familyMembers } = useGetFamilyMembers();
-  const {
-    params: { checkinCode },
-  } = route;
-  const [checkedFamilyMembers, setCheckedFamilyMembers] = useState<TFamilyMember[]>([]);
-  const { mutateAsync, isLoading } = useCheckin();
-
-  function alterCheckedFamilyMembers(value: boolean, member: TFamilyMember) {
-    if (value) {
-      setCheckedFamilyMembers([...checkedFamilyMembers, member]);
-    } else {
-      setCheckedFamilyMembers(checkedFamilyMembers.filter(item => item !== member));
-    }
-  }
-
-  async function handleCheckin() {
-    try {
-      const promises = checkedFamilyMembers.map(member => {
-        return mutateAsync({ body: { checkinCode }, path: `/passholders/${member.passholder.id}/checkins` });
-      });
-      const responses = await Promise.allSettled(promises);
-      // const mappedMembersAndResponses = mapMembersAndResponses(familyMembers, responses);
-      // console.log('mappedMembersAndResponses', mappedMembersAndResponses);
-    } catch (error) {
-      console.log('error', error);
-    }
-
-    // navigation.navigate('ScanSuccess', responses[0]);
-  }
-
-  return (
-    <SafeAreaView backgroundColor="neutral.0" edges={['bottom']} style={{ justifyContent: 'space-between', padding: 8 }}>
-      <View>
-        {familyMembers.map(member => (
-          <Styled.MemberCheckbox
-            checkedColor="neutral.0"
-            iconSize={24}
-            isChecked={checkedFamilyMembers.includes(member)}
-            key={member.uitpasNumber}
-            label={
-              <View style={{ alignItems: 'center', flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Typography
-                  color={checkedFamilyMembers.includes(member) ? 'neutral.0' : 'neutral.900'}
-                  style={{ marginLeft: 16 }}
-                >
-                  {member.passholder.firstName}
-                </Typography>
-                <Styled.FamilyAvatar resizeMode="contain" source={getAvatarByNameOrDefault(member?.icon)} />
-              </View>
-            }
-            onChange={value => alterCheckedFamilyMembers(value, member)}
-            unCheckedColor="primary.700"
-          />
-        ))}
-      </View>
-      <Button label="Spaar!" loading={isLoading} onPress={handleCheckin} />
-    </SafeAreaView>
-  );
 };
 
 export default CheckInMore;

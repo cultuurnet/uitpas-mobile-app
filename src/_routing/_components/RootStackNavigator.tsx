@@ -28,6 +28,7 @@ import ProfileNotFound from '../../profile/ProfileNotFound';
 import RedeemedReward from '../../redeemedReward/RedeemedReward';
 import { RedeemedRewards } from '../../redeemedRewards/RedeemedRewards';
 import CheckInMore from '../../scan/checkInMore/CheckInMore';
+import { FamilyScanSummary } from '../../scan/familyScanSummary/FamilyScanSummary';
 import ScanSuccess from '../../scan/ScanSuccess';
 import { Search } from '../../shop/search/Search';
 import { SearchFilters } from '../../shop/searchFilters/SearchFilters';
@@ -132,10 +133,24 @@ export const RootStackNavigator = () => {
           <RootStack.Screen
             component={CheckInMore}
             name="CheckInMore"
-            options={{ headerTitle: 'Met wie ben je vandaag op stap?', presentation: 'fullScreenModal' }}
+            options={({ navigation }) => ({
+              headerBackVisible: false,
+              headerLeft: null,
+              headerRight: props => (
+                <HeaderBackButton
+                  {...props}
+                  backImage={() => <Icon color="neutral.0" name="Close" size={14} />}
+                  labelVisible={false}
+                  onPress={() => navigation.pop()}
+                  style={{ marginRight: -10, padding: 10 }}
+                />
+              ),
+              title: i18n.t('SCAN.FAMILY_MEMBERS.TITLE'),
+            })}
           />
           <RootStack.Group screenOptions={{ headerShown: false }}>
             <RootStack.Screen component={ProfileNotFound} name="ProfileNotFound" options={{ gestureEnabled: false }} />
+            <RootStack.Screen component={FamilyScanSummary} name="FamilyScanSummary" options={{ gestureEnabled: false }} />
             <RootStack.Screen component={ScanSuccess} name="ScanSuccess" options={{ gestureEnabled: false }} />
             <RootStack.Screen component={Error} name="Error" options={{ gestureEnabled: false }} />
             <RootStack.Screen component={Search} name="Search" />
@@ -186,6 +201,7 @@ export const RootStackNavigator = () => {
                   <HeaderBackButton
                     {...props}
                     backImage={() => <Icon color="neutral.0" name="Close" size={14} />}
+                    labelVisible={false}
                     onPress={() => navigation.pop()}
                     style={{ marginRight: -10, padding: 10 }}
                   />
@@ -214,6 +230,7 @@ export const RootStackNavigator = () => {
                 <HeaderBackButton
                   {...props}
                   backImage={() => <Icon color="neutral.0" name="Close" size={14} />}
+                  labelVisible={false}
                   onPress={() => navigation.pop()}
                   style={{ marginRight: -10, padding: 10 }}
                 />

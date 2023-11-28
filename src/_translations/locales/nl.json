@@ -286,6 +286,13 @@
       "DESCRIPTION_MULTIPLE": "Hopla, weer {{addedPoints}} punten erbij!\nJe hebt nu <bold>{{totalPoints}} UiTPAS-punten.</bold>",
       "CLOSE": "Sluiten",
       "SCAN_MORE": "Ik was niet alleen"
+    },
+    "FAMILY_MEMBERS": {
+      "TITLE": "Met wie ben je vandaag op stap?",
+      "CHECKIN": "Spaar!",
+      "SUMMARY": {
+        "CLOSE": "Sluiten"
+      }
     }
   },
   "ERROR": {

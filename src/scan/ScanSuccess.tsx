@@ -42,9 +42,7 @@ const ScanSuccess: FC = ({ route, navigation }: TProps) => {
           {hasFamilyMembers && (
             <Styled.ScanMoreButton
               label={t('SCAN.SUCCESS.SCAN_MORE')}
-              onPress={() =>
-                navigation.navigate('CheckInMore', { checkinCode: 'https://test.uitpas.be/?qr=ndm24bawzzswzunwa2hotji8' })
-              }
+              onPress={() => navigation.navigate('CheckInMore', { checkinCode })}
             />
           )}
           <Button

@@ -68,7 +68,7 @@ const Profile = ({ navigation }: TProps) => {
       {
         iconName: 'Info',
         label: i18n.t('PROFILE.LINKS.ABOUT'),
-        onPress: () => navigation.navigate('ScanSuccess', { addedPoints: 12, totalPoints: 21 }),
+        onPress: () => navigation.navigate('About'),
       },
       {
         href: ConfigUrl.faq,
