@@ -22,7 +22,7 @@ export const FamilyMemberPoints = ({ familyMembers, RightComponent }: TProps) =>
       keyExtractor={item => item.uitpasNumber}
       renderItem={({ item: familyMember }) => (
         <Styled.Item>
-          <Styled.Avatar source={getAvatarByNameOrDefault(familyMember.icon)} />
+          <Styled.Avatar resizeMode="contain" source={getAvatarByNameOrDefault(familyMember.icon)} />
           <Styled.ItemBody>
             <Typography fontStyle="bold" numberOfLines={1}>
               {familyMember.passholder.firstName}
