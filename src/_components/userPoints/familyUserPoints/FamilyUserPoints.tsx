@@ -4,18 +4,18 @@ import { TFamilyMember } from '../../../profile/_models';
 import * as Styled from './style';
 
 type TProps = {
-  familyMembers: TFamilyMember[];
+  members: TFamilyMember[];
 };
 
-export const FamilyUserPoints = ({ familyMembers }: TProps) => {
+export const FamilyUserPoints = ({ members }: TProps) => {
   const navigation = useStackNavigation();
 
-  const numberOfAvatarsToShow = familyMembers.length > 3 ? 2 : familyMembers.length;
-  const moreCount = familyMembers.length - numberOfAvatarsToShow;
+  const numberOfAvatarsToShow = members.length > 3 ? 2 : members.length;
+  const moreCount = members.length - numberOfAvatarsToShow;
 
   return (
     <Styled.Container onPress={() => navigation.navigate('MainNavigator', { screen: 'Profile' })}>
-      {familyMembers.slice(0, numberOfAvatarsToShow).map((member, index) => (
+      {members.slice(0, numberOfAvatarsToShow).map((member, index) => (
         <Styled.AvatarImage
           key={member.passholder.id}
           resizeMode="contain"
