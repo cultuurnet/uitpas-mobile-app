@@ -67,12 +67,7 @@ const Profile = ({ navigation }: TProps) => {
       {
         iconName: 'Info',
         label: i18n.t('PROFILE.LINKS.ABOUT'),
-        onPress: () =>
-          navigation.navigate('ScanSuccess', {
-            addedPoints: 12,
-            checkinCode: 'https://test.uitpas.be/?qr=ndm24bawzzswzunwa2hotji8',
-            totalPoints: 2400,
-          }),
+        onPress: () => navigation.navigate('About'),
       },
       {
         href: ConfigUrl.faq,
