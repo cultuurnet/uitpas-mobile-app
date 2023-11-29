@@ -8,6 +8,7 @@ import { useGetFamilyMembers } from '../../onboarding/family/_queries';
 import { TFamilyMember } from '../../profile/_models';
 import { TCheckInResponse } from '../_models';
 import { useCheckin } from '../_queries/useCheckin';
+import { TFamilyScanResponse } from '../familyScanSummary/_models';
 import * as Styled from './style';
 
 type TProps = {
@@ -42,8 +43,8 @@ const CheckInMore: FC = ({ navigation, route }: TProps) => {
       return checkIn({ body: { checkinCode }, path: `/passholders/${member.passholder.id}/checkins` });
     });
     const responses = await Promise.allSettled(promises);
-    const familyMemberResponses = mapFamilyMembersToResponses(checkedFamilyMembers, responses);
-    navigation.navigate('FamilyScanSummary', { familyMemberResponses });
+    const memberResponses = mapFamilyMembersToResponses(checkedFamilyMembers, responses);
+    navigation.navigate('FamilyScanSummary', { memberResponses });
   };
 
   return (
@@ -85,12 +86,13 @@ const CheckInMore: FC = ({ navigation, route }: TProps) => {
 const mapFamilyMembersToResponses = (
   members: TFamilyMember[],
   responses: PromiseSettledResult<TCheckInResponse>[],
-): { member: TFamilyMember; response: TCheckInResponse }[] => {
+): { member: TFamilyMember; response: TFamilyScanResponse }[] => {
   return members.map((member, index) => {
     const response = responses[index];
     return {
       member,
-      response: response.status === 'fulfilled' ? response.value : response.reason,
+      response:
+        response.status === 'fulfilled' ? { type: 'success', value: response.value } : { error: response.reason, type: 'error' },
     };
   });
 };

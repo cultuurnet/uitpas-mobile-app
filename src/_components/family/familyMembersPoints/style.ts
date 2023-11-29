@@ -15,7 +15,6 @@ export const Avatar = styled.Image`
 
 export const ItemBody = styled.View`
   flex: 1;
-  height: 44px;
   justify-content: space-around;
   margin-left: 8px;
   margin-right: 12px;

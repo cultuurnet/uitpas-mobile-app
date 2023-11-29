@@ -5,6 +5,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TFamilyMember } from '../../profile/_models';
 import { TRedeemedReward } from '../../redeemedRewards/_models/redeemedReward';
 import { TCheckInResponse } from '../../scan/_models';
+import { TFamilyScanResponse } from '../../scan/familyScanSummary/_models';
 import { TFilterRewardCategory, TFilterRewardSection } from '../../shop/_hooks/useRewardFilters';
 import { TReward, TRewardType } from '../../shop/_models/reward';
 import { TSearchFilters } from '../../shop/_models/searchFilters';
@@ -42,7 +43,12 @@ export type TRootStackParamList = {
   FamilyInformation: undefined;
   FamilyOnboarding: undefined;
   FamilyOverview: undefined;
-  FamilyScanSummary: { familyMemberResponses: { member: TFamilyMember; response: TCheckInResponse }[] };
+  FamilyScanSummary: {
+    memberResponses: {
+      member: TFamilyMember;
+      response: TFamilyScanResponse;
+    }[];
+  };
   FilteredShop: {
     category?: TFilterRewardCategory;
     section?: TFilterRewardSection;

@@ -9,6 +9,7 @@ export { default as DatePicker } from './datePicker/DatePicker';
 export { default as DiagonalSplitView } from './diagonalSplitView/DiagonalSplitView';
 export { default as EnlargedHeader } from './enlargedHeader/EnlargedHeader';
 export { default as ExternalLink } from './externalLink/ExternalLink';
+export * from './family/familyMembersPoints/FamilyMembersPoints';
 export { default as FakeTextInput } from './textInput/fakeTextInput/FakeTextInput';
 export { default as FocusAwareStatusBar } from './statusBar/FocusAwareStatusBar';
 export { default as HtmlRenderer } from './htmlRenderer/HtmlRenderer';
