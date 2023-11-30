@@ -32,7 +32,6 @@ export const Divider = styled.View`
 
 export const TopContainer = styled.View`
   position: relative;
-  /* background-color: ${({ theme }) => theme.palette.secondary['500']}; */
   padding: 0px 20px 5px 20px;
 `;
 

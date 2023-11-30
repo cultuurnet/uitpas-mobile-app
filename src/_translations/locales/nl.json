@@ -89,6 +89,7 @@
     "CTA": "Aanmelden"
   },
   "PROFILE": {
+    "YOU": "(jij)",
     "POINTS": "punten",
     "HELLO": "Dag {{name}}",
     "INFO": "Dit is je UiTPAS: toon de barcode wanneer een medewerker naar je UiTPAS vraagt, bijvoorbeeld om punten te ruilen.",

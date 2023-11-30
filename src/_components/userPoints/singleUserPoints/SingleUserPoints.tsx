@@ -1,6 +1,6 @@
 import { useToggle } from '../../../_hooks';
 import { TPassHolder } from '../../../profile/_models';
-import CardModal from '../../../profile/CardModal/CardModal';
+import CardModal from '../../../profile/UitpasCards/CardModal/CardModal';
 import Typography from '../../typography/Typography';
 import * as Styled from './style';
 
@@ -29,7 +29,7 @@ export const SingleUserPoints = ({ passHolder }: TProps) => {
           )}
         </>
       </Styled.Container>
-      <CardModal isVisible={cardModalVisible} toggleIsVisible={toggleCardModalVisible} />
+      <CardModal isVisible={cardModalVisible} passHolder={passHolder} toggleIsVisible={toggleCardModalVisible} />
     </>
   );
 };

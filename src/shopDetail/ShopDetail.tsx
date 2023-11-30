@@ -7,7 +7,8 @@ import { useTracking } from '../_context';
 import { useToggle } from '../_hooks';
 import { TRootStackRouteProp } from '../_routing';
 import { getLanguage, getRewardTrackingData, normalizeUrl } from '../_utils';
-import CardModal from '../profile/CardModal/CardModal';
+import { useGetMe } from '../profile/_queries/useGetMe';
+import CardModal from '../profile/UitpasCards/CardModal/CardModal';
 import { useGetReward } from '../shop/_queries/useGetReward';
 import { Availability } from './_components/availability/Availability';
 import { Organizer } from './_components/organizer/Organizer';
@@ -22,6 +23,7 @@ type TProps = {
 
 export const ShopDetail = ({ route }: TProps) => {
   const { id, reward: fallbackReward } = route.params;
+  const { data: passHolder } = useGetMe();
   const { data } = useGetReward({ id });
   const reward = data || fallbackReward;
   const {
@@ -183,7 +185,7 @@ export const ShopDetail = ({ route }: TProps) => {
           title={t('SHOP_DETAIL.OTHER_REWARDS')}
         />
       </ScrollView>
-      <CardModal isVisible={cardModalVisible} toggleIsVisible={toggleCardModalVisible} />
+      <CardModal isVisible={cardModalVisible} passHolder={passHolder} toggleIsVisible={toggleCardModalVisible} />
       <RedeemModal
         isVisible={isRedeemModalConfirmationOpen}
         reward={reward}

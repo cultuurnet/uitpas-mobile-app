@@ -2,10 +2,14 @@ import styled from 'styled-components/native';
 
 const CARD_MARGIN = 20;
 
-export const ContentContainer = styled.View<{ screenWidth: number }>`
+export const getCardWidth = (screenWidth: number, scale: number) => {
+  return scale * (screenWidth - CARD_MARGIN * 2);
+};
+
+export const ContentContainer = styled.View<{ scale: number; screenWidth: number }>`
   justify-content: space-between;
   position: relative;
-  width: ${({ screenWidth }) => `${screenWidth - CARD_MARGIN * 2}px`};
+  width: ${({ screenWidth, scale }) => `${getCardWidth(screenWidth, scale)}px`};
   z-index: 1;
   background-color: ${({ theme }) => theme.palette.primary['700']};
   border-radius: 15px;
@@ -14,14 +18,25 @@ export const ContentContainer = styled.View<{ screenWidth: number }>`
 export const UserInfoContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  margin: 15px;
+  align-items: center;
+  margin: 10px;
   z-index: 2;
+`;
+
+export const UserAvatar = styled.Image`
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+  border-radius: 16px;
+  border: 2px solid ${({ theme }) => theme.palette.neutral['0']};
 `;
 
 export const CardsView = styled.View`
   display: flex;
   flex: 1;
+  margin-right: 16px;
 `;
+
 export const CardContainer = styled.View`
   position: relative;
   margin: 25px 0px;
@@ -51,12 +66,12 @@ export const BarcodeContainer = styled.View<{ isLarge: boolean }>`
 const TRIANGLE_TOP_OFFSET = 65;
 const TRIANGLE_HEIGHT = 90;
 
-export const Triangle = styled.View<{ screenWidth: number }>`
+export const Triangle = styled.View<{ scale: number; screenWidth: number }>`
   position: absolute;
   background-color: transparent;
   z-index: 1;
   border-style: solid;
-  border-right-width: ${({ screenWidth }) => `${screenWidth - CARD_MARGIN * 2}px`};
+  border-right-width: ${({ screenWidth, scale }) => `${getCardWidth(screenWidth, scale)}px`};
   border-right-color: transparent;
   border-bottom-width: ${TRIANGLE_HEIGHT}px;
   border-bottom-color: ${({ theme }) => theme.palette.primary['800']};
