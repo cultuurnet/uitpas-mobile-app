@@ -3,19 +3,20 @@ import { useTranslation } from 'react-i18next';
 import { Platform } from 'react-native';
 
 import { Family } from '../../_assets/images';
-import { Button, SafeAreaView, Spinner, Typography } from '../../_components';
+import { Button, SafeAreaView, Spinner, Trans } from '../../_components';
 import { useOnboarding } from '../../_context';
 import { StorageKey } from '../../_models';
 import { TMainNavigationProp } from '../../_routing';
 import { storage } from '../../storage';
 import { useHasFamilyMembers } from './_queries';
 import * as Styled from './style';
+import { openExternalURL } from '../../_utils';
 
 const BULLET_ITEMS = [
-  { text: 'ONBOARDING.FAMILY.BULLET_1' },
-  { text: 'ONBOARDING.FAMILY.BULLET_2' },
-  { text: 'ONBOARDING.FAMILY.BULLET_3' },
-  { text: 'ONBOARDING.FAMILY.BULLET_4' },
+  { textKey: 'ONBOARDING.FAMILY.BULLET_1_TEXT' },
+  { textKey: 'ONBOARDING.FAMILY.BULLET_2_TEXT' },
+  { textKey: 'ONBOARDING.FAMILY.BULLET_3_TEXT' },
+  { textKey: 'ONBOARDING.FAMILY.BULLET_4_TEXT' },
 ];
 
 type TProps = {
@@ -56,9 +57,13 @@ export const FamilyOnboarding = ({ navigation }: TProps) => {
         </Styled.Title>
         <Styled.Hero source={Family} />
         <Styled.BulletList>
-          {BULLET_ITEMS.map(({ text }, index) => (
+          {BULLET_ITEMS.map(({ textKey }, index) => (
             <Styled.BulletListItem key={index}>
-              <Typography>{t(text)}</Typography>
+              <Trans
+                i18nKey={textKey}
+                onButtonPress={() => openExternalURL(t(`ONBOARDING.FAMILY.BULLET_${index + 1}_LINK`))}
+                selectable
+              />
             </Styled.BulletListItem>
           ))}
         </Styled.BulletList>
