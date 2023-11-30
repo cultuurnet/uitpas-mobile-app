@@ -1,1 +1,1 @@
-export * from './useFamily';
+export * from './useFamilyComposition';
