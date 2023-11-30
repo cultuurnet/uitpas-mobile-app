@@ -10,11 +10,10 @@ import { ErrorIcon, PointsRedeemedIcon } from './icons';
 import * as Styled from './style';
 
 type TProps = {
-  navigation: TRootStackNavigationProp<'FamilyScanSummary'>;
-  route: TRootStackRouteProp<'FamilyScanSummary'>;
+  navigation: TRootStackNavigationProp<'FamilyCheckinSummary'>;
+  route: TRootStackRouteProp<'FamilyCheckinSummary'>;
 };
-
-export const FamilyScanSummary = ({ navigation, route }: TProps) => {
+export const FamilyCheckinSummary = ({ navigation, route }: TProps) => {
   const { memberResponses } = route.params;
 
   const { t } = useTranslation();

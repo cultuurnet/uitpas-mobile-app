@@ -5,7 +5,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TFamilyMember } from '../../profile/_models';
 import { TRedeemedReward } from '../../redeemedRewards/_models/redeemedReward';
 import { TCheckInResponse } from '../../scan/_models';
-import { TFamilyScanResponse } from '../../scan/familyScanSummary/_models';
+import { TFamilyScanResponse } from '../../scan/familyCheckinSummary/_models';
 import { TFilterRewardCategory, TFilterRewardSection } from '../../shop/_hooks/useRewardFilters';
 import { TReward, TRewardType } from '../../shop/_models/reward';
 import { TSearchFilters } from '../../shop/_models/searchFilters';
@@ -33,22 +33,22 @@ export type TRootStackParamList = {
   About: undefined;
   AddFamilyMember: { familyMembers: TFamilyMember[] };
   AddFamilyMemberError: { description: string };
-  CheckInMore: { checkinCode: string };
   EditFamilyMember: { member: TFamilyMember };
   Error: {
     gotoAfterClose?: [TRootRoute, TMainRoute] | keyof TRootStackParamList;
     message: string;
   };
   FamiliesOverview: undefined;
-  FamilyInformation: undefined;
-  FamilyOnboarding: undefined;
-  FamilyOverview: undefined;
-  FamilyScanSummary: {
+  FamilyCheckin: { checkinCode: string };
+  FamilyCheckinSummary: {
     memberResponses: {
       member: TFamilyMember;
       response: TFamilyScanResponse;
     }[];
   };
+  FamilyInformation: undefined;
+  FamilyOnboarding: undefined;
+  FamilyOverview: undefined;
   FilteredShop: {
     category?: TFilterRewardCategory;
     section?: TFilterRewardSection;
