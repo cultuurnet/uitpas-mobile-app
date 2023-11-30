@@ -255,6 +255,16 @@
       "MODAL_BUTTON_CONFIRM": "Bevestigen",
       "MODAL_BUTTON_CANCEL": "Annuleren",
       "MODAL_GENERIC_ERROR": "We konden je voordeel niet omruilen, probeer later opnieuw."
+    },
+    "WHO_CAN_REDEEM": {
+      "TITLE": "Wie kan omruilen?",
+      "YOU": "(jij)",
+      "POINTS": "{{count}} punt",
+      "POINTS_plural": "{{count}} punten",
+      "REDEEM": "Omruilen",
+      "UNREDEEMABLE": "Niet mogelijk",
+      "UNREDEEMABLE_MODAL_TITLE": "Onmogelijk om voordeel in te ruilen",
+      "UNREDEEMABLE_MODAL_CLOSE": "Sluiten"
     }
   },
   "REDEEMED_REWARD": {

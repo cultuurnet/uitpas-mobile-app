@@ -1,17 +1,20 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { Accordion, Analytics, Button, HtmlRenderer, Points, RewardImage, Trans, Typography } from '../_components';
 import { useTracking } from '../_context';
 import { useToggle } from '../_hooks';
 import { TRootStackRouteProp } from '../_routing';
 import { getLanguage, getRewardTrackingData, normalizeUrl } from '../_utils';
+import { useHasFamilyMembers } from '../onboarding/family/_queries';
+import { TFamilyMember } from '../profile/_models';
 import { useGetMe } from '../profile/_queries/useGetMe';
 import CardModal from '../profile/UitpasCards/CardModal/CardModal';
 import { useGetReward } from '../shop/_queries/useGetReward';
 import { Availability } from './_components/availability/Availability';
 import { Organizer } from './_components/organizer/Organizer';
+import { RedeemFamilyMembers } from './_components/redeemFamilyMembers/RedeemFamilyMembers';
 import RedeemModal from './_components/redeemModal/RedeemModal';
 import { Section } from './_components/section/Section';
 import { useGetRedeemStatus } from './_queries/useGetRedeemStatus';
@@ -31,11 +34,16 @@ export const ShopDetail = ({ route }: TProps) => {
     isLoading: isRedeemStatusLoading,
     error: redeemError,
     refetch: refetchRedeemStatus,
-  } = useGetRedeemStatus({ id: reward.id });
+  } = useGetRedeemStatus({ passHolder, rewardId: reward.id });
+  const { data: hasFamilyMembers } = useHasFamilyMembers();
   const [isRedeemModalConfirmationOpen, toggleRedeemModalConfirmationOpen] = useToggle(false);
   const [cardModalVisible, toggleCardModalVisible] = useToggle(false);
   const { t } = useTranslation();
   const { trackSelfDescribingEvent } = useTracking();
+  const scrollViewRef = useRef(null);
+  const redeemButtonRef = useRef(null);
+  const rewardsSection = useRef(null);
+
   const rewardTrackingData = getRewardTrackingData(reward);
 
   const [firstOrganizer, ...organizers] = reward?.organizers || [];
@@ -85,17 +93,18 @@ export const ShopDetail = ({ route }: TProps) => {
       When it's a physical reward, only show the errormessage on why it's not redeemable, no loader or no redeem button
     */
     if (reward?.online) {
+      const handleRedeem = () => {
+        rewardsSection.current?.measureLayout(scrollViewRef.current, (_x, yInScrollView) => {
+          redeemButtonRef.current?.measure((_x, _y, _width, stickyAreaHeight) => {
+            scrollViewRef.current?.scrollTo({ animated: true, y: yInScrollView - stickyAreaHeight });
+          });
+        });
+      };
+
       return (
-        <Styled.RedeemContent>
+        <Styled.RedeemContent ref={redeemButtonRef}>
           {redeemStatus?.redeemable || isRedeemStatusLoading ? (
-            <Button
-              label={t('SHOP_DETAIL.REDEEM.BUTTON')}
-              loading={isRedeemStatusLoading}
-              onPress={() => {
-                trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-cta' }, { reward: rewardTrackingData });
-                toggleRedeemModalConfirmationOpen();
-              }}
-            />
+            <Button label={t('SHOP_DETAIL.REDEEM.BUTTON')} loading={isRedeemStatusLoading} onPress={handleRedeem} />
           ) : (
             renderRedeemError()
           )}
@@ -107,22 +116,21 @@ export const ShopDetail = ({ route }: TProps) => {
         <Styled.RedeemContent>{renderRedeemError()}</Styled.RedeemContent>
       )
     );
-  }, [
-    isRedeemStatusLoading,
-    redeemError,
-    redeemStatus?.redeemable,
-    reward?.online,
-    t,
-    toggleRedeemModalConfirmationOpen,
-    renderRedeemError,
-    trackSelfDescribingEvent,
-    rewardTrackingData,
-  ]);
+  }, [reward?.online, redeemStatus?.redeemable, isRedeemStatusLoading, redeemError, renderRedeemError, t]);
+
+  const handleRedeem = (familyMember: TFamilyMember) => {
+    if (familyMember.mainFamilyMember) {
+      trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-cta' }, { reward: rewardTrackingData });
+      toggleRedeemModalConfirmationOpen();
+    } else {
+      // TODO: UIT-203
+    }
+  };
 
   return (
     <>
       <Analytics data={{ reward: rewardTrackingData }} screenName="reward" />
-      <ScrollView stickyHeaderIndices={stickyHeaderIndices}>
+      <ScrollView ref={scrollViewRef} stickyHeaderIndices={stickyHeaderIndices}>
         <Styled.ImageContainer>
           <RewardImage largeSpacing picture={reward.pictures?.[0]}>
             {!!reward.points && (
@@ -176,7 +184,16 @@ export const ShopDetail = ({ route }: TProps) => {
             />
             <HtmlRenderer source={{ html: reward.practicalInfo }} />
           </Section>
+
+          {hasFamilyMembers && (
+            <View ref={rewardsSection}>
+              <Section title={t('SHOP_DETAIL.WHO_CAN_REDEEM.TITLE')}>
+                <RedeemFamilyMembers onRedeem={handleRedeem} rewardId={reward.id} />
+              </Section>
+            </View>
+          )}
         </Styled.Content>
+
         <Styled.RelatedRewards
           filterRewardId={reward.id}
           hideMoreButton
