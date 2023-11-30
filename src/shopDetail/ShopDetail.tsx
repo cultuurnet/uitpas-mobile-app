@@ -103,7 +103,7 @@ export const ShopDetail = ({ route }: TProps) => {
               label={t('SHOP_DETAIL.REDEEM.BUTTON')}
               loading={isRedeemStatusLoading}
               onPress={() => {
-                const stickyOffset = 48 + 16;
+                const stickyOffset = 48 + 16; // This equals the area height of the redeem button, which equals the button height (48) + margin (16)
                 scrollViewRef.current?.scrollTo({ animated: true, y: familyMembersSectionOffset - stickyOffset });
               }}
             />
