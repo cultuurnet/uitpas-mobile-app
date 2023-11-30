@@ -4,7 +4,7 @@ import { HeaderBackButton } from '@react-navigation/elements';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Icon } from '../../_components';
-import UserPoints from '../../_components/userPoints/UserPoints';
+import { FamilyUserPoints, SingleUserPoints } from '../../_components/userPoints';
 import { useAuthentication, useOnboarding } from '../../_context';
 import { StorageKey } from '../../_models';
 import { generalStyles } from '../../_styles/constants';
@@ -24,6 +24,7 @@ import {
 } from '../../onboarding/family';
 import Onboarding from '../../onboarding/Onboarding';
 import { FamiliesOverview } from '../../profile/family/FamiliesOverview';
+import { useFamilyComposition } from '../../profile/family/hooks';
 import ProfileNotFound from '../../profile/ProfileNotFound';
 import RedeemedReward from '../../redeemedReward/RedeemedReward';
 import { RedeemedRewards } from '../../redeemedRewards/RedeemedRewards';
@@ -44,6 +45,7 @@ export const RootStackNavigator = () => {
   const { showFamilyOnboarding } = useOnboarding();
   const versions = useGetVersions();
   const getMainHeaderProps = useMainHeaderProps(isAuthenticated);
+  const UserPoints = useFamilyComposition({ FamilyComponent: FamilyUserPoints, SingleComponent: SingleUserPoints });
   const isPolicyApprovedInStorage = storage.getBoolean(StorageKey.IsPolicyApproved);
 
   useEffect(() => {

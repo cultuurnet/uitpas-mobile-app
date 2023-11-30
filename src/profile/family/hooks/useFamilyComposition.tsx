@@ -14,12 +14,12 @@ export const useFamilyComposition = ({ FamilyComponent, SingleComponent }: TProp
   const { data: familyMembers, isLoading: isLoadingFamilyMembers, isError: isErrorFamilyMembers } = useGetFamilyMembers();
 
   if (isLoadingMe || isLoadingFamilyMembers || isErrorMe || isErrorFamilyMembers) {
-    return null;
+    return () => null;
   }
 
   if (familyMembers.length === 1) {
-    return <SingleComponent passHolder={me} />;
+    return () => <SingleComponent passHolder={me} />;
   }
 
-  return <FamilyComponent members={familyMembers} />;
+  return () => <FamilyComponent members={familyMembers} />;
 };
