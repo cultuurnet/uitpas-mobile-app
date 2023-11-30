@@ -30,6 +30,7 @@ export type TPostOptions<T = unknown, RequestBody extends Record<string, unknown
 export type TMutationParams<RequestBody extends Record<string, unknown> = Record<string, unknown>> = {
   body?: RequestBody;
   headers?: Headers;
+  path?: string;
 };
 type TGetInfiniteOptions<T = unknown> = InfiniteQueryObserverOptions<T, TApiError> & TSharedOptions & { itemsPerPage?: number };
 
@@ -71,12 +72,13 @@ export function usePubliqApi(host: ApiHost = 'uitpas') {
   const post = useCallback(
     <T = unknown, MutationParams extends TMutationParams = TMutationParams>(
       mutationKey: unknown[],
-      path: string,
+      path?: string,
       options: TPostOptions<T> = {},
     ) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       return useMutation<T, TApiError, MutationParams>({
-        mutationFn: async ({ body, headers }) => HttpClient.post<T>(`${apiHost}${path}`, body, { ...defaultHeaders, ...headers }),
+        mutationFn: async ({ body, headers, path: mutationPath }) =>
+          HttpClient.post<T>(`${apiHost}${mutationPath ?? path}`, body, { ...defaultHeaders, ...headers }),
         mutationKey,
         networkMode: 'offlineFirst',
         ...options,

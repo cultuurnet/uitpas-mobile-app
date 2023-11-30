@@ -1,5 +1,7 @@
 import styled from 'styled-components/native';
 
+import { Button } from '../_components';
+
 export const BottomContainer = styled.View`
   align-items: center;
   max-width: 280px;
@@ -17,4 +19,8 @@ export const SavedPoints = styled.View`
   justify-content: center;
   border-radius: 40px;
   overflow: hidden;
+`;
+
+export const ScanMoreButton = styled(Button)`
+  margin-bottom: 16px;
 `;

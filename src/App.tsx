@@ -10,11 +10,13 @@ import { AuthenticationProvider, OnboardingProvider, QueryClientProvider, Tracki
 import { StorageKey } from './_models';
 import RootStackNavigator from './_routing';
 import { theme } from './_styles/theme';
+import { setupPolyfills } from './_utils/polyfillHelpers';
 import { storage } from './storage';
 
 import 'react-native-reanimated';
 import './_translations/i18n';
 
+setupPolyfills();
 LogBox.ignoreAllLogs();
 
 const App = () => {

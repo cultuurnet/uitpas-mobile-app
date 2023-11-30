@@ -38,6 +38,8 @@ export type TRootStackParamList = {
     message: string;
   };
   FamiliesOverview: undefined;
+  FamilyCheckin: { checkinCode: string };
+  FamilyCheckinSummary: { familyMemberResponses: { member: TFamilyMember; response: TCheckInResponse }[] };
   FamilyInformation: undefined;
   FamilyOnboarding: undefined;
   FamilyOverview: undefined;
@@ -54,7 +56,7 @@ export type TRootStackParamList = {
   ProfileNotFound: undefined;
   RedeemedReward: { isModal?: boolean; redeemedReward: TRedeemedReward };
   RedeemedRewards: undefined;
-  ScanSuccess: TCheckInResponse;
+  ScanSuccess: TCheckInResponse & { checkinCode: string };
   Search: { category?: TFilterRewardCategory; filters?: TSearchFilters; sort?: TFilterRewardSorting };
   SearchFilters: { category?: TFilterRewardCategory; filters: TSearchFilters; sort: TFilterRewardSorting };
   ShopDetail: { id: string; reward?: TReward };

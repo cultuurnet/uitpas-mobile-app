@@ -65,7 +65,7 @@ const Camera = ({ navigation }: TProps) => {
       try {
         setIsActive(false);
         const response = await mutateAsync({ body: { checkinCode: barcode.displayValue } });
-        navigation.navigate('ScanSuccess', response);
+        navigation.navigate('ScanSuccess', { ...response, checkinCode: barcode.displayValue });
       } catch (error) {
         const { endUserMessage } = error as TApiError;
 
