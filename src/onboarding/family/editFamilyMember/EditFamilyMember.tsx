@@ -13,21 +13,21 @@ import { useEditFamilyMember } from '../_queries';
 import DeleteFamilyMember from '../deleteFamilyMember/DeleteFamilyMember';
 import * as Styled from './style';
 
+const SORTED_AVATARS = [...Object.keys(EmojiAvatars), ...Object.keys(AnimalAvatars)];
+
 type TProps = {
   navigation: TMainNavigationProp<'Profile'>;
   route: TRootStackRouteProp<'EditFamilyMember'>;
 };
-
-const SORTED_AVATARS = [...Object.keys(EmojiAvatars), ...Object.keys(AnimalAvatars)];
 
 export const EditFamilyMember = ({ navigation, route }: TProps) => {
   const {
     member: {
       passholder: { id: passholderId, firstName, name },
       uitpasNumber,
+      mainFamilyMember,
       icon,
     },
-    mainFamilyMember,
   } = route.params;
 
   const [selectedAvatar, setSelectedAvatar] = useState(getValidAvatarNameOrDefault(icon));

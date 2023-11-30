@@ -7,9 +7,10 @@ import { t } from 'i18next';
 
 import { NavigationBar, NavigationButton } from '../../_components';
 import TabBarIcon from '../../_components/tabBarIcon/TabBarIcon';
-import UserPoints from '../../_components/userPoints/UserPoints';
+import { FamilyUserPoints, SingleUserPoints } from '../../_components/userPoints';
 import { theme } from '../../_styles/theme';
 import { useGetMe } from '../../profile/_queries/useGetMe';
+import { useFamilyComposition } from '../../profile/family/hooks';
 import Profile from '../../profile/Profile';
 import Camera from '../../scan/camera/Camera';
 import Shop from '../../shop/Shop';
@@ -18,6 +19,7 @@ import { TMainParamsList, TRootStackParamList } from './TRootStackParamList';
 export const useMainHeaderProps = (
   enabled?: boolean,
 ): ((route: RouteProp<TRootStackParamList, 'MainNavigator'>) => NativeStackNavigationOptions) => {
+  const UserPoints = useFamilyComposition({ FamilyComponent: FamilyUserPoints, SingleComponent: SingleUserPoints });
   const { data: passHolder } = useGetMe(enabled);
 
   return route => {

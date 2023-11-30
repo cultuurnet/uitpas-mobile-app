@@ -1,10 +1,9 @@
-import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 
-import { theme } from '../../_styles/theme';
-import Typography from '../typography/Typography';
+import { theme } from '../../../_styles/theme';
+import Typography from '../../typography/Typography';
 
-export const UserPointsButton = styled(TouchableOpacity)`
+export const Container = styled.TouchableOpacity`
   padding: 2px 4px 2px 8px;
   border-radius: 16px;
   align-items: center;
@@ -14,11 +13,11 @@ export const UserPointsButton = styled(TouchableOpacity)`
   border: 2px solid ${theme.palette.neutral[0]};
 `;
 
-export const PointsLabel = styled(Typography)`
+export const Points = styled(Typography)`
   margin-right: 4px;
 `;
 
-export const AvatarContainer = styled.View`
+export const Avatar = styled.View`
   width: 20px;
   height: 20px;
   border-radius: 10px;
