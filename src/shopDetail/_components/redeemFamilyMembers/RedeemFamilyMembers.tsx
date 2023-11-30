@@ -11,7 +11,7 @@ type TProps = {
 };
 
 export const RedeemFamilyMembers = ({ rewardId, onRedeem }: TProps) => {
-  const { data: familyMembers } = useGetFamilyMembers();
+  const { data: familyMembers = [] } = useGetFamilyMembers();
 
   const RedeemButtonMemoized = useCallback(
     ({ familyMember }) => <RedeemButton familyMember={familyMember} onPress={() => onRedeem(familyMember)} rewardId={rewardId} />,

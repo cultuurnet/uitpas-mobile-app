@@ -23,7 +23,7 @@ export const FamilyOverview = ({ navigation }: TProps) => {
   const { bottom } = useSafeAreaInsets();
   const { t } = useTranslation();
 
-  const { data: familyMembers } = useGetFamilyMembers();
+  const { data: familyMembers = [] } = useGetFamilyMembers();
   const me = useMemo(() => {
     return familyMembers?.filter(({ mainFamilyMember }) => mainFamilyMember)?.[0];
   }, [familyMembers]);
