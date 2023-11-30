@@ -45,7 +45,9 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
   return (
     <Styled.ScreenContainer>
       <FlatList
-        ListFooterComponent={!mainFamilyMember && <DeleteFamilyMember familyMemberId={passHolderId} name={firstName} />}
+        ListFooterComponent={
+          !mainFamilyMember && <Styled.DeleteFamilyMemberButton familyMemberId={passHolderId} name={firstName} />
+        }
         ListFooterComponentStyle={{ width: '100%' }}
         ListHeaderComponent={
           <Styled.Header>

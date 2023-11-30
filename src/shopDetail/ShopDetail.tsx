@@ -93,7 +93,7 @@ export const ShopDetail = ({ route }: TProps) => {
       When it's a physical reward, only show the errormessage on why it's not redeemable, no loader or no redeem button
     */
     if (reward?.online) {
-      const handleRedeem = () => {
+      const scrollToRewardsSection = () => {
         rewardsSection.current?.measureLayout(scrollViewRef.current, (_x, yInScrollView) => {
           redeemButtonRef.current?.measure((_x, _y, _width, stickyAreaHeight) => {
             scrollViewRef.current?.scrollTo({ animated: true, y: yInScrollView - stickyAreaHeight });
@@ -104,7 +104,7 @@ export const ShopDetail = ({ route }: TProps) => {
       return (
         <Styled.RedeemContent ref={redeemButtonRef}>
           {redeemStatus?.redeemable || isRedeemStatusLoading ? (
-            <Button label={t('SHOP_DETAIL.REDEEM.BUTTON')} loading={isRedeemStatusLoading} onPress={handleRedeem} />
+            <Button label={t('SHOP_DETAIL.REDEEM.BUTTON')} loading={isRedeemStatusLoading} onPress={scrollToRewardsSection} />
           ) : (
             renderRedeemError()
           )}
@@ -118,7 +118,7 @@ export const ShopDetail = ({ route }: TProps) => {
     );
   }, [reward?.online, redeemStatus?.redeemable, isRedeemStatusLoading, redeemError, renderRedeemError, t]);
 
-  const handleRedeem = (familyMember: TFamilyMember) => {
+  const handleRedeemReward = (familyMember: TFamilyMember) => {
     if (familyMember.mainFamilyMember) {
       trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-cta' }, { reward: rewardTrackingData });
       toggleRedeemModalConfirmationOpen();
@@ -188,7 +188,7 @@ export const ShopDetail = ({ route }: TProps) => {
           {hasFamilyMembers && (
             <View ref={rewardsSection}>
               <Section title={t('SHOP_DETAIL.WHO_CAN_REDEEM.TITLE')}>
-                <RedeemFamilyMembers onRedeem={handleRedeem} rewardId={reward.id} />
+                <RedeemFamilyMembers onRedeem={handleRedeemReward} rewardId={reward.id} />
               </Section>
             </View>
           )}

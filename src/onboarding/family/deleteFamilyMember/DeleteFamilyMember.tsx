@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { StyleProp, ViewStyle } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { BlurredModal, Icon, Trans } from '../../../_components';
@@ -10,9 +11,10 @@ import * as Styled from './style';
 type TProps = {
   familyMemberId: string;
   name: string;
+  style?: StyleProp<ViewStyle>;
 };
 
-const DeleteFamilyMember = ({ name, familyMemberId }: TProps) => {
+const DeleteFamilyMember = ({ name, familyMemberId, style }: TProps) => {
   const navigation = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
   const { mutateAsync, isLoading } = useDeleteFamilyMember(familyMemberId);
@@ -31,21 +33,16 @@ const DeleteFamilyMember = ({ name, familyMemberId }: TProps) => {
 
   return (
     <>
-      <Styled.DeleteButtonContainer>
-        <Icon name="Delete" />
-        <Styled.DeleteMemberButton
-          color="error.800"
-          fontStyle="normal"
-          label={t('ONBOARDING.FAMILY.EDIT_MEMBER.DELETE_MEMBER')}
-          onPress={handleToggleIsVisible}
-          underline={false}
-          variant="link"
-        />
-      </Styled.DeleteButtonContainer>
+      <Styled.DeleteButton onPress={handleToggleIsVisible} style={style}>
+        <>
+          <Icon name="Delete" size="small" />
+          <Styled.DeleteLabel color="error.800">{t('ONBOARDING.FAMILY.DELETE_MEMBER.CTA')}</Styled.DeleteLabel>
+        </>
+      </Styled.DeleteButton>
       <BlurredModal isVisible={isVisible} toggleIsVisible={handleToggleIsVisible}>
-        <Styled.Title fontStyle="bold" size="large">
+        <Styled.UserName fontStyle="bold" size="large">
           {t('ONBOARDING.FAMILY.DELETE_MEMBER.CONFIRMATION_MODAL.TITLE')}
-        </Styled.Title>
+        </Styled.UserName>
         <Trans i18nKey="ONBOARDING.FAMILY.DELETE_MEMBER.CONFIRMATION_MODAL.DESCRIPTION" values={{ name }} />
         <Styled.DeleteModalButton
           backgroundColor="error.700"

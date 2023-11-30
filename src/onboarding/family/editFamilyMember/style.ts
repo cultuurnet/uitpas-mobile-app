@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 
 import { TouchableRipple, Typography } from '../../../_components';
 import { theme } from '../../../_styles/theme';
+import DeleteFamilyMember from '../deleteFamilyMember/DeleteFamilyMember';
 
 export const ScreenContainer = styled.View`
   flex: 1;
@@ -41,6 +42,11 @@ export const AvatarItemContainer = styled.View`
 export const AvatarItemImage = styled.Image`
   width: 48px;
   height: 48px;
+`;
+
+export const DeleteFamilyMemberButton = styled(DeleteFamilyMember)`
+  margin-horizontal: 8px;
+  margin-top: 24px;
 `;
 
 export const StickyFooter = styled.View`

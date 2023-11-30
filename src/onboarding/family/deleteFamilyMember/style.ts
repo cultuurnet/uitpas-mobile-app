@@ -1,19 +1,21 @@
 import styled from 'styled-components/native';
 
-import { Button, Typography } from '../../../_components';
+import { Button, TouchableRipple, Typography } from '../../../_components';
 
-export const Title = styled(Typography)`
-  margin-bottom: 8px;
-`;
-
-export const DeleteButtonContainer = styled.View`
+export const DeleteButton = styled(TouchableRipple)`
   flex-direction: row;
   justify-content: center;
-  margin-top: 24px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 16px;
 `;
 
-export const DeleteMemberButton = styled(Button)`
+export const DeleteLabel = styled(Typography)`
   margin-left: 8px;
+`;
+
+export const UserName = styled(Typography)`
+  margin-bottom: 8px;
 `;
 
 export const DeleteModalButton = styled(Button)`

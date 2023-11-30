@@ -67,8 +67,7 @@
       "EDIT_MEMBER": {
         "TITLE": "Gezinslid wijzigen",
         "DESCRIPTION": "Kies de weergave van het gezinslid",
-        "SAVE": "Opslaan",
-        "DELETE_MEMBER": "Gezinslid verwijderen"
+        "SAVE": "Opslaan"
       },
       "INFORMATION": {
         "INFO_TITLE": "Bekijk je gezin via deze knop",
