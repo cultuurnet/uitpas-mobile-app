@@ -32,17 +32,17 @@ export type TRootStackParamList = {
   About: undefined;
   AddFamilyMember: { familyMembers: TFamilyMember[] };
   AddFamilyMemberError: { description: string };
-  CheckInMore: { checkinCode: string };
   EditFamilyMember: { member: TFamilyMember };
   Error: {
     gotoAfterClose?: [TRootRoute, TMainRoute] | keyof TRootStackParamList;
     message: string;
   };
   FamiliesOverview: undefined;
+  FamilyCheckin: { checkinCode: string };
+  FamilyCheckinSummary: { familyMemberResponses: { member: TFamilyMember; response: TCheckInResponse }[] };
   FamilyInformation: undefined;
   FamilyOnboarding: undefined;
   FamilyOverview: undefined;
-  FamilyScanSummary: { familyMemberResponses: { member: TFamilyMember; response: TCheckInResponse }[] };
   FilteredShop: {
     category?: TFilterRewardCategory;
     section?: TFilterRewardSection;

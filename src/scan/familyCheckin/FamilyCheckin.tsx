@@ -12,10 +12,10 @@ import * as Styled from './style';
 
 type TProps = {
   navigation: TRootStackNavigationProp<'ScanSuccess'>;
-  route: TRootStackRouteProp<'CheckInMore'>;
+  route: TRootStackRouteProp<'FamilyCheckin'>;
 };
 
-const CheckInMore: FC = ({ navigation, route }: TProps) => {
+const FamilyCheckin: FC = ({ navigation, route }: TProps) => {
   const {
     params: { checkinCode },
   } = route;
@@ -27,7 +27,7 @@ const CheckInMore: FC = ({ navigation, route }: TProps) => {
     return familyMembers?.filter(({ mainFamilyMember }) => !mainFamilyMember) ?? [];
   }, [familyMembers]);
   const [checkedFamilyMembers, setCheckedFamilyMembers] = useState<TFamilyMember[]>([]);
-  const { mutateAsync: checkIn, isLoading } = useCheckin();
+  const { mutateAsync: checkin, isLoading } = useCheckin();
 
   const updateCheckedFamilyMembers = (value: boolean, member: TFamilyMember) => {
     if (value) {
@@ -39,11 +39,11 @@ const CheckInMore: FC = ({ navigation, route }: TProps) => {
 
   const handleCheckins = async () => {
     const promises = checkedFamilyMembers.map(member => {
-      return checkIn({ body: { checkinCode }, path: `/passholders/${member.passholder.id}/checkins` });
+      return checkin({ body: { checkinCode }, path: `/passholders/${member.passholder.id}/checkins` });
     });
     const responses = await Promise.allSettled(promises);
     const familyMemberResponses = mapFamilyMembersToResponses(checkedFamilyMembers, responses);
-    navigation.navigate('FamilyScanSummary', { familyMemberResponses });
+    navigation.navigate('FamilyCheckinSummary', { familyMemberResponses });
   };
 
   return (
@@ -95,4 +95,4 @@ const mapFamilyMembersToResponses = (
   });
 };
 
-export default CheckInMore;
+export default FamilyCheckin;

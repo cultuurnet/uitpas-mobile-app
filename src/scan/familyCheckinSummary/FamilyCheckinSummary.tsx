@@ -5,10 +5,10 @@ import { TRootStackNavigationProp } from '../../_routing';
 import * as Styled from './style';
 
 type TProps = {
-  navigation: TRootStackNavigationProp<'FamilyScanSummary'>;
+  navigation: TRootStackNavigationProp<'FamilyCheckinSummary'>;
 };
 
-export const FamilyScanSummary = ({ navigation }: TProps) => {
+export const FamilyCheckinSummary = ({ navigation }: TProps) => {
   const { t } = useTranslation();
 
   return (

@@ -27,8 +27,8 @@ import { FamiliesOverview } from '../../profile/family/FamiliesOverview';
 import ProfileNotFound from '../../profile/ProfileNotFound';
 import RedeemedReward from '../../redeemedReward/RedeemedReward';
 import { RedeemedRewards } from '../../redeemedRewards/RedeemedRewards';
-import CheckInMore from '../../scan/checkInMore/CheckInMore';
-import { FamilyScanSummary } from '../../scan/familyScanSummary/FamilyScanSummary';
+import FamilyCheckin from '../../scan/familyCheckin/FamilyCheckin';
+import { FamilyCheckinSummary } from '../../scan/familyCheckinSummary/FamilyCheckinSummary';
 import ScanSuccess from '../../scan/ScanSuccess';
 import { Search } from '../../shop/search/Search';
 import { SearchFilters } from '../../shop/searchFilters/SearchFilters';
@@ -131,8 +131,8 @@ export const RootStackNavigator = () => {
             })}
           />
           <RootStack.Screen
-            component={CheckInMore}
-            name="CheckInMore"
+            component={FamilyCheckin}
+            name="FamilyCheckin"
             options={({ navigation }) => ({
               headerBackVisible: false,
               headerLeft: null,
@@ -150,7 +150,7 @@ export const RootStackNavigator = () => {
           />
           <RootStack.Group screenOptions={{ headerShown: false }}>
             <RootStack.Screen component={ProfileNotFound} name="ProfileNotFound" options={{ gestureEnabled: false }} />
-            <RootStack.Screen component={FamilyScanSummary} name="FamilyScanSummary" options={{ gestureEnabled: false }} />
+            <RootStack.Screen component={FamilyCheckinSummary} name="FamilyCheckinSummary" options={{ gestureEnabled: false }} />
             <RootStack.Screen component={ScanSuccess} name="ScanSuccess" options={{ gestureEnabled: false }} />
             <RootStack.Screen component={Error} name="Error" options={{ gestureEnabled: false }} />
             <RootStack.Screen component={Search} name="Search" />
