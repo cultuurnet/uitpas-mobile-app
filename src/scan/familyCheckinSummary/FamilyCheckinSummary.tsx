@@ -6,7 +6,7 @@ import { Check } from '../../_assets/images';
 import { DiagonalSplitView, Typography } from '../../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../../_routing';
 import { TFamilyMember } from '../../profile/_models';
-import { ErrorIcon, PointsRedeemedIcon } from './icons';
+import { ErrorIcon, PointsCollectedIcon } from './icons';
 import * as Styled from './style';
 
 type TProps = {
@@ -34,7 +34,7 @@ export const FamilyCheckinSummary = ({ navigation, route }: TProps) => {
     const renderIcon = ({ member }: { member: TFamilyMember }) => {
       const response = getResponseByMember(member);
       if (response.type === 'success') {
-        return <PointsRedeemedIcon count={response.value.addedPoints} />;
+        return <PointsCollectedIcon count={response.value.addedPoints} />;
       }
       return <ErrorIcon />;
     };

@@ -1,2 +1,2 @@
 export * from './ErrorIcon';
-export * from './PointsRedeemedIcon';
+export * from './PointsCollectedIcon';

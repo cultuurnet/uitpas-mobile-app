@@ -4,7 +4,7 @@ type TProps = {
   count: number;
 };
 
-export const PointsRedeemedIcon = ({ count }: TProps) => {
+export const PointsCollectedIcon = ({ count }: TProps) => {
   return (
     <Styled.Container type="success">
       <Styled.Label color="primary.700" fontStyle="bold" size="small">
