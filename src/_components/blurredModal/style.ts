@@ -11,8 +11,7 @@ export const BlurContainer = styled(Button)`
 
 export const ModalContainer = styled.View`
   background-color: ${({ theme }) => theme.palette.neutral['0']};
-  width: 90%;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 16px;
+  border-radius: 8px;
   z-index: 1;
 `;
