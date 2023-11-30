@@ -21,7 +21,7 @@ export const HeaderTitle = styled(Typography)`
 
 export const Body = styled.View`
   flex: 1;
-  margin-top: 64px;
+  margin-top: 40px;
 `;
 
 export const FamilyMembersPoints = styled(FamilyMembersPointsComp)`
