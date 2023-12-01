@@ -14,11 +14,9 @@ export const RedeemFamilyMembers = ({ rewardId, onRedeem }: TProps) => {
   const { data: familyMembers = [] } = useGetFamilyMembers();
 
   const RedeemButtonMemoized = useCallback(
-    ({ member }: { member: TFamilyMember }) => (
-      <RedeemButton member={member} onPress={() => onRedeem(member)} rewardId={rewardId} />
-    ),
+    ({ item: { member } }) => <RedeemButton member={member} onPress={() => onRedeem(member)} rewardId={rewardId} />,
     [onRedeem, rewardId],
   );
 
-  return <FamilyMembersPoints RightComponent={RedeemButtonMemoized} members={familyMembers} />;
+  return <FamilyMembersPoints ItemRightComponent={RedeemButtonMemoized} members={familyMembers.map(member => ({ member }))} />;
 };

@@ -7,14 +7,19 @@ import { TFamilyMember } from '../../../profile/_models';
 import Typography from '../../typography/Typography';
 import * as Styled from './style';
 
-type TProps = {
-  RightComponent?: ({ member }: { member: TFamilyMember }) => ReactElement;
-  Subtitle?: ({ member }: { member: TFamilyMember }) => ReactElement;
-  members: TFamilyMember[];
+type TProps<T extends { member: TFamilyMember }> = {
+  ItemRightComponent?: ({ item }: { item: T }) => ReactElement;
+  ItemSubtitle?: ({ item }: { item: T }) => ReactElement;
+  members: Array<T>;
   style?: StyleProp<ViewStyle>;
 };
 
-export const FamilyMembersPoints = ({ members, RightComponent, Subtitle, style }: TProps) => {
+export const FamilyMembersPoints = <T extends { member: TFamilyMember }>({
+  members,
+  ItemRightComponent,
+  ItemSubtitle,
+  style,
+}: TProps<T>) => {
   const { t } = useTranslation();
 
   return (
@@ -22,26 +27,26 @@ export const FamilyMembersPoints = ({ members, RightComponent, Subtitle, style }
       ItemSeparatorComponent={Styled.Divider}
       contentContainerStyle={style}
       data={members}
-      keyExtractor={item => item.uitpasNumber}
-      renderItem={({ item: member }) => (
+      keyExtractor={item => item.member.uitpasNumber}
+      renderItem={({ item }) => (
         <Styled.Item>
-          <Styled.Avatar resizeMode="contain" source={getAvatarByNameOrDefault(member.icon)} />
+          <Styled.Avatar resizeMode="contain" source={getAvatarByNameOrDefault(item.member.icon)} />
           <Styled.ItemBody>
             <Typography fontStyle="bold" numberOfLines={1}>
-              {member.passholder.firstName}
-              {member.mainFamilyMember ? ` ${t('SHOP_DETAIL.WHO_CAN_REDEEM.YOU')}` : ''}
+              {item.member.passholder.firstName}
+              {item.member.mainFamilyMember ? ` ${t('SHOP_DETAIL.WHO_CAN_REDEEM.YOU')}` : ''}
             </Typography>
-            {Subtitle ? (
-              <Subtitle member={member} />
+            {ItemSubtitle ? (
+              <ItemSubtitle item={item} />
             ) : (
               <Typography color="primary.700" fontStyle="semibold" numberOfLines={1} size="small">
-                {t('SHOP_DETAIL.WHO_CAN_REDEEM.POINTS', { count: member.passholder.points })}
+                {t('SHOP_DETAIL.WHO_CAN_REDEEM.POINTS', { count: item.member.passholder.points })}
               </Typography>
             )}
           </Styled.ItemBody>
-          {RightComponent && (
+          {ItemRightComponent && (
             <View>
-              <RightComponent member={member} />
+              <ItemRightComponent item={item} />
             </View>
           )}
         </Styled.Item>

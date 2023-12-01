@@ -3,16 +3,20 @@ import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Check } from '../../_assets/images';
-import { DiagonalSplitView, Typography } from '../../_components';
+import { DiagonalSplitView, FamilyMembersPoints, Typography } from '../../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../../_routing';
 import { TFamilyMember } from '../../profile/_models';
-import { ErrorIcon, PointsCollectedIcon } from './icons';
+import { TFamilyScanResponse } from './_models';
+import { CheckinErrorIcon, CheckinSuccessIcon } from './icons';
 import * as Styled from './style';
 
 type TProps = {
   navigation: TRootStackNavigationProp<'FamilyCheckinSummary'>;
   route: TRootStackRouteProp<'FamilyCheckinSummary'>;
 };
+
+type FamilyMembersSummaryItem = { item: { member: TFamilyMember; response: TFamilyScanResponse } };
+
 export const FamilyCheckinSummary = ({ navigation, route }: TProps) => {
   const { memberResponses } = route.params;
 
@@ -20,27 +24,14 @@ export const FamilyCheckinSummary = ({ navigation, route }: TProps) => {
   const { top } = useSafeAreaInsets();
 
   const FamilyMembersSummary = useCallback(() => {
-    const getResponseByMember = (member: TFamilyMember) => {
-      const index = memberResponses.findIndex(
-        ({
-          member: {
-            passholder: { id },
-          },
-        }) => member.passholder.id === id,
-      );
-      return memberResponses[index].response;
-    };
-
-    const renderIcon = ({ member }: { member: TFamilyMember }) => {
-      const response = getResponseByMember(member);
+    const renderIcon = ({ item: { response } }: FamilyMembersSummaryItem) => {
       if (response.type === 'success') {
-        return <PointsCollectedIcon count={response.value.addedPoints} />;
+        return <CheckinSuccessIcon numberOfPoints={response.value.addedPoints} />;
       }
-      return <ErrorIcon />;
+      return <CheckinErrorIcon />;
     };
 
-    const renderErrorDescription = ({ member }: { member: TFamilyMember }) => {
-      const response = getResponseByMember(member);
+    const renderErrorDescription = ({ item: { member, response } }: FamilyMembersSummaryItem) => {
       if (response.type === 'error') {
         return <Typography size="small">{response.error.endUserMessage.nl}</Typography>;
       }
@@ -52,10 +43,11 @@ export const FamilyCheckinSummary = ({ navigation, route }: TProps) => {
     };
 
     return (
-      <Styled.FamilyMembersPoints
-        RightComponent={renderIcon}
-        Subtitle={renderErrorDescription}
-        members={memberResponses.map(({ member }) => member)}
+      <FamilyMembersPoints
+        ItemRightComponent={renderIcon}
+        ItemSubtitle={renderErrorDescription}
+        members={memberResponses}
+        style={{ paddingHorizontal: 16 }}
       />
     );
   }, [memberResponses, t]);
