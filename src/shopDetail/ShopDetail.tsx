@@ -7,7 +7,7 @@ import { useTracking } from '../_context';
 import { useToggle } from '../_hooks';
 import { TRootStackRouteProp } from '../_routing';
 import { getRewardTrackingData, normalizeUrl } from '../_utils';
-import { useHasFamilyMembers } from '../onboarding/family/_queries';
+import { useGetFamilyMembers, useHasFamilyMembers } from '../onboarding/family/_queries';
 import { TFamilyMember } from '../profile/_models';
 import { useGetMe } from '../profile/_queries/useGetMe';
 import CardModal from '../profile/UitpasCards/CardModal/CardModal';
@@ -36,6 +36,7 @@ export const ShopDetail = ({ route }: TProps) => {
     error: redeemStatusError,
     refetch: refetchRedeemStatus,
   } = useGetRedeemStatus({ passHolder: me, rewardId: reward.id });
+  const { data: familyMembers = [] } = useGetFamilyMembers();
   const { data: hasFamilyMembers } = useHasFamilyMembers();
   const [selectedMember, setSelectedMember] = useState<TFamilyMember>();
   const [isRedeemModalVisible, toggleIsRedeemModalVisible] = useToggle(false);
@@ -60,11 +61,18 @@ export const ShopDetail = ({ route }: TProps) => {
   };
 
   const handleRedeemButtonPress = () => {
-    rewardsSection.current?.measureLayout(scrollViewRef.current, (_x, yInScrollView) => {
-      redeemButtonRef.current?.measure((_x, _y, _width, stickyAreaHeight) => {
-        scrollViewRef.current?.scrollTo({ animated: true, y: yInScrollView - stickyAreaHeight });
+    if (!hasFamilyMembers) {
+      const mainMember = familyMembers.filter(({ mainFamilyMember }) => mainFamilyMember)[0];
+      if (mainMember) {
+        handleRedeemReward(mainMember);
+      }
+    } else {
+      rewardsSection.current?.measureLayout(scrollViewRef.current, (_x, yInScrollView) => {
+        redeemButtonRef.current?.measure((_x, _y, _width, stickyAreaHeight) => {
+          scrollViewRef.current?.scrollTo({ animated: true, y: yInScrollView - stickyAreaHeight });
+        });
       });
-    });
+    }
   };
 
   const handleRedeemReward = useCallback(

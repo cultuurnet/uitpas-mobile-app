@@ -25,13 +25,13 @@ export const FamilyOverview = ({ navigation }: TProps) => {
 
   const { data: familyMembers = [] } = useGetFamilyMembers();
   const me = useMemo(() => {
-    return familyMembers?.filter(({ mainFamilyMember }) => mainFamilyMember)?.[0];
+    return familyMembers.filter(({ mainFamilyMember }) => mainFamilyMember)[0];
   }, [familyMembers]);
   const formItems = useMemo(() => {
     const otherFamilyMembers =
       familyMembers
-        ?.filter(({ mainFamilyMember }) => !mainFamilyMember)
-        ?.map(item => ({ ...item, type: TFormItemType.FamilyMemberItem as const })) ?? [];
+        .filter(({ mainFamilyMember }) => !mainFamilyMember)
+        .map(item => ({ ...item, type: TFormItemType.FamilyMemberItem as const })) ?? [];
     return [...otherFamilyMembers, { type: TFormItemType.FamilyMemberAddButton as const }];
   }, [familyMembers]);
   const { showFamilyOnboarding } = useOnboarding();
@@ -72,7 +72,7 @@ export const FamilyOverview = ({ navigation }: TProps) => {
                 <TouchableRipple borderless onPress={() => navigation.navigate('EditFamilyMember', { member: formItem })}>
                   <Styled.FormItem>
                     <View>
-                      <Styled.FamilyMemberAvatar resizeMode="contain" source={getAvatarByNameOrDefault(formItem?.icon)} />
+                      <Styled.FamilyMemberAvatar resizeMode="contain" source={getAvatarByNameOrDefault(formItem.icon)} />
                       <Styled.EditProfileIconContainer>
                         <Icon color="neutral.0" name="Edit" size={12} />
                       </Styled.EditProfileIconContainer>
@@ -101,7 +101,7 @@ export const FamilyOverview = ({ navigation }: TProps) => {
                     </Styled.FormItem>
                   </TouchableRipple>
                 </Styled.FormItemButtonWrapper>
-                {familyMembers?.length % 2 === 1 && <Styled.FormItemContainer />}
+                {familyMembers.length % 2 === 1 && <Styled.FormItemContainer />}
               </>
             );
           }
@@ -110,7 +110,7 @@ export const FamilyOverview = ({ navigation }: TProps) => {
       />
       <View style={{ marginBottom: bottom }}>
         <Styled.ConfirmButton
-          label={familyMembers?.length > 1 ? t('ONBOARDING.FAMILY.OVERVIEW.DONE') : t('ONBOARDING.FAMILY.OVERVIEW.CANCEL')}
+          label={familyMembers.length > 1 ? t('ONBOARDING.FAMILY.OVERVIEW.DONE') : t('ONBOARDING.FAMILY.OVERVIEW.CANCEL')}
           onPress={handleSubmit}
         />
       </View>

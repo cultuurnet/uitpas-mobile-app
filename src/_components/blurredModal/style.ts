@@ -7,6 +7,7 @@ export const BlurContainer = styled(Button)`
   background-color: rgba(0, 0, 0, 0.3);
   flex: 1;
   justify-content: center;
+  padding: 16px;
 `;
 
 export const ModalContainer = styled.View`

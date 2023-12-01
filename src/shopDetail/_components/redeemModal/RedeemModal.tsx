@@ -10,10 +10,11 @@ import { TFamilyMember } from '../../../profile/_models';
 import { TReward } from '../../../shop/_models/reward';
 import { useRedeemReward } from '../../_queries/useRedeemReward';
 import * as Styled from './style';
+import { useHasFamilyMembers } from '../../../onboarding/family/_queries';
 
 type TRedeemModalProps = {
   isVisible: boolean;
-  member: TFamilyMember;
+  member: TFamilyMember | null;
   reward: TReward;
   toggleIsVisible: () => void;
 };
@@ -32,6 +33,7 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
       navigate('RedeemedReward', { isModal: true, redeemedReward });
     },
   });
+  const { data: hasFamilyMembers } = useHasFamilyMembers();
   const [firstActiveCard] =
     member?.passholder?.cardSystemMemberships?.filter?.(card => card.status === 'ACTIVE' && card.uitpasNumber) ?? [];
   const { trackSelfDescribingEvent } = useTracking();
@@ -62,7 +64,7 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
           {error?.endUserMessage?.[getLanguage()] || t('SHOP_DETAIL.REDEEM.MODAL_GENERIC_ERROR')}
         </Typography>
       )}
-      {member && (
+      {hasFamilyMembers && member && (
         <Styled.MemberContainer>
           <Typography fontStyle="bold">{t('SHOP_DETAIL.REDEEM.MODAL_WHO_TITLE')}</Typography>
           <Styled.MemberCard>
