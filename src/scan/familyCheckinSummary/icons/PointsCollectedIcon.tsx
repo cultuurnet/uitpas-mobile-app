@@ -1,14 +1,14 @@
 import * as Styled from './style';
 
 type TProps = {
-  count: number;
+  number: number;
 };
 
-export const PointsCollectedIcon = ({ count }: TProps) => {
+export const PointsCollectedIcon = ({ number }: TProps) => {
   return (
     <Styled.Container type="success">
       <Styled.Label color="primary.700" fontStyle="bold" size="small">
-        +{count}
+        +{number}
       </Styled.Label>
     </Styled.Container>
   );
