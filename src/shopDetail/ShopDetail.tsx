@@ -2,11 +2,11 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 
-import { Accordion, Analytics, Button, HtmlRenderer, Points, RewardImage, Trans, Typography } from '../_components';
+import { Accordion, Analytics, HtmlRenderer, Points, RewardImage, Trans, Typography } from '../_components';
 import { useTracking } from '../_context';
 import { useToggle } from '../_hooks';
 import { TRootStackRouteProp } from '../_routing';
-import { getLanguage, getRewardTrackingData, normalizeUrl } from '../_utils';
+import { getRewardTrackingData, normalizeUrl } from '../_utils';
 import { useHasFamilyMembers } from '../onboarding/family/_queries';
 import { TFamilyMember } from '../profile/_models';
 import { useGetMe } from '../profile/_queries/useGetMe';
@@ -16,6 +16,7 @@ import { Availability } from './_components/availability/Availability';
 import { Organizer } from './_components/organizer/Organizer';
 import { RedeemFamilyMembers } from './_components/redeemFamilyMembers/RedeemFamilyMembers';
 import RedeemModal from './_components/redeemModal/RedeemModal';
+import { RedeemStatusButton } from './_components/redeemStatusButton/RedeemStatusButton';
 import { Section } from './_components/section/Section';
 import { useGetRedeemStatus } from './_queries/useGetRedeemStatus';
 import * as Styled from './style';
@@ -32,7 +33,7 @@ export const ShopDetail = ({ route }: TProps) => {
   const {
     data: redeemStatus,
     isLoading: isRedeemStatusLoading,
-    error: redeemError,
+    error: redeemStatusError,
     refetch: refetchRedeemStatus,
   } = useGetRedeemStatus({ passHolder: me, rewardId: reward.id });
   const { data: hasFamilyMembers } = useHasFamilyMembers();
@@ -47,7 +48,6 @@ export const ShopDetail = ({ route }: TProps) => {
   const rewardTrackingData = useMemo(() => getRewardTrackingData(reward), [reward]);
 
   const [firstOrganizer, ...organizers] = reward?.organizers || [];
-
   const isInAppRedeemable = reward?.online && redeemStatus?.redeemable;
   // If we have a redeembutton, it needs to be sticky, otherwise we don't have sticky content
   const stickyHeaderIndices = isInAppRedeemable ? [2] : [];
@@ -55,70 +55,19 @@ export const ShopDetail = ({ route }: TProps) => {
   const handleLinkPress = () => {
     trackSelfDescribingEvent('linkClick', { targetUrl: normalizeUrl(reward.moreInfoURL) }, { reward: rewardTrackingData });
   };
-
-  const renderRedeemError = useCallback(() => {
-    const errorMessage = redeemStatus?.message || redeemError?.endUserMessage?.[getLanguage()];
-    if (!errorMessage) {
-      return (
-        <Styled.GenericRedeemError>
-          <Styled.GenericRedeemErrorText color="neutral.600">
-            {t('SHOP_DETAIL.GENERIC_REDEEM_ERROR')}
-          </Styled.GenericRedeemErrorText>
-          <Button label={t('SHOP_DETAIL.RETRY')} onPress={refetchRedeemStatus} />
-        </Styled.GenericRedeemError>
-      );
-    }
-
+  const trackError = () => {
     trackSelfDescribingEvent('errorMessage', { message: redeemStatus.reason }, { reward: rewardTrackingData });
+  };
 
-    return (
-      <Styled.RedeemError>
-        <Typography color="neutral.0">{errorMessage}</Typography>
-      </Styled.RedeemError>
-    );
-  }, [
-    redeemStatus?.reason,
-    redeemStatus?.message,
-    redeemError?.endUserMessage,
-    refetchRedeemStatus,
-    t,
-    trackSelfDescribingEvent,
-    rewardTrackingData,
-  ]);
+  const handleRedeemButtonPress = () => {
+    rewardsSection.current?.measureLayout(scrollViewRef.current, (_x, yInScrollView) => {
+      redeemButtonRef.current?.measure((_x, _y, _width, stickyAreaHeight) => {
+        scrollViewRef.current?.scrollTo({ animated: true, y: yInScrollView - stickyAreaHeight });
+      });
+    });
+  };
 
-  const renderRedeemStatus = useCallback(() => {
-    /*
-      When it's an online reward show either a redeembutton or the errormessage on why it's not redeemable
-      Also show a loading indicator when it's an online reward
-      When it's a physical reward, only show the errormessage on why it's not redeemable, no loader or no redeem button
-    */
-    if (reward?.online) {
-      const scrollToRewardsSection = () => {
-        rewardsSection.current?.measureLayout(scrollViewRef.current, (_x, yInScrollView) => {
-          redeemButtonRef.current?.measure((_x, _y, _width, stickyAreaHeight) => {
-            scrollViewRef.current?.scrollTo({ animated: true, y: yInScrollView - stickyAreaHeight });
-          });
-        });
-      };
-
-      return (
-        <Styled.RedeemContent ref={redeemButtonRef}>
-          {redeemStatus?.redeemable || isRedeemStatusLoading ? (
-            <Button label={t('SHOP_DETAIL.REDEEM.BUTTON')} loading={isRedeemStatusLoading} onPress={scrollToRewardsSection} />
-          ) : (
-            renderRedeemError()
-          )}
-        </Styled.RedeemContent>
-      );
-    }
-    return (
-      ((!redeemStatus?.redeemable && !isRedeemStatusLoading) || redeemError) && (
-        <Styled.RedeemContent>{renderRedeemError()}</Styled.RedeemContent>
-      )
-    );
-  }, [reward?.online, redeemStatus?.redeemable, isRedeemStatusLoading, redeemError, renderRedeemError, t]);
-
-  const handleRedeem = useCallback(
+  const handleRedeemReward = useCallback(
     (member: TFamilyMember) => {
       trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-cta' }, { reward: rewardTrackingData });
       setSelectedMember(member);
@@ -152,7 +101,16 @@ export const ShopDetail = ({ route }: TProps) => {
           <Typography color="primary.800">{firstOrganizer?.name}</Typography>
         </Styled.Content>
 
-        {renderRedeemStatus()}
+        <RedeemStatusButton
+          error={redeemStatusError}
+          isLoading={isRedeemStatusLoading}
+          onPress={handleRedeemButtonPress}
+          ref={redeemButtonRef}
+          refetch={refetchRedeemStatus}
+          reward={reward}
+          status={redeemStatus}
+          trackError={trackError}
+        />
 
         <Styled.Content>
           <Section title={t('SHOP_DETAIL.DESCRIPTION')}>
@@ -190,10 +148,10 @@ export const ShopDetail = ({ route }: TProps) => {
             <HtmlRenderer source={{ html: reward.practicalInfo }} />
           </Section>
 
-          {hasFamilyMembers && !isRedeemStatusLoading && redeemStatus?.redeemable && !redeemError && (
+          {hasFamilyMembers && !isRedeemStatusLoading && redeemStatus?.redeemable && !redeemStatusError && (
             <View ref={rewardsSection}>
               <Section title={t('SHOP_DETAIL.WHO_CAN_REDEEM.TITLE')}>
-                <RedeemFamilyMembers onRedeem={handleRedeem} rewardId={reward.id} />
+                <RedeemFamilyMembers onRedeem={handleRedeemReward} rewardId={reward.id} />
               </Section>
             </View>
           )}
