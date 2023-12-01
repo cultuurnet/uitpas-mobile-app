@@ -7,7 +7,7 @@ import { DiagonalSplitView, FamilyMembersPoints, Typography } from '../../_compo
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../../_routing';
 import { TFamilyMember } from '../../profile/_models';
 import { TFamilyScanResponse } from './_models';
-import { ErrorIcon, PointsCollectedIcon } from './icons';
+import { CheckinErrorIcon, CheckinSuccessIcon } from './icons';
 import * as Styled from './style';
 
 type TProps = {
@@ -26,9 +26,9 @@ export const FamilyCheckinSummary = ({ navigation, route }: TProps) => {
   const FamilyMembersSummary = useCallback(() => {
     const renderIcon = ({ item: { response } }: FamilyMembersSummaryItem) => {
       if (response.type === 'success') {
-        return <PointsCollectedIcon number={response.value.addedPoints} />;
+        return <CheckinSuccessIcon numberOfPoints={response.value.addedPoints} />;
       }
-      return <ErrorIcon />;
+      return <CheckinErrorIcon />;
     };
 
     const renderErrorDescription = ({ item: { member, response } }: FamilyMembersSummaryItem) => {
