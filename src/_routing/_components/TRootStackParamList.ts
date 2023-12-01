@@ -60,7 +60,7 @@ export type TRootStackParamList = {
   MainNavigator: { screen: TMainRoute };
   Onboarding: undefined;
   ProfileNotFound: undefined;
-  RedeemedReward: { isModal?: boolean; redeemedReward: TRedeemedReward };
+  RedeemedReward: { isModal?: boolean; member: TFamilyMember; redeemedReward: TRedeemedReward };
   RedeemedRewards: undefined;
   ScanSuccess: TCheckInResponse & { checkinCode: string };
   Search: { category?: TFilterRewardCategory; filters?: TSearchFilters; sort?: TFilterRewardSorting };

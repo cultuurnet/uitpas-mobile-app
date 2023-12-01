@@ -48,7 +48,7 @@ export const ShopDetail = ({ route }: TProps) => {
   const rewardsSection = useRef(null);
   const rewardTrackingData = useMemo(() => getRewardTrackingData(reward), [reward]);
 
-  const [firstOrganizer, ...organizers] = reward?.organizers || [];
+  const [firstOrganizer, ...organizers] = reward.organizers || [];
   const isInAppRedeemable = reward?.online && redeemStatus?.redeemable;
   // If we have a redeembutton, it needs to be sticky, otherwise we don't have sticky content
   const stickyHeaderIndices = isInAppRedeemable ? [2] : [];

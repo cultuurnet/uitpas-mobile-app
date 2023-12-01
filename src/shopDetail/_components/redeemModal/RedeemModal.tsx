@@ -3,14 +3,14 @@ import { useNavigation } from '@react-navigation/native';
 import { t } from 'i18next';
 
 import { BlurredModal, Button, Trans, Typography } from '../../../_components';
-import { useTracking } from '../../../_context';
+import { queryClient, useTracking } from '../../../_context';
 import { TRootStackNavigationProp } from '../../../_routing';
 import { getAvatarByNameOrDefault, getLanguage, getRewardTrackingData } from '../../../_utils';
+import { useHasFamilyMembers } from '../../../onboarding/family/_queries';
 import { TFamilyMember } from '../../../profile/_models';
 import { TReward } from '../../../shop/_models/reward';
 import { useRedeemReward } from '../../_queries/useRedeemReward';
 import * as Styled from './style';
-import { useHasFamilyMembers } from '../../../onboarding/family/_queries';
 
 type TRedeemModalProps = {
   isVisible: boolean;
@@ -23,6 +23,7 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
   const { navigate } = useNavigation<TRootStackNavigationProp<'ShopDetail'>>();
   const rewardTrackingData = getRewardTrackingData(reward);
 
+  const { data: hasFamilyMembers } = useHasFamilyMembers();
   const {
     mutate: redeemReward,
     isLoading,
@@ -30,10 +31,10 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
   } = useRedeemReward({
     onSuccess: redeemedReward => {
       toggleIsVisible();
-      navigate('RedeemedReward', { isModal: true, redeemedReward });
+      queryClient.invalidateQueries(['family-members']);
+      navigate('RedeemedReward', { isModal: true, member, redeemedReward });
     },
   });
-  const { data: hasFamilyMembers } = useHasFamilyMembers();
   const [firstActiveCard] =
     member?.passholder?.cardSystemMemberships?.filter?.(card => card.status === 'ACTIVE' && card.uitpasNumber) ?? [];
   const { trackSelfDescribingEvent } = useTracking();
