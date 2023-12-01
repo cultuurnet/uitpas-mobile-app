@@ -7,16 +7,16 @@ import { useGetRedeemStatus } from '../../../_queries/useGetRedeemStatus';
 import * as Styled from './style';
 
 type TProps = {
-  familyMember: TFamilyMember;
+  member: TFamilyMember;
   onPress: () => void;
   rewardId: string;
 };
 
-export const RedeemButton = ({ familyMember, onPress, rewardId }: TProps) => {
+export const RedeemButton = ({ member, onPress, rewardId }: TProps) => {
   const { t } = useTranslation();
   const [showUnredeemableModal, toggleUnredeemableModal] = useToggle(false);
 
-  const { error, isLoading } = useGetRedeemStatus({ passHolder: familyMember.passholder, rewardId });
+  const { error, isLoading } = useGetRedeemStatus({ passHolder: member.passholder, rewardId });
 
   if (isLoading) {
     return <Button color="primary.700" loading variant="link" />;

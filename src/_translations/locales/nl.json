@@ -301,6 +301,7 @@
       "TITLE": "Met wie ben je vandaag op stap?",
       "CHECKIN": "Spaar!",
       "SUMMARY": {
+        "DESCRIPTION": "Je hebt gespaard voor",
         "CLOSE": "Sluiten"
       }
     }
