@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 
@@ -26,7 +26,7 @@ type TProps = {
 
 export const ShopDetail = ({ route }: TProps) => {
   const { id, reward: fallbackReward } = route.params;
-  const { data: passHolder } = useGetMe();
+  const { data: me } = useGetMe();
   const { data } = useGetReward({ id });
   const reward = data || fallbackReward;
   const {
@@ -34,17 +34,17 @@ export const ShopDetail = ({ route }: TProps) => {
     isLoading: isRedeemStatusLoading,
     error: redeemError,
     refetch: refetchRedeemStatus,
-  } = useGetRedeemStatus({ passHolder, rewardId: reward.id });
+  } = useGetRedeemStatus({ passHolder: me, rewardId: reward.id });
   const { data: hasFamilyMembers } = useHasFamilyMembers();
-  const [isRedeemModalConfirmationOpen, toggleRedeemModalConfirmationOpen] = useToggle(false);
-  const [cardModalVisible, toggleCardModalVisible] = useToggle(false);
+  const [selectedMember, setSelectedMember] = useState<TFamilyMember>();
+  const [isRedeemModalVisible, toggleIsRedeemModalVisible] = useToggle(false);
+  const [isCardModalVisible, toggleIsCardModalVisible] = useToggle(false);
   const { t } = useTranslation();
   const { trackSelfDescribingEvent } = useTracking();
   const scrollViewRef = useRef(null);
   const redeemButtonRef = useRef(null);
   const rewardsSection = useRef(null);
-
-  const rewardTrackingData = getRewardTrackingData(reward);
+  const rewardTrackingData = useMemo(() => getRewardTrackingData(reward), [reward]);
 
   const [firstOrganizer, ...organizers] = reward?.organizers || [];
 
@@ -118,13 +118,18 @@ export const ShopDetail = ({ route }: TProps) => {
     );
   }, [reward?.online, redeemStatus?.redeemable, isRedeemStatusLoading, redeemError, renderRedeemError, t]);
 
-  const handleRedeemReward = (familyMember: TFamilyMember) => {
-    if (familyMember.mainFamilyMember) {
+  const handleRedeem = useCallback(
+    (member: TFamilyMember) => {
       trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-cta' }, { reward: rewardTrackingData });
-      toggleRedeemModalConfirmationOpen();
-    } else {
-      // TODO: UIT-203
-    }
+      setSelectedMember(member);
+      toggleIsRedeemModalVisible();
+    },
+    [rewardTrackingData, toggleIsRedeemModalVisible, trackSelfDescribingEvent],
+  );
+
+  const handleRedeemModalToggle = () => {
+    setSelectedMember(null);
+    toggleIsRedeemModalVisible();
   };
 
   return (
@@ -178,17 +183,17 @@ export const ShopDetail = ({ route }: TProps) => {
             <Trans
               bottomSpacing="24px"
               i18nKey={reward.online ? 'SHOP_DETAIL.COLLECT_ONLINE' : 'SHOP_DETAIL.COLLECT_OFFLINE'}
-              onButtonPress={toggleCardModalVisible}
+              onButtonPress={toggleIsCardModalVisible}
               selectable
               size="small"
             />
             <HtmlRenderer source={{ html: reward.practicalInfo }} />
           </Section>
 
-          {hasFamilyMembers && (
+          {hasFamilyMembers && !isRedeemStatusLoading && redeemStatus?.redeemable && !redeemError && (
             <View ref={rewardsSection}>
               <Section title={t('SHOP_DETAIL.WHO_CAN_REDEEM.TITLE')}>
-                <RedeemFamilyMembers onRedeem={handleRedeemReward} rewardId={reward.id} />
+                <RedeemFamilyMembers onRedeem={handleRedeem} rewardId={reward.id} />
               </Section>
             </View>
           )}
@@ -202,11 +207,12 @@ export const ShopDetail = ({ route }: TProps) => {
           title={t('SHOP_DETAIL.OTHER_REWARDS')}
         />
       </ScrollView>
-      <CardModal isVisible={cardModalVisible} passHolder={passHolder} toggleIsVisible={toggleCardModalVisible} />
+      <CardModal isVisible={isCardModalVisible} passHolder={me} toggleIsVisible={toggleIsCardModalVisible} />
       <RedeemModal
-        isVisible={isRedeemModalConfirmationOpen}
+        isVisible={isRedeemModalVisible}
+        member={selectedMember}
         reward={reward}
-        toggleIsVisible={toggleRedeemModalConfirmationOpen}
+        toggleIsVisible={handleRedeemModalToggle}
       />
     </>
   );

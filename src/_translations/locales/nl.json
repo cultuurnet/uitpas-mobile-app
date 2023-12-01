@@ -253,7 +253,9 @@
       "MODAL_DESCRIPTION": "Ben je zeker dat je <bold>{{points}} punten</bold> wil omruilen voor <bold>\"{{title}}\"</bold>",
       "MODAL_BUTTON_CONFIRM": "Bevestigen",
       "MODAL_BUTTON_CANCEL": "Annuleren",
-      "MODAL_GENERIC_ERROR": "We konden je voordeel niet omruilen, probeer later opnieuw."
+      "MODAL_GENERIC_ERROR": "We konden je voordeel niet omruilen, probeer later opnieuw.",
+      "MODAL_WHO_TITLE": "Met de punten van",
+      "YOU": "(jij)"
     },
     "WHO_CAN_REDEEM": {
       "TITLE": "Wie kan omruilen?",
