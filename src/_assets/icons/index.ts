@@ -10,6 +10,7 @@ export const CheckboxChecked = require('./checkboxChecked.png');
 export const CheckboxUnchecked = require('./checkboxUnchecked.png');
 export const ChevronDown = require('./chevronDown.png');
 export const ChevronLeft = require('./chevronLeft.png');
+export const ChevronRight = require('./chevronRight.png');
 export const ChevronUp = require('./chevronUp.png');
 export const Child = require('./child.png');
 export const CircledCheck = require('./circledCheck.png');

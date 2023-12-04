@@ -36,7 +36,7 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
       navigate('RedeemedReward', { isModal: true, member, redeemedReward });
     },
   });
-  const firstActiveCard = getActiveCard({ passHolder: member?.passholder });
+  const activeCard = getActiveCard({ passHolder: member?.passholder });
   const { trackSelfDescribingEvent } = useTracking();
 
   useEffect(() => {
@@ -46,8 +46,8 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
 
   const handleConfirm = useCallback(() => {
     trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-confirm' }, { reward: rewardTrackingData });
-    redeemReward({ body: { rewardId: reward.id, uitpasNumber: firstActiveCard?.uitpasNumber } });
-  }, [reward, redeemReward, firstActiveCard?.uitpasNumber, trackSelfDescribingEvent, rewardTrackingData]);
+    redeemReward({ body: { rewardId: reward.id, uitpasNumber: activeCard?.uitpasNumber } });
+  }, [reward, redeemReward, activeCard?.uitpasNumber, trackSelfDescribingEvent, rewardTrackingData]);
 
   const handleCancel = () => {
     trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-cancel' }, { reward: rewardTrackingData });

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { FamilyMembersPoints } from '../../../_components/family/familyMembersPoints/FamilyMembersPoints';
+import { FamilyMembersPoints } from '../../../_components';
 import { useGetFamilyMembers } from '../../../onboarding/family/_queries';
 import { TFamilyMember } from '../../../profile/_models';
 import { TReward } from '../../../shop/_models/reward';

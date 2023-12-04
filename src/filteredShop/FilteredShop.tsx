@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, RefreshControl } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 
-import { Analytics, Reward, RewardLoader } from '../_components';
+import { Analytics, FamilyFilter, Reward, RewardLoader } from '../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing';
 import { theme } from '../_styles/theme';
 import { normalizeForSlug } from '../_utils';
@@ -22,6 +22,7 @@ const MINIMAL_REWARD_HEIGHT = 125;
 
 export const FilteredShop = ({ route }: TProps) => {
   const { subtitle, section, category, type } = route.params || {};
+  const [selectedFamilyMemberIndex, setSelectedFamilyMemberIndex] = useState(0);
   const { getFiltersForCategory, getFiltersForSection } = useRewardFilters();
   const { t } = useTranslation();
   const {
@@ -66,7 +67,10 @@ export const FilteredShop = ({ route }: TProps) => {
         }
         ListHeaderComponent={
           isFilteredOnWelcome ? (
-            <WelcomeHeader />
+            <>
+              <FamilyFilter selectedIndex={selectedFamilyMemberIndex} setSelectedIndex={setSelectedFamilyMemberIndex} />
+              <WelcomeHeader />
+            </>
           ) : (
             <Styled.Header fontStyle="bold" size="xxxlarge">
               {subtitle}
