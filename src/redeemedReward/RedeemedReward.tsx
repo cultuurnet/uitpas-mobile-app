@@ -8,7 +8,7 @@ import { EnlargedHeader, HtmlRenderer, Trans, Typography } from '../_components'
 import { useTracking } from '../_context';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing';
 import { formatISOString, getAvatarByNameOrDefault, getRewardTrackingData } from '../_utils';
-import { useHasFamilyMembers } from '../onboarding/family/_queries';
+import { useFamilyComposition } from '../profile/family/hooks';
 import { RewardCard } from './_components/rewardCard/RewardCard';
 import * as Styled from './style';
 
@@ -20,8 +20,19 @@ type TProps = {
 const RedeemedReward = ({ route, navigation }: TProps) => {
   const { t } = useTranslation();
   const { trackSelfDescribingEvent } = useTracking();
-  const { data: hasFamilyMembers } = useHasFamilyMembers();
   const { redeemedReward, member, isModal } = route.params || {};
+
+  const HeaderImage = useFamilyComposition({
+    FamilyComponent: () => (
+      <View>
+        <Styled.MemberAvatar source={getAvatarByNameOrDefault(member.icon)} />
+        <Styled.MemberAvatarLine style={{ transform: [{ rotate: '-25deg' }] }} />
+        <Styled.MemberAvatarLine />
+        <Styled.MemberAvatarLine style={{ transform: [{ rotate: '25deg' }] }} />
+      </View>
+    ),
+    SingleComponent: () => <Image source={GiftOpen} />,
+  });
 
   useFocusEffect(
     useCallback(() => {
@@ -54,16 +65,7 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
       <Styled.Content>
         {isModal && (
           <Styled.SuccessContainer>
-            {!hasFamilyMembers ? (
-              <Image source={GiftOpen} />
-            ) : (
-              <View>
-                <Styled.MemberAvatar source={getAvatarByNameOrDefault(member.icon)} />
-                <Styled.MemberAvatarLine style={{ transform: [{ rotate: '-25deg' }] }} />
-                <Styled.MemberAvatarLine />
-                <Styled.MemberAvatarLine style={{ transform: [{ rotate: '25deg' }] }} />
-              </View>
-            )}
+            <HeaderImage />
             <Styled.SuccessContent>
               <Typography bottomSpacing="8px" color="neutral.0" fontStyle="bold" size="large">
                 {t('REDEEMED_REWARD.SUCCESS_TITLE')}
