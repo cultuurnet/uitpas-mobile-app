@@ -16,7 +16,6 @@ import { useCheckin } from '../_queries/useCheckin';
 import { isInRange } from '../_util/isInRange';
 import CameraSettings from '../cameraSettings/CameraSettings';
 import CameraOverlay from './CameraOverlay';
-import { useGetMe } from '../../profile/_queries/useGetMe';
 
 const overlaySettings: TOverlayDimensions = {
   cornerLength: 20,
