@@ -7,12 +7,12 @@ export const BlurContainer = styled(Button)`
   background-color: rgba(0, 0, 0, 0.3);
   flex: 1;
   justify-content: center;
+  padding: 16px;
 `;
 
 export const ModalContainer = styled.View`
   background-color: ${({ theme }) => theme.palette.neutral['0']};
-  width: 90%;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 16px;
+  border-radius: 8px;
   z-index: 1;
 `;

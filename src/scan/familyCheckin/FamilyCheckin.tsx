@@ -23,7 +23,7 @@ const FamilyCheckin: FC = ({ navigation, route }: TProps) => {
 
   const { t } = useTranslation();
 
-  const { data: familyMembers } = useGetFamilyMembers();
+  const { data: familyMembers = [] } = useGetFamilyMembers();
   const otherFamilyMembers = useMemo(() => {
     return familyMembers?.filter(({ mainFamilyMember }) => !mainFamilyMember) ?? [];
   }, [familyMembers]);

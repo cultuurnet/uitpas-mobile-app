@@ -15,7 +15,7 @@ export const UitpasCards = () => {
   const [cardModalVisible, toggleCardModalVisible] = useToggle(false);
   const [selectedFamilyMember, setSelectedFamilyMember] = useState<TFamilyMember>(null);
 
-  const { data: familyMembers } = useGetFamilyMembers();
+  const { data: familyMembers = [] } = useGetFamilyMembers();
 
   const handlePressCard = (familyMember: TFamilyMember) => {
     setSelectedFamilyMember(familyMember);

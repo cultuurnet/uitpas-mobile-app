@@ -11,7 +11,7 @@ type TProps = {
 
 export const useFamilyComposition = ({ FamilyComponent, SingleComponent }: TProps) => {
   const { data: me, isLoading: isLoadingMe, isError: isErrorMe } = useGetMe();
-  const { data: familyMembers, isLoading: isLoadingFamilyMembers, isError: isErrorFamilyMembers } = useGetFamilyMembers();
+  const { data: familyMembers = [], isLoading: isLoadingFamilyMembers, isError: isErrorFamilyMembers } = useGetFamilyMembers();
 
   if (isLoadingMe || isLoadingFamilyMembers || isErrorMe || isErrorFamilyMembers) {
     return () => null;

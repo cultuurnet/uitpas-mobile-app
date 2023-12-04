@@ -10,7 +10,6 @@ import { queryClient } from '../../../_context';
 import { TMainNavigationProp, TRootStackRouteProp } from '../../../_routing';
 import { applyBarcodeMask, getAvatarByNameOrDefault, getValidAvatarNameOrDefault } from '../../../_utils';
 import { useEditFamilyMember } from '../_queries';
-import DeleteFamilyMember from '../deleteFamilyMember/DeleteFamilyMember';
 import * as Styled from './style';
 
 const SORTED_AVATARS = [...Object.keys(EmojiAvatars), ...Object.keys(AnimalAvatars)];
@@ -45,7 +44,9 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
   return (
     <Styled.ScreenContainer>
       <FlatList
-        ListFooterComponent={!mainFamilyMember && <DeleteFamilyMember familyMemberId={passHolderId} name={firstName} />}
+        ListFooterComponent={
+          !mainFamilyMember && <Styled.DeleteFamilyMemberButton familyMemberId={passHolderId} name={firstName} />
+        }
         ListFooterComponentStyle={{ width: '100%' }}
         ListHeaderComponent={
           <Styled.Header>

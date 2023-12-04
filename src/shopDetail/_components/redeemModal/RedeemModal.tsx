@@ -3,24 +3,28 @@ import { useNavigation } from '@react-navigation/native';
 import { t } from 'i18next';
 
 import { BlurredModal, Button, Trans, Typography } from '../../../_components';
-import { useTracking } from '../../../_context';
+import { queryClient, useTracking } from '../../../_context';
 import { TRootStackNavigationProp } from '../../../_routing';
-import { getLanguage, getRewardTrackingData } from '../../../_utils';
-import { useActiveCard } from '../../../profile/_queries/useActiveCard';
+import { getAvatarByNameOrDefault, getLanguage, getRewardTrackingData } from '../../../_utils';
+import { useHasFamilyMembers } from '../../../onboarding/family/_queries';
+import { getActiveCard } from '../../../profile/_helpers/getActiveCard';
+import { TFamilyMember } from '../../../profile/_models';
 import { TReward } from '../../../shop/_models/reward';
 import { useRedeemReward } from '../../_queries/useRedeemReward';
 import * as Styled from './style';
 
 type TRedeemModalProps = {
   isVisible: boolean;
+  member: TFamilyMember | null;
   reward: TReward;
   toggleIsVisible: () => void;
 };
 
-const RedeemModal: FC<TRedeemModalProps> = ({ reward, isVisible, toggleIsVisible }) => {
+const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleIsVisible }) => {
   const { navigate } = useNavigation<TRootStackNavigationProp<'ShopDetail'>>();
   const rewardTrackingData = getRewardTrackingData(reward);
 
+  const { data: hasFamilyMembers } = useHasFamilyMembers();
   const {
     mutate: redeemReward,
     isLoading,
@@ -28,22 +32,22 @@ const RedeemModal: FC<TRedeemModalProps> = ({ reward, isVisible, toggleIsVisible
   } = useRedeemReward({
     onSuccess: redeemedReward => {
       toggleIsVisible();
-      navigate('RedeemedReward', { isModal: true, redeemedReward });
+      queryClient.invalidateQueries(['family-members']);
+      navigate('RedeemedReward', { isModal: true, member, redeemedReward });
     },
   });
-  const activeCard = useActiveCard();
+  const firstActiveCard = getActiveCard({ passHolder: member?.passholder });
   const { trackSelfDescribingEvent } = useTracking();
 
   useEffect(() => {
     if (!error) return;
-
     trackSelfDescribingEvent('errorMessage', { message: error?.type }, { reward: rewardTrackingData });
   }, [error, trackSelfDescribingEvent, rewardTrackingData]);
 
   const handleConfirm = useCallback(() => {
     trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-confirm' }, { reward: rewardTrackingData });
-    redeemReward({ body: { rewardId: reward.id, uitpasNumber: activeCard.uitpasNumber } });
-  }, [reward, redeemReward, activeCard.uitpasNumber, trackSelfDescribingEvent, rewardTrackingData]);
+    redeemReward({ body: { rewardId: reward.id, uitpasNumber: firstActiveCard?.uitpasNumber } });
+  }, [reward, redeemReward, firstActiveCard?.uitpasNumber, trackSelfDescribingEvent, rewardTrackingData]);
 
   const handleCancel = () => {
     trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-cancel' }, { reward: rewardTrackingData });
@@ -60,6 +64,23 @@ const RedeemModal: FC<TRedeemModalProps> = ({ reward, isVisible, toggleIsVisible
         <Typography bottomSpacing="12px" color="error.500" size="small" topSpacing="12px">
           {error?.endUserMessage?.[getLanguage()] || t('SHOP_DETAIL.REDEEM.MODAL_GENERIC_ERROR')}
         </Typography>
+      )}
+      {hasFamilyMembers && member && (
+        <Styled.MemberContainer>
+          <Typography fontStyle="bold">{t('SHOP_DETAIL.REDEEM.MODAL_WHO_TITLE')}</Typography>
+          <Styled.MemberCard>
+            <Styled.MemberAvatar resizeMode="contain" source={getAvatarByNameOrDefault(member.icon)} />
+            <Styled.MemberBody>
+              <Typography fontStyle="bold" numberOfLines={1}>
+                {member.passholder.firstName}
+                {member.mainFamilyMember ? ` ${t('SHOP_DETAIL.WHO_CAN_REDEEM.YOU')}` : ''}
+              </Typography>
+              <Typography color="primary.700" fontStyle="semibold" numberOfLines={1} size="small">
+                {t('SHOP_DETAIL.WHO_CAN_REDEEM.POINTS', { count: member.passholder.points })}
+              </Typography>
+            </Styled.MemberBody>
+          </Styled.MemberCard>
+        </Styled.MemberContainer>
       )}
       <Styled.ButtonContainer>
         <Styled.FirstButton label={t('SHOP_DETAIL.REDEEM.MODAL_BUTTON_CONFIRM')} loading={isLoading} onPress={handleConfirm} />

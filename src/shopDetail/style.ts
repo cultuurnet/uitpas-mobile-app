@@ -26,28 +26,6 @@ export const MoreInfoLink = styled(ExternalLink)`
   margin-bottom: ${theme.common.defaultSpacing}px;
 `;
 
-export const RedeemContent = styled.View`
-  padding: ${theme.common.defaultSpacing / 2}px ${theme.common.defaultSpacing}px;
-  background-color: ${theme.palette.neutral[0]};
-`;
-
-export const RedeemError = styled.View`
-  padding: ${theme.common.defaultSpacing}px;
-  background-color: ${theme.palette.error[500]};
-  border-radius: 8px;
-`;
-
-export const GenericRedeemError = styled.View`
-  padding: ${theme.common.defaultSpacing}px;
-  background-color: ${theme.palette.neutral[100]};
-  border-radius: 8px;
-  flex-direction: row;
-`;
-
-export const GenericRedeemErrorText = styled(Typography)`
-  flex: 1;
-`;
-
 export const PointContainer = styled.View`
   flex-direction: row;
 `;
