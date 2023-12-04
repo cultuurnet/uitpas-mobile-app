@@ -30,11 +30,14 @@ const FamilyCheckin: FC = ({ navigation, route }: TProps) => {
   const [checkedFamilyMembers, setCheckedFamilyMembers] = useState<TFamilyMember[]>([]);
   const { mutateAsync: checkin, isLoading } = useCheckin();
 
-  const updateCheckedFamilyMembers = (value: boolean, member: TFamilyMember) => {
+  const updateCheckedFamilyMembers = (value: boolean, checkedMember: TFamilyMember) => {
     if (value) {
-      setCheckedFamilyMembers(currentCheckedFamilyMembers => [...currentCheckedFamilyMembers, member]);
+      setCheckedFamilyMembers(currentCheckedFamilyMembers => {
+        const checkedFamilyMembers = [...currentCheckedFamilyMembers, checkedMember];
+        return familyMembers.filter(familyMember => checkedFamilyMembers.includes(familyMember)); // Store `checkedFamilyMembers` in the original order
+      });
     } else {
-      setCheckedFamilyMembers(currentCheckedFamilyMembers => currentCheckedFamilyMembers.filter(item => item !== member));
+      setCheckedFamilyMembers(currentCheckedFamilyMembers => currentCheckedFamilyMembers.filter(item => item !== checkedMember));
     }
   };
 
