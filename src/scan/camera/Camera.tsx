@@ -16,6 +16,7 @@ import { useCheckin } from '../_queries/useCheckin';
 import { isInRange } from '../_util/isInRange';
 import CameraSettings from '../cameraSettings/CameraSettings';
 import CameraOverlay from './CameraOverlay';
+import { useGetMe } from '../../profile/_queries/useGetMe';
 
 const overlaySettings: TOverlayDimensions = {
   cornerLength: 20,
@@ -33,6 +34,7 @@ const Camera = ({ navigation }: TProps) => {
   const { hasCameraPermission } = useCameraPermission();
   const [overlayDimensions, setOverlayDimensions] = useState({ height: 0, width: 0 });
   const overlay = useOverlayDimensions(overlayDimensions, overlaySettings);
+  const { data: me } = useGetMe();
   const { mutateAsync: checkin, isLoading } = useCheckin();
   const frameProcessor = useFrameProcessor(
     frame => {
@@ -64,7 +66,10 @@ const Camera = ({ navigation }: TProps) => {
     if (isInRange(barcode, overlay.regionDefinition, [frameWidth, frameHeight])) {
       try {
         setIsActive(false);
-        const response = await checkin({ body: { checkinCode: barcode.displayValue }, path: '/passholders/me/checkins' });
+        const response = await checkin({
+          body: { checkinCode: barcode.displayValue },
+          path: `/passholders/${me.id}/checkins`,
+        });
         navigation.navigate('ScanSuccess', { ...response, checkinCode: barcode.displayValue });
       } catch (error) {
         const { endUserMessage } = error as TApiError;
