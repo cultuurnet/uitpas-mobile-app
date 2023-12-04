@@ -7,10 +7,10 @@ import { Button, SafeAreaView, Spinner, Trans } from '../../_components';
 import { useOnboarding } from '../../_context';
 import { StorageKey } from '../../_models';
 import { TMainNavigationProp } from '../../_routing';
+import { openExternalURL } from '../../_utils';
 import { storage } from '../../storage';
 import { useHasFamilyMembers } from './_queries';
 import * as Styled from './style';
-import { openExternalURL } from '../../_utils';
 
 const BULLET_ITEMS = [
   { textKey: 'ONBOARDING.FAMILY.BULLET_1_TEXT' },
