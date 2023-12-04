@@ -1,22 +1,23 @@
 import { useTranslation } from 'react-i18next';
 
-import { BlurredModal, Button, Typography } from '../../../../_components';
+import { BlurredModal, Button, Icon, Typography } from '../../../../_components';
 import { useToggle } from '../../../../_hooks';
 import { TFamilyMember } from '../../../../profile/_models';
+import { TReward } from '../../../../shop/_models/reward';
 import { useGetRedeemStatus } from '../../../_queries/useGetRedeemStatus';
 import * as Styled from './style';
 
 type TProps = {
   member: TFamilyMember;
   onPress: () => void;
-  rewardId: string;
+  reward: TReward;
 };
 
-export const RedeemButton = ({ member, onPress, rewardId }: TProps) => {
+export const RedeemButton = ({ member, onPress, reward }: TProps) => {
   const { t } = useTranslation();
   const [showUnredeemableModal, toggleUnredeemableModal] = useToggle(false);
 
-  const { error, isLoading } = useGetRedeemStatus({ passHolder: member.passholder, rewardId });
+  const { error, isLoading } = useGetRedeemStatus({ passHolder: member.passholder, rewardId: reward.id });
 
   if (isLoading) {
     return <Button color="primary.700" loading variant="link" />;
@@ -44,5 +45,9 @@ export const RedeemButton = ({ member, onPress, rewardId }: TProps) => {
     );
   }
 
-  return <Styled.RedeemButton fontSize="small" label={t('SHOP_DETAIL.WHO_CAN_REDEEM.REDEEM')} onPress={onPress} />;
+  if (reward.online) {
+    return <Styled.RedeemButton fontSize="small" label={t('SHOP_DETAIL.WHO_CAN_REDEEM.REDEEM')} onPress={onPress} />;
+  }
+
+  return <Icon color="primary.700" name="CircledCheck" />;
 };
