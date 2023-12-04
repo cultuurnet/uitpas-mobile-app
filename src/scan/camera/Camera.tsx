@@ -33,7 +33,7 @@ const Camera = ({ navigation }: TProps) => {
   const { hasCameraPermission } = useCameraPermission();
   const [overlayDimensions, setOverlayDimensions] = useState({ height: 0, width: 0 });
   const overlay = useOverlayDimensions(overlayDimensions, overlaySettings);
-  const { mutateAsync, isLoading } = useCheckin();
+  const { mutateAsync: checkin, isLoading } = useCheckin();
   const frameProcessor = useFrameProcessor(
     frame => {
       'worklet';
@@ -64,7 +64,7 @@ const Camera = ({ navigation }: TProps) => {
     if (isInRange(barcode, overlay.regionDefinition, [frameWidth, frameHeight])) {
       try {
         setIsActive(false);
-        const response = await mutateAsync({ body: { checkinCode: barcode.displayValue } });
+        const response = await checkin({ body: { checkinCode: barcode.displayValue }, path: '/passholders/me/checkins' });
         navigation.navigate('ScanSuccess', { ...response, checkinCode: barcode.displayValue });
       } catch (error) {
         const { endUserMessage } = error as TApiError;
