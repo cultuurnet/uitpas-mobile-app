@@ -7,6 +7,7 @@ import { queryClient, useTracking } from '../../../_context';
 import { TRootStackNavigationProp } from '../../../_routing';
 import { getAvatarByNameOrDefault, getLanguage, getRewardTrackingData } from '../../../_utils';
 import { useHasFamilyMembers } from '../../../onboarding/family/_queries';
+import { getActiveCard } from '../../../profile/_helpers/getActiveCard';
 import { TFamilyMember } from '../../../profile/_models';
 import { TReward } from '../../../shop/_models/reward';
 import { useRedeemReward } from '../../_queries/useRedeemReward';
@@ -35,8 +36,7 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
       navigate('RedeemedReward', { isModal: true, member, redeemedReward });
     },
   });
-  const [firstActiveCard] =
-    member?.passholder?.cardSystemMemberships?.filter?.(card => card.status === 'ACTIVE' && card.uitpasNumber) ?? [];
+  const firstActiveCard = getActiveCard({ passHolder: member?.passholder });
   const { trackSelfDescribingEvent } = useTracking();
 
   useEffect(() => {

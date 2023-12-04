@@ -1,8 +1,10 @@
-import { useGetMe } from './useGetMe';
+import { TPassHolder } from '../_models';
 
-export const useActiveCard = () => {
-  const { data: passHolder } = useGetMe();
+type TProps = {
+  passHolder: TPassHolder;
+};
 
+export const getActiveCard = ({ passHolder }: TProps) => {
   if (!passHolder) return null;
 
   const [firstActiveCard] = passHolder.cardSystemMemberships.filter(card => card.status === 'ACTIVE' && card.uitpasNumber);
