@@ -31,13 +31,13 @@ export const FamilyCheckinSummary = ({ navigation, route }: TProps) => {
       return <CheckinErrorIcon />;
     };
 
-    const renderErrorDescription = ({ item: { member, response } }: FamilyMembersSummaryItem) => {
+    const renderErrorDescription = ({ item: { response } }: FamilyMembersSummaryItem) => {
       if (response.type === 'error') {
         return <Typography size="small">{response.error.endUserMessage.nl}</Typography>;
       }
       return (
         <Typography color="primary.700" fontStyle="semibold" numberOfLines={1} size="small">
-          {t('SHOP_DETAIL.WHO_CAN_REDEEM.POINTS', { count: member.passholder.points })}
+          {t('SHOP_DETAIL.WHO_CAN_REDEEM.POINTS', { count: response.value.totalPoints })}
         </Typography>
       );
     };
