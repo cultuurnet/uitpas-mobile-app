@@ -11,15 +11,17 @@ export const Container = styled.View`
 `;
 
 export const FilterPrevButton = styled(Icon)`
+  margin-left: 3px;
   margin-right: 8px;
 `;
 
 export const FilterNextButton = styled(Icon)`
   margin-left: 8px;
+  margin-right: 3px;
 `;
 
 export const FilterItem = styled(TouchableRipple)<{ isSelected: boolean }>`
-  padding-horizontal: 8px;
+  padding-horizontal: 16px;
   padding-vertical: 4px;
   background-color: ${({ isSelected, theme }) => (isSelected ? theme.palette.primary[900] : 'transparent')}};
   border-radius: 20px;

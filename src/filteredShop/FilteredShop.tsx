@@ -40,6 +40,10 @@ export const FilteredShop = ({ route }: TProps) => {
   const members = rewards?.pages?.flatMap(({ member }) => member) ?? [];
   const isFilteredOnWelcome = section === 'welkom';
 
+  const handleSelectFamilyMember = selectedFamilyMemberIndex => {
+    setSelectedFamilyMemberIndex(selectedFamilyMemberIndex);
+  };
+
   return (
     <>
       <Analytics
@@ -68,7 +72,7 @@ export const FilteredShop = ({ route }: TProps) => {
         ListHeaderComponent={
           isFilteredOnWelcome ? (
             <>
-              <FamilyFilter selectedIndex={selectedFamilyMemberIndex} setSelectedIndex={setSelectedFamilyMemberIndex} />
+              <FamilyFilter selectedIndex={selectedFamilyMemberIndex} setSelectedIndex={handleSelectFamilyMember} />
               <WelcomeHeader />
             </>
           ) : (
