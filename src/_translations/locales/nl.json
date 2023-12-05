@@ -271,7 +271,11 @@
   "REDEEMED_REWARD": {
     "HEADER_TITLE": "Je omgeruild voordeel",
     "SUCCESS_TITLE": "Gelukt!",
-    "SUCCESS_MESSAGE": "Je hebt {{points}} punten omgeruild. Je vindt deze informatie ook terug in je <button>omgeruilde voordelen</button>, en in de e-mail die we je gestuurd hebben.",
+    "SUCCESS_MESSAGE_PART_1": "Je hebt net <bold color='secondary.900'>{{count}} punt</bold> omgeruild.",
+    "SUCCESS_MESSAGE_PART_1_plural": "Je hebt net <bold color='secondary.900'>{{count}} punten</bold> omgeruild.",
+    "SUCCESS_MESSAGE_FAMILY_PART_1": "Je hebt net <bold color='secondary.900'>{{count}} punt</bold> omgeruild voor <bold color='secondary.900'>{{name}}</bold>.",
+    "SUCCESS_MESSAGE_FAMILY_PART_1_plural": "Je hebt net <bold color='secondary.900'>{{count}} punten</bold> omgeruild voor <bold color='secondary.900'>{{name}}</bold>.",
+    "SUCCESS_MESSAGE_PART_2": "Je vindt deze informatie ook terug in je <button>omgeruilde voordelen</button>, en in de e-mail die we je gestuurd hebben.",
     "TRADED_AT": "Je ontving dit voordeel op <bold color='primary.800'>{{date}}</bold>.",
     "GO_BACK": "Sluiten",
     "YOUR_CODE": "Uw persoonlijke code"
