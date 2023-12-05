@@ -11,8 +11,9 @@ export const SuccessContainer = styled.View`
   flex-direction: row;
   align-items: center;
   padding: ${theme.common.defaultSpacing}px;
-  background-color: ${theme.palette.secondary[600]};
+  background-color: ${theme.palette.secondary[200]};
   border-radius: 8px;
+  border: 1px solid ${theme.palette.primary[300]};
   margin-top: 24px;
 `;
 
@@ -61,5 +62,5 @@ export const MemberAvatarLine = styled.View`
   margin-top: -7px;
   margin-left: 24px;
   z-index: -1;
-  background-color: ${theme.palette.primary[800]};
+  background-color: ${theme.palette.secondary[500]};
 `;
