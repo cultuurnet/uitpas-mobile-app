@@ -13,6 +13,7 @@ export const SuccessContainer = styled.View`
   padding: ${theme.common.defaultSpacing}px;
   background-color: ${theme.palette.secondary[200]};
   border-radius: 8px;
+  border: 1px solid ${theme.palette.primary[300]};
   margin-top: 24px;
 `;
 
