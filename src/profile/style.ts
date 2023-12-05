@@ -8,7 +8,6 @@ export const TitleText = styled(Typography)`
 
 export const ButtonContainer = styled.View`
   flex-direction: row;
-  flex-grow: 1;
   justify-content: flex-end;
 `;
 
