@@ -23,7 +23,7 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
   const { trackSelfDescribingEvent } = useTracking();
   const { redeemedReward, member, isModal } = route.params || {};
 
-  const hasFamilyMembers = useHasFamilyMembers();
+  const { data: hasFamilyMembers } = useHasFamilyMembers();
   const HeaderImage = useFamilyComposition({
     FamilyComponent: () => (
       <View>
