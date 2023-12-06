@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList } from 'react-native';
 
 import { useGetFamilyMembers } from '../../../onboarding/family/_queries';
 import { TFamilyMember, TPassHolder } from '../../../profile/_models';
@@ -59,7 +59,6 @@ export const FamilyFilter = ({ selectedPassHolder, setSelectedPassHolder }: TPro
           </Styled.FilterItem>
         )}
         showsHorizontalScrollIndicator={false}
-        style={{ paddingHorizontal: 8 }}
       />
       <Styled.FilterNextButton name="ChevronRight" onPress={handleNextPrev} />
     </Styled.Container>

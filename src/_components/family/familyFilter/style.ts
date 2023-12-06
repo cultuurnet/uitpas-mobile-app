@@ -12,10 +12,12 @@ export const Container = styled.View`
 
 export const FilterPrevButton = styled(Icon)`
   margin-left: 3px;
+  margin-right: 8px;
 `;
 
 export const FilterNextButton = styled(Icon)`
   margin-right: 3px;
+  margin-left: 8px;
 `;
 
 export const FilterItem = styled(TouchableRipple)<{ isSelected: boolean }>`
