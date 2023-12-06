@@ -12,11 +12,9 @@ export const Container = styled.View`
 
 export const FilterPrevButton = styled(Icon)`
   margin-left: 3px;
-  margin-right: 8px;
 `;
 
 export const FilterNextButton = styled(Icon)`
-  margin-left: 8px;
   margin-right: 3px;
 `;
 

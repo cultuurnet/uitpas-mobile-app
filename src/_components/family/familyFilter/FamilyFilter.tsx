@@ -1,30 +1,43 @@
 import { useRef } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, View } from 'react-native';
 
 import { useGetFamilyMembers } from '../../../onboarding/family/_queries';
+import { TFamilyMember, TPassHolder } from '../../../profile/_models';
 import Typography from '../../typography/Typography';
 import * as Styled from './style';
 
 type TProps = {
-  selectedIndex: number;
-  setSelectedIndex: (selectedIndex: number) => void;
+  selectedPassHolder: TPassHolder;
+  setSelectedPassHolder: (selectedPassHolder: TPassHolder) => void;
 };
 
-export const FamilyFilter = ({ selectedIndex, setSelectedIndex }: TProps) => {
+export const FamilyFilter = ({ selectedPassHolder, setSelectedPassHolder }: TProps) => {
   const listRef = useRef<FlatList>();
 
   const { data: familyMembers = [] } = useGetFamilyMembers();
 
-  const handleSelectItem = nextSelectedIndex => {
-    if (selectedIndex !== nextSelectedIndex) {
-      setSelectedIndex(nextSelectedIndex);
+  const handleSelectPassHolder = (nextSelectedPassHolder: TPassHolder, nextSelectedIndex: number) => {
+    if (selectedPassHolder.id !== nextSelectedPassHolder.id) {
+      setSelectedPassHolder(nextSelectedPassHolder);
       listRef.current.scrollToIndex({ animated: true, index: nextSelectedIndex });
     }
   };
 
+  const handlePressPrev = () => {
+    const currentIndex = findCurrentIndexByPassHolder(familyMembers, selectedPassHolder);
+    const nextPassHolder = findBoundedPassHolderByIndex(familyMembers, currentIndex - 1);
+    setSelectedPassHolder(nextPassHolder);
+  };
+
+  const handleNextPrev = () => {
+    const currentIndex = findCurrentIndexByPassHolder(familyMembers, selectedPassHolder);
+    const nextPassHolder = findBoundedPassHolderByIndex(familyMembers, currentIndex + 1);
+    setSelectedPassHolder(nextPassHolder);
+  };
+
   return (
     <Styled.Container>
-      <Styled.FilterPrevButton name="ChevronLeft" onPress={() => handleSelectItem(selectedIndex - 1)} />
+      <Styled.FilterPrevButton name="ChevronLeft" onPress={handlePressPrev} />
       <FlatList
         ItemSeparatorComponent={Styled.Separator}
         data={familyMembers}
@@ -32,15 +45,31 @@ export const FamilyFilter = ({ selectedIndex, setSelectedIndex }: TProps) => {
         keyExtractor={item => item.uitpasNumber}
         ref={listRef}
         renderItem={({ item: familyMember, index }) => (
-          <Styled.FilterItem isSelected={selectedIndex === index} onPress={() => handleSelectItem(index)}>
-            <Typography color={selectedIndex === index ? 'neutral.0' : 'primary.100'} fontStyle="bold" size="small">
+          <Styled.FilterItem
+            isSelected={familyMember.passholder.id === selectedPassHolder.id}
+            onPress={() => handleSelectPassHolder(familyMember.passholder, index)}
+          >
+            <Typography
+              color={familyMember.passholder.id === selectedPassHolder.id ? 'neutral.0' : 'primary.100'}
+              fontStyle="bold"
+              size="small"
+            >
               {familyMember.passholder.firstName}
             </Typography>
           </Styled.FilterItem>
         )}
         showsHorizontalScrollIndicator={false}
+        style={{ paddingHorizontal: 8 }}
       />
-      <Styled.FilterNextButton name="ChevronRight" onPress={() => handleSelectItem(selectedIndex + 1)} />
+      <Styled.FilterNextButton name="ChevronRight" onPress={handleNextPrev} />
     </Styled.Container>
   );
+};
+
+const findBoundedPassHolderByIndex = (familyMembers: TFamilyMember[], index: number) => {
+  return familyMembers[Math.min(Math.max(index, 0), familyMembers.length - 1)].passholder;
+};
+
+const findCurrentIndexByPassHolder = (familyMembers: TFamilyMember[], passHolder: TPassHolder) => {
+  return familyMembers.findIndex(member => member.passholder.id === passHolder.id);
 };
