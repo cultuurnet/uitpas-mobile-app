@@ -1,6 +1,10 @@
-import { useGetMe } from '../../profile/_queries/useGetMe';
+import { TPassHolder } from '../../profile/_models';
 import { TRewardCategory } from '../_models/reward';
 import { TSearchFilters } from '../_models/searchFilters';
+
+type TProps = {
+  passHolder: TPassHolder;
+};
 
 export type TFilterRewardSection =
   | 'online'
@@ -14,9 +18,7 @@ export type TFilterRewardSection =
 
 export type TFilterRewardCategory = TRewardCategory | 'laatste kans' | 'forKids';
 
-export function useRewardFilters() {
-  const { data: user } = useGetMe();
-
+export function getRewardFilters({ passHolder }: TProps) {
   const getFiltersForSection = (section: TFilterRewardSection): TSearchFilters => {
     // filter for a section
     switch (section) {
@@ -37,19 +39,19 @@ export function useRewardFilters() {
       case 'interessant':
         return {
           includeAllCardSystems: true,
-          isInterestingForPassholderId: user?.id,
+          isInterestingForPassholderId: passHolder.id,
         };
       case 'populair regio':
         return {};
       case 'stad voordelen':
         return {
           includeAllCardSystems: true,
-          organizerPostalCode: user?.address?.postalCode,
+          organizerPostalCode: passHolder.address.postalCode,
         };
       case 'sport':
         return { sport: true };
       case 'welkom':
-        return { includeAllCardSystems: true, isRedeemableByPassholderId: user?.id, type: 'WELCOME' };
+        return { includeAllCardSystems: true, isRedeemableByPassholderId: passHolder.id, type: 'WELCOME' };
     }
   };
 

@@ -9,7 +9,7 @@ import { useStackNavigation } from '../../../_hooks';
 import { TRootStackParamList } from '../../../_routing';
 import { theme } from '../../../_styles/theme';
 import { normalizeForSlug } from '../../../_utils';
-import { TFilterRewardCategory, TFilterRewardSection } from '../../_hooks/useRewardFilters';
+import { TFilterRewardCategory, TFilterRewardSection } from '../../_helpers/getRewardFilters';
 import * as Styled from './style';
 
 type TCategoryListItem = {

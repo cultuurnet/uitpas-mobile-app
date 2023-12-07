@@ -6,7 +6,7 @@ import { TFamilyMember } from '../../profile/_models';
 import { TRedeemedReward } from '../../redeemedRewards/_models/redeemedReward';
 import { TCheckInResponse } from '../../scan/_models';
 import { TFamilyScanResponse } from '../../scan/familyCheckinSummary/_models';
-import { TFilterRewardCategory, TFilterRewardSection } from '../../shop/_hooks/useRewardFilters';
+import { TFilterRewardCategory, TFilterRewardSection } from '../../shop/_helpers/getRewardFilters';
 import { TReward, TRewardType } from '../../shop/_models/reward';
 import { TSearchFilters } from '../../shop/_models/searchFilters';
 import { TFilterRewardSorting } from '../../shop/_queries/useGetRewards';
