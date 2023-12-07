@@ -21,6 +21,7 @@ import {
   FamilyInformation,
   FamilyOnboarding,
   FamilyOverview,
+  MyFamilies,
 } from '../../onboarding/family';
 import Onboarding from '../../onboarding/Onboarding';
 import { FamiliesOverview } from '../../profile/family/FamiliesOverview';
@@ -251,6 +252,13 @@ export const RootStackNavigator = () => {
               name="FamilyOverview"
               options={{
                 title: i18n.t('ONBOARDING.FAMILY.OVERVIEW.TITLE'),
+              }}
+            />
+            <RootStack.Screen
+              component={MyFamilies}
+              name="MyFamilies"
+              options={{
+                title: i18n.t('ONBOARDING.FAMILY.MY_FAMILIES.TITLE'),
               }}
             />
             <RootStack.Screen

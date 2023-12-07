@@ -37,6 +37,9 @@
         "DONE": "Klaar",
         "CANCEL": "Annuleren"
       },
+      "MY_FAMILIES": {
+        "TITLE": "Mijn gezin",
+      },
       "DELETE_MEMBER": {
         "CTA": "Gezinslid verwijderen",
         "CONFIRMATION_MODAL": {
@@ -107,6 +110,10 @@
     "FAMILY": {
       "FAMILY_COMPOSITION": {
         "TITLE": "Mijn gezinssamenstelling",
+        "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
+      },
+      "MY_FAMILIES": {
+        "TITLE": "Gezinnen waartoe ik behoor",
         "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
       }
     },
