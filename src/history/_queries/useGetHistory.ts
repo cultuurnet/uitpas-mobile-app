@@ -1,8 +1,15 @@
 import { usePubliqApi } from '../../_hooks/usePubliqApi';
+import { TPassHolder } from '../../profile/_models';
 import { THistoryResponse } from '../_models';
 
-export function useGetHistory() {
+type TProps = {
+  passHolder: TPassHolder;
+};
+
+export function useGetHistory({ passHolder }: TProps) {
   const api = usePubliqApi();
 
-  return api.getInfinite<THistoryResponse>(['history'], '/passholders/me/transactions', { itemsPerPage: 10 });
+  return api.getInfinite<THistoryResponse>(['history', passHolder.id], `/passholders/${passHolder.id}/transactions`, {
+    itemsPerPage: 10,
+  });
 }
