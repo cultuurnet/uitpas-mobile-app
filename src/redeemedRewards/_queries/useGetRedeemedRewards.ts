@@ -1,14 +1,17 @@
 import { usePubliqApi } from '../../_hooks/usePubliqApi';
 import { TApiError } from '../../_http';
 import { getActiveCard } from '../../profile/_helpers/getActiveCard';
-import { useGetMe } from '../../profile/_queries/useGetMe';
+import { TPassHolder } from '../../profile/_models';
 import { TRedeemedRewardsResponse } from '../_models/redeemedReward';
 
-export function useGetRedeemedRewards() {
-  const api = usePubliqApi();
-  const { data: me } = useGetMe();
+type TProps = {
+  passHolder: TPassHolder;
+};
 
-  const activeCard = getActiveCard({ passHolder: me });
+export function useGetRedeemedRewards({ passHolder }: TProps) {
+  const api = usePubliqApi();
+
+  const activeCard = getActiveCard({ passHolder });
 
   return api.getInfinite<TRedeemedRewardsResponse>(
     ['rewards', 'redeemed', activeCard?.uitpasNumber],
