@@ -49,13 +49,13 @@ export const FamilyFilter = ({ selectedPassHolder, setSelectedPassHolder }: TPro
             isSelected={familyMember.passholder.id === selectedPassHolder.id}
             onPress={() => handleSelectPassHolder(familyMember.passholder, index)}
           >
-            <Typography
+            <Styled.FilterLabel
               color={familyMember.passholder.id === selectedPassHolder.id ? 'neutral.0' : 'primary.100'}
               fontStyle="bold"
               size="small"
             >
               {familyMember.passholder.firstName}
-            </Typography>
+            </Styled.FilterLabel>
           </Styled.FilterItem>
         )}
         showsHorizontalScrollIndicator={false}
