@@ -115,7 +115,7 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
             {Object.keys(errors).length > 0 && (
               <Styled.FormError color="error.700">{t('ONBOARDING.FAMILY.ADD_MEMBER.MISSING_FIELDS')}</Styled.FormError>
             )}
-            {registrationTokenError?.status === 403 && (
+            {registrationTokenError && (
               <Styled.FormError color="error.700">{registrationTokenError.endUserMessage.nl}</Styled.FormError>
             )}
           </Styled.FormBody>
