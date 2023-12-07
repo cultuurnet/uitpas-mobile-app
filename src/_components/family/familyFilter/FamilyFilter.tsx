@@ -3,7 +3,6 @@ import { FlatList } from 'react-native';
 
 import { useGetFamilyMembers } from '../../../onboarding/family/_queries';
 import { TFamilyMember, TPassHolder } from '../../../profile/_models';
-import Typography from '../../typography/Typography';
 import * as Styled from './style';
 
 type TProps = {
