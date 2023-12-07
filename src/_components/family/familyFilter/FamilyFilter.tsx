@@ -3,7 +3,6 @@ import { FlatList } from 'react-native';
 
 import { useGetFamilyMembers } from '../../../onboarding/family/_queries';
 import { TFamilyMember, TPassHolder } from '../../../profile/_models';
-import Typography from '../../typography/Typography';
 import * as Styled from './style';
 
 type TProps = {
@@ -49,13 +48,13 @@ export const FamilyFilter = ({ selectedPassHolder, setSelectedPassHolder }: TPro
             isSelected={familyMember.passholder.id === selectedPassHolder.id}
             onPress={() => handleSelectPassHolder(familyMember.passholder, index)}
           >
-            <Typography
+            <Styled.FilterLabel
               color={familyMember.passholder.id === selectedPassHolder.id ? 'neutral.0' : 'primary.100'}
               fontStyle="bold"
               size="small"
             >
               {familyMember.passholder.firstName}
-            </Typography>
+            </Styled.FilterLabel>
           </Styled.FilterItem>
         )}
         showsHorizontalScrollIndicator={false}

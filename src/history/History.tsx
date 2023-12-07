@@ -45,7 +45,7 @@ const History: FC = () => {
       <Styled.ListView>
         <FlashList
           ListEmptyComponent={<Styled.NoContentText align="center">{t('PROFILE.HISTORY.EMPTY')}</Styled.NoContentText>}
-          contentContainerStyle={{ paddingBottom: 105, paddingTop: 20 }}
+          contentContainerStyle={{ paddingBottom: 105, paddingTop: 24 }}
           data={members}
           estimatedItemSize={Styled.HISTORY_ITEM_HEIGHT}
           onEndReached={fetchNextPage}

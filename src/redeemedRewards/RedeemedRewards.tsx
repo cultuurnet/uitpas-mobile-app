@@ -61,7 +61,7 @@ export const RedeemedRewards = ({ navigation }: TProps) => {
             </Styled.FooterLoadingContainer>
           )
         }
-        contentContainerStyle={{ paddingBottom: 105 }}
+        contentContainerStyle={{ paddingBottom: 105, paddingTop: 24 }}
         data={members}
         estimatedItemSize={MIMIMAL_REWARD_HEIGHT}
         keyExtractor={item => item.id}
