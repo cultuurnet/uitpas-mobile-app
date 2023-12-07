@@ -37,7 +37,7 @@ export const FamilyOverview = ({ navigation }: TProps) => {
   const { showFamilyOnboarding } = useOnboarding();
 
   const handleSubmit = () => {
-    showFamilyOnboarding ? navigation.navigate('FamilyInformation') : navigation.goBack();
+    navigation.navigate('FamilyInformation');
   };
 
   return (
@@ -108,12 +108,14 @@ export const FamilyOverview = ({ navigation }: TProps) => {
           return null;
         }}
       />
-      <View style={{ marginBottom: bottom }}>
-        <Styled.ConfirmButton
-          label={familyMembers.length > 1 ? t('ONBOARDING.FAMILY.OVERVIEW.DONE') : t('ONBOARDING.FAMILY.OVERVIEW.CANCEL')}
-          onPress={handleSubmit}
-        />
-      </View>
+      {showFamilyOnboarding && (
+        <View style={{ marginBottom: bottom }}>
+          <Styled.ConfirmButton
+            label={familyMembers.length > 1 ? t('ONBOARDING.FAMILY.OVERVIEW.DONE') : t('ONBOARDING.FAMILY.OVERVIEW.CANCEL')}
+            onPress={handleSubmit}
+          />
+        </View>
+      )}
     </>
   );
 };
