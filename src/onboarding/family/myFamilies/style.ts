@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { Typography } from '../../../_components';
+import { Button, Typography } from '../../../_components';
 
 export const Tile = styled.View`
   flex-direction: row;
@@ -35,4 +35,16 @@ export const Separator = styled.View`
   width: 100%;
   height: 0.5px;
   color: ${({ theme }) => theme.palette.neutral[200]};
+`;
+
+export const FamilyCard = styled.View`
+  border-radius: 8px;
+  background-color: ${({ theme }) => theme.palette.neutral['100']};
+  padding: 8px;
+  margin-top: 8px;
+`;
+
+export const CloseButton = styled(Button)`
+  margin-top: 32px;
+  margin-bottom: 8px;
 `;

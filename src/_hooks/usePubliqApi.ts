@@ -107,12 +107,13 @@ export function usePubliqApi(host: ApiHost = 'uitpas') {
   const deleteMutation = useCallback(
     <T = unknown, MutationParams extends TMutationParams = TMutationParams>(
       mutationKey: unknown[],
-      path: string,
+      path?: string,
       options: TPostOptions<T> = {},
     ) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       return useMutation<T, TApiError, MutationParams>({
-        mutationFn: async ({ headers }) => HttpClient.delete<T>(`${apiHost}${path}`, { ...defaultHeaders, ...headers }),
+        mutationFn: async ({ headers, path: mutationPath }) =>
+          HttpClient.delete<T>(`${apiHost}${mutationPath ?? path}`, { ...defaultHeaders, ...headers }),
         mutationKey,
         networkMode: 'offlineFirst',
         ...options,

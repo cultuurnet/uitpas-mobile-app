@@ -82,15 +82,8 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
           </Styled.MemberCard>
         </Styled.MemberContainer>
       )}
-      <Styled.ButtonContainer>
-        <Styled.FirstButton label={t('SHOP_DETAIL.REDEEM.MODAL_BUTTON_CONFIRM')} loading={isLoading} onPress={handleConfirm} />
-        <Button
-          color="primary.700"
-          label={t('SHOP_DETAIL.REDEEM.MODAL_BUTTON_CANCEL')}
-          onPress={handleCancel}
-          variant="outline"
-        />
-      </Styled.ButtonContainer>
+      <Styled.ConfirmButton label={t('SHOP_DETAIL.REDEEM.MODAL_BUTTON_CONFIRM')} loading={isLoading} onPress={handleConfirm} />
+      <Button color="primary.700" label={t('SHOP_DETAIL.REDEEM.MODAL_BUTTON_CANCEL')} onPress={handleCancel} variant="outline" />
     </BlurredModal>
   );
 };

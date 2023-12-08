@@ -45,6 +45,13 @@
           "NAME": "Gezin van {{name}}",
           "ADDED": "Toegevoegd op {{date}}",
           "LEAVE": "Gezin verlaten"
+        },
+        "MODAL": {
+          "TITLE": "Gezin verlaten?",
+          "DESCRIPTION": "Ben je zeker dat je het volgend gezin wilt verlaten?",
+          "NAME": "Gezin van {{name}}",
+          "CONFIRM": "Verlaten",
+          "CANCEL": "Annuleren"
         }
       },
       "DELETE_MEMBER": {
