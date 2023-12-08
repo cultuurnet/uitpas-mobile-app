@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
 
 import * as Icons from '../../_assets/icons';
 import { Icon, Typography } from '../../_components';
@@ -16,13 +15,13 @@ export const FamiliesOverview: FC<TFamiliesOverviewProps> = ({ navigation }) => 
 
   return (
     <Styled.SafeAreaView edges={['bottom']}>
-      <FamiliesOverviewItem
+      <FamiliesOverviewTile
         description={t('PROFILE.FAMILY.FAMILY_COMPOSITION.DESCRIPTION')}
         icon="MainFamilyMember"
         onPress={() => navigation.navigate('FamilyOverview')}
         title={t('PROFILE.FAMILY.FAMILY_COMPOSITION.TITLE')}
       />
-      <FamiliesOverviewItem
+      <FamiliesOverviewTile
         description={t('PROFILE.FAMILY.MY_FAMILIES.DESCRIPTION')}
         icon="MainFamilyMember"
         onPress={() => navigation.navigate('MyFamilies')}
@@ -32,24 +31,25 @@ export const FamiliesOverview: FC<TFamiliesOverviewProps> = ({ navigation }) => 
   );
 };
 
-type TFamiliesOverviewItemProps = {
+type TFamiliesOverviewTileProps = {
   description: string;
   icon: keyof typeof Icons;
+  isFirst?: boolean;
   onPress: () => void;
   title: string;
 };
 
-const FamiliesOverviewItem: FC<TFamiliesOverviewItemProps> = ({ icon, title, description, onPress }) => {
+const FamiliesOverviewTile: FC<TFamiliesOverviewTileProps> = ({ icon, title, description, isFirst, onPress }) => {
   return (
-    <Styled.FamilyTile onPress={onPress}>
+    <Styled.FamilyTile isFirst={isFirst} onPress={onPress}>
       <>
         <Icon name={icon} size={24} />
-        <View>
+        <Styled.FamilyTileBody>
           <Typography color="primary.700" fontStyle="bold">
             {title}
           </Typography>
-          <Typography>{description}</Typography>
-        </View>
+          <Styled.FamilyTileDescription size="small">{description}</Styled.FamilyTileDescription>
+        </Styled.FamilyTileBody>
       </>
     </Styled.FamilyTile>
   );

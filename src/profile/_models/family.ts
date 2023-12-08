@@ -7,3 +7,11 @@ export type TFamilyMember = {
   passholder: TPassHolder;
   uitpasNumber: string;
 };
+
+export type TFamily = {
+  email: string;
+  firstName: string;
+  memberSince: string;
+  name: string;
+  passholderId: string;
+};
