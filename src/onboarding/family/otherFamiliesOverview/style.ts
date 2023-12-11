@@ -2,6 +2,10 @@ import styled from 'styled-components/native';
 
 import { Typography } from '../../../_components';
 
+export const EmptyMessage = styled(Typography)`
+  margin: 16px;
+`;
+
 export const Tile = styled.View`
   flex-direction: row;
   justify-content: space-between;

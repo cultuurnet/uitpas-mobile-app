@@ -258,7 +258,7 @@ export const RootStackNavigator = () => {
               component={OtherFamiliesOverview}
               name="MyFamilies"
               options={{
-                title: i18n.t('ONBOARDING.FAMILY.MY_FAMILIES.TITLE'),
+                title: i18n.t('ONBOARDING.FAMILY.OTHER_FAMILIES.TITLE'),
               }}
             />
             <RootStack.Screen
