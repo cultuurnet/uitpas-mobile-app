@@ -39,19 +39,19 @@ export function getRewardFilters({ passHolder }: TProps) {
       case 'interessant':
         return {
           includeAllCardSystems: true,
-          isInterestingForPassholderId: passHolder.id,
+          isInterestingForPassholderId: passHolder?.id,
         };
       case 'populair regio':
         return {};
       case 'stad voordelen':
         return {
           includeAllCardSystems: true,
-          organizerPostalCode: passHolder.address.postalCode,
+          organizerPostalCode: passHolder?.address?.postalCode,
         };
       case 'sport':
         return { sport: true };
       case 'welkom':
-        return { includeAllCardSystems: true, isRedeemableByPassholderId: passHolder.id, type: 'WELCOME' };
+        return { includeAllCardSystems: true, isRedeemableByPassholderId: passHolder?.id, type: 'WELCOME' };
     }
   };
 
