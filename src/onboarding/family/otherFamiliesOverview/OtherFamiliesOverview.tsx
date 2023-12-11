@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { FlatList } from 'react-native';
 
-import { Button, Typography } from '../../../_components';
+import { Button } from '../../../_components';
 import { formatISOString } from '../../../_utils';
 import { useGetMyFamilies } from '../_queries';
 import { OtherFamiliesBanner } from './_components/OtherFamiliesBanner';
