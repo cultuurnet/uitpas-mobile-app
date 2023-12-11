@@ -42,18 +42,18 @@ export const OtherFamiliesOverview = () => {
           <Styled.Tile>
             <Styled.Body>
               <Styled.Name color="primary.700" fontStyle="bold" size="small">
-                {t('ONBOARDING.FAMILY.FAMILIES_OVERVIEW.TILE.NAME', { name: `${family.firstName} ${family.name}` })}
+                {t('ONBOARDING.FAMILY.OTHER_FAMILIES.TILE.NAME', { name: `${family.firstName} ${family.name}` })}
               </Styled.Name>
               <Styled.Email size="small">{family.email}</Styled.Email>
               <Styled.DateAdded color="neutral.400">
-                {t('ONBOARDING.FAMILY.FAMILIES_OVERVIEW.TILE.ADDED', { date: formatISOString(family.memberSince) })}
+                {t('ONBOARDING.FAMILY.OTHER_FAMILIES.TILE.ADDED', { date: formatISOString(family.memberSince) })}
               </Styled.DateAdded>
             </Styled.Body>
             <Styled.LeaveFamily>
               <Button
                 color="error.700"
                 fontSize="small"
-                label={t('ONBOARDING.FAMILY.FAMILIES_OVERVIEW.TILE.LEAVE')}
+                label={t('ONBOARDING.FAMILY.OTHER_FAMILIES.TILE.LEAVE')}
                 onPress={() => setSelectedFamily(family)}
                 radius={false}
                 variant="link"
@@ -64,12 +64,12 @@ export const OtherFamiliesOverview = () => {
       />
       <BlurredModal isVisible={!!selectedFamily} toggleIsVisible={() => setSelectedFamily(null)}>
         <Typography bottomSpacing="12px" fontStyle="bold" size="xlarge">
-          {t('ONBOARDING.FAMILY.FAMILIES_OVERVIEW.MODAL.TITLE')}
+          {t('ONBOARDING.FAMILY.OTHER_FAMILIES.MODAL.TITLE')}
         </Typography>
-        <Typography>{t('ONBOARDING.FAMILY.FAMILIES_OVERVIEW.MODAL.DESCRIPTION')}</Typography>
+        <Typography>{t('ONBOARDING.FAMILY.OTHER_FAMILIES.MODAL.DESCRIPTION')}</Typography>
         <Styled.FamilyCard>
           <Typography color="primary.700" fontStyle="bold" size="small">
-            {t('ONBOARDING.FAMILY.FAMILIES_OVERVIEW.MODAL.NAME', {
+            {t('ONBOARDING.FAMILY.OTHER_FAMILIES.MODAL.NAME', {
               name: `${selectedFamily?.firstName} ${selectedFamily?.name}`,
             })}
           </Typography>
@@ -77,7 +77,7 @@ export const OtherFamiliesOverview = () => {
         </Styled.FamilyCard>
         <Styled.CloseButton
           backgroundColor="error.700"
-          label={t('ONBOARDING.FAMILY.FAMILIES_OVERVIEW.MODAL.CONFIRM')}
+          label={t('ONBOARDING.FAMILY.OTHER_FAMILIES.MODAL.CONFIRM')}
           onPress={handleLeaveFamily}
         />
         <Button
