@@ -12,13 +12,6 @@ import { storage } from '../../storage';
 import { useHasFamilyMembers } from './_queries';
 import * as Styled from './style';
 
-const BULLET_ITEMS = [
-  { textKey: 'ONBOARDING.FAMILY.BULLET_1_TEXT' },
-  { textKey: 'ONBOARDING.FAMILY.BULLET_2_TEXT' },
-  { textKey: 'ONBOARDING.FAMILY.BULLET_3_TEXT' },
-  { textKey: 'ONBOARDING.FAMILY.BULLET_4_TEXT' },
-];
-
 type TProps = {
   navigation: TMainNavigationProp<'Profile'>;
 };
@@ -57,7 +50,7 @@ export const FamilyOnboarding = ({ navigation }: TProps) => {
         </Styled.Title>
         <Styled.Hero source={Family} />
         <Styled.BulletList>
-          {BULLET_ITEMS.map(({ textKey }, index) => (
+          {getBulletItems(5).map(({ textKey }, index) => (
             <Styled.BulletListItem key={index}>
               <Trans
                 i18nKey={textKey}
@@ -74,4 +67,10 @@ export const FamilyOnboarding = ({ navigation }: TProps) => {
       </Styled.Footer>
     </SafeAreaView>
   );
+};
+
+const getBulletItems = numberOfBulletItems => {
+  return [...Array(numberOfBulletItems).keys()].map(index => {
+    return { textKey: `ONBOARDING.FAMILY.BULLET_${index + 1}_TEXT` };
+  });
 };
