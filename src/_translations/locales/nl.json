@@ -39,10 +39,11 @@
         "DONE": "Klaar",
         "CANCEL": "Annuleren"
       },
-      "MY_FAMILIES": {
+      "OTHER_FAMILIES": {
         "TITLE": "Mijn gezin",
         "BANNER_TITLE": "Hieronder zie je welke personen jou hebben toegevoegd aan hun gezin.",
         "BANNER_DESCRIPTION": "Deze personen kunnen jouw UiTPAS beheren: punten sparen, voordelen omruilen en je historiek raadplegen.\nWil je niet dat deze persoon je UiTPAS kan beheren, verlaat dan hun gezin.",
+        "EMPTY_DESCRIPTION": "Je bent nog niet toegevoegd in de gezinnen van andere personen.",
         "TILE": {
           "NAME": "Gezin van {{name}}",
           "ADDED": "Toegevoegd op {{date}}",
@@ -128,7 +129,7 @@
         "TITLE": "Mijn gezinssamenstelling",
         "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
       },
-      "MY_FAMILIES": {
+      "OTHER_FAMILIES": {
         "TITLE": "Gezinnen waartoe ik behoor",
         "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
       }

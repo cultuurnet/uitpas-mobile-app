@@ -22,10 +22,10 @@ export const FamiliesOverview: FC<TFamiliesOverviewProps> = ({ navigation }) => 
         title={t('PROFILE.FAMILY.FAMILY_COMPOSITION.TITLE')}
       />
       <FamiliesOverviewTile
-        description={t('PROFILE.FAMILY.MY_FAMILIES.DESCRIPTION')}
+        description={t('PROFILE.FAMILY.OTHER_FAMILIES.DESCRIPTION')}
         icon="MainFamilyMember"
         onPress={() => navigation.navigate('MyFamilies')}
-        title={t('PROFILE.FAMILY.MY_FAMILIES.TITLE')}
+        title={t('PROFILE.FAMILY.OTHER_FAMILIES.TITLE')}
       />
     </Styled.SafeAreaView>
   );
