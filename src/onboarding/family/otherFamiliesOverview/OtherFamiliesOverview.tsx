@@ -4,7 +4,7 @@ import { FlatList } from 'react-native';
 import { Button } from '../../../_components';
 import { formatISOString } from '../../../_utils';
 import { useGetMyFamilies } from '../_queries';
-import { MyFamiliesBanner } from './_components/MyFamiliesBanner';
+import { OtherFamiliesBanner } from './_components/OtherFamiliesBanner';
 import * as Styled from './style';
 
 export const OtherFamiliesOverview = () => {
@@ -16,7 +16,7 @@ export const OtherFamiliesOverview = () => {
     <FlatList
       ItemSeparatorComponent={Styled.Separator}
       ListFooterComponent={Styled.Separator}
-      ListHeaderComponent={MyFamiliesBanner}
+      ListHeaderComponent={OtherFamiliesBanner}
       data={families}
       keyExtractor={family => family.passholderId}
       renderItem={({ item: family }) => (

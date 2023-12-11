@@ -5,7 +5,7 @@ import { ParentChild } from '../../../../_assets/images';
 import { Typography } from '../../../../_components';
 import * as Styled from './style';
 
-export const MyFamiliesBanner = () => {
+export const OtherFamiliesBanner = () => {
   const { t } = useTranslation();
 
   const [containerHeight, setContainerHeight] = useState(0);
