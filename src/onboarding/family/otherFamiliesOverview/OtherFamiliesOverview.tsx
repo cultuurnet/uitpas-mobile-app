@@ -7,7 +7,7 @@ import { useGetMyFamilies } from '../_queries';
 import { MyFamiliesBanner } from './_components/MyFamiliesBanner';
 import * as Styled from './style';
 
-export const MyFamilies = () => {
+export const OtherFamiliesOverview = () => {
   const { t } = useTranslation();
 
   const { data: families = [] } = useGetMyFamilies();
