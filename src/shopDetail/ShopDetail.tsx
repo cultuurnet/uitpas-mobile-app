@@ -148,7 +148,11 @@ export const ShopDetail = ({ route }: TProps) => {
           <Section title={t('SHOP_DETAIL.HOW_TO_COLLECT')}>
             <Trans
               bottomSpacing="24px"
-              i18nKey={reward.online ? 'SHOP_DETAIL.COLLECT_ONLINE' : 'SHOP_DETAIL.COLLECT_OFFLINE'}
+              i18nKey={
+                reward.online
+                  ? 'SHOP_DETAIL.COLLECT_ONLINE'
+                  : `SHOP_DETAIL.COLLECT_OFFLINE_${!hasFamilyMembers ? 'SINGLE' : 'FAMILY'}`
+              }
               onButtonPress={toggleIsCardModalVisible}
               selectable
               size="small"
