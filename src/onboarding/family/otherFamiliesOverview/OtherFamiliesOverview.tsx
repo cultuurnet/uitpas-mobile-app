@@ -21,7 +21,7 @@ export const OtherFamiliesOverview = () => {
   const handleLeaveFamily = async () => {
     try {
       await leaveFamily({ path: `/passholders/${selectedFamily.passholderId}/family-members/${me.id}` });
-      queryClient.invalidateQueries(['family-members']);
+      queryClient.invalidateQueries(['families']);
     } finally {
       setSelectedFamily(null);
     }

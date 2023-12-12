@@ -6,7 +6,7 @@ export const useGetMyFamilies = () => {
   const api = usePubliqApi();
   const { data: me } = useGetMe();
 
-  return api.get<TFamily[]>(['family'], `/passholders/${me.id}/families`, {
+  return api.get<TFamily[]>(['families'], `/passholders/${me.id}/families`, {
     enabled: !!me.id,
   });
 };
