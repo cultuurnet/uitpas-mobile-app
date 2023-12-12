@@ -5,7 +5,7 @@ import { Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useHeaderHeight } from '@react-navigation/elements';
 
-import { Button, Typography } from '../../../_components';
+import { Button, Trans, Typography } from '../../../_components';
 import { queryClient } from '../../../_context';
 import { TMainNavigationProp, TRootStackRouteProp } from '../../../_routing';
 import { applyBarcodeMask, getRandomUniqueAvatar, openExternalURL } from '../../../_utils';
@@ -71,16 +71,12 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
               render={({ field: { onChange, value } }) => (
                 <Styled.UitpasNumberInput
                   description={
-                    <Typography size="small">
-                      {t('ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER_DESCRIPTION_1')}
-                      <Styled.UitpasNumberDescriptionLink
-                        color="primary.700"
-                        onPress={() => openExternalURL(t('ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER_DESCRIPTION_LINK'))}
-                        size="small"
-                      >
-                        {t('ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER_DESCRIPTION_2')}
-                      </Styled.UitpasNumberDescriptionLink>
-                    </Typography>
+                    <Trans
+                      color="secondary.900"
+                      i18nKey="ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER_DESCRIPTION"
+                      onButtonPress={() => openExternalURL(t('ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER_DESCRIPTION_LINK'))}
+                      size="small"
+                    />
                   }
                   isError={!!errors?.uitpasNumber}
                   keyboardType="number-pad"
