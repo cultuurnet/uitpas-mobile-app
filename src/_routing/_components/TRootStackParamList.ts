@@ -58,6 +58,7 @@ export type TRootStackParamList = {
   History: undefined;
   Login: undefined;
   MainNavigator: { screen: TMainRoute };
+  MyFamilies: undefined;
   Onboarding: undefined;
   ProfileNotFound: undefined;
   RedeemedReward: { isModal?: boolean; member?: TFamilyMember; redeemedReward: TRedeemedReward };

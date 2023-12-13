@@ -30,10 +30,7 @@ export const MemberBody = styled.View`
   margin-right: 12px;
 `;
 
-export const ButtonContainer = styled.View`
+export const ConfirmButton = styled(Button)`
   margin-top: 32px;
-`;
-
-export const FirstButton = styled(Button)`
   margin-bottom: 8px;
 `;

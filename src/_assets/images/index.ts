@@ -9,6 +9,7 @@ export const GiftHalf = require('./giftHalf.png');
 export const GiftOpen = require('./giftOpen.png');
 export const Logo = require('./logo.png');
 export const LogoInverse = require('./logoInverse.png');
+export const ParentChild = require('./parentChild.png');
 export const Person = require('./person.png');
 export const Scan = require('./scan.png');
 export const Shop = require('./shop.png');

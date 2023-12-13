@@ -32,7 +32,7 @@ export const Description = styled(Typography)`
 export const AvatarItemBorder = styled(TouchableRipple)<{ isSelected: boolean }>`
   margin-horizontal: 8px;
   border: ${({ isSelected }) => `2px solid ${isSelected ? theme.palette.primary['700'] : 'transparent'}`};
-  border-radius: 26px;
+  border-radius: 27px;
 `;
 
 export const AvatarItemContainer = styled.View`

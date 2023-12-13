@@ -1,2 +1,2 @@
-export * from './familyMember';
+export * from './family';
 export * from './passholder';
