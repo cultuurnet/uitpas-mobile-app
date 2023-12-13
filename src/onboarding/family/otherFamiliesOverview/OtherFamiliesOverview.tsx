@@ -75,7 +75,7 @@ export const OtherFamiliesOverview = () => {
           </Typography>
           <Typography size="small">{selectedFamily?.email}</Typography>
         </Styled.FamilyCard>
-        <Styled.CloseButton
+        <Styled.LeaveButton
           backgroundColor="error.700"
           label={t('ONBOARDING.FAMILY.OTHER_FAMILIES.MODAL.CONFIRM')}
           onPress={handleLeaveFamily}

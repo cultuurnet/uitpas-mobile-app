@@ -48,7 +48,7 @@ export const FamilyCard = styled.View`
   margin-top: 8px;
 `;
 
-export const CloseButton = styled(Button)`
+export const LeaveButton = styled(Button)`
   margin-top: 32px;
   margin-bottom: 8px;
 `;
