@@ -162,7 +162,7 @@ export const RootStackNavigator = () => {
             component={About}
             name="About"
             options={{
-              headerBackTitle: i18n.t('PROFILE.ABOUT.BACK_TITLE'),
+              headerBackTitle: '',
               title: i18n.t('PROFILE.ABOUT.HEADER_TITLE'),
             }}
           />
@@ -180,7 +180,7 @@ export const RootStackNavigator = () => {
             component={History}
             name="History"
             options={{
-              headerBackTitle: i18n.t('PROFILE.HISTORY.BACK_TITLE'),
+              headerBackTitle: '',
               headerRight: UserPoints,
               title: i18n.t('PROFILE.HISTORY.HEADER_TITLE'),
             }}

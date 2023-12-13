@@ -72,7 +72,6 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
                 <Styled.UitpasNumberInput
                   description={
                     <Trans
-                      color="secondary.900"
                       i18nKey="ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER_DESCRIPTION"
                       onButtonPress={() => openExternalURL(t('ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER_DESCRIPTION_LINK'))}
                       size="small"
