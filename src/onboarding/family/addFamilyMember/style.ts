@@ -35,11 +35,6 @@ export const UitpasNumberLabel = styled(Typography)`
   line-height: 18px;
 `;
 
-export const UitpasNumberDescriptionLink = styled(Typography)`
-  text-decoration: underline;
-  text-decoration-color: ${theme.palette.primary['700']};
-`;
-
 export const UitpasNumberTooltip = styled(Tooltip)`
   margin-left: 4px;
 `;
