@@ -10,11 +10,12 @@ import * as Styled from './style';
 
 type TProps = {
   familyMemberId: string;
-  name: string;
+  firstName: string;
+  fullName: string;
   style?: StyleProp<ViewStyle>;
 };
 
-const DeleteFamilyMember = ({ name, familyMemberId, style }: TProps) => {
+const DeleteFamilyMember = ({ firstName, fullName, familyMemberId, style }: TProps) => {
   const navigation = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
   const { mutateAsync, isLoading } = useDeleteFamilyMember(familyMemberId);
@@ -43,7 +44,7 @@ const DeleteFamilyMember = ({ name, familyMemberId, style }: TProps) => {
         <Styled.UserName fontStyle="bold" size="large">
           {t('ONBOARDING.FAMILY.DELETE_MEMBER.CONFIRMATION_MODAL.TITLE')}
         </Styled.UserName>
-        <Trans i18nKey="ONBOARDING.FAMILY.DELETE_MEMBER.CONFIRMATION_MODAL.DESCRIPTION" values={{ name }} />
+        <Trans i18nKey="ONBOARDING.FAMILY.DELETE_MEMBER.CONFIRMATION_MODAL.DESCRIPTION" values={{ firstName, fullName }} />
         <Styled.DeleteModalButton
           backgroundColor="error.700"
           fontStyle="semibold"
