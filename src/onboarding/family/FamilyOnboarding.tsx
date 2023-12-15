@@ -50,7 +50,7 @@ export const FamilyOnboarding = ({ navigation }: TProps) => {
         </Styled.Title>
         <Styled.Hero source={Family} />
         <Styled.BulletList>
-          {getBulletItems(5).map(({ textKey }, index) => (
+          {getBulletItems(4).map(({ textKey }, index) => (
             <Styled.BulletListItem key={index}>
               <Trans
                 i18nKey={textKey}
