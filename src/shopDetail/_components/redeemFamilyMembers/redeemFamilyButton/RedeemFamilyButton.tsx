@@ -18,13 +18,13 @@ export const RedeemFamilyButton = ({ member, onPress, reward }: TProps) => {
   const { t } = useTranslation();
   const [showUnredeemableModal, toggleUnredeemableModal] = useToggle(false);
 
-  const { error, isLoading } = useGetRedeemStatus({ passHolder: member.passholder, rewardId: reward.id });
+  const { data, error, isLoading } = useGetRedeemStatus({ passHolder: member.passholder, rewardId: reward.id });
 
   if (isLoading) {
     return <Button color="primary.700" loading variant="link" />;
   }
 
-  if (error) {
+  if ((data && !data.redeemable) || error) {
     return (
       <>
         <Styled.UnredeemableStatus color="primary.700" fontStyle="normal" onPress={toggleUnredeemableModal} size="small">
@@ -34,7 +34,7 @@ export const RedeemFamilyButton = ({ member, onPress, reward }: TProps) => {
           <Styled.UnredeemableModalTitle fontStyle="bold" size="large">
             {t('SHOP_DETAIL.WHO_CAN_REDEEM.UNREDEEMABLE_MODAL_TITLE')}
           </Styled.UnredeemableModalTitle>
-          <Typography bottomSpacing="12px">{error.endUserMessage.nl}</Typography>
+          <Typography bottomSpacing="12px">{!data.redeemable ? data.message : error.endUserMessage.nl}</Typography>
           <FamilyMemberCard member={member} title={t('SHOP_DETAIL.REDEEM.MODAL_WHO_TITLE')} />
           <Styled.UnredeemableModalCloseButton
             fontStyle="semibold"

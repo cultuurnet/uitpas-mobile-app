@@ -74,14 +74,23 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
                 <Trans
                   color="secondary.900"
                   i18nKey={
-                    hasFamilyMembers ? 'REDEEMED_REWARD.SUCCESS_MESSAGE_FAMILY_PART_1' : 'REDEEMED_REWARD.SUCCESS_MESSAGE_PART_1'
+                    hasFamilyMembers
+                      ? 'REDEEMED_REWARD.SUCCESS_MESSAGE_FAMILY_PART_1'
+                      : 'REDEEMED_REWARD.SUCCESS_MESSAGE_SINGLE_PART_1'
                   }
                   size="small"
                   values={{ count: redeemedReward.reward.points, name: member.passholder.firstName }}
                 />{' '}
                 <Trans
                   color="secondary.900"
-                  i18nKey="REDEEMED_REWARD.SUCCESS_MESSAGE_PART_2"
+                  i18nKey={(() => {
+                    if (hasFamilyMembers) {
+                      return member.passholder.email
+                        ? 'REDEEMED_REWARD.SUCCESS_MESSAGE_FAMILY_PART_2'
+                        : 'REDEEMED_REWARD.SUCCESS_MESSAGE_FAMILY_NO_EMAIL_PART_2';
+                    }
+                    return 'REDEEMED_REWARD.SUCCESS_MESSAGE_SINGLE_PART_2';
+                  })()}
                   onButtonPress={() => {
                     navigation.reset({
                       index: 0,
@@ -89,6 +98,7 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
                     });
                   }}
                   size="small"
+                  values={{ email: member.passholder.email }}
                 />
               </Typography>
             </Styled.SuccessContent>

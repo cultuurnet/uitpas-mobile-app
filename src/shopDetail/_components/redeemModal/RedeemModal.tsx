@@ -34,6 +34,7 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
     onSuccess: redeemedReward => {
       toggleIsVisible();
       queryClient.invalidateQueries(['family-members']);
+      queryClient.invalidateQueries(['redeem-status', reward.id]);
       navigate('RedeemedReward', { isModal: true, member, redeemedReward });
     },
   });
@@ -60,7 +61,7 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
       <Typography bottomSpacing="12px" fontStyle="bold" size="xlarge">
         {t('SHOP_DETAIL.REDEEM.MODAL_TITLE')}
       </Typography>
-      <Trans i18nKey="SHOP_DETAIL.REDEEM.MODAL_DESCRIPTION" values={{ points: reward.points, title: reward.title }} />
+      <Trans i18nKey="SHOP_DETAIL.REDEEM.MODAL_DESCRIPTION" values={{ count: reward.points, title: reward.title }} />
       {!!error && (
         <Typography bottomSpacing="12px" color="error.500" size="small" topSpacing="12px">
           {error?.endUserMessage?.[getLanguage()] || t('SHOP_DETAIL.REDEEM.MODAL_GENERIC_ERROR')}
