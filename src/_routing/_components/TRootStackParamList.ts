@@ -66,7 +66,7 @@ export type TRootStackParamList = {
   ScanSuccess: TCheckInResponse & { checkinCode: string };
   Search: { category?: TFilterRewardCategory; filters?: TSearchFilters; sort?: TFilterRewardSorting };
   SearchFilters: { category?: TFilterRewardCategory; filters: TSearchFilters; sort: TFilterRewardSorting };
-  ShopDetail: { id: string; reward?: TReward };
+  ShopDetail: { id: string; reward?: TReward; showFamilyMembers?: boolean };
   Update: undefined;
 };
 

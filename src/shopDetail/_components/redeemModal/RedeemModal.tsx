@@ -5,12 +5,13 @@ import { t } from 'i18next';
 import { BlurredModal, Button, Trans, Typography } from '../../../_components';
 import { queryClient, useTracking } from '../../../_context';
 import { TRootStackNavigationProp } from '../../../_routing';
-import { getAvatarByNameOrDefault, getLanguage, getRewardTrackingData } from '../../../_utils';
+import { getLanguage, getRewardTrackingData } from '../../../_utils';
 import { useHasFamilyMembers } from '../../../onboarding/family/_queries';
 import { getActiveCard } from '../../../profile/_helpers/getActiveCard';
 import { TFamilyMember } from '../../../profile/_models';
 import { TReward } from '../../../shop/_models/reward';
 import { useRedeemReward } from '../../_queries/useRedeemReward';
+import { FamilyMemberCard } from '../familyMemberCard/FamilyMemberCard';
 import * as Styled from './style';
 
 type TRedeemModalProps = {
@@ -67,19 +68,7 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
       )}
       {hasFamilyMembers && member && (
         <Styled.MemberContainer>
-          <Typography fontStyle="bold">{t('SHOP_DETAIL.REDEEM.MODAL_WHO_TITLE')}</Typography>
-          <Styled.MemberCard>
-            <Styled.MemberAvatar resizeMode="contain" source={getAvatarByNameOrDefault(member.icon)} />
-            <Styled.MemberBody>
-              <Typography fontStyle="bold" numberOfLines={1}>
-                {member.passholder.firstName}
-                {member.mainFamilyMember ? ` ${t('SHOP_DETAIL.WHO_CAN_REDEEM.YOU')}` : ''}
-              </Typography>
-              <Typography color="primary.700" fontStyle="semibold" numberOfLines={1} size="small">
-                {t('SHOP_DETAIL.WHO_CAN_REDEEM.POINTS', { count: member.passholder.points })}
-              </Typography>
-            </Styled.MemberBody>
-          </Styled.MemberCard>
+          <FamilyMemberCard member={member} title={t('SHOP_DETAIL.REDEEM.MODAL_WHO_TITLE')} />
         </Styled.MemberContainer>
       )}
       <Styled.ConfirmButton label={t('SHOP_DETAIL.REDEEM.MODAL_BUTTON_CONFIRM')} loading={isLoading} onPress={handleConfirm} />

@@ -5,6 +5,7 @@ import { useToggle } from '../../../../_hooks';
 import { TFamilyMember } from '../../../../profile/_models';
 import { TReward } from '../../../../shop/_models/reward';
 import { useGetRedeemStatus } from '../../../_queries/useGetRedeemStatus';
+import { FamilyMemberCard } from '../../familyMemberCard/FamilyMemberCard';
 import * as Styled from './style';
 
 type TProps = {
@@ -13,7 +14,7 @@ type TProps = {
   reward: TReward;
 };
 
-export const RedeemButton = ({ member, onPress, reward }: TProps) => {
+export const RedeemFamilyButton = ({ member, onPress, reward }: TProps) => {
   const { t } = useTranslation();
   const [showUnredeemableModal, toggleUnredeemableModal] = useToggle(false);
 
@@ -33,7 +34,8 @@ export const RedeemButton = ({ member, onPress, reward }: TProps) => {
           <Styled.UnredeemableModalTitle fontStyle="bold" size="large">
             {t('SHOP_DETAIL.WHO_CAN_REDEEM.UNREDEEMABLE_MODAL_TITLE')}
           </Styled.UnredeemableModalTitle>
-          <Typography>{error.endUserMessage.nl}</Typography>
+          <Typography bottomSpacing="12px">{error.endUserMessage.nl}</Typography>
+          <FamilyMemberCard member={member} title={t('SHOP_DETAIL.REDEEM.MODAL_WHO_TITLE')} />
           <Styled.UnredeemableModalCloseButton
             fontStyle="semibold"
             label={t('SHOP_DETAIL.WHO_CAN_REDEEM.UNREDEEMABLE_MODAL_CLOSE')}

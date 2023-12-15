@@ -7,6 +7,7 @@ import { Analytics, FamilyFilter, Reward, RewardLoader } from '../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing';
 import { theme } from '../_styles/theme';
 import { normalizeForSlug } from '../_utils';
+import { useHasFamilyMembers } from '../onboarding/family/_queries';
 import { useGetMe } from '../profile/_queries/useGetMe';
 import { getRewardFilters } from '../shop/_helpers/getRewardFilters';
 import { useGetRewards } from '../shop/_queries/useGetRewards';
@@ -28,6 +29,7 @@ export const FilteredShop = ({ route }: TProps) => {
   const { data: me } = useGetMe();
   const [selectedPassHolder, setSelectedPassHolder] = useState(me);
   const { getFiltersForCategory, getFiltersForSection } = getRewardFilters({ passHolder: selectedPassHolder });
+  const { data: hasFamilyMembers } = useHasFamilyMembers();
   const {
     data: rewards,
     fetchNextPage,
@@ -70,7 +72,9 @@ export const FilteredShop = ({ route }: TProps) => {
         ListHeaderComponent={
           isFilteredOnWelcome ? (
             <>
-              <FamilyFilter selectedPassHolder={selectedPassHolder} setSelectedPassHolder={setSelectedPassHolder} />
+              {hasFamilyMembers && (
+                <FamilyFilter selectedPassHolder={selectedPassHolder} setSelectedPassHolder={setSelectedPassHolder} />
+              )}
               <WelcomeHeader />
             </>
           ) : (
@@ -93,7 +97,7 @@ export const FilteredShop = ({ route }: TProps) => {
             tintColor={theme.palette.primary['500']}
           />
         }
-        renderItem={({ item }) => <Reward mode="list" reward={item} />}
+        renderItem={({ item }) => <Reward mode="list" reward={item} showFamilyMembers={false} />}
       />
     </>
   );

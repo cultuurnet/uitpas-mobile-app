@@ -26,7 +26,7 @@ type TProps = {
 };
 
 export const ShopDetail = ({ route }: TProps) => {
-  const { id, reward: fallbackReward } = route.params;
+  const { id, reward: fallbackReward, showFamilyMembers = true } = route.params;
   const { data: me } = useGetMe();
   const { data } = useGetReward({ id });
   const reward = data || fallbackReward;
@@ -61,7 +61,7 @@ export const ShopDetail = ({ route }: TProps) => {
   };
 
   const handleRedeemButtonPress = () => {
-    if (!hasFamilyMembers) {
+    if (!showFamilyMembers || !hasFamilyMembers) {
       const mainMember = familyMembers.filter(({ mainFamilyMember }) => mainFamilyMember)[0];
       if (mainMember) {
         handleRedeemReward(mainMember);
@@ -160,7 +160,7 @@ export const ShopDetail = ({ route }: TProps) => {
             <HtmlRenderer source={{ html: reward.practicalInfo }} />
           </Section>
 
-          {hasFamilyMembers && !isRedeemStatusLoading && redeemStatus?.redeemable && !redeemStatusError && (
+          {showFamilyMembers && hasFamilyMembers && !isRedeemStatusLoading && redeemStatus?.redeemable && !redeemStatusError && (
             <View ref={rewardsSection}>
               <Section title={t('SHOP_DETAIL.WHO_CAN_REDEEM.TITLE')}>
                 <RedeemFamilyMembers onRedeem={handleRedeemReward} reward={reward} />

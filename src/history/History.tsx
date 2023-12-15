@@ -5,6 +5,7 @@ import { FlashList } from '@shopify/flash-list';
 
 import { Analytics, FamilyFilter, Spinner } from '../_components';
 import { theme } from '../_styles/theme';
+import { useHasFamilyMembers } from '../onboarding/family/_queries';
 import { useGetMe } from '../profile/_queries/useGetMe';
 import { useGetHistory } from './_queries/useGetHistory';
 import HistoryItem from './HistoryItem';
@@ -22,6 +23,7 @@ const History: FC = () => {
     isLoading: isHistoryLoading,
     refetch,
   } = useGetHistory({ passHolder: selectedPassHolder });
+  const { data: hasFamilyMembers } = useHasFamilyMembers();
 
   async function refetchByUser() {
     setIsRefetchingByUser(true);
@@ -41,7 +43,7 @@ const History: FC = () => {
   return (
     <>
       <Analytics screenName="History" />
-      <FamilyFilter selectedPassHolder={selectedPassHolder} setSelectedPassHolder={setSelectedPassHolder} />
+      {hasFamilyMembers && <FamilyFilter selectedPassHolder={selectedPassHolder} setSelectedPassHolder={setSelectedPassHolder} />}
       <Styled.ListView>
         <FlashList
           ListEmptyComponent={<Styled.NoContentText align="center">{t('PROFILE.HISTORY.EMPTY')}</Styled.NoContentText>}

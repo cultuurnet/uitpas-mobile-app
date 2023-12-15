@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 import Icon from '../../icon/Icon';
 import TouchableRipple from '../../touchableRipple/TouchableRipple';
-import { Typography } from '../../typography/style';
+import Typography from '../../typography/Typography';
 
 export const Container = styled.View`
   flex-direction: row;

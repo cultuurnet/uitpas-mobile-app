@@ -7,6 +7,7 @@ import { Analytics, FamilyFilter, Reward, RewardLoader } from '../_components';
 import { TRootStackNavigationProp } from '../_routing';
 import { theme } from '../_styles/theme';
 import { formatISOString } from '../_utils';
+import { useHasFamilyMembers } from '../onboarding/family/_queries';
 import { useGetMe } from '../profile/_queries/useGetMe';
 import { useGetRedeemedRewards } from './_queries/useGetRedeemedRewards';
 import * as Styled from './style';
@@ -32,13 +33,14 @@ export const RedeemedRewards = ({ navigation }: TProps) => {
     isRefetching,
     isFetchingNextPage,
   } = useGetRedeemedRewards({ passHolder: selectedPassHolder });
+  const { data: hasFamilyMembers } = useHasFamilyMembers();
 
   const members = rewards?.pages?.flatMap(({ member }) => member) ?? [];
 
   return (
     <>
       <Analytics screenName="redeemed-rewards" />
-      <FamilyFilter selectedPassHolder={selectedPassHolder} setSelectedPassHolder={setSelectedPassHolder} />
+      {hasFamilyMembers && <FamilyFilter selectedPassHolder={selectedPassHolder} setSelectedPassHolder={setSelectedPassHolder} />}
       <FlashList
         ItemSeparatorComponent={Styled.Separator}
         ListEmptyComponent={
