@@ -1,13 +1,15 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, ScrollView } from 'react-native';
+import { Image, ScrollView, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 
 import { GiftOpen } from '../_assets/images';
 import { EnlargedHeader, HtmlRenderer, Trans, Typography } from '../_components';
 import { useTracking } from '../_context';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing';
-import { formatISOString, getRewardTrackingData } from '../_utils';
+import { formatISOString, getAvatarByNameOrDefault, getRewardTrackingData } from '../_utils';
+import { useHasFamilyMembers } from '../onboarding/family/_queries';
+import { useFamilyComposition } from '../profile/family/hooks';
 import { RewardCard } from './_components/rewardCard/RewardCard';
 import * as Styled from './style';
 
@@ -19,8 +21,20 @@ type TProps = {
 const RedeemedReward = ({ route, navigation }: TProps) => {
   const { t } = useTranslation();
   const { trackSelfDescribingEvent } = useTracking();
-  const redeemedReward = route.params?.redeemedReward;
-  const isModal = route.params?.isModal;
+  const { redeemedReward, member, isModal } = route.params || {};
+
+  const { data: hasFamilyMembers } = useHasFamilyMembers();
+  const HeaderImage = useFamilyComposition({
+    FamilyComponent: () => (
+      <View>
+        <Styled.MemberAvatar source={getAvatarByNameOrDefault(member.icon)} />
+        <Styled.MemberAvatarLine style={{ transform: [{ rotate: '-25deg' }] }} />
+        <Styled.MemberAvatarLine />
+        <Styled.MemberAvatarLine style={{ transform: [{ rotate: '25deg' }] }} />
+      </View>
+    ),
+    SingleComponent: () => <Image source={GiftOpen} />,
+  });
 
   useFocusEffect(
     useCallback(() => {
@@ -30,9 +44,7 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
       trackSelfDescribingEvent(
         'successMessage',
         { message: 'reward-redemeed' },
-        {
-          reward: getRewardTrackingData(redeemedReward.reward),
-        },
+        { reward: getRewardTrackingData(redeemedReward.reward) },
       );
     }, [trackSelfDescribingEvent, isModal, redeemedReward]),
   );
@@ -43,46 +55,52 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
     trackSelfDescribingEvent(
       'linkClick',
       { targetUrl: redeemedReward.redeemInfo.link },
-      {
-        reward: getRewardTrackingData(redeemedReward.reward),
-      },
+      { reward: getRewardTrackingData(redeemedReward.reward) },
     );
   }
 
   return (
     <ScrollView>
-      <EnlargedHeader height={isModal ? 244 : 84} />
+      <EnlargedHeader height={84} />
       <Styled.Content>
         {isModal && (
           <Styled.SuccessContainer>
-            <Image source={GiftOpen} />
+            <HeaderImage />
             <Styled.SuccessContent>
-              <Typography bottomSpacing="8px" color="neutral.0" fontStyle="bold" size="large">
+              <Typography bottomSpacing="8px" color="secondary.900" fontStyle="bold" size="large">
                 {t('REDEEMED_REWARD.SUCCESS_TITLE')}
               </Typography>
-              <Trans
-                color="neutral.0"
-                i18nKey={'REDEEMED_REWARD.SUCCESS_MESSAGE'}
-                onButtonPress={() => {
-                  navigation.reset({
-                    index: 0,
-                    routes: [
-                      {
-                        name: 'MainNavigator',
-                        params: {
-                          screen: 'Profile',
-                        },
-                      },
-                      {
-                        name: 'RedeemedRewards',
-                      },
-                    ],
-                  });
-                }}
-                size="small"
-                values={{ points: redeemedReward.reward.points }}
-                variant="light"
-              />
+              <Typography>
+                <Trans
+                  color="secondary.900"
+                  i18nKey={
+                    hasFamilyMembers
+                      ? 'REDEEMED_REWARD.SUCCESS_MESSAGE_FAMILY_PART_1'
+                      : 'REDEEMED_REWARD.SUCCESS_MESSAGE_SINGLE_PART_1'
+                  }
+                  size="small"
+                  values={{ count: redeemedReward.reward.points, name: member.passholder.firstName }}
+                />{' '}
+                <Trans
+                  color="secondary.900"
+                  i18nKey={(() => {
+                    if (hasFamilyMembers) {
+                      return member.passholder.email
+                        ? 'REDEEMED_REWARD.SUCCESS_MESSAGE_FAMILY_PART_2'
+                        : 'REDEEMED_REWARD.SUCCESS_MESSAGE_FAMILY_NO_EMAIL_PART_2';
+                    }
+                    return 'REDEEMED_REWARD.SUCCESS_MESSAGE_SINGLE_PART_2';
+                  })()}
+                  onButtonPress={() => {
+                    navigation.reset({
+                      index: 0,
+                      routes: [{ name: 'MainNavigator', params: { screen: 'Profile' } }, { name: 'RedeemedRewards' }],
+                    });
+                  }}
+                  size="small"
+                  values={{ email: member.passholder.email }}
+                />
+              </Typography>
             </Styled.SuccessContent>
           </Styled.SuccessContainer>
         )}

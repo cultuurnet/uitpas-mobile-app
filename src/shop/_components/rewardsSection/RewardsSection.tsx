@@ -8,7 +8,8 @@ import { REWARD_TILE_WIDTH } from '../../../_components/reward/style';
 import { useTracking } from '../../../_context';
 import { TMainNavigationProp } from '../../../_routing';
 import { getRewardTrackingData } from '../../../_utils';
-import { TFilterRewardCategory, TFilterRewardSection, useRewardFilters } from '../../_hooks/useRewardFilters';
+import { useGetMe } from '../../../profile/_queries/useGetMe';
+import { getRewardFilters, TFilterRewardCategory, TFilterRewardSection } from '../../_helpers/getRewardFilters';
 import { useGetRewards } from '../../_queries/useGetRewards';
 import { RewardsSectionLoader } from './RewardSection.loading';
 import * as Styled from './style';
@@ -36,7 +37,8 @@ export const RewardsSection = ({
   onLoaded,
   ...props
 }: TRewardSectionProps) => {
-  const { getFiltersForCategory, getFiltersForSection } = useRewardFilters();
+  const { data: me } = useGetMe();
+  const { getFiltersForCategory, getFiltersForSection } = getRewardFilters({ passHolder: me });
   const { data, isLoading } = useGetRewards({
     filters: { ...getFiltersForSection(section), ...getFiltersForCategory(category) },
     itemsPerPage: horizontal ? 20 : 3,

@@ -4,8 +4,8 @@ import { HeaderBackButton } from '@react-navigation/elements';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Icon } from '../../_components';
-import UserPoints from '../../_components/userPoints/UserPoints';
-import { useAuthentication } from '../../_context';
+import { FamilyUserPoints, SingleUserPoints } from '../../_components/userPoints';
+import { useAuthentication, useOnboarding } from '../../_context';
 import { StorageKey } from '../../_models';
 import { generalStyles } from '../../_styles/constants';
 import i18n from '../../_translations/i18n';
@@ -14,10 +14,23 @@ import Error from '../../error/Error';
 import { FilteredShop } from '../../filteredShop/FilteredShop';
 import History from '../../history/History';
 import Login from '../../login/Login';
+import {
+  AddFamilyMember,
+  AddFamilyMemberError,
+  EditFamilyMember,
+  FamilyInformation,
+  FamilyOnboarding,
+  FamilyOverview,
+  OtherFamiliesOverview,
+} from '../../onboarding/family';
 import Onboarding from '../../onboarding/Onboarding';
+import { FamiliesOverview } from '../../profile/family/FamiliesOverview';
+import { useFamilyComposition } from '../../profile/family/hooks';
 import ProfileNotFound from '../../profile/ProfileNotFound';
 import RedeemedReward from '../../redeemedReward/RedeemedReward';
 import { RedeemedRewards } from '../../redeemedRewards/RedeemedRewards';
+import FamilyCheckin from '../../scan/familyCheckin/FamilyCheckin';
+import { FamilyCheckinSummary } from '../../scan/familyCheckinSummary/FamilyCheckinSummary';
 import ScanSuccess from '../../scan/ScanSuccess';
 import { Search } from '../../shop/search/Search';
 import { SearchFilters } from '../../shop/searchFilters/SearchFilters';
@@ -32,8 +45,10 @@ const RootStack = createNativeStackNavigator<TRootStackParamList>();
 
 export const RootStackNavigator = () => {
   const { isAuthenticated, isInitialized } = useAuthentication();
+  const { showFamilyOnboarding } = useOnboarding();
   const versions = useGetVersions();
   const getMainHeaderProps = useMainHeaderProps(isAuthenticated);
+  const UserPoints = useFamilyComposition({ FamilyComponent: FamilyUserPoints, SingleComponent: SingleUserPoints });
   const isPolicyApprovedInStorage = storage.getBoolean(StorageKey.IsPolicyApproved);
 
   useEffect(() => {
@@ -57,7 +72,59 @@ export const RootStackNavigator = () => {
         {isAuthenticated && versions?.isBehindMinVersion && <RootStack.Screen component={UpdateScreen} name="Update" />}
         {!isAuthenticated && <RootStack.Screen component={Login} name="Login" />}
       </RootStack.Group>
-      {isAuthenticated && (
+      {isAuthenticated && showFamilyOnboarding && (
+        <RootStack.Group navigationKey={showFamilyOnboarding.toString()} screenOptions={{ headerShown: true }}>
+          <RootStack.Screen
+            component={FamilyOnboarding}
+            name="FamilyOnboarding"
+            options={{ gestureEnabled: false, headerShown: false }}
+          />
+          <RootStack.Screen
+            component={FamilyOverview}
+            name="FamilyOverview"
+            options={{
+              gestureEnabled: false,
+              headerBackVisible: false,
+              title: i18n.t('ONBOARDING.FAMILY.OVERVIEW.TITLE'),
+            }}
+          />
+          <RootStack.Screen
+            component={AddFamilyMember}
+            name="AddFamilyMember"
+            options={{
+              headerBackTitle: '',
+              title: i18n.t('ONBOARDING.FAMILY.ADD_MEMBER.TITLE'),
+            }}
+          />
+          <RootStack.Screen
+            component={AddFamilyMemberError}
+            name="AddFamilyMemberError"
+            options={{
+              gestureEnabled: false,
+              headerShown: false,
+            }}
+          />
+          <RootStack.Screen
+            component={EditFamilyMember}
+            name="EditFamilyMember"
+            options={{
+              headerBackTitle: '',
+              title: i18n.t('ONBOARDING.FAMILY.EDIT_MEMBER.TITLE'),
+            }}
+          />
+          <RootStack.Screen
+            component={FamilyInformation}
+            name="FamilyInformation"
+            options={{
+              gestureEnabled: false,
+              headerBackVisible: false,
+              headerRight: UserPoints,
+              title: i18n.t('NAVIGATION.SHOP'),
+            }}
+          />
+        </RootStack.Group>
+      )}
+      {isAuthenticated && !showFamilyOnboarding && (
         <>
           <RootStack.Screen
             component={MainNavigator}
@@ -66,18 +133,36 @@ export const RootStackNavigator = () => {
               ...getMainHeaderProps(route),
             })}
           />
+          <RootStack.Screen
+            component={FamilyCheckin}
+            name="FamilyCheckin"
+            options={({ navigation }) => ({
+              headerBackVisible: false,
+              headerLeft: null,
+              headerRight: props => (
+                <HeaderBackButton
+                  {...props}
+                  backImage={() => <Icon color="neutral.0" name="Close" size={14} />}
+                  labelVisible={false}
+                  onPress={() => navigation.pop()}
+                  style={{ marginRight: -10, padding: 10 }}
+                />
+              ),
+              title: i18n.t('SCAN.FAMILY_MEMBERS.TITLE'),
+            })}
+          />
           <RootStack.Group screenOptions={{ headerShown: false }}>
             <RootStack.Screen component={ProfileNotFound} name="ProfileNotFound" options={{ gestureEnabled: false }} />
+            <RootStack.Screen component={FamilyCheckinSummary} name="FamilyCheckinSummary" options={{ gestureEnabled: false }} />
             <RootStack.Screen component={ScanSuccess} name="ScanSuccess" options={{ gestureEnabled: false }} />
             <RootStack.Screen component={Error} name="Error" options={{ gestureEnabled: false }} />
             <RootStack.Screen component={Search} name="Search" />
           </RootStack.Group>
-
           <RootStack.Screen
             component={About}
             name="About"
             options={{
-              headerBackTitle: i18n.t('PROFILE.ABOUT.BACK_TITLE'),
+              headerBackTitle: '',
               title: i18n.t('PROFILE.ABOUT.HEADER_TITLE'),
             }}
           />
@@ -95,7 +180,7 @@ export const RootStackNavigator = () => {
             component={History}
             name="History"
             options={{
-              headerBackTitle: i18n.t('PROFILE.HISTORY.BACK_TITLE'),
+              headerBackTitle: '',
               headerRight: UserPoints,
               title: i18n.t('PROFILE.HISTORY.HEADER_TITLE'),
             }}
@@ -119,6 +204,7 @@ export const RootStackNavigator = () => {
                   <HeaderBackButton
                     {...props}
                     backImage={() => <Icon color="neutral.0" name="Close" size={14} />}
+                    labelVisible={false}
                     onPress={() => navigation.pop()}
                     style={{ marginRight: -10, padding: 10 }}
                   />
@@ -147,6 +233,7 @@ export const RootStackNavigator = () => {
                 <HeaderBackButton
                   {...props}
                   backImage={() => <Icon color="neutral.0" name="Close" size={14} />}
+                  labelVisible={false}
                   onPress={() => navigation.pop()}
                   style={{ marginRight: -10, padding: 10 }}
                 />
@@ -155,6 +242,56 @@ export const RootStackNavigator = () => {
               title: i18n.t('SHOP.SEARCH.FILTERS.HEADER_TITLE'),
             })}
           />
+          <RootStack.Group
+            screenOptions={{
+              headerBackTitle: '',
+            }}
+          >
+            <RootStack.Screen
+              component={FamilyOverview}
+              name="FamilyOverview"
+              options={{
+                title: i18n.t('ONBOARDING.FAMILY.OVERVIEW.TITLE'),
+              }}
+            />
+            <RootStack.Screen
+              component={OtherFamiliesOverview}
+              name="MyFamilies"
+              options={{
+                title: i18n.t('ONBOARDING.FAMILY.OTHER_FAMILIES.TITLE'),
+              }}
+            />
+            <RootStack.Screen
+              component={AddFamilyMember}
+              name="AddFamilyMember"
+              options={{
+                title: i18n.t('ONBOARDING.FAMILY.ADD_MEMBER.TITLE'),
+              }}
+            />
+            <RootStack.Screen
+              component={AddFamilyMemberError}
+              name="AddFamilyMemberError"
+              options={{
+                gestureEnabled: false,
+                headerShown: false,
+              }}
+            />
+            <RootStack.Screen
+              component={EditFamilyMember}
+              name="EditFamilyMember"
+              options={{
+                title: i18n.t('ONBOARDING.FAMILY.EDIT_MEMBER.TITLE'),
+              }}
+            />
+            <RootStack.Screen
+              component={FamiliesOverview}
+              name="FamiliesOverview"
+              options={{
+                headerBackTitle: '',
+                title: i18n.t('PROFILE.LINKS.MY_FAMILY'),
+              }}
+            />
+          </RootStack.Group>
         </>
       )}
     </RootStack.Navigator>

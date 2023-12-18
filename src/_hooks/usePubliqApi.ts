@@ -27,6 +27,11 @@ export type TPostOptions<T = unknown, RequestBody extends Record<string, unknown
 > & {
   headers?: Headers;
 };
+export type TMutationParams<RequestBody extends Record<string, unknown> = Record<string, unknown>> = {
+  body?: RequestBody;
+  headers?: Headers;
+  path?: string;
+};
 type TGetInfiniteOptions<T = unknown> = InfiniteQueryObserverOptions<T, TApiError> & TSharedOptions & { itemsPerPage?: number };
 
 type ApiHost = 'uitpas' | 'uitdatabank';
@@ -65,15 +70,50 @@ export function usePubliqApi(host: ApiHost = 'uitpas') {
   );
 
   const post = useCallback(
-    <T = unknown, RequestBody extends Record<string, unknown> = Record<string, unknown>>(
+    <T = unknown, MutationParams extends TMutationParams = TMutationParams>(
       mutationKey: unknown[],
-      path: string,
-      { headers = {}, ...options }: TPostOptions<T> = {},
+      path?: string,
+      options: TPostOptions<T> = {},
     ) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      return useMutation<T, TApiError, RequestBody>({
-        mutationFn: async (body: Record<string, unknown>) =>
-          HttpClient.post<T>(`${apiHost}${path}`, body, { ...defaultHeaders, ...headers }),
+      return useMutation<T, TApiError, MutationParams>({
+        mutationFn: async ({ body, headers, path: mutationPath }) =>
+          HttpClient.post<T>(`${apiHost}${mutationPath ?? path}`, body, { ...defaultHeaders, ...headers }),
+        mutationKey,
+        networkMode: 'offlineFirst',
+        ...options,
+      });
+    },
+    [defaultHeaders, apiHost],
+  );
+
+  const put = useCallback(
+    <T = unknown, MutationParams extends TMutationParams = TMutationParams>(
+      mutationKey: unknown[],
+      path: string,
+      options: TPostOptions<T> = {},
+    ) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      return useMutation<T, TApiError, MutationParams>({
+        mutationFn: async ({ body, headers }) => HttpClient.put<T>(`${apiHost}${path}`, body, { ...defaultHeaders, ...headers }),
+        mutationKey,
+        networkMode: 'offlineFirst',
+        ...options,
+      });
+    },
+    [defaultHeaders, apiHost],
+  );
+
+  const deleteMutation = useCallback(
+    <T = unknown, MutationParams extends TMutationParams = TMutationParams>(
+      mutationKey: unknown[],
+      path?: string,
+      options: TPostOptions<T> = {},
+    ) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      return useMutation<T, TApiError, MutationParams>({
+        mutationFn: async ({ headers, path: mutationPath }) =>
+          HttpClient.delete<T>(`${apiHost}${mutationPath ?? path}`, { ...defaultHeaders, ...headers }),
         mutationKey,
         networkMode: 'offlineFirst',
         ...options,
@@ -113,5 +153,5 @@ export function usePubliqApi(host: ApiHost = 'uitpas') {
     [accessToken, defaultHeaders, apiHost],
   );
 
-  return { get, getInfinite, post };
+  return { deleteMutation, get, getInfinite, post, put };
 }

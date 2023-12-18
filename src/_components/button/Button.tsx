@@ -9,10 +9,12 @@ import * as Styled from './style';
 export type TButtonProps = {
   accessibilityHint?: string;
   accessibilityLabel?: string;
+  backgroundColor?: ThemeColor;
   centered?: boolean;
   children?: ReactNode;
   color?: ThemeColor;
   disabled?: boolean;
+  fontSize?: TTypographyProps['size'];
   fontStyle?: TTypographyProps['fontStyle'];
   hitSlop?: number;
   href?: string;
@@ -37,7 +39,9 @@ const Button: FC<TButtonProps> = ({
   loading,
   variant = 'contained',
   color,
+  backgroundColor,
   underline = true,
+  fontSize = 'normal',
   fontStyle = 'bold',
   inline,
   hitSlop,
@@ -57,6 +61,7 @@ const Button: FC<TButtonProps> = ({
   return (
     <Styled.ButtonElement
       $active={isActive}
+      $backgroundColor={backgroundColor}
       $color={color}
       $inline={inline}
       $radius={radius}
@@ -88,6 +93,7 @@ const Button: FC<TButtonProps> = ({
           $variant={variant}
           align={props.centered ? 'center' : 'left'}
           fontStyle={fontStyle}
+          size={fontSize}
         >
           {label}
         </Styled.ButtonText>

@@ -49,20 +49,18 @@ const Shop = ({ navigation }: TProps) => {
           </Styled.SearchButton>
           <Styled.SearchIcon color="primary.700" name="Search" size={18} />
         </Styled.SearchContainer>
-        <>
-          <WelcomeGiftsBanner />
-          <CategoryFilters />
-          {sections.map(({ section, category, title, horizontal }) => (
-            <RewardsSection
-              category={category}
-              horizontal={horizontal}
-              key={title}
-              onLoaded={onSectionLoaded}
-              section={section}
-              title={t(title, { city: user?.address?.city || t('SHOP.SECTIONS.CITY_FALLBACK') })}
-            />
-          ))}
-        </>
+        <WelcomeGiftsBanner />
+        <CategoryFilters />
+        {sections.map(({ section, category, title, horizontal }) => (
+          <RewardsSection
+            category={category}
+            horizontal={horizontal}
+            key={title}
+            onLoaded={onSectionLoaded}
+            section={section}
+            title={t(title, { city: user?.address?.city || t('SHOP.SECTIONS.CITY_FALLBACK') })}
+          />
+        ))}
       </SafeAreaView>
     </>
   );

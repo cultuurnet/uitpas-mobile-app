@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, RefreshControl } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 
-import { Analytics, Reward, RewardLoader } from '../_components';
+import { Analytics, FamilyFilter, Reward, RewardLoader } from '../_components';
 import { TRootStackNavigationProp } from '../_routing';
 import { theme } from '../_styles/theme';
 import { formatISOString } from '../_utils';
+import { useHasFamilyMembers } from '../onboarding/family/_queries';
+import { useGetMe } from '../profile/_queries/useGetMe';
 import { useGetRedeemedRewards } from './_queries/useGetRedeemedRewards';
 import * as Styled from './style';
 
@@ -19,6 +21,9 @@ type TProps = {
 
 export const RedeemedRewards = ({ navigation }: TProps) => {
   const { t } = useTranslation();
+
+  const { data: me } = useGetMe();
+  const [selectedPassHolder, setSelectedPassHolder] = useState(me);
   const {
     data: rewards,
     fetchNextPage,
@@ -27,13 +32,15 @@ export const RedeemedRewards = ({ navigation }: TProps) => {
     isError,
     isRefetching,
     isFetchingNextPage,
-  } = useGetRedeemedRewards();
+  } = useGetRedeemedRewards({ passHolder: selectedPassHolder });
+  const { data: hasFamilyMembers } = useHasFamilyMembers();
 
   const members = rewards?.pages?.flatMap(({ member }) => member) ?? [];
 
   return (
     <>
       <Analytics screenName="redeemed-rewards" />
+      {hasFamilyMembers && <FamilyFilter selectedPassHolder={selectedPassHolder} setSelectedPassHolder={setSelectedPassHolder} />}
       <FlashList
         ItemSeparatorComponent={Styled.Separator}
         ListEmptyComponent={
@@ -56,7 +63,7 @@ export const RedeemedRewards = ({ navigation }: TProps) => {
             </Styled.FooterLoadingContainer>
           )
         }
-        contentContainerStyle={{ paddingBottom: 105 }}
+        contentContainerStyle={{ paddingBottom: 105, paddingTop: 24 }}
         data={members}
         estimatedItemSize={MIMIMAL_REWARD_HEIGHT}
         keyExtractor={item => item.id}

@@ -135,15 +135,19 @@ export const Search = ({ navigation, route }: TProps) => {
           ) : (
             <>
               <Styled.PopularItem key={`search-${user.address.city}`} onPress={() => onSearch(user.address.city)}>
-                <Styled.PopularItemIcon name="Popular" size={20} />
-                <Typography color="primary.800">{user.address.city}</Typography>
+                <>
+                  <Styled.PopularItemIcon name="Popular" size={20} />
+                  <Typography color="primary.800">{user.address.city}</Typography>
+                </>
               </Styled.PopularItem>
               <Styled.Separator />
               {SEARCH_TERMS.map(({ keyword, label }) => (
                 <>
                   <Styled.PopularItem key={`search-${keyword}`} onPress={() => onSearch(keyword)}>
-                    <Styled.PopularItemIcon name="Popular" size={20} />
-                    <Typography color="primary.800">{t(label)}</Typography>
+                    <>
+                      <Styled.PopularItemIcon name="Popular" size={20} />
+                      <Typography color="primary.800">{t(label)}</Typography>
+                    </>
                   </Styled.PopularItem>
                   <Styled.Separator />
                 </>

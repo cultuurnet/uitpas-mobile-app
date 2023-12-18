@@ -1,4 +1,5 @@
 import { FC, useEffect } from 'react';
+import { StatusBarStyle } from 'react-native';
 import Animated, {
   cancelAnimation,
   Easing,
@@ -17,9 +18,10 @@ type TProps = {
   color?: ThemeColor;
   fullScreen?: boolean;
   size?: number;
+  statusBarStyle?: StatusBarStyle;
 };
 
-const Spinner: FC<TProps> = ({ color = 'secondary.500', size = 44, fullScreen = true }) => {
+const Spinner: FC<TProps> = ({ color = 'secondary.500', size = 44, fullScreen = true, statusBarStyle }) => {
   const rotation = useSharedValue(0);
 
   useEffect(() => {
@@ -58,7 +60,11 @@ const Spinner: FC<TProps> = ({ color = 'secondary.500', size = 44, fullScreen = 
 
   if (!fullScreen) return Spinner;
 
-  return <Styled.Wrapper isScrollable={false}>{Spinner}</Styled.Wrapper>;
+  return (
+    <Styled.Wrapper barStyle={statusBarStyle} isScrollable={false}>
+      {Spinner}
+    </Styled.Wrapper>
+  );
 };
 
 export default Spinner;

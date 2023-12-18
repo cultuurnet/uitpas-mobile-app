@@ -11,8 +11,9 @@ export const SuccessContainer = styled.View`
   flex-direction: row;
   align-items: center;
   padding: ${theme.common.defaultSpacing}px;
-  background-color: ${theme.palette.secondary[600]};
+  background-color: ${theme.palette.secondary[200]};
   border-radius: 8px;
+  border: 1px solid ${theme.palette.primary[300]};
   margin-top: 24px;
 `;
 
@@ -45,4 +46,21 @@ export const LinkButton = styled(Button)`
 
 export const LinkInlineButton = styled(ExternalLink)`
   margin-bottom: 24px;
+`;
+
+export const MemberAvatar = styled.Image`
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  border: 4px solid ${theme.palette.neutral[0]};
+`;
+
+export const MemberAvatarLine = styled.View`
+  position: absolute;
+  width: 2px;
+  height: 62px;
+  margin-top: -7px;
+  margin-left: 24px;
+  z-index: -1;
+  background-color: ${theme.palette.secondary[500]};
 `;

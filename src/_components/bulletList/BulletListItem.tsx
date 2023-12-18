@@ -1,13 +1,18 @@
-import { FC, PropsWithChildren } from 'react';
-import { View } from 'react-native';
+import { FC } from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
 
 import * as Styled from './style';
 
-const BulletListItem: FC<PropsWithChildren> = ({ children }) => {
+type TProps = {
+  children: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+};
+
+const BulletListItem: FC<TProps> = ({ children, style }: TProps) => {
   return (
-    <Styled.BulletListItem>
+    <Styled.BulletListItem style={style}>
       <Styled.Disk />
-      <View>{children}</View>
+      <Styled.Description>{children}</Styled.Description>
     </Styled.BulletListItem>
   );
 };

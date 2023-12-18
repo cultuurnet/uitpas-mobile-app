@@ -13,6 +13,7 @@ type TProps = {
   onChange?: (value: boolean, name: string) => void;
   position?: 'left' | 'right';
   type?: 'Checkbox' | 'Radio';
+  unCheckedColor?: ThemeColor;
 };
 
 const Checkbox: FC<TProps> = ({
@@ -24,6 +25,7 @@ const Checkbox: FC<TProps> = ({
   iconSize,
   position = 'left',
   type = 'Checkbox',
+  unCheckedColor = 'primary.700',
   ...props
 }) => {
   return (
@@ -35,7 +37,11 @@ const Checkbox: FC<TProps> = ({
       {...props}
     >
       {position === 'right' && label}
-      <Icon color={checkedColor} name={isChecked ? `${type}Checked` : `${type}Unchecked`} size={iconSize} />
+      <Icon
+        color={isChecked ? checkedColor : unCheckedColor}
+        name={isChecked ? `${type}Checked` : `${type}Unchecked`}
+        size={iconSize}
+      />
       {position === 'left' && label}
     </Styled.ButtonElement>
   );
