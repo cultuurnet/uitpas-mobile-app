@@ -5,10 +5,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Icon } from '../../_components';
 import { FamilyUserPoints, SingleUserPoints } from '../../_components/userPoints';
+import { ConfigUrl } from '../../_config';
 import { useAuthentication, useOnboarding } from '../../_context';
 import { StorageKey } from '../../_models';
 import { generalStyles } from '../../_styles/constants';
 import i18n from '../../_translations/i18n';
+import { openExternalURL } from '../../_utils';
 import About from '../../about/About';
 import Error from '../../error/Error';
 import { FilteredShop } from '../../filteredShop/FilteredShop';
@@ -251,6 +253,9 @@ export const RootStackNavigator = () => {
               component={FamilyOverview}
               name="FamilyOverview"
               options={{
+                headerRight: () => (
+                  <Icon color="neutral.0" name="Info" onPress={() => openExternalURL(ConfigUrl.faq)} size={24} />
+                ),
                 title: i18n.t('ONBOARDING.FAMILY.OVERVIEW.TITLE'),
               }}
             />

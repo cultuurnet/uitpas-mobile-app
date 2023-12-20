@@ -32,14 +32,14 @@
       "CONFIRM": "Ja, stel mijn gezin samen",
       "SKIP": "Nee, voorlopig niet",
       "OVERVIEW": {
-        "TITLE": "Gezinsoverzicht",
+        "TITLE": "Gezinssamenstelling",
         "YOU": "(jij)",
         "ADD_MEMBER": "Gezinslid toevoegen",
         "DONE": "Klaar",
         "CANCEL": "Annuleren"
       },
       "OTHER_FAMILIES": {
-        "TITLE": "Mijn gezin",
+        "TITLE": "Gezinnen",
         "BANNER_TITLE": "Hieronder zie je aan welke gezinnen jij bent toegevoegd.",
         "BANNER_DESCRIPTION": "Deze personen kunnen jouw UiTPAS beheren. Dit wil zeggen punten voor jou sparen, voordelen omruilen en je historiek bekijken.\nWil je niet dat deze persoon je UiTPAS beheert, verlaat dan het gezin.",
         "EMPTY_DESCRIPTION": "Je bent nog niet toegevoegd in de gezinnen van andere personen.",
