@@ -2,10 +2,11 @@ import styled from 'styled-components/native';
 
 import { Button } from '../../../_components';
 
-export const ButtonContainer = styled.View`
-  margin-top: 32px;
+export const MemberContainer = styled.View`
+  margin-top: 12px;
 `;
 
-export const FirstButton = styled(Button)`
+export const ConfirmButton = styled(Button)`
+  margin-top: 32px;
   margin-bottom: 8px;
 `;

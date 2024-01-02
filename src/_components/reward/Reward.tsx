@@ -14,10 +14,11 @@ type TProps = {
   mode: 'list' | 'tile';
   onPress?: () => void;
   reward: TReward;
+  showFamilyMembers?: boolean;
   subtitle?: string;
 };
 
-const Reward = ({ reward, isRedeemed, subtitle, onPress, mode, ...props }: TProps) => {
+const Reward = ({ reward, isRedeemed, subtitle, onPress, mode, showFamilyMembers, ...props }: TProps) => {
   const { push } = useNavigation<TRootStackNavigationProp>();
   const isTile = mode === 'tile';
 
@@ -28,9 +29,10 @@ const Reward = ({ reward, isRedeemed, subtitle, onPress, mode, ...props }: TProp
       push('ShopDetail', {
         id: reward.id,
         reward,
+        showFamilyMembers,
       });
     }
-  }, [reward, push, onPress]);
+  }, [onPress, push, reward, showFamilyMembers]);
 
   const renderPointsAndLabel = useCallback(
     () =>

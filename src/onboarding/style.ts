@@ -36,12 +36,9 @@ export const ConfirmViewContainer = styled.View`
 `;
 
 export const BottomContainer = styled.View`
-  padding-horizontal: 16px;
-  padding-bottom: 16px;
+  padding: 16px;
 `;
 
 export const LinkButton = styled(Button)`
   margin: 0 5px;
 `;
-
-export const ConfirmButton = styled(Button)``;

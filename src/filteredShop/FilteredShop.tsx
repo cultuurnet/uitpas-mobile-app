@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, RefreshControl } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 
-import { Analytics, Reward, RewardLoader } from '../_components';
+import { Analytics, FamilyFilter, Reward, RewardLoader } from '../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing';
 import { theme } from '../_styles/theme';
 import { normalizeForSlug } from '../_utils';
-import { useRewardFilters } from '../shop/_hooks/useRewardFilters';
+import { useHasFamilyMembers } from '../onboarding/family/_queries';
+import { useGetMe } from '../profile/_queries/useGetMe';
+import { getRewardFilters } from '../shop/_helpers/getRewardFilters';
 import { useGetRewards } from '../shop/_queries/useGetRewards';
 import { WelcomeHeader } from './_components/WelcomeHeader';
 import * as Styled from './style';
@@ -22,14 +24,17 @@ const MINIMAL_REWARD_HEIGHT = 125;
 
 export const FilteredShop = ({ route }: TProps) => {
   const { subtitle, section, category, type } = route.params || {};
-  const { getFiltersForCategory, getFiltersForSection } = useRewardFilters();
   const { t } = useTranslation();
+
+  const { data: me } = useGetMe();
+  const [selectedPassHolder, setSelectedPassHolder] = useState(me);
+  const { getFiltersForCategory, getFiltersForSection } = getRewardFilters({ passHolder: selectedPassHolder });
+  const { data: hasFamilyMembers } = useHasFamilyMembers();
   const {
     data: rewards,
     fetchNextPage,
     isLoading: isRewardsLoading,
     refetch,
-    isRefetching,
     isFetchingNextPage,
   } = useGetRewards({
     filters: { type, ...getFiltersForSection(section), ...getFiltersForCategory(category) },
@@ -66,7 +71,12 @@ export const FilteredShop = ({ route }: TProps) => {
         }
         ListHeaderComponent={
           isFilteredOnWelcome ? (
-            <WelcomeHeader />
+            <>
+              {hasFamilyMembers && (
+                <FamilyFilter selectedPassHolder={selectedPassHolder} setSelectedPassHolder={setSelectedPassHolder} />
+              )}
+              <WelcomeHeader />
+            </>
           ) : (
             <Styled.Header fontStyle="bold" size="xxxlarge">
               {subtitle}
@@ -83,11 +93,11 @@ export const FilteredShop = ({ route }: TProps) => {
           <RefreshControl
             colors={[theme.palette.primary['500'], theme.palette.neutral['0']]}
             onRefresh={refetch}
-            refreshing={isRefetching}
+            refreshing={false} // Don't show the refresh control on loading new data, as this causes a layout shift when selecting another member in the list
             tintColor={theme.palette.primary['500']}
           />
         }
-        renderItem={({ item }) => <Reward mode="list" reward={item} />}
+        renderItem={({ item }) => <Reward mode="list" reward={item} showFamilyMembers={false} />}
       />
     </>
   );

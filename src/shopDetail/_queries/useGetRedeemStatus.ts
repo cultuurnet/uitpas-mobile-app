@@ -1,14 +1,25 @@
 import { usePubliqApi } from '../../_hooks/usePubliqApi';
-import { useActiveCard } from '../../profile/_queries/useActiveCard';
+import { TPassHolder } from '../../profile/_models';
 import { TRedeemStatus } from '../_models/redeemStatus';
 
-export function useGetRedeemStatus({ id }: { id: string }) {
-  const activeCard = useActiveCard();
+type TProps = {
+  passHolder: TPassHolder;
+  rewardId: string;
+};
+
+export function useGetRedeemStatus({ passHolder, rewardId }: TProps) {
   const api = usePubliqApi();
 
-  return api.get<TRedeemStatus>(['redeem-status', id], `/rewards/${id}/redeem-status?uitpasNumber=${activeCard.uitpasNumber}`, {
-    cacheTime: 0,
-    enabled: !!id && !!activeCard.uitpasNumber,
-    refetchOnWindowFocus: true,
-  });
+  const [firstActiveCard] = passHolder.cardSystemMemberships.filter(card => card.status === 'ACTIVE' && card.uitpasNumber);
+
+  return api.get<TRedeemStatus>(
+    ['redeem-status', rewardId, firstActiveCard.uitpasNumber],
+    `/rewards/${rewardId}/redeem-status?uitpasNumber=${firstActiveCard.uitpasNumber}`,
+    {
+      cacheTime: 0,
+      enabled: !!passHolder.id && !!firstActiveCard.uitpasNumber,
+      refetchOnWindowFocus: true,
+      retry: false,
+    },
+  );
 }

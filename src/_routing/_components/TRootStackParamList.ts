@@ -2,9 +2,11 @@ import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+import { TFamilyMember } from '../../profile/_models';
 import { TRedeemedReward } from '../../redeemedRewards/_models/redeemedReward';
 import { TCheckInResponse } from '../../scan/_models';
-import { TFilterRewardCategory, TFilterRewardSection } from '../../shop/_hooks/useRewardFilters';
+import { TFamilyScanResponse } from '../../scan/familyCheckinSummary/_models';
+import { TFilterRewardCategory, TFilterRewardSection } from '../../shop/_helpers/getRewardFilters';
 import { TReward, TRewardType } from '../../shop/_models/reward';
 import { TSearchFilters } from '../../shop/_models/searchFilters';
 import { TFilterRewardSorting } from '../../shop/_queries/useGetRewards';
@@ -29,10 +31,24 @@ export type TMainRouteProp<RouteName extends TMainRoute = TMainRoute> = RoutePro
 
 export type TRootStackParamList = {
   About: undefined;
+  AddFamilyMember: { familyMembers: TFamilyMember[] };
+  AddFamilyMemberError: { description: string };
+  EditFamilyMember: { member: TFamilyMember };
   Error: {
     gotoAfterClose?: [TRootRoute, TMainRoute] | keyof TRootStackParamList;
     message: string;
   };
+  FamiliesOverview: undefined;
+  FamilyCheckin: { checkinCode: string };
+  FamilyCheckinSummary: {
+    memberResponses: {
+      member: TFamilyMember;
+      response: TFamilyScanResponse;
+    }[];
+  };
+  FamilyInformation: undefined;
+  FamilyOnboarding: undefined;
+  FamilyOverview: undefined;
   FilteredShop: {
     category?: TFilterRewardCategory;
     section?: TFilterRewardSection;
@@ -42,14 +58,15 @@ export type TRootStackParamList = {
   History: undefined;
   Login: undefined;
   MainNavigator: { screen: TMainRoute };
+  MyFamilies: undefined;
   Onboarding: undefined;
   ProfileNotFound: undefined;
-  RedeemedReward: { isModal?: boolean; redeemedReward: TRedeemedReward };
+  RedeemedReward: { isModal?: boolean; member?: TFamilyMember; redeemedReward: TRedeemedReward };
   RedeemedRewards: undefined;
-  ScanSuccess: TCheckInResponse;
+  ScanSuccess: TCheckInResponse & { checkinCode: string };
   Search: { category?: TFilterRewardCategory; filters?: TSearchFilters; sort?: TFilterRewardSorting };
   SearchFilters: { category?: TFilterRewardCategory; filters: TSearchFilters; sort: TFilterRewardSorting };
-  ShopDetail: { id: string; reward?: TReward };
+  ShopDetail: { id: string; reward?: TReward; showFamilyMembers?: boolean };
   Update: undefined;
 };
 

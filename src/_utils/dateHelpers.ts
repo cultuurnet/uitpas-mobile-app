@@ -6,7 +6,7 @@ export const DEFAULT_DATE_STRING_FORMAT = 'dd/MM/yyyy';
 export const DEFAULT_DATETIME_STRING_FORMAT = 'dd/MM/yyyy HH:mm';
 export const DEFAULT_TIME_STRING_FORMAT = 'HH:mm';
 
-function getCorrectLocale(): Locale {
+export function getCorrectLocale(): Locale {
   const locale = getLocales()[0].languageCode;
   switch (locale) {
     case 'nl':
