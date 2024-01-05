@@ -7,7 +7,7 @@ import { GiftOpen } from '../_assets/images';
 import { EnlargedHeader, HtmlRenderer, Trans, Typography } from '../_components';
 import { useTracking } from '../_context';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing';
-import { formatISOString, getAvatarByNameOrDefault, getRewardTrackingData } from '../_utils';
+import { formatISOString, getAvatarByNameOrDefault, getRewardTrackingData, getUpActionTrackingData } from '../_utils';
 import { useHasFamilyMembers } from '../onboarding/family/_queries';
 import { useFamilyComposition } from '../profile/family/hooks';
 import { RewardCard } from './_components/rewardCard/RewardCard';
@@ -44,9 +44,12 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
       trackSelfDescribingEvent(
         'successMessage',
         { message: 'reward-redemeed' },
-        { reward: getRewardTrackingData(redeemedReward.reward) },
+        {
+          reward: getRewardTrackingData(redeemedReward.reward),
+          up_action: getUpActionTrackingData('redeem-reward', redeemedReward.reward, member),
+        },
       );
-    }, [trackSelfDescribingEvent, isModal, redeemedReward]),
+    }, [trackSelfDescribingEvent, isModal, redeemedReward, member]),
   );
 
   if (!redeemedReward) return null;

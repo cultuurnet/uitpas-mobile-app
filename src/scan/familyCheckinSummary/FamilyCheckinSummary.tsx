@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Check } from '../../_assets/images';
-import { DiagonalSplitView, FamilyMembersPoints, Typography } from '../../_components';
+import { Analytics, DiagonalSplitView, FamilyMembersPoints, Typography } from '../../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../../_routing';
 import { TFamilyMember } from '../../profile/_models';
 import { TFamilyScanResponse } from './_models';
@@ -54,6 +54,7 @@ export const FamilyCheckinSummary = ({ navigation, route }: TProps) => {
 
   return (
     <>
+      <Analytics screenName="FamilyCheckinSummary" />
       <DiagonalSplitView
         bottomContent={
           <Styled.Body>

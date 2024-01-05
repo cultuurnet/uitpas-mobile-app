@@ -5,7 +5,7 @@ import { t } from 'i18next';
 import { BlurredModal, Button, Trans, Typography } from '../../../_components';
 import { queryClient, useTracking } from '../../../_context';
 import { TRootStackNavigationProp } from '../../../_routing';
-import { getLanguage, getRewardTrackingData } from '../../../_utils';
+import { getLanguage, getRewardTrackingData, getUpActionTrackingData } from '../../../_utils';
 import { useHasFamilyMembers } from '../../../onboarding/family/_queries';
 import { getActiveCard } from '../../../profile/_helpers/getActiveCard';
 import { TFamilyMember } from '../../../profile/_models';
@@ -43,8 +43,12 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
 
   useEffect(() => {
     if (!error) return;
-    trackSelfDescribingEvent('errorMessage', { message: error?.type }, { reward: rewardTrackingData });
-  }, [error, trackSelfDescribingEvent, rewardTrackingData]);
+    trackSelfDescribingEvent(
+      'errorMessage',
+      { message: error?.type },
+      { reward: rewardTrackingData, up_action: getUpActionTrackingData('redeem-reward', reward, member) },
+    );
+  }, [error, trackSelfDescribingEvent, rewardTrackingData, member, reward]);
 
   const handleConfirm = useCallback(() => {
     trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-confirm' }, { reward: rewardTrackingData });

@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 
 import { Family } from '../../_assets/images';
 import { Button, SafeAreaView, Spinner, Trans } from '../../_components';
-import { useOnboarding } from '../../_context';
+import { useOnboarding, useTracking } from '../../_context';
 import { StorageKey } from '../../_models';
 import { TMainNavigationProp } from '../../_routing';
 import { openExternalURL } from '../../_utils';
@@ -18,12 +18,16 @@ type TProps = {
 
 export const FamilyOnboarding = ({ navigation }: TProps) => {
   const { isLoading, isFetched, data: hasFamilyMembers } = useHasFamilyMembers();
+  const { trackSelfDescribingEvent } = useTracking();
 
   const { dismissFamilyOnboarding } = useOnboarding();
   const resolveFamilyOnboarding = useCallback(() => {
+    trackSelfDescribingEvent('buttonClick', {
+      button_name: 'skip-family',
+    });
     dismissFamilyOnboarding();
     storage.set(StorageKey.HasSeenFamilyOnboarding, true);
-  }, [dismissFamilyOnboarding]);
+  }, [dismissFamilyOnboarding, trackSelfDescribingEvent]);
 
   useEffect(() => {
     if (isFetched && hasFamilyMembers) {
@@ -34,6 +38,9 @@ export const FamilyOnboarding = ({ navigation }: TProps) => {
   const { t } = useTranslation();
 
   const goToFamilyOverview = () => {
+    trackSelfDescribingEvent('buttonClick', {
+      button_name: 'start-family',
+    });
     navigation.navigate('FamilyOverview');
     storage.set(StorageKey.HasSeenFamilyOnboarding, true);
   };

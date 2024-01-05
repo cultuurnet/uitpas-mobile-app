@@ -4,6 +4,7 @@ export const TrackingConfig = {
   appEnvironmentSchema: 'iglu:be.general/app_env/jsonschema/1-0-0',
   appId: 'uitpas-mobile-app',
   endpoint: 'sneeuwploeg.uitpas.be',
+  familySchema: 'iglu:be.uitpas-mobile/family/jsonschema/1-0-0',
   isEnabled: !__DEV__,
   passHolderSchema: 'iglu:be.uitpas-mobile/passholder/jsonschema/1-0-0',
 };
@@ -22,4 +23,5 @@ export const trackingSchemes: Record<keyof TTrackingData | keyof TTrackingEvents
   reward: 'iglu:be.uitpas-mobile/reward/jsonschema/1-0-1',
   successMessage: 'iglu:be.general/success_message/jsonschema/1-0-0',
   swimlaneInteraction: 'iglu:be.general/swimlane_interaction/jsonschema/1-0-1',
+  up_action: 'iglu:be.uitpas-mobile/up_action/jsonschema/1-0-0',
 } as const;

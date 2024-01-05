@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { FlatList } from 'react-native';
 
 import { BlurredModal, Button, Typography } from '../../../_components';
-import { queryClient } from '../../../_context';
+import { queryClient, useTracking } from '../../../_context';
 import { formatISOString } from '../../../_utils';
 import { TFamily } from '../../../profile/_models';
 import { useGetMe } from '../../../profile/_queries/useGetMe';
@@ -16,11 +16,13 @@ export const OtherFamiliesOverview = () => {
   const [selectedFamily, setSelectedFamily] = useState<TFamily>();
   const { data: me } = useGetMe();
   const { data: families = [] } = useGetMyFamilies();
+  const { trackSelfDescribingEvent } = useTracking();
   const { mutateAsync: leaveFamily } = useLeaveFamily();
 
   const handleLeaveFamily = async () => {
     try {
       await leaveFamily({ path: `/passholders/${selectedFamily.passholderId}/family-members/${me.id}` });
+      trackSelfDescribingEvent('successMessage', { message: 'left-family' });
       queryClient.invalidateQueries(['families']);
     } finally {
       setSelectedFamily(null);
