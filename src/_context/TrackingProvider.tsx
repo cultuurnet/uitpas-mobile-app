@@ -110,7 +110,7 @@ const TrackingProvider = ({ children }) => {
           schema: trackingSchemes[key],
         }),
       );
-      log.info(
+      log.debug(
         'Track screenViewEvent',
         JSON.stringify({ globalTrackingData, name, trackingData: mappedTrackingData }, undefined, 2),
       );
@@ -136,7 +136,7 @@ const TrackingProvider = ({ children }) => {
           schema: trackingSchemes[key],
         }),
       );
-      log.info(
+      log.debug(
         'Track selfDescribingEvent',
         JSON.stringify({ eventData: mappedEventData, globalTrackingData, trackingData: mappedTrackingData }, undefined, 2),
       );

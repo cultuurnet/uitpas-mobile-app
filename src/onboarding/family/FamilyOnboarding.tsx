@@ -22,12 +22,9 @@ export const FamilyOnboarding = ({ navigation }: TProps) => {
 
   const { dismissFamilyOnboarding } = useOnboarding();
   const resolveFamilyOnboarding = useCallback(() => {
-    trackSelfDescribingEvent('buttonClick', {
-      button_name: 'skip-family',
-    });
     dismissFamilyOnboarding();
     storage.set(StorageKey.HasSeenFamilyOnboarding, true);
-  }, [dismissFamilyOnboarding, trackSelfDescribingEvent]);
+  }, [dismissFamilyOnboarding]);
 
   useEffect(() => {
     if (isFetched && hasFamilyMembers) {
@@ -70,7 +67,17 @@ export const FamilyOnboarding = ({ navigation }: TProps) => {
       </Styled.Body>
       <Styled.Footer>
         <Styled.ConfirmButton label={t('ONBOARDING.FAMILY.CONFIRM')} onPress={goToFamilyOverview} />
-        <Button color="primary.700" label={t('ONBOARDING.FAMILY.SKIP')} onPress={resolveFamilyOnboarding} variant="outline" />
+        <Button
+          color="primary.700"
+          label={t('ONBOARDING.FAMILY.SKIP')}
+          onPress={() => {
+            trackSelfDescribingEvent('buttonClick', {
+              button_name: 'skip-family',
+            });
+            resolveFamilyOnboarding();
+          }}
+          variant="outline"
+        />
       </Styled.Footer>
     </SafeAreaView>
   );
