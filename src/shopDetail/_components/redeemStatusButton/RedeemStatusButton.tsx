@@ -8,6 +8,7 @@ import { TReward } from '../../../shop/_models/reward';
 import { TRedeemStatus } from '../../_models/redeemStatus';
 import { RedeemStatusError } from '../redeemStatusError/RedeemStatusError';
 import * as Styled from './style';
+import { useHasFamilyMembers } from '../../../onboarding/family/_queries';
 
 type TProps = {
   error: TApiError;
@@ -27,11 +28,12 @@ type TProps = {
 export const RedeemStatusButton = forwardRef<View, TProps>(
   ({ status, reward, error, isLoading, trackError, refetch, onPress }, ref) => {
     const { t } = useTranslation();
+    const { data: hasFamilyMembers } = useHasFamilyMembers();
 
     if (reward?.online) {
       return (
         <Styled.RedeemContent ref={ref}>
-          {status?.redeemable || isLoading ? (
+          {status?.redeemable || isLoading || hasFamilyMembers ? (
             <Button label={t('SHOP_DETAIL.REDEEM.BUTTON')} loading={isLoading} onPress={onPress} />
           ) : (
             <RedeemStatusError error={error} refetchStatus={refetch} status={status} track={trackError} />

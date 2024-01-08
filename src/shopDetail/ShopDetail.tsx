@@ -160,7 +160,7 @@ export const ShopDetail = ({ route }: TProps) => {
             <HtmlRenderer source={{ html: reward.practicalInfo }} />
           </Section>
 
-          {showFamilyMembers && hasFamilyMembers && !isRedeemStatusLoading && redeemStatus?.redeemable && !redeemStatusError && (
+          {showFamilyMembers && hasFamilyMembers && !isRedeemStatusLoading && (
             <View ref={rewardsSection}>
               <Section title={t('SHOP_DETAIL.WHO_CAN_REDEEM.TITLE')}>
                 <RedeemFamilyMembers onRedeem={handleRedeemReward} reward={reward} />
