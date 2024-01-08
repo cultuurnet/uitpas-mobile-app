@@ -4,11 +4,11 @@ import { View } from 'react-native';
 
 import { Button } from '../../../_components';
 import { TApiError } from '../../../_http';
+import { useHasFamilyMembers } from '../../../onboarding/family/_queries';
 import { TReward } from '../../../shop/_models/reward';
 import { TRedeemStatus } from '../../_models/redeemStatus';
 import { RedeemStatusError } from '../redeemStatusError/RedeemStatusError';
 import * as Styled from './style';
-import { useHasFamilyMembers } from '../../../onboarding/family/_queries';
 
 type TProps = {
   error: TApiError;
