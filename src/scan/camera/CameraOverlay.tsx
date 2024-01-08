@@ -27,7 +27,7 @@ const CameraOverlay: FC<TProps> = ({
       <Svg style={StyleSheet.absoluteFill}>
         <Defs>
           <Mask id="cutout">
-            <Rect fill="#fff" height={height} width="100%" x={0} y={0} />
+            <Rect fill="#fff" height="100%" width="100%" x={0} y={0} />
             <Rect fill="#000" height={sideLength} width={sideLength} x={padding} y={boundingBox.top} />
           </Mask>
         </Defs>
