@@ -14,7 +14,7 @@ type TProps = {
 
 const Error = ({ route, navigation }: TProps) => {
   const {
-    params: { message, gotoAfterClose },
+    params: { checkinCode, message, gotoAfterClose, showFamilyScan },
   } = route;
   const { t } = useTranslation();
 
@@ -39,8 +39,15 @@ const Error = ({ route, navigation }: TProps) => {
               </Typography>
               <Typography align="center">{message || t('ERROR.DEFAULT_MESSAGE')}</Typography>
             </Styled.BottomContainer>
-
             <Button href={ConfigUrl.helpdesk} label={t('ERROR.HELP')} variant="link" />
+            {showFamilyScan && (
+              <Styled.FamilyScanButton
+                color="primary.700"
+                label={t('ERROR.FAMILY_SCAN_BUTTON')}
+                onPress={() => navigation.navigate('FamilyCheckin', { checkinCode })}
+                variant="outline"
+              />
+            )}
             <Styled.CloseButton label={t('ERROR.CTA')} onPress={onClose} />
           </>
         }

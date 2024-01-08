@@ -11,6 +11,7 @@ import { TApiError } from '../../_http';
 import { TMainNavigationProp } from '../../_routing/_components/TRootStackParamList';
 import { theme } from '../../_styles/theme';
 import { log } from '../../_utils';
+import { useHasFamilyMembers } from '../../onboarding/family/_queries';
 import { useGetMe } from '../../profile/_queries/useGetMe';
 import { useCameraPermission } from '../_hooks';
 import { TOverlayDimensions, useOverlayDimensions } from '../_hooks/useOverlayDimensions';
@@ -38,6 +39,7 @@ const Camera = ({ navigation }: TProps) => {
   const [overlayDimensions, setOverlayDimensions] = useState({ height: 0, width: 0 });
   const overlay = useOverlayDimensions(overlayDimensions, overlaySettings);
   const { mutateAsync: checkin, isLoading } = useCheckin();
+  const { data: hasFamilyMembers } = useHasFamilyMembers();
   const frameProcessor = useFrameProcessor(
     frame => {
       'worklet';
@@ -85,8 +87,10 @@ const Camera = ({ navigation }: TProps) => {
           { up_action: { name: 'save-points', points: undefined, target: 'self', target_ph_id: me?.id } },
         );
         navigation.navigate('Error', {
+          checkinCode: barcode.displayValue,
           gotoAfterClose: ['MainNavigator', 'Profile'],
           message: endUserMessage?.nl,
+          showFamilyScan: hasFamilyMembers,
         });
         log.error(error);
       }
