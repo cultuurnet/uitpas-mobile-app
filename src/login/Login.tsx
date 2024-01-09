@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Platform, useWindowDimensions } from 'react-native';
+import { Platform, ScrollView, useWindowDimensions } from 'react-native';
 import { Config } from 'react-native-config';
 import { EventArg } from '@react-navigation/native';
 
@@ -55,7 +55,7 @@ const Login = () => {
   }
 
   return (
-    <>
+    <ScrollView contentContainerStyle={{ flex: 1 }}>
       <Analytics screenName="Login" />
       <DiagonalSplitView
         bottomContent={
@@ -76,7 +76,7 @@ const Login = () => {
           </Styled.TopContainer>
         }
       />
-    </>
+    </ScrollView>
   );
 };
 
