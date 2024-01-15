@@ -333,8 +333,9 @@
       "TITLE": "Met wie ben je vandaag op stap?",
       "CHECKIN": "Spaar!",
       "SUMMARY": {
-        "DESCRIPTION": "Je hebt gespaard voor",
-        "CLOSE": "Sluiten"
+        "CLOSE": "Sluiten",
+        "SUCCEEDED": "Gelukt! Nieuw saldo: {{count}} punt",
+        "SUCCEEDED_plural": "Gelukt! Nieuw saldo: {{count}} punten"
       }
     }
   },
