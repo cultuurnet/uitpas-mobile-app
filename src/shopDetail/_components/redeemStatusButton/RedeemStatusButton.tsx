@@ -21,6 +21,7 @@ type TProps = {
 };
 
 /*
+  When the user has family members, always show the main redeem button.
   When it's an online reward show either a redeembutton or the errormessage on why it's not redeemable
   Also show a loading indicator when it's an online reward
   When it's a physical reward, only show the errormessage on why it's not redeemable, no loader or no redeem button
@@ -30,10 +31,18 @@ export const RedeemStatusButton = forwardRef<View, TProps>(
     const { t } = useTranslation();
     const { data: hasFamilyMembers } = useHasFamilyMembers();
 
+    if (hasFamilyMembers) {
+      return (
+        <Styled.RedeemContent ref={ref}>
+          <Button label={t('SHOP_DETAIL.REDEEM.BUTTON')} loading={isLoading} onPress={onPress} />
+        </Styled.RedeemContent>
+      );
+    }
+
     if (reward?.online) {
       return (
         <Styled.RedeemContent ref={ref}>
-          {status?.redeemable || isLoading || hasFamilyMembers ? (
+          {status?.redeemable || isLoading ? (
             <Button label={t('SHOP_DETAIL.REDEEM.BUTTON')} loading={isLoading} onPress={onPress} />
           ) : (
             <RedeemStatusError error={error} refetchStatus={refetch} status={status} track={trackError} />
