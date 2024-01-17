@@ -66,7 +66,7 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
               </Styled.UitpasNumber>
               <Styled.SelectedAvatarImage resizeMode="contain" source={getAvatarByNameOrDefault(selectedAvatar)} />
               <Styled.Description color="primary.700" fontStyle="semibold">
-                {t('ONBOARDING.FAMILY.EDIT_MEMBER.DESCRIPTION')}
+                {t('ONBOARDING.FAMILY.EDIT_MEMBER.DESCRIPTION', { firstName })}
               </Styled.Description>
             </Styled.Header>
           }
