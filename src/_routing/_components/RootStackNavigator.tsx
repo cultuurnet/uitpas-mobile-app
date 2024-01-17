@@ -254,7 +254,7 @@ export const RootStackNavigator = () => {
               name="FamilyOverview"
               options={{
                 headerRight: () => (
-                  <Icon color="neutral.0" name="Info" onPress={() => openExternalURL(ConfigUrl.faq)} size={24} />
+                  <Icon color="neutral.0" name="Info" onPress={() => openExternalURL(ConfigUrl.familyFaq)} size={24} />
                 ),
                 title: i18n.t('ONBOARDING.FAMILY.OVERVIEW.TITLE'),
               }}
