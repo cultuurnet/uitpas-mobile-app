@@ -5,6 +5,7 @@ import Svg, { Defs, Mask, Path, Rect } from 'react-native-svg';
 
 import { Button, Icon, Spinner, Typography } from '../../_components';
 import { ConfigUrl } from '../../_config';
+import { useHasFamilyMembers } from '../../onboarding/family/_queries';
 import { TOverlayDimensions, useOverlayDimensions } from '../_hooks/useOverlayDimensions';
 import * as Styled from './style';
 
@@ -21,6 +22,7 @@ const CameraOverlay: FC<TProps> = ({
 }) => {
   const { t } = useTranslation();
   const { height } = useWindowDimensions();
+  const { data: hasFamilyMembers } = useHasFamilyMembers();
 
   return (
     <>
@@ -49,7 +51,7 @@ const CameraOverlay: FC<TProps> = ({
 
       <Styled.Instruction bottom={boundingBox.top + sideLength}>
         <Typography align="center" bottomSpacing="20px" color="neutral.0" fontStyle="bold" size="large">
-          {t('SCAN.CAMERA.DESCRIPTION')}
+          {t('SCAN.CAMERA.DESCRIPTION', { context: hasFamilyMembers ? 'FAMILY' : 'SINGLE' })}
         </Typography>
         {height > 720 && <Icon name="QRInstruction" size={80} />}
       </Styled.Instruction>
