@@ -61,9 +61,7 @@ const TrackingProvider = ({ children }) => {
       ...(isFamilyMembersFetched && familyMembers?.length
         ? [
             {
-              data: {
-                family: familyInfo,
-              },
+              data: familyInfo,
               schema: TrackingConfig.familySchema,
             },
           ]
@@ -87,6 +85,7 @@ const TrackingProvider = ({ children }) => {
           installAutotracking: true,
           lifecycleAutotracking: true,
           platformContext: true,
+          screenViewAutotracking: false,
           sessionContext: true,
         },
       },
