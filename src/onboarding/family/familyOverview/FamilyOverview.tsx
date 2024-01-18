@@ -42,7 +42,7 @@ export const FamilyOverview = ({ navigation }: TProps) => {
 
   return (
     <>
-      <Analytics screenName={showFamilyOnboarding ? 'FamilyOnboarding' : 'FamilyOverview'} />
+      <Analytics screenName={'FamilyOverview'} />
       <FlatList
         ListHeaderComponent={
           <Styled.Header>
