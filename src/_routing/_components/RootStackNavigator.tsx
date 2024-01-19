@@ -73,9 +73,6 @@ export const RootStackNavigator = () => {
         {!isAuthenticated && !isPolicyApprovedInStorage && <RootStack.Screen component={Onboarding} name="Onboarding" />}
         {isAuthenticated && versions?.isBehindMinVersion && <RootStack.Screen component={UpdateScreen} name="Update" />}
         {!isAuthenticated && <RootStack.Screen component={Login} name="Login" />}
-        {isAuthenticated && (
-          <RootStack.Screen component={ProfileNotFound} name="ProfileNotFound" options={{ gestureEnabled: false }} />
-        )}
       </RootStack.Group>
       {isAuthenticated && showFamilyOnboarding && (
         <RootStack.Group navigationKey={showFamilyOnboarding.toString()} screenOptions={{ headerShown: true }}>
@@ -300,6 +297,12 @@ export const RootStackNavigator = () => {
             />
           </RootStack.Group>
         </>
+      )}
+
+      {isAuthenticated && (
+        <RootStack.Group screenOptions={{ headerShown: false }}>
+          <RootStack.Screen component={ProfileNotFound} name="ProfileNotFound" options={{ gestureEnabled: false }} />
+        </RootStack.Group>
       )}
     </RootStack.Navigator>
   );
