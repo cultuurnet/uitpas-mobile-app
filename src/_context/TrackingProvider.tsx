@@ -3,8 +3,9 @@ import { createTracker, EventContext as EventTrackingData } from '@snowplow/reac
 
 import { TrackingConfig, trackingSchemes } from '../_config';
 import { ConfigEnvironment } from '../_config/environments';
-import { TTrackingData, TTrackingEvents } from '../_models';
-import { log } from '../_utils';
+import { TFamilyTrackingData, TTrackingData, TTrackingEvents } from '../_models';
+import { getActiveMIARegion, log } from '../_utils';
+import { useGetFamilyMembers } from '../onboarding/family/_queries';
 import { useGetMe } from '../profile/_queries/useGetMe';
 import { useAuthentication } from './AuthenticationContext';
 
@@ -23,7 +24,21 @@ export const useTracking = () => useContext(TrackingContext);
 
 const TrackingProvider = ({ children }) => {
   const { user } = useAuthentication();
-  const { data, isFetched } = useGetMe();
+  const { data: me, isFetched: isMeFetched } = useGetMe();
+  const { data: familyMembers, isFetched: isFamilyMembersFetched } = useGetFamilyMembers();
+
+  const familyInfo = useMemo(() => {
+    return familyMembers?.reduce(
+      (familyInfo, member) => {
+        familyInfo.size += 1;
+        if (getActiveMIARegion(member.passholder)) {
+          familyInfo['size-with-kansenstatuut'] += 1;
+        }
+        return familyInfo;
+      },
+      { size: 0, 'size-with-kansenstatuut': 0 } as TFamilyTrackingData,
+    );
+  }, [familyMembers]);
 
   const globalTrackingData: EventTrackingData[] = useMemo(
     () => [
@@ -33,18 +48,26 @@ const TrackingProvider = ({ children }) => {
         },
         schema: TrackingConfig.appEnvironmentSchema,
       },
-      ...(isFetched && data?.id
+      ...(isMeFetched && me?.id
         ? [
             {
               data: {
-                id: data?.id,
+                id: me?.id,
               },
               schema: TrackingConfig.passHolderSchema,
             },
           ]
         : []),
+      ...(isFamilyMembersFetched && familyMembers?.length
+        ? [
+            {
+              data: familyInfo,
+              schema: TrackingConfig.familySchema,
+            },
+          ]
+        : []),
     ],
-    [isFetched, data?.id],
+    [isMeFetched, me?.id, isFamilyMembersFetched, familyMembers?.length, familyInfo],
   );
 
   const tracker = useMemo(() => {
@@ -62,6 +85,7 @@ const TrackingProvider = ({ children }) => {
           installAutotracking: true,
           lifecycleAutotracking: true,
           platformContext: true,
+          screenViewAutotracking: false,
           sessionContext: true,
         },
       },

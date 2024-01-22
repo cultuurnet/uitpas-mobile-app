@@ -4,6 +4,18 @@ export type TRewardTrackingData = Pick<TReward, 'id' | 'title' | 'online'> & {
   welcome: boolean;
 };
 
+export type TUpActionTrackingData = {
+  name: 'redeem-reward' | 'save-points';
+  points: number;
+  target: 'self' | 'family-member';
+  target_ph_id: string;
+};
+
+export type TFamilyTrackingData = {
+  size: number;
+  'size-with-kansenstatuut': number;
+};
+
 export type TButtonClickEvent = {
   button_name: string;
 };
@@ -32,6 +44,7 @@ export type TSwimlaneInteractionEvent = {
 
 export type TTrackingData = {
   reward?: TRewardTrackingData;
+  up_action?: TUpActionTrackingData;
 };
 
 export type TTrackingEvents = {

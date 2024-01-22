@@ -6,6 +6,6 @@ export const Instruction = styled.View<{ bottom?: number; top?: number }>`
   top: ${({ top }) => (top ? `${top}px` : 'auto')};
   left: 0;
   width: 100%;
-  padding: 48px 0;
+  padding: 48px 16px;
   align-items: center;
 `;

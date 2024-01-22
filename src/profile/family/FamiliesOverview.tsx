@@ -23,7 +23,7 @@ export const FamiliesOverview: FC<TFamiliesOverviewProps> = ({ navigation }) => 
       />
       <FamiliesOverviewTile
         description={t('PROFILE.FAMILY.OTHER_FAMILIES.DESCRIPTION')}
-        icon="MainFamilyMember"
+        icon="OtherFamilyMember"
         onPress={() => navigation.navigate('MyFamilies')}
         title={t('PROFILE.FAMILY.OTHER_FAMILIES.TITLE')}
       />

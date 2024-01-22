@@ -31,6 +31,7 @@ export const Location = require('./location.png');
 export const Logout = require('./logout.png');
 export const MainFamilyMember = require('./mainFamilyMember.png');
 export const Online = require('./online.png');
+export const OtherFamilyMember = require('./otherFamilyMember.png');
 export const Plus = require('./plus.png');
 export const Point = require('./point.png');
 export const PointAdd = require('./pointAdd.png');

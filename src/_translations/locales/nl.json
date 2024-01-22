@@ -23,16 +23,16 @@
     "PRIVACY_POLICY_URL": "https://www.uitpas.be/privacybeleid",
     "CONFIRM": "Doorgaan",
     "FAMILY": {
-      "TITLE": "Wil je de UiTPAS-app met je hele gezin gebruiken?",
-      "BULLET_1_TEXT": "De UiTPAS van jou en je gezinsleden altijd op zak",
-      "BULLET_2_TEXT": "Spaar punten en ruil voordelen voor jou en je gezinsleden",
-      "BULLET_3_TEXT": "Bekijk puntensaldo en historiek van je gezinsleden",
-      "BULLET_4_TEXT": "<button>Meer weten over de UiTPAS-app voor gezinnen</button>",
+      "TITLE": "Hebben je gezinsleden ook een UiTPAS? Voeg ze toe in je app",
+      "BULLET_1_TEXT": "De UiTPAS van jou én die van je gezinsleden altijd op zak",
+      "BULLET_2_TEXT": "Spaar en ruil meteen punten voor iedereen",
+      "BULLET_3_TEXT": "Bekijk het puntensaldo en de historiek van je gezinsleden",
+      "BULLET_4_TEXT": "<button>Meer weten over de UiTPAS-app voor gezinnen?</button>",
       "BULLET_4_LINK": "https://helpdesk.uitpas.be/hc/nl/sections/15562727433490-UiTPAS-voor-gezinnen",
-      "CONFIRM": "Ja, stel mijn gezin samen",
-      "SKIP": "Nee, voorlopig niet",
+      "CONFIRM": "Ja, voeg mijn gezinsleden toe",
+      "SKIP": "Nee, misschien later",
       "OVERVIEW": {
-        "TITLE": "Gezinsoverzicht",
+        "TITLE": "Mijn gezin",
         "YOU": "(jij)",
         "ADD_MEMBER": "Gezinslid toevoegen",
         "DONE": "Klaar",
@@ -40,9 +40,9 @@
       },
       "OTHER_FAMILIES": {
         "TITLE": "Mijn gezin",
-        "BANNER_TITLE": "Hieronder zie je aan welke gezinnen jij bent toegevoegd.",
-        "BANNER_DESCRIPTION": "Deze personen kunnen jouw UiTPAS beheren. Dit wil zeggen punten voor jou sparen, voordelen omruilen en je historiek bekijken.\nWil je niet dat deze persoon je UiTPAS beheert, verlaat dan het gezin.",
-        "EMPTY_DESCRIPTION": "Je bent nog niet toegevoegd in de gezinnen van andere personen.",
+        "BANNER_TITLE": "Als iemand jou heeft toegevoegd aan een gezin, zie je dat hier.",
+        "BANNER_DESCRIPTION": "Deze personen kunnen jouw UiTPAS beheren: ze kunnen punten voor je sparen, voordelen omruilen en je historiek bekijken. Wil je dat liever niet? Dan kan je het gezin verlaten.",
+        "EMPTY_DESCRIPTION": "Je bent niet toegevoegd aan een ander gezin. Als iemand jou toevoegt, sturen we je een mail en zie je dat hier.",
         "TILE": {
           "NAME": "Gezin van {{name}}",
           "ADDED": "Toegevoegd op {{date}}",
@@ -57,10 +57,10 @@
         }
       },
       "DELETE_MEMBER": {
-        "CTA": "Gezinslid verwijderen",
+        "CTA": "Uit je gezin verwijderen",
         "CONFIRMATION_MODAL": {
-          "TITLE": "Ben je zeker?",
-          "DESCRIPTION": "Door <bold>{{fullName}}</bold> uit je gezin te verwijderen kan je die UiTPAS niet langer beheren in jouw app. {{firstName}} behoudt wel zijn/haar punten en voordelen en kan altijd zelf haar/zijn UiTPAS blijven gebruiken.",
+          "TITLE": "Weet je het zeker?",
+          "DESCRIPTION": "Als je <bold>{{fullName}}</bold> uit je gezin verwijdert kan je die UiTPAS niet meer beheren in jouw app. De UiTPAS van {{firstName}} blijft natuurlijk wel bestaan (inclusief puntensaldo), en {{firstName}} kan hem blijven gebruiken. ",
           "CONFIRM": "Verwijderen",
           "CANCEL": "Annuleren"
         }
@@ -68,29 +68,29 @@
       "ADD_MEMBER": {
         "TITLE": "Gezinslid toevoegen",
         "UITPAS_NUMBER": "UiTPAS-nummer",
-        "UITPAS_NUMBER_INFO": "Je UiTPAS-nummer kan je achteraan je UiTPAS vinden of in de welkomstmail die je kreeg toen je je UiTPAS kocht.",
-        "UITPAS_NUMBER_DESCRIPTION": "Heeft je gezinslid nog geen UiTPAS? <button>Bekijk hier de verkooppunten</button>",
+        "UITPAS_NUMBER_INFO": "Je UiTPAS-nummer vind je op de achterkant van je UiTPAS, of in de welkomstmail die je kreeg.",
+        "UITPAS_NUMBER_DESCRIPTION": "Heeft je gezinslid nog geen UiTPAS? <button>Bekijk hier de aankooppunten</button>",
         "UITPAS_NUMBER_DESCRIPTION_LINK": "https://www.uitpas.be/waar-vind-je-de-uitpas?filters=pointOfSale&view=list&_search",
         "BIRTHDATE": "Geboortedatum",
-        "MISSING_FIELDS": "Vul kaartnummer en geboortedatum in om een gezinslid toe te voegen.",
-        "INFO": "Als je iemand toevoegt aan je gezin, brengen we die hiervan op de hoogte. Gezinsleden kunnen altijd zelf uit je gezin stappen.",
+        "MISSING_FIELDS": "Vul je alles even in?",
+        "INFO": "Als je personen toevoegt aan je gezin, kan je hun UiTPAS beheren in jouw app. We brengen hen daarvan op de hoogte via mail. Gezinsleden kunnen altijd zelf uit je gezin stappen.",
         "ADD": "Toevoegen",
         "CANCEL": "Annuleren",
         "CLOSE": "Sluiten",
         "ERROR": {
-          "TITLE": "Gezinslid kan niet toegevoegd worden",
-          "BACK_TO_FAMILY_OVERVIEW": "Terug naar gezinsoverzicht"
+          "TITLE": "Je kan dit gezinslid niet toevoegen",
+          "BACK_TO_FAMILY_OVERVIEW": "Terug naar je gezinsoverzicht"
         }
       },
       "EDIT_MEMBER": {
-        "TITLE": "Gezinslid wijzigen",
-        "DESCRIPTION": "Hoe het gezinslid weergeven in de app?",
+        "TITLE": "Gezinslid aanpassen",
+        "DESCRIPTION": "Hoe wil je {{firstName}} weergeven in de app?",
         "SAVE": "Opslaan"
       },
       "INFORMATION": {
-        "INFO_TITLE": "Snelste weg naar jullie UiTPASsen",
-        "INFO": "Via deze knop kan je gemakkelijk en snel aan de kaarten van je gezinsleden! Veel plezier.",
-        "CONTINUE": "Verdergaan"
+        "INFO_TITLE": "De snelste weg naar jullie UiTPAS",
+        "INFO": "Hier kan je snel aan de UiTPAS van jezelf en je gezinsleden. Veel plezier!",
+        "CONTINUE": "Begrepen"
       }
     }
   },
@@ -124,12 +124,12 @@
     },
     "FAMILY": {
       "FAMILY_COMPOSITION": {
-        "TITLE": "Mijn gezinssamenstelling",
-        "DESCRIPTION": "Beheer hier de gezinsleden waarvan je de UiTPAS kan gebruiken."
+        "TITLE": "Mijn gezin",
+        "DESCRIPTION": "Beheer hier je gezinsleden en hun UiTPAS."
       },
       "OTHER_FAMILIES": {
-        "TITLE": "Gezinnen waartoe ik behoor",
-        "DESCRIPTION": "Beheer hier in welke gezinnen jij zit en wie jouw UiTPAS kan beheren."
+        "TITLE": "Gezinnen waarin ik zit",
+        "DESCRIPTION": "Beheer in welke gezinnen jij zit en wie jouw UiTPAS kan beheren."
       }
     },
     "ABOUT": {
@@ -258,7 +258,7 @@
     "HOW_TO_COLLECT": "Hoe omruilen?",
     "COLLECT_ONLINE": "Ruil dit voordeel om in de app: je krijgt achteraf de nodige instructies.",
     "COLLECT_OFFLINE_SINGLE": "Om dit voordeel om te ruilen moet je naar een van de locaties hierboven. Toon <button>je UiTPAS</button> aan een medewerker om je punten te ruilen.",
-    "COLLECT_OFFLINE_FAMILY": "Om dit voordeel om te ruilen moet je naar een van de locaties hierboven. Toon <button>de UiTPAS</button> (van de persoon voor wie je het voordeel wil omruilen) aan een medewerker om de punten te ruilen.",
+    "COLLECT_OFFLINE_FAMILY": "Om dit voordeel om te ruilen moet je naar een van de locaties hierboven. Toon <button>je UiTPAS</button> (of die van het gezinslid waarvoor je wil ruilen) aan een medewerker om de punten te ruilen.",
     "OTHER_REWARDS": "Meer voordelen op deze locatie",
     "SHOW_MORE": "Toon meer",
     "SHOW_LESS": "Toon minder",
@@ -273,8 +273,8 @@
     "REDEEM": {
       "BUTTON": "Nu omruilen",
       "MODAL_TITLE": "Voordeel omruilen",
-      "MODAL_DESCRIPTION": "Ben je zeker dat je <bold>{{count}} punt</bold> wil omruilen voor het voordeel <bold>\"{{title}}\"</bold>",
-      "MODAL_DESCRIPTION_plural": "Ben je zeker dat je <bold>{{count}} punten</bold> wil omruilen voor het voordeel <bold>\"{{title}}\"</bold>",
+      "MODAL_DESCRIPTION": "Weet je zeker dat je <bold>{{count}} punt</bold> wil omruilen voor het voordeel <bold>\"{{title}}\"</bold>",
+      "MODAL_DESCRIPTION_plural": "Weet je zeker dat je <bold>{{count}} punten</bold> wil omruilen voor het voordeel <bold>\"{{title}}\"</bold>",
       "MODAL_BUTTON_CONFIRM": "Bevestigen",
       "MODAL_BUTTON_CANCEL": "Annuleren",
       "MODAL_GENERIC_ERROR": "We konden je voordeel niet omruilen, probeer later opnieuw.",
@@ -288,7 +288,7 @@
       "POINTS_plural": "{{count}} punten",
       "REDEEM": "Omruilen",
       "UNREDEEMABLE": "Niet mogelijk",
-      "UNREDEEMABLE_MODAL_TITLE": "Niet mogelijk om voordeel om te ruilen",
+      "UNREDEEMABLE_MODAL_TITLE": "{{firstName}} kan dit voordeel niet omruilen",
       "UNREDEEMABLE_MODAL_CLOSE": "Sluiten"
     }
   },
@@ -315,7 +315,8 @@
   },
   "SCAN": {
     "CAMERA": {
-      "DESCRIPTION": "Scan de UiTPAS QR-code",
+      "DESCRIPTION_SINGLE": "Scan de UiTPAS QR-code",
+      "DESCRIPTION_FAMILY": "Scan de UiTPAS QR-code voor jezelf of voor je gezinsleden",
       "CTA": "Hulp nodig met scannen?"
     },
     "SETTINGS": {
@@ -330,11 +331,12 @@
       "SCAN_MORE": "Ook sparen voor gezinsleden"
     },
     "FAMILY_MEMBERS": {
-      "TITLE": "Met wie ben je vandaag op stap?",
-      "CHECKIN": "Spaar!",
+      "TITLE": "Met wie ben je op stap?",
+      "CHECKIN": "Spaar",
       "SUMMARY": {
-        "DESCRIPTION": "Je hebt gespaard voor",
-        "CLOSE": "Sluiten"
+        "CLOSE": "Sluiten",
+        "SUCCEEDED": "Gelukt! Nieuw saldo: {{count}} punt",
+        "SUCCEEDED_plural": "Gelukt! Nieuw saldo: {{count}} punten"
       }
     }
   },
@@ -343,7 +345,8 @@
     "DEFAULT_MESSAGE": "Controleer alvast even je internetverbinding en probeer opnieuw.",
     "HELP": "Meld een probleem",
     "CTA": "Sluiten",
-    "ORGANIZER_ADDRESS": "Geen adres gevonden"
+    "ORGANIZER_ADDRESS": "Geen adres gevonden",
+    "FAMILY_SCAN_BUTTON": "Spaar je voor iemand anders?"
   },
   "DATE_PICKER": {
     "CONFIRM": "Bevestigen",

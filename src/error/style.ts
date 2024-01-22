@@ -15,6 +15,10 @@ export const ErrorImage = styled.Image`
   height: 156px;
 `;
 
+export const FamilyScanButton = styled(Button)`
+  margin-top: 16px;
+`;
+
 export const CloseButton = styled(Button)`
-  margin-top: 24px;
+  margin-top: 16px;
 `;

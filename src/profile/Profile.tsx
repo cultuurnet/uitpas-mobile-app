@@ -8,6 +8,7 @@ import { useToggle } from '../_hooks';
 import { StorageKey } from '../_models';
 import { TMainNavigationProp } from '../_routing/_components/TRootStackParamList';
 import i18n from '../_translations/i18n';
+import { getActiveMIARegion } from '../_utils';
 import { storage } from '../storage';
 import { useGetVersions } from '../update/_queries/useGetVersions';
 import { useGetMe } from './_queries/useGetMe';
@@ -92,9 +93,7 @@ const Profile = ({ navigation }: TProps) => {
     return null;
   }
 
-  const [MIAInfoFirstActiveCard] = passHolder.cardSystemMemberships.filter(
-    card => card.status === 'ACTIVE' && card.socialTariff && !card.socialTariff.expired,
-  );
+  const MIAInfoFirstActiveCard = getActiveMIARegion(passHolder);
 
   return (
     <>

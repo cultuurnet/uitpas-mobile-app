@@ -24,14 +24,16 @@ export const FamilyFilter = ({ selectedPassHolder, setSelectedPassHolder }: TPro
 
   const handlePressPrev = () => {
     const currentIndex = findCurrentIndexByPassHolder(familyMembers, selectedPassHolder);
-    const nextPassHolder = findBoundedPassHolderByIndex(familyMembers, currentIndex - 1);
-    setSelectedPassHolder(nextPassHolder);
+    const prevBoundedIndex = findBoundedIndex(familyMembers, currentIndex - 1);
+    const prevPassHolder = familyMembers[prevBoundedIndex].passholder;
+    handleSelectPassHolder(prevPassHolder, prevBoundedIndex);
   };
 
   const handleNextPrev = () => {
     const currentIndex = findCurrentIndexByPassHolder(familyMembers, selectedPassHolder);
-    const nextPassHolder = findBoundedPassHolderByIndex(familyMembers, currentIndex + 1);
-    setSelectedPassHolder(nextPassHolder);
+    const nextBoundedIndex = findBoundedIndex(familyMembers, currentIndex + 1);
+    const nextPassHolder = familyMembers[nextBoundedIndex].passholder;
+    handleSelectPassHolder(nextPassHolder, nextBoundedIndex);
   };
 
   return (
@@ -64,10 +66,10 @@ export const FamilyFilter = ({ selectedPassHolder, setSelectedPassHolder }: TPro
   );
 };
 
-const findBoundedPassHolderByIndex = (familyMembers: TFamilyMember[], index: number) => {
-  return familyMembers[Math.min(Math.max(index, 0), familyMembers.length - 1)].passholder;
-};
-
 const findCurrentIndexByPassHolder = (familyMembers: TFamilyMember[], passHolder: TPassHolder) => {
   return familyMembers.findIndex(member => member.passholder.id === passHolder.id);
+};
+
+const findBoundedIndex = (familyMembers: TFamilyMember[], index: number) => {
+  return Math.min(Math.max(index, 0), familyMembers.length - 1);
 };

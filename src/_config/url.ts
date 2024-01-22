@@ -15,6 +15,7 @@ type TConfigUrlIdentifiers =
   | 'welcomeBenefits'
   | 'personalInfo'
   | 'faq'
+  | 'familyFaq'
   | 'loginHelp'
   | 'version';
 
@@ -27,6 +28,10 @@ const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
     beta: 'https://test.uitpas.be/activiteiten-in-de-regio?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-geen-uitpas-gevonden',
     production:
       'https://uitpas.be/activiteiten-in-de-regio?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-geen-uitpas-gevonden',
+  },
+  familyFaq: {
+    beta: 'https://helpdesk.uitpas.be/hc/nl/sections/15562727433490-UiTPAS-voor-gezinnen',
+    production: 'https://helpdesk.uitpas.be/hc/nl/sections/15562727433490-UiTPAS-voor-gezinnen',
   },
   faq: {
     beta: 'https://helpdesk.uitpas.be/hc/nl/categories/360002137920-Ik-heb-of-wil-een-UiTPAS?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-mijn-uitpas',

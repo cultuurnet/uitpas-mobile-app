@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Check } from '../../_assets/images';
-import { DiagonalSplitView, FamilyMembersPoints, Typography } from '../../_components';
+import { Analytics, DiagonalSplitView, FamilyMembersPoints, Typography } from '../../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../../_routing';
 import { TFamilyMember } from '../../profile/_models';
 import { TFamilyScanResponse } from './_models';
@@ -31,13 +31,13 @@ export const FamilyCheckinSummary = ({ navigation, route }: TProps) => {
       return <CheckinErrorIcon />;
     };
 
-    const renderErrorDescription = ({ item: { response } }: FamilyMembersSummaryItem) => {
+    const renderSubtitle = ({ item: { response } }: FamilyMembersSummaryItem) => {
       if (response.type === 'error') {
         return <Typography size="small">{response.error.endUserMessage.nl}</Typography>;
       }
       return (
         <Typography color="primary.700" fontStyle="semibold" numberOfLines={1} size="small">
-          {t('SHOP_DETAIL.WHO_CAN_REDEEM.POINTS', { count: response.value.totalPoints })}
+          {t('SCAN.FAMILY_MEMBERS.SUMMARY.SUCCEEDED', { count: response.value.totalPoints })}
         </Typography>
       );
     };
@@ -45,7 +45,7 @@ export const FamilyCheckinSummary = ({ navigation, route }: TProps) => {
     return (
       <FamilyMembersPoints
         ItemRightComponent={renderIcon}
-        ItemSubtitle={renderErrorDescription}
+        ItemSubtitle={renderSubtitle}
         members={memberResponses}
         style={{ paddingHorizontal: 16 }}
       />
@@ -54,6 +54,7 @@ export const FamilyCheckinSummary = ({ navigation, route }: TProps) => {
 
   return (
     <>
+      <Analytics screenName="FamilyCheckinSummary" />
       <DiagonalSplitView
         bottomContent={
           <Styled.Body>
@@ -69,9 +70,6 @@ export const FamilyCheckinSummary = ({ navigation, route }: TProps) => {
       />
       <Styled.Header style={{ top: top + 16 }}>
         <Styled.HeaderImage source={Check} />
-        <Styled.HeaderTitle color="primary.700" fontStyle="bold" size="large">
-          {t('SCAN.FAMILY_MEMBERS.SUMMARY.DESCRIPTION')}
-        </Styled.HeaderTitle>
       </Styled.Header>
     </>
   );

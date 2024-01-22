@@ -4,7 +4,7 @@ import { StyleProp, ViewStyle } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { BlurredModal, Icon, Trans } from '../../../_components';
-import { queryClient } from '../../../_context';
+import { queryClient, useTracking } from '../../../_context';
 import { useDeleteFamilyMember } from '../_queries';
 import * as Styled from './style';
 
@@ -19,6 +19,7 @@ const DeleteFamilyMember = ({ firstName, fullName, familyMemberId, style }: TPro
   const navigation = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
   const { mutateAsync, isLoading } = useDeleteFamilyMember(familyMemberId);
+  const { trackSelfDescribingEvent } = useTracking();
   const { t } = useTranslation();
 
   const handleToggleIsVisible = () => {
@@ -27,6 +28,7 @@ const DeleteFamilyMember = ({ firstName, fullName, familyMemberId, style }: TPro
 
   const handleDelete = async () => {
     await mutateAsync({});
+    trackSelfDescribingEvent('successMessage', { message: 'family-member-deleted' });
     queryClient.invalidateQueries(['family-members']);
     handleToggleIsVisible();
     navigation.goBack();

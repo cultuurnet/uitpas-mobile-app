@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { FlatList, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { Icon, TouchableRipple } from '../../../_components';
+import { Analytics, Icon, TouchableRipple } from '../../../_components';
 import { useOnboarding } from '../../../_context';
 import { TMainNavigationProp } from '../../../_routing';
 import { getAvatarByNameOrDefault } from '../../../_utils';
@@ -42,6 +42,7 @@ export const FamilyOverview = ({ navigation }: TProps) => {
 
   return (
     <>
+      <Analytics screenName={'FamilyOverview'} />
       <FlatList
         ListHeaderComponent={
           <Styled.Header>

@@ -6,10 +6,13 @@ import { useFocusEffect } from '@react-navigation/native';
 import { Barcode, BarcodeFormat, scanBarcodes } from 'vision-camera-code-scanner';
 
 import { Analytics, FocusAwareStatusBar, Spinner } from '../../_components';
+import { useTracking } from '../../_context';
 import { TApiError } from '../../_http';
 import { TMainNavigationProp } from '../../_routing/_components/TRootStackParamList';
 import { theme } from '../../_styles/theme';
 import { log } from '../../_utils';
+import { useHasFamilyMembers } from '../../onboarding/family/_queries';
+import { useGetMe } from '../../profile/_queries/useGetMe';
 import { useCameraPermission } from '../_hooks';
 import { TOverlayDimensions, useOverlayDimensions } from '../_hooks/useOverlayDimensions';
 import { useCheckin } from '../_queries/useCheckin';
@@ -29,11 +32,14 @@ type TProps = {
 
 const Camera = ({ navigation }: TProps) => {
   const [isActive, setIsActive] = useState(true);
+  const { trackSelfDescribingEvent } = useTracking();
+  const { data: me } = useGetMe();
   const { back: device } = useCameraDevices();
   const { hasCameraPermission } = useCameraPermission();
   const [overlayDimensions, setOverlayDimensions] = useState({ height: 0, width: 0 });
   const overlay = useOverlayDimensions(overlayDimensions, overlaySettings);
   const { mutateAsync: checkin, isLoading } = useCheckin();
+  const { data: hasFamilyMembers } = useHasFamilyMembers();
   const frameProcessor = useFrameProcessor(
     frame => {
       'worklet';
@@ -67,13 +73,24 @@ const Camera = ({ navigation }: TProps) => {
         const response = await checkin({
           body: { checkinCode: barcode.displayValue },
         });
+        trackSelfDescribingEvent(
+          'successMessage',
+          { message: 'points-saved-success' },
+          { up_action: { name: 'save-points', points: response.addedPoints, target: 'self', target_ph_id: me?.id } },
+        );
         navigation.navigate('ScanSuccess', { ...response, checkinCode: barcode.displayValue });
       } catch (error) {
         const { endUserMessage } = error as TApiError;
-
+        trackSelfDescribingEvent(
+          'errorMessage',
+          { message: error.type },
+          { up_action: { name: 'save-points', points: undefined, target: 'self', target_ph_id: me?.id } },
+        );
         navigation.navigate('Error', {
+          checkinCode: barcode.displayValue,
           gotoAfterClose: ['MainNavigator', 'Profile'],
           message: endUserMessage?.nl,
+          showFamilyScan: hasFamilyMembers,
         });
         log.error(error);
       }
@@ -92,7 +109,7 @@ const Camera = ({ navigation }: TProps) => {
     <>
       <Analytics screenName="Camera" />
       <View onLayout={handleLayoutChange} style={StyleSheet.absoluteFill}>
-        <FocusAwareStatusBar backgroundColor={theme.palette.neutral['900']} barStyle="light-content" translucent />
+        <FocusAwareStatusBar backgroundColor={theme.palette.neutral['900']} barStyle="light-content" />
         {overlayDimensions.width !== 0 && (
           <VisionCamera
             device={device}

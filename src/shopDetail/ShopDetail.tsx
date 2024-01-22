@@ -5,7 +5,7 @@ import { ScrollView, View } from 'react-native';
 import { Accordion, Analytics, HtmlRenderer, Points, RewardImage, Trans, Typography } from '../_components';
 import { useTracking } from '../_context';
 import { useToggle } from '../_hooks';
-import { TRootStackRouteProp } from '../_routing';
+import { TMainNavigationProp, TRootStackRouteProp } from '../_routing';
 import { getRewardTrackingData, normalizeUrl } from '../_utils';
 import { useGetFamilyMembers, useHasFamilyMembers } from '../onboarding/family/_queries';
 import { TFamilyMember } from '../profile/_models';
@@ -22,10 +22,11 @@ import { useGetRedeemStatus } from './_queries/useGetRedeemStatus';
 import * as Styled from './style';
 
 type TProps = {
+  navigation: TMainNavigationProp<'Profile'>;
   route: TRootStackRouteProp<'ShopDetail'>;
 };
 
-export const ShopDetail = ({ route }: TProps) => {
+export const ShopDetail = ({ navigation, route }: TProps) => {
   const { id, reward: fallbackReward, showFamilyMembers = true } = route.params;
   const { data: me } = useGetMe();
   const { data } = useGetReward({ id });
@@ -153,14 +154,20 @@ export const ShopDetail = ({ route }: TProps) => {
                   ? 'SHOP_DETAIL.COLLECT_ONLINE'
                   : `SHOP_DETAIL.COLLECT_OFFLINE_${!hasFamilyMembers ? 'SINGLE' : 'FAMILY'}`
               }
-              onButtonPress={toggleIsCardModalVisible}
+              onButtonPress={() => {
+                if (!hasFamilyMembers) {
+                  toggleIsCardModalVisible();
+                } else {
+                  navigation.navigate('Profile');
+                }
+              }}
               selectable
               size="small"
             />
             <HtmlRenderer source={{ html: reward.practicalInfo }} />
           </Section>
 
-          {showFamilyMembers && hasFamilyMembers && !isRedeemStatusLoading && redeemStatus?.redeemable && !redeemStatusError && (
+          {showFamilyMembers && hasFamilyMembers && !isRedeemStatusLoading && (
             <View ref={rewardsSection}>
               <Section title={t('SHOP_DETAIL.WHO_CAN_REDEEM.TITLE')}>
                 <RedeemFamilyMembers onRedeem={handleRedeemReward} reward={reward} />
