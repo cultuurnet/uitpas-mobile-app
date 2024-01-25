@@ -1,6 +1,7 @@
 import { createContext, FC, PropsWithChildren, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import Auth0 from 'react-native-auth0';
 import { Config } from 'react-native-config';
+import { QueryCache } from '@tanstack/react-query';
 
 import { useToggle } from '../_hooks';
 import { useAppState } from '../_hooks/useAppState';
@@ -34,6 +35,15 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isInitialized, setIsInitialized] = useToggle(false);
   const [isAuthenticated, setIsAuthenticated] = useToggle(false);
 
+  useEffect(() => {
+    if (!isAuthenticated) {
+      const queryCache = new QueryCache({});
+      queryClient.clear();
+      queryCache.clear();
+      queryClient.removeQueries();
+    }
+  }, [isAuthenticated]);
+
   const client = useMemo(
     () =>
       new Auth0({
@@ -46,7 +56,6 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
   const logout = useCallback(async () => {
     try {
       await client.credentialsManager.clearCredentials();
-      await queryClient.removeQueries();
       setIsAuthenticated(false);
     } catch (e) {
       log.error(e);

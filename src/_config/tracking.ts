@@ -23,5 +23,5 @@ export const trackingSchemes: Record<keyof TTrackingData | keyof TTrackingEvents
   reward: 'iglu:be.uitpas-mobile/reward/jsonschema/1-0-1',
   successMessage: 'iglu:be.general/success_message/jsonschema/1-0-0',
   swimlaneInteraction: 'iglu:be.general/swimlane_interaction/jsonschema/1-0-1',
-  up_action: 'iglu:be.uitpas-mobile/up_action/jsonschema/1-0-0',
+  up_action: 'iglu:be.uitpas-mobile/up-action/jsonschema/1-0-0',
 } as const;

@@ -23,7 +23,7 @@ const TrackingContext = createContext<TTrackingContext>(null);
 export const useTracking = () => useContext(TrackingContext);
 
 const TrackingProvider = ({ children }) => {
-  const { user } = useAuthentication();
+  const { user, isAuthenticated } = useAuthentication();
   const { data: me, isFetched: isMeFetched } = useGetMe();
   const { data: familyMembers, isFetched: isFamilyMembersFetched } = useGetFamilyMembers();
 
@@ -48,7 +48,7 @@ const TrackingProvider = ({ children }) => {
         },
         schema: TrackingConfig.appEnvironmentSchema,
       },
-      ...(isMeFetched && me?.id
+      ...(isAuthenticated && isMeFetched && isFamilyMembersFetched && me?.id
         ? [
             {
               data: {
@@ -58,7 +58,7 @@ const TrackingProvider = ({ children }) => {
             },
           ]
         : []),
-      ...(isFamilyMembersFetched && familyMembers?.length
+      ...(isAuthenticated && isMeFetched && isFamilyMembersFetched && familyMembers?.length
         ? [
             {
               data: familyInfo,
@@ -67,7 +67,7 @@ const TrackingProvider = ({ children }) => {
           ]
         : []),
     ],
-    [isMeFetched, me?.id, isFamilyMembersFetched, familyMembers?.length, familyInfo],
+    [isMeFetched, me?.id, isFamilyMembersFetched, familyMembers?.length, familyInfo, isAuthenticated],
   );
 
   const tracker = useMemo(() => {
@@ -109,7 +109,7 @@ const TrackingProvider = ({ children }) => {
           schema: trackingSchemes[key],
         }),
       );
-      log.debug(
+      log.info(
         'Track screenViewEvent',
         JSON.stringify({ globalTrackingData, name, trackingData: mappedTrackingData }, undefined, 2),
       );
@@ -120,6 +120,7 @@ const TrackingProvider = ({ children }) => {
 
       return tracker.trackScreenViewEvent({ name }, mappedTrackingData);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [tracker, globalTrackingData],
   );
 
@@ -135,7 +136,7 @@ const TrackingProvider = ({ children }) => {
           schema: trackingSchemes[key],
         }),
       );
-      log.debug(
+      log.info(
         'Track selfDescribingEvent',
         JSON.stringify({ eventData: mappedEventData, globalTrackingData, trackingData: mappedTrackingData }, undefined, 2),
       );
@@ -146,6 +147,7 @@ const TrackingProvider = ({ children }) => {
 
       return tracker.trackSelfDescribingEvent(mappedEventData, mappedTrackingData);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [tracker, globalTrackingData],
   );
 
