@@ -39,8 +39,8 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
     isLoading: registrationTokenIsLoading,
     mutate: getRegistrationToken,
   } = useGetRegistrationToken({
-    onError: error => {
-      trackSelfDescribingEvent('errorMessage', { message: error.type.replace(TRACKING_URL_REGEX, '') });
+    onError: () => {
+      trackSelfDescribingEvent('errorMessage', { message: 'card-dob-mismatch' });
     },
     onSuccess: async ({ token }) => {
       try {
