@@ -48,7 +48,7 @@ const TrackingProvider = ({ children }) => {
         },
         schema: TrackingConfig.appEnvironmentSchema,
       },
-      ...(isAuthenticated && isMeFetched && isFamilyMembersFetched && me?.id
+      ...(isAuthenticated && isMeFetched && isFamilyMembersFetched && me?.id && familyMembers?.length
         ? [
             {
               data: {
@@ -56,10 +56,6 @@ const TrackingProvider = ({ children }) => {
               },
               schema: TrackingConfig.passHolderSchema,
             },
-          ]
-        : []),
-      ...(isAuthenticated && isMeFetched && isFamilyMembersFetched && familyMembers?.length
-        ? [
             {
               data: familyInfo,
               schema: TrackingConfig.familySchema,
