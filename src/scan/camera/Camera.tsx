@@ -10,7 +10,7 @@ import { useTracking } from '../../_context';
 import { TApiError } from '../../_http';
 import { TMainNavigationProp } from '../../_routing/_components/TRootStackParamList';
 import { theme } from '../../_styles/theme';
-import { log } from '../../_utils';
+import { log, TRACKING_URL_REGEX } from '../../_utils';
 import { useHasFamilyMembers } from '../../onboarding/family/_queries';
 import { useGetMe } from '../../profile/_queries/useGetMe';
 import { useCameraPermission } from '../_hooks';
@@ -83,7 +83,7 @@ const Camera = ({ navigation }: TProps) => {
         const { endUserMessage } = error as TApiError;
         trackSelfDescribingEvent(
           'errorMessage',
-          { message: error.type },
+          { message: error.type.replace(TRACKING_URL_REGEX, '') },
           { up_action: { name: 'save-points', points: undefined, target: 'self', target_ph_id: me?.id } },
         );
         navigation.navigate('Error', {

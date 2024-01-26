@@ -8,7 +8,7 @@ import { useHeaderHeight } from '@react-navigation/elements';
 import { Analytics, Button, Trans, Typography } from '../../../_components';
 import { queryClient, useTracking } from '../../../_context';
 import { TMainNavigationProp, TRootStackRouteProp } from '../../../_routing';
-import { applyBarcodeMask, getRandomUniqueAvatar, openExternalURL } from '../../../_utils';
+import { applyBarcodeMask, getRandomUniqueAvatar, openExternalURL, TRACKING_URL_REGEX } from '../../../_utils';
 import { TRegistrationTokenRequest, useGetRegistrationToken, useRegisterFamilyMember } from '../_queries';
 import * as Styled from './style';
 
@@ -39,6 +39,9 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
     isLoading: registrationTokenIsLoading,
     mutate: getRegistrationToken,
   } = useGetRegistrationToken({
+    onError: () => {
+      trackSelfDescribingEvent('errorMessage', { message: 'card-dob-mismatch' });
+    },
     onSuccess: async ({ token }) => {
       try {
         await registerFamilyMember({
@@ -52,7 +55,7 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
         queryClient.invalidateQueries(['family-members']);
         navigation.navigate('FamilyOverview');
       } catch (error) {
-        trackSelfDescribingEvent('errorMessage', { message: error.type });
+        trackSelfDescribingEvent('errorMessage', { message: error.type.replace(TRACKING_URL_REGEX, '') });
         navigation.navigate('AddFamilyMemberError', { description: error.endUserMessage.nl }); // End-of-flow error
       }
     },

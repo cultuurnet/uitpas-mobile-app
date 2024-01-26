@@ -11,6 +11,8 @@ export function getRewardTrackingData({ id, title, online, type }: TReward): TTr
   };
 }
 
+export const TRACKING_URL_REGEX = /^https:\/\/api.publiq.be\/probs\//;
+
 export function getUpActionTrackingData(
   name: TTrackingData['up_action']['name'],
   reward: TReward,
