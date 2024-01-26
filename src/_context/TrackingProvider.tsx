@@ -105,7 +105,7 @@ const TrackingProvider = ({ children }) => {
           schema: trackingSchemes[key],
         }),
       );
-      log.info(
+      log.debug(
         'Track screenViewEvent',
         JSON.stringify({ globalTrackingData, name, trackingData: mappedTrackingData }, undefined, 2),
       );
@@ -116,7 +116,6 @@ const TrackingProvider = ({ children }) => {
 
       return tracker.trackScreenViewEvent({ name }, mappedTrackingData);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [tracker, globalTrackingData],
   );
 
@@ -132,7 +131,7 @@ const TrackingProvider = ({ children }) => {
           schema: trackingSchemes[key],
         }),
       );
-      log.info(
+      log.debug(
         'Track selfDescribingEvent',
         JSON.stringify({ eventData: mappedEventData, globalTrackingData, trackingData: mappedTrackingData }, undefined, 2),
       );
@@ -143,7 +142,6 @@ const TrackingProvider = ({ children }) => {
 
       return tracker.trackSelfDescribingEvent(mappedEventData, mappedTrackingData);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [tracker, globalTrackingData],
   );
 
