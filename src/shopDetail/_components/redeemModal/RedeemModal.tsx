@@ -33,7 +33,7 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
   } = useRedeemReward({
     onSuccess: redeemedReward => {
       toggleIsVisible();
-      queryClient.invalidateQueries(['family-members']);
+      queryClient.invalidateQueries(['family']);
       queryClient.invalidateQueries(['redeem-status', reward.id]);
       navigate('RedeemedReward', { isModal: true, member, redeemedReward });
     },
