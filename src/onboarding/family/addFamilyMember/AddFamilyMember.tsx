@@ -52,7 +52,7 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
           headers: { 'x-registration-token': token },
         });
         trackSelfDescribingEvent('successMessage', { message: 'family-member-added' });
-        queryClient.invalidateQueries(['family-members']);
+        queryClient.invalidateQueries(['family']);
         navigation.navigate('FamilyOverview');
       } catch (error) {
         trackSelfDescribingEvent('errorMessage', { message: error.type.replace(TRACKING_URL_REGEX, '') });
