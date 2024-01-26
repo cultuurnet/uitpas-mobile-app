@@ -30,7 +30,7 @@ const DiagonalSplitView: FC<TProps> = ({
   const { width } = useWindowDimensions();
 
   return (
-    <>
+    <ScrollView>
       <Styled.TopSafeAreaViewContainer backgroundColor={backgroundColor} edges={['top']} isScrollable={false} />
       <Styled.ViewContainer backgroundColor={backgroundColor} edges={['bottom']} isScrollable={false}>
         <Styled.TopContainer backgroundColor={backgroundColor} style={topContentStyle}>
@@ -51,7 +51,7 @@ const DiagonalSplitView: FC<TProps> = ({
         </Styled.BottomContainer>
       </Styled.ViewContainer>
       <FocusAwareStatusBar backgroundColor={getColor(backgroundColor)} barStyle="light-content" />
-    </>
+    </ScrollView>
   );
 };
 
