@@ -6,7 +6,7 @@ export function getRewardTrackingData({ id, title, online, type }: TReward): TTr
   return {
     id,
     online,
-    title,
+    title: title.substring(0, 100),
     welcome: type === 'WELCOME',
   };
 }
