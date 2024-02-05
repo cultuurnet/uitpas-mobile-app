@@ -83,7 +83,7 @@ const Camera = ({ navigation }: TProps) => {
         const { endUserMessage } = error as TApiError;
         trackSelfDescribingEvent(
           'errorMessage',
-          { message: error.type.replace(TRACKING_URL_REGEX, '') },
+          { message: error.type.replace(TRACKING_URL_REGEX, '').substring(0, 100) },
           { up_action: { name: 'save-points', points: undefined, target: 'self', target_ph_id: me?.id } },
         );
         navigation.navigate('Error', {
