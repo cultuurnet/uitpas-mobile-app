@@ -74,7 +74,7 @@ const FamilyCheckin: FC = ({ navigation, route }: TProps) => {
           {
             up_action: {
               ...sharedAction,
-              points: null,
+              points: 0,
             },
           },
         );
