@@ -35,15 +35,6 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isInitialized, setIsInitialized] = useToggle(false);
   const [isAuthenticated, setIsAuthenticated] = useToggle(false);
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      const queryCache = new QueryCache({});
-      queryClient.clear();
-      queryCache.clear();
-      queryClient.removeQueries();
-    }
-  }, [isAuthenticated]);
-
   const client = useMemo(
     () =>
       new Auth0({
@@ -56,6 +47,16 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
   const logout = useCallback(async () => {
     try {
       await client.credentialsManager.clearCredentials();
+
+      // Clear react query cache
+      const queryCache = new QueryCache({});
+      queryClient.clear();
+      queryCache.clear();
+      queryClient.removeQueries();
+
+      // Reset state
+      setAccessToken(undefined);
+      setUser(undefined);
       setIsAuthenticated(false);
     } catch (e) {
       log.error(e);
