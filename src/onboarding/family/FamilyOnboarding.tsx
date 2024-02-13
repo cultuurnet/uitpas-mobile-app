@@ -48,7 +48,7 @@ export const FamilyOnboarding = ({ navigation }: TProps) => {
 
   return (
     <>
-      <Analytics screenName={'FamilyOnboarding'} />
+      {isFetched && !hasFamilyMembers && <Analytics screenName={'FamilyOnboarding'} />}
       <SafeAreaView backgroundColor="neutral.0" barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}>
         <Styled.Body>
           <Styled.Title align="center" color="primary.800" fontStyle="bold" size="large">

@@ -29,7 +29,7 @@ const DeleteFamilyMember = ({ firstName, fullName, familyMemberId, style }: TPro
   const handleDelete = async () => {
     await mutateAsync({});
     trackSelfDescribingEvent('successMessage', { message: 'family-member-deleted' });
-    queryClient.invalidateQueries(['family-members']);
+    queryClient.invalidateQueries(['family']);
     handleToggleIsVisible();
     navigation.goBack();
   };

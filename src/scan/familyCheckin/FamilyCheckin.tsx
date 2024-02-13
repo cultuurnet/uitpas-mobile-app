@@ -5,7 +5,7 @@ import { FlatList } from 'react-native';
 import { Analytics } from '../../_components';
 import { useTracking } from '../../_context';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../../_routing';
-import { getAvatarByNameOrDefault } from '../../_utils';
+import { getAvatarByNameOrDefault, TRACKING_URL_REGEX } from '../../_utils';
 import { useGetFamilyMembers } from '../../onboarding/family/_queries';
 import { TFamilyMember } from '../../profile/_models';
 import { TCheckInResponse } from '../_models';
@@ -70,11 +70,11 @@ const FamilyCheckin: FC = ({ navigation, route }: TProps) => {
       } else {
         trackSelfDescribingEvent(
           'errorMessage',
-          { message: response.response.error.type },
+          { message: response.response.error.type.replace(TRACKING_URL_REGEX, '') },
           {
             up_action: {
               ...sharedAction,
-              points: null,
+              points: 0,
             },
           },
         );

@@ -47,7 +47,7 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
   const scrollViewRef = useRef(null);
   const redeemButtonRef = useRef(null);
   const rewardsSection = useRef(null);
-  const rewardTrackingData = useMemo(() => getRewardTrackingData(reward), [reward]);
+  const rewardTrackingData = useMemo(() => ({ reward: getRewardTrackingData(reward) }), [reward]);
 
   const [firstOrganizer, ...organizers] = reward.organizers || [];
   const isInAppRedeemable = reward?.online && redeemStatus?.redeemable;
@@ -55,10 +55,10 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
   const stickyHeaderIndices = isInAppRedeemable ? [2] : [];
 
   const handleLinkPress = () => {
-    trackSelfDescribingEvent('linkClick', { targetUrl: normalizeUrl(reward.moreInfoURL) }, { reward: rewardTrackingData });
+    trackSelfDescribingEvent('linkClick', { targetUrl: normalizeUrl(reward.moreInfoURL) }, rewardTrackingData);
   };
   const trackError = () => {
-    trackSelfDescribingEvent('errorMessage', { message: redeemStatus.reason }, { reward: rewardTrackingData });
+    trackSelfDescribingEvent('errorMessage', { message: redeemStatus.reason.substring(0, 100) }, rewardTrackingData);
   };
 
   const handleRedeemButtonPress = () => {
@@ -78,7 +78,7 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
 
   const handleRedeemReward = useCallback(
     (member: TFamilyMember) => {
-      trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-cta' }, { reward: rewardTrackingData });
+      trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-cta' }, rewardTrackingData);
       setSelectedMember(member);
       toggleIsRedeemModalVisible();
     },
@@ -92,7 +92,7 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
 
   return (
     <>
-      <Analytics data={{ reward: rewardTrackingData }} screenName="reward" />
+      <Analytics data={rewardTrackingData} screenName="reward" />
       <ScrollView ref={scrollViewRef} stickyHeaderIndices={stickyHeaderIndices}>
         <Styled.ImageContainer>
           <RewardImage largeSpacing picture={reward.pictures?.[0]}>

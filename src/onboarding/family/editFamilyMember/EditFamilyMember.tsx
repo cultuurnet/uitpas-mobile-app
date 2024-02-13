@@ -37,7 +37,7 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
 
   const handleSubmit = async () => {
     await editFamilyMember({ body: { icon: selectedAvatar } });
-    queryClient.invalidateQueries(['family-members']);
+    queryClient.invalidateQueries(['family']);
     navigation.goBack();
   };
 

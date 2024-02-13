@@ -6,10 +6,12 @@ export function getRewardTrackingData({ id, title, online, type }: TReward): TTr
   return {
     id,
     online,
-    title,
+    title: title.substring(0, 100),
     welcome: type === 'WELCOME',
   };
 }
+
+export const TRACKING_URL_REGEX = /^https:\/\/api.publiq.be\/probs\//;
 
 export function getUpActionTrackingData(
   name: TTrackingData['up_action']['name'],

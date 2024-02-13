@@ -23,7 +23,7 @@ const TrackingContext = createContext<TTrackingContext>(null);
 export const useTracking = () => useContext(TrackingContext);
 
 const TrackingProvider = ({ children }) => {
-  const { user } = useAuthentication();
+  const { user, isAuthenticated } = useAuthentication();
   const { data: me, isFetched: isMeFetched } = useGetMe();
   const { data: familyMembers, isFetched: isFamilyMembersFetched } = useGetFamilyMembers();
 
@@ -48,7 +48,7 @@ const TrackingProvider = ({ children }) => {
         },
         schema: TrackingConfig.appEnvironmentSchema,
       },
-      ...(isMeFetched && me?.id
+      ...(isAuthenticated && isMeFetched && isFamilyMembersFetched && me?.id && familyMembers?.length
         ? [
             {
               data: {
@@ -56,10 +56,6 @@ const TrackingProvider = ({ children }) => {
               },
               schema: TrackingConfig.passHolderSchema,
             },
-          ]
-        : []),
-      ...(isFamilyMembersFetched && familyMembers?.length
-        ? [
             {
               data: familyInfo,
               schema: TrackingConfig.familySchema,
@@ -67,7 +63,7 @@ const TrackingProvider = ({ children }) => {
           ]
         : []),
     ],
-    [isMeFetched, me?.id, isFamilyMembersFetched, familyMembers?.length, familyInfo],
+    [isMeFetched, me?.id, isFamilyMembersFetched, familyMembers?.length, familyInfo, isAuthenticated],
   );
 
   const tracker = useMemo(() => {

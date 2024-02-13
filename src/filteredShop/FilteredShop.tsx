@@ -97,7 +97,9 @@ export const FilteredShop = ({ route }: TProps) => {
             tintColor={theme.palette.primary['500']}
           />
         }
-        renderItem={({ item }) => <Reward mode="list" reward={item} showFamilyMembers={false} />}
+        renderItem={({ item }) => (
+          <Reward mode="list" reward={item} showFamilyMembers={!isFilteredOnWelcome && hasFamilyMembers} />
+        )}
       />
     </>
   );

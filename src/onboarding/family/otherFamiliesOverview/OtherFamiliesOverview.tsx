@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList } from 'react-native';
 
-import { BlurredModal, Button, Typography } from '../../../_components';
+import { Analytics, BlurredModal, Button, Typography } from '../../../_components';
 import { queryClient, useTracking } from '../../../_context';
 import { formatISOString } from '../../../_utils';
 import { TFamily } from '../../../profile/_models';
@@ -31,6 +31,7 @@ export const OtherFamiliesOverview = () => {
 
   return (
     <>
+      <Analytics screenName="OtherFamilies" />
       <FlatList
         ItemSeparatorComponent={Styled.Separator}
         ListEmptyComponent={() => (
