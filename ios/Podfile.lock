@@ -500,8 +500,6 @@ PODS:
     - React-callinvoker
     - React-Core
     - react-native-worklets-core
-  - VisionCameraCodeScanner (0.7.0):
-    - VisionCamera
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -595,7 +593,6 @@ DEPENDENCIES:
   - "RNSnowplowTracker (from `../node_modules/@snowplow/react-native-tracker`)"
   - RNSVG (from `../node_modules/react-native-svg`)
   - VisionCamera (from `../node_modules/react-native-vision-camera`)
-  - "VisionCameraCodeScanner (from `../node_modules/@mgcrea/vision-camera-barcode-scanner`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -754,8 +751,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-svg"
   VisionCamera:
     :path: "../node_modules/react-native-vision-camera"
-  VisionCameraCodeScanner:
-    :path: "../node_modules/@mgcrea/vision-camera-barcode-scanner"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -848,10 +843,9 @@ SPEC CHECKSUMS:
   SnowplowTracker: 3f35a60dcb2cf9c4a56fa4cad46d5af6d1b5db44
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   VisionCamera: ed2a20093f043b6d81a3b4b79038173716456e55
-  VisionCameraCodeScanner: b2d046457d9d081b358e8a451b67a922df0d60e5
   Yoga: 0518155cfbcc68c56223422f6a20a71b82e307d2
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
 PODFILE CHECKSUM: db5a3e7ee87f7df2de242b76d996c9aa89ddcbea
 
-COCOAPODS: 1.14.2
+COCOAPODS: 1.14.3
