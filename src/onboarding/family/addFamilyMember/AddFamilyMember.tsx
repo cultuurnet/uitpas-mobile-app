@@ -55,7 +55,7 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
         queryClient.invalidateQueries(['family']);
         navigation.navigate('FamilyOverview');
       } catch (error) {
-        trackSelfDescribingEvent('errorMessage', { message: error.type.replace(TRACKING_URL_REGEX, '') });
+        trackSelfDescribingEvent('errorMessage', { message: error.type.replace(TRACKING_URL_REGEX, '').substring(0, 100) });
         navigation.navigate('AddFamilyMemberError', { description: error.endUserMessage.nl }); // End-of-flow error
       }
     },

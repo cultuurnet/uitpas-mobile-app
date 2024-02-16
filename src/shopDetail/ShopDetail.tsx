@@ -58,7 +58,7 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
     trackSelfDescribingEvent('linkClick', { targetUrl: normalizeUrl(reward.moreInfoURL) }, rewardTrackingData);
   };
   const trackError = () => {
-    trackSelfDescribingEvent('errorMessage', { message: redeemStatus.reason }, rewardTrackingData);
+    trackSelfDescribingEvent('errorMessage', { message: redeemStatus.reason.substring(0, 100) }, rewardTrackingData);
   };
 
   const handleRedeemButtonPress = () => {

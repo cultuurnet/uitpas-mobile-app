@@ -17,7 +17,10 @@ const Analytics = ({ screenName, data }: TProps) => {
       if (!screenName) return;
 
       trackScreenViewEvent(screenName, data);
-    }, [screenName, trackScreenViewEvent, data]),
+
+      // We don't want to track the screen view again if the data changes
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [screenName]),
   );
 
   return null;

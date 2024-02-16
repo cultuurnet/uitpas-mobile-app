@@ -45,7 +45,7 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
     if (!error) return;
     trackSelfDescribingEvent(
       'errorMessage',
-      { message: error?.type },
+      { message: error?.type.substring(0, 100) },
       { reward: rewardTrackingData, up_action: getUpActionTrackingData('redeem-reward', reward, member) },
     );
   }, [error, trackSelfDescribingEvent, rewardTrackingData, member, reward]);

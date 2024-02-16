@@ -44,7 +44,6 @@ const Camera = ({ navigation }: TProps) => {
   }, []);
 
   const codeScanner = useCodeScanner({
-    regionOfInterest
     codeTypes: ['qr'],
     onCodeScanned: scannedCodes => {
       runAtTargetFps(5, () => {
