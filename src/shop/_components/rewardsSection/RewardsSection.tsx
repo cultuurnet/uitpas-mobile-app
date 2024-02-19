@@ -70,7 +70,7 @@ export const RewardsSection = ({
 
   // We need to have 2 or more results to display the section
   if (!isLoading && !(rewards?.length >= 2)) return null;
-  if (isLoading) return <RewardsSectionLoader horizontal={horizontal} />;
+  if (isLoading) return <RewardsSectionLoader horizontal={horizontal} skeletonKey={title} />;
 
   return (
     <Styled.Container {...props}>
