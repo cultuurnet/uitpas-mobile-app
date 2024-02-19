@@ -1,4 +1,4 @@
-import { Code } from 'react-native-vision-camera';
+import { Code, CodeScannerFrame } from 'react-native-vision-camera';
 
 type Rect = {
   bottom: number;
@@ -7,10 +7,9 @@ type Rect = {
   top: number;
 };
 
-type Dimensions = [width: number, height: number];
-
-export function isInRange({ corners }: Code, scanRegion: Rect, [frameWidth, frameHeight]: Dimensions) {
+export function isInRange({ corners }: Code, scanRegion: Rect, frame: CodeScannerFrame) {
   const [topLeft, topRight, bottomRight, bottomLeft] = corners;
+  const { width: frameWidth, height: frameHeight } = frame;
 
   if (corners && corners.length >= 4) {
     /** bounding box for QR code in percentages */

@@ -72,10 +72,7 @@ const Camera = ({ navigation }: TProps) => {
   }
 
   async function onBarCodeDetected(code: Code, frame: CodeScannerFrame) {
-    const frameWidth = frame.width > frame.height ? frame.height : frame.width;
-    const frameHeight = frame.width > frame.height ? frame.width : frame.height;
-
-    if (isInRange(code, overlay.regionDefinition, [frameWidth, frameHeight])) {
+    if (isInRange(code, overlay.regionDefinition, frame)) {
       try {
         setIsActive(false);
         const response = await checkin({
