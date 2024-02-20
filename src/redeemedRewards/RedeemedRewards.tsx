@@ -47,7 +47,7 @@ export const RedeemedRewards = ({ navigation }: TProps) => {
           isRewardsLoading ? (
             <>
               {[1, 2, 3, 4].map(key => (
-                <RewardLoader key={key} mode="list" />
+                <RewardLoader key={key} mode="list" skeletonKey={`redeemed-rewards-${key}`} />
               ))}
             </>
           ) : (
