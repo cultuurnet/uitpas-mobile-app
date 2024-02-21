@@ -20,6 +20,7 @@
     "simple-import-sort"
   ],
   "extends": [
+    "@react-native",
     "eslint:recommended",
     "plugin:react/recommended",
     "eslint-config-prettier",
