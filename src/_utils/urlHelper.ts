@@ -8,7 +8,6 @@ export async function openExternalURL(href: string) {
   if (supported) {
     await Linking.openURL(href);
   } else {
-    // eslint-disable-next-line no-console
     log.warn(`Failed to open external link: '${href}'`);
   }
 }

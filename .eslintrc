@@ -22,7 +22,6 @@
   "extends": [
     "@react-native",
     "eslint:recommended",
-    "plugin:react/recommended",
     "eslint-config-prettier",
     "plugin:import/warnings",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -34,6 +33,7 @@
     "react-hooks/rules-of-hooks": 2,
     "react-hooks/exhaustive-deps": 2,
     "react/prop-types": 0,
+    "react/no-unstable-nested-components": 0,
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "@typescript-eslint/interface-name-prefix": 0,
@@ -95,7 +95,7 @@
     ]
   },
   "env": {
-    "browser": true
+    "browser": false
   },
   "overrides": [
     {
