@@ -1,7 +1,7 @@
 import React, { FC, useCallback } from 'react';
 import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
-import SkeletonContent from 'react-native-skeleton-content-nonexpo';
-import { ICustomViewStyle } from 'react-native-skeleton-content-nonexpo/lib/Constants';
+import SkeletonContent from 'react-native-reanimated-skeleton';
+import { ICustomViewStyle } from 'react-native-reanimated-skeleton/lib/Constants';
 
 import { theme } from '../../_styles/theme';
 
