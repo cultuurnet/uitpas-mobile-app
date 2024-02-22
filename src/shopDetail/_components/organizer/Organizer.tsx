@@ -57,8 +57,8 @@ export const Organizer = ({ id, fallbackName, showTopBorder = false }: TProps) =
         <Styled.Content>
           {isLoading ? (
             <>
-              <SkeletonLoader layout={[{ height: 14, width: 200 }]} />
-              <SkeletonLoader layout={[{ height: 14, width: 260 }]} />
+              <SkeletonLoader layout={[{ height: 14, key: `organizer-${id}-text-1`, width: 200 }]} />
+              <SkeletonLoader layout={[{ height: 14, key: `organizer-${id}-text-2`, width: 260 }]} />
             </>
           ) : (
             <>

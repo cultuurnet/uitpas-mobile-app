@@ -24,7 +24,8 @@ const SkeletonLoader: FC<TSkeletonProps> = ({ containerStyle, layout, dark = fal
         layout={layout.map(style => ({ ...styles.layout, ...style }))}
       />
     ),
-    [containerStyle, dark, layout],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
   );
 
   return <MemoizedSkeletonContent />;

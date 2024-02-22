@@ -6,5 +6,5 @@ export function useCheckin() {
   const api = usePubliqApi();
   const { data: me } = useGetMe();
 
-  return api.post<TCheckInResponse, TMutationParams<TCheckInRequest>>(['checkin'], `/passholders/${me.id}/checkins`);
+  return api.post<TCheckInResponse, TMutationParams<TCheckInRequest>>(['checkin'], `/passholders/${me?.id}/checkins`);
 }
