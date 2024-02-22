@@ -9,11 +9,11 @@ export function useCameraPermission() {
     useCallback(() => {
       (async () => {
         let permission = await Camera.getCameraPermissionStatus();
-        if (permission !== 'authorized') {
+        if (permission !== 'granted') {
           permission = await Camera.requestCameraPermission();
         }
 
-        setHasCameraPermission(permission === 'authorized');
+        setHasCameraPermission(permission === 'granted');
       })();
     }, []),
   );
