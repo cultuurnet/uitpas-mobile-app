@@ -1,12 +1,4 @@
 module.exports = {
-  plugins: [
-    [
-      'react-native-reanimated/plugin',
-      {
-        // reanimated must be the last package
-        globals: ['__scanCodes'],
-      },
-    ],
-  ],
+  plugins: [['react-native-reanimated/plugin']],
   presets: ['module:@react-native/babel-preset'],
 };
