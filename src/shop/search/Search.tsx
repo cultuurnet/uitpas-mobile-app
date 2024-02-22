@@ -93,7 +93,7 @@ export const Search = ({ navigation, route }: TProps) => {
         <Styled.SearchResultsContainer>
           {search.length > 0 ? (
             isSearchLoading ? (
-              <RewardsSectionLoader showHeader={false} />
+              <RewardsSectionLoader showHeader={false} skeletonKey="rewards-search" />
             ) : (
               <FlashList
                 ItemSeparatorComponent={() => <Styled.RewardSeparator />}

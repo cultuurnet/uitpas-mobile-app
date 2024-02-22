@@ -55,7 +55,7 @@ export const FilteredShop = ({ route }: TProps) => {
           isRewardsLoading ? (
             <>
               {[1, 2, 3, 4].map(key => (
-                <RewardLoader key={key} mode="list" />
+                <RewardLoader key={key} mode="list" skeletonKey={`filtered-shop-${key}`} />
               ))}
             </>
           ) : (
