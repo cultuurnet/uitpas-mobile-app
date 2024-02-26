@@ -50,7 +50,8 @@ export const PopularItem = styled(TouchableRipple)`
 `;
 
 export const RewardSeparator = styled.View`
-  border: 1px solid ${theme.palette.neutral[100]};
+  border-width: 1px;
+  border-color: ${theme.palette.neutral[100]};
 `;
 
 export const NoContentText = styled(Typography)`

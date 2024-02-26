@@ -13,18 +13,18 @@ import Lottie
 
   @objc func createAnimationView(rootView: UIView, lottieName: String) -> UIView {
     // Adding a wrapper around the animation view is not really needed, but handy when tweaking sizes of the lottie
-    let view = AnimationView(name: lottieName)
+    let view = LottieAnimationView(name: lottieName)
     view.frame = rootView.frame
     view.center = rootView.center
     view.backgroundColor = UIColor.white
-    let animationView = AnimationView(name: lottieName)
+    let animationView = LottieAnimationView(name: lottieName)
     animationView.frame = CGRect(x: 0, y: 0, width: rootView.frame.width, height: rootView.frame.height)
     animationView.center = view.center
     view.addSubview(animationView)
     return view;
   }
 
-  @objc func play(animationView: AnimationView) {
+  @objc func play(animationView: LottieAnimationView) {
     animationView.play(
       completion: { (success) in
         RNSplashScreen.setAnimationFinished(true)

@@ -96,9 +96,11 @@ PODS:
   - libwebp/sharpyuv (1.3.2)
   - libwebp/webp (1.3.2):
     - libwebp/sharpyuv
-  - lottie-ios (3.2.3)
-  - lottie-react-native (5.1.3):
-    - lottie-ios (~> 3.2.3)
+  - lottie-ios (4.4.1)
+  - lottie-react-native (6.6.0):
+    - glog
+    - lottie-ios (~> 4.4.0)
+    - RCT-Folly (= 2022.05.16.00)
     - React-Core
   - MMKV (1.3.3):
     - MMKVCore (~> 1.3.3)
@@ -989,14 +991,14 @@ PODS:
     - React-Core
   - react-native-date-picker (4.3.3):
     - React-Core
-  - react-native-device-brightness (1.2.5):
+  - react-native-device-brightness (1.2.7):
     - React
   - react-native-flipper (0.163.0):
     - React-Core
-  - react-native-lottie-splash-screen (1.1.1):
+  - react-native-lottie-splash-screen (1.1.2):
     - React
-  - react-native-mmkv (2.5.1):
-    - MMKV (>= 1.2.13)
+  - react-native-mmkv (2.12.1):
+    - MMKV (>= 1.3.3)
     - React-Core
   - react-native-netinfo (9.3.7):
     - React-Core
@@ -1181,9 +1183,11 @@ PODS:
     - React-Core
     - SDWebImage (~> 5.11.1)
     - SDWebImageWebPCoder (~> 0.8.4)
-  - RNFlashList (1.4.0):
+  - RNFlashList (1.6.3):
     - React-Core
-  - RNGestureHandler (2.9.0):
+  - RNGestureHandler (2.15.0):
+    - glog
+    - RCT-Folly (= 2022.05.16.00)
     - React-Core
   - RNLocalize (2.2.4):
     - React-Core
@@ -1194,9 +1198,10 @@ PODS:
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
     - ReactCommon/turbomodule/core
-  - RNScreens (3.18.2):
+  - RNScreens (3.29.0):
+    - glog
+    - RCT-Folly (= 2022.05.16.00)
     - React-Core
-    - React-RCTImage
   - RNSentry (4.12.0):
     - React-Core
     - Sentry/HybridSDK (= 7.31.3)
@@ -1534,8 +1539,8 @@ SPEC CHECKSUMS:
   JWTDecode: 3eaab1e06b6f4dcbdd6716aff09ba4c2104ca8b7
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
-  lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
-  lottie-react-native: a501112fa980529ccb80b9f3ee117a7f98c6af3a
+  lottie-ios: e047b1d2e6239b787cc5e9755b988869cf190494
+  lottie-react-native: 34cfb1db79d0feb7bf7b200d4a4e2f164b0c5f58
   MMKV: f902fb6719da13c2ab0965233d8963a59416f911
   MMKVCore: d26e4d3edd5cb8588c2569222cbd8be4231374e9
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
@@ -1566,10 +1571,10 @@ SPEC CHECKSUMS:
   React-Mapbuffer: 63913773ed7f96b814a2521e13e6d010282096ad
   react-native-config: 5330c8258265c1e5fdb8c009d2cabd6badd96727
   react-native-date-picker: 1d61c76315098a6ad4c643a356f005916c7d4875
-  react-native-device-brightness: 07793659b0a7eb8dac01d21e988222c9a923a134
+  react-native-device-brightness: 886cfbfb49a32b6de4ccfc1f720776dc5f381d24
   react-native-flipper: 2d552a8178d839ef378220101fb7f0cd5b2a8003
-  react-native-lottie-splash-screen: 015423265bac5f46016dff2e31c97b9590808856
-  react-native-mmkv: 69b9c003f10afdd01addf7c6ee784ce42ee2eff3
+  react-native-lottie-splash-screen: 4e1b1fd9d6633f9cd2106d6877eb5ba0147f3e2b
+  react-native-mmkv: 124b22209aacdcd172b6ac39071b9647080f0411
   react-native-netinfo: 2517ad504b3d303e90d7a431b0fcaef76d207983
   react-native-render-html: 984dfe2294163d04bf5fe25d7c9f122e60e05ebe
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
@@ -1595,12 +1600,12 @@ SPEC CHECKSUMS:
   ReactCommon: 840a955d37b7f3358554d819446bffcf624b2522
   RNCClipboard: 3f0451a8100393908bea5c5c5b16f96d45f30bfc
   RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8
-  RNFlashList: 399bf6a0db68f594ad2c86aaff3ea39564f39f8a
-  RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
+  RNFlashList: 4b4b6b093afc0df60ae08f9cbf6ccd4c836c667a
+  RNGestureHandler: deda62b8339496ba721a45e0f3e2d7a319932cee
   RNLocalize: 0df7970cfc60389f00eb62fd7c097dc75af3fb4f
   RNPermissions: dcdb7b99796bbeda6975a6e79ad519c41b251b1c
   RNReanimated: beb07f7f900543928467da8107c175d1e57a1049
-  RNScreens: 34cc502acf1b916c582c60003dc3089fa01dc66d
+  RNScreens: b582cb834dc4133307562e930e8fa914b8c04ef2
   RNSentry: 4c09f4dd9740cb9b33e94303de5b6d0dbeb0737d
   RNSnowplowTracker: 4f395a9a7be502c486720f756ab6ee0d5cb33f6e
   RNSVG: 3a79c0c4992213e4f06c08e62730c5e7b9e4dc17

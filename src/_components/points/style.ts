@@ -20,7 +20,8 @@ export const PointsContainer = styled.View<{ $theme: TPointsTheme }>`
   padding: 0px 8px;
   flex-direction: row;
   align-items: center;
-  border: 1px solid ${({ $theme }) => ($theme === 'white' ? theme.palette.neutral[0] : theme.palette.primary[400])};
+  border-width: 1px;
+  border-color: ${({ $theme }) => ($theme === 'white' ? theme.palette.neutral[0] : theme.palette.primary[400])};
 `;
 
 export const PointsText = styled(Typography)`

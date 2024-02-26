@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Text } from 'react-native';
 import SplashScreen from 'react-native-lottie-splash-screen';
 import { HeaderBackButton } from '@react-navigation/elements';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -94,7 +95,7 @@ export const RootStackNavigator = () => {
             component={AddFamilyMember}
             name="AddFamilyMember"
             options={{
-              headerBackTitle: '',
+              headerBackTitleVisible: false,
               title: i18n.t('ONBOARDING.FAMILY.ADD_MEMBER.TITLE'),
             }}
           />
@@ -110,7 +111,7 @@ export const RootStackNavigator = () => {
             component={EditFamilyMember}
             name="EditFamilyMember"
             options={{
-              headerBackTitle: '',
+              headerBackTitleVisible: false,
               title: i18n.t('ONBOARDING.FAMILY.EDIT_MEMBER.TITLE'),
             }}
           />
@@ -163,7 +164,7 @@ export const RootStackNavigator = () => {
             component={About}
             name="About"
             options={{
-              headerBackTitle: '',
+              headerBackTitleVisible: false,
               title: i18n.t('PROFILE.ABOUT.HEADER_TITLE'),
             }}
           />
@@ -172,7 +173,7 @@ export const RootStackNavigator = () => {
             name="FilteredShop"
             options={({ route }) => ({
               headerBackButtonMenuEnabled: false,
-              headerBackTitle: '',
+              headerBackTitleVisible: false,
               headerRight: UserPoints,
               title: route?.params?.section === 'welkom' ? i18n.t('SHOP.WELCOME.HEADER_TITLE') : i18n.t('SHOP.HEADER_TITLE'),
             })}
@@ -181,7 +182,7 @@ export const RootStackNavigator = () => {
             component={History}
             name="History"
             options={{
-              headerBackTitle: '',
+              headerBackTitleVisible: false,
               headerRight: UserPoints,
               title: i18n.t('PROFILE.HISTORY.HEADER_TITLE'),
             }}
@@ -190,7 +191,7 @@ export const RootStackNavigator = () => {
             component={RedeemedRewards}
             name="RedeemedRewards"
             options={{
-              headerBackTitle: '',
+              headerBackTitleVisible: false,
               headerRight: UserPoints,
               title: i18n.t('PROFILE.REDEEMED_REWARDS.HEADER_TITLE'),
             }}
@@ -199,7 +200,7 @@ export const RootStackNavigator = () => {
             component={RedeemedReward}
             name="RedeemedReward"
             options={({ navigation, route }) => ({
-              headerBackTitle: '',
+              headerBackTitleVisible: false,
               headerRight: props =>
                 route.params?.isModal ? (
                   <HeaderBackButton
@@ -219,7 +220,7 @@ export const RootStackNavigator = () => {
             name="ShopDetail"
             options={{
               headerBackButtonMenuEnabled: false,
-              headerBackTitle: '',
+              headerBackTitleVisible: false,
               headerRight: UserPoints,
               title: i18n.t('SHOP_DETAIL.HEADER_TITLE'),
             }}
@@ -228,7 +229,7 @@ export const RootStackNavigator = () => {
             component={SearchFilters}
             name="SearchFilters"
             options={({ navigation }) => ({
-              headerBackTitle: '',
+              headerBackTitleVisible: false,
               headerBackVisible: false,
               headerRight: props => (
                 <HeaderBackButton
@@ -245,7 +246,7 @@ export const RootStackNavigator = () => {
           />
           <RootStack.Group
             screenOptions={{
-              headerBackTitle: '',
+              headerBackTitleVisible: false,
             }}
           >
             <RootStack.Screen
@@ -291,7 +292,7 @@ export const RootStackNavigator = () => {
               component={FamiliesOverview}
               name="FamiliesOverview"
               options={{
-                headerBackTitle: '',
+                headerBackTitleVisible: false,
                 title: i18n.t('PROFILE.LINKS.MY_FAMILY'),
               }}
             />

@@ -6,7 +6,8 @@ import { theme } from '../../../_styles/theme';
 export const Container = styled(TouchableRipple)`
   background-color: ${theme.palette.neutral[0]};
   border-radius: 16px;
-  border: 8px solid ${theme.palette.primary[800]};
+  border-width: 8px;
+  border-color: ${theme.palette.primary[800]};
   padding: ${theme.common.defaultSpacing}px;
   elevation: 1;
   margin: 24px 0;

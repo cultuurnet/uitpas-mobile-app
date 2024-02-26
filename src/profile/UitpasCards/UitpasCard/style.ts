@@ -28,7 +28,8 @@ export const UserAvatar = styled.Image`
   height: 32px;
   margin-right: 8px;
   border-radius: 16px;
-  border: 2px solid ${({ theme }) => theme.palette.neutral['0']};
+  border-width: 2px;
+  border-color: ${({ theme }) => theme.palette.neutral['0']};
 `;
 
 export const CardsView = styled.View`
