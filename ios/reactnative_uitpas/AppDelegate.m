@@ -1,5 +1,8 @@
 #import "AppDelegate.h"
 
+#import "RNSplashScreen.h"
+#import "Uitpas-Swift.h"
+
 #import <React/RCTBundleURLProvider.h>
 
 @implementation AppDelegate
@@ -11,7 +14,18 @@
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
 
-  return [super application:application didFinishLaunchingWithOptions:launchOptions];
+  BOOL success = [super application:application didFinishLaunchingWithOptions:launchOptions];
+
+  if (success) {
+    UIView *rootView = self.window.rootViewController.view;
+    SplashScreen *splashScreen = [SplashScreen new];
+    UIView *splashScreenView = [splashScreen createAnimationViewWithRootView:rootView lottieName:@"splash"];
+    [RNSplashScreen showLottieSplash:splashScreenView inRootView:rootView];
+    [splashScreen playWithAnimationView:splashScreenView.subviews.firstObject];
+    [RNSplashScreen setAnimationFinished:true];
+  }
+
+  return success;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
