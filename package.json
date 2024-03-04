@@ -7,7 +7,7 @@
     "check-types": "tsc --noEmit",
     "format:check": "yarn prettier --check",
     "format": "yarn prettier --write",
-    "ios": "react-native run-ios --configuration Debug",
+    "ios": "react-native run-ios --mode Debug",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "prettier": "prettier --ignore-path .gitignore \"src/**/*.+(js|json|ts|tsx)\"",
     "reset": "rm -rf node_modules && rm -rf yarn.lock && (cd ios && rm -rf Pods && rm -rf Podfile.lock) && yarn install && (cd android && ./gradlew clean) && (cd ios && pod install)",
