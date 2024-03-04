@@ -23,7 +23,7 @@ class MainActivity : ReactActivity() {
         DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(null)
         SplashScreen.show(this, R.style.SplashScreenTheme, R.id.lottie)
         SplashScreen.setAnimationFinished(true) // If you want the animation dialog to be forced to close when hide is called, use this code
     }
