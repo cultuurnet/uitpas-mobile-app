@@ -117,9 +117,13 @@ const Camera = ({ navigation }: TProps) => {
       <Analytics screenName="Camera" />
       <View onLayout={handleLayoutChange} style={StyleSheet.absoluteFill}>
         <FocusAwareStatusBar backgroundColor={theme.palette.neutral['900']} barStyle="light-content" />
-        {overlayDimensions.width !== 0 && (
-          <VisionCamera codeScanner={codeScanner} device={device} format={format} isActive={isActive} style={overlayDimensions} />
-        )}
+        <VisionCamera
+          codeScanner={codeScanner}
+          device={device}
+          format={format}
+          isActive={isActive && overlayDimensions.width !== 0}
+          style={overlayDimensions}
+        />
         <CameraOverlay config={overlay} isLoading={isLoading} settings={overlaySettings} />
       </View>
     </>
