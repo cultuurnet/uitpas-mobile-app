@@ -50,7 +50,9 @@ const Camera = ({ navigation }: TProps) => {
     codeTypes: ['qr'],
     onCodeScanned: (codes, frame) => {
       runAtTargetFps(5, () => {
-        onBarCodeDetected(codes[0], frame);
+        if (isActive && !isLoading && codes.length > 0) {
+          onBarCodeDetected(codes[0], frame);
+        }
       });
     },
   });
