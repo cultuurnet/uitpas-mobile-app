@@ -4,7 +4,8 @@ import { Typography } from '../_components';
 import { theme } from '../_styles/theme';
 
 export const Separator = styled.View`
-  border: 1px solid ${theme.palette.neutral[100]};
+  border-width: 1px;
+  border-color: ${theme.palette.neutral[100]};
 `;
 
 export const NoContentText = styled(Typography)`

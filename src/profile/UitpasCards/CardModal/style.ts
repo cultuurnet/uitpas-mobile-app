@@ -13,11 +13,12 @@ export const BlurContainer = styled(Button)`
 export const CloseButton = styled.Pressable`
   align-items: center;
   justify-content: center;
-  margin-top: -42px; 
+  margin-top: -42px;
   width: 32px;
   height: 32px;
   border-radius: 16px;
-  border: 2px solid ${theme.palette.neutral[0]};
+  border-width: 2px;
+  border-color: ${theme.palette.neutral[0]};
   align-self: flex-end;
 `;
 

@@ -12,7 +12,8 @@ export const NavigationButton = styled.Pressable<TNavigationButtonProps>`
   padding: 0;
   border-radius: 35px;
   background-color: ${({ theme, focused }) => (focused ? theme.palette.primary['600'] : theme.palette.neutral['0'])};
-  border: ${({ theme, focused }) => (focused ? 'none' : `2px solid ${theme.palette.neutral['200']}`)};
+  border-width: ${({ focused }) => (focused ? 0 : '2px')};
+  border-color: ${({ theme, focused }) => (focused ? 'none' : theme.palette.neutral['200'])};
   padding: 15px;
   z-index: 1;
   /* shadow */

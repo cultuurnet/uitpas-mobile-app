@@ -10,7 +10,8 @@ export const Container = styled.TouchableOpacity`
   justify-content: center;
   flex-direction: row;
   height: 32px;
-  border: 2px solid ${theme.palette.neutral[0]};
+  border-width: 2px;
+  border-color: ${theme.palette.neutral[0]};
 `;
 
 export const Points = styled(Typography)`

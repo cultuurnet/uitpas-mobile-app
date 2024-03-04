@@ -16,7 +16,7 @@ const HtmlRenderer: FC<Props> = ({ source, fontSize = 14, onLinkPress }) => {
   const { width } = useWindowDimensions();
   function onElement(element: Element) {
     if (element.tagName === 'a') {
-      element.attribs['href'] = normalizeUrl(element.attribs['href']);
+      element.attribs.href = normalizeUrl(element.attribs.href);
     }
   }
 

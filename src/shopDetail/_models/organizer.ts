@@ -23,6 +23,6 @@ export type TOrganizer = {
   languages: string[];
   mainLanguage: string;
   modified: string;
-  name: string;
+  name: Record<string, string>;
   workflowStatus: string;
 };

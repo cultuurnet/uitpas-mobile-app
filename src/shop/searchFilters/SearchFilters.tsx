@@ -73,7 +73,7 @@ export const SearchFilters = ({ navigation, route }: TProps) => {
               setUpdatedFilters({ ...updatedFilters, filters: { ...updatedFilters.filters, includeAllCardSystems: value } })
             }
             trackColor={{ false: theme.palette.neutral['200'], true: theme.palette.primary['600'] }}
-            value={updatedFilters.filters['includeAllCardSystems']}
+            value={updatedFilters.filters.includeAllCardSystems}
           />
         </Styled.RegionFilter>
         <Styled.SectionTitle color="primary.800" fontStyle="bold" size="large">

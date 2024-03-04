@@ -19,7 +19,8 @@ export const HeaderContent = styled(TouchableRipple)`
 export const MyAvatar = styled.Image`
   width: 64px;
   height: 64px;
-  border: 4px solid ${theme.palette.neutral['0']};
+  border-width: 4px;
+  border-color: ${theme.palette.neutral['0']};
   border-radius: 32px;
 `;
 
@@ -84,7 +85,8 @@ export const AddIconContainer = styled.View`
   align-items: center;
   width: 48px;
   height: 48px;
-  border: 4px solid ${theme.palette.primary['400']};
+  border-width: 4px;
+  border-color: ${theme.palette.primary['400']};
   border-radius: 24px;
 `;
 

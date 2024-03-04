@@ -30,7 +30,8 @@ export const RewardTile = styled(Reward)<{ isLast?: boolean }>`
 `;
 
 export const Separator = styled.View`
-  border: 1px solid ${theme.palette.neutral[100]};
+  border-width: 1px;
+  border-color: ${theme.palette.neutral[100]};
 `;
 
 export const ContentContainerStyle = {
