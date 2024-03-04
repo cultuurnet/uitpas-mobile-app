@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
-import Svg, { Defs, Mask, Path, Rect } from 'react-native-svg';
+import Svg, { Path, Rect } from 'react-native-svg';
 
 import { Button, Icon, Spinner, Typography } from '../../_components';
 import { ConfigUrl } from '../../_config';
@@ -17,7 +17,7 @@ type TProps = {
 
 const CameraOverlay: FC<TProps> = ({
   config: { sideLength, boundingBox, corners },
-  settings: { padding, strokeWidth },
+  settings: { strokeWidth },
   isLoading = false,
 }) => {
   const { t } = useTranslation();
