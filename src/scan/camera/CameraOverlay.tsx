@@ -27,22 +27,13 @@ const CameraOverlay: FC<TProps> = ({
   return (
     <>
       <Svg style={StyleSheet.absoluteFill}>
-        <Defs key={height}>
-          <Mask id="cutout" key={`${height}-${JSON.stringify(boundingBox)}`}>
+        {/* <Defs>
+          <Mask id="cutout">
             <Rect fill="#fff" height="100%" width="100%" x={0} y={0} />
             <Rect fill="#000" height={sideLength} width={sideLength} x={padding} y={boundingBox.top} />
           </Mask>
-        </Defs>
-        <Rect
-          fill="black"
-          fillOpacity={0.4}
-          height="100%"
-          mask={isLoading ? undefined : 'url(#cutout)'}
-          width="100%"
-          x={0}
-          y={0}
-        />
-
+        </Defs> */}
+        <Rect fill="black" fillOpacity={0.4} height={height} width="100%" x={0} y={0} />
         {!isLoading &&
           corners.map((corner, i) => (
             <Path d={corner.path} key={`corner-${i}`} stroke="white" strokeWidth={strokeWidth} x={corner.x} y={corner.y} />
