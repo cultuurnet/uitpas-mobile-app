@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
-import Svg, { Path, Rect } from 'react-native-svg';
+import Svg, { Defs, Mask, Path, Rect } from 'react-native-svg';
 
 import { Button, Icon, Spinner, Typography } from '../../_components';
 import { ConfigUrl } from '../../_config';
@@ -17,7 +17,7 @@ type TProps = {
 
 const CameraOverlay: FC<TProps> = ({
   config: { sideLength, boundingBox, corners },
-  settings: { strokeWidth },
+  settings: { padding, strokeWidth },
   isLoading = false,
 }) => {
   const { t } = useTranslation();
@@ -27,13 +27,21 @@ const CameraOverlay: FC<TProps> = ({
   return (
     <>
       <Svg style={StyleSheet.absoluteFill}>
-        {/* <Defs>
+        <Defs>
           <Mask id="cutout">
-            <Rect fill="#fff" height="100%" width="100%" x={0} y={0} />
+            <Rect fill="#fff" height={height} width="100%" x={0} y={0} />
             <Rect fill="#000" height={sideLength} width={sideLength} x={padding} y={boundingBox.top} />
           </Mask>
-        </Defs> */}
-        <Rect fill="black" fillOpacity={0.4} height={height} width="100%" x={0} y={0} />
+        </Defs>
+        <Rect
+          fill="black"
+          fillOpacity={0.4}
+          height={height}
+          mask={isLoading ? undefined : 'url(#cutout)'}
+          width="100%"
+          x={0}
+          y={0}
+        />
         {!isLoading &&
           corners.map((corner, i) => (
             <Path d={corner.path} key={`corner-${i}`} stroke="white" strokeWidth={strokeWidth} x={corner.x} y={corner.y} />
