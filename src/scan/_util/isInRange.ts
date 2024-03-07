@@ -11,7 +11,7 @@ export function isInRange({ corners }: Code, scanRegion: Rect, frame: CodeScanne
   const [topLeft, topRight, bottomRight, bottomLeft] = corners;
   const { width: frameWidth, height: frameHeight } = frame;
 
-  if (corners && corners.length >= 4) {
+  if (corners?.length >= 4) {
     /** bounding box for QR code in percentages */
     const qrBoundingBox: Rect = {
       bottom: (bottomLeft.y + bottomRight.y) / 2 / frameHeight,
