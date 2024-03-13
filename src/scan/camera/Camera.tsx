@@ -22,7 +22,7 @@ import { useGetMe } from '../../profile/_queries/useGetMe';
 import { useCameraPermission } from '../_hooks';
 import { TOverlayDimensions, useOverlayDimensions } from '../_hooks/useOverlayDimensions';
 import { useCheckin } from '../_queries/useCheckin';
-import { isInRange } from '../_util/isInRange';
+// import { isInRange } from '../_util/isInRange';
 import CameraSettings from '../cameraSettings/CameraSettings';
 import CameraOverlay from './CameraOverlay';
 
@@ -73,35 +73,35 @@ const Camera = ({ navigation }: TProps) => {
     setOverlayDimensions({ height, width });
   }
 
-  async function onBarCodeDetected(code: Code, frame: CodeScannerFrame) {
-    if (isInRange(code, overlay.regionDefinition, frame)) {
-      try {
-        setIsActive(false);
-        const response = await checkin({
-          body: { checkinCode: code.value },
-        });
-        trackSelfDescribingEvent(
-          'successMessage',
-          { message: 'points-saved-success' },
-          { up_action: { name: 'save-points', points: response.addedPoints, target: 'self', target_ph_id: me?.id } },
-        );
-        navigation.navigate('ScanSuccess', { ...response, checkinCode: code.value });
-      } catch (error) {
-        const { endUserMessage } = error as TApiError;
-        trackSelfDescribingEvent(
-          'errorMessage',
-          { message: error.type.replace(TRACKING_URL_REGEX, '') },
-          { up_action: { name: 'save-points', points: undefined, target: 'self', target_ph_id: me?.id } },
-        );
-        navigation.navigate('Error', {
-          checkinCode: code.value,
-          gotoAfterClose: ['MainNavigator', 'Profile'],
-          message: endUserMessage?.nl,
-          showFamilyScan: hasFamilyMembers,
-        });
-        log.error(error);
-      }
+  async function onBarCodeDetected(code: Code, _frame: CodeScannerFrame) {
+    // if (isInRange(code, overlay.regionDefinition, frame)) {
+    try {
+      setIsActive(false);
+      const response = await checkin({
+        body: { checkinCode: code.value },
+      });
+      trackSelfDescribingEvent(
+        'successMessage',
+        { message: 'points-saved-success' },
+        { up_action: { name: 'save-points', points: response.addedPoints, target: 'self', target_ph_id: me?.id } },
+      );
+      navigation.navigate('ScanSuccess', { ...response, checkinCode: code.value });
+    } catch (error) {
+      const { endUserMessage } = error as TApiError;
+      trackSelfDescribingEvent(
+        'errorMessage',
+        { message: error.type.replace(TRACKING_URL_REGEX, '') },
+        { up_action: { name: 'save-points', points: undefined, target: 'self', target_ph_id: me?.id } },
+      );
+      navigation.navigate('Error', {
+        checkinCode: code.value,
+        gotoAfterClose: ['MainNavigator', 'Profile'],
+        message: endUserMessage?.nl,
+        showFamilyScan: hasFamilyMembers,
+      });
+      log.error(error);
     }
+    // }
   }
 
   if (!hasCameraPermission) {
