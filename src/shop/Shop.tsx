@@ -59,7 +59,7 @@ const Shop = ({ navigation }: TProps) => {
           data={sections}
           keyExtractor={({ title }) => title}
           onEndReached={loadNextSection}
-          onEndReachedThreshold={0.1}
+          onEndReachedThreshold={0.25}
           renderItem={({ item: { section, category, title, horizontal } }) => (
             <RewardsSection
               category={category}
