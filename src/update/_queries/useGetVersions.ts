@@ -13,7 +13,7 @@ export function useGetVersions() {
   const { data: versions } = useQuery<TVersion, unknown>(['versions'], () => getVersions(), {
     cacheTime: 0,
     networkMode: 'online',
-    refetchOnWindowFocus: true,
+    refetchOnWindowFocus: 'always',
   });
   return versions ? checkVersion(versions) : undefined;
 }
