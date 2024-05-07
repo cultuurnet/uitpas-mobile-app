@@ -4,8 +4,8 @@ import { HttpClient } from '../../_http';
 import { TVersion } from '../_models';
 import { checkVersion } from '../_util/checkVersion';
 
-function getVersions(): Promise<TVersion> {
-  return HttpClient.get<TVersion>('https://663a23451ae792804bee3482.mockapi.io/versions');
+function getVersions(): Promise<TVersion[]> {
+  return HttpClient.get<TVersion[]>('https://663a23451ae792804bee3482.mockapi.io/versions');
 }
 
 export function useGetVersions() {
@@ -14,5 +14,5 @@ export function useGetVersions() {
     networkMode: 'online',
     refetchOnWindowFocus: 'always',
   });
-  return versions[0] ? checkVersion(versions[0]) : undefined;
+  return versions?.[0] ? checkVersion(versions[0]) : undefined;
 }
