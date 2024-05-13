@@ -19,7 +19,7 @@ export const Organizer = ({ id, fallbackName, showTopBorder = false }: TProps) =
 
   const formattedAddress = useMemo(() => {
     // Fallback to nl, in case there is no translated address
-    const address = data?.address[getLanguage()] || data?.address.nl;
+    const address = data?.address?.[getLanguage()] || data?.address?.nl;
     if (!address) return '';
 
     let addressString = address.streetAddress;
