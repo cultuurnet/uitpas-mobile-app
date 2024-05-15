@@ -18,7 +18,7 @@ jobs:
   release_beta_ios:
     name: iOS (beta)
     environment: beta
-    runs-on: macos-12
+    runs-on: macos-14
     if:
       github.event_name == 'workflow_dispatch' || (startsWith(github.head_ref, 'release/') && github.event.pull_request.merged ==
       true)
@@ -68,7 +68,7 @@ jobs:
   release_beta_android:
     name: Android (beta)
     environment: beta
-    runs-on: macos-12
+    runs-on: macos-14
     if:
       github.event_name == 'workflow_dispatch' || (startsWith(github.head_ref, 'release/') && github.event.pull_request.merged ==
       true)
