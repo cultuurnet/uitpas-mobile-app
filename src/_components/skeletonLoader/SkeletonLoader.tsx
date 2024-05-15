@@ -1,7 +1,6 @@
 import React, { FC, useCallback } from 'react';
 import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
-import SkeletonContent from 'react-native-skeleton-content-nonexpo';
-import { ICustomViewStyle } from 'react-native-skeleton-content-nonexpo/lib/Constants';
+import SkeletonContent, { ICustomViewStyle } from 'react-native-reanimated-skeleton';
 
 import { theme } from '../../_styles/theme';
 
@@ -24,7 +23,8 @@ const SkeletonLoader: FC<TSkeletonProps> = ({ containerStyle, layout, dark = fal
         layout={layout.map(style => ({ ...styles.layout, ...style }))}
       />
     ),
-    [containerStyle, dark, layout],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
   );
 
   return <MemoizedSkeletonContent />;

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState } from 'react';
 import Clipboard from '@react-native-clipboard/clipboard';
 
 import { theme } from '../../_styles/theme';
@@ -8,7 +8,7 @@ import * as Styled from './style';
 
 type TProps = {
   label: string;
-}
+};
 
 const ClipboardButton = ({ label, ...props }: TProps) => {
   const [isCopied, setIsCopied] = useState(false);
@@ -30,7 +30,7 @@ const ClipboardButton = ({ label, ...props }: TProps) => {
         <Icon color="primary.800" name={isCopied ? 'Check' : 'Copy'} size={24} />
       </>
     </Styled.Container>
-  )
-}
+  );
+};
 
 export default ClipboardButton;

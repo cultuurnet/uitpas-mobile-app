@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FlatList } from 'react-native';
 
 import { Analytics, EnlargedHeader, SafeAreaView } from '../_components';
 import { TMainNavigationProp } from '../_routing';
@@ -30,37 +31,46 @@ const Shop = ({ navigation }: TProps) => {
   const { data: user } = useGetMe();
   const [sections, setSections] = useState<TRewardSectionProps[]>(SECTIONS.slice(0, 2));
 
-  // Gradually adds all sections with a delay of 300ms
-  // (After loading first 3 sections from the start)
-  const onSectionLoaded = () => {
-    if (sections.length < SECTIONS.length) {
-      setSections([...sections, SECTIONS[sections.length]]);
-    }
-  };
+  const loadNextSection = useCallback(() => {
+    setSections(sections => {
+      if (sections.length < SECTIONS.length) return SECTIONS.slice(0, sections.length + 1);
+      return sections;
+    });
+  }, []);
 
   return (
     <>
       <Analytics screenName="rewardshop" />
-      <SafeAreaView edges={['left', 'right']} isScrollable>
-        <EnlargedHeader height={30} />
-        <Styled.SearchContainer>
-          <Styled.SearchButton onPress={() => navigation.push('Search')}>
-            <Styled.SearchInput editable={false} placeholder={t('SHOP.SEARCH.PLACEHOLDER')} pointerEvents="none" />
-          </Styled.SearchButton>
-          <Styled.SearchIcon color="primary.700" name="Search" size={18} />
-        </Styled.SearchContainer>
-        <WelcomeGiftsBanner />
-        <CategoryFilters />
-        {sections.map(({ section, category, title, horizontal }) => (
-          <RewardsSection
-            category={category}
-            horizontal={horizontal}
-            key={title}
-            onLoaded={onSectionLoaded}
-            section={section}
-            title={t(title, { city: user?.address?.city || t('SHOP.SECTIONS.CITY_FALLBACK') })}
-          />
-        ))}
+      <SafeAreaView edges={['left', 'right']} isScrollable={false}>
+        <FlatList
+          ListHeaderComponent={
+            <>
+              <EnlargedHeader height={30} />
+              <Styled.SearchContainer>
+                <Styled.SearchButton onPress={() => navigation.push('Search')}>
+                  <Styled.SearchInput editable={false} placeholder={t('SHOP.SEARCH.PLACEHOLDER')} pointerEvents="none" />
+                </Styled.SearchButton>
+                <Styled.SearchIcon color="primary.700" name="Search" size={18} />
+              </Styled.SearchContainer>
+              <WelcomeGiftsBanner />
+              <CategoryFilters />
+            </>
+          }
+          data={sections}
+          keyExtractor={({ title }) => title}
+          onEndReached={loadNextSection}
+          onEndReachedThreshold={0.25}
+          renderItem={({ item: { section, category, title, horizontal } }) => (
+            <RewardsSection
+              category={category}
+              horizontal={horizontal}
+              key={title}
+              loadNextSection={loadNextSection}
+              section={section}
+              title={t(title, { city: user?.address?.city || t('SHOP.SECTIONS.CITY_FALLBACK') })}
+            />
+          )}
+        />
       </SafeAreaView>
     </>
   );

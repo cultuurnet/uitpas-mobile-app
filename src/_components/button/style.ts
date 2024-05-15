@@ -36,8 +36,9 @@ export const ButtonElement = styled(TouchableRipple)<{
   overflow: hidden;
   padding: ${({ $variant, $inline }) =>
     $inline && $variant !== 'link' ? '12px 16px' : $variant !== 'link' ? '12px 20px' : '0px'};
-  border: ${({ $variant, theme, $color }) =>
-    $variant === 'outline' ? `2px solid ${$color ? getColor($color) : theme.palette.neutral['0']}` : 'none'};
+  border-width: ${({ $variant }) => ($variant === 'outline' ? '2px' : 0)};
+  border-color: ${({ $variant, theme, $color }) =>
+    $variant === 'outline' ? ($color ? getColor($color) : theme.palette.neutral['0']) : 'none'};
 `;
 
 export const ButtonText = styled(Typography)<{
@@ -58,5 +59,5 @@ export const ButtonText = styled(Typography)<{
   }};
   text-decoration: ${({ $variant, $underline }) => ($variant === 'link' && $underline ? 'underline' : 'none')};
   text-decoration-color: ${({ $active, theme, $color }) =>
-    $color ? $color : $active ? theme.palette.primary['900'] : theme.palette.primary['700']};
+    $color ? getColor($color) : $active ? theme.palette.primary['900'] : theme.palette.primary['700']};
 `;

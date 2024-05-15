@@ -1,5 +1,11 @@
 import { useMemo } from 'react';
-import { Rect } from 'vision-camera-code-scanner';
+
+type Rect = {
+  bottom: number;
+  left: number;
+  right: number;
+  top: number;
+};
 
 type Corner = {
   path: string;

@@ -19,6 +19,7 @@ export const Image = styled.Image<{ parentHeight: number }>`
 export const BottomGap = styled.View`
   width: 100%;
   height: 24px;
-  border: ${({ theme }) => `0px solid ${theme.palette.neutral[200]}`};
+  border-width: 0;
+  border-color: ${({ theme }) => theme.palette.neutral[200]};
   border-bottom-width: 0.5px;
 `;

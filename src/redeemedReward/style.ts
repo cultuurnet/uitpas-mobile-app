@@ -13,7 +13,8 @@ export const SuccessContainer = styled.View`
   padding: ${theme.common.defaultSpacing}px;
   background-color: ${theme.palette.secondary[200]};
   border-radius: 8px;
-  border: 1px solid ${theme.palette.primary[300]};
+  border-width: 1px;
+  border-color: ${theme.palette.primary[300]};
   margin-top: 24px;
 `;
 
@@ -52,7 +53,8 @@ export const MemberAvatar = styled.Image`
   width: 48px;
   height: 48px;
   border-radius: 24px;
-  border: 4px solid ${theme.palette.neutral[0]};
+  border-width: 4px;
+  border-color: ${theme.palette.neutral[0]};
 `;
 
 export const MemberAvatarLine = styled.View`

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -20,7 +20,7 @@ export type TRewardSectionProps = {
   filterRewardId?: string;
   hideMoreButton?: boolean;
   horizontal?: boolean;
-  onLoaded?: () => void;
+  loadNextSection?: () => void;
   organizerId?: string[];
   section?: TFilterRewardSection;
   title: string;
@@ -34,7 +34,7 @@ export const RewardsSection = ({
   hideMoreButton,
   category,
   organizerId,
-  onLoaded,
+  loadNextSection,
   ...props
 }: TRewardSectionProps) => {
   const { data: me } = useGetMe();
@@ -48,7 +48,10 @@ export const RewardsSection = ({
   const { navigate, push } = useNavigation<TMainNavigationProp>();
   const { trackSelfDescribingEvent } = useTracking();
   // Filter when there are rewards that shouldn't be shown (eg, when we show related rewards at the bottom a reward detail)
-  const rewards = data?.pages[0]?.member?.filter?.(reward => reward.id !== filterRewardId);
+  const rewards = useMemo(
+    () => data?.pages[0]?.member?.filter?.(reward => reward.id !== filterRewardId),
+    [data?.pages, filterRewardId],
+  );
 
   const onPressMore = useCallback(() => {
     trackSelfDescribingEvent('swimlaneInteraction', {
@@ -64,13 +67,12 @@ export const RewardsSection = ({
   }, [title, section, navigate, category, horizontal, trackSelfDescribingEvent]);
 
   useEffect(() => {
-    if (isLoading) return;
-    onLoaded?.();
-  }, [isLoading, onLoaded]);
+    if (!isLoading && !(rewards?.length >= 2)) loadNextSection?.();
+  }, [isLoading, loadNextSection, rewards, rewards?.length, title]);
 
   // We need to have 2 or more results to display the section
   if (!isLoading && !(rewards?.length >= 2)) return null;
-  if (isLoading) return <RewardsSectionLoader horizontal={horizontal} />;
+  if (isLoading) return <RewardsSectionLoader horizontal={horizontal} skeletonKey={title} />;
 
   return (
     <Styled.Container {...props}>

@@ -35,7 +35,11 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
       toggleIsVisible();
       queryClient.invalidateQueries(['family']);
       queryClient.invalidateQueries(['redeem-status', reward.id]);
-      navigate('RedeemedReward', { isModal: true, member, redeemedReward });
+      setTimeout(() => {
+        // We wrap this in a timeout because of race condition between
+        // closing the confirmation modal and opening the new screen in a modal
+        navigate('RedeemedReward', { isModal: true, member, redeemedReward });
+      }, 0);
     },
   });
   const activeCard = getActiveCard({ passHolder: member?.passholder });

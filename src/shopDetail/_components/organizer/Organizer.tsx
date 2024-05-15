@@ -19,7 +19,7 @@ export const Organizer = ({ id, fallbackName, showTopBorder = false }: TProps) =
 
   const formattedAddress = useMemo(() => {
     // Fallback to nl, in case there is no translated address
-    const address = data?.address[getLanguage()] || data?.address['nl'];
+    const address = data?.address?.[getLanguage()] || data?.address?.nl;
     if (!address) return '';
 
     let addressString = address.streetAddress;
@@ -32,7 +32,7 @@ export const Organizer = ({ id, fallbackName, showTopBorder = false }: TProps) =
 
   const name = useMemo(() => {
     // Fallback to nl, in case there is no translated address
-    const name = typeof data?.name === 'string' ? data.name : data?.name[getLanguage()] || data?.name['nl'];
+    const name = typeof data?.name === 'string' ? data.name : data?.name[getLanguage()] || data?.name.nl;
     return name;
   }, [data?.name]);
 
@@ -57,8 +57,8 @@ export const Organizer = ({ id, fallbackName, showTopBorder = false }: TProps) =
         <Styled.Content>
           {isLoading ? (
             <>
-              <SkeletonLoader layout={[{ height: 14, width: 200 }]} />
-              <SkeletonLoader layout={[{ height: 14, width: 260 }]} />
+              <SkeletonLoader layout={[{ height: 14, key: `organizer-${id}-text-1`, width: 200 }]} />
+              <SkeletonLoader layout={[{ height: 14, key: `organizer-${id}-text-2`, width: 260 }]} />
             </>
           ) : (
             <>

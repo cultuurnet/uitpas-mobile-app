@@ -14,7 +14,8 @@ export const Avatar = styled.Image`
   width: 48px;
   height: 48px;
   border-radius: 24px;
-  border: ${({ theme }) => `4px solid ${theme.palette.neutral['0']}`};
+  border-width: 4px;
+  border-color: ${({ theme }) => theme.palette.neutral['0']};
 `;
 
 export const Body = styled.View`

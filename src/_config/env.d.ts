@@ -14,6 +14,5 @@ declare module 'react-native-config' {
     | 'REACT_NATIVE_APP_LOGGING_LEVEL'
     | 'SENTRY_DSN';
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
   export interface NativeConfig extends Record<ConfigKeys, string | undefined> {}
 }

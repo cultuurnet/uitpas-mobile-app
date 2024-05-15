@@ -28,7 +28,7 @@ const LinkList: FC<TProps> = ({ items, title, ...props }) => {
             <>
               <Icon color={item.iconColor || 'primary.600'} name={item.iconName} />
               <Styled.UnderlinedLinkText>{item.label}</Styled.UnderlinedLinkText>
-              <Icon color='neutral.400' name='External' size={12} />
+              <Icon color="neutral.400" name="External" size={12} />
             </>
           </Styled.LinkButton>
         ) : (

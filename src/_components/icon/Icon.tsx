@@ -3,6 +3,7 @@ import { ImageProps, ImageStyle, StyleProp, ViewStyle } from 'react-native';
 
 import * as Icons from '../../_assets/icons';
 import { ThemeColor } from '../../_styles/theme';
+import { getColor } from '../../_utils';
 import * as Styled from './style';
 
 export type TIconName = keyof typeof Icons;
@@ -19,7 +20,14 @@ export type TIconProps = {
 
 const Icon = ({ size, name, color, style = {}, onPress, disabled = false, borderless = false, ...imageProps }: TIconProps) => {
   const BareIcon = ({ iconStyle = {} }: { iconStyle?: StyleProp<ImageStyle> }) => (
-    <Styled.Icon {...imageProps} color={color} resizeMode="contain" size={size} source={Icons[name]} style={iconStyle} />
+    <Styled.Icon
+      {...imageProps}
+      resizeMode="contain"
+      size={size}
+      source={Icons[name]}
+      style={iconStyle}
+      tintColor={color && getColor(color)}
+    />
   );
 
   return onPress ? (

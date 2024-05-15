@@ -86,7 +86,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [client, setIsAuthenticated, logout, setAccessToken, setUser, setIsInitialized]);
 
   useAppState({
-    onForeground: async () => {
+    onForeground: () => {
       checkAndRenewCredentials();
     },
   });

@@ -98,9 +98,12 @@ const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
   },
 } as const;
 
-export const ConfigUrl = Object.keys(urls).reduce((result, key) => {
-  return {
-    ...result,
-    [key]: urls[key][ConfigEnvironment],
-  };
-}, {} as Record<TConfigUrlIdentifiers, string>);
+export const ConfigUrl = Object.keys(urls).reduce(
+  (result, key) => {
+    return {
+      ...result,
+      [key]: urls[key][ConfigEnvironment],
+    };
+  },
+  {} as Record<TConfigUrlIdentifiers, string>,
+);
