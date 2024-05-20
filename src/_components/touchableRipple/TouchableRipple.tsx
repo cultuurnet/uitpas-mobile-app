@@ -6,12 +6,12 @@ import {
   TouchableHighlight,
   TouchableNativeFeedback,
   TouchableWithoutFeedbackProps,
+  View,
   ViewStyle,
 } from 'react-native';
 import color from 'color';
 
 import { theme } from '../../_styles/theme';
-import * as Styled from './style';
 
 const ANDROID_VERSION_LOLLIPOP = 21;
 const ANDROID_VERSION_PIE = 28;
@@ -21,6 +21,8 @@ type TProps = TouchableWithoutFeedbackProps & {
   borderless?: boolean;
   children: React.ReactNode;
   disabled?: boolean;
+  hitSlop?: number;
+  loading?: boolean;
   onPress?: () => void;
   rippleColor?: string;
   style?: StyleProp<ViewStyle>;
@@ -35,41 +37,40 @@ const TouchableRipple = ({
   rippleColor,
   underlayColor,
   children,
+  hitSlop,
+  loading,
   ...rest
 }: TProps) => {
-  const disabled = disabledProp || !rest.onPress;
-  const calculatedRippleColor = rippleColor || color(theme.colors.text).alpha(0.2).rgb().string();
+  const disabled = disabledProp || loading || !rest.onPress;
+  const calculatedRippleColor = rippleColor || color(theme.palette.primary['900']).alpha(0.2).rgb().string();
 
   // A workaround for ripple on Android P is to use useForeground + overflow: 'hidden'
   // https://github.com/facebook/react-native/issues/6480
   const useForeground = Platform.OS === 'android' && Platform.Version >= ANDROID_VERSION_PIE && borderless;
-
   if (TouchableRipple.supported) {
     return (
       <TouchableNativeFeedback
         {...rest}
         background={background ?? TouchableNativeFeedback.Ripple(calculatedRippleColor, borderless)}
         disabled={disabled}
+        hitSlop={hitSlop}
         useForeground={useForeground}
       >
-        <Styled.Content borderless={borderless} style={style}>
-          {React.Children.only(children)}
-        </Styled.Content>
+        <View style={style}>{children}</View>
       </TouchableNativeFeedback>
     );
   }
 
   return (
-    <Styled.Content
-      as={TouchableHighlight}
-      borderless={borderless}
+    <TouchableHighlight
       disabled={disabled}
+      hitSlop={hitSlop}
       style={style}
       underlayColor={underlayColor ?? color(calculatedRippleColor).fade(0.5).rgb().string()}
       {...rest}
     >
-      {React.Children.only(children)}
-    </Styled.Content>
+      {children}
+    </TouchableHighlight>
   );
 };
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { UseInfiniteQueryResult } from '@tanstack/react-query';
 
 import { FillMetadataQueryFunction, HttpMetadataQuery, HttpPagedResponse, TApiError } from '../_http';
@@ -16,7 +16,7 @@ export function useInfiniteScroll<T>(
     setItemsQuery(value => ({ ...value, ...partialQuery }));
   };
 
-  function refetchItems() {
+  const refetchItems = useCallback(() => {
     if (itemsQuery?.search === previousItemsQuery?.search) {
       if (hasNextPage) {
         fetchNextPage();
@@ -26,18 +26,18 @@ export function useInfiniteScroll<T>(
     } else {
       refetch();
     }
-  }
+  }, [fetchNextPage, hasNextPage, itemsQuery, previousItemsQuery, refetch]);
 
-  function getMoreData() {
+  const getMoreData = useCallback(() => {
     if (hasNextPage) {
       fetchNextPage();
     }
-  }
+  }, [fetchNextPage, hasNextPage]);
 
   useEffect(() => {
     refetchItems();
     setPreviousItemsQuery(itemsQuery);
-  }, [itemsQuery]);
+  }, [itemsQuery, refetchItems]);
 
   return { getMoreData, isLoading, items: allItems, query: itemsQuery, refetchItems, setQuery };
 }

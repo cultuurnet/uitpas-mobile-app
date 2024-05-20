@@ -2,44 +2,40 @@ import React from 'react';
 import { ImageProps, ImageStyle, StyleProp, ViewStyle } from 'react-native';
 
 import * as Icons from '../../_assets/icons';
-import { Theme } from '../../_styles/theme';
-import TouchableRipple from '../touchableRipple/TouchableRipple';
+import { ThemeColor } from '../../_styles/theme';
+import { getColor } from '../../_utils';
 import * as Styled from './style';
 
 export type TIconName = keyof typeof Icons;
 
 export type TIconProps = {
   borderless?: boolean;
-  buttonStyle?: StyleProp<ViewStyle>;
-  color?: keyof Theme['colors'];
+  color?: ThemeColor;
   disabled?: boolean;
   name: TIconName;
   onPress?: () => void;
   size?: 'small' | 'large' | number;
-  style?: StyleProp<ImageStyle>;
+  style?: StyleProp<ImageStyle | ViewStyle>;
 } & Omit<ImageProps, 'source'>;
 
-const Icon = ({
-  size,
-  name,
-  color,
-  style = {},
-  onPress,
-  disabled = false,
-  borderless = false,
-  buttonStyle,
-  ...imageProps
-}: TIconProps) => {
-  return (
-    <Styled.IconButton
-      as={onPress ? TouchableRipple : React.Fragment}
-      borderless={borderless}
-      disabled={disabled}
-      onPress={onPress}
-      style={buttonStyle}
-    >
-      <Styled.Icon {...imageProps} color={color} resizeMode="contain" size={size} source={Icons[name]} style={style} />
+const Icon = ({ size, name, color, style = {}, onPress, disabled = false, borderless = false, ...imageProps }: TIconProps) => {
+  const BareIcon = ({ iconStyle = {} }: { iconStyle?: StyleProp<ImageStyle> }) => (
+    <Styled.Icon
+      {...imageProps}
+      resizeMode="contain"
+      size={size}
+      source={Icons[name]}
+      style={iconStyle}
+      tintColor={color && getColor(color)}
+    />
+  );
+
+  return onPress ? (
+    <Styled.IconButton hitSlop={24} {...imageProps} borderless={borderless} disabled={disabled} onPress={onPress} style={style}>
+      <BareIcon />
     </Styled.IconButton>
+  ) : (
+    <BareIcon iconStyle={style} />
   );
 };
 

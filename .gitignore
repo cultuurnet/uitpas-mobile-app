@@ -35,6 +35,8 @@ local.properties
 *.iml
 *.hprof
 .cxx/
+*.keystore
+!debug.keystore
 
 # node.js
 #
@@ -45,6 +47,7 @@ yarn-error.log
 # env
 #
 .env.local
+.env 
 
 # BUCK
 buck-out/
@@ -72,6 +75,12 @@ buck-out/
 # vs code
 .vscode
 /vendor/bundle/
+
+# Temporary files created by Metro to check the health of the file watcher
+.metro-health-check*
+
+# testing
+/coverage
 
 # bundler and artifacts
 .bundle

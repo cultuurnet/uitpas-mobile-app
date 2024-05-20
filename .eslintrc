@@ -20,8 +20,8 @@
     "simple-import-sort"
   ],
   "extends": [
+    "@react-native",
     "eslint:recommended",
-    "plugin:react/recommended",
     "eslint-config-prettier",
     "plugin:import/warnings",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -29,8 +29,14 @@
   ],
   "rules": {
     "import/order": 1,
-    "react-hooks/exhaustive-deps": 0,
+    "import/no-named-as-default": 0,
+    "no-console": 2,
+    "react-hooks/rules-of-hooks": 2,
+    "react-hooks/exhaustive-deps": 2,
     "react/prop-types": 0,
+    "react/no-unstable-nested-components": 0,
+    "react-native/no-inline-styles": 0,
+    "@typescript-eslint/no-shadow": 0,
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "@typescript-eslint/interface-name-prefix": 0,
@@ -92,7 +98,7 @@
     ]
   },
   "env": {
-    "browser": true
+    "browser": false
   },
   "overrides": [
     {

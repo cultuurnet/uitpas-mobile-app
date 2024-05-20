@@ -1,4 +1,4 @@
 module.exports = {
-  plugins: ['react-native-reanimated/plugin'], // reanimated must be the last package
-  presets: ['module:metro-react-native-babel-preset'],
+  plugins: [['react-native-reanimated/plugin']],
+  presets: ['module:@react-native/babel-preset'],
 };

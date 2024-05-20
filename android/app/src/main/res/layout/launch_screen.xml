@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:background="@color/background"
->
-
-  <ImageView
-      android:layout_width="400dp"
-      android:layout_height="715dp"
-      android:layout_centerInParent="true"
-      android:adjustViewBounds="true"
-      android:src="@drawable/splash_logo" />
-</RelativeLayout>
-<!-- this file is used by the "react-native-splash-screen" package - build your splash screen here -->
+  >
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_rawRes="@raw/splash"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+    />
+</LinearLayout>
