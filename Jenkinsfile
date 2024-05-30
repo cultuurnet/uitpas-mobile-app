@@ -22,17 +22,17 @@ pipeline {
             stages {
                 stage('Setup') {
                     steps {
-                        sh label: 'Install rubygems', script: 'bundle install --without develop --deployment'
+                        sh label: 'Install rubygems', script: 'bundle install --gemfile=Gemfile.deployment --deployment'
                     }
                 }
                 stage('Run checks') {
                     steps {
-                        sh label: 'Check JSON syntax', script: 'bundle exec rake jsonlint'
+                        sh label: 'Check JSON syntax', script: 'bundle exec --gemfile=Gemfile.deployment rake jsonlint'
                     }
                 }
                 stage('Build artifact') {
                     steps {
-                        sh label: 'Build artifact', script: "bundle exec rake build_artifact ARTIFACT_VERSION=${env.ARTIFACT_VERSION}"
+                        sh label: 'Build artifact', script: "bundle exec --gemfile=Gemfile.deployment rake build_artifact ARTIFACT_VERSION=${env.ARTIFACT_VERSION}"
                         archiveArtifacts artifacts: "pkg/*${env.ARTIFACT_VERSION}*.tar.gz", onlyIfSuccessful: true
                     }
                 }
@@ -56,8 +56,8 @@ pipeline {
                 copyArtifacts filter: 'pkg/*.tar.gz', projectName: env.JOB_NAME, flatten: true, selector: specific(env.BUILD_NUMBER)
                 untar file: findFiles(glob: '*.tar.gz')[0].path, quiet: true
                 withCredentials([aws(credentialsId: 'jenkins')]) {
-                    sh label: 'Upload versions.json', script: "bundle exec rake s3_upload BUCKET=${env.BUCKET}"
-                    sh label: 'Invalidate cache for /versions endpoint', script: "bundle exec rake invalidate_cache DISTRIBUTION_ID=${env.DISTRIBUTION_ID}"
+                    sh label: 'Upload versions.json', script: "bundle exec --gemfile=Gemfile.deployment rake s3_upload BUCKET=${env.BUCKET}"
+                    sh label: 'Invalidate cache for /versions endpoint', script: "bundle exec --gemfile=Gemfile.deployment rake invalidate_cache DISTRIBUTION_ID=${env.DISTRIBUTION_ID}"
                 }
             }
             post {
@@ -83,8 +83,8 @@ pipeline {
                 copyArtifacts filter: 'pkg/*.tar.gz', projectName: env.JOB_NAME, flatten: true, selector: specific(env.BUILD_NUMBER)
                 untar file: findFiles(glob: '*.tar.gz')[0].path, quiet: true
                 withCredentials([aws(credentialsId: 'jenkins')]) {
-                    sh label: 'Upload versions.json', script: "bundle exec rake s3_upload BUCKET=${env.BUCKET}"
-                    sh label: 'Invalidate cache for /versions endpoint', script: "bundle exec rake invalidate_cache DISTRIBUTION_ID=${env.DISTRIBUTION_ID}"
+                    sh label: 'Upload versions.json', script: "bundle exec --gemfile=Gemfile.deployment rake s3_upload BUCKET=${env.BUCKET}"
+                    sh label: 'Invalidate cache for /versions endpoint', script: "bundle exec --gemfile=Gemfile.deployment rake invalidate_cache DISTRIBUTION_ID=${env.DISTRIBUTION_ID}"
                 }
             }
             post {
@@ -110,8 +110,8 @@ pipeline {
                 copyArtifacts filter: 'pkg/*.tar.gz', projectName: env.JOB_NAME, flatten: true, selector: specific(env.BUILD_NUMBER)
                 untar file: findFiles(glob: '*.tar.gz')[0].path, quiet: true
                 withCredentials([aws(credentialsId: 'jenkins')]) {
-                    sh label: 'Upload versions.json', script: "bundle exec rake s3_upload BUCKET=${env.BUCKET}"
-                    sh label: 'Invalidate cache for /versions endpoint', script: "bundle exec rake invalidate_cache DISTRIBUTION_ID=${env.DISTRIBUTION_ID}"
+                    sh label: 'Upload versions.json', script: "bundle exec --gemfile=Gemfile.deployment rake s3_upload BUCKET=${env.BUCKET}"
+                    sh label: 'Invalidate cache for /versions endpoint', script: "bundle exec --gemfile=Gemfile.deployment rake invalidate_cache DISTRIBUTION_ID=${env.DISTRIBUTION_ID}"
                 }
             }
             post {
