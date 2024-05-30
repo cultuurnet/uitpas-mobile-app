@@ -22,7 +22,7 @@ pipeline {
             stages {
                 stage('Setup') {
                     steps {
-                        sh label: 'Install rubygems', script: 'bundle install --without develop --deployment'
+                        sh label: 'Install rubygems', script: 'bundle install --deployment'
                     }
                 }
                 stage('Run checks') {
