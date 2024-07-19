@@ -1219,11 +1219,11 @@ PODS:
   - SnowplowTracker (4.1.0):
     - FMDB (~> 2.7)
   - SocketRocket (0.6.1)
-  - VisionCamera (4.4.2):
-    - VisionCamera/Core (= 4.4.2)
-    - VisionCamera/React (= 4.4.2)
-  - VisionCamera/Core (4.4.2)
-  - VisionCamera/React (4.4.2):
+  - VisionCamera (4.5.0):
+    - VisionCamera/Core (= 4.5.0)
+    - VisionCamera/React (= 4.5.0)
+  - VisionCamera/Core (4.5.0)
+  - VisionCamera/React (4.5.0):
     - React-Core
   - Yoga (1.14.0)
 
@@ -1615,7 +1615,7 @@ SPEC CHECKSUMS:
   SimpleKeychain: f8707c8e97b38c6a6e687b17732afc9bcef06439
   SnowplowTracker: 3f35a60dcb2cf9c4a56fa4cad46d5af6d1b5db44
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
-  VisionCamera: 4a00505ff543b8b6851967fb7aea28f1613da472
+  VisionCamera: 412fec057156eb5fe84a44351e8ed71a072c1228
   Yoga: d17d2cc8105eed528474683b42e2ea310e1daf61
 
 PODFILE CHECKSUM: 470ff2a7657f3afec9acd204c5cfa6bcc68b3a84
