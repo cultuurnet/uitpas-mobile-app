@@ -1,6 +1,6 @@
 {
   "name": "reactnative_uitpas",
-  "version": "2.0.2",
+  "version": "2.0.3-2",
   "private": true,
   "scripts": {
     "android": "react-native run-android --variant=debug --appIdSuffix=debug",
@@ -61,7 +61,7 @@
     "react-native-screens": "^3.29.0",
     "react-native-svg": "^13.6.0",
     "react-native-url-polyfill": "^1.3.0",
-    "react-native-vision-camera": "^3.9.0",
+    "react-native-vision-camera": "^4.5.0",
     "styled-components": "^5.3.11"
   },
   "devDependencies": {
