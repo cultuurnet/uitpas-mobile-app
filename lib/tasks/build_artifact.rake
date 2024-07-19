@@ -30,6 +30,6 @@ task :build_artifact do |task|
   File.write('metadata.json', metadata.to_json)
   FileUtils.mkdir_p("pkg")
 
-  system("fpm -t tar -n #{artifact_name}_#{version} -s dir -p pkg metadata.json versions.json Rakefile lib vendor Gemfile Gemfile.lock .bundle") or exit 1
+  system("fpm -t tar -n #{artifact_name}_#{version} -s dir -p pkg metadata.json versions.json Rakefile lib vendor Gemfile.deployment Gemfile.deployment.lock .bundle") or exit 1
   system("gzip pkg/#{artifact_name}_#{version}.tar") or exit 1
 end
