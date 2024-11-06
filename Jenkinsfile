@@ -55,14 +55,13 @@ pipeline {
             steps {
                 copyArtifacts filter: 'pkg/*.tar.gz', projectName: env.JOB_NAME, flatten: true, selector: specific(env.BUILD_NUMBER)
                 untar file: findFiles(glob: '*.tar.gz')[0].path, quiet: true
-                withCredentials([aws(credentialsId: 'jenkins')]) {
-                    sh label: 'Upload versions.json', script: "bundle exec --gemfile=Gemfile.deployment rake s3_upload BUCKET=${env.BUCKET}"
-                    sh label: 'Invalidate cache for /versions endpoint', script: "bundle exec --gemfile=Gemfile.deployment rake invalidate_cache DISTRIBUTION_ID=${env.DISTRIBUTION_ID}"
-                }
+
+                sh label: 'Upload versions.json', script: "bundle exec --gemfile=Gemfile.deployment rake s3_upload BUCKET=${env.BUCKET}"
+                sh label: 'Invalidate cache for /versions endpoint', script: "bundle exec --gemfile=Gemfile.deployment rake invalidate_cache DISTRIBUTION_ID=${env.DISTRIBUTION_ID}"
             }
             post {
                 always {
-                    sendBuildNotification to: '#ups-ops', message: "Pipeline <${env.RUN_DISPLAY_URL}|${env.JOB_NAME} [${currentBuild.displayName}]>: deployed to *${env.APPLICATION_ENVIRONMENT}*"
+                    sendBuildNotification to: '#ups-ops', message: "Pipeline <${env.RUN_DISPLAY_URL}|${util.getJobDisplayName()} [${currentBuild.displayName}]>: deployed to *${env.APPLICATION_ENVIRONMENT}*"
                 }
                 cleanup {
                     cleanWs()
@@ -82,14 +81,13 @@ pipeline {
             steps {
                 copyArtifacts filter: 'pkg/*.tar.gz', projectName: env.JOB_NAME, flatten: true, selector: specific(env.BUILD_NUMBER)
                 untar file: findFiles(glob: '*.tar.gz')[0].path, quiet: true
-                withCredentials([aws(credentialsId: 'jenkins')]) {
-                    sh label: 'Upload versions.json', script: "bundle exec --gemfile=Gemfile.deployment rake s3_upload BUCKET=${env.BUCKET}"
-                    sh label: 'Invalidate cache for /versions endpoint', script: "bundle exec --gemfile=Gemfile.deployment rake invalidate_cache DISTRIBUTION_ID=${env.DISTRIBUTION_ID}"
-                }
+
+                sh label: 'Upload versions.json', script: "bundle exec --gemfile=Gemfile.deployment rake s3_upload BUCKET=${env.BUCKET}"
+                sh label: 'Invalidate cache for /versions endpoint', script: "bundle exec --gemfile=Gemfile.deployment rake invalidate_cache DISTRIBUTION_ID=${env.DISTRIBUTION_ID}"
             }
             post {
                 always {
-                    sendBuildNotification to: '#ups-ops', message: "Pipeline <${env.RUN_DISPLAY_URL}|${env.JOB_NAME} [${currentBuild.displayName}]>: deployed to *${env.APPLICATION_ENVIRONMENT}*"
+                    sendBuildNotification to: '#ups-ops', message: "Pipeline <${env.RUN_DISPLAY_URL}|${util.getJobDisplayName()} [${currentBuild.displayName}]>: deployed to *${env.APPLICATION_ENVIRONMENT}*"
                 }
                 cleanup {
                     cleanWs()
@@ -109,14 +107,13 @@ pipeline {
             steps {
                 copyArtifacts filter: 'pkg/*.tar.gz', projectName: env.JOB_NAME, flatten: true, selector: specific(env.BUILD_NUMBER)
                 untar file: findFiles(glob: '*.tar.gz')[0].path, quiet: true
-                withCredentials([aws(credentialsId: 'jenkins')]) {
-                    sh label: 'Upload versions.json', script: "bundle exec --gemfile=Gemfile.deployment rake s3_upload BUCKET=${env.BUCKET}"
-                    sh label: 'Invalidate cache for /versions endpoint', script: "bundle exec --gemfile=Gemfile.deployment rake invalidate_cache DISTRIBUTION_ID=${env.DISTRIBUTION_ID}"
-                }
+
+                sh label: 'Upload versions.json', script: "bundle exec --gemfile=Gemfile.deployment rake s3_upload BUCKET=${env.BUCKET}"
+                sh label: 'Invalidate cache for /versions endpoint', script: "bundle exec --gemfile=Gemfile.deployment rake invalidate_cache DISTRIBUTION_ID=${env.DISTRIBUTION_ID}"
             }
             post {
                 always {
-                    sendBuildNotification to: '#ups-ops', message: "Pipeline <${env.RUN_DISPLAY_URL}|${env.JOB_NAME} [${currentBuild.displayName}]>: deployed to *${env.APPLICATION_ENVIRONMENT}*"
+                    sendBuildNotification to: '#ups-ops', message: "Pipeline <${env.RUN_DISPLAY_URL}|${util.getJobDisplayName()} [${currentBuild.displayName}]>: deployed to *${env.APPLICATION_ENVIRONMENT}*"
                 }
                 cleanup {
                     cleanWs()

@@ -9,9 +9,13 @@ task :s3_upload do |task|
   region            = ENV['AWS_REGION'].nil? ? 'eu-west-1' : ENV['AWS_REGION']
   path              = ENV['VERSIONS_PATH'].nil? ? 'uitpas/mobile-app/versions' : ENV['VERSIONS_PATH']
 
-  credentials = Aws::Credentials.new(access_key_id, secret_access_key)
-  s3          = Aws::S3::Resource.new(credentials: credentials, region: region)
-  object      = s3.bucket(bucket).object(path)
+  if access_key_id && secret_access_key
+    credentials = Aws::Credentials.new(access_key_id, secret_access_key)
+    s3          = Aws::S3::Resource.new(credentials: credentials, region: region)
+  else
+    s3 = Aws::S3::Resource.new(region: region)
+  end
 
+  object = s3.bucket(bucket).object(path)
   object.upload_file('versions.json', acl: 'public-read', content_type: 'application/json')
 end
