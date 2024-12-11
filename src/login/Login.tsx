@@ -37,7 +37,6 @@ const Login = () => {
         {
           audience: Config.REACT_NATIVE_APP_AUTH0_AUDIENCE,
           product_display_name: 'UiTPAS',
-          prompt: 'login',
           referrer: 'uitpas',
           scope: 'openid profile email offline_access',
         },
