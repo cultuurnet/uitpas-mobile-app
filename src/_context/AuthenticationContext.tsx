@@ -47,6 +47,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
   const logout = useCallback(async () => {
     try {
       await client.credentialsManager.clearCredentials();
+      await client.webAuth.clearSession();
 
       // Clear react query cache
       const queryCache = new QueryCache({});
@@ -61,7 +62,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
     } catch (e) {
       log.error(e);
     }
-  }, [client.credentialsManager, setIsAuthenticated]);
+  }, [client.credentialsManager, client.webAuth, setIsAuthenticated]);
 
   const checkAndRenewCredentials = useCallback(async () => {
     if (!client) return;
