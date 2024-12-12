@@ -2,9 +2,9 @@ PODS:
   - A0Auth0 (2.16.0):
     - Auth0 (~> 2.3)
     - React-Core
-  - Auth0 (2.7.1):
-    - JWTDecode (~> 3.1)
-    - SimpleKeychain (~> 1.1)
+  - Auth0 (2.8.1):
+    - JWTDecode (= 3.1.0)
+    - SimpleKeychain (= 1.1.0)
   - boost (1.83.0)
   - BVLinearGradient (2.6.2):
     - React-Core
@@ -74,9 +74,11 @@ PODS:
   - FlipperKit/SKIOSNetworkPlugin (0.201.0):
     - FlipperKit/Core
     - FlipperKit/FlipperKitNetworkPlugin
-  - FMDB (2.7.10):
-    - FMDB/standard (= 2.7.10)
-  - FMDB/standard (2.7.10)
+  - FMDB (2.7.12):
+    - FMDB/standard (= 2.7.12)
+  - FMDB/Core (2.7.12)
+  - FMDB/standard (2.7.12):
+    - FMDB/Core
   - fmt (6.2.1)
   - glog (0.3.5)
   - hermes-engine (0.73.6):
@@ -100,9 +102,9 @@ PODS:
   - lottie-react-native (5.1.6):
     - lottie-ios (~> 3.4.0)
     - React-Core
-  - MMKV (1.3.5):
-    - MMKVCore (~> 1.3.5)
-  - MMKVCore (1.3.5)
+  - MMKV (2.0.0):
+    - MMKVCore (~> 2.0.0)
+  - MMKVCore (2.0.0)
   - OpenSSL-Universal (1.1.1100)
   - Permission-Camera (3.6.1):
     - RNPermissions
@@ -1177,6 +1179,8 @@ PODS:
     - React-perflogger (= 0.73.6)
   - RNCClipboard (1.11.2):
     - React-Core
+  - RNDeviceInfo (14.0.1):
+    - React-Core
   - RNFastImage (8.6.3):
     - React-Core
     - SDWebImage (~> 5.11.1)
@@ -1200,9 +1204,13 @@ PODS:
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
-  - RNSentry (4.12.0):
+  - RNSentry (6.4.0):
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2022.05.16.00)
     - React-Core
-    - Sentry/HybridSDK (= 7.31.3)
+    - React-hermes
+    - Sentry/HybridSDK (= 8.41.0)
   - RNSnowplowTracker (1.3.0):
     - React-Core
     - SnowplowTracker (~> 4.0)
@@ -1214,7 +1222,7 @@ PODS:
   - SDWebImageWebPCoder (0.8.5):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.10)
-  - Sentry/HybridSDK (7.31.3)
+  - Sentry/HybridSDK (8.41.0)
   - SimpleKeychain (1.1.0)
   - SnowplowTracker (4.1.0):
     - FMDB (~> 2.7)
@@ -1318,6 +1326,7 @@ DEPENDENCIES:
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
+  - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNFastImage (from `../node_modules/react-native-fast-image`)
   - "RNFlashList (from `../node_modules/@shopify/flash-list`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
@@ -1490,6 +1499,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCClipboard:
     :path: "../node_modules/@react-native-clipboard/clipboard"
+  RNDeviceInfo:
+    :path: "../node_modules/react-native-device-info"
   RNFastImage:
     :path: "../node_modules/react-native-fast-image"
   RNFlashList:
@@ -1517,7 +1528,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   A0Auth0: f583922e3947971088781268a1b371bd65403c19
-  Auth0: 07dd395aa85be95e809f58347f66d97fc8679ac2
+  Auth0: 63d9d801392283d8210f971089bd3642cbd5ee7d
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
   BVLinearGradient: 34a999fda29036898a09c6a6b728b0b4189e1a44
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
@@ -1532,7 +1543,7 @@ SPEC CHECKSUMS:
   Flipper-Glog: 70c50ce58ddaf67dc35180db05f191692570f446
   Flipper-PeerTalk: 116d8f857dc6ef55c7a5a75ea3ceaafe878aadc9
   FlipperKit: 37525a5d056ef9b93d1578e04bc3ea1de940094f
-  FMDB: eae540775bf7d0c87a5af926ae37af69effe5a19
+  FMDB: 728731dd336af3936ce00f91d9d8495f5718a0e6
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: c5d68082e772fa1c511173d6b30a9de2c05a69a2
   hermes-engine: 9cecf9953a681df7556b8cc9c74905de8f3293c0
@@ -1541,8 +1552,8 @@ SPEC CHECKSUMS:
   libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
   lottie-ios: 8f97d3271e155c2d688875c29cd3c74908aef5f8
   lottie-react-native: 8f9d4be452e23f6e5ca0fdc11669dc99ab52be81
-  MMKV: 506311d0494023c2f7e0b62cc1f31b7370fa3cfb
-  MMKVCore: 9e2e5fd529b64a9fe15f1a7afb3d73b2e27b4db9
+  MMKV: f7d1d5945c8765f97f39c3d121f353d46735d801
+  MMKVCore: c04b296010fcb1d1638f2c69405096aac12f6390
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   Permission-Camera: bf6791b17c7f614b6826019fcfdcc286d3a107f6
   Permission-Notifications: 150484ae586eb9be4e32217582a78350a9bb31c3
@@ -1599,6 +1610,7 @@ SPEC CHECKSUMS:
   React-utils: d16c1d2251c088ad817996621947d0ac8167b46c
   ReactCommon: 2aa35648354bd4c4665b9a5084a7d37097b89c10
   RNCClipboard: 3f0451a8100393908bea5c5c5b16f96d45f30bfc
+  RNDeviceInfo: 825f0d2f4381327317f12d1522720a8f76e6a19e
   RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8
   RNFlashList: 4b4b6b093afc0df60ae08f9cbf6ccd4c836c667a
   RNGestureHandler: 67fb54b3e6ca338a8044e85cd6f340265aa41091
@@ -1606,12 +1618,12 @@ SPEC CHECKSUMS:
   RNPermissions: dcdb7b99796bbeda6975a6e79ad519c41b251b1c
   RNReanimated: 15a855719335a6b655a214531e86d806edfd49da
   RNScreens: 17e2f657f1b09a71ec3c821368a04acbb7ebcb46
-  RNSentry: 4c09f4dd9740cb9b33e94303de5b6d0dbeb0737d
+  RNSentry: a4215ad4f866b234d986ec2de61ae8abd11b6088
   RNSnowplowTracker: 4f395a9a7be502c486720f756ab6ee0d5cb33f6e
   RNSVG: 3a79c0c4992213e4f06c08e62730c5e7b9e4dc17
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
-  Sentry: 08884c523575ec0f6690d94ed3ccb0246a1600bf
+  Sentry: 54d0fe6c0df448497c8ed4cce66ccf7027e1823e
   SimpleKeychain: f8707c8e97b38c6a6e687b17732afc9bcef06439
   SnowplowTracker: 3f35a60dcb2cf9c4a56fa4cad46d5af6d1b5db44
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
