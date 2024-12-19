@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { LogBox, StatusBar } from 'react-native';
 import { getLocales } from 'react-native-localize';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import SystemNavigationBar from 'react-native-system-navigation-bar';
 import { useFlipper } from '@react-navigation/devtools';
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components/native';
@@ -25,6 +26,7 @@ const App = () => {
 
   useEffect(() => {
     storage.set(StorageKey.Language, getLocales()[0].languageCode);
+    SystemNavigationBar.setNavigationColor(theme.palette.neutral['0']);
   }, []);
 
   return (
