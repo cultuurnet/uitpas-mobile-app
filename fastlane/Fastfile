@@ -254,7 +254,7 @@ end
 
 private_lane :upload_to_firebase do |options|
   # Output file location
-  out = "firebase_distribution/credentials.json"
+  out = "credentials.json"
   # Upload to firebase app distribution
   firebase_app_distribution(
     app: options[:app_id],

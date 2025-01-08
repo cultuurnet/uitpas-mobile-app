@@ -37,7 +37,7 @@ jobs:
         with:
           name: 'credentials.json'
           json: ${{ secrets.FIREBASE_UPLOAD_CREDENTIALS }}
-          dir: 'fastlane/firebase_distribution/'
+          dir: 'fastlane/'
       - name: Create .env file
         run: |
           touch .env
@@ -91,7 +91,7 @@ jobs:
         with:
           name: 'credentials.json'
           json: ${{ secrets.FIREBASE_UPLOAD_CREDENTIALS }}
-          dir: 'fastlane/firebase_distribution/'
+          dir: 'fastlane/'
       - name: Create .env file
         run: |
           touch .env
