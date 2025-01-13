@@ -16,9 +16,9 @@ ios_bundle_id = "com.publiq.uitpas"
 android_bundle_id = "com.publiq.uitpas" # meestal id van klant want anders komen PN soms niet aan
 
 # Appcenter Config
-appcenter_app_name = "" # declaration of variable, will be assigned below
-APPCENTER_ALPHA_DISTRIBUTION_GROUP= ""
-APPCENTER_BETA_DISTRIBUTION_GROUP= "Publiq"
+firebase_app_id = "" # declaration of variable, will be assigned below
+FIREBASE_ALPHA_DISTRIBUTION_GROUP= ""
+FIREBASE_BETA_DISTRIBUTION_GROUP= "Publiq"
 
 # Android api key
 
@@ -44,13 +44,13 @@ APPSTORE_APPLE_ID = '3M7M296YKK' # zal meestal van de klant zijn, want we publis
 
 lane :android_alpha do
   build_android(buildType: "alpha")  # Build the application with the buildVariant.
-  upload_to_appcenter_android(buildType: "alpha") # Deploy the apk to Appcenter.
+  upload_to_firebase_android(buildType: "alpha") # Deploy the apk to Firebase.
 	add_tag()
 end
 
 lane :android_beta do
   build_android(buildType: "beta")  # Build the application with the buildVariant.
-  upload_to_appcenter_android(buildType: "beta") # Deploy the apk to Appcenter.
+  upload_to_firebase_android(buildType: "beta") # Deploy the apk to Firebase.
 	add_tag()
 end
 
@@ -69,7 +69,7 @@ lane :ios_alpha do
   install_provisioning_profiles if is_ci? # plugin that searches for available provisioning profiles and installs these
   bundle_upload_ios(scheme_name: "Alpha")
   build_ios(export_options: export_options_for(:alpha)) # Build IPA
-  upload_to_appcenter_ios(buildType: "alpha")  # Upload IPA to appcenter
+  upload_to_firebase_ios(buildType: "alpha")  # Upload IPA to appcenter
   add_tag()
 end
 
@@ -78,7 +78,7 @@ lane :ios_beta do
   install_provisioning_profiles if is_ci? # plugin that searches for available provisioning profiles and installs these
   bundle_upload_ios(scheme_name: "Beta")
   build_ios(export_options: export_options_for(:beta)) # Build IPA
-  upload_to_appcenter_ios(buildType: "beta")  # Upload IPA to appcenter
+  upload_to_firebase_ios(buildType: "beta")  # Upload IPA to appcenter
   add_tag()
 end
 
@@ -203,56 +203,68 @@ end
 end
 
 ################################
-###  PRIVATE LANES APPENTER  ###
+###  PRIVATE LANES FIREBASE  ###
 ################################
-private_lane :upload_to_appcenter_android do |options|
-  getAppNameAndroid(buildType: options[:buildType])
-  appcenter_upload(
-		owner_name: 'icapps',
-    app_name: appcenter_app_name,
-    apk: "./android/app/build/outputs/apk/#{options[:buildType]}/app-#{options[:buildType]}.apk",
-    notify_testers: true,
-    destinations: getDistributionGroup(buildType: options[:buildType])
+private_lane :upload_to_firebase_android do |options|
+  getAppIdAndroid(buildType: options[:buildType])
+  upload_to_firebase(
+      app_id: firebase_app_id,
+      android_bundle_path: "./android/app/build/outputs/apk/#{options[:buildType]}/app-#{options[:buildType]}.apk",
+      groups: getDistributionGroup(buildType: options[:buildType])
   )
 end
 
-private_lane :getAppNameAndroid do |options|
+private_lane :getAppIdAndroid do |options|
   buildType = options[:buildType]
   #app_name should normally be different for each environment
-  if buildType == "alpha"
-    appcenter_app_name = "Uitpas-Alpha-1"
-  elsif buildType == "beta"
-    appcenter_app_name = "Uitpas-Beta"
+  if buildType == "beta"
+    firebase_app_id = "1:401677584360:android:867cfc9ce44816381d065d"
   end
 end
 
-private_lane :upload_to_appcenter_ios do |options|
-  getAppNameIOS(buildType: options[:buildType])
-  appcenter_upload(
-		owner_name: 'icapps',
-    app_name: appcenter_app_name,
-    notify_testers: true,
-    destinations: getDistributionGroup(buildType: options[:buildType])
-  )
-end
-
-private_lane :getAppNameIOS do |options|
+private_lane :getAppIdIOS do |options|
   buildType = options[:buildType]
-  #app_name should normally be different for each environment
-  if buildType == "alpha"
-      appcenter_app_name = "Uitpas-Alpha"
-  elsif buildType == "beta"
-      appcenter_app_name = "Uitpas-Beta-1"
+  if buildType == "beta"
+      firebase_app_id = "1:401677584360:ios:59d789c9211315d21d065d"
   end
 end
+
+private_lane :upload_to_firebase_ios do |options|
+  app_name = ENV["APP_NAME"]
+  getAppIdIOS(buildType: options[:buildType])
+  upload_to_firebase(
+    app_id: firebase_app_id,
+    ios_ipa_path: "Uitpas.ipa",
+    groups: getDistributionGroup(buildType: options[:buildType])
+)
+end
+
+
 
 private_lane :getDistributionGroup do |options|
   buildType = options[:buildType]
   if buildType == "alpha"
-      "Collaborators, #{APPCENTER_ALPHA_DISTRIBUTION_GROUP}"
+      "icapps, #{FIREBASE_ALPHA_DISTRIBUTION_GROUP}"
   elsif buildType == "beta"
-      "Collaborators, #{APPCENTER_BETA_DISTRIBUTION_GROUP}"
+      "icapps, #{FIREBASE_BETA_DISTRIBUTION_GROUP}"
   elsif buildType == "prod"
-      "Collaborators"
+      "icapps"
   end
+end
+
+private_lane :upload_to_firebase do |options|
+  # Output file location
+  out = "credentials.json"
+  # Upload to firebase app distribution
+  firebase_app_distribution(
+    app: options[:app_id],
+    service_credentials_file: "fastlane/#{out}",
+    groups: options[:groups],
+    debug: true,
+    android_artifact_type: 'APK',
+    android_artifact_path: options[:android_bundle_path],
+    ipa_path: options[:ios_ipa_path]
+  )
+  # Clean up credentials
+  sh("rm", "-f", out)
 end
