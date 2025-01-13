@@ -53,6 +53,7 @@ jobs:
           echo SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
           echo REACT_NATIVE_APP_VERSION_NR="${{ env.PACKAGE_VERSION }}" >> .env
           cat .env
+          cat fastlane/credentials.json
       - uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc
@@ -107,6 +108,7 @@ jobs:
           echo SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
           echo REACT_NATIVE_APP_VERSION_NR="${{ env.PACKAGE_VERSION }}" >> .env
           cat .env
+          cat fastlane/credentials.json
       - uses: actions/setup-java@v3
         with:
           distribution: temurin
