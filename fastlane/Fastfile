@@ -234,7 +234,7 @@ private_lane :upload_to_firebase_ios do |options|
   getAppIdIOS(buildType: options[:buildType])
   upload_to_firebase(
     app_id: firebase_app_id,
-    ios_ipa_path: "#{app_name}.ipa",
+    ios_ipa_path: "Uitpas.ipa",
     groups: getDistributionGroup(buildType: options[:buildType])
 )
 end
