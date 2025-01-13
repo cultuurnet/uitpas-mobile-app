@@ -52,8 +52,8 @@ jobs:
           echo APP_NAME="${{ secrets.APP_NAME }}" >> .env
           echo SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
           echo REACT_NATIVE_APP_VERSION_NR="${{ env.PACKAGE_VERSION }}" >> .env
-          cat .env
-          cat fastlane/credentials.json
+          echo cat .env
+          echo cat fastlane/credentials.json
       - uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc
