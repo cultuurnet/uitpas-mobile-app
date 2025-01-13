@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
+import { getModel } from 'react-native-device-info';
 import {
   Camera as VisionCamera,
   Code,
@@ -30,6 +31,22 @@ type TProps = {
   navigation: TMainNavigationProp<'Camera'>;
 };
 
+const MODELS_WITH_CAMERA_ISSUE = [
+  'SM-A235F',
+  'SM-A235M',
+  'SM-A235N',
+  'SM-A233C',
+  'SM-A2360',
+  'SM-A236B',
+  'SM-A236E',
+  'SM-A236M',
+  'SM-A236U',
+  'SM-A236U1',
+  'SM-S236DL',
+  'SM-S237VL',
+  'SM-A236V',
+];
+
 const overlaySettings: TOverlayDimensions = {
   cornerLength: 20,
   padding: 75,
@@ -59,7 +76,12 @@ const Camera = ({ navigation }: TProps) => {
 
   const devices = useCameraDevices();
   const device = devices.find(({ position }) => position === 'back');
-  const format = useCameraFormat(device, [{ videoResolution: { height: 1080, width: 1920 } }]);
+  const MODEL = getModel();
+  const HAS_CAMERA_ISSUE = MODELS_WITH_CAMERA_ISSUE.includes(MODEL);
+
+  const format = useCameraFormat(device, [
+    { videoResolution: HAS_CAMERA_ISSUE ? { height: 640, width: 480 } : { height: 1080, width: 1920 } },
+  ]);
 
   useFocusEffect(
     useCallback(() => {
