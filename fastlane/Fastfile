@@ -225,7 +225,7 @@ end
 private_lane :getAppIdIOS do |options|
   buildType = options[:buildType]
   if buildType == "beta"
-      firebase_app_id = "1:401677584360:ios:84244becaaaac0e81d065d"
+      firebase_app_id = "1:401677584360:ios:59d789c9211315d21d065d"
   end
 end
 
