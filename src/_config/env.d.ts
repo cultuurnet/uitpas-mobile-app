@@ -12,7 +12,8 @@ declare module 'react-native-config' {
     | 'REACT_NATIVE_APP_ENCRYPTION_KEY'
     | 'REACT_NATIVE_APP_VERSION_NR'
     | 'REACT_NATIVE_APP_LOGGING_LEVEL'
-    | 'SENTRY_DSN';
+    | 'SENTRY_DSN'
+    | 'TRACKING_HOST';
 
   export interface NativeConfig extends Record<ConfigKeys, string | undefined> {}
 }

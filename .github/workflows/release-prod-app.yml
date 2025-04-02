@@ -47,6 +47,7 @@ jobs:
           echo API_HOST_UITDATABANK="${{ secrets.API_HOST_UITDATABANK }}" >> .env
           echo APP_NAME="${{ secrets.APP_NAME }}" >> .env
           echo SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
+          echo TRACKING_HOST="${{ secrets.TRACKING_HOST }}" >> .env
           echo REACT_NATIVE_APP_VERSION_NR="${{ env.PACKAGE_VERSION }}" >> .env
           cat .env
       - uses: actions/setup-node@v3
@@ -94,6 +95,7 @@ jobs:
           echo API_HOST_UITDATABANK="${{ secrets.API_HOST_UITDATABANK }}" >> .env
           echo APP_NAME="${{ secrets.APP_NAME }}" >> .env
           echo SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
+          echo TRACKING_HOST="${{ secrets.TRACKING_HOST }}" >> .env
           echo REACT_NATIVE_APP_VERSION_NR="${{ env.PACKAGE_VERSION }}" >> .env
           cat .env
       - uses: actions/setup-java@v3
