@@ -13,8 +13,8 @@ export const InAppRewardContainer = styled.View`
   align-items: center;
 `;
 
-export const InAppRewardContent = styled.View`
-  background-color: ${theme.palette.primary[600]};
+export const InAppRewardContent = styled.View<{ mode: 'primary' | 'white' }>`
+  background-color: ${({ mode }) => (mode === 'primary' ? theme.palette.primary[600] : theme.palette.neutral[0])};
   border-top-right-radius: ${theme.common.defaultSpacing}px;
   border-bottom-right-radius: ${theme.common.defaultSpacing}px;
   padding-right: 8px;

@@ -10,6 +10,7 @@ import { normalizeForSlug } from '../_utils';
 import { useHasFamilyMembers } from '../onboarding/family/_queries';
 import { useGetMe } from '../profile/_queries/useGetMe';
 import { getRewardFilters } from '../shop/_helpers/getRewardFilters';
+import { FEATURED_CARD_SYSTEM_ID } from '../shop/_queries/useGetFeaturedRewards';
 import { useGetRewards } from '../shop/_queries/useGetRewards';
 import { WelcomeHeader } from './_components/WelcomeHeader';
 import * as Styled from './style';
@@ -23,13 +24,14 @@ type TProps = {
 const MINIMAL_REWARD_HEIGHT = 125;
 
 export const FilteredShop = ({ route }: TProps) => {
-  const { subtitle, section, category, type } = route.params || {};
+  const { subtitle, section, category, type, isFeatured } = route.params || {};
   const { t } = useTranslation();
 
   const { data: me } = useGetMe();
   const [selectedPassHolder, setSelectedPassHolder] = useState(me);
   const { getFiltersForCategory, getFiltersForSection } = getRewardFilters({ passHolder: selectedPassHolder });
   const { data: hasFamilyMembers } = useHasFamilyMembers();
+
   const {
     data: rewards,
     fetchNextPage,
@@ -37,18 +39,24 @@ export const FilteredShop = ({ route }: TProps) => {
     refetch,
     isFetchingNextPage,
   } = useGetRewards({
-    filters: { type, ...getFiltersForSection(section), ...getFiltersForCategory(category) },
+    filters: isFeatured ? {} : { type, ...getFiltersForSection(section), ...getFiltersForCategory(category) },
     itemsPerPage: 20,
+    params: isFeatured ? { featured: true, owningCardSystemId: FEATURED_CARD_SYSTEM_ID } : {},
   });
 
   const members = rewards?.pages?.flatMap(({ member }) => member) ?? [];
   const isFilteredOnWelcome = section === 'welkom';
 
+  // Determine the screen name for analytics
+  const getScreenName = () => {
+    if (isFeatured) return 'rewardshop-list-featured';
+    if (isFilteredOnWelcome) return 'welcome-rewards';
+    return `rewardshop-list-${normalizeForSlug(category || section)}`;
+  };
+
   return (
     <>
-      <Analytics
-        screenName={isFilteredOnWelcome ? 'welcome-rewards' : `rewardshop-list-${normalizeForSlug(category || section)}`}
-      />
+      <Analytics screenName={getScreenName()} />
       <FlashList
         ItemSeparatorComponent={Styled.Separator}
         ListEmptyComponent={

@@ -14,3 +14,4 @@ export const Person = require('./person.png');
 export const Scan = require('./scan.png');
 export const Shop = require('./shop.png');
 export const ShopFaded = require('./shopFaded.png');
+export const Star = require('./star.png');
