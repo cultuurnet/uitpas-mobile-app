@@ -1,4 +1,4 @@
-import { Config } from 'react-native-config';
+import { Config } from '../../_config';
 
 import { usePubliqApi } from '../../_hooks/usePubliqApi';
 import { TApiError } from '../../_http';

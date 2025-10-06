@@ -1,6 +1,6 @@
 import { createContext, FC, PropsWithChildren, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import Auth0 from 'react-native-auth0';
-import { Config } from 'react-native-config';
+import { Config } from '../_config';
 import { QueryCache } from '@tanstack/react-query';
 
 import { useToggle } from '../_hooks';
@@ -36,11 +36,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useToggle(false);
 
   const client = useMemo(
-    () =>
-      new Auth0({
-        clientId: Config.REACT_NATIVE_APP_AUTH0_CLIENT_ID,
-        domain: Config.REACT_NATIVE_APP_AUTH0_DOMAIN,
-      }),
+    () => new Auth0({ clientId: Config.REACT_NATIVE_APP_AUTH0_CLIENT_ID, domain: Config.REACT_NATIVE_APP_AUTH0_DOMAIN }),
     [],
   );
 
@@ -113,16 +109,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
   );
 
   return (
-    <AuthenticationContext.Provider
-      value={{
-        accessToken,
-        authorize,
-        isAuthenticated,
-        isInitialized,
-        logout,
-        user,
-      }}
-    >
+    <AuthenticationContext.Provider value={{ accessToken, authorize, isAuthenticated, isInitialized, logout, user }}>
       {children}
     </AuthenticationContext.Provider>
   );

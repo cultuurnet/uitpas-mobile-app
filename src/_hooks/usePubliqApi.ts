@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { Config } from 'react-native-config';
+import { Config } from '../_config';
 import {
   InfiniteQueryObserverOptions,
   useInfiniteQuery,
@@ -14,19 +14,13 @@ import { HttpClient, TApiError } from '../_http';
 import { Headers, Params } from '../_http/HttpClient';
 import { TPaginatedResponse } from '../_models';
 
-type TSharedOptions = {
-  enabled?: boolean;
-  headers?: Headers;
-  params?: Params;
-};
+type TSharedOptions = { enabled?: boolean; headers?: Headers; params?: Params };
 type TGetOptions<T = unknown> = Omit<UseQueryOptions<T, TApiError>, 'networkMode' | 'queryFn' | 'queryKey'> & TSharedOptions;
 
 export type TPostOptions<T = unknown, RequestBody extends Record<string, unknown> = Record<string, unknown>> = Omit<
   UseMutationOptions<T, TApiError, RequestBody>,
   'queryFn' | 'mutationKey' | 'networkMode'
-> & {
-  headers?: Headers;
-};
+> & { headers?: Headers };
 export type TMutationParams<RequestBody extends Record<string, unknown> = Record<string, unknown>> = {
   body?: RequestBody;
   headers?: Headers;
@@ -36,10 +30,7 @@ type TGetInfiniteOptions<T = unknown> = InfiniteQueryObserverOptions<T, TApiErro
 
 type ApiHost = 'uitpas' | 'uitdatabank';
 
-const HOSTS: Record<ApiHost, string> = {
-  uitdatabank: Config.API_HOST_UITDATABANK,
-  uitpas: Config.API_HOST,
-};
+const HOSTS: Record<ApiHost, string> = { uitdatabank: Config.API_HOST_UITDATABANK, uitpas: Config.API_HOST };
 
 export function usePubliqApi(host: ApiHost = 'uitpas') {
   const { accessToken } = useAuthentication();

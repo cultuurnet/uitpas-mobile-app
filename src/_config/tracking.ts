@@ -1,4 +1,4 @@
-import { Config } from 'react-native-config';
+import { Config } from './env';
 
 import { TTrackingData, TTrackingEvents } from '../_models';
 

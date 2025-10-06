@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, ScrollView, useWindowDimensions } from 'react-native';
-import { Config } from 'react-native-config';
+import { Config } from '../_config';
 import { EventArg } from '@react-navigation/native';
 
 import { Person } from '../_assets/images';
