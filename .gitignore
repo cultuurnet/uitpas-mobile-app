@@ -2,6 +2,14 @@
 #
 .DS_Store
 
+# Expo
+.expo/
+.expo-shared/
+dist/
+web-build/
+/android/
+/ios/
+
 # react-native-config codegen
 ios/tmp.xcconfig
 
@@ -47,7 +55,7 @@ yarn-error.log
 # env
 #
 .env.local
-.env 
+.env
 
 # BUCK
 buck-out/
