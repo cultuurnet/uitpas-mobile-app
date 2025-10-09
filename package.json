@@ -3,7 +3,7 @@
   "version": "2.1.1-1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android --mode=beta --appIdSuffix=beta",
+    "android": "react-native run-android --mode=debug --appIdSuffix=debug",
     "check-types": "tsc --noEmit",
     "format:check": "yarn prettier --check",
     "format": "yarn prettier --write",

@@ -53,6 +53,7 @@ export type TRootStackParamList = {
   FamilyOverview: undefined;
   FilteredShop: {
     category?: TFilterRewardCategory;
+    isFeatured?: boolean;
     section?: TFilterRewardSection;
     subtitle?: string;
     type?: TRewardType;
