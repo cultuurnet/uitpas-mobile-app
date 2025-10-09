@@ -18,7 +18,7 @@ export const FeaturedRewards = () => {
   const { push } = useNavigation<TMainNavigationProp>();
   const { trackSelfDescribingEvent } = useTracking();
 
-  const rewards = useMemo(() => data.member ?? [], [data?.member]);
+  const rewards = useMemo(() => data?.member ?? [], [data?.member]);
 
   const onPressReward = useCallback(
     reward => {
