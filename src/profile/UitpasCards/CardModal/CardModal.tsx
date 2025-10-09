@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { Modal, StatusBar } from 'react-native';
+import { Modal } from 'react-native';
 
 import { Icon } from '../../../_components';
 import { useFullScreenBrightness } from '../../../_hooks/useFullscreenBrightness';
@@ -7,13 +7,9 @@ import { theme } from '../../../_styles/theme';
 import { TPassHolder } from '../../_models';
 import UitpasCard from '../UitpasCard/UitpasCard';
 import * as Styled from './style';
+import { StatusBar } from 'expo-status-bar';
 
-type TCardModalProps = {
-  icon?: string;
-  isVisible: boolean;
-  passHolder: TPassHolder;
-  toggleIsVisible: () => void;
-};
+type TCardModalProps = { icon?: string; isVisible: boolean; passHolder: TPassHolder; toggleIsVisible: () => void };
 
 const CardModal: FC<TCardModalProps> = ({ passHolder, icon, isVisible, toggleIsVisible }) => {
   const { resetScreen, brightenScreen } = useFullScreenBrightness();
@@ -30,7 +26,7 @@ const CardModal: FC<TCardModalProps> = ({ passHolder, icon, isVisible, toggleIsV
       transparent
       visible={isVisible}
     >
-      {isVisible && <StatusBar backgroundColor={theme.palette.neutral['900']} barStyle="light-content" />}
+      {isVisible && <StatusBar backgroundColor={theme.palette.neutral['900']} style="light" />}
       <Styled.BlurContainer onPress={toggleIsVisible} underlayColor="rgba(0, 0, 0, 0.85)">
         <>
           <Styled.CloseButton>

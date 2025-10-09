@@ -4,11 +4,7 @@ import SkeletonContent, { ICustomViewStyle } from 'react-native-reanimated-skele
 
 import { theme } from '../../_styles/theme';
 
-type TSkeletonProps = {
-  containerStyle?: StyleProp<ViewStyle>;
-  dark?: boolean;
-  layout: ICustomViewStyle[];
-};
+type TSkeletonProps = { containerStyle?: StyleProp<ViewStyle>; dark?: boolean; layout: ICustomViewStyle[] };
 
 const SkeletonLoader: FC<TSkeletonProps> = ({ containerStyle, layout, dark = false }) => {
   // As suggested in https://github.com/alexZajac/react-native-skeleton-content-nonexpo/issues/41#issuecomment-1138546643
@@ -30,11 +26,6 @@ const SkeletonLoader: FC<TSkeletonProps> = ({ containerStyle, layout, dark = fal
   return <MemoizedSkeletonContent />;
 };
 
-export const styles = StyleSheet.create({
-  layout: {
-    alignSelf: 'flex-start',
-    borderRadius: 4,
-  },
-});
+export const styles = StyleSheet.create({ layout: { alignSelf: 'flex-start', borderRadius: 4 } });
 
 export default SkeletonLoader;

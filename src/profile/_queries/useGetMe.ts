@@ -10,7 +10,7 @@ export function useGetMe(enabled?: boolean) {
   const navigation = useStackNavigation();
   const [retryCount, setRetryCount] = useState(0);
 
-  return api.get<TPassHolder>(['me'], '/passholders/me', {
+  const query = api.get<TPassHolder>(['me'], '/passholders/me', {
     enabled,
     onError: (error: TApiError) => {
       if (error.status === HttpStatus.NotFound) {
@@ -26,4 +26,6 @@ export function useGetMe(enabled?: boolean) {
       return retryCount < 6;
     },
   });
+
+  return query;
 }

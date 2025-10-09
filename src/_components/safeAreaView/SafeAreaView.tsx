@@ -1,10 +1,11 @@
 import { forwardRef } from 'react';
-import { ScrollView, ScrollViewProps, StatusBarStyle, StyleProp, ViewStyle } from 'react-native';
+import { ScrollView, ScrollViewProps, StyleProp, ViewStyle } from 'react-native';
 import { NativeSafeAreaViewProps as RNSafeAreaViewProps } from 'react-native-safe-area-context';
 
 import { ThemeColor } from '../../_styles/theme';
 import FocusAwareStatusBar from '../statusBar/FocusAwareStatusBar';
 import * as Styled from './style';
+import { StatusBarStyle } from 'expo-status-bar';
 
 export type TSafeAreaViewProps = {
   backgroundColor?: ThemeColor;
@@ -22,7 +23,7 @@ const SafeAreaView = forwardRef<ScrollView, TSafeAreaViewProps>(
       backgroundColor = 'neutral.100',
       stickyHeaderIndices,
       isScrollable = true,
-      barStyle = 'light-content',
+      barStyle = 'light',
       keyboardShouldPersistTaps,
       ...props
     },
@@ -31,7 +32,7 @@ const SafeAreaView = forwardRef<ScrollView, TSafeAreaViewProps>(
     if (isScrollable) {
       return (
         <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} {...props}>
-          <FocusAwareStatusBar barStyle={barStyle} />
+          <FocusAwareStatusBar style={barStyle} />
           <ScrollView
             contentContainerStyle={[{ flexGrow: 1 }, props.style]}
             keyboardShouldPersistTaps={keyboardShouldPersistTaps}
@@ -45,7 +46,7 @@ const SafeAreaView = forwardRef<ScrollView, TSafeAreaViewProps>(
     } else {
       return (
         <Styled.SafeAreaViewContainer backgroundColor={backgroundColor} {...props}>
-          <FocusAwareStatusBar barStyle={barStyle} />
+          <FocusAwareStatusBar style={barStyle} />
           {children}
         </Styled.SafeAreaViewContainer>
       );

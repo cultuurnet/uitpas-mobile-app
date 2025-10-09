@@ -8,7 +8,7 @@ export function useRedeemReward(options: TPostOptions<TRedeemedReward>) {
     ...options,
     onSuccess: (data, variables, context) => {
       // Reset me call so we will fetch the userpoints again
-      queryClient.invalidateQueries(['me']);
+      queryClient.invalidateQueries({ queryKey: ['me'] });
       options.onSuccess(data, variables, context);
     },
   });
