@@ -35,26 +35,28 @@ export const FeaturedReward = ({ reward, onPress, showFamilyMembers, ...props }:
 
   return (
     <Styled.Container {...props} onPress={onPressReward}>
-      <Styled.Star source={Star} />
-      <Styled.ImageContainer>
-        <RewardImage hasRadius picture={reward.pictures?.[0]} />
-      </Styled.ImageContainer>
-      <Styled.ContentContainer>
-        <Styled.Badge>
-          <Typography color="neutral.0" fontStyle="bold" size="xsmall">
-            {t('SHOP.FEATURED_REWARDS.BADGE')}
-          </Typography>
-        </Styled.Badge>
-        <Styled.TitleContainer>
-          <Typography color="neutral.0" fontStyle="bold">
-            {reward.title}
-          </Typography>
-        </Styled.TitleContainer>
-        <Styled.PointsAndLabelContainer>
-          {!!reward.points && <Points points={reward.points} theme="white" />}
-          {reward.online && <InAppRewardLabel theme="white" />}
-        </Styled.PointsAndLabelContainer>
-      </Styled.ContentContainer>
+      <>
+        <Styled.Star source={Star} />
+        <Styled.ImageContainer>
+          <RewardImage hasRadius picture={reward.pictures?.[0]} />
+        </Styled.ImageContainer>
+        <Styled.ContentContainer>
+          <Styled.Badge>
+            <Typography color="neutral.0" fontStyle="bold" size="xsmall">
+              {t('SHOP.FEATURED_REWARDS.BADGE')}
+            </Typography>
+          </Styled.Badge>
+          <Styled.TitleContainer>
+            <Typography color="neutral.0" fontStyle="bold">
+              {reward.title}
+            </Typography>
+          </Styled.TitleContainer>
+          <Styled.PointsAndLabelContainer>
+            {!!reward.points && <Points points={reward.points} theme="white" />}
+            {reward.online && <InAppRewardLabel theme="white" />}
+          </Styled.PointsAndLabelContainer>
+        </Styled.ContentContainer>
+      </>
     </Styled.Container>
   );
 };
