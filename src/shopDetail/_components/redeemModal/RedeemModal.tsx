@@ -9,6 +9,7 @@ import { getLanguage, getRewardTrackingData, getUpActionTrackingData } from '../
 import { useHasFamilyMembers } from '../../../onboarding/family/_queries';
 import { getActiveCard } from '../../../profile/_helpers/getActiveCard';
 import { TFamilyMember } from '../../../profile/_models';
+import { TRedeemedReward } from '../../../redeemedRewards/_models/redeemedReward';
 import { TReward } from '../../../shop/_models/reward';
 import { useRedeemReward } from '../../_queries/useRedeemReward';
 import { FamilyMemberCard } from '../familyMemberCard/FamilyMemberCard';
@@ -24,6 +25,7 @@ type TRedeemModalProps = {
 const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleIsVisible }) => {
   const { navigate } = useNavigation<TRootStackNavigationProp<'ShopDetail'>>();
   const rewardTrackingData = getRewardTrackingData(reward);
+  const pendingNavigation = React.useRef<{ member: TFamilyMember | null; redeemedReward: TRedeemedReward | null } | null>(null);
 
   const { data: hasFamilyMembers } = useHasFamilyMembers();
   const {
@@ -32,16 +34,21 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
     error,
   } = useRedeemReward({
     onSuccess: redeemedReward => {
-      toggleIsVisible();
+      pendingNavigation.current = { member, redeemedReward };
+
       queryClient.invalidateQueries(['family']);
       queryClient.invalidateQueries(['redeem-status', reward.id]);
-      setTimeout(() => {
-        // We wrap this in a timeout because of race condition between
-        // closing the confirmation modal and opening the new screen in a modal
-        navigate('RedeemedReward', { isModal: true, member, redeemedReward });
-      }, 0);
+      toggleIsVisible();
     },
   });
+
+  const handleModalDismissed = useCallback(() => {
+    if (!pendingNavigation.current) return;
+    const { member, redeemedReward } = pendingNavigation.current;
+    pendingNavigation.current = null;
+
+    navigate('RedeemedReward', { isModal: true, member, redeemedReward });
+  }, [pendingNavigation, navigate]);
   const activeCard = getActiveCard({ passHolder: member?.passholder });
   const { trackSelfDescribingEvent } = useTracking();
 
@@ -65,7 +72,7 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
   };
 
   return (
-    <BlurredModal isVisible={isVisible} toggleIsVisible={handleCancel}>
+    <BlurredModal isVisible={isVisible} onDismiss={handleModalDismissed} toggleIsVisible={handleCancel}>
       <Typography bottomSpacing="12px" fontStyle="bold" size="xlarge">
         {t('SHOP_DETAIL.REDEEM.MODAL_TITLE')}
       </Typography>

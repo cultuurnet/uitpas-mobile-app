@@ -230,6 +230,10 @@
       "TITLE": "Bekijk nu je Welkomstvoordelen",
       "BANNER_TITLE": "Meteen genieten van je UiTPAS? Deze welkomstvoordelen kan je nu gebruiken."
     },
+    "FEATURED_REWARDS": {
+      "SECTION_TITLE": "In de kijker",
+      "BADGE": "In de kijker"
+    },
     "SECTIONS": {
       "DO": "Doen",
       "GADGET": "Gadget of item",
