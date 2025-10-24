@@ -1,6 +1,6 @@
 {
   "name": "reactnative_uitpas",
-  "version": "2.1.2-beta.5",
+  "version": "2.1.2-beta.6",
   "private": true,
   "scripts": {
     "android": "react-native run-android --mode=debug --appIdSuffix=debug",
