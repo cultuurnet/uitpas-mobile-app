@@ -21,7 +21,7 @@ jobs:
       FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
     name: iOS (production)
     environment: production
-    runs-on: macos-14
+    runs-on: macos-15
     if:
       github.event_name == 'workflow_dispatch' || (startsWith(github.head_ref, 'release/') && github.event.pull_request.merged ==
       true)
@@ -72,7 +72,7 @@ jobs:
   release_prod_android:
     name: Android (prod)
     environment: production
-    runs-on: macos-14
+    runs-on: macos-15
     if:
       github.event_name == 'workflow_dispatch' || (startsWith(github.head_ref, 'release/') && github.event.pull_request.merged ==
       true)
