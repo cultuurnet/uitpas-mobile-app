@@ -1,8 +1,5 @@
 import Constants from 'expo-constants';
-import { NativeConfig } from './env.d';
 
-// Prefer values provided via `app.config.ts` extras (available at runtime as
-// Constants.expoConfig.extra). Fall back to process.env for node-based scripts.
 const extras =
   (Constants.expoConfig && (Constants.expoConfig as any).extra) ||
   (Constants.manifest && (Constants.manifest as any).extra) ||
@@ -17,7 +14,7 @@ function get(key: string): string | undefined {
   return undefined;
 }
 
-export const Config: NativeConfig = {
+export const Config = {
   API_HOST: get('API_HOST'),
   API_HOST_UITDATABANK: get('API_HOST_UITDATABANK'),
   APP_NAME: get('APP_NAME'),
