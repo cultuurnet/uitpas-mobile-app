@@ -67,7 +67,7 @@ export const MainNavigator: FC = () => {
       tabBarHideOnKeyboard: true,
       tabBarInactiveTintColor: theme.palette.neutral['500'],
       tabBarItemStyle: {
-        height: 40,
+        height: 60,
       },
       tabBarLabelStyle: {
         fontSize: 12,
@@ -93,7 +93,6 @@ export const MainNavigator: FC = () => {
         options={{
           tabBarIcon: ({ size: _, ...props }) => <TabBarIcon name="Shop" {...props} />,
           tabBarItemStyle: {
-            height: 40,
             marginRight: 37.5,
           },
           title: t('NAVIGATION.SHOP'),
@@ -108,6 +107,9 @@ export const MainNavigator: FC = () => {
           return {
             tabBarButton: props => <NavigationButton focused={focused} {...props} />,
             tabBarIcon: ({ size: _, ...props }) => <TabBarIcon name="QR" size={24} {...props} />,
+            tabBarItemStyle: {
+              flex: 0,
+            },
             tabBarLabelStyle: {
               color: focused ? theme.palette.neutral['0'] : theme.palette.neutral['500'],
             },
@@ -121,7 +123,6 @@ export const MainNavigator: FC = () => {
         options={{
           tabBarIcon: ({ size: _, ...props }) => <TabBarIcon name="Profile" {...props} />,
           tabBarItemStyle: {
-            height: 40,
             marginLeft: 37.5,
           },
           title: t('NAVIGATION.PROFILE'),

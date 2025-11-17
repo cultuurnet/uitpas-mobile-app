@@ -31,7 +31,7 @@ export const Description = styled(Typography)`
 
 export const AvatarItemBorder = styled(TouchableRipple)<{ isSelected: boolean }>`
   margin-horizontal: 8px;
-  border-widtrh: 2px;
+  border-width: 2px;
   border-color: ${({ isSelected }) => (isSelected ? theme.palette.primary['700'] : 'transparent')};
   border-radius: 27px;
 `;

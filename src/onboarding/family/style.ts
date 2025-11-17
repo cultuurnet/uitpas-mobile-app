@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import { BulletList as BulletListComp, Button, Typography } from '../../_components';
 
 export const Body = styled.View`
-  flex: 1
+  flex: 1;
   padding-horizontal: 16px;
   align-items: center;
 `;
