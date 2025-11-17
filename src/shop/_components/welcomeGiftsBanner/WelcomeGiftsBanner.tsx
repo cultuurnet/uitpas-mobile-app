@@ -15,7 +15,8 @@ export const WelcomeGiftsBanner = () => {
   const { data: user } = useGetMe();
   const { navigate } = useNavigation<TMainNavigationProp>();
 
-  const creationDate = parseISO(user?.creationDate);
+  if (!user?.creationDate) return null;
+  const creationDate = parseISO(user.creationDate);
   if (!__DEV__ && (!isValid(creationDate) || isBefore(creationDate, subMonths(new Date(), 2)))) return null;
 
   return (

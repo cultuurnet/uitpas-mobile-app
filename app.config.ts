@@ -8,8 +8,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   orientation: 'portrait',
   icon: process.env.EXPO_PUBLIC_APP_ICON,
   userInterfaceStyle: 'light',
-  scheme: 'uitpas',
-  // splash: { image: './assets/splash-icon.png', resizeMode: 'contain', backgroundColor: '#ffffff' },
+  scheme: process.env.EXPO_PUBLIC_APP_PACKAGE_NAME,
   ios: {
     supportsTablet: false,
     bundleIdentifier: process.env.EXPO_PUBLIC_APP_PACKAGE_NAME,
@@ -58,7 +57,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         ],
       },
     ],
-    ['react-native-auth0', { domain: process.env.EXPO_PUBLIC_AUTH_DOMAIN }],
+    ['expo-navigation-bar', { backgroundColor: '#FFFFFF', barStyle: 'dark' }],
   ],
   extra: {
     API_HOST: process.env.EXPO_PUBLIC_API_HOST,

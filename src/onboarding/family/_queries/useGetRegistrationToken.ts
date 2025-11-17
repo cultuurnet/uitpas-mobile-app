@@ -18,7 +18,7 @@ const getRegistrationToken = async ({
   return HttpClient.get(
     '/passholders/me/uitid/registration-token',
     {},
-    { authorization: `Basic ${authorizationHeader}`, 'x-client-id': Config.REACT_NATIVE_APP_AUTH0_CLIENT_ID },
+    { authorization: `Basic ${authorizationHeader}`, 'x-client-id': Config.REACT_NATIVE_APP_AUTH_CLIENT_ID },
   );
 };
 

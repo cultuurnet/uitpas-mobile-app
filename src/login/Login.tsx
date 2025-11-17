@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, ScrollView, useWindowDimensions } from 'react-native';
-import { Config } from '../_config';
 import { EventArg } from '@react-navigation/native';
 
 import { Person } from '../_assets/images';
@@ -33,15 +32,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       setIsLoading(true);
-      await authorize(
-        {
-          audience: Config.REACT_NATIVE_APP_AUTH0_AUDIENCE,
-          product_display_name: 'UiTPAS',
-          referrer: 'uitpas',
-          scope: 'openid profile email offline_access',
-        },
-        { ephemeralSession: true },
-      );
+      await authorize();
       setIsLoading(false);
     } catch (e) {
       // @TODO: general error handling?
