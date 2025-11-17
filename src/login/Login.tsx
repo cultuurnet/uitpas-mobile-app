@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Platform, ScrollView, useWindowDimensions } from 'react-native';
+import { ScrollView, useWindowDimensions } from 'react-native';
 import { EventArg } from '@react-navigation/native';
 
 import { Person } from '../_assets/images';
@@ -41,7 +41,7 @@ const Login = () => {
   };
 
   if (isLoading || !isInitialized) {
-    return <Spinner statusBarStyle={Platform.OS === 'ios' ? 'dark' : 'light'} />;
+    return <Spinner statusBarStyle="dark" />;
   }
 
   return (
