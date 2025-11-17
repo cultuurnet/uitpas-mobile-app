@@ -50,7 +50,7 @@ const Login = () => {
   };
 
   if (isLoading || !isInitialized) {
-    return <Spinner statusBarStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'} />;
+    return <Spinner statusBarStyle={Platform.OS === 'ios' ? 'dark' : 'light'} />;
   }
 
   return (

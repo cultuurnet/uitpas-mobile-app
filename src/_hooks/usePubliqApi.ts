@@ -1,21 +1,14 @@
 import { useCallback, useMemo } from 'react';
 import { Config } from '../_config';
-import {
-  InfiniteQueryObserverOptions,
-  useInfiniteQuery,
-  useMutation,
-  UseMutationOptions,
-  useQuery,
-  UseQueryOptions,
-} from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, UseMutationOptions, useQuery } from '@tanstack/react-query';
 
 import { useAuthentication } from '../_context/AuthenticationContext';
 import { HttpClient, TApiError } from '../_http';
 import { Headers, Params } from '../_http/HttpClient';
 import { TPaginatedResponse } from '../_models';
 
-type TSharedOptions = { enabled?: boolean; headers?: Headers; params?: Params };
-type TGetOptions<T = unknown> = Omit<UseQueryOptions<T, TApiError>, 'networkMode' | 'queryFn' | 'queryKey'> & TSharedOptions;
+type TSharedOptions = { enabled?: boolean; headers?: Headers; params?: Params; onError?: (error: TApiError) => void };
+type TGetOptions = TSharedOptions & Record<string, any>;
 
 export type TPostOptions<T = unknown, RequestBody extends Record<string, unknown> = Record<string, unknown>> = Omit<
   UseMutationOptions<T, TApiError, RequestBody>,
@@ -26,7 +19,7 @@ export type TMutationParams<RequestBody extends Record<string, unknown> = Record
   headers?: Headers;
   path?: string;
 };
-type TGetInfiniteOptions<T = unknown> = InfiniteQueryObserverOptions<T, TApiError> & TSharedOptions & { itemsPerPage?: number };
+type TGetInfiniteOptions = TSharedOptions & { itemsPerPage?: number; initialPageParam?: number } & Record<string, any>;
 
 type ApiHost = 'uitpas' | 'uitdatabank';
 
@@ -47,13 +40,12 @@ export function usePubliqApi(host: ApiHost = 'uitpas') {
   }, [accessToken, host]);
 
   const get = useCallback(
-    <T = unknown>(queryKey: unknown[], path: string, { headers = {}, params = {}, enabled, ...options }: TGetOptions<T> = {}) => {
+    <T = unknown>(queryKey: unknown[], path: string, { headers = {}, params = {}, enabled, ...options }: TGetOptions = {}) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       return useQuery<T, TApiError>({
-        enabled: !!accessToken && (enabled === undefined || enabled),
-        networkMode: 'offlineFirst',
+        queryKey: queryKey as readonly unknown[],
         queryFn: async () => HttpClient.get<T>(`${apiHost}${path}`, params, { ...defaultHeaders, ...headers }),
-        queryKey,
+        enabled: !!accessToken && (enabled === undefined || enabled),
         ...options,
       });
     },
@@ -71,7 +63,6 @@ export function usePubliqApi(host: ApiHost = 'uitpas') {
         mutationFn: async ({ body, headers, path: mutationPath }) =>
           HttpClient.post<T>(`${apiHost}${mutationPath ?? path}`, body, { ...defaultHeaders, ...headers }),
         mutationKey,
-        networkMode: 'offlineFirst',
         ...options,
       });
     },
@@ -88,7 +79,6 @@ export function usePubliqApi(host: ApiHost = 'uitpas') {
       return useMutation<T, TApiError, MutationParams>({
         mutationFn: async ({ body, headers }) => HttpClient.put<T>(`${apiHost}${path}`, body, { ...defaultHeaders, ...headers }),
         mutationKey,
-        networkMode: 'offlineFirst',
         ...options,
       });
     },
@@ -106,7 +96,6 @@ export function usePubliqApi(host: ApiHost = 'uitpas') {
         mutationFn: async ({ headers, path: mutationPath }) =>
           HttpClient.delete<T>(`${apiHost}${mutationPath ?? path}`, { ...defaultHeaders, ...headers }),
         mutationKey,
-        networkMode: 'offlineFirst',
         ...options,
       });
     },
@@ -117,11 +106,18 @@ export function usePubliqApi(host: ApiHost = 'uitpas') {
     <T extends TPaginatedResponse = TPaginatedResponse>(
       queryKey: unknown[],
       path: string,
-      { headers = {}, params = {}, itemsPerPage = 10, enabled, ...options }: TGetInfiniteOptions<T> = {},
+      { headers = {}, params = {}, itemsPerPage = 10, enabled, initialPageParam = 0, ...options }: TGetInfiniteOptions = {},
     ) => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
       return useInfiniteQuery<T, TApiError>({
+        queryKey: queryKey as readonly unknown[],
+        queryFn: async ({ pageParam = initialPageParam }) =>
+          HttpClient.get(
+            `${apiHost}${path}`,
+            { limit: itemsPerPage, start: Number(pageParam) * itemsPerPage, ...params },
+            { ...defaultHeaders, ...headers },
+          ),
         enabled: !!accessToken && (enabled === undefined || enabled),
+        initialPageParam,
         getNextPageParam: (lastPage, allPages) => {
           const nextPageNumber = allPages.length;
           if (nextPageNumber * itemsPerPage >= lastPage?.totalItems) {
@@ -130,14 +126,6 @@ export function usePubliqApi(host: ApiHost = 'uitpas') {
 
           return nextPageNumber;
         },
-        networkMode: 'offlineFirst',
-        queryFn: async ({ pageParam = 0 }) =>
-          HttpClient.get(
-            `${apiHost}${path}`,
-            { limit: itemsPerPage, start: pageParam * itemsPerPage, ...params },
-            { ...defaultHeaders, ...headers },
-          ),
-        queryKey,
         ...options,
       });
     },

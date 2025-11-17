@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import { StatusBarStyle } from 'react-native';
+import { StatusBarStyle } from 'expo-status-bar';
 import Animated, {
   cancelAnimation,
   Easing,

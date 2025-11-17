@@ -50,7 +50,7 @@ const DiagonalSplitView: FC<TProps> = ({
           {isScrollable ? <Styled.BottomContainerContent>{bottomContent}</Styled.BottomContainerContent> : bottomContent}
         </Styled.BottomContainer>
       </Styled.ViewContainer>
-      <FocusAwareStatusBar backgroundColor={getColor(backgroundColor)} barStyle="light-content" />
+      <FocusAwareStatusBar backgroundColor={getColor(backgroundColor)} style="light" />
     </ScrollView>
   );
 };

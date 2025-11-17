@@ -14,10 +14,7 @@ import * as Styled from './style';
 
 const SORTED_AVATARS = [...Object.keys(EmojiAvatars), ...Object.keys(AnimalAvatars)];
 
-type TProps = {
-  navigation: TMainNavigationProp<'Profile'>;
-  route: TRootStackRouteProp<'EditFamilyMember'>;
-};
+type TProps = { navigation: TMainNavigationProp<'Profile'>; route: TRootStackRouteProp<'EditFamilyMember'> };
 
 export const EditFamilyMember = ({ navigation, route }: TProps) => {
   const {
@@ -30,14 +27,14 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
   } = route.params;
 
   const [selectedAvatar, setSelectedAvatar] = useState(getValidAvatarNameOrDefault(icon));
-  const { mutateAsync: editFamilyMember, isLoading } = useEditFamilyMember(passHolderId);
+  const { mutateAsync: editFamilyMember, isPending } = useEditFamilyMember(passHolderId);
 
   const { bottom } = useSafeAreaInsets();
   const { t } = useTranslation();
 
   const handleSubmit = async () => {
     await editFamilyMember({ body: { icon: selectedAvatar } });
-    queryClient.invalidateQueries(['family']);
+    queryClient.invalidateQueries({ queryKey: ['family'] });
     navigation.goBack();
   };
 
@@ -83,7 +80,7 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
           )}
         />
         <Styled.StickyFooter style={{ marginBottom: bottom + 16 }}>
-          <Button label={t('ONBOARDING.FAMILY.EDIT_MEMBER.SAVE')} loading={isLoading} onPress={handleSubmit} />
+          <Button label={t('ONBOARDING.FAMILY.EDIT_MEMBER.SAVE')} loading={isPending} onPress={handleSubmit} />
         </Styled.StickyFooter>
       </Styled.ScreenContainer>
     </>

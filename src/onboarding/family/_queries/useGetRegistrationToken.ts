@@ -25,9 +25,9 @@ const getRegistrationToken = async ({
 export const useGetRegistrationToken = (
   options?: MutateOptions<TRegistrationTokenResponse, TApiError, TRegistrationTokenRequest>,
 ) => {
-  return useMutation<TRegistrationTokenResponse, TApiError, TRegistrationTokenRequest>(
-    ['registration-token'],
-    getRegistrationToken,
-    options,
-  );
+  return useMutation<TRegistrationTokenResponse, TApiError, TRegistrationTokenRequest>({
+    mutationKey: ['registration-token'],
+    mutationFn: getRegistrationToken,
+    ...options,
+  });
 };

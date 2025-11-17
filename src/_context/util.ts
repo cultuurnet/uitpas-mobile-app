@@ -1,4 +1,4 @@
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 const idTokenNonProfileClaims = new Set([
   'iss',
@@ -34,7 +34,7 @@ const idTokenNonProfileClaims = new Set([
 ]);
 
 export const getIdTokenProfileClaims = idToken => {
-  const payload = jwt_decode(idToken);
+  const payload = jwtDecode(idToken);
 
   const profileClaims = Object.keys(payload).reduce((profile, claim) => {
     if (!idTokenNonProfileClaims.has(claim)) {

@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 
 import { Typography } from '../_components';
-export const HISTORY_ITEM_HEIGHT = 90;
 
 export const HistoryItem = styled.View`
   flex-direction: row;

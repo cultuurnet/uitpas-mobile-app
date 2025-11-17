@@ -49,7 +49,6 @@ const History: FC = () => {
           ListEmptyComponent={<Styled.NoContentText align="center">{t('PROFILE.HISTORY.EMPTY')}</Styled.NoContentText>}
           contentContainerStyle={{ paddingBottom: 105, paddingTop: 24 }}
           data={members}
-          estimatedItemSize={Styled.HISTORY_ITEM_HEIGHT}
           onEndReached={fetchNextPage}
           onEndReachedThreshold={0.1}
           refreshControl={

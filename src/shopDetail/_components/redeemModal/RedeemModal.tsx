@@ -14,12 +14,7 @@ import { useRedeemReward } from '../../_queries/useRedeemReward';
 import { FamilyMemberCard } from '../familyMemberCard/FamilyMemberCard';
 import * as Styled from './style';
 
-type TRedeemModalProps = {
-  isVisible: boolean;
-  member: TFamilyMember | null;
-  reward: TReward;
-  toggleIsVisible: () => void;
-};
+type TRedeemModalProps = { isVisible: boolean; member: TFamilyMember | null; reward: TReward; toggleIsVisible: () => void };
 
 const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleIsVisible }) => {
   const { navigate } = useNavigation<TRootStackNavigationProp<'ShopDetail'>>();
@@ -28,13 +23,13 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
   const { data: hasFamilyMembers } = useHasFamilyMembers();
   const {
     mutate: redeemReward,
-    isLoading,
+    isPending,
     error,
   } = useRedeemReward({
     onSuccess: redeemedReward => {
       toggleIsVisible();
-      queryClient.invalidateQueries(['family']);
-      queryClient.invalidateQueries(['redeem-status', reward.id]);
+      queryClient.invalidateQueries({ queryKey: ['family'] });
+      queryClient.invalidateQueries({ queryKey: ['redeem-status', reward.id] });
       setTimeout(() => {
         // We wrap this in a timeout because of race condition between
         // closing the confirmation modal and opening the new screen in a modal
@@ -80,7 +75,7 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
           <FamilyMemberCard member={member} title={t('SHOP_DETAIL.REDEEM.MODAL_WHO_TITLE')} />
         </Styled.MemberContainer>
       )}
-      <Styled.ConfirmButton label={t('SHOP_DETAIL.REDEEM.MODAL_BUTTON_CONFIRM')} loading={isLoading} onPress={handleConfirm} />
+      <Styled.ConfirmButton label={t('SHOP_DETAIL.REDEEM.MODAL_BUTTON_CONFIRM')} loading={isPending} onPress={handleConfirm} />
       <Button color="primary.700" label={t('SHOP_DETAIL.REDEEM.MODAL_BUTTON_CANCEL')} onPress={handleCancel} variant="outline" />
     </BlurredModal>
   );

@@ -11,7 +11,7 @@ const CameraSettings = () => {
 
   return (
     <SafeAreaView backgroundColor="neutral.0" isScrollable={false}>
-      <FocusAwareStatusBar backgroundColor={theme.palette.neutral['0']} barStyle="dark-content" />
+      <FocusAwareStatusBar backgroundColor={theme.palette.neutral['0']} style="dark" />
 
       <Styled.TopContainer>
         <Styled.TitleText align="center" color="secondary.700" fontStyle="bold" size="large">

@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Keyboard, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { FlashList } from '@shopify/flash-list';
+import { FlashList, FlashListRef } from '@shopify/flash-list';
 
 import { EnlargedHeader, PillButton, Reward, SafeAreaView, Typography } from '../../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../../_routing';
@@ -48,7 +48,7 @@ export const Search = ({ navigation, route }: TProps) => {
   });
   const results = useMemo(() => searchResults?.pages?.flatMap(({ member }) => member) ?? [], [searchResults]);
 
-  const ref = useRef<FlashList<TReward>>(null);
+  const ref = useRef<FlashListRef<TReward>>(null);
 
   const onClose = useCallback(() => {
     setSearch('');
@@ -123,7 +123,6 @@ export const Search = ({ navigation, route }: TProps) => {
                   </Styled.SearchFilters>
                 }
                 data={results}
-                estimatedItemSize={117}
                 keyExtractor={item => item.id}
                 keyboardShouldPersistTaps="handled"
                 onEndReached={!isSearchLoading ? fetchNextPage : null}
