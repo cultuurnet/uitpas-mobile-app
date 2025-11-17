@@ -1,6 +1,6 @@
 {
   "name": "reactnative_uitpas",
-  "version": "2.1.2",
+  "version": "2.1.3-0",
   "private": true,
   "packageManager": "yarn@1.22.22",
   "scripts": {
