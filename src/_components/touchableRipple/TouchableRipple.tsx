@@ -1,23 +1,10 @@
 import * as React from 'react';
-import {
-  BackgroundPropType,
-  Platform,
-  StyleProp,
-  TouchableHighlight,
-  TouchableNativeFeedback,
-  TouchableWithoutFeedbackProps,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { Pressable, PressableProps, StyleProp, ViewStyle } from 'react-native';
 import color from 'color';
 
 import { theme } from '../../_styles/theme';
 
-const ANDROID_VERSION_LOLLIPOP = 21;
-const ANDROID_VERSION_PIE = 28;
-
-type TProps = TouchableWithoutFeedbackProps & {
-  background?: BackgroundPropType;
+type TProps = Omit<PressableProps, 'style'> & {
   borderless?: boolean;
   children: React.ReactNode;
   disabled?: boolean;
@@ -31,7 +18,6 @@ type TProps = TouchableWithoutFeedbackProps & {
 
 const TouchableRipple = ({
   style,
-  background,
   borderless = false,
   disabled: disabledProp,
   rippleColor,
@@ -44,36 +30,21 @@ const TouchableRipple = ({
   const disabled = disabledProp || loading || !rest.onPress;
   const calculatedRippleColor = rippleColor || color(theme.palette.primary['900']).alpha(0.2).rgb().string();
 
-  // A workaround for ripple on Android P is to use useForeground + overflow: 'hidden'
-  // https://github.com/facebook/react-native/issues/6480
-  const useForeground = Platform.OS === 'android' && Platform.Version >= ANDROID_VERSION_PIE && borderless;
-  if (TouchableRipple.supported) {
-    return (
-      <TouchableNativeFeedback
-        {...rest}
-        background={background ?? TouchableNativeFeedback.Ripple(calculatedRippleColor, borderless)}
-        disabled={disabled}
-        hitSlop={hitSlop}
-        useForeground={useForeground}
-      >
-        <View style={style}>{children}</View>
-      </TouchableNativeFeedback>
-    );
-  }
-
   return (
-    <TouchableHighlight
+    <Pressable
+      {...rest}
+      android_ripple={{
+        color: calculatedRippleColor,
+        borderless,
+        foreground: true,
+      }}
       disabled={disabled}
       hitSlop={hitSlop}
       style={style}
-      underlayColor={underlayColor ?? color(calculatedRippleColor).fade(0.5).rgb().string()}
-      {...rest}
     >
       {children}
-    </TouchableHighlight>
+    </Pressable>
   );
 };
-
-TouchableRipple.supported = Platform.OS === 'android' && Platform.Version >= ANDROID_VERSION_LOLLIPOP;
 
 export default TouchableRipple;

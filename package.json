@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "expo start",
-    "build-android": "expo run:android --device",
-    "build-ios": "expo run:ios --device",
+    "android": "expo run:android --device",
+    "ios": "expo run:ios --device",
     "prebuild": "expo prebuild --clean",
     "prebuild-android": "expo prebuild --clean --platform android",
     "prebuild-ios": "expo prebuild --clean --platform ios",
