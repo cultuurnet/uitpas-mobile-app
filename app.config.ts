@@ -57,6 +57,15 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         ],
       },
     ],
+    [
+      'expo-splash-screen',
+      {
+        backgroundColor: '#FFFFFF',
+        image: './src/_assets/splash.png',
+        imageWidth: 250,
+        resizeMode: 'contain',
+      },
+    ],
     ['expo-navigation-bar', { backgroundColor: '#FFFFFF', barStyle: 'dark' }],
   ],
   extra: {

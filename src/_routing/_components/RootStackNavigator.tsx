@@ -43,6 +43,8 @@ import UpdateScreen from '../../update/UpdateScreen';
 import { MainNavigator, useMainHeaderProps } from './MainNavigator';
 import { TRootStackParamList } from './TRootStackParamList';
 
+SplashScreen.preventAutoHideAsync();
+
 const RootStack = createNativeStackNavigator<TRootStackParamList>();
 
 export const RootStackNavigator = () => {
@@ -54,7 +56,7 @@ export const RootStackNavigator = () => {
   const isPolicyApprovedInStorage = storage.getBoolean(StorageKey.IsPolicyApproved);
 
   useEffect(() => {
-    if (isInitialized) SplashScreen.hide();
+    if (isInitialized) SplashScreen?.hideAsync();
   }, [isInitialized]);
 
   useEffect(() => {
