@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 import { getColor } from '../../_utils';
-import TouchableRipple from '../touchableRipple/TouchableRipple';
+import PressableRipple from '../pressable/PressableRipple';
 import Typography from '../typography/Typography';
 import { TButtonProps } from './Button';
 
@@ -9,7 +9,7 @@ export const ButtonContainer = styled.View<Pick<TButtonProps, 'inline' | 'center
   align-self: ${({ inline, centered }) => (centered ? 'center' : inline ? 'flex-start' : 'stretch')};
 `;
 
-export const ButtonElement = styled(TouchableRipple)<{
+export const ButtonElement = styled(PressableRipple)<{
   $active: boolean;
   $backgroundColor: TButtonProps['backgroundColor'];
   $color: TButtonProps['color'];

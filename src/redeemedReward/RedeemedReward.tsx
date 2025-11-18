@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 
 import { GiftOpen } from '../_assets/images';
@@ -12,6 +12,7 @@ import { useHasFamilyMembers } from '../onboarding/family/_queries';
 import { useFamilyComposition } from '../profile/family/hooks';
 import { RewardCard } from './_components/rewardCard/RewardCard';
 import * as Styled from './style';
+import { Image } from 'expo-image';
 
 type TProps = {
   navigation: TRootStackNavigationProp<'RedeemedReward'>;

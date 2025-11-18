@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { Icon, TouchableRipple, Typography } from '../../_components';
+import { Icon, PressableRipple, Typography } from '../../_components';
 import { theme } from '../../_styles/theme';
 
 export const SearchContainer = styled.View<{ paddingTop?: number }>`
@@ -42,7 +42,7 @@ export const SearchResultsContainer = styled.View`
   background-color: ${theme.palette.neutral[100]};
 `;
 
-export const PopularItem = styled(TouchableRipple)`
+export const PopularItem = styled(PressableRipple)`
   padding: 12px;
   padding-left: 16px;
   flex-direction: row;

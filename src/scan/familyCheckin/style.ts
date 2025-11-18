@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { Image as ExpoImage } from 'expo-image';
 
 import { Button, Checkbox, SafeAreaView, Typography } from '../../_components';
 
@@ -23,7 +24,7 @@ export const FamilyMemberName = styled(Typography)`
   margin-left: 16px;
 `;
 
-export const FamilyMemberAvatar = styled.Image`
+export const FamilyMemberAvatar = styled(ExpoImage)`
   width: 48px;
   height: 48px;
   border-radius: 24px;

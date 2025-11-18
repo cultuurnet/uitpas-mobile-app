@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { Image as ExpoImage } from 'expo-image';
 
 import { Button, Checkbox, Typography } from '../_components';
 
@@ -12,7 +13,7 @@ export const TitleText = styled(Typography)`
   margin-top: 42px;
 `;
 
-export const Image = styled.Image`
+export const Image = styled(ExpoImage)`
   margin-top: 60px;
 `;
 

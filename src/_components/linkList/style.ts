@@ -1,9 +1,9 @@
 import styled from 'styled-components/native';
 
-import TouchableRipple from '../touchableRipple/TouchableRipple';
 import Typography from '../typography/Typography';
+import PressableRipple from '../pressable/PressableRipple';
 
-export const LinkButton = styled(TouchableRipple)`
+export const LinkButton = styled(PressableRipple)`
   flex: 1;
   align-items: center;
   flex-direction: row;

@@ -25,7 +25,7 @@ export const WelcomeGiftsBanner = () => {
       underlayColor={theme.palette.primary[800]}
     >
       <>
-        <Styled.Gift source={GiftHalf} />
+        <Styled.Gift source={GiftHalf} contentFit="cover" />
         <Styled.TextContainer>
           <Styled.Greeting color="neutral.0" size="small">
             {t('SHOP.WELCOME.GREETING', { name: user?.firstName })}

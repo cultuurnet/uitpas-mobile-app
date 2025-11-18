@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { Image as ExpoImage } from 'expo-image';
 
 import { Button, ClipboardButton, ExternalLink, Icon } from '../_components';
 import { theme } from '../_styles/theme';
@@ -49,7 +50,7 @@ export const LinkInlineButton = styled(ExternalLink)`
   margin-bottom: 24px;
 `;
 
-export const MemberAvatar = styled.Image`
+export const MemberAvatar = styled(ExpoImage)`
   width: 48px;
   height: 48px;
   border-radius: 24px;

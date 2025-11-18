@@ -4,9 +4,9 @@ import color from 'color';
 
 import { theme } from '../../_styles/theme';
 
-type TProps = Omit<PressableProps, 'style'> & {
+export type TPressableRippleProps = Omit<PressableProps, 'style'> & {
   borderless?: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   disabled?: boolean;
   hitSlop?: number;
   loading?: boolean;
@@ -16,7 +16,7 @@ type TProps = Omit<PressableProps, 'style'> & {
   underlayColor?: string;
 };
 
-const TouchableRipple = ({
+const PressableRipple = ({
   style,
   borderless = false,
   disabled: disabledProp,
@@ -26,7 +26,7 @@ const TouchableRipple = ({
   hitSlop,
   loading,
   ...rest
-}: TProps) => {
+}: TPressableRippleProps) => {
   const disabled = disabledProp || loading || !rest.onPress;
   const calculatedRippleColor = rippleColor || color(theme.palette.primary['900']).alpha(0.2).rgb().string();
 
@@ -47,4 +47,4 @@ const TouchableRipple = ({
   );
 };
 
-export default TouchableRipple;
+export default PressableRipple;

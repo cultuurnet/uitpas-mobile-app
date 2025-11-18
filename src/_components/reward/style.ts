@@ -3,8 +3,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import styled from 'styled-components/native';
 
 import { theme } from '../../_styles/theme';
-import TouchableRipple from '../touchableRipple/TouchableRipple';
 import Typography from '../typography/Typography';
+import PressableRipple from '../pressable/PressableRipple';
 
 export const REWARD_TILE_WIDTH = 200;
 
@@ -34,7 +34,7 @@ export const TextContainer = styled.View<{ isTile?: boolean }>`
   ${({ isTile }) => (isTile ? '' : 'flex: 1;')};
 `;
 
-export const RewardListContainer = styled(TouchableRipple)`
+export const RewardListContainer = styled(PressableRipple)`
   align-items: center;
   align-self: stretch;
   background-color: ${theme.palette.neutral[0]};
@@ -42,7 +42,7 @@ export const RewardListContainer = styled(TouchableRipple)`
   padding: ${theme.common.defaultSpacing}px;
   width: 100%;
 `;
-export const RewardTileContainer = styled(TouchableRipple)`
+export const RewardTileContainer = styled(PressableRipple)`
   align-items: flex-start;
   overflow: hidden;
   align-self: stretch;

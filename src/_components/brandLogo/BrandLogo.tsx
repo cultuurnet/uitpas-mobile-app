@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Image } from 'react-native';
+import { Image } from 'expo-image';
 
 import { Logo, LogoInverse } from '../../_assets/images';
 
@@ -9,7 +9,7 @@ type TProps = {
 };
 
 const BrandLogo: FC<TProps> = ({ inverse, height = 24 }) => {
-  return <Image resizeMode="contain" source={inverse ? LogoInverse : Logo} style={{ height }} />;
+  return <Image contentFit="contain" source={inverse ? LogoInverse : Logo} style={{ height }} />;
 };
 
 export default BrandLogo;

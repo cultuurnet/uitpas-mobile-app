@@ -1,9 +1,9 @@
-import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 
+import { PressableOpacity } from '../../../_components';
 import { theme } from '../../../_styles/theme';
 
-export const Container = styled(TouchableOpacity)<{ showTopBorder }>`
+export const Container = styled(PressableOpacity)<{ showTopBorder }>`
   border-top-width: ${({ showTopBorder }) => (showTopBorder ? '1px' : '0')};
   border-color: ${theme.palette.neutral['100']};
   padding-top: ${({ showTopBorder }) => (showTopBorder ? '12px' : '0')};

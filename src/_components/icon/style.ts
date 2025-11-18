@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components/native';
 
-import TouchableRipple from '../touchableRipple/TouchableRipple';
 import { TIconProps } from './Icon';
+import PressableRipple from '../pressable/PressableRipple';
 
-export const IconButton = styled(TouchableRipple)<{ borderless?: boolean; disabled?: boolean }>`
+export const IconButton = styled(PressableRipple)<{ borderless?: boolean; disabled?: boolean }>`
   opacity: ${({ disabled }) => (disabled ? 0.6 : 1)};
 `;
 

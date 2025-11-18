@@ -1,11 +1,12 @@
-import { Image } from 'react-native';
+import { Image as ExpoImage } from 'expo-image';
 import styled from 'styled-components/native';
 
 import { theme } from '../../../_styles/theme';
 import Icon from '../../icon/Icon';
+import PressableOpacity from '../../pressable/PressableOpacity';
 import Typography from '../../typography/Typography';
 
-export const Container = styled.TouchableOpacity`
+export const Container = styled(PressableOpacity)`
   flex-direction: row;
   align-items: center;
   align-self: flex-start;
@@ -15,7 +16,7 @@ export const Container = styled.TouchableOpacity`
   background-color: ${theme.palette.neutral[0]};
 `;
 
-export const AvatarImage = styled(Image)`
+export const AvatarImage = styled(ExpoImage)`
   width: 24px;
   height: 24px;
 `;

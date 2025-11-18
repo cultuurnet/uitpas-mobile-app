@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
-import { GestureResponderEvent, TouchableOpacity, useWindowDimensions } from 'react-native';
+import { GestureResponderEvent, useWindowDimensions } from 'react-native';
 import RenderHtml, { Element, HTMLSource, RenderersProps } from 'react-native-render-html';
+
+import PressableOpacity from '../pressable/PressableOpacity';
 
 import { theme } from '../../_styles/theme';
 import { normalizeUrl, openExternalURL } from '../../_utils';
@@ -32,7 +34,7 @@ const HtmlRenderer: FC<Props> = ({ source, fontSize = 14, onLinkPress }) => {
 
   return (
     <RenderHtml
-      GenericPressable={TouchableOpacity}
+      GenericPressable={PressableOpacity}
       baseStyle={{
         color: theme.palette.neutral[900],
         fontFamily: getFontFamily('normal'),

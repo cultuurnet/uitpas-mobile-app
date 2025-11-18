@@ -18,7 +18,7 @@ const RewardImage = ({ children, picture, hasRadius = false, largeSpacing = fals
       <Styled.Image
         hasRadius={hasRadius}
         onError={() => setIsImageError(true)}
-        resizeMode="cover"
+        contentFit="cover"
         source={!isImageError && picture ? { uri: picture } : Gift}
         {...props}
       />

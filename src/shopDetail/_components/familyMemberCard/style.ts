@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { Image as ExpoImage } from 'expo-image';
 
 export const Card = styled.View`
   flex-direction: row;
@@ -10,7 +11,7 @@ export const Card = styled.View`
   margin-top: 8px;
 `;
 
-export const Avatar = styled.Image`
+export const Avatar = styled(ExpoImage)`
   width: 48px;
   height: 48px;
   border-radius: 24px;

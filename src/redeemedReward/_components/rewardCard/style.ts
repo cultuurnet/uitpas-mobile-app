@@ -1,9 +1,9 @@
 import styled from 'styled-components/native';
 
-import { Icon, RewardImage, TouchableRipple } from '../../../_components';
+import { Icon, RewardImage, PressableRipple } from '../../../_components';
 import { theme } from '../../../_styles/theme';
 
-export const Container = styled(TouchableRipple)`
+export const Container = styled(PressableRipple)`
   background-color: ${theme.palette.neutral[0]};
   border-radius: 16px;
   border-width: 8px;
