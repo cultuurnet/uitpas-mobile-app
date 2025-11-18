@@ -1,4 +1,4 @@
-import LinearGradient from 'react-native-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient';
 import Styled from 'styled-components/native';
 
 import { PillButton } from '../../../_components';
