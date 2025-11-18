@@ -208,7 +208,14 @@ export const RootStackNavigator = () => {
                 route.params?.isModal ? (
                   <HeaderBackButton
                     {...props}
-                    backImage={() => <Icon color="neutral.0" name="Close" size={14} />}
+                    backImage={() => (
+                      <Icon
+                        color={Platform.OS === 'ios' ? 'neutral.1200' : 'neutral.0'}
+                        name="Close"
+                        size={14}
+                        style={Platform.OS === 'ios' ? { marginLeft: 10 } : undefined}
+                      />
+                    )}
                     displayMode="minimal"
                     onPress={() => navigation.pop()}
                     style={{ marginRight: -10, padding: 10 }}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, RefreshControl } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
@@ -25,8 +25,13 @@ export const FilteredShop = ({ route }: TProps) => {
 
   const { data: me } = useGetMe();
   const [selectedPassHolder, setSelectedPassHolder] = useState(me);
-  const { getFiltersForCategory, getFiltersForSection } = getRewardFilters({ passHolder: selectedPassHolder });
   const { data: hasFamilyMembers } = useHasFamilyMembers();
+
+  const filters = useMemo(() => {
+    const { getFiltersForCategory, getFiltersForSection } = getRewardFilters({ passHolder: selectedPassHolder });
+    return { type, ...getFiltersForSection(section), ...getFiltersForCategory(category) };
+  }, [selectedPassHolder, section, category, type]);
+
   const {
     data: rewards,
     fetchNextPage,
@@ -34,12 +39,25 @@ export const FilteredShop = ({ route }: TProps) => {
     refetch,
     isFetchingNextPage,
   } = useGetRewards({
-    filters: { type, ...getFiltersForSection(section), ...getFiltersForCategory(category) },
+    filters,
     itemsPerPage: 20,
   });
 
-  const members = rewards?.pages?.flatMap(({ member }) => member) ?? [];
+  const members = useMemo(() => rewards?.pages?.flatMap(({ member }) => member) ?? [], [rewards?.pages]);
   const isFilteredOnWelcome = section === 'welkom';
+
+  const renderItem = useCallback(
+    ({ item }: { item: (typeof members)[number] }) => (
+      <Reward mode="list" reward={item} showFamilyMembers={!isFilteredOnWelcome && hasFamilyMembers} />
+    ),
+    [isFilteredOnWelcome, hasFamilyMembers],
+  );
+
+  const onEndReached = useCallback(() => {
+    if (!isRewardsLoading) {
+      fetchNextPage();
+    }
+  }, [isRewardsLoading, fetchNextPage]);
 
   return (
     <>
@@ -83,7 +101,7 @@ export const FilteredShop = ({ route }: TProps) => {
         contentContainerStyle={{ paddingBottom: 105 }}
         data={members}
         keyExtractor={item => item.id}
-        onEndReached={!isRewardsLoading ? fetchNextPage : () => {}}
+        onEndReached={onEndReached}
         onEndReachedThreshold={0.1}
         refreshControl={
           <RefreshControl
@@ -93,9 +111,7 @@ export const FilteredShop = ({ route }: TProps) => {
             tintColor={theme.palette.primary['500']}
           />
         }
-        renderItem={({ item }) => (
-          <Reward mode="list" reward={item} showFamilyMembers={!isFilteredOnWelcome && hasFamilyMembers} />
-        )}
+        renderItem={renderItem}
       />
     </>
   );
