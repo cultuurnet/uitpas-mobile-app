@@ -54,9 +54,9 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
   // If we have a redeembutton, it needs to be sticky, otherwise we don't have sticky content
   const stickyHeaderIndices = isInAppRedeemable ? [2] : [];
 
-  const handleLinkPress = () => {
+  const handleLinkPress = useCallback(() => {
     trackSelfDescribingEvent('linkClick', { targetUrl: normalizeUrl(reward.moreInfoURL) }, rewardTrackingData);
-  };
+  }, [reward.moreInfoURL, rewardTrackingData, trackSelfDescribingEvent]);
   const trackError = () => {
     trackSelfDescribingEvent('errorMessage', { message: redeemStatus.reason.substring(0, 100) }, rewardTrackingData);
   };

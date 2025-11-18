@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import Clipboard from '@react-native-clipboard/clipboard';
+import * as Clipboard from 'expo-clipboard';
 
 import { theme } from '../../_styles/theme';
 import Icon from '../icon/Icon';
@@ -13,8 +13,8 @@ type TProps = {
 const ClipboardButton = ({ label, ...props }: TProps) => {
   const [isCopied, setIsCopied] = useState(false);
 
-  const onPress = useCallback(() => {
-    Clipboard.setString(label);
+  const onPress = useCallback(async () => {
+    await Clipboard.setStringAsync(label);
     setIsCopied(true);
     const timeout = setTimeout(() => {
       setIsCopied(false);

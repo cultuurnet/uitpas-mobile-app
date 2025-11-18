@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo, useCallback, useMemo } from 'react';
 import { GestureResponderEvent, useWindowDimensions } from 'react-native';
 import RenderHtml, { Element, HTMLSource, RenderersProps } from 'react-native-render-html';
 
@@ -16,57 +16,82 @@ type Props = {
 
 const HtmlRenderer: FC<Props> = ({ source, fontSize = 14, onLinkPress }) => {
   const { width } = useWindowDimensions();
-  function onElement(element: Element) {
+
+  const onElement = useCallback((element: Element) => {
     if (element.tagName === 'a') {
       element.attribs.href = normalizeUrl(element.attribs.href);
     }
-  }
+  }, []);
 
-  function handleLinkPress(
-    event: GestureResponderEvent,
-    href: string,
-    htmlAttribs: Record<string, string>,
-    target: '_blank' | '_self' | '_parent' | '_top',
-  ) {
-    onLinkPress?.(event, href, htmlAttribs, target);
-    openExternalURL(href);
-  }
+  const handleLinkPress = useCallback(
+    (
+      event: GestureResponderEvent,
+      href: string,
+      htmlAttribs: Record<string, string>,
+      target: '_blank' | '_self' | '_parent' | '_top',
+    ) => {
+      onLinkPress?.(event, href, htmlAttribs, target);
+      openExternalURL(href);
+    },
+    [onLinkPress],
+  );
+
+  const baseStyle = useMemo(
+    () => ({
+      color: theme.palette.neutral[900],
+      fontFamily: getFontFamily('normal'),
+      fontSize,
+      lineHeight: 20,
+    }),
+    [fontSize],
+  );
+
+  const defaultTextProps = useMemo(() => ({ selectable: true }), []);
+
+  const domVisitors = useMemo(
+    () => ({
+      onElement,
+    }),
+    [onElement],
+  );
+
+  const renderersProps = useMemo(() => ({ a: { onPress: handleLinkPress } }), [handleLinkPress]);
+
+  const systemFonts = useMemo(() => [getFontFamily('normal'), getFontFamily('bold')], []);
+
+  const tagsStyles = useMemo(
+    () => ({
+      a: {
+        color: theme.palette.primary[800],
+        textDecorationColor: theme.palette.primary[800],
+      },
+      b: {
+        fontFamily: getFontFamily('bold'),
+      },
+      bold: {
+        fontFamily: getFontFamily('bold'),
+      },
+      strong: {
+        fontFamily: getFontFamily('bold'),
+      },
+    }),
+    [],
+  );
 
   return (
     <RenderHtml
       GenericPressable={PressableOpacity}
-      baseStyle={{
-        color: theme.palette.neutral[900],
-        fontFamily: getFontFamily('normal'),
-        fontSize,
-        lineHeight: 20,
-      }}
+      baseStyle={baseStyle}
       contentWidth={width}
-      defaultTextProps={{ selectable: true }}
-      domVisitors={{
-        onElement,
-      }}
+      defaultTextProps={defaultTextProps}
+      domVisitors={domVisitors}
       pressableHightlightColor="transparent"
-      renderersProps={{ a: { onPress: handleLinkPress } }}
+      renderersProps={renderersProps}
       source={source}
-      systemFonts={[getFontFamily('normal'), getFontFamily('bold')]}
-      tagsStyles={{
-        a: {
-          color: theme.palette.primary[800],
-          textDecorationColor: theme.palette.primary[800],
-        },
-        b: {
-          fontFamily: getFontFamily('bold'),
-        },
-        bold: {
-          fontFamily: getFontFamily('bold'),
-        },
-        strong: {
-          fontFamily: getFontFamily('bold'),
-        },
-      }}
+      systemFonts={systemFonts}
+      tagsStyles={tagsStyles}
     />
   );
 };
 
-export default HtmlRenderer;
+export default memo(HtmlRenderer);

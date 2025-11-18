@@ -43,7 +43,7 @@ const Spinner: FC<TProps> = ({ color = 'secondary.500', size = 44, fullScreen = 
         },
       ],
     };
-  }, [rotation.value]);
+  });
 
   const Spinner = (
     <Animated.View style={[animatedStyles]}>
