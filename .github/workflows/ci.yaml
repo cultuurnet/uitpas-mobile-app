@@ -10,15 +10,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         name: Checkout
-      - uses: actions/setup-node@v3
-        name: Setup Node
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           run_install: false
+      - uses: actions/setup-node@v4
+        name: Setup Node
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
       - name: Install modules
         run: pnpm install
       - name: Run ESLint
@@ -42,16 +42,16 @@ jobs:
         name: Skip if no lockfile changes
         run: echo "Lockfile changed, running expo doctor"
       - if: steps.changes.outputs.lockfile == 'true'
-        uses: actions/setup-node@v3
-        name: Setup Node
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
-      - if: steps.changes.outputs.lockfile == 'true'
         name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           run_install: false
+      - if: steps.changes.outputs.lockfile == 'true'
+        uses: actions/setup-node@v4
+        name: Setup Node
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
       - if: steps.changes.outputs.lockfile == 'true'
         name: Install modules
         run: pnpm install
