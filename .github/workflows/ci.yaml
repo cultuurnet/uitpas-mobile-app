@@ -14,10 +14,47 @@ jobs:
         name: Setup Node
         with:
           node-version-file: .nvmrc
-          cache: yarn
+          cache: pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
       - name: Install modules
-        run: yarn install --frozen-lockfile
+        run: pnpm install
       - name: Run ESLint
-        run: yarn run lint --fix
+        run: pnpm lint
       - name: Check TS errors
-        run: yarn run tsc
+        run: pnpm check-types
+
+  doctor:
+    name: Expo Doctor
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            lockfile:
+              - 'pnpm-lock.yaml'
+      - if: steps.changes.outputs.lockfile == 'true'
+        name: Skip if no lockfile changes
+        run: echo "Lockfile changed, running expo doctor"
+      - if: steps.changes.outputs.lockfile == 'true'
+        uses: actions/setup-node@v3
+        name: Setup Node
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - if: steps.changes.outputs.lockfile == 'true'
+        name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+      - if: steps.changes.outputs.lockfile == 'true'
+        name: Install modules
+        run: pnpm install
+      - if: steps.changes.outputs.lockfile == 'true'
+        name: Run Expo Doctor
+        run: npx expo doctor
