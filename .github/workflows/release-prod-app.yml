@@ -9,16 +9,9 @@ on:
 
 env:
   BUILD_NUMBER: ${{ github.run_number }}
-  # Used by https://github.com/Microsoft/fastlane-plugin-appcenter
-  APPCENTER_API_TOKEN: ${{ secrets.APPCENTER_API_TOKEN }}
-  APPCENTER_OWNER_NAME: ${{ secrets.APPCENTER_OWNER_NAME }}
-  APPCENTER_OWNER_TYPE: ${{ secrets.APPCENTER_OWNER_TYPE }}
 
 jobs:
   release_prod_ios:
-    env:
-      FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APP_PASSWORD }}
-      FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
     name: iOS (production)
     environment: production
     runs-on: macos-14
@@ -37,38 +30,36 @@ jobs:
       - name: Create .env file
         run: |
           touch .env
-          echo NODE_ENV=production >> .env
-          echo REACT_NATIVE_APP_AUTH0_DOMAIN="${{ secrets.AUTH0_DOMAIN }}" >> .env
-          echo REACT_NATIVE_APP_AUTH0_AUDIENCE="${{ secrets.AUTH0_AUDIENCE }}" >> .env
-          echo REACT_NATIVE_APP_AUTH0_SCHEME="${{ secrets.AUTH0_SCHEME }}" >> .env
-          echo REACT_NATIVE_APP_AUTH0_CLIENT_ID="${{ secrets.AUTH0_CLIENT_ID }}" >> .env
-          echo REACT_NATIVE_APP_ENCRYPTION_KEY="${{ secrets.ENCRYPTION_KEY }}" >> .env
-          echo API_HOST="${{ secrets.API_HOST }}" >> .env
-          echo API_HOST_UITDATABANK="${{ secrets.API_HOST_UITDATABANK }}" >> .env
-          echo APP_NAME="${{ secrets.APP_NAME }}" >> .env
-          echo SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
-          echo TRACKING_HOST="${{ secrets.TRACKING_HOST }}" >> .env
-          echo REACT_NATIVE_APP_VERSION_NR="${{ env.PACKAGE_VERSION }}" >> .env
+          echo EXPO_PUBLIC_NODE_ENV=production >> .env
+          echo EXPO_PUBLIC_APP_NAME="${{ secrets.APP_NAME }}" >> .env
+          echo EXPO_PUBLIC_APP_PACKAGE_NAME="${{ secrets.APP_PACKAGE_NAME }}" >> .env
+          echo EXPO_PUBLIC_APP_VERSION="${{ env.PACKAGE_VERSION }}" >> .env
+          echo EXPO_PUBLIC_APP_LOGGING_LEVEL=warn >> .env
+          echo EXPO_PUBLIC_APP_ICON="${{ secrets.APP_ICON }}" >> .env
+          echo EXPO_PUBLIC_APP_ADAPTIVE_ICON="${{ secrets.APP_ADAPTIVE_ICON }}" >> .env
+          echo EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR="${{ secrets.APP_ADAPTIVE_ICON_BG_COLOR }}" >> .env
+          echo EXPO_PUBLIC_AUTH_CLIENT_ID="${{ secrets.AUTH_CLIENT_ID }}" >> .env
+          echo EXPO_PUBLIC_AUTH_ISSUER="${{ secrets.AUTH_ISSUER }}" >> .env
+          echo EXPO_PUBLIC_API_HOST="${{ secrets.API_HOST }}" >> .env
+          echo EXPO_PUBLIC_API_HOST_UITDATABANK="${{ secrets.API_HOST_UITDATABANK }}" >> .env
+          echo EXPO_PUBLIC_APP_ENCRYPTION_KEY="${{ secrets.ENCRYPTION_KEY }}" >> .env
+          echo EXPO_PUBLIC_SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
+          echo EXPO_PUBLIC_TRACKING_HOST="${{ secrets.TRACKING_HOST }}" >> .env
           cat .env
       - uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc
-          cache: yarn
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-      - name: Restore Pods cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            ios/Pods
-            ~/Library/Caches/CocoaPods
-            ~/.cocoapods
-          key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pods-
-      - name: Install pods
-        run: cd ios && pod install
-      - run: fastlane ios_prod
+          cache: pnpm
+      - name: Enable corepack
+        run: corepack enable
+      - run: fastlane build env:production ios:true
+        env:
+          CI_IOS_TEAM_ID: '${{ secrets.IOS_TEAM_ID }}'
+          CI_IOS_CODE_SIGN_IDENTITY: '${{ secrets.IOS_CODE_SIGN_IDENTITY }}'
+          CI_IOS_PROVISIONING_PROFILE: 'fastlane/Compubliquitpas App Store.mobileprovision'
+          CI_IOS_USERNAME: '${{ secrets.IOS_USERNAME }}'
+          CI_IOS_TEAM_NAME: '${{ secrets.IOS_TEAM_NAME }}'
+          CI_IOS_APPLE_ID: '${{ secrets.IOS_APPLE_ID }}'
   release_prod_android:
     name: Android (prod)
     environment: production
@@ -85,18 +76,21 @@ jobs:
       - name: Create .env file
         run: |
           touch .env
-          echo NODE_ENV=production >> .env
-          echo REACT_NATIVE_APP_AUTH0_DOMAIN="${{ secrets.AUTH0_DOMAIN }}" >> .env
-          echo REACT_NATIVE_APP_AUTH0_AUDIENCE="${{ secrets.AUTH0_AUDIENCE }}" >> .env
-          echo REACT_NATIVE_APP_AUTH0_SCHEME="${{ secrets.AUTH0_SCHEME }}" >> .env
-          echo REACT_NATIVE_APP_AUTH0_CLIENT_ID="${{ secrets.AUTH0_CLIENT_ID }}" >> .env
-          echo REACT_NATIVE_APP_ENCRYPTION_KEY="${{ secrets.ENCRYPTION_KEY }}" >> .env
-          echo API_HOST="${{ secrets.API_HOST }}" >> .env
-          echo API_HOST_UITDATABANK="${{ secrets.API_HOST_UITDATABANK }}" >> .env
-          echo APP_NAME="${{ secrets.APP_NAME }}" >> .env
-          echo SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
-          echo TRACKING_HOST="${{ secrets.TRACKING_HOST }}" >> .env
-          echo REACT_NATIVE_APP_VERSION_NR="${{ env.PACKAGE_VERSION }}" >> .env
+          echo EXPO_PUBLIC_NODE_ENV=production >> .env
+          echo EXPO_PUBLIC_APP_NAME="${{ secrets.APP_NAME }}" >> .env
+          echo EXPO_PUBLIC_APP_PACKAGE_NAME="${{ secrets.APP_PACKAGE_NAME }}" >> .env
+          echo EXPO_PUBLIC_APP_VERSION="${{ env.PACKAGE_VERSION }}" >> .env
+          echo EXPO_PUBLIC_APP_LOGGING_LEVEL=warn >> .env
+          echo EXPO_PUBLIC_APP_ICON="${{ secrets.APP_ICON }}" >> .env
+          echo EXPO_PUBLIC_APP_ADAPTIVE_ICON="${{ secrets.APP_ADAPTIVE_ICON }}" >> .env
+          echo EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR="${{ secrets.APP_ADAPTIVE_ICON_BG_COLOR }}" >> .env
+          echo EXPO_PUBLIC_AUTH_CLIENT_ID="${{ secrets.AUTH_CLIENT_ID }}" >> .env
+          echo EXPO_PUBLIC_AUTH_ISSUER="${{ secrets.AUTH_ISSUER }}" >> .env
+          echo EXPO_PUBLIC_API_HOST="${{ secrets.API_HOST }}" >> .env
+          echo EXPO_PUBLIC_API_HOST_UITDATABANK="${{ secrets.API_HOST_UITDATABANK }}" >> .env
+          echo EXPO_PUBLIC_APP_ENCRYPTION_KEY="${{ secrets.ENCRYPTION_KEY }}" >> .env
+          echo EXPO_PUBLIC_SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
+          echo EXPO_PUBLIC_TRACKING_HOST="${{ secrets.TRACKING_HOST }}" >> .env
           cat .env
       - uses: actions/setup-java@v3
         with:
@@ -106,9 +100,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc
-          cache: yarn
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+          cache: pnpm
+      - name: Enable corepack
+        run: corepack enable
       - name: Decode Service Account Key JSON File
         uses: timheuer/base64-to-file@v1
         id: service_account_json_file
@@ -121,7 +115,7 @@ jobs:
         with:
           fileName: 'uitpas.keystore'
           encodedString: ${{ secrets.STORE_FILE }}
-      - run: fastlane android_prod
+      - run: fastlane build env:production android:true
         env:
           STORE_FILE: ${{ steps.android_keystore.outputs.filePath }}
           STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
