@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Linking, Platform } from 'react-native';
 
@@ -13,7 +13,7 @@ type TProps = {
   showTopBorder?: boolean;
 };
 
-export const Organizer = ({ id, fallbackName, showTopBorder = false }: TProps) => {
+export const Organizer = memo(({ id, fallbackName, showTopBorder = false }: TProps) => {
   const { data, isLoading, isError } = useGetOrganizer({ id });
   const { t } = useTranslation();
 
@@ -72,4 +72,4 @@ export const Organizer = ({ id, fallbackName, showTopBorder = false }: TProps) =
       </>
     </Styled.Container>
   );
-};
+});

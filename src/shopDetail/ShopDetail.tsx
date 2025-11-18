@@ -47,21 +47,33 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
   const scrollViewRef = useRef(null);
   const redeemButtonRef = useRef(null);
   const rewardsSection = useRef(null);
-  const rewardTrackingData = useMemo(() => ({ reward: getRewardTrackingData(reward) }), [reward]);
+  const rewardTrackingData = useMemo(() => ({ reward: getRewardTrackingData(reward) }), [reward.id]);
 
-  const [firstOrganizer, ...organizers] = reward.organizers || [];
-  const isInAppRedeemable = reward?.online && redeemStatus?.redeemable;
+  const { firstOrganizer, organizers } = useMemo(() => {
+    const [first, ...rest] = reward.organizers || [];
+    return { firstOrganizer: first, organizers: rest };
+  }, [reward.organizers]);
+  const isInAppRedeemable = useMemo(() => reward?.online && redeemStatus?.redeemable, [reward?.online, redeemStatus?.redeemable]);
   // If we have a redeembutton, it needs to be sticky, otherwise we don't have sticky content
-  const stickyHeaderIndices = isInAppRedeemable ? [2] : [];
+  const stickyHeaderIndices = useMemo(() => (isInAppRedeemable ? [2] : []), [isInAppRedeemable]);
 
   const handleLinkPress = useCallback(() => {
     trackSelfDescribingEvent('linkClick', { targetUrl: normalizeUrl(reward.moreInfoURL) }, rewardTrackingData);
-  }, [reward.moreInfoURL, rewardTrackingData, trackSelfDescribingEvent]);
-  const trackError = () => {
-    trackSelfDescribingEvent('errorMessage', { message: redeemStatus.reason.substring(0, 100) }, rewardTrackingData);
-  };
+  }, [reward.moreInfoURL, trackSelfDescribingEvent, rewardTrackingData]);
+  const trackError = useCallback(() => {
+    trackSelfDescribingEvent('errorMessage', { message: redeemStatus?.reason?.substring(0, 100) }, rewardTrackingData);
+  }, [redeemStatus?.reason, trackSelfDescribingEvent, rewardTrackingData]);
 
-  const handleRedeemButtonPress = () => {
+  const handleRedeemReward = useCallback(
+    (member: TFamilyMember) => {
+      trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-cta' }, rewardTrackingData);
+      setSelectedMember(member);
+      toggleIsRedeemModalVisible();
+    },
+    [trackSelfDescribingEvent, rewardTrackingData, toggleIsRedeemModalVisible],
+  );
+
+  const handleRedeemButtonPress = useCallback(() => {
     if (!showFamilyMembers || !hasFamilyMembers) {
       const mainMember = familyMembers.filter(({ mainFamilyMember }) => mainFamilyMember)[0];
       if (mainMember) {
@@ -74,21 +86,12 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
         });
       });
     }
-  };
+  }, [showFamilyMembers, hasFamilyMembers, familyMembers, handleRedeemReward]);
 
-  const handleRedeemReward = useCallback(
-    (member: TFamilyMember) => {
-      trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-cta' }, rewardTrackingData);
-      setSelectedMember(member);
-      toggleIsRedeemModalVisible();
-    },
-    [rewardTrackingData, toggleIsRedeemModalVisible, trackSelfDescribingEvent],
-  );
-
-  const handleRedeemModalToggle = () => {
+  const handleRedeemModalToggle = useCallback(() => {
     setSelectedMember(null);
     toggleIsRedeemModalVisible();
-  };
+  }, [toggleIsRedeemModalVisible]);
 
   return (
     <>
