@@ -14,13 +14,16 @@ export const SearchButton = styled(PressableRipple)`
   border-radius: 16px;
 `;
 
-export const SearchInput = styled.TextInput`
+export const SearchInputContainer = styled.View`
   border-radius: 16px;
-  font-size: 16px;
-  color: ${theme.palette.neutral[600]};
-  font-family: Poppins-Regular;
   background-color: ${theme.palette.neutral[0]};
   padding: 16px 12px 12px 44px;
+`;
+
+export const SearchPlaceholderText = styled.Text`
+  font-size: 16px;
+  color: ${theme.palette.neutral[400]};
+  font-family: Poppins-Regular;
 `;
 
 export const SearchIcon = styled(Icon)`
