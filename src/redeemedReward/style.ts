@@ -67,3 +67,8 @@ export const MemberAvatarLine = styled.View`
   z-index: -1;
   background-color: ${theme.palette.secondary[500]};
 `;
+
+export const GiftOpenImage = styled(ExpoImage)`
+  width: 34px;
+  height: 57px;
+`;

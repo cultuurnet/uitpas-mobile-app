@@ -17,7 +17,7 @@ export const HeaderContent = styled(PressableRipple)`
   align-items: center;
 `;
 
-export const MyAvatar = styled.Image`
+export const MyAvatar = styled(ExpoImage)`
   width: 64px;
   height: 64px;
   border-width: 4px;

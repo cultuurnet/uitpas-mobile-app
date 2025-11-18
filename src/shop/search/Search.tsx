@@ -78,6 +78,17 @@ export const Search = ({ navigation, route }: TProps) => {
     [filters],
   );
 
+  const popularSearchItems = useMemo(() => {
+    if (!user?.address?.city) return [];
+
+    const items = [
+      { id: `city-${user.address.city}`, keyword: user.address.city, label: user.address.city },
+      ...SEARCH_TERMS.map(({ keyword, label }) => ({ id: keyword, keyword, label })),
+    ];
+
+    return items;
+  }, [user?.address?.city, t]);
+
   return (
     <SafeAreaView edges={['left', 'right']} isScrollable={false} keyboardShouldPersistTaps="handled" stickyHeaderIndices={[1]}>
       <Styled.ViewContainer behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -134,22 +145,18 @@ export const Search = ({ navigation, route }: TProps) => {
           ) : (
             <>
               <Styled.PopularItem key={`search-${user.address.city}`} onPress={() => onSearch(user.address.city)}>
-                <>
-                  <Styled.PopularItemIcon name="Popular" size={20} />
-                  <Typography color="primary.800">{user.address.city}</Typography>
-                </>
+                <Styled.PopularItemIcon name="Popular" size={20} />
+                <Typography color="primary.800">{user.address.city}</Typography>
               </Styled.PopularItem>
-              <Styled.Separator />
+              <Styled.Separator key={`separator-${user.address.city}`} />
               {SEARCH_TERMS.map(({ keyword, label }) => (
-                <>
-                  <Styled.PopularItem key={`search-${keyword}`} onPress={() => onSearch(keyword)}>
-                    <>
-                      <Styled.PopularItemIcon name="Popular" size={20} />
-                      <Typography color="primary.800">{t(label)}</Typography>
-                    </>
+                <React.Fragment key={`search-${keyword}`}>
+                  <Styled.PopularItem onPress={() => onSearch(keyword)}>
+                    <Styled.PopularItemIcon name="Popular" size={20} />
+                    <Typography color="primary.800">{t(label)}</Typography>
                   </Styled.PopularItem>
-                  <Styled.Separator />
-                </>
+                  <Styled.Separator key={`separator-${keyword}`} />
+                </React.Fragment>
               ))}
             </>
           )}

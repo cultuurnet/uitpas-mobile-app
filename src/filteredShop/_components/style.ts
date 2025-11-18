@@ -1,3 +1,4 @@
+import { Image as ExpoImage } from 'expo-image';
 import styled from 'styled-components/native';
 
 import { theme } from '../../_styles/theme';
@@ -14,11 +15,10 @@ export const Container = styled.View`
   margin-bottom: 24px;
 `;
 
-export const Gift = styled.Image`
+export const Gift = styled(ExpoImage)`
   position: absolute;
   bottom: 0px;
   right: 8px;
   width: 116px;
   height: 86px;
-  resize-mode: contain;
 `;

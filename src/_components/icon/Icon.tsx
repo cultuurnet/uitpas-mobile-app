@@ -22,7 +22,7 @@ const Icon = ({ size, name, color, style = {}, onPress, disabled = false, border
   const BareIcon = ({ iconStyle = {} }: { iconStyle?: StyleProp<ImageStyle> }) => (
     <Styled.Icon
       {...imageProps}
-      resizeMode="contain"
+      contentFit="contain"
       size={size}
       source={Icons[name]}
       style={iconStyle}

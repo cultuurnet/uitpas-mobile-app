@@ -23,8 +23,8 @@ const RewardImage = ({ children, picture, hasRadius = false, largeSpacing = fals
         {...props}
       />
       {!!children && (
-        <Styled.Gradient colors={['#00000000', '#00000000', '#000000']} largeSpacing={largeSpacing}>
-          {children}
+        <Styled.Gradient colors={['#00000000', '#00000000', '#000000']}>
+          <Styled.RewardImageContent largeSpacing={largeSpacing}>{children}</Styled.RewardImageContent>
         </Styled.Gradient>
       )}
     </>

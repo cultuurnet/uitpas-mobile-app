@@ -1,3 +1,4 @@
+import { Image as ExpoImage } from 'expo-image';
 import styled from 'styled-components/native';
 
 import { BulletList as BulletListComp, Button, Typography } from '../../_components';
@@ -13,7 +14,9 @@ export const Title = styled(Typography)`
   margin-horizontal: 20px;
 `;
 
-export const Hero = styled.Image`
+export const Hero = styled(ExpoImage)`
+  width: 201px;
+  height: 180px;
   margin-vertical: 25px;
 `;
 

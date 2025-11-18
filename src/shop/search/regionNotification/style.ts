@@ -9,7 +9,7 @@ export const NotificationContainer = styled.View`
 `;
 
 export const Link = styled(Typography)`
-  color: ${({ theme }) => theme.palette.primary['800']}};
+  color: ${({ theme }) => theme.palette.primary['800']};
   font-size: 16px;
 `;
 

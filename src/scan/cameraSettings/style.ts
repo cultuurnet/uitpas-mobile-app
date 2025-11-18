@@ -15,6 +15,8 @@ export const TitleText = styled(Typography)`
 
 export const Image = styled(ExpoImage)`
   margin-top: 60px;
+  width: 155px;
+  height: 167px;
 `;
 
 export const IntroText = styled(Typography)`

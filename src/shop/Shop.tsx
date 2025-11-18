@@ -64,7 +64,6 @@ const Shop = ({ navigation }: TProps) => {
             <RewardsSection
               category={category}
               horizontal={horizontal}
-              key={title}
               loadNextSection={loadNextSection}
               section={section}
               title={t(title, { city: user?.address?.city || t('SHOP.SECTIONS.CITY_FALLBACK') })}

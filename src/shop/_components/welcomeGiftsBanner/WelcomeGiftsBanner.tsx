@@ -24,20 +24,18 @@ export const WelcomeGiftsBanner = () => {
       onPress={() => navigate('FilteredShop', { section: 'welkom', subtitle: t('SHOP.SECTIONS.WELCOME') })}
       underlayColor={theme.palette.primary[800]}
     >
-      <>
-        <Styled.Gift source={GiftHalf} contentFit="cover" />
-        <Styled.TextContainer>
-          <Styled.Greeting color="neutral.0" size="small">
-            {t('SHOP.WELCOME.GREETING', { name: user?.firstName })}
-          </Styled.Greeting>
-          <Styled.Title color="neutral.0" fontStyle="bold" size="xxlarge">
-            {t('SHOP.WELCOME.TITLE')}
-          </Styled.Title>
-        </Styled.TextContainer>
-        <Styled.ArrowContainer>
-          <Icon color={'neutral.0'} name="ArrowRight" size={24} />
-        </Styled.ArrowContainer>
-      </>
+      <Styled.Gift source={GiftHalf} contentFit="cover" />
+      <Styled.TextContainer>
+        <Styled.Greeting color="neutral.0" size="small">
+          {t('SHOP.WELCOME.GREETING', { name: user?.firstName })}
+        </Styled.Greeting>
+        <Styled.Title color="neutral.0" fontStyle="bold" size="xxlarge">
+          {t('SHOP.WELCOME.TITLE')}
+        </Styled.Title>
+      </Styled.TextContainer>
+      <Styled.ArrowContainer>
+        <Icon color={'neutral.0'} name="ArrowRight" size={24} />
+      </Styled.ArrowContainer>
     </Styled.Container>
   );
 };

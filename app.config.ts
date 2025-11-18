@@ -40,7 +40,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   plugins: [
     'expo-localization',
-
     ['expo-build-properties', { ios: { useFrameworks: 'static' }, android: { minSdkVersion: 29, cppVersion: '20' } }],
     [
       'react-native-vision-camera',

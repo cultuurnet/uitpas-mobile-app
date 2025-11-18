@@ -12,7 +12,6 @@ import { useHasFamilyMembers } from '../onboarding/family/_queries';
 import { useFamilyComposition } from '../profile/family/hooks';
 import { RewardCard } from './_components/rewardCard/RewardCard';
 import * as Styled from './style';
-import { Image } from 'expo-image';
 
 type TProps = {
   navigation: TRootStackNavigationProp<'RedeemedReward'>;
@@ -34,7 +33,7 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
         <Styled.MemberAvatarLine style={{ transform: [{ rotate: '25deg' }] }} />
       </View>
     ),
-    SingleComponent: () => <Image source={GiftOpen} />,
+    SingleComponent: () => <Styled.GiftOpenImage source={GiftOpen} />,
   });
 
   useFocusEffect(

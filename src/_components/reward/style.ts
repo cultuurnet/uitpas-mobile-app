@@ -70,17 +70,19 @@ export const ImageContainer = styled.View<{ isTile?: boolean }>`
 export const Image = styled(ExpoImage)<{ hasRadius?: boolean }>`
   height: 100%;
   width: 100%;
-  resize-mode: cover;
   background-color: ${theme.palette.neutral[200]};
   border-radius: ${({ hasRadius }) => (hasRadius ? '8px' : '0')};
 `;
 
-export const Gradient = styled(LinearGradient)<{ largeSpacing?: boolean }>`
+export const Gradient = styled(LinearGradient)`
   bottom: 0;
   justify-content: flex-end;
   left: 0;
-  padding: ${({ largeSpacing }) => (largeSpacing ? '16px' : '8px')};
   position: absolute;
   right: 0;
   top: 0;
+`;
+
+export const RewardImageContent = styled.View<{ largeSpacing?: boolean }>`
+  padding: ${({ largeSpacing }) => (largeSpacing ? '16px' : '8px')};
 `;
