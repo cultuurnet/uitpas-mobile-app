@@ -6,6 +6,7 @@ import { Analytics, EnlargedHeader, SafeAreaView } from '../_components';
 import { TMainNavigationProp } from '../_routing';
 import { useGetMe } from '../profile/_queries/useGetMe';
 import { CategoryFilters } from './_components/categoryFilters/CategoryFilters';
+import { FeaturedRewards } from './_components/featuredRewards/FeaturedRewards';
 import { RewardsSection, TRewardSectionProps } from './_components/rewardsSection/RewardsSection';
 import { WelcomeGiftsBanner } from './_components/welcomeGiftsBanner/WelcomeGiftsBanner';
 import * as Styled from './style';
@@ -56,6 +57,7 @@ const Shop = ({ navigation }: TProps) => {
               </Styled.SearchContainer>
               <WelcomeGiftsBanner />
               <CategoryFilters />
+              <FeaturedRewards />
             </>
           }
           data={sections}
