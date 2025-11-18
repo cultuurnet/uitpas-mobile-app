@@ -22,6 +22,7 @@ export const ListItem = styled(Button)`
 
 export const Illustration = styled(ExpoImage)`
   width: 225px;
+  height: 287px;
   margin-top: 24px;
   margin-bottom: -235px;
 `;

@@ -42,6 +42,7 @@ import { useGetVersions } from '../../update/_queries/useGetVersions';
 import UpdateScreen from '../../update/UpdateScreen';
 import { MainNavigator, useMainHeaderProps } from './MainNavigator';
 import { TRootStackParamList } from './TRootStackParamList';
+import { Platform } from 'react-native';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -256,7 +257,13 @@ export const RootStackNavigator = () => {
               name="FamilyOverview"
               options={{
                 headerRight: () => (
-                  <Icon color="neutral.0" name="Info" onPress={() => openExternalURL(ConfigUrl.familyFaq)} size={24} />
+                  <Icon
+                    color={Platform.OS === 'ios' ? 'neutral.1200' : 'neutral.0'}
+                    name="Info"
+                    onPress={() => openExternalURL(ConfigUrl.familyFaq)}
+                    size={24}
+                    style={Platform.OS === 'ios' ? { marginLeft: 6 } : undefined}
+                  />
                 ),
                 title: i18n.t('ONBOARDING.FAMILY.OVERVIEW.TITLE'),
               }}

@@ -22,6 +22,7 @@ export const SearchInput = styled.TextInput`
   background-color: ${theme.palette.neutral[0]};
   padding: 12px 12px 12px 44px;
   line-height: 22px;
+  height: 50px;
   text-align-vertical: center;
 `;
 

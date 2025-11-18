@@ -18,7 +18,7 @@ export const FamilyUserPoints = ({ members }: TProps) => {
       {members.slice(0, numberOfAvatarsToShow).map((member, index) => (
         <Styled.AvatarImage
           key={member.passholder.id}
-          resizeMode="contain"
+          contentFit="contain"
           source={getAvatarByNameOrDefault(member.icon)}
           style={[{ zIndex: numberOfAvatarsToShow - index - 1 }, index > 0 && { marginLeft: -10 }]}
         />

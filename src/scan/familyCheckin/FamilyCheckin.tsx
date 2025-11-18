@@ -90,7 +90,7 @@ const FamilyCheckin: FC = ({ navigation, route }: TProps) => {
                   <Styled.FamilyMemberName color={checkedFamilyMembers.includes(familyMember) ? 'neutral.0' : 'neutral.900'}>
                     {familyMember.passholder.firstName}
                   </Styled.FamilyMemberName>
-                  <Styled.FamilyMemberAvatar resizeMode="contain" source={getAvatarByNameOrDefault(familyMember?.icon)} />
+                  <Styled.FamilyMemberAvatar contentFit="contain" source={getAvatarByNameOrDefault(familyMember?.icon)} />
                 </Styled.FamilyMemberLabel>
               }
               onChange={value => updateCheckedFamilyMembers(value, familyMember)}

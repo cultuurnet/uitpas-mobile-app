@@ -45,7 +45,7 @@ export const CardContainer = styled.View`
 `;
 
 export const LogoContainer = styled.View`
-  margin-left: -40px;
+  margin-left: 16px;
   margin-top: 15px;
   z-index: 2;
 `;

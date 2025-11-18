@@ -61,7 +61,7 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
               <Styled.UitpasNumber color="primary.700" fontStyle="bold">
                 {applyBarcodeMask(uitpasNumber)}
               </Styled.UitpasNumber>
-              <Styled.SelectedAvatarImage resizeMode="contain" source={getAvatarByNameOrDefault(selectedAvatar)} />
+              <Styled.SelectedAvatarImage contentFit="contain" source={getAvatarByNameOrDefault(selectedAvatar)} />
               <Styled.Description color="primary.700" fontStyle="semibold">
                 {t('ONBOARDING.FAMILY.EDIT_MEMBER.DESCRIPTION', { firstName })}
               </Styled.Description>
@@ -74,7 +74,7 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
           renderItem={({ item: avatar }) => (
             <Styled.AvatarItemBorder isSelected={avatar === selectedAvatar} onPress={() => setSelectedAvatar(avatar)}>
               <Styled.AvatarItemContainer>
-                <Styled.AvatarItemImage resizeMode="contain" source={getAvatarByNameOrDefault(avatar)} />
+                <Styled.AvatarItemImage contentFit="contain" source={getAvatarByNameOrDefault(avatar)} />
               </Styled.AvatarItemContainer>
             </Styled.AvatarItemBorder>
           )}

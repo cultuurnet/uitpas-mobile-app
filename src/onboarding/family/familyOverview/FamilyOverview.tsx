@@ -49,7 +49,7 @@ export const FamilyOverview = ({ navigation }: TProps) => {
             <Styled.HeaderContent onPress={() => navigation.navigate('EditFamilyMember', { member: me })}>
               <>
                 <View>
-                  <Styled.MyAvatar resizeMode="contain" source={getAvatarByNameOrDefault(me?.icon)} />
+                  <Styled.MyAvatar contentFit="contain" source={getAvatarByNameOrDefault(me?.icon)} />
                   <Styled.EditProfileIconContainer>
                     <Icon color="neutral.0" name="Edit" size={12} />
                   </Styled.EditProfileIconContainer>
@@ -73,7 +73,7 @@ export const FamilyOverview = ({ navigation }: TProps) => {
                 <PressableRipple borderless onPress={() => navigation.navigate('EditFamilyMember', { member: formItem })}>
                   <Styled.FormItem>
                     <View>
-                      <Styled.FamilyMemberAvatar resizeMode="contain" source={getAvatarByNameOrDefault(formItem.icon)} />
+                      <Styled.FamilyMemberAvatar contentFit="contain" source={getAvatarByNameOrDefault(formItem.icon)} />
                       <Styled.EditProfileIconContainer>
                         <Icon color="neutral.0" name="Edit" size={12} />
                       </Styled.EditProfileIconContainer>

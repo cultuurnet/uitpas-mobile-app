@@ -52,22 +52,18 @@ const DatePicker = ({ date, onSelectDate, ...textInputProps }: TProps) => {
   return (
     <>
       <FakeTextInput {...textInputProps} onPress={handleOpen} value={date ? format(date, 'dd/MM/yyyy') : ''} />
-      <BlurredModal isVisible={isOpen} toggleIsVisible={handleClose}>
-        <Styled.ModalContent>
-          <DateTimePicker
-            value={tempDate}
-            mode="date"
-            display={Platform.OS === 'ios' ? 'inline' : 'default'}
-            onChange={handleChange}
-            locale="nl"
-          />
-          {Platform.OS === 'ios' && (
+      {Platform.OS === 'ios' ? (
+        <BlurredModal isVisible={isOpen} toggleIsVisible={handleClose}>
+          <Styled.ModalContent>
+            <DateTimePicker value={tempDate} mode="date" display="inline" onChange={handleChange} />
             <Styled.ButtonContainer>
               <Button onPress={handleConfirm} label={t('DATE_PICKER.CONFIRM')} />
             </Styled.ButtonContainer>
-          )}
-        </Styled.ModalContent>
-      </BlurredModal>
+          </Styled.ModalContent>
+        </BlurredModal>
+      ) : (
+        isOpen && <DateTimePicker value={tempDate} mode="date" display="default" onChange={handleChange} />
+      )}
     </>
   );
 };
