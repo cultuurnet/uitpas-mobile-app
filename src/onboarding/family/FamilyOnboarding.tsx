@@ -1,6 +1,5 @@
 import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Platform } from 'react-native';
 
 import { Family } from '../../_assets/images';
 import { Analytics, Button, SafeAreaView, Spinner, Trans } from '../../_components';
@@ -43,13 +42,13 @@ export const FamilyOnboarding = ({ navigation }: TProps) => {
   };
 
   if (isLoading) {
-    return <Spinner statusBarStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'} />;
+    return <Spinner statusBarStyle="dark" />;
   }
 
   return (
     <>
       {isFetched && !hasFamilyMembers && <Analytics screenName={'FamilyOnboarding'} />}
-      <SafeAreaView backgroundColor="neutral.0" barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}>
+      <SafeAreaView backgroundColor="neutral.0" barStyle="dark">
         <Styled.Body>
           <Styled.Title align="center" color="primary.800" fontStyle="bold" size="large">
             {t('ONBOARDING.FAMILY.TITLE')}

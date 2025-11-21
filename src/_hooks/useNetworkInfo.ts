@@ -16,7 +16,7 @@ export function useNetworkInfo(): NetInfoState {
       const networkCall = await fetch('https://google.com', { headers });
       // Everything between 200 and 400 means we have a valid network response => connection
       return networkCall.status >= 200 && networkCall.status < 400;
-    } catch (err) {
+    } catch {
       return false;
     }
   }

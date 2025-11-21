@@ -5,13 +5,10 @@ import { useGetFamilyMembers } from '../../../onboarding/family/_queries';
 import { TFamilyMember, TPassHolder } from '../../../profile/_models';
 import * as Styled from './style';
 
-type TProps = {
-  selectedPassHolder: TPassHolder;
-  setSelectedPassHolder: (selectedPassHolder: TPassHolder) => void;
-};
+type TProps = { selectedPassHolder: TPassHolder; setSelectedPassHolder: (selectedPassHolder: TPassHolder) => void };
 
 export const FamilyFilter = ({ selectedPassHolder, setSelectedPassHolder }: TProps) => {
-  const listRef = useRef<FlatList>();
+  const listRef = useRef<FlatList>(null);
 
   const { data: familyMembers = [] } = useGetFamilyMembers();
 

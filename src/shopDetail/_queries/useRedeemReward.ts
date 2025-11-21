@@ -6,10 +6,10 @@ export function useRedeemReward(options: TPostOptions<TRedeemedReward>) {
   const api = usePubliqApi();
   return api.post<TRedeemedReward>(['redeem-rewards'], '/rewards/redeemed', {
     ...options,
-    onSuccess: (data, variables, context) => {
+    onSuccess: (...args) => {
       // Reset me call so we will fetch the userpoints again
-      queryClient.invalidateQueries(['me']);
-      options.onSuccess(data, variables, context);
+      queryClient.invalidateQueries({ queryKey: ['me'] });
+      options.onSuccess(...args);
     },
   });
 }

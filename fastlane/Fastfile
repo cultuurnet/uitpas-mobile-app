@@ -1,270 +1,167 @@
-fastlane_version "2.141.0"
+require 'logger'
 
 # Don't generate README files.
 skip_docs
 
-# Unlock the Keychain
-keychain_password = ENV["JENKINS_KEYCHAIN_PASSWORD"] # general password in jenkins
-unlock_keychain(path: "login.keychain", password: keychain_password) if is_ci? && keychain_password
+#======================================
+# Public
+#======================================
+lane :build do |options|
+  env = options[:env]
 
-#######################
-###  CONFIGURATION  ##
-#######################
-# Project variables
-ios_project_name = "reactnative_uitpas"
-ios_bundle_id = "com.publiq.uitpas"
-android_bundle_id = "com.publiq.uitpas" # meestal id van klant want anders komen PN soms niet aan
+  # Prepare codebase
+  install_packages
+  prebuild(platform: options[:ios] ? "ios" : options[:android] ? "android" : "all", env: env)
 
-# Appcenter Config
-firebase_app_id = "" # declaration of variable, will be assigned below
-FIREBASE_ALPHA_DISTRIBUTION_GROUP= ""
-FIREBASE_BETA_DISTRIBUTION_GROUP= "Publiq"
+  # Android build
+  if options[:android]
+    build_android(env: env)
+  end
 
-# Android api key
-
-# iOS Config
-IOS_WORKSPACE = "#{ios_project_name}.xcworkspace"
-IOS_PROJECT = "#{ios_project_name}.xcodeproj"
-ALPHA_APP_ID = "#{ios_bundle_id}.alpha"
-ALPHA_PROFILE_NAME = "#{ios_bundle_id} Alpha"
-BETA_APP_ID = "#{ios_bundle_id}.beta"
-BETA_PROFILE_NAME = "#{ios_bundle_id} Beta" # zit bij icapps
-
-# Production iOS config
-RELEASE_APP_ID = "com.publiq.uitpas" # zit bij klant, dus meestal niet hetzelfde als die van icapps (andere account)
-RELEASE_PROFILE_NAME = "com.publiq.uitpas AppStore"
-APPSTORE_USERNAME = 'appstoreconnect@icapps.com' # vragen aan de klant om dit account toe te voegen + development@icapps.com
-APPSTORE_TEAM_NAME = 'Publiq ASBL' # zal meestal van de klant zijn, want we publishen via de klant (te vinden in apple developer profile - membership)
-APPSTORE_TEAM_ID = '65321197' # zal meestal van de klant zijn, want we publishen via de klant (https://appstoreconnect.apple.com/WebObjects/iTunesConnect.woa/ra/user/detail --> contentProviderId)
-APPSTORE_APPLE_ID = '3M7M296YKK' # zal meestal van de klant zijn, want we publishen via de klant (te vinden in apple developer profile - membership)
-
-##############################
-###  PUBLIC LANES ANDROID  ###
-##############################
-
-lane :android_alpha do
-  build_android(buildType: "alpha")  # Build the application with the buildVariant.
-  upload_to_firebase_android(buildType: "alpha") # Deploy the apk to Firebase.
-	add_tag()
+  # iOS build
+  if options[:ios]
+    build_ios(env: env)
+  end
 end
 
-lane :android_beta do
-  build_android(buildType: "beta")  # Build the application with the buildVariant.
-  upload_to_firebase_android(buildType: "beta") # Deploy the apk to Firebase.
-	add_tag()
+#======================================
+# Validation & Setup
+#======================================
+private_lane :install_packages do
+  sh("corepack enable")
+  sh("pnpm install")
 end
 
-lane :android_prod do
-  build_android(buildType: "release")
-  upload_to_playstore(track: "alpha") # Make sure "json_key_file" has the correct value
-  add_tag()
+private_lane :prebuild do |options|
+  platform = options[:platform] || "all"
+
+  # Change to project root directory
+  Dir.chdir("..") do
+    # Build environment variables hash to pass to the command
+    # This ensures all loaded ENV vars are available to the expo prebuild process
+    env_vars = ENV.select { |key, _| key.start_with?('EXPO_', 'NODE_ENV') }.to_h
+
+    if platform == "android"
+      sh(env_vars, "npx expo prebuild --clean --platform android")
+    elsif platform == "ios"
+      sh(env_vars, "npx expo prebuild --clean --platform ios")
+    else
+      sh(env_vars, "npx expo prebuild --clean")
+    end
+  end
 end
 
-##########################
-###  PUBLIC LANES IOS  ###
-##########################
-
-lane :ios_alpha do
-  # Install the provisioning profiles
-  install_provisioning_profiles if is_ci? # plugin that searches for available provisioning profiles and installs these
-  bundle_upload_ios(scheme_name: "Alpha")
-  build_ios(export_options: export_options_for(:alpha)) # Build IPA
-  upload_to_firebase_ios(buildType: "alpha")  # Upload IPA to appcenter
-  add_tag()
-end
-
-lane :ios_beta do
-  # Install the provisioning profiles
-  install_provisioning_profiles if is_ci? # plugin that searches for available provisioning profiles and installs these
-  bundle_upload_ios(scheme_name: "Beta")
-  build_ios(export_options: export_options_for(:beta)) # Build IPA
-  upload_to_firebase_ios(buildType: "beta")  # Upload IPA to appcenter
-  add_tag()
-end
-
-lane :ios_prod do
-	# Install the provisioning profiles
-  install_provisioning_profiles if is_ci? # plugin that searches for available provisioning profiles and installs these
-  bundle_upload_ios(scheme_name: "Production")
-  build_ios(export_options: export_options_for(:release)) # Build IPA
-  upload_to_test_flight_ios()
-	add_tag()
-end
-
-######################
-###  PUBLIC LANES  ###
-######################
-# public lanes kan je aanroepen via "fastlane LANE_NAME"
-# doen we soms bij het begin van het project om te zien dat alles goed is ingesteld, daarna niet meer nodig (is voor productie)
-
-lane :validate_json_key do
-  validate_play_store_json_key(
-    json_key: json_key_file
-  )
-end
-
-################################
-###   PRIVATE LANES ANDROID  ###
-################################
-# options is wat je meegeeft bij het aanroepen van public lane (zie hierboven)
+#======================================
+# Android
+#======================================
 private_lane :build_android do |options|
-  if options[:buildType] == "release" then
-    sh "cd ../android/; ENVFILE=.env ./gradlew clean app:bundleRelease"
+  env = options[:env]
+  gradle_task = env == "production" ? "clean bundle" : "clean assemble"
+
+  gradle(
+    task: gradle_task,
+    build_type: "Release",
+    project_dir: "android",
+    print_command: false,
+    properties: {
+      "android.injected.signing.store.file" => ENV["STORE_FILE"],
+      "android.injected.signing.store.password" => ENV["STORE_PASSWORD"],
+      "android.injected.signing.key.alias" => ENV["KEY_ALIAS"],
+      "android.injected.signing.key.password" => ENV["KEY_PASSWORD"],
+    }
+  )
+
+  # Upload
+  if env == "production"
+    supply(
+      track: "alpha",
+      skip_upload_changelogs: false,
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      json_key: ENV["ANDROID_JSON_KEY_FILE"],
+      package_name: ENV["EXPO_PUBLIC_APP_PACKAGE_NAME"],
+      aab: "android/app/build/outputs/bundle/release/app-release.aab",
+    )
   else
-    sh "cd ../android/; ENVFILE=.env ./gradlew clean app:assemble#{options[:buildType]}"
+    firebase_app_distribution(
+      app: ENV["CI_FIREBASE_ANDROID_APP_ID"],
+      service_credentials_file: "fastlane/credentials.json",
+      groups: ENV["CI_FIREBASE_ANDROID_GROUPS"],
+      debug: true,
+      android_artifact_type: 'APK',
+      android_artifact_path: "android/app/build/outputs/apk/release/app-release.apk"
+    )
   end
 end
 
-private_lane :upload_to_playstore do |options|
-	supply(
-		track: options[:track],
-		skip_upload_changelogs: false,
-		skip_upload_metadata: true,
-		skip_upload_images: true,
-		skip_upload_screenshots: true,
-    json_key: ENV["ANDROID_JSON_KEY_FILE"],
-		package_name: "#{android_bundle_id}",
-		aab: "./android/app/build/outputs/bundle/release/app-release.aab",
-	)
-end
+#======================================
+# iOS
+#======================================
+private_lane :build_ios do |options|
+  env = options[:env]
+  app_name = ENV["EXPO_PUBLIC_APP_NAME"].gsub(/\s/, '')
+  xcodeproject_path = "./ios/#{app_name}.xcodeproj"
 
-###########################
-###  PRIVATE LANES IOS  ###
-###########################
- private_lane :bundle_upload_ios do |options|
-  # Select the correct Xcode version
-  xcode_select("/Applications/Xcode.app") if is_ci? # "Xcode" is Xcode versie dat geinstalleerd staat op jenkins
+  # Select Xcode version
+  sh("ls -la /Applications/ | grep -i xcode") if is_ci?
+  xcode_select("/Applications/Xcode.app") if is_ci?
 
-  # Clear Derived Data
-  clear_derived_data if is_ci? # gooit restanten van vorige builds weg
+  # Set up code signing
+  disable_automatic_code_signing(path: xcodeproject_path)
+  update_code_signing_settings(
+    use_automatic_signing: false,
+    path: xcodeproject_path,
+    team_id: ENV['CI_IOS_TEAM_ID'],
+    bundle_identifier: ENV["EXPO_PUBLIC_APP_PACKAGE_NAME"],
+    code_sign_identity: ENV['CI_IOS_CODE_SIGN_IDENTITY'],
+  )
 
-	prepare_xcconfig(scheme_name: options[:scheme_name]) # roept dylan zijn kunsten aan
+  # Install provisioning profiles
+  install_provisioning_profiles if is_ci?
+  update_project_provisioning(
+    xcodeproj: xcodeproject_path,
+    profile: ENV['CI_IOS_PROVISIONING_PROFILE'],
+    target_filter: app_name,
+    build_configuration: "Release",
+  )
 
+  # Set build number
   increment_build_number(
-    xcodeproj: "./ios/#{IOS_PROJECT}",
-    build_number: ENV["BUILD_NUMBER"], # nummer van build op jenkins (is by default altijd 1 hoger)
-  ) # deze stap genereert 2 changes in git, die moet je niet mee pushen.
-end
-
- private_lane :build_ios do |options|
-  gym(
-    workspace: "./ios/#{IOS_WORKSPACE}",
-    scheme: "#{ios_project_name}",
-    clean: true,
-    configuration: options[:configuration],
-    export_options: options[:export_options]
-  )
-end
-
-lane :add_tag do |options|
-  add_git_tag(
-    build_number: ENV["BUILD_NUMBER"] # build nummer van jenkins zetten we als tag voor deze release (enkel voor git)
-  )
-end
-
- private_lane :upload_to_test_flight_ios do
-  pilot(
-    username:                          APPSTORE_USERNAME,
-    team_name:                         APPSTORE_TEAM_NAME,
-    team_id:                           APPSTORE_TEAM_ID,
-    app_identifier:                    RELEASE_APP_ID,
-    apple_id:                          APPSTORE_APPLE_ID,
-    skip_submission:                   true,
-    skip_waiting_for_build_processing: true,
+    xcodeproj: xcodeproject_path,
+    build_number: ENV.fetch("BUILD_NUMBER", "1")
   )
 
-end
+  # Build app
+  build_app(
+    workspace: "./ios/#{app_name}.xcworkspace",
+    configuration: "Release",
+    export_method: env == "production" ? "app-store" : "enterprise",
+    output_directory: "./ios/build"
+  )
 
- def export_options_for(configuration)
-  if configuration == :alpha
-    {
-			verbose: true,
-      method: "enterprise",
-      provisioningProfiles: {
-        ALPHA_APP_ID => ALPHA_PROFILE_NAME
-      }
-    }
-  elsif configuration == :beta
-    {
-			verbose: true,
-      method: "enterprise",
-      provisioningProfiles: {
-        BETA_APP_ID => BETA_PROFILE_NAME
-      }
-    }
-  elsif configuration = :release
-    {
-      method: "app-store",
-      provisioningProfiles: {
-        RELEASE_APP_ID => RELEASE_PROFILE_NAME
-      }
-    }
+  # Upload
+  app_name = ENV["EXPO_PUBLIC_APP_NAME"].gsub(/\s/, '')
+  if env == "production"
+    upload_to_testflight(
+      username: ENV["CI_IOS_USERNAME"],
+      team_name: ENV["CI_IOS_TEAM_NAME"],
+      team_id: ENV["CI_IOS_TEAM_ID"],
+      app_identifier: ENV["EXPO_PUBLIC_APP_PACKAGE_NAME"],
+      apple_id: ENV["CI_IOS_APPLE_ID"],
+      itc_provider: ENV["CI_IOS_APPLE_ID"],
+      ipa: "ios/build/#{app_name}.ipa",
+      skip_submission: true,
+      skip_waiting_for_build_processing: true,
+    )
+  else
+    firebase_app_distribution(
+      env: options[:env],
+      app: ENV["CI_FIREBASE_IOS_APP_ID"],
+      service_credentials_file: "fastlane/credentials.json",
+      groups: ENV["CI_FIREBASE_IOS_GROUPS"],
+      debug: true,
+      ipa_path: "ios/build/#{app_name}.ipa"
+    )
   end
-end
-
-################################
-###  PRIVATE LANES FIREBASE  ###
-################################
-private_lane :upload_to_firebase_android do |options|
-  getAppIdAndroid(buildType: options[:buildType])
-  upload_to_firebase(
-      app_id: firebase_app_id,
-      android_bundle_path: "./android/app/build/outputs/apk/#{options[:buildType]}/app-#{options[:buildType]}.apk",
-      groups: getDistributionGroup(buildType: options[:buildType])
-  )
-end
-
-private_lane :getAppIdAndroid do |options|
-  buildType = options[:buildType]
-  #app_name should normally be different for each environment
-  if buildType == "beta"
-    firebase_app_id = "1:401677584360:android:867cfc9ce44816381d065d"
-  end
-end
-
-private_lane :getAppIdIOS do |options|
-  buildType = options[:buildType]
-  if buildType == "beta"
-      firebase_app_id = "1:401677584360:ios:59d789c9211315d21d065d"
-  end
-end
-
-private_lane :upload_to_firebase_ios do |options|
-  app_name = ENV["APP_NAME"]
-  getAppIdIOS(buildType: options[:buildType])
-  upload_to_firebase(
-    app_id: firebase_app_id,
-    ios_ipa_path: "Uitpas.ipa",
-    groups: getDistributionGroup(buildType: options[:buildType])
-)
-end
-
-
-
-private_lane :getDistributionGroup do |options|
-  buildType = options[:buildType]
-  if buildType == "alpha"
-      "icapps, #{FIREBASE_ALPHA_DISTRIBUTION_GROUP}"
-  elsif buildType == "beta"
-      "icapps, #{FIREBASE_BETA_DISTRIBUTION_GROUP}"
-  elsif buildType == "prod"
-      "icapps"
-  end
-end
-
-private_lane :upload_to_firebase do |options|
-  # Output file location
-  out = "credentials.json"
-  # Upload to firebase app distribution
-  firebase_app_distribution(
-    app: options[:app_id],
-    service_credentials_file: "fastlane/#{out}",
-    groups: options[:groups],
-    debug: true,
-    android_artifact_type: 'APK',
-    android_artifact_path: options[:android_bundle_path],
-    ipa_path: options[:ios_ipa_path]
-  )
-  # Clean up credentials
-  sh("rm", "-f", out)
 end

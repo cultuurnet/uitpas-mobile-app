@@ -15,7 +15,8 @@ export const WelcomeGiftsBanner = () => {
   const { data: user } = useGetMe();
   const { navigate } = useNavigation<TMainNavigationProp>();
 
-  const creationDate = parseISO(user?.creationDate);
+  if (!user?.creationDate) return null;
+  const creationDate = parseISO(user.creationDate);
   if (!__DEV__ && (!isValid(creationDate) || isBefore(creationDate, subMonths(new Date(), 2)))) return null;
 
   return (
@@ -23,20 +24,18 @@ export const WelcomeGiftsBanner = () => {
       onPress={() => navigate('FilteredShop', { section: 'welkom', subtitle: t('SHOP.SECTIONS.WELCOME') })}
       underlayColor={theme.palette.primary[800]}
     >
-      <>
-        <Styled.Gift source={GiftHalf} />
-        <Styled.TextContainer>
-          <Styled.Greeting color="neutral.0" size="small">
-            {t('SHOP.WELCOME.GREETING', { name: user?.firstName })}
-          </Styled.Greeting>
-          <Styled.Title color="neutral.0" fontStyle="bold" size="xxlarge">
-            {t('SHOP.WELCOME.TITLE')}
-          </Styled.Title>
-        </Styled.TextContainer>
-        <Styled.ArrowContainer>
-          <Icon color={'neutral.0'} name="ArrowRight" size={24} />
-        </Styled.ArrowContainer>
-      </>
+      <Styled.Gift contentFit="cover" source={GiftHalf} />
+      <Styled.TextContainer>
+        <Styled.Greeting color="neutral.0" size="small">
+          {t('SHOP.WELCOME.GREETING', { name: user?.firstName })}
+        </Styled.Greeting>
+        <Styled.Title color="neutral.0" fontStyle="bold" size="xxlarge">
+          {t('SHOP.WELCOME.TITLE')}
+        </Styled.Title>
+      </Styled.TextContainer>
+      <Styled.ArrowContainer>
+        <Icon color={'neutral.0'} name="ArrowRight" size={24} />
+      </Styled.ArrowContainer>
     </Styled.Container>
   );
 };

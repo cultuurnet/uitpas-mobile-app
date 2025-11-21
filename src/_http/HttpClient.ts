@@ -1,6 +1,6 @@
-import { Config } from 'react-native-config';
 import axios, { AxiosError, AxiosResponse, ResponseType } from 'axios';
 
+import { Config } from '../_config';
 import { log } from '../_utils';
 import { TApiError } from './HttpError';
 import { HttpStatus } from './HttpStatus';
@@ -53,21 +53,12 @@ class HttpClient {
   }
 
   static getBasicHeaders(): Headers {
-    const headers = {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    };
+    const headers = { Accept: 'application/json', 'Content-Type': 'application/json' };
     return headers;
   }
 
   static createApiError(error: AxiosError<TApiError>): TApiError {
-    return (
-      error?.response?.data || {
-        status: HttpStatus.InternalServerError,
-        title: error.message,
-        type: '',
-      }
-    );
+    return error?.response?.data || { status: HttpStatus.InternalServerError, title: error.message, type: '' };
   }
 
   static async getRaw<T>(

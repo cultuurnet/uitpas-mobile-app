@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 
-import TouchableRipple from '../../touchableRipple/TouchableRipple';
+import PressableRipple from '../../pressable/PressableRipple';
 
-export const Touchable = styled(TouchableRipple)<{ isError?: boolean }>`
+export const Touchable = styled(PressableRipple)<{ isError?: boolean }>`
   height: 44px;
   justify-content: center;
   border-color: ${({ theme, isError }) => (!isError ? theme.palette.neutral['200'] : theme.palette.error['500'])};

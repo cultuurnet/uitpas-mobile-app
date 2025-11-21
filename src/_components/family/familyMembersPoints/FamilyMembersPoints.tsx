@@ -28,9 +28,11 @@ export const FamilyMembersPoints = <T extends { member: TFamilyMember }>({
       contentContainerStyle={style}
       data={members}
       keyExtractor={item => item.member.uitpasNumber}
+      nestedScrollEnabled={false}
+      removeClippedSubviews={false}
       renderItem={({ item }) => (
         <Styled.Item>
-          <Styled.Avatar resizeMode="contain" source={getAvatarByNameOrDefault(item.member.icon)} />
+          <Styled.Avatar contentFit="contain" source={getAvatarByNameOrDefault(item.member.icon)} />
           <Styled.ItemBody>
             <Typography fontStyle="bold" numberOfLines={1}>
               {item.member.passholder.firstName}
@@ -51,6 +53,7 @@ export const FamilyMembersPoints = <T extends { member: TFamilyMember }>({
           )}
         </Styled.Item>
       )}
+      scrollEnabled={false}
     />
   );
 };

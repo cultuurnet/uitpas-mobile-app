@@ -23,7 +23,7 @@ export const OtherFamiliesOverview = () => {
     try {
       await leaveFamily({ path: `/passholders/${selectedFamily.passholderId}/family-members/${me.id}` });
       trackSelfDescribingEvent('successMessage', { message: 'left-family' });
-      queryClient.invalidateQueries(['families']);
+      queryClient.invalidateQueries({ queryKey: ['families'] });
     } finally {
       setSelectedFamily(null);
     }
@@ -72,9 +72,7 @@ export const OtherFamiliesOverview = () => {
         <Typography>{t('ONBOARDING.FAMILY.OTHER_FAMILIES.MODAL.DESCRIPTION')}</Typography>
         <Styled.FamilyCard>
           <Typography color="primary.700" fontStyle="bold" size="small">
-            {t('ONBOARDING.FAMILY.OTHER_FAMILIES.MODAL.NAME', {
-              name: `${selectedFamily?.firstName} ${selectedFamily?.name}`,
-            })}
+            {t('ONBOARDING.FAMILY.OTHER_FAMILIES.MODAL.NAME', { name: `${selectedFamily?.firstName} ${selectedFamily?.name}` })}
           </Typography>
           <Typography size="small">{selectedFamily?.email}</Typography>
         </Styled.FamilyCard>

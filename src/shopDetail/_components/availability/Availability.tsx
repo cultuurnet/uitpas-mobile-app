@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Trans } from '../../../_components';
@@ -15,7 +15,7 @@ type TProps = {
 
 const MIN_AVAILABLE_UNITS = 10;
 
-export const Availability = ({ redeemConstraint, redeemPeriod, unitsTaken, maxAvailableUnits }: TProps) => {
+export const Availability = memo(({ redeemConstraint, redeemPeriod, unitsTaken, maxAvailableUnits }: TProps) => {
   const { t } = useTranslation();
   const unitsLeft = maxAvailableUnits ? maxAvailableUnits - unitsTaken : -1;
   const showUnits = unitsLeft > 0 && unitsLeft <= MIN_AVAILABLE_UNITS;
@@ -50,4 +50,4 @@ export const Availability = ({ redeemConstraint, redeemPeriod, unitsTaken, maxAv
       )}
     </Section>
   );
-};
+});

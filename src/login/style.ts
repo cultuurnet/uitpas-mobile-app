@@ -1,3 +1,4 @@
+import { Image as ExpoImage } from 'expo-image';
 import styled from 'styled-components/native';
 
 import { Button, Typography } from '../_components';
@@ -19,8 +20,9 @@ export const ListItem = styled(Button)`
   margin-top: 36px;
 `;
 
-export const Illustration = styled.Image`
+export const Illustration = styled(ExpoImage)`
   width: 225px;
+  height: 287px;
   margin-top: 24px;
   margin-bottom: -235px;
 `;

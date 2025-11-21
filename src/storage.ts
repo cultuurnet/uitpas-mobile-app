@@ -1,12 +1,5 @@
-import { Config } from 'react-native-config';
 import { MMKV } from 'react-native-mmkv';
-import { initializeMMKVFlipper } from 'react-native-mmkv-flipper-plugin';
 
-export const storage = new MMKV({
-  encryptionKey: Config.REACT_NATIVE_APP_ENCRYPTION_KEY,
-  id: `UiTPAS-storage`,
-});
+import { Config } from './_config';
 
-if (__DEV__) {
-  initializeMMKVFlipper({ default: storage });
-}
+export const storage = new MMKV({ encryptionKey: Config.REACT_NATIVE_APP_ENCRYPTION_KEY, id: `UiTPAS-storage` });
