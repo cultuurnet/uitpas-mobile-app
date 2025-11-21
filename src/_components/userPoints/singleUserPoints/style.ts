@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import styled from 'styled-components/native';
 
 import { theme } from '../../../_styles/theme';
@@ -13,17 +14,19 @@ export const Container = styled(PressableOpacity)`
   height: 32px;
   border-width: 2px;
   border-color: ${theme.palette.neutral[0]};
+  background-color: ${Platform.OS === 'ios' ? theme.palette.neutral[0] : undefined};
 `;
 
 export const Points = styled(Typography)`
   margin-right: 4px;
+  color: ${Platform.OS === 'ios' ? theme.palette.secondary[500] : theme.palette.neutral[0]};
 `;
 
 export const Avatar = styled.View`
   width: 20px;
   height: 20px;
   border-radius: 10px;
-  background-color: ${theme.palette.neutral[0]};
+  background-color: ${theme.palette.secondary[0]};
   align-items: center;
   justify-content: center;
   text-align: center;
