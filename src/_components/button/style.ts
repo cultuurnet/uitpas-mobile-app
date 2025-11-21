@@ -22,7 +22,7 @@ export const ButtonElement = styled(PressableRipple)<{
 }>`
   align-self: ${({ $inline, centered }) => (centered ? 'center' : $inline ? 'flex-start' : 'stretch')};
   align-items: center;
-  border-radius: ${({ $inline, $radius }) => (!$radius ? '0px' : $inline ? '24px' : '16px')};
+  border-radius: ${({ $inline, $radius, $variant }) => (!$radius || $variant === 'link' ? '0px' : $inline ? '24px' : '16px')};
   opacity: ${({ disabled }) => (disabled ? 0.4 : 1)};
   background-color: ${({ $active, $variant, $backgroundColor, theme }) => {
     if ($backgroundColor) {

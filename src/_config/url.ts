@@ -4,6 +4,7 @@ type TConfigUrl = Record<typeof ConfigEnvironment, string>;
 type TConfigUrlIdentifiers =
   | 'register'
   | 'buy'
+  | 'buyLogin'
   | 'forgotEmail'
   | 'helpdesk'
   | 'termsOfService'
@@ -25,9 +26,14 @@ const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
     production: 'itms-apps://apps.apple.com/be/app/uitpas/id1658556470?l=nl',
   },
   buy: {
-    beta: 'https://test.uitpas.be/activiteiten-in-de-regio?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-geen-uitpas-gevonden',
+    beta: 'https://test.uitpas.be/online-aanvraag/1-mijn-regio?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=geen-uitpas-gevonden-koop-uitpas',
     production:
-      'https://uitpas.be/activiteiten-in-de-regio?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-geen-uitpas-gevonden',
+      'https://uitpas.be/online-aanvraag/1-mijn-regio?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=geen-uitpas-gevonden-koop-uitpas',
+  },
+  buyLogin: {
+    beta: 'https://test.uitpas.be/online-aanvraag/1-mijn-regio?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-aanmelden-koop-uitpas',
+    production:
+      'https://uitpas.be/online-aanvraag/1-mijn-regio?utm_source=uitpas-app&utm_medium=uitpas-app&utm_campaign=uitpas-app&utm_content=scherm-aanmelden-koop-uitpas',
   },
   familyFaq: {
     beta: 'https://helpdesk.uitpas.be/hc/nl/sections/15562727433490-UiTPAS-voor-gezinnen',
