@@ -32,12 +32,14 @@ export const RedeemStatusButton = forwardRef<View, TProps>(
 
     if (reward?.online) {
       return (
-        <Styled.RedeemContent ref={ref}>
-          {status?.redeemable || isLoading || hasFamilyMembers ? (
-            <Button label={t('SHOP_DETAIL.REDEEM.BUTTON')} loading={isLoading} onPress={onPress} />
-          ) : (
-            <RedeemStatusError error={error} refetchStatus={refetch} status={status} track={trackError} />
-          )}
+        <Styled.RedeemContent>
+          <View ref={ref}>
+            {status?.redeemable || isLoading || hasFamilyMembers ? (
+              <Button label={t('SHOP_DETAIL.REDEEM.BUTTON')} loading={isLoading} onPress={onPress} />
+            ) : (
+              <RedeemStatusError error={error} refetchStatus={refetch} status={status} track={trackError} />
+            )}
+          </View>
         </Styled.RedeemContent>
       );
     }
@@ -45,7 +47,9 @@ export const RedeemStatusButton = forwardRef<View, TProps>(
     if (!hasFamilyMembers && ((!status?.redeemable && !isLoading) || error)) {
       return (
         <Styled.RedeemContent>
-          <RedeemStatusError error={error} refetchStatus={refetch} status={status} track={trackError} />
+          <View ref={ref}>
+            <RedeemStatusError error={error} refetchStatus={refetch} status={status} track={trackError} />
+          </View>
         </Styled.RedeemContent>
       );
     }

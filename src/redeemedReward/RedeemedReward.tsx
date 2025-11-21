@@ -117,7 +117,7 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
         />
 
         {!!redeemedReward?.redeemInfo?.text && (
-          <HtmlRenderer fontSize={16} onLinkPress={handleLinkPress} source={{ html: redeemedReward.redeemInfo.text }} />
+          <HtmlRenderer fontSize="normal" onLinkPress={handleLinkPress} source={{ html: redeemedReward.redeemInfo.text }} />
         )}
 
         {/* Added spacer because we can't set margin bottom on the HtmlRenderer */}

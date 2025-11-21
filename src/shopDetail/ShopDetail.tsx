@@ -64,10 +64,10 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
   const trackError = useCallback(() => {
     trackSelfDescribingEvent(
       'errorMessage',
-      { message: redeemStatus?.reason.substring(0, 100) || redeemStatusError.type },
+      { message: redeemStatus?.reason.substring(0, 100) || redeemStatusError?.type },
       rewardTrackingData,
     );
-  }, [redeemStatus?.reason, trackSelfDescribingEvent, rewardTrackingData, redeemStatusError.type]);
+  }, [redeemStatus?.reason, trackSelfDescribingEvent, rewardTrackingData, redeemStatusError?.type]);
 
   const handleRedeemReward = useCallback(
     (member: TFamilyMember) => {

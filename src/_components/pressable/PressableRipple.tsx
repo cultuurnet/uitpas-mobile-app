@@ -13,6 +13,7 @@ export type TPressableRippleProps = Omit<PressableProps, 'style'> & {
   onPress?: () => void;
   rippleColor?: string;
   style?: StyleProp<ViewStyle>;
+  underlayColor?: string;
 };
 
 const PressableRipple = ({
@@ -22,11 +23,12 @@ const PressableRipple = ({
   rippleColor,
   children,
   hitSlop,
+  underlayColor = theme.palette.primary['900'],
   loading,
   ...rest
 }: TPressableRippleProps) => {
   const disabled = disabledProp || loading || !rest.onPress;
-  const calculatedRippleColor = rippleColor || color(theme.palette.primary['900']).alpha(0.2).rgb().string();
+  const calculatedRippleColor = rippleColor || color(underlayColor).alpha(0.2).rgb().string();
 
   return (
     <Pressable
