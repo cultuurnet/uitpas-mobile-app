@@ -1,5 +1,5 @@
-import styled from 'styled-components/native';
 import { Image as ExpoImage } from 'expo-image';
+import styled from 'styled-components/native';
 
 const CARD_MARGIN = 20;
 

@@ -29,6 +29,7 @@ export const FamilyMembersPoints = <T extends { member: TFamilyMember }>({
       data={members}
       keyExtractor={item => item.member.uitpasNumber}
       nestedScrollEnabled={false}
+      removeClippedSubviews={false}
       renderItem={({ item }) => (
         <Styled.Item>
           <Styled.Avatar contentFit="contain" source={getAvatarByNameOrDefault(item.member.icon)} />
@@ -52,7 +53,6 @@ export const FamilyMembersPoints = <T extends { member: TFamilyMember }>({
           )}
         </Styled.Item>
       )}
-      removeClippedSubviews={false}
       scrollEnabled={false}
     />
   );

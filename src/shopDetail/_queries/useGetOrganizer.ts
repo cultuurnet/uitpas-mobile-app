@@ -1,5 +1,4 @@
 import { Config } from '../../_config';
-
 import { usePubliqApi } from '../../_hooks/usePubliqApi';
 import { TOrganizer } from '../_models/organizer';
 

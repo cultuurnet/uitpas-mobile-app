@@ -1,8 +1,8 @@
 import base64 from 'react-native-base64';
-import { Config } from '../../../_config';
 import { MutateOptions, useMutation } from '@tanstack/react-query';
 import { format } from 'date-fns';
 
+import { Config } from '../../../_config';
 import { HttpClient, TApiError } from '../../../_http';
 
 export type TRegistrationTokenRequest = { birthDate: Date; uitpasNumber: string };
@@ -26,8 +26,8 @@ export const useGetRegistrationToken = (
   options?: MutateOptions<TRegistrationTokenResponse, TApiError, TRegistrationTokenRequest>,
 ) => {
   return useMutation<TRegistrationTokenResponse, TApiError, TRegistrationTokenRequest>({
-    mutationKey: ['registration-token'],
     mutationFn: getRegistrationToken,
+    mutationKey: ['registration-token'],
     ...options,
   });
 };

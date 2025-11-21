@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
-import { theme } from '../../../_styles/theme';
 import { PressableRipple } from '../../../_components';
+import { theme } from '../../../_styles/theme';
 
 export const Container = styled(PressableRipple)`
   background-color: ${theme.palette.primary[600]};

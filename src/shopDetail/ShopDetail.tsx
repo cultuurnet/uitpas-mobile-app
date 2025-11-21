@@ -47,7 +47,7 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
   const scrollViewRef = useRef(null);
   const redeemButtonRef = useRef(null);
   const rewardsSection = useRef(null);
-  const rewardTrackingData = useMemo(() => ({ reward: getRewardTrackingData(reward) }), [reward.id]);
+  const rewardTrackingData = useMemo(() => ({ reward: getRewardTrackingData(reward) }), [reward]);
 
   const { firstOrganizer, organizers } = useMemo(() => {
     const [first, ...rest] = reward.organizers || [];
@@ -67,7 +67,7 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
       { message: redeemStatus?.reason.substring(0, 100) || redeemStatusError.type },
       rewardTrackingData,
     );
-  }, [redeemStatus?.reason, trackSelfDescribingEvent, rewardTrackingData]);
+  }, [redeemStatus?.reason, trackSelfDescribingEvent, rewardTrackingData, redeemStatusError.type]);
 
   const handleRedeemReward = useCallback(
     (member: TFamilyMember) => {

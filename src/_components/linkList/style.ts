@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
-import Typography from '../typography/Typography';
 import PressableRipple from '../pressable/PressableRipple';
+import Typography from '../typography/Typography';
 
 export const LinkButton = styled(PressableRipple)`
   flex: 1;

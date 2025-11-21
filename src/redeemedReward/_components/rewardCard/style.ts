@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { Icon, RewardImage, PressableRipple } from '../../../_components';
+import { Icon, PressableRipple,RewardImage } from '../../../_components';
 import { theme } from '../../../_styles/theme';
 
 export const Container = styled(PressableRipple)`

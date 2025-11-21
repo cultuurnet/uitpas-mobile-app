@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { Modal } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 import { Icon } from '../../../_components';
 import { useFullScreenBrightness } from '../../../_hooks/useFullscreenBrightness';
@@ -7,7 +8,6 @@ import { theme } from '../../../_styles/theme';
 import { TPassHolder } from '../../_models';
 import UitpasCard from '../UitpasCard/UitpasCard';
 import * as Styled from './style';
-import { StatusBar } from 'expo-status-bar';
 
 type TCardModalProps = { icon?: string; isVisible: boolean; passHolder: TPassHolder; toggleIsVisible: () => void };
 
@@ -15,7 +15,11 @@ const CardModal: FC<TCardModalProps> = ({ passHolder, icon, isVisible, toggleIsV
   const { resetScreen, brightenScreen } = useFullScreenBrightness();
 
   useEffect(() => {
-    isVisible ? brightenScreen() : resetScreen();
+    if (isVisible) {
+      brightenScreen();
+    } else {
+      resetScreen();
+    }
   }, [isVisible, brightenScreen, resetScreen]);
 
   return (

@@ -1,8 +1,8 @@
 import { Image as ExpoImage } from 'expo-image';
 import styled, { css } from 'styled-components/native';
 
-import { TIconProps } from './Icon';
 import PressableRipple from '../pressable/PressableRipple';
+import { TIconProps } from './Icon';
 
 export const IconButton = styled(PressableRipple)<{ borderless?: boolean; disabled?: boolean }>`
   opacity: ${({ disabled }) => (disabled ? 0.6 : 1)};

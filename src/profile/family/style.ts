@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { SafeAreaView as SafeAreaViewComponent, PressableRipple, Typography } from '../../_components';
+import { PressableRipple, SafeAreaView as SafeAreaViewComponent, Typography } from '../../_components';
 
 export const FamilyTile = styled(PressableRipple)<{ isFirst: boolean }>`
   background-color: ${({ theme }) => theme.palette.neutral['0']};

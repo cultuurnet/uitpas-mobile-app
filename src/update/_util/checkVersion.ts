@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
-import { Config } from '../../_config';
 
+import { Config } from '../../_config';
 import { TVersion } from '../_models';
 
 export type TCheckedVersion = { isBehindMinVersion: boolean; isBehindTarget: boolean };

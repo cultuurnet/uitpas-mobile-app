@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 export const Activity = require('./activity.png');
 export const ArrowLeft = require('./arrowLeft.png');
 export const ArrowRight = require('./arrowRight.png');

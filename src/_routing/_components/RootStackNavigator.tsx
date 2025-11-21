@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Platform } from 'react-native';
 import { HeaderBackButton } from '@react-navigation/elements';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as SplashScreen from 'expo-splash-screen';
@@ -42,7 +43,6 @@ import { useGetVersions } from '../../update/_queries/useGetVersions';
 import UpdateScreen from '../../update/UpdateScreen';
 import { MainNavigator, useMainHeaderProps } from './MainNavigator';
 import { TRootStackParamList } from './TRootStackParamList';
-import { Platform } from 'react-native';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -175,8 +175,8 @@ export const RootStackNavigator = () => {
             component={FilteredShop}
             name="FilteredShop"
             options={({ route }) => ({
-              headerBackButtonMenuEnabled: false,
               headerBackButtonDisplayMode: 'minimal',
+              headerBackButtonMenuEnabled: false,
               headerRight: UserPoints,
               title: route?.params?.section === 'welkom' ? i18n.t('SHOP.WELCOME.HEADER_TITLE') : i18n.t('SHOP.HEADER_TITLE'),
             })}
@@ -229,8 +229,8 @@ export const RootStackNavigator = () => {
             component={ShopDetail}
             name="ShopDetail"
             options={{
-              headerBackButtonMenuEnabled: false,
               headerBackButtonDisplayMode: 'minimal',
+              headerBackButtonMenuEnabled: false,
               headerRight: UserPoints,
               title: i18n.t('SHOP_DETAIL.HEADER_TITLE'),
             }}

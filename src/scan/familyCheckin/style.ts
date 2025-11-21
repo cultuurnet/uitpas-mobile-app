@@ -1,5 +1,5 @@
-import styled from 'styled-components/native';
 import { Image as ExpoImage } from 'expo-image';
+import styled from 'styled-components/native';
 
 import { Button, Checkbox, SafeAreaView, Typography } from '../../_components';
 

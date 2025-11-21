@@ -25,7 +25,7 @@ const Onboarding = () => {
           <Styled.TitleText color="primary.800" fontStyle="bold" size="large">
             {t('ONBOARDING.TITLE')}
           </Styled.TitleText>
-          <Styled.Image source={Counter} style={{ width: 151, height: 157 }} />
+          <Styled.Image source={Counter} style={{ height: 157, width: 151 }} />
           <Styled.IntroText align="center" color="neutral.900">
             {t('ONBOARDING.INTRO')}
           </Styled.IntroText>

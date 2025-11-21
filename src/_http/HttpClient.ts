@@ -1,6 +1,6 @@
-import { Config } from '../_config';
 import axios, { AxiosError, AxiosResponse, ResponseType } from 'axios';
 
+import { Config } from '../_config';
 import { log } from '../_utils';
 import { TApiError } from './HttpError';
 import { HttpStatus } from './HttpStatus';

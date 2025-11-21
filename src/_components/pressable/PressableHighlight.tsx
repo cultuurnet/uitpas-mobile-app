@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
-import { Pressable, PressableProps, ViewStyle, StyleSheet } from 'react-native';
-import Animated, { useSharedValue, useAnimatedStyle, withTiming, interpolateColor } from 'react-native-reanimated';
+import { Pressable, PressableProps, StyleSheet,ViewStyle } from 'react-native';
+import Animated, { interpolateColor,useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 export const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 

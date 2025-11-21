@@ -78,17 +78,6 @@ export const Search = ({ navigation, route }: TProps) => {
     [filters],
   );
 
-  const popularSearchItems = useMemo(() => {
-    if (!user?.address?.city) return [];
-
-    const items = [
-      { id: `city-${user.address.city}`, keyword: user.address.city, label: user.address.city },
-      ...SEARCH_TERMS.map(({ keyword, label }) => ({ id: keyword, keyword, label })),
-    ];
-
-    return items;
-  }, [user?.address?.city, t]);
-
   return (
     <SafeAreaView edges={['left', 'right']} isScrollable={false} keyboardShouldPersistTaps="handled" stickyHeaderIndices={[1]}>
       <Styled.ViewContainer behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>

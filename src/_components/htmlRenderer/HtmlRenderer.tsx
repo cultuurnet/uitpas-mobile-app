@@ -2,10 +2,9 @@ import React, { FC, memo, useCallback, useMemo } from 'react';
 import { GestureResponderEvent, useWindowDimensions } from 'react-native';
 import RenderHtml, { Element, HTMLSource, RenderersProps } from 'react-native-render-html';
 
-import PressableOpacity from '../pressable/PressableOpacity';
-
 import { theme } from '../../_styles/theme';
 import { normalizeUrl, openExternalURL } from '../../_utils';
+import PressableOpacity from '../pressable/PressableOpacity';
 import { getFontFamily } from '../typography/style';
 
 type Props = {

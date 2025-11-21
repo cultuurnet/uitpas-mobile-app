@@ -26,7 +26,7 @@ const ExternalLink = ({ href, label, ...props }: TProps) => {
         </>
       </Styled.LinkButton>
     );
-  } catch (error) {
+  } catch {
     return null;
   }
 };

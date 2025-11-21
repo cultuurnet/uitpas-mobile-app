@@ -1,5 +1,4 @@
 import { FC, useEffect } from 'react';
-import { StatusBarStyle } from 'expo-status-bar';
 import Animated, {
   cancelAnimation,
   Easing,
@@ -9,6 +8,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import Svg, { Path } from 'react-native-svg';
+import { StatusBarStyle } from 'expo-status-bar';
 
 import { ThemeColor } from '../../_styles/theme';
 import { getColor } from '../../_utils';

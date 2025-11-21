@@ -1,12 +1,12 @@
 import { ReactElement, useState } from 'react';
-import { Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import { Platform } from 'react-native';
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { format } from 'date-fns';
 
-import FakeTextInput from '../textInput/fakeTextInput/FakeTextInput';
 import BlurredModal from '../blurredModal/BlurredModal';
 import Button from '../button/Button';
+import FakeTextInput from '../textInput/fakeTextInput/FakeTextInput';
 import * as Styled from './style';
 
 type TProps = {
@@ -31,7 +31,7 @@ const DatePicker = ({ date, onSelectDate, ...textInputProps }: TProps) => {
     setIsOpen(false);
   };
 
-  const handleChange = (event: any, selectedDate?: Date) => {
+  const handleChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     if (Platform.OS === 'android') {
       setIsOpen(false);
       if (event.type === 'set' && selectedDate) {
@@ -55,14 +55,14 @@ const DatePicker = ({ date, onSelectDate, ...textInputProps }: TProps) => {
       {Platform.OS === 'ios' ? (
         <BlurredModal isVisible={isOpen} toggleIsVisible={handleClose}>
           <Styled.ModalContent>
-            <DateTimePicker value={tempDate} mode="date" display="inline" onChange={handleChange} />
+            <DateTimePicker display="inline" mode="date" onChange={handleChange} value={tempDate} />
             <Styled.ButtonContainer>
-              <Button onPress={handleConfirm} label={t('DATE_PICKER.CONFIRM')} />
+              <Button label={t('DATE_PICKER.CONFIRM')} onPress={handleConfirm} />
             </Styled.ButtonContainer>
           </Styled.ModalContent>
         </BlurredModal>
       ) : (
-        isOpen && <DateTimePicker value={tempDate} mode="date" display="default" onChange={handleChange} />
+        isOpen && <DateTimePicker display="default" mode="date" onChange={handleChange} value={tempDate} />
       )}
     </>
   );

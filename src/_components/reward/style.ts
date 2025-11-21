@@ -1,10 +1,10 @@
-import { Image as ExpoImage } from 'expo-image';
 import LinearGradient from 'react-native-linear-gradient';
+import { Image as ExpoImage } from 'expo-image';
 import styled from 'styled-components/native';
 
 import { theme } from '../../_styles/theme';
-import Typography from '../typography/Typography';
 import PressableRipple from '../pressable/PressableRipple';
+import Typography from '../typography/Typography';
 
 export const REWARD_TILE_WIDTH = 200;
 

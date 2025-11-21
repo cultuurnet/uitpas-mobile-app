@@ -1,5 +1,5 @@
-import styled from 'styled-components/native';
 import { Image as ExpoImage } from 'expo-image';
+import styled from 'styled-components/native';
 
 export const Item = styled.View`
   flex-direction: row;

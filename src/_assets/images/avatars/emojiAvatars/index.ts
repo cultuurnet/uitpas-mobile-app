@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 export const Emoji0 = require('./emoji-0.png');
 export const Emoji1 = require('./emoji-1.png');
 export const Emoji2 = require('./emoji-2.png');

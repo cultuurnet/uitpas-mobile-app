@@ -1,7 +1,7 @@
-import { Config } from '../_config';
-import { logger, sentryTransport, consoleTransport } from 'react-native-logs';
+import { consoleTransport,logger, sentryTransport } from 'react-native-logs';
 import * as Sentry from '@sentry/react-native';
 
+import { Config } from '../_config';
 import { ConfigEnvironment } from '../_config';
 
 type LogLevels = 'debug' | 'info' | 'warn' | 'error';
@@ -24,11 +24,11 @@ if (__DEV__) {
     transport: sentryTransport,
     transportOptions: {
       SENTRY: {
-        captureException: (msg: string | ErrorConstructor) => Sentry.captureException(msg),
         addBreadcrumb: (msg: string | { message: string }) => {
           const breadcrumb = typeof msg === 'string' ? { message: msg } : msg;
           Sentry.addBreadcrumb(breadcrumb);
         },
+        captureException: (msg: string | ErrorConstructor) => Sentry.captureException(msg),
       },
     },
   });

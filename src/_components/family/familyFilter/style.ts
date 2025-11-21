@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 
 import Icon from '../../icon/Icon';
-import Typography from '../../typography/Typography';
 import PressableRipple from '../../pressable/PressableRipple';
+import Typography from '../../typography/Typography';
 
 export const Container = styled.View`
   flex-direction: row;

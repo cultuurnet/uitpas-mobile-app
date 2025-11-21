@@ -1,10 +1,10 @@
 import { createContext, FC, PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react';
 import { Platform } from 'react-native';
+import { QueryCache } from '@tanstack/react-query';
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
-import { Config } from '../_config';
-import { QueryCache } from '@tanstack/react-query';
 
+import { Config } from '../_config';
 import { useToggle } from '../_hooks';
 import { useAppState } from '../_hooks/useAppState';
 import { TUser } from '../_models';
@@ -17,9 +17,9 @@ WebBrowser.maybeCompleteAuthSession();
 
 const STORAGE_KEYS = {
   ACCESS_TOKEN: 'auth.accessToken',
+  EXPIRES_AT: 'auth.expiresAt',
   ID_TOKEN: 'auth.idToken',
   REFRESH_TOKEN: 'auth.refreshToken',
-  EXPIRES_AT: 'auth.expiresAt',
 } as const;
 
 type TAuthenticationContext = {
@@ -53,9 +53,9 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
     {
       clientId: Config.REACT_NATIVE_APP_AUTH_CLIENT_ID || '',
       redirectUri,
+      responseType: AuthSession.ResponseType.Code,
       scopes: ['openid', 'profile', 'email', 'offline_access'],
       usePKCE: true,
-      responseType: AuthSession.ResponseType.Code,
     },
     discovery,
   );
@@ -66,7 +66,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
       if (refreshToken && discovery) {
         try {
           await AuthSession.revokeAsync(
-            { token: refreshToken, clientId: Config.REACT_NATIVE_APP_AUTH_CLIENT_ID || '' },
+            { clientId: Config.REACT_NATIVE_APP_AUTH_CLIENT_ID || '', token: refreshToken },
             discovery,
           );
         } catch (e) {
@@ -98,7 +98,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [refreshToken, discovery, setIsAuthenticated]);
 
   const saveTokens = useCallback(
-    (tokens: { accessToken: string; idToken?: string; refreshToken?: string; expiresIn?: number }) => {
+    (tokens: { accessToken: string; expiresIn?: number, idToken?: string; refreshToken?: string; }) => {
       storage.set(STORAGE_KEYS.ACCESS_TOKEN, tokens.accessToken);
       if (tokens.idToken) storage.set(STORAGE_KEYS.ID_TOKEN, tokens.idToken);
       if (tokens.refreshToken) storage.set(STORAGE_KEYS.REFRESH_TOKEN, tokens.refreshToken);
@@ -136,9 +136,9 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
       if (tokenResult.accessToken) {
         saveTokens({
           accessToken: tokenResult.accessToken,
+          expiresIn: tokenResult.expiresIn,
           idToken: tokenResult.idToken,
           refreshToken: tokenResult.refreshToken || storedRefreshToken,
-          expiresIn: tokenResult.expiresIn,
         });
         return true;
       }
@@ -212,10 +212,10 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
           {
             clientId: Config.REACT_NATIVE_APP_AUTH_CLIENT_ID || '',
             code: result.params.code,
-            redirectUri,
             extraParams: {
               code_verifier: request.codeVerifier,
             },
+            redirectUri,
           },
           discovery,
         );
@@ -223,9 +223,9 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
         if (tokenResult.accessToken) {
           saveTokens({
             accessToken: tokenResult.accessToken,
+            expiresIn: tokenResult.expiresIn,
             idToken: tokenResult.idToken,
             refreshToken: tokenResult.refreshToken,
-            expiresIn: tokenResult.expiresIn,
           });
         }
       } else if (result.type === 'error') {

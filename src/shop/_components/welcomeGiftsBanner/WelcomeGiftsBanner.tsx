@@ -24,7 +24,7 @@ export const WelcomeGiftsBanner = () => {
       onPress={() => navigate('FilteredShop', { section: 'welkom', subtitle: t('SHOP.SECTIONS.WELCOME') })}
       underlayColor={theme.palette.primary[800]}
     >
-      <Styled.Gift source={GiftHalf} contentFit="cover" />
+      <Styled.Gift contentFit="cover" source={GiftHalf} />
       <Styled.TextContainer>
         <Styled.Greeting color="neutral.0" size="small">
           {t('SHOP.WELCOME.GREETING', { name: user?.firstName })}

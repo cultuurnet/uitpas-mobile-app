@@ -13,7 +13,6 @@ export type TPressableRippleProps = Omit<PressableProps, 'style'> & {
   onPress?: () => void;
   rippleColor?: string;
   style?: StyleProp<ViewStyle>;
-  underlayColor?: string;
 };
 
 const PressableRipple = ({
@@ -21,7 +20,6 @@ const PressableRipple = ({
   borderless = false,
   disabled: disabledProp,
   rippleColor,
-  underlayColor,
   children,
   hitSlop,
   loading,
@@ -34,8 +32,8 @@ const PressableRipple = ({
     <Pressable
       {...rest}
       android_ripple={{
-        color: calculatedRippleColor,
         borderless,
+        color: calculatedRippleColor,
         foreground: true,
       }}
       disabled={disabled}

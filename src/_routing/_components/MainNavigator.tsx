@@ -86,7 +86,7 @@ export const MainNavigator: FC = () => {
   );
 
   return (
-    <Tab.Navigator id={undefined} backBehavior="history" screenOptions={screenOptions}>
+    <Tab.Navigator backBehavior="history" id={undefined} screenOptions={screenOptions}>
       <Tab.Screen
         component={Shop}
         name="Shop"

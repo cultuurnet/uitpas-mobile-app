@@ -1,11 +1,11 @@
 import { forwardRef } from 'react';
 import { ScrollView, ScrollViewProps, StyleProp, ViewStyle } from 'react-native';
 import { NativeSafeAreaViewProps as RNSafeAreaViewProps } from 'react-native-safe-area-context';
+import { StatusBarStyle } from 'expo-status-bar';
 
 import { ThemeColor } from '../../_styles/theme';
 import FocusAwareStatusBar from '../statusBar/FocusAwareStatusBar';
 import * as Styled from './style';
-import { StatusBarStyle } from 'expo-status-bar';
 
 export type TSafeAreaViewProps = {
   backgroundColor?: ThemeColor;

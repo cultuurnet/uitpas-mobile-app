@@ -11,8 +11,8 @@ function getVersions() {
 
 export function useGetVersions() {
   const { data: versions } = useQuery({
-    queryKey: ['versions'] as const,
     queryFn: getVersions,
+    queryKey: ['versions'] as const,
     refetchOnWindowFocus: true,
   });
 

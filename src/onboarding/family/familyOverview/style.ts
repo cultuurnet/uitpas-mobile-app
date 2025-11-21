@@ -1,5 +1,5 @@
-import styled from 'styled-components/native';
 import { Image as ExpoImage } from 'expo-image';
+import styled from 'styled-components/native';
 
 import { Button, PressableRipple, Typography } from '../../../_components';
 import { theme } from '../../../_styles/theme';

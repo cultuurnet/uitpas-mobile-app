@@ -1,9 +1,9 @@
 import React from 'react';
 import { Platform, ScrollView } from 'react-native';
-import { Config } from '../_config';
 
 import { Analytics, Button, Typography } from '../_components';
 import LinkList, { TLinkListItem } from '../_components/linkList/LinkList';
+import { Config } from '../_config';
 import { ConfigUrl } from '../_config';
 import i18n from '../_translations/i18n';
 import * as Styled from './style';
