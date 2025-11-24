@@ -1,4 +1,8 @@
 pipeline {
+    options {
+        disableRestartFromStage()
+    }
+
     agent none
 
     environment {
@@ -19,24 +23,13 @@ pipeline {
                 GIT_SHORT_COMMIT = build.shortCommitRef()
                 ARTIFACT_VERSION = "${env.PIPELINE_VERSION}" + '+sha.' + "${env.GIT_SHORT_COMMIT}"
             }
-            stages {
-                stage('Setup') {
-                    steps {
-                        sh label: 'Install rubygems', script: 'bundle install --gemfile=Gemfile.deployment --deployment'
-                    }
-                }
-                stage('Run checks') {
-                    steps {
-                        sh label: 'Check JSON syntax', script: 'bundle exec --gemfile=Gemfile.deployment rake jsonlint'
-                    }
-                }
-                stage('Build artifact') {
-                    steps {
-                        sh label: 'Build artifact', script: "bundle exec --gemfile=Gemfile.deployment rake build_artifact ARTIFACT_VERSION=${env.ARTIFACT_VERSION}"
-                        archiveArtifacts artifacts: "pkg/*${env.ARTIFACT_VERSION}*.tar.gz", onlyIfSuccessful: true
-                    }
-                }
+                        steps {
+                sh label: 'Install rubygems', script: 'bundle install --gemfile=Gemfile.deployment --deployment'
+                sh label: 'Check JSON syntax', script: 'bundle exec --gemfile=Gemfile.deployment rake jsonlint'
+                sh label: 'Build artifact', script: "bundle exec --gemfile=Gemfile.deployment rake build_artifact ARTIFACT_VERSION=${env.ARTIFACT_VERSION}"
+                archiveArtifacts artifacts: "pkg/*${env.ARTIFACT_VERSION}*.tar.gz", onlyIfSuccessful: true
             }
+
             post {
                 cleanup {
                     cleanWs()
@@ -121,6 +114,8 @@ pipeline {
             }
         }
         stage('Tag release') {
+            options { skipDefaultCheckout() }
+
             agent { label 'ubuntu && 20.04' }
             steps {
                 copyArtifacts filter: 'pkg/*.tar.gz', projectName: env.JOB_NAME, flatten: true, selector: specific(env.BUILD_NUMBER)
