@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useMemo } from 'react';
 
 import { FamilyMembersPoints } from '../../../_components';
 import { useGetFamilyMembers } from '../../../onboarding/family/_queries';
@@ -11,15 +11,20 @@ type TProps = {
   reward: TReward;
 };
 
+type TFamilyMemberItem = {
+  member: TFamilyMember;
+  onRedeem: (member: TFamilyMember) => void;
+  reward: TReward;
+};
+
+const RedeemFamilyItemRight = ({ item }: { item: TFamilyMemberItem }) => (
+  <RedeemFamilyButton member={item.member} onPress={() => item.onRedeem(item.member)} reward={item.reward} />
+);
+
 export const RedeemFamilyMembers = memo(({ reward, onRedeem }: TProps) => {
   const { data: familyMembers = [] } = useGetFamilyMembers();
 
-  const RedeemFamilyButtonMemoized = useCallback(
-    ({ item: { member } }) => <RedeemFamilyButton member={member} onPress={() => onRedeem(member)} reward={reward} />,
-    [onRedeem, reward],
-  );
+  const members = useMemo(() => familyMembers.map(member => ({ member, onRedeem, reward })), [familyMembers, onRedeem, reward]);
 
-  return (
-    <FamilyMembersPoints ItemRightComponent={RedeemFamilyButtonMemoized} members={familyMembers.map(member => ({ member }))} />
-  );
+  return <FamilyMembersPoints ItemRightComponent={RedeemFamilyItemRight} members={members} />;
 });
