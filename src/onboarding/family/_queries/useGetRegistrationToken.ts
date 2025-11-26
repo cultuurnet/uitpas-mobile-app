@@ -1,18 +1,13 @@
 import base64 from 'react-native-base64';
-import { Config } from 'react-native-config';
 import { MutateOptions, useMutation } from '@tanstack/react-query';
 import { format } from 'date-fns';
 
+import { Config } from '../../../_config';
 import { HttpClient, TApiError } from '../../../_http';
 
-export type TRegistrationTokenRequest = {
-  birthDate: Date;
-  uitpasNumber: string;
-};
+export type TRegistrationTokenRequest = { birthDate: Date; uitpasNumber: string };
 
-export type TRegistrationTokenResponse = {
-  token: string;
-};
+export type TRegistrationTokenResponse = { token: string };
 
 const getRegistrationToken = async ({
   birthDate,
@@ -23,19 +18,16 @@ const getRegistrationToken = async ({
   return HttpClient.get(
     '/passholders/me/uitid/registration-token',
     {},
-    {
-      authorization: `Basic ${authorizationHeader}`,
-      'x-client-id': Config.REACT_NATIVE_APP_AUTH0_CLIENT_ID,
-    },
+    { authorization: `Basic ${authorizationHeader}`, 'x-client-id': Config.REACT_NATIVE_APP_AUTH_CLIENT_ID },
   );
 };
 
 export const useGetRegistrationToken = (
   options?: MutateOptions<TRegistrationTokenResponse, TApiError, TRegistrationTokenRequest>,
 ) => {
-  return useMutation<TRegistrationTokenResponse, TApiError, TRegistrationTokenRequest>(
-    ['registration-token'],
-    getRegistrationToken,
-    options,
-  );
+  return useMutation<TRegistrationTokenResponse, TApiError, TRegistrationTokenRequest>({
+    mutationFn: getRegistrationToken,
+    mutationKey: ['registration-token'],
+    ...options,
+  });
 };

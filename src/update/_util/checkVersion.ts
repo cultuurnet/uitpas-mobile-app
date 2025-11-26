@@ -1,12 +1,9 @@
 import { Platform } from 'react-native';
-import { Config } from 'react-native-config';
 
+import { Config } from '../../_config';
 import { TVersion } from '../_models';
 
-export type TCheckedVersion = {
-  isBehindMinVersion: boolean;
-  isBehindTarget: boolean;
-};
+export type TCheckedVersion = { isBehindMinVersion: boolean; isBehindTarget: boolean };
 
 export function checkVersion(version: TVersion): TCheckedVersion {
   const currentPlatform = Platform.OS === 'ios' ? 'ios' : 'android';
@@ -18,10 +15,7 @@ export function checkVersion(version: TVersion): TCheckedVersion {
 }
 
 function isVersionGreaterThan(versionToCheck: string, appVersion: string): boolean {
-  const compareNumber = appVersion.localeCompare(versionToCheck, undefined, {
-    numeric: true,
-    sensitivity: 'base',
-  });
+  const compareNumber = appVersion.localeCompare(versionToCheck, undefined, { numeric: true, sensitivity: 'base' });
 
   return compareNumber === -1;
 }

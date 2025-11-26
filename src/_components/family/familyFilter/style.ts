@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 import Icon from '../../icon/Icon';
-import TouchableRipple from '../../touchableRipple/TouchableRipple';
+import PressableRipple from '../../pressable/PressableRipple';
 import Typography from '../../typography/Typography';
 
 export const Container = styled.View`
@@ -21,10 +21,10 @@ export const FilterNextButton = styled(Icon)`
   margin-left: 8px;
 `;
 
-export const FilterItem = styled(TouchableRipple)<{ isSelected: boolean }>`
+export const FilterItem = styled(PressableRipple)<{ isSelected: boolean }>`
   padding-horizontal: 16px;
   padding-vertical: 4px;
-  background-color: ${({ isSelected, theme }) => (isSelected ? theme.palette.primary[900] : 'transparent')}};
+  background-color: ${({ isSelected, theme }) => (isSelected ? theme.palette.primary[900] : 'transparent')};
   border-radius: 20px;
 `;
 

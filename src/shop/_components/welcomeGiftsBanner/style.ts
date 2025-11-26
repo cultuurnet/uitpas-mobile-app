@@ -1,9 +1,11 @@
+import { Image as ExpoImage } from 'expo-image';
 import styled from 'styled-components/native';
 
 import { Typography } from '../../../_components';
+import PressableHighlight from '../../../_components/pressable/PressableHighlight';
 import { theme } from '../../../_styles/theme';
 
-export const Container = styled.TouchableHighlight`
+export const Container = styled(PressableHighlight)`
   background-color: ${theme.palette.primary[700]};
   padding: ${theme.common.defaultSpacing}px;
   position: relative;
@@ -27,12 +29,12 @@ export const ArrowContainer = styled.View`
   background-color: ${theme.palette.neutral[900]};
 `;
 
-export const Gift = styled.Image`
+export const Gift = styled(ExpoImage)`
   position: absolute;
   bottom: 0;
   right: 8px;
   width: 256px;
-  resize-mode: cover;
+  height: 100%;
 `;
 
 export const Title = styled(Typography)`

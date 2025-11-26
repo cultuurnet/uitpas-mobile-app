@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 
-import { Button, TouchableRipple, Typography } from '../../../_components';
+import { Button, PressableRipple, Typography } from '../../../_components';
 
-export const DeleteButton = styled(TouchableRipple)`
+export const DeleteButton = styled(PressableRipple)`
   flex-direction: row;
   justify-content: center;
   align-items: center;

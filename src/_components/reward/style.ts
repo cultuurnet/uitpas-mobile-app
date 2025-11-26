@@ -1,9 +1,9 @@
-import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
+import { Image as ExpoImage } from 'expo-image';
 import styled from 'styled-components/native';
 
 import { theme } from '../../_styles/theme';
-import TouchableRipple from '../touchableRipple/TouchableRipple';
+import PressableRipple from '../pressable/PressableRipple';
 import Typography from '../typography/Typography';
 
 export const REWARD_TILE_WIDTH = 200;
@@ -34,7 +34,7 @@ export const TextContainer = styled.View<{ isTile?: boolean }>`
   ${({ isTile }) => (isTile ? '' : 'flex: 1;')};
 `;
 
-export const RewardListContainer = styled(TouchableRipple)`
+export const RewardListContainer = styled(PressableRipple)`
   align-items: center;
   align-self: stretch;
   background-color: ${theme.palette.neutral[0]};
@@ -42,7 +42,7 @@ export const RewardListContainer = styled(TouchableRipple)`
   padding: ${theme.common.defaultSpacing}px;
   width: 100%;
 `;
-export const RewardTileContainer = styled(TouchableRipple)`
+export const RewardTileContainer = styled(PressableRipple)`
   align-items: flex-start;
   overflow: hidden;
   align-self: stretch;
@@ -67,20 +67,22 @@ export const ImageContainer = styled.View<{ isTile?: boolean }>`
   position: relative;
 `;
 
-export const Image = styled(FastImage)<{ hasRadius?: boolean }>`
+export const Image = styled(ExpoImage)<{ hasRadius?: boolean }>`
   height: 100%;
   width: 100%;
-  resize-mode: cover;
   background-color: ${theme.palette.neutral[200]};
   border-radius: ${({ hasRadius }) => (hasRadius ? '8px' : '0')};
 `;
 
-export const Gradient = styled(LinearGradient)<{ largeSpacing?: boolean }>`
+export const Gradient = styled(LinearGradient)`
   bottom: 0;
   justify-content: flex-end;
   left: 0;
-  padding: ${({ largeSpacing }) => (largeSpacing ? '16px' : '8px')};
   position: absolute;
   right: 0;
   top: 0;
+`;
+
+export const RewardImageContent = styled.View<{ largeSpacing?: boolean }>`
+  padding: ${({ largeSpacing }) => (largeSpacing ? '16px' : '8px')};
 `;

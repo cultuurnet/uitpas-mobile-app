@@ -16,18 +16,16 @@ export const SingleUserPoints = ({ passHolder }: TProps) => {
   return (
     <>
       <Styled.Container activeOpacity={0.8} onPress={toggleCardModalVisible}>
-        <>
-          <Styled.Points allowFontScaling={false} color="neutral.0" fontStyle="bold" size="normal">
-            {passHolder.points}
-          </Styled.Points>
-          {!!initials && (
-            <Styled.Avatar>
-              <Typography allowFontScaling={false} color="secondary.500" fontStyle="bold" size="xsmall">
-                {initials}
-              </Typography>
-            </Styled.Avatar>
-          )}
-        </>
+        <Styled.Points allowFontScaling={false} fontStyle="bold" size="normal">
+          {passHolder.points}
+        </Styled.Points>
+        {!!initials && (
+          <Styled.Avatar>
+            <Typography allowFontScaling={false} color="secondary.500" fontStyle="bold" size="xsmall">
+              {initials}
+            </Typography>
+          </Styled.Avatar>
+        )}
       </Styled.Container>
       <CardModal isVisible={cardModalVisible} passHolder={passHolder} toggleIsVisible={toggleCardModalVisible} />
     </>

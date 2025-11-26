@@ -1,6 +1,5 @@
-import { Config } from 'react-native-config';
-
 import { TTrackingData, TTrackingEvents } from '../_models';
+import { Config } from './env';
 
 export const TrackingConfig = {
   appEnvironmentSchema: 'iglu:be.general/app_env/jsonschema/1-0-0',

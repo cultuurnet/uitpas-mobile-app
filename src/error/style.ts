@@ -1,3 +1,4 @@
+import { Image as ExpoImage } from 'expo-image';
 import styled from 'styled-components/native';
 
 import { Button } from '../_components';
@@ -9,7 +10,7 @@ export const BottomContainer = styled.View`
   margin-bottom: auto;
 `;
 
-export const ErrorImage = styled.Image`
+export const ErrorImage = styled(ExpoImage)`
   margin: 60px 0;
   width: 156px;
   height: 156px;

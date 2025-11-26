@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { Reward, Typography } from '../../../_components';
+import { PressableOpacity, Reward, Typography } from '../../../_components';
 import { theme } from '../../../_styles/theme';
 
 export const Container = styled.View`
@@ -19,7 +19,7 @@ export const SectionTile = styled(Typography)`
   flex: 1;
 `;
 
-export const ShowMoreButton = styled.TouchableOpacity`
+export const ShowMoreButton = styled(PressableOpacity)`
   flex-direction: row;
   align-items: center;
 `;

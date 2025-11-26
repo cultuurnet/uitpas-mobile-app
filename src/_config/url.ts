@@ -1,6 +1,6 @@
 import { ConfigEnvironment } from './environments';
 
-type TConfigUrl = Record<ConfigEnvironment, string>;
+type TConfigUrl = Record<typeof ConfigEnvironment, string>;
 type TConfigUrlIdentifiers =
   | 'register'
   | 'buy'

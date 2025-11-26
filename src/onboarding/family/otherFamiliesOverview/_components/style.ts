@@ -1,3 +1,4 @@
+import { Image as ExpoImage } from 'expo-image';
 import styled from 'styled-components/native';
 
 const IMAGE_SIZE = 128;
@@ -8,7 +9,7 @@ export const Container = styled.View`
   background-color: ${({ theme }) => theme.palette.primary[700]};
 `;
 
-export const Image = styled.Image<{ parentHeight: number }>`
+export const Image = styled(ExpoImage)<{ parentHeight: number }>`
   position: absolute;
   top: ${({ parentHeight }) => parentHeight / 2 - IMAGE_SIZE / 2}px;
   right: 16px;

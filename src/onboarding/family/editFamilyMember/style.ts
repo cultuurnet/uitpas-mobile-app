@@ -1,6 +1,7 @@
+import { Image as ExpoImage } from 'expo-image';
 import styled from 'styled-components/native';
 
-import { TouchableRipple, Typography } from '../../../_components';
+import { PressableRipple, Typography } from '../../../_components';
 import { theme } from '../../../_styles/theme';
 import DeleteFamilyMember from '../deleteFamilyMember/DeleteFamilyMember';
 
@@ -18,7 +19,7 @@ export const UitpasNumber = styled(Typography)`
   margin-top: 8px;
 `;
 
-export const SelectedAvatarImage = styled.Image`
+export const SelectedAvatarImage = styled(ExpoImage)`
   width: 96px;
   height: 96px;
   border-radius: 48px;
@@ -29,9 +30,9 @@ export const Description = styled(Typography)`
   font-size: 12px;
 `;
 
-export const AvatarItemBorder = styled(TouchableRipple)<{ isSelected: boolean }>`
+export const AvatarItemBorder = styled(PressableRipple)<{ isSelected: boolean }>`
   margin-horizontal: 8px;
-  border-widtrh: 2px;
+  border-width: 2px;
   border-color: ${({ isSelected }) => (isSelected ? theme.palette.primary['700'] : 'transparent')};
   border-radius: 27px;
 `;
@@ -40,7 +41,7 @@ export const AvatarItemContainer = styled.View`
   padding: 2px;
 `;
 
-export const AvatarItemImage = styled.Image`
+export const AvatarItemImage = styled(ExpoImage)`
   width: 48px;
   height: 48px;
 `;

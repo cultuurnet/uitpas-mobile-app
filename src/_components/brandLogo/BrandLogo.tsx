@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { Image } from 'react-native';
 
 import { Logo, LogoInverse } from '../../_assets/images';
+import * as Styled from './style';
 
 type TProps = {
   height?: number;
@@ -9,7 +9,7 @@ type TProps = {
 };
 
 const BrandLogo: FC<TProps> = ({ inverse, height = 24 }) => {
-  return <Image resizeMode="contain" source={inverse ? LogoInverse : Logo} style={{ height }} />;
+  return <Styled.LogoImage contentFit="contain" height={height} source={inverse ? LogoInverse : Logo} />;
 };
 
 export default BrandLogo;

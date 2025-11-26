@@ -49,7 +49,9 @@ const Shop = ({ navigation }: TProps) => {
               <EnlargedHeader height={30} />
               <Styled.SearchContainer>
                 <Styled.SearchButton onPress={() => navigation.push('Search')}>
-                  <Styled.SearchInput editable={false} placeholder={t('SHOP.SEARCH.PLACEHOLDER')} pointerEvents="none" />
+                  <Styled.SearchInputContainer>
+                    <Styled.SearchPlaceholderText>{t('SHOP.SEARCH.PLACEHOLDER')}</Styled.SearchPlaceholderText>
+                  </Styled.SearchInputContainer>
                 </Styled.SearchButton>
                 <Styled.SearchIcon color="primary.700" name="Search" size={18} />
               </Styled.SearchContainer>
@@ -66,7 +68,6 @@ const Shop = ({ navigation }: TProps) => {
             <RewardsSection
               category={category}
               horizontal={horizontal}
-              key={title}
               loadNextSection={loadNextSection}
               section={section}
               title={t(title, { city: user?.address?.city || t('SHOP.SECTIONS.CITY_FALLBACK') })}

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 export const Animals0 = require('./animals-0.png');
 export const Animals1 = require('./animals-1.png');
 export const Animals2 = require('./animals-2.png');
