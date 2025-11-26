@@ -115,7 +115,7 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
           <Styled.Title fontStyle="bold" size="xxlarge">
             {reward.title}
           </Styled.Title>
-          <Typography color="primary.800">{firstOrganizer?.name}</Typography>
+          {firstOrganizer && organizers.length === 0 && <Typography color="primary.800">{firstOrganizer?.name}</Typography>}
         </Styled.Content>
 
         <RedeemStatusButton
