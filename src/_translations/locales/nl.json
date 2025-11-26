@@ -264,8 +264,9 @@
     "COLLECT_OFFLINE_SINGLE": "Om dit voordeel om te ruilen moet je naar een van de locaties hierboven. Toon <button>je UiTPAS</button> aan een medewerker om je punten te ruilen.",
     "COLLECT_OFFLINE_FAMILY": "Om dit voordeel om te ruilen moet je naar een van de locaties hierboven. Toon <button>je UiTPAS</button> (of die van het gezinslid waarvoor je wil ruilen) aan een medewerker om de punten te ruilen.",
     "OTHER_REWARDS": "Meer voordelen op deze locatie",
-    "SHOW_MORE": "Toon meer",
-    "SHOW_LESS": "Toon minder",
+    "SHOW_MORE": "Toon {{count}} andere locatie",
+    "SHOW_MORE_plural": "Toon {{count}} andere locaties",
+    "SHOW_LESS": "Toon minder locaties",
     "GENERIC_REDEEM_ERROR": "Er is iets misgegaan",
     "RETRY": "Probeer opnieuw",
     "AVAILABILITY_DETAILS": {
