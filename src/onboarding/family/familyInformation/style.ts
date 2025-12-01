@@ -1,3 +1,4 @@
+import { Image as ExpoImage } from 'expo-image';
 import styled from 'styled-components/native';
 
 import { Icon, Typography } from '../../../_components';
@@ -8,7 +9,7 @@ export const ArrowUp = styled(Icon)`
   right: 0px;
 `;
 
-export const BackgroundImage = styled.Image`
+export const BackgroundImage = styled(ExpoImage)`
   z-index: -1;
   position: absolute;
   width: 100%;

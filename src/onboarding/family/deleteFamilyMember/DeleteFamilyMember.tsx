@@ -8,17 +8,12 @@ import { queryClient, useTracking } from '../../../_context';
 import { useDeleteFamilyMember } from '../_queries';
 import * as Styled from './style';
 
-type TProps = {
-  familyMemberId: string;
-  firstName: string;
-  fullName: string;
-  style?: StyleProp<ViewStyle>;
-};
+type TProps = { familyMemberId: string; firstName: string; fullName: string; style?: StyleProp<ViewStyle> };
 
 const DeleteFamilyMember = ({ firstName, fullName, familyMemberId, style }: TProps) => {
   const navigation = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
-  const { mutateAsync, isLoading } = useDeleteFamilyMember(familyMemberId);
+  const { mutateAsync, isPending } = useDeleteFamilyMember(familyMemberId);
   const { trackSelfDescribingEvent } = useTracking();
   const { t } = useTranslation();
 
@@ -29,7 +24,7 @@ const DeleteFamilyMember = ({ firstName, fullName, familyMemberId, style }: TPro
   const handleDelete = async () => {
     await mutateAsync({});
     trackSelfDescribingEvent('successMessage', { message: 'family-member-deleted' });
-    queryClient.invalidateQueries(['family']);
+    queryClient.invalidateQueries({ queryKey: ['family'] });
     handleToggleIsVisible();
     navigation.goBack();
   };
@@ -51,7 +46,7 @@ const DeleteFamilyMember = ({ firstName, fullName, familyMemberId, style }: TPro
           backgroundColor="error.700"
           fontStyle="semibold"
           label={t('ONBOARDING.FAMILY.DELETE_MEMBER.CONFIRMATION_MODAL.CONFIRM')}
-          loading={isLoading}
+          loading={isPending}
           onPress={handleDelete}
           underline={false}
         />

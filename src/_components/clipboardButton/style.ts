@@ -1,8 +1,9 @@
 import styled from 'styled-components/native';
 
 import { theme } from '../../_styles/theme';
+import PressableHighlight from '../pressable/PressableHighlight';
 
-export const Container = styled.TouchableHighlight`
+export const Container = styled(PressableHighlight)`
   flex-direction: row;
   align-items: center;
   padding: ${theme.common.defaultSpacing}px;

@@ -12,9 +12,6 @@ import { useGetMe } from '../profile/_queries/useGetMe';
 import { useGetRedeemedRewards } from './_queries/useGetRedeemedRewards';
 import * as Styled from './style';
 
-// When everything fits on 1 line, and device font-size is not increased, the height of a listitem is 125
-const MIMIMAL_REWARD_HEIGHT = 125;
-
 type TProps = {
   navigation: TRootStackNavigationProp<'RedeemedRewards'>;
 };
@@ -65,7 +62,6 @@ export const RedeemedRewards = ({ navigation }: TProps) => {
         }
         contentContainerStyle={{ paddingBottom: 105, paddingTop: 24 }}
         data={members}
-        estimatedItemSize={MIMIMAL_REWARD_HEIGHT}
         keyExtractor={item => item.id}
         onEndReached={!isRewardsLoading ? fetchNextPage : () => {}}
         onEndReachedThreshold={0.1}

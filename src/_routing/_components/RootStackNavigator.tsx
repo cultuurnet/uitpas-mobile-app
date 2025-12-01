@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import SplashScreen from 'react-native-lottie-splash-screen';
+import { Platform } from 'react-native';
 import { HeaderBackButton } from '@react-navigation/elements';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as SplashScreen from 'expo-splash-screen';
 
 import { Icon } from '../../_components';
 import { FamilyUserPoints, SingleUserPoints } from '../../_components/userPoints';
@@ -43,6 +44,8 @@ import UpdateScreen from '../../update/UpdateScreen';
 import { MainNavigator, useMainHeaderProps } from './MainNavigator';
 import { TRootStackParamList } from './TRootStackParamList';
 
+SplashScreen.preventAutoHideAsync();
+
 const RootStack = createNativeStackNavigator<TRootStackParamList>();
 
 export const RootStackNavigator = () => {
@@ -54,7 +57,7 @@ export const RootStackNavigator = () => {
   const isPolicyApprovedInStorage = storage.getBoolean(StorageKey.IsPolicyApproved);
 
   useEffect(() => {
-    if (isInitialized) SplashScreen.hide();
+    if (isInitialized) SplashScreen?.hideAsync();
   }, [isInitialized]);
 
   useEffect(() => {
@@ -64,6 +67,7 @@ export const RootStackNavigator = () => {
 
   return (
     <RootStack.Navigator
+      id={undefined}
       screenOptions={{
         ...generalStyles.navigationHeader,
         gestureEnabled: true,
@@ -94,7 +98,7 @@ export const RootStackNavigator = () => {
             component={AddFamilyMember}
             name="AddFamilyMember"
             options={{
-              headerBackTitleVisible: false,
+              headerBackButtonDisplayMode: 'minimal',
               title: i18n.t('ONBOARDING.FAMILY.ADD_MEMBER.TITLE'),
             }}
           />
@@ -110,7 +114,7 @@ export const RootStackNavigator = () => {
             component={EditFamilyMember}
             name="EditFamilyMember"
             options={{
-              headerBackTitleVisible: false,
+              headerBackButtonDisplayMode: 'minimal',
               title: i18n.t('ONBOARDING.FAMILY.EDIT_MEMBER.TITLE'),
             }}
           />
@@ -145,7 +149,7 @@ export const RootStackNavigator = () => {
                 <HeaderBackButton
                   {...props}
                   backImage={() => <Icon color="neutral.0" name="Close" size={14} />}
-                  labelVisible={false}
+                  displayMode="minimal"
                   onPress={() => navigation.pop()}
                   style={{ marginRight: -10, padding: 10 }}
                 />
@@ -163,7 +167,7 @@ export const RootStackNavigator = () => {
             component={About}
             name="About"
             options={{
-              headerBackTitleVisible: false,
+              headerBackButtonDisplayMode: 'minimal',
               title: i18n.t('PROFILE.ABOUT.HEADER_TITLE'),
             }}
           />
@@ -171,8 +175,8 @@ export const RootStackNavigator = () => {
             component={FilteredShop}
             name="FilteredShop"
             options={({ route }) => ({
+              headerBackButtonDisplayMode: 'minimal',
               headerBackButtonMenuEnabled: false,
-              headerBackTitleVisible: false,
               headerRight: UserPoints,
               title: route?.params?.section === 'welkom' ? i18n.t('SHOP.WELCOME.HEADER_TITLE') : i18n.t('SHOP.HEADER_TITLE'),
             })}
@@ -181,7 +185,7 @@ export const RootStackNavigator = () => {
             component={History}
             name="History"
             options={{
-              headerBackTitleVisible: false,
+              headerBackButtonDisplayMode: 'minimal',
               headerRight: UserPoints,
               title: i18n.t('PROFILE.HISTORY.HEADER_TITLE'),
             }}
@@ -190,7 +194,7 @@ export const RootStackNavigator = () => {
             component={RedeemedRewards}
             name="RedeemedRewards"
             options={{
-              headerBackTitleVisible: false,
+              headerBackButtonDisplayMode: 'minimal',
               headerRight: UserPoints,
               title: i18n.t('PROFILE.REDEEMED_REWARDS.HEADER_TITLE'),
             }}
@@ -199,13 +203,20 @@ export const RootStackNavigator = () => {
             component={RedeemedReward}
             name="RedeemedReward"
             options={({ navigation, route }) => ({
-              headerBackTitleVisible: false,
+              headerBackButtonDisplayMode: 'minimal',
               headerRight: props =>
                 route.params?.isModal ? (
                   <HeaderBackButton
                     {...props}
-                    backImage={() => <Icon color="neutral.0" name="Close" size={14} />}
-                    labelVisible={false}
+                    backImage={() => (
+                      <Icon
+                        color={Platform.OS === 'ios' ? 'neutral.1200' : 'neutral.0'}
+                        name="Close"
+                        size={14}
+                        style={Platform.OS === 'ios' ? { marginLeft: 10 } : undefined}
+                      />
+                    )}
+                    displayMode="minimal"
                     onPress={() => navigation.pop()}
                     style={{ marginRight: -10, padding: 10 }}
                   />
@@ -218,8 +229,8 @@ export const RootStackNavigator = () => {
             component={ShopDetail}
             name="ShopDetail"
             options={{
+              headerBackButtonDisplayMode: 'minimal',
               headerBackButtonMenuEnabled: false,
-              headerBackTitleVisible: false,
               headerRight: UserPoints,
               title: i18n.t('SHOP_DETAIL.HEADER_TITLE'),
             }}
@@ -228,13 +239,13 @@ export const RootStackNavigator = () => {
             component={SearchFilters}
             name="SearchFilters"
             options={({ navigation }) => ({
-              headerBackTitleVisible: false,
+              headerBackButtonDisplayMode: 'minimal',
               headerBackVisible: false,
               headerRight: props => (
                 <HeaderBackButton
                   {...props}
                   backImage={() => <Icon color="neutral.0" name="Close" size={14} />}
-                  labelVisible={false}
+                  displayMode="minimal"
                   onPress={() => navigation.pop()}
                   style={{ marginRight: -10, padding: 10 }}
                 />
@@ -245,7 +256,7 @@ export const RootStackNavigator = () => {
           />
           <RootStack.Group
             screenOptions={{
-              headerBackTitleVisible: false,
+              headerBackButtonDisplayMode: 'minimal',
             }}
           >
             <RootStack.Screen
@@ -253,7 +264,13 @@ export const RootStackNavigator = () => {
               name="FamilyOverview"
               options={{
                 headerRight: () => (
-                  <Icon color="neutral.0" name="Info" onPress={() => openExternalURL(ConfigUrl.familyFaq)} size={24} />
+                  <Icon
+                    color={Platform.OS === 'ios' ? 'neutral.1200' : 'neutral.0'}
+                    name="Info"
+                    onPress={() => openExternalURL(ConfigUrl.familyFaq)}
+                    size={24}
+                    style={Platform.OS === 'ios' ? { marginLeft: 6 } : undefined}
+                  />
                 ),
                 title: i18n.t('ONBOARDING.FAMILY.OVERVIEW.TITLE'),
               }}
@@ -291,7 +308,7 @@ export const RootStackNavigator = () => {
               component={FamiliesOverview}
               name="FamiliesOverview"
               options={{
-                headerBackTitleVisible: false,
+                headerBackButtonDisplayMode: 'minimal',
                 title: i18n.t('PROFILE.LINKS.MY_FAMILY'),
               }}
             />

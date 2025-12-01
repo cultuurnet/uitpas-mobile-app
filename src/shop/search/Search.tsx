@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Keyboard, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { FlashList } from '@shopify/flash-list';
+import { FlashList, FlashListRef } from '@shopify/flash-list';
 
 import { EnlargedHeader, PillButton, Reward, SafeAreaView, Typography } from '../../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../../_routing';
@@ -48,7 +48,7 @@ export const Search = ({ navigation, route }: TProps) => {
   });
   const results = useMemo(() => searchResults?.pages?.flatMap(({ member }) => member) ?? [], [searchResults]);
 
-  const ref = useRef<FlashList<TReward>>(null);
+  const ref = useRef<FlashListRef<TReward>>(null);
 
   const onClose = useCallback(() => {
     setSearch('');
@@ -123,7 +123,6 @@ export const Search = ({ navigation, route }: TProps) => {
                   </Styled.SearchFilters>
                 }
                 data={results}
-                estimatedItemSize={117}
                 keyExtractor={item => item.id}
                 keyboardShouldPersistTaps="handled"
                 onEndReached={!isSearchLoading ? fetchNextPage : null}
@@ -135,22 +134,18 @@ export const Search = ({ navigation, route }: TProps) => {
           ) : (
             <>
               <Styled.PopularItem key={`search-${user.address.city}`} onPress={() => onSearch(user.address.city)}>
-                <>
-                  <Styled.PopularItemIcon name="Popular" size={20} />
-                  <Typography color="primary.800">{user.address.city}</Typography>
-                </>
+                <Styled.PopularItemIcon name="Popular" size={20} />
+                <Typography color="primary.800">{user.address.city}</Typography>
               </Styled.PopularItem>
-              <Styled.Separator />
+              <Styled.Separator key={`separator-${user.address.city}`} />
               {SEARCH_TERMS.map(({ keyword, label }) => (
-                <>
-                  <Styled.PopularItem key={`search-${keyword}`} onPress={() => onSearch(keyword)}>
-                    <>
-                      <Styled.PopularItemIcon name="Popular" size={20} />
-                      <Typography color="primary.800">{t(label)}</Typography>
-                    </>
+                <React.Fragment key={`search-${keyword}`}>
+                  <Styled.PopularItem onPress={() => onSearch(keyword)}>
+                    <Styled.PopularItemIcon name="Popular" size={20} />
+                    <Typography color="primary.800">{t(label)}</Typography>
                   </Styled.PopularItem>
-                  <Styled.Separator />
-                </>
+                  <Styled.Separator key={`separator-${keyword}`} />
+                </React.Fragment>
               ))}
             </>
           )}

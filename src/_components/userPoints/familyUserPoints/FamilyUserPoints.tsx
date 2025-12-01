@@ -17,8 +17,8 @@ export const FamilyUserPoints = ({ members }: TProps) => {
     <Styled.Container onPress={() => navigation.navigate('MainNavigator', { screen: 'Profile' })}>
       {members.slice(0, numberOfAvatarsToShow).map((member, index) => (
         <Styled.AvatarImage
+          contentFit="contain"
           key={member.passholder.id}
-          resizeMode="contain"
           source={getAvatarByNameOrDefault(member.icon)}
           style={[{ zIndex: numberOfAvatarsToShow - index - 1 }, index > 0 && { marginLeft: -10 }]}
         />

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 export * from './avatars';
 export const Check = require('./check.png');
 export const Counter = require('./counter.png');

@@ -13,10 +13,7 @@ import { useCheckin } from '../_queries/useCheckin';
 import { TFamilyScanResponse } from '../familyCheckinSummary/_models';
 import * as Styled from './style';
 
-type TProps = {
-  navigation: TRootStackNavigationProp<'ScanSuccess'>;
-  route: TRootStackRouteProp<'FamilyCheckin'>;
-};
+type TProps = { navigation: TRootStackNavigationProp<'ScanSuccess'>; route: TRootStackRouteProp<'FamilyCheckin'> };
 
 const FamilyCheckin: FC = ({ navigation, route }: TProps) => {
   const {
@@ -31,7 +28,7 @@ const FamilyCheckin: FC = ({ navigation, route }: TProps) => {
   }, [familyMembers]);
   const [checkedFamilyMembers, setCheckedFamilyMembers] = useState<TFamilyMember[]>([]);
   const { trackSelfDescribingEvent } = useTracking();
-  const { mutateAsync: checkin, isLoading } = useCheckin();
+  const { mutateAsync: checkin, isPending } = useCheckin();
 
   const updateCheckedFamilyMembers = (value: boolean, checkedMember: TFamilyMember) => {
     if (value) {
@@ -60,23 +57,13 @@ const FamilyCheckin: FC = ({ navigation, route }: TProps) => {
         trackSelfDescribingEvent(
           'successMessage',
           { message: 'points-saved-success' },
-          {
-            up_action: {
-              ...sharedAction,
-              points: response.response.value.addedPoints,
-            },
-          },
+          { up_action: { ...sharedAction, points: response.response.value.addedPoints } },
         );
       } else {
         trackSelfDescribingEvent(
           'errorMessage',
           { message: response.response.error.type.replace(TRACKING_URL_REGEX, '') },
-          {
-            up_action: {
-              ...sharedAction,
-              points: 0,
-            },
-          },
+          { up_action: { ...sharedAction, points: 0 } },
         );
       }
     });
@@ -103,7 +90,7 @@ const FamilyCheckin: FC = ({ navigation, route }: TProps) => {
                   <Styled.FamilyMemberName color={checkedFamilyMembers.includes(familyMember) ? 'neutral.0' : 'neutral.900'}>
                     {familyMember.passholder.firstName}
                   </Styled.FamilyMemberName>
-                  <Styled.FamilyMemberAvatar resizeMode="contain" source={getAvatarByNameOrDefault(familyMember?.icon)} />
+                  <Styled.FamilyMemberAvatar contentFit="contain" source={getAvatarByNameOrDefault(familyMember?.icon)} />
                 </Styled.FamilyMemberLabel>
               }
               onChange={value => updateCheckedFamilyMembers(value, familyMember)}
@@ -114,7 +101,7 @@ const FamilyCheckin: FC = ({ navigation, route }: TProps) => {
         <Styled.CheckinButton
           disabled={checkedFamilyMembers.length === 0}
           label={t('SCAN.FAMILY_MEMBERS.CHECKIN')}
-          loading={isLoading}
+          loading={isPending}
           onPress={handleCheckins}
         />
       </Styled.SafeAreaViewContainer>

@@ -52,7 +52,6 @@ export const CategoryFilters = () => {
       <FlashList
         contentContainerStyle={{ paddingHorizontal: theme.common.defaultSpacing }}
         data={CATEGORIES}
-        estimatedItemSize={147}
         horizontal
         keyExtractor={item => item.icon}
         onScroll={({

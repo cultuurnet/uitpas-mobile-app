@@ -1,3 +1,4 @@
+import { Image as ExpoImage } from 'expo-image';
 import styled from 'styled-components/native';
 
 export const Item = styled.View`
@@ -7,7 +8,7 @@ export const Item = styled.View`
   padding-vertical: 12px;
 `;
 
-export const Avatar = styled.Image`
+export const Avatar = styled(ExpoImage)`
   width: 48px;
   height: 48px;
   border-radius: 24px;

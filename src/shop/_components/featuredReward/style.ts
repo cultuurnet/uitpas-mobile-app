@@ -1,9 +1,9 @@
 import styled from 'styled-components/native';
 
-import TouchableRipple from '../../../_components/touchableRipple/TouchableRipple';
+import { PressableRipple } from '../../../_components';
 import { theme } from '../../../_styles/theme';
 
-export const Container = styled(TouchableRipple)`
+export const Container = styled(PressableRipple)`
   background-color: ${theme.palette.primary[600]};
   border-radius: 8px;
   flex-direction: row;

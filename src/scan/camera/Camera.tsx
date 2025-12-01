@@ -27,9 +27,7 @@ import { useCheckin } from '../_queries/useCheckin';
 import CameraSettings from '../cameraSettings/CameraSettings';
 import CameraOverlay from './CameraOverlay';
 
-type TProps = {
-  navigation: TMainNavigationProp<'Camera'>;
-};
+type TProps = { navigation: TMainNavigationProp<'Camera'> };
 
 const MODELS_WITH_CAMERA_ISSUE = [
   'SM-A235F',
@@ -47,11 +45,7 @@ const MODELS_WITH_CAMERA_ISSUE = [
   'SM-A236V',
 ];
 
-const overlaySettings: TOverlayDimensions = {
-  cornerLength: 20,
-  padding: 75,
-  strokeWidth: 4,
-};
+const overlaySettings: TOverlayDimensions = { cornerLength: 20, padding: 75, strokeWidth: 4 };
 
 const Camera = ({ navigation }: TProps) => {
   const [isActive, setIsActive] = useState(true);
@@ -60,14 +54,14 @@ const Camera = ({ navigation }: TProps) => {
   const { hasCameraPermission } = useCameraPermission();
   const [overlayDimensions, setOverlayDimensions] = useState({ height: 0, width: 0 });
   const overlay = useOverlayDimensions(overlayDimensions, overlaySettings);
-  const { mutateAsync: checkin, isLoading } = useCheckin();
+  const { mutateAsync: checkin, isPending } = useCheckin();
   const { data: hasFamilyMembers } = useHasFamilyMembers();
 
   const codeScanner = useCodeScanner({
     codeTypes: ['qr'],
     onCodeScanned: (codes, frame) => {
       runAtTargetFps(5, () => {
-        if (isActive && !isLoading && codes.length > 0) {
+        if (isActive && !isPending && codes.length > 0) {
           onBarCodeDetected(codes[0], frame);
         }
       });
@@ -99,9 +93,7 @@ const Camera = ({ navigation }: TProps) => {
     // if (isInRange(code, overlay.regionDefinition, frame)) {
     try {
       setIsActive(false);
-      const response = await checkin({
-        body: { checkinCode: code.value },
-      });
+      const response = await checkin({ body: { checkinCode: code.value } });
       trackSelfDescribingEvent(
         'successMessage',
         { message: 'points-saved-success' },
@@ -138,7 +130,7 @@ const Camera = ({ navigation }: TProps) => {
     <>
       <Analytics screenName="Camera" />
       <View onLayout={handleLayoutChange} style={StyleSheet.absoluteFill}>
-        <FocusAwareStatusBar backgroundColor={theme.palette.neutral['900']} barStyle="light-content" />
+        <FocusAwareStatusBar backgroundColor={theme.palette.neutral['900']} style="light" />
         <VisionCamera
           codeScanner={codeScanner}
           device={device}
@@ -146,7 +138,7 @@ const Camera = ({ navigation }: TProps) => {
           isActive={isActive && overlayDimensions.width !== 0}
           style={overlayDimensions}
         />
-        <CameraOverlay config={overlay} isLoading={isLoading} settings={overlaySettings} />
+        <CameraOverlay config={overlay} isLoading={isPending} settings={overlaySettings} />
       </View>
     </>
   );

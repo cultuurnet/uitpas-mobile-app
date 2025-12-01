@@ -1,3 +1,4 @@
+import { Image as ExpoImage } from 'expo-image';
 import styled from 'styled-components/native';
 
 import { Button, ClipboardButton, ExternalLink, Icon } from '../_components';
@@ -49,7 +50,7 @@ export const LinkInlineButton = styled(ExternalLink)`
   margin-bottom: 24px;
 `;
 
-export const MemberAvatar = styled.Image`
+export const MemberAvatar = styled(ExpoImage)`
   width: 48px;
   height: 48px;
   border-radius: 24px;
@@ -65,4 +66,9 @@ export const MemberAvatarLine = styled.View`
   margin-left: 24px;
   z-index: -1;
   background-color: ${theme.palette.secondary[500]};
+`;
+
+export const GiftOpenImage = styled(ExpoImage)`
+  width: 34px;
+  height: 57px;
 `;

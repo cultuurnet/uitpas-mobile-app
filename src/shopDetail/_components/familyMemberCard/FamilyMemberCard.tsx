@@ -17,7 +17,7 @@ export const FamilyMemberCard = ({ title, member }: TProps) => {
     <>
       {title && <Typography fontStyle="bold">{title}</Typography>}
       <Styled.Card>
-        <Styled.Avatar resizeMode="contain" source={getAvatarByNameOrDefault(member.icon)} />
+        <Styled.Avatar contentFit="contain" source={getAvatarByNameOrDefault(member.icon)} />
         <Styled.Body>
           <Typography fontStyle="bold" numberOfLines={1}>
             {member.passholder.firstName}

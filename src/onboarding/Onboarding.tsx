@@ -1,4 +1,3 @@
-import { Platform } from 'react-native';
 import { t } from 'i18next';
 
 import { Counter } from '../_assets/images';
@@ -21,12 +20,12 @@ const Onboarding = () => {
   return (
     <>
       <Analytics screenName="Onboarding" />
-      <SafeAreaView backgroundColor="neutral.0" barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}>
+      <SafeAreaView backgroundColor="neutral.0" barStyle="dark">
         <Styled.TopContainer>
           <Styled.TitleText color="primary.800" fontStyle="bold" size="large">
             {t('ONBOARDING.TITLE')}
           </Styled.TitleText>
-          <Styled.Image source={Counter} />
+          <Styled.Image source={Counter} style={{ height: 157, width: 151 }} />
           <Styled.IntroText align="center" color="neutral.900">
             {t('ONBOARDING.INTRO')}
           </Styled.IntroText>

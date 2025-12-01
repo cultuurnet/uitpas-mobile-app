@@ -5,15 +5,16 @@ import { HttpClient } from '../../_http';
 import { TVersion } from '../_models';
 import { checkVersion } from '../_util/checkVersion';
 
-function getVersions(): Promise<TVersion> {
+function getVersions() {
   return HttpClient.get<TVersion>(ConfigUrl.version);
 }
 
 export function useGetVersions() {
-  const { data: versions } = useQuery<TVersion, unknown>(['versions'], () => getVersions(), {
-    cacheTime: 0,
-    networkMode: 'online',
-    refetchOnWindowFocus: 'always',
+  const { data: versions } = useQuery({
+    queryFn: getVersions,
+    queryKey: ['versions'] as const,
+    refetchOnWindowFocus: true,
   });
+
   return versions ? checkVersion(versions) : undefined;
 }

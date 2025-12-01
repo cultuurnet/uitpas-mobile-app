@@ -1,3 +1,4 @@
+import { Image as ExpoImage } from 'expo-image';
 import styled from 'styled-components/native';
 
 const CARD_MARGIN = 20;
@@ -23,7 +24,7 @@ export const UserInfoContainer = styled.View`
   z-index: 2;
 `;
 
-export const UserAvatar = styled.Image`
+export const UserAvatar = styled(ExpoImage)`
   width: 32px;
   height: 32px;
   margin-right: 8px;
@@ -44,7 +45,7 @@ export const CardContainer = styled.View`
 `;
 
 export const LogoContainer = styled.View`
-  margin-left: -40px;
+  margin-left: 16px;
   margin-top: 15px;
   z-index: 2;
 `;

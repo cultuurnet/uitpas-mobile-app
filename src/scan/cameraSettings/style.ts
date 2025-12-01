@@ -1,3 +1,4 @@
+import { Image as ExpoImage } from 'expo-image';
 import styled from 'styled-components/native';
 
 import { Button, Typography } from '../../_components';
@@ -12,8 +13,10 @@ export const TitleText = styled(Typography)`
   margin-top: 42px;
 `;
 
-export const Image = styled.Image`
+export const Image = styled(ExpoImage)`
   margin-top: 60px;
+  width: 155px;
+  height: 167px;
 `;
 
 export const IntroText = styled(Typography)`

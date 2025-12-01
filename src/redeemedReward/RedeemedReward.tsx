@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 
 import { GiftOpen } from '../_assets/images';
@@ -33,7 +33,7 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
         <Styled.MemberAvatarLine style={{ transform: [{ rotate: '25deg' }] }} />
       </View>
     ),
-    SingleComponent: () => <Image source={GiftOpen} />,
+    SingleComponent: () => <Styled.GiftOpenImage source={GiftOpen} />,
   });
 
   useFocusEffect(
@@ -117,7 +117,7 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
         />
 
         {!!redeemedReward?.redeemInfo?.text && (
-          <HtmlRenderer fontSize={16} onLinkPress={handleLinkPress} source={{ html: redeemedReward.redeemInfo.text }} />
+          <HtmlRenderer fontSize="normal" onLinkPress={handleLinkPress} source={{ html: redeemedReward.redeemInfo.text }} />
         )}
 
         {/* Added spacer because we can't set margin bottom on the HtmlRenderer */}

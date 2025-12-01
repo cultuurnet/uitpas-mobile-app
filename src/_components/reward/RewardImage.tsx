@@ -16,15 +16,15 @@ const RewardImage = ({ children, picture, hasRadius = false, largeSpacing = fals
   return (
     <>
       <Styled.Image
+        contentFit="cover"
         hasRadius={hasRadius}
         onError={() => setIsImageError(true)}
-        resizeMode="cover"
         source={!isImageError && picture ? { uri: picture } : Gift}
         {...props}
       />
       {!!children && (
-        <Styled.Gradient colors={['#00000000', '#00000000', '#000000']} largeSpacing={largeSpacing}>
-          {children}
+        <Styled.Gradient colors={['#00000000', '#00000000', '#000000']}>
+          <Styled.RewardImageContent largeSpacing={largeSpacing}>{children}</Styled.RewardImageContent>
         </Styled.Gradient>
       )}
     </>
