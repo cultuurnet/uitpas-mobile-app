@@ -42,11 +42,6 @@ private_lane :build_android do |options|
   env = options[:env]
   gradle_task = env == "production" ? "clean bundle" : "clean assemble"
 
-  puts "STORE_FILE=#{ENV['STORE_FILE']}"
-  puts "STORE_PASSWORD=#{ENV['STORE_PASSWORD']}"
-  puts "KEY_ALIAS=#{ENV['KEY_ALIAS']}"
-  puts "KEY_PASSWORD=#{ENV['KEY_PASSWORD']}"  
-
   # gradle(
   #   task: gradle_task,
   #   build_type: "Release",
@@ -92,65 +87,75 @@ private_lane :build_ios do |options|
   app_name = ENV["EXPO_PUBLIC_APP_NAME"].gsub(/\s/, '')
   xcodeproject_path = "./ios/#{app_name}.xcodeproj"
 
-  # Select Xcode version
-  sh("ls -la /Applications/ | grep -i xcode") if is_ci?
-  xcode_select("/Applications/Xcode.app") if is_ci?
+  # Print iOS build environment variables
+  puts "CI_IOS_TEAM_ID: #{ENV['CI_IOS_TEAM_ID']}"
+  puts "CI_IOS_CODE_SIGN_IDENTITY: #{ENV['CI_IOS_CODE_SIGN_IDENTITY']}"
+  puts "CI_IOS_PROVISIONING_PROFILE: #{ENV['CI_IOS_PROVISIONING_PROFILE']}"
+  puts "CI_IOS_USERNAME: #{ENV['CI_IOS_USERNAME']}"
+  puts "CI_IOS_TEAM_NAME: #{ENV['CI_IOS_TEAM_NAME']}"
+  puts "CI_IOS_APPLE_ID: #{ENV['CI_IOS_APPLE_ID']}"
+  puts "CI_FIREBASE_IOS_APP_ID: #{ENV['CI_FIREBASE_IOS_APP_ID']}"
+  puts "CI_FIREBASE_IOS_GROUPS: #{ENV['CI_FIREBASE_IOS_GROUPS']}"
 
-  # Set up code signing
-  disable_automatic_code_signing(path: xcodeproject_path)
-  update_code_signing_settings(
-    use_automatic_signing: false,
-    path: xcodeproject_path,
-    team_id: ENV['CI_IOS_TEAM_ID'],
-    bundle_identifier: ENV["EXPO_PUBLIC_APP_PACKAGE_NAME"],
-    code_sign_identity: ENV['CI_IOS_CODE_SIGN_IDENTITY'],
-  )
+  # # Select Xcode version
+  # sh("ls -la /Applications/ | grep -i xcode") if is_ci?
+  # xcode_select("/Applications/Xcode.app") if is_ci?
 
-  # Install provisioning profiles
-  install_provisioning_profiles if is_ci?
-  update_project_provisioning(
-    xcodeproj: xcodeproject_path,
-    profile: ENV["CI_IOS_PROVISIONING_PROFILE"],
-    target_filter: app_name,
-    build_configuration: "Release",
-  )
+  # # Set up code signing
+  # disable_automatic_code_signing(path: xcodeproject_path)
+  # update_code_signing_settings(
+  #   use_automatic_signing: false,
+  #   path: xcodeproject_path,
+  #   team_id: ENV['CI_IOS_TEAM_ID'],
+  #   bundle_identifier: ENV["EXPO_PUBLIC_APP_PACKAGE_NAME"],
+  #   code_sign_identity: ENV['CI_IOS_CODE_SIGN_IDENTITY'],
+  # )
 
-  # Set build number
-  increment_build_number(
-    xcodeproj: xcodeproject_path,
-    build_number: ENV.fetch("BUILD_NUMBER", "1")
-  )
+  # # Install provisioning profiles
+  # install_provisioning_profiles if is_ci?
+  # update_project_provisioning(
+  #   xcodeproj: xcodeproject_path,
+  #   profile: ENV["CI_IOS_PROVISIONING_PROFILE"],
+  #   target_filter: app_name,
+  #   build_configuration: "Release",
+  # )
 
-  # Build app
-  build_app(
-    workspace: "./ios/#{app_name}.xcworkspace",
-    configuration: "Release",
-    export_method: env == "production" ? "app-store" : "enterprise",
-    output_directory: "./ios/build"
-  )
+  # # Set build number
+  # increment_build_number(
+  #   xcodeproj: xcodeproject_path,
+  #   build_number: ENV.fetch("BUILD_NUMBER", "1")
+  # )
 
-  # Upload
-  app_name = ENV["EXPO_PUBLIC_APP_NAME"].gsub(/\s/, '')
-  if env == "production"
-    upload_to_testflight(
-      username: ENV["CI_IOS_USERNAME"],
-      team_name: ENV["CI_IOS_TEAM_NAME"],
-      team_id: ENV["CI_IOS_TEAM_ID"],
-      app_identifier: ENV["EXPO_PUBLIC_APP_PACKAGE_NAME"],
-      apple_id: ENV["CI_IOS_APPLE_ID"],
-      itc_provider: ENV["CI_IOS_APPLE_ID"],
-      ipa: "ios/build/#{app_name}.ipa",
-      skip_submission: true,
-      skip_waiting_for_build_processing: true,
-    )
-  else
-    firebase_app_distribution(
-      env: options[:env],
-      app: ENV["CI_FIREBASE_IOS_APP_ID"],
-      service_credentials_file: "fastlane/credentials.json",
-      groups: ENV["CI_FIREBASE_IOS_GROUPS"],
-      debug: true,
-      ipa_path: "ios/build/#{app_name}.ipa"
-    )
-  end
+  # # Build app
+  # build_app(
+  #   workspace: "./ios/#{app_name}.xcworkspace",
+  #   configuration: "Release",
+  #   export_method: env == "production" ? "app-store" : "enterprise",
+  #   output_directory: "./ios/build"
+  # )
+
+  # # Upload
+  # app_name = ENV["EXPO_PUBLIC_APP_NAME"].gsub(/\s/, '')
+  # if env == "production"
+  #   upload_to_testflight(
+  #     username: ENV["CI_IOS_USERNAME"],
+  #     team_name: ENV["CI_IOS_TEAM_NAME"],
+  #     team_id: ENV["CI_IOS_TEAM_ID"],
+  #     app_identifier: ENV["EXPO_PUBLIC_APP_PACKAGE_NAME"],
+  #     apple_id: ENV["CI_IOS_APPLE_ID"],
+  #     itc_provider: ENV["CI_IOS_APPLE_ID"],
+  #     ipa: "ios/build/#{app_name}.ipa",
+  #     skip_submission: true,
+  #     skip_waiting_for_build_processing: true,
+  #   )
+  # else
+  #   firebase_app_distribution(
+  #     env: options[:env],
+  #     app: ENV["CI_FIREBASE_IOS_APP_ID"],
+  #     service_credentials_file: "fastlane/credentials.json",
+  #     groups: ENV["CI_FIREBASE_IOS_GROUPS"],
+  #     debug: true,
+  #     ipa_path: "ios/build/#{app_name}.ipa"
+  #   )
+  # end
 end
