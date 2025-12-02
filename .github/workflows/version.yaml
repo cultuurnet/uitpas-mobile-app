@@ -38,22 +38,26 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.inputs.release_type == 'beta' && 'develop' || 'main' }}
 
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Prepare pnpm
+        run: corepack prepare pnpm@10.23.0 --activate
+
       - name: Bump version in package.json
         id: version
         run: |
-          yarn config set version-git-tag false
-
           if [[ ${{ github.event.inputs.release_type }} == 'beta' ]]; then
             if [[ ${{ github.event.inputs.version_bump }} == 'prerelease' ]]; then
-              yarn version --prerelease
+              pnpm version prerelease --no-git-tag-version
             else
-              yarn version --preid beta --pre${{ github.event.inputs.version_bump }}
+              pnpm version ${{ github.event.inputs.version_bump }} --preid beta --no-git-tag-version
             fi
           else
-            yarn version --${{ github.event.inputs.version_bump }}
+            pnpm version ${{ github.event.inputs.version_bump }} --no-git-tag-version
           fi
 
-          echo "version=$(cat package.json | jq -r '.version')" >> $GITHUB_OUTPUT
+          echo "version=$(jq -r '.version' package.json)" >> $GITHUB_OUTPUT
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
