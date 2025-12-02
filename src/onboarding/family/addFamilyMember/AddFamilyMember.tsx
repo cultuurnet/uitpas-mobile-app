@@ -7,6 +7,7 @@ import { useHeaderHeight } from '@react-navigation/elements';
 
 import { Analytics, Button, Trans, Typography } from '../../../_components';
 import { queryClient, useTracking } from '../../../_context';
+import { TApiError } from '../../../_http';
 import { TMainNavigationProp, TRootStackRouteProp } from '../../../_routing';
 import { applyBarcodeMask, getRandomUniqueAvatar, openExternalURL, TRACKING_URL_REGEX } from '../../../_utils';
 import { TRegistrationTokenRequest, useGetRegistrationToken, useRegisterFamilyMember } from '../_queries';
@@ -43,9 +44,11 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
         trackSelfDescribingEvent('successMessage', { message: 'family-member-added' });
         queryClient.invalidateQueries({ queryKey: ['family'] });
         navigation.navigate('FamilyOverview');
-      } catch (error) {
-        trackSelfDescribingEvent('errorMessage', { message: error.type.replace(TRACKING_URL_REGEX, '').substring(0, 100) });
-        navigation.navigate('AddFamilyMemberError', { description: error.endUserMessage?.nl }); // End-of-flow error
+      } catch (e) {
+        const error = e as TApiError;
+        const type = error?.type || 'unknown';
+        trackSelfDescribingEvent('errorMessage', { message: type.replace(TRACKING_URL_REGEX, '').substring(0, 100) });
+        navigation.navigate('AddFamilyMemberError', { description: error?.endUserMessage?.nl || t('ERROR.TITLE') }); // End-of-flow error
       }
     },
   });
@@ -108,7 +111,9 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
                 <Styled.FormError color="error.700">{t('ONBOARDING.FAMILY.ADD_MEMBER.MISSING_FIELDS')}</Styled.FormError>
               )}
               {registrationTokenError && (
-                <Styled.FormError color="error.700">{registrationTokenError.endUserMessage.nl}</Styled.FormError>
+                <Styled.FormError color="error.700">
+                  {registrationTokenError.endUserMessage?.nl || t('ERROR.TITLE')}
+                </Styled.FormError>
               )}
             </Styled.FormBody>
             <Typography align="center">{t('ONBOARDING.FAMILY.ADD_MEMBER.INFO')}</Typography>

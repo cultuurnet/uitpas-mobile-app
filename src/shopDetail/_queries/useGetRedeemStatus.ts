@@ -12,6 +12,11 @@ export function useGetRedeemStatus({ passHolder, rewardId }: TProps) {
   return api.get<TRedeemStatus>(
     ['redeem-status', rewardId, firstActiveCard.uitpasNumber],
     `/rewards/${rewardId}/redeem-status?uitpasNumber=${firstActiveCard.uitpasNumber}`,
-    { enabled: !!passHolder.id && !!firstActiveCard.uitpasNumber, gcTime: 0, refetchOnWindowFocus: true, retry: false },
+    {
+      enabled: !!passHolder.id && !!firstActiveCard.uitpasNumber,
+      refetchOnWindowFocus: true,
+      retry: false,
+      staleTime: 1000 * 60,
+    },
   );
 }

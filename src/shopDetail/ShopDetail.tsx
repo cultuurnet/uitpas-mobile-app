@@ -182,7 +182,7 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
             <HtmlRenderer source={{ html: reward.practicalInfo }} />
           </Section>
 
-          {showFamilyMembers && hasFamilyMembers && !isRedeemStatusLoading && (
+          {showFamilyMembers && hasFamilyMembers && (
             <View ref={rewardsSection}>
               <Section title={t('SHOP_DETAIL.WHO_CAN_REDEEM.TITLE')}>
                 <RedeemFamilyMembers onRedeem={handleRedeemReward} reward={reward} />

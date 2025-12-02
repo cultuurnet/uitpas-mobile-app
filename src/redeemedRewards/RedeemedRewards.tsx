@@ -29,6 +29,7 @@ export const RedeemedRewards = ({ navigation }: TProps) => {
     isError,
     isRefetching,
     isFetchingNextPage,
+    error,
   } = useGetRedeemedRewards({ passHolder: selectedPassHolder });
   const { data: hasFamilyMembers } = useHasFamilyMembers();
 
@@ -49,7 +50,7 @@ export const RedeemedRewards = ({ navigation }: TProps) => {
             </>
           ) : (
             <Styled.NoContentText align="center">
-              {t(isError ? 'PROFILE.REDEEMED_REWARDS.ERROR' : 'PROFILE.REDEEMED_REWARDS.EMPTY')}
+              {isError ? (error?.endUserMessage?.nl ?? t('PROFILE.REDEEMED_REWARDS.ERROR')) : t('PROFILE.REDEEMED_REWARDS.EMPTY')}
             </Styled.NoContentText>
           )
         }
