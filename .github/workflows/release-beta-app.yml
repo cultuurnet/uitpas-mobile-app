@@ -68,7 +68,7 @@ jobs:
         env:
           CI_IOS_TEAM_ID: '${{ secrets.IOS_TEAM_ID }}'
           CI_IOS_CODE_SIGN_IDENTITY: '${{ secrets.IOS_CODE_SIGN_IDENTITY }}'
-          CI_IOS_PROVISIONING_PROFILE: 'fastlane/Compubliquitpas App Store.mobileprovision'
+          CI_IOS_PROVISIONING_PROFILE: 'fastlane/compubliquitpas_Beta.mobileprovision'
           CI_IOS_USERNAME: '${{ secrets.IOS_USERNAME }}'
           CI_IOS_TEAM_NAME: '${{ secrets.IOS_TEAM_NAME }}'
           CI_IOS_APPLE_ID: '${{ secrets.IOS_APPLE_ID }}'
