@@ -49,9 +49,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc
-          cache: pnpm
-      - name: Enable corepack
+      - name: Enable Corepack
         run: corepack enable
+      - name: Prepare pnpm
+        run: corepack prepare pnpm@10.23.0 --activate
       - run: fastlane build env:production ios:true
         env:
           CI_IOS_TEAM_ID: '${{ secrets.IOS_TEAM_ID }}'
@@ -100,9 +101,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc
-          cache: pnpm
-      - name: Enable corepack
+      - name: Enable Corepack
         run: corepack enable
+      - name: Prepare pnpm
+        run: corepack prepare pnpm@10.23.0 --activate
       - name: Decode Service Account Key JSON File
         uses: timheuer/base64-to-file@v1
         id: service_account_json_file
