@@ -29,16 +29,12 @@ lane :prebuild do |options|
 
   # Change to project root directory
   Dir.chdir("..") do
-    # Build environment variables hash to pass to the command
-    # This ensures all loaded ENV vars are available to the expo prebuild process
-    env_vars = ENV.select { |key, _| key.start_with?('EXPO_', 'NODE_ENV') }.to_h
-
-    if platform == "android"
-      sh(env_vars, "npx expo prebuild --clean --platform android")
-    elsif platform == "ios"
-      sh(env_vars, "npx expo prebuild --clean --platform ios")
+    if platform == "ios"
+      sh("npx expo prebuild --clean --platform ios")
+    elsif platform == "android"
+      sh("npx expo prebuild --clean --platform android")
     else
-      sh(env_vars, "npx expo prebuild --clean")
+      sh("npx expo prebuild --clean")
     end
   end
 end
