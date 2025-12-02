@@ -42,41 +42,46 @@ private_lane :build_android do |options|
   env = options[:env]
   gradle_task = env == "production" ? "clean bundle" : "clean assemble"
 
-  gradle(
-    task: gradle_task,
-    build_type: "Release",
-    project_dir: "android",
-    print_command: false,
-    properties: {
-      "android.injected.signing.store.file" => ENV["STORE_FILE"],
-      "android.injected.signing.store.password" => ENV["STORE_PASSWORD"],
-      "android.injected.signing.key.alias" => ENV["KEY_ALIAS"],
-      "android.injected.signing.key.password" => ENV["KEY_PASSWORD"],
-    }
-  )
+  puts "STORE_FILE=#{ENV['STORE_FILE']}"
+  puts "STORE_PASSWORD=#{ENV['STORE_PASSWORD']}"
+  puts "KEY_ALIAS=#{ENV['KEY_ALIAS']}"
+  puts "KEY_PASSWORD=#{ENV['KEY_PASSWORD']}"  
 
-  # Upload
-  if env == "production"
-    supply(
-      track: "alpha",
-      skip_upload_changelogs: false,
-      skip_upload_metadata: true,
-      skip_upload_images: true,
-      skip_upload_screenshots: true,
-      json_key: ENV["ANDROID_JSON_KEY_FILE"],
-      package_name: ENV["EXPO_PUBLIC_APP_PACKAGE_NAME"],
-      aab: "android/app/build/outputs/bundle/release/app-release.aab",
-    )
-  else
-    firebase_app_distribution(
-      app: ENV["CI_FIREBASE_ANDROID_APP_ID"],
-      service_credentials_file: "fastlane/credentials.json",
-      groups: ENV["CI_FIREBASE_ANDROID_GROUPS"],
-      debug: true,
-      android_artifact_type: 'APK',
-      android_artifact_path: "android/app/build/outputs/apk/release/app-release.apk"
-    )
-  end
+  # gradle(
+  #   task: gradle_task,
+  #   build_type: "Release",
+  #   project_dir: "android",
+  #   print_command: false,
+  #   properties: {
+  #     "android.injected.signing.store.file" => ENV["STORE_FILE"],
+  #     "android.injected.signing.store.password" => ENV["STORE_PASSWORD"],
+  #     "android.injected.signing.key.alias" => ENV["KEY_ALIAS"],
+  #     "android.injected.signing.key.password" => ENV["KEY_PASSWORD"],
+  #   }
+  # )
+
+  # # Upload
+  # if env == "production"
+  #   supply(
+  #     track: "alpha",
+  #     skip_upload_changelogs: false,
+  #     skip_upload_metadata: true,
+  #     skip_upload_images: true,
+  #     skip_upload_screenshots: true,
+  #     json_key: ENV["ANDROID_JSON_KEY_FILE"],
+  #     package_name: ENV["EXPO_PUBLIC_APP_PACKAGE_NAME"],
+  #     aab: "android/app/build/outputs/bundle/release/app-release.aab",
+  #   )
+  # else
+  #   firebase_app_distribution(
+  #     app: ENV["CI_FIREBASE_ANDROID_APP_ID"],
+  #     service_credentials_file: "fastlane/credentials.json",
+  #     groups: ENV["CI_FIREBASE_ANDROID_GROUPS"],
+  #     debug: true,
+  #     android_artifact_type: 'APK',
+  #     android_artifact_path: "android/app/build/outputs/apk/release/app-release.apk"
+  #   )
+  # end
 end
 
 #======================================
