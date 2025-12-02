@@ -15,10 +15,7 @@ import { useGetRewards } from '../shop/_queries/useGetRewards';
 import { WelcomeHeader } from './_components/WelcomeHeader';
 import * as Styled from './style';
 
-type TProps = {
-  navigation: TRootStackNavigationProp<'FilteredShop'>;
-  route: TRootStackRouteProp<'FilteredShop'>;
-};
+type TProps = { navigation: TRootStackNavigationProp<'FilteredShop'>; route: TRootStackRouteProp<'FilteredShop'> };
 
 export const FilteredShop = ({ route }: TProps) => {
   const { subtitle, section, category, type, isFeatured } = route.params || {};
@@ -29,9 +26,13 @@ export const FilteredShop = ({ route }: TProps) => {
   const { data: hasFamilyMembers } = useHasFamilyMembers();
 
   const filters = useMemo(() => {
+    if (isFeatured) {
+      return {};
+    }
+
     const { getFiltersForCategory, getFiltersForSection } = getRewardFilters({ passHolder: selectedPassHolder });
     return { type, ...getFiltersForSection(section), ...getFiltersForCategory(category) };
-  }, [selectedPassHolder, section, category, type]);
+  }, [isFeatured, selectedPassHolder, type, section, category]);
 
   const {
     data: rewards,
