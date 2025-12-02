@@ -61,7 +61,7 @@ jobs:
         run: corepack enable
       - run: fastlane build env:beta ios:true
         env:
-          CI_FIREBASE_IOS_APP_ID: '1:401677584360:ios:59d789c9211315d21d065d'
+          CI_FIREBASE_IOS_APP_ID: ${{ secrets.CI_FIREBASE_IOS_APP_ID }}
           CI_FIREBASE_IOS_GROUPS: 'Publiq'
   release_beta_android:
     name: Android (beta)
@@ -119,7 +119,7 @@ jobs:
           STORE_PASSWORD: android
           KEY_ALIAS: androiddebugkey
           KEY_PASSWORD: android
-          CI_FIREBASE_ANDROID_APP_ID: '1:401677584360:android:867cfc9ce44816381d065d'
+          CI_FIREBASE_ANDROID_APP_ID: ${{ secrets.CI_FIREBASE_ANDROID_APP_ID }}
           CI_FIREBASE_ANDROID_GROUPS: 'Publiq'
   create_release:
     name: Create release
