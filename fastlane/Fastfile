@@ -9,10 +9,6 @@ skip_docs
 lane :build do |options|
   env = options[:env]
 
-  # Prepare codebase
-  install_packages
-  prebuild(platform: options[:ios] ? "ios" : options[:android] ? "android" : "all", env: env)
-
   # Android build
   if options[:android]
     build_android(env: env)
@@ -37,14 +33,6 @@ lane :prebuild do |options|
       sh("npx expo prebuild --clean")
     end
   end
-end
-
-#======================================
-# Validation & Setup
-#======================================
-private_lane :install_packages do
-  sh("corepack enable")
-  sh("pnpm install")
 end
 
 #======================================

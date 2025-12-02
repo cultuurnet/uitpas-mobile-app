@@ -60,6 +60,8 @@ jobs:
         run: corepack enable
       - name: Prepare pnpm
         run: corepack prepare pnpm@10.23.0 --activate
+      - name: Install dependencies
+        run: pnpm install
       - name: Expo prebuild for iOS
         run: fastlane prebuild platform:ios
       - run: fastlane build env:beta ios:true
@@ -112,6 +114,8 @@ jobs:
         run: corepack enable
       - name: Prepare pnpm
         run: corepack prepare pnpm@10.23.0 --activate
+      - name: Install dependencies
+        run: pnpm install
       - name: Expo prebuild for Android
         run: fastlane prebuild platform:android
       - uses: actions/setup-java@v3
