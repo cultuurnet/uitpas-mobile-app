@@ -60,6 +60,8 @@ jobs:
         run: corepack enable
       - name: Prepare pnpm
         run: corepack prepare pnpm@10.23.0 --activate
+      - name: Expo prebuild for iOS
+        run: fastlane prebuild platform:ios
       - run: fastlane build env:beta ios:true
         env:
           CI_FIREBASE_IOS_APP_ID: ${{ secrets.CI_FIREBASE_IOS_APP_ID }}
@@ -103,11 +105,6 @@ jobs:
           echo EXPO_PUBLIC_SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
           echo EXPO_PUBLIC_TRACKING_HOST="${{ secrets.TRACKING_HOST }}" >> .env
           cat .env
-      - uses: actions/setup-java@v3
-        with:
-          distribution: temurin
-          java-version: 17
-          cache: gradle
       - uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc
@@ -115,6 +112,13 @@ jobs:
         run: corepack enable
       - name: Prepare pnpm
         run: corepack prepare pnpm@10.23.0 --activate
+      - name: Expo prebuild for Android
+        run: fastlane prebuild platform:android
+      - uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
       - run: fastlane build env:beta android:true
         env:
           STORE_FILE: ./fastlane/debug.keystore

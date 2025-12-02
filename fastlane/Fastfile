@@ -24,15 +24,7 @@ lane :build do |options|
   end
 end
 
-#======================================
-# Validation & Setup
-#======================================
-private_lane :install_packages do
-  sh("corepack enable")
-  sh("pnpm install")
-end
-
-private_lane :prebuild do |options|
+lane :prebuild do |options|
   platform = options[:platform] || "all"
 
   # Change to project root directory
@@ -49,6 +41,14 @@ private_lane :prebuild do |options|
       sh(env_vars, "npx expo prebuild --clean")
     end
   end
+end
+
+#======================================
+# Validation & Setup
+#======================================
+private_lane :install_packages do
+  sh("corepack enable")
+  sh("pnpm install")
 end
 
 #======================================
@@ -101,9 +101,9 @@ end
 def get_provisioning_profile_path(env)
   case env
   when "production"
-    "./Compubliquitpas App Store.mobileprovision"
+    "./fastlane/Compubliquitpas App Store.mobileprovision"
   when "beta"
-    "./compubliquitpas_Beta.mobileprovision"
+    "./fastlane/compubliquitpas_Beta.mobileprovision"
   else
     raise "Unknown environment: #{env}. Expected \"production\" or \"beta\"."
   end
