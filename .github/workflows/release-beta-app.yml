@@ -56,9 +56,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc
-          cache: pnpm
-      - name: Enable corepack
+      - name: Enable Corepack
         run: corepack enable
+      - name: Prepare pnpm
+        run: corepack prepare pnpm@10.23.0 --activate
       - run: fastlane build env:beta ios:true
         env:
           CI_FIREBASE_IOS_APP_ID: ${{ secrets.CI_FIREBASE_IOS_APP_ID }}
@@ -110,9 +111,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc
-          cache: pnpm
-      - name: Enable corepack
+      - name: Enable Corepack
         run: corepack enable
+      - name: Prepare pnpm
+        run: corepack prepare pnpm@10.23.0 --activate
       - run: fastlane build env:beta android:true
         env:
           STORE_FILE: ./fastlane/debug.keystore
