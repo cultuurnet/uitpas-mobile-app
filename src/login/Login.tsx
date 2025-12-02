@@ -51,6 +51,7 @@ const Login = () => {
         bottomContent={
           <Styled.BottomContainer>
             <Styled.ListItem centered href={ConfigUrl.register} label={t('LOGIN.REGISTER')} variant="link" />
+            <Styled.ListItem centered href={ConfigUrl.buyLogin} label={t('LOGIN.BUY')} variant="link" />
             <Styled.ListItem label={t('LOGIN.CTA')} onPress={handleLogin} />
           </Styled.BottomContainer>
         }
