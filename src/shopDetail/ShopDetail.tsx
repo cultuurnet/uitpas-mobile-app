@@ -49,9 +49,9 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
   const rewardsSection = useRef(null);
   const rewardTrackingData = useMemo(() => ({ reward: getRewardTrackingData(reward) }), [reward]);
 
-  const { firstOrganizer, organizers } = useMemo(() => {
-    const [first, ...rest] = reward.organizers || [];
-    return { firstOrganizer: first, organizers: rest };
+  const { hiddenOrganizers, visibleOrganizers } = useMemo(() => {
+    const allOrganizers = reward.organizers || [];
+    return { hiddenOrganizers: allOrganizers.slice(3), visibleOrganizers: allOrganizers.slice(0, 3) };
   }, [reward.organizers]);
   const isInAppRedeemable = useMemo(() => reward?.online && redeemStatus?.redeemable, [reward?.online, redeemStatus?.redeemable]);
   // If we have a redeembutton, it needs to be sticky, otherwise we don't have sticky content
@@ -115,7 +115,9 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
           <Styled.Title fontStyle="bold" size="xxlarge">
             {reward.title}
           </Styled.Title>
-          <Typography color="primary.800">{firstOrganizer?.name}</Typography>
+          {visibleOrganizers.length === 1 && hiddenOrganizers.length === 0 && (
+            <Typography color="primary.800">{visibleOrganizers[0]?.name}</Typography>
+          )}
         </Styled.Content>
 
         <RedeemStatusButton
@@ -135,20 +137,23 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
           </Section>
 
           {!!reward.moreInfoURL && <Styled.MoreInfoLink href={normalizeUrl(reward.moreInfoURL)} onPress={handleLinkPress} />}
-
           {!reward.online && (
             <Section title={t('SHOP_DETAIL.LOCATION')}>
-              <Organizer fallbackName={firstOrganizer?.name} id={firstOrganizer?.id} key={firstOrganizer?.id} />
-              {organizers.length > 0 && (
-                <Accordion expandedTitle={t('SHOP_DETAIL.SHOW_LESS')} title={t('SHOP_DETAIL.SHOW_MORE')}>
-                  {organizers.map(organizer => (
+              {visibleOrganizers.map((organizer, index) => (
+                <Organizer fallbackName={organizer.name} id={organizer.id} key={organizer.id} showTopBorder={index > 0} />
+              ))}
+              {hiddenOrganizers.length > 0 && (
+                <Accordion
+                  expandedTitle={t('SHOP_DETAIL.SHOW_LESS')}
+                  title={t('SHOP_DETAIL.SHOW_MORE', { count: hiddenOrganizers.length })}
+                >
+                  {hiddenOrganizers.map(organizer => (
                     <Organizer fallbackName={organizer.name} id={organizer.id} key={organizer.id} showTopBorder />
                   ))}
                 </Accordion>
               )}
             </Section>
           )}
-
           <Availability
             maxAvailableUnits={reward.maxAvailableUnits}
             redeemConstraint={reward.redeemConstraint}
