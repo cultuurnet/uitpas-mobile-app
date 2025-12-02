@@ -98,6 +98,17 @@ end
 #======================================
 # iOS
 #======================================
+def get_provisioning_profile_path(env)
+  case env
+  when "production"
+    "./Compubliquitpas App Store.mobileprovision"
+  when "beta"
+    "./compubliquitpas_Beta.mobileprovision"
+  else
+    raise "Unknown environment: #{env}. Expected \"production\" or \"beta\"."
+  end
+end
+
 private_lane :build_ios do |options|
   env = options[:env]
   app_name = ENV["EXPO_PUBLIC_APP_NAME"].gsub(/\s/, '')
@@ -121,7 +132,7 @@ private_lane :build_ios do |options|
   install_provisioning_profiles if is_ci?
   update_project_provisioning(
     xcodeproj: xcodeproject_path,
-    profile: ENV['CI_IOS_PROVISIONING_PROFILE'],
+    profile: get_provisioning_profile_path(env),
     target_filter: app_name,
     build_configuration: "Release",
   )
