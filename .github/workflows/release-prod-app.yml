@@ -56,7 +56,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Expo prebuild for iOS
-        run: fastlane prebuild platform:ios
+        run: npx expo prebuild --clean --platform ios
       - run: fastlane build env:production ios:true
         env:
           CI_IOS_TEAM_ID: '3M7M296YKK'
@@ -120,7 +120,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Expo prebuild for Android
-        run: fastlane prebuild platform:android
+        run: npx expo prebuild --clean --platform android
       - uses: actions/setup-java@v3
         with:
           distribution: temurin

@@ -20,61 +20,6 @@ lane :build do |options|
   end
 end
 
-lane :prebuild do |options|
-  platform = options[:platform] || "all"
-
-  # Print EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR value
-  Dir.chdir("..") do
-    if File.exist?(".env")
-      env_content = File.read(".env")
-      if env_content =~ /EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR=(.+)/
-        puts "\n=== EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR ==="
-        puts $1
-        puts "========================================================\n"
-      else
-        puts "\n⚠️  EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR not found in .env"
-      end
-    else
-      puts "\n⚠️  .env file does not exist"
-    end
-  end
-
-  # Change to project root directory
-  Dir.chdir("..") do
-    if platform == "ios"
-      sh("npx expo prebuild --clean --platform ios")
-    elsif platform == "android"
-      sh("npx expo prebuild --clean --platform android")
-    else
-      sh("npx expo prebuild --clean")
-    end
-
-    # Double check Android colors.xml files after prebuild
-    if platform == "android" || platform == "all"
-      values_colors = "android/app/src/main/res/values/colors.xml"
-      values_night_colors = "android/app/src/main/res/values-night/colors.xml"
-
-      puts "\n=== Checking Android colors.xml files ==="
-      
-      if File.exist?(values_colors)
-        puts "\n--- values/colors.xml ---"
-        puts File.read(values_colors)
-      else
-        puts "\n⚠️  values/colors.xml does not exist!"
-      end
-
-      if File.exist?(values_night_colors)
-        puts "\n--- values-night/colors.xml ---"
-        puts File.read(values_night_colors)
-      else
-        puts "\n⚠️  values-night/colors.xml does not exist!"
-      end
-      
-      puts "\n==========================================\n"
-    end
-  end
-end
-
 #======================================
 # Android
 #======================================
@@ -82,67 +27,41 @@ private_lane :build_android do |options|
   env = options[:env]
   gradle_task = env == "production" ? "clean bundle" : "clean assemble"
 
-  puts "\n=== Current Working Directory ==="
-  puts Dir.pwd
-  puts "==================================\n"
+  gradle(
+    task: gradle_task,
+    build_type: "Release",
+    project_dir: "android",
+    print_command: false,
+    properties: {
+      "android.injected.signing.store.file" => ENV["STORE_FILE"],
+      "android.injected.signing.store.password" => ENV["STORE_PASSWORD"],
+      "android.injected.signing.key.alias" => ENV["KEY_ALIAS"],
+      "android.injected.signing.key.password" => ENV["KEY_PASSWORD"],
+    }
+  )
 
-  # Double check Android colors.xml files after prebuild
-  values_colors = "../android/app/src/main/res/values/colors.xml"
-  values_night_colors = "../android/app/src/main/res/values-night/colors.xml"
-
-  puts "\n=== Checking Android colors.xml files ==="
-  
-  if File.exist?(values_colors)
-    puts "\n--- values/colors.xml ---"
-    puts File.read(values_colors)
+  # Upload
+  if env == "production"
+    supply(
+      track: "alpha",
+      skip_upload_changelogs: false,
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      json_key: ENV["ANDROID_JSON_KEY_FILE"],
+      package_name: ENV["EXPO_PUBLIC_APP_PACKAGE_NAME"],
+      aab: "android/app/build/outputs/bundle/release/app-release.aab",
+    )
   else
-    puts "\n⚠️  values/colors.xml does not exist!"
+    firebase_app_distribution(
+      app: ENV["CI_FIREBASE_ANDROID_APP_ID"],
+      service_credentials_file: "fastlane/credentials.json",
+      groups: ENV["CI_FIREBASE_ANDROID_GROUPS"],
+      debug: true,
+      android_artifact_type: 'APK',
+      android_artifact_path: "android/app/build/outputs/apk/release/app-release.apk"
+    )
   end
-
-  if File.exist?(values_night_colors)
-    puts "\n--- values-night/colors.xml ---"
-    puts File.read(values_night_colors)
-  else
-    puts "\n⚠️  values-night/colors.xml does not exist!"
-  end
-  
-  puts "\n==========================================\n"
-
-  # gradle(
-  #   task: gradle_task,
-  #   build_type: "Release",
-  #   project_dir: "android",
-  #   print_command: false,
-  #   properties: {
-  #     "android.injected.signing.store.file" => ENV["STORE_FILE"],
-  #     "android.injected.signing.store.password" => ENV["STORE_PASSWORD"],
-  #     "android.injected.signing.key.alias" => ENV["KEY_ALIAS"],
-  #     "android.injected.signing.key.password" => ENV["KEY_PASSWORD"],
-  #   }
-  # )
-
-  # # Upload
-  # if env == "production"
-  #   supply(
-  #     track: "alpha",
-  #     skip_upload_changelogs: false,
-  #     skip_upload_metadata: true,
-  #     skip_upload_images: true,
-  #     skip_upload_screenshots: true,
-  #     json_key: ENV["ANDROID_JSON_KEY_FILE"],
-  #     package_name: ENV["EXPO_PUBLIC_APP_PACKAGE_NAME"],
-  #     aab: "android/app/build/outputs/bundle/release/app-release.aab",
-  #   )
-  # else
-  #   firebase_app_distribution(
-  #     app: ENV["CI_FIREBASE_ANDROID_APP_ID"],
-  #     service_credentials_file: "fastlane/credentials.json",
-  #     groups: ENV["CI_FIREBASE_ANDROID_GROUPS"],
-  #     debug: true,
-  #     android_artifact_type: 'APK',
-  #     android_artifact_path: "android/app/build/outputs/apk/release/app-release.apk"
-  #   )
-  # end
 end
 
 #======================================
@@ -152,16 +71,6 @@ private_lane :build_ios do |options|
   env = options[:env]
   app_name = ENV["EXPO_PUBLIC_APP_NAME"].gsub(/\s/, '')
   xcodeproject_path = "./ios/#{app_name}.xcodeproj"
-
-  # Print iOS build environment variables
-  puts "CI_IOS_TEAM_ID: #{ENV['CI_IOS_TEAM_ID']}"
-  puts "CI_IOS_CODE_SIGN_IDENTITY: #{ENV['CI_IOS_CODE_SIGN_IDENTITY']}"
-  puts "CI_IOS_PROVISIONING_PROFILE: #{ENV['CI_IOS_PROVISIONING_PROFILE']}"
-  puts "CI_IOS_USERNAME: #{ENV['CI_IOS_USERNAME']}"
-  puts "CI_IOS_TEAM_NAME: #{ENV['CI_IOS_TEAM_NAME']}"
-  puts "CI_IOS_APPLE_ID: #{ENV['CI_IOS_APPLE_ID']}"
-  puts "CI_FIREBASE_IOS_APP_ID: #{ENV['CI_FIREBASE_IOS_APP_ID']}"
-  puts "CI_FIREBASE_IOS_GROUPS: #{ENV['CI_FIREBASE_IOS_GROUPS']}"
 
   # Select Xcode version
   sh("ls -la /Applications/ | grep -i xcode") if is_ci?
