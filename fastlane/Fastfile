@@ -52,14 +52,14 @@ private_lane :build_android do |options|
       package_name: ENV["EXPO_PUBLIC_APP_PACKAGE_NAME"],
       aab: "android/app/build/outputs/bundle/release/app-release.aab",
     )
-  else
+  else    
     firebase_app_distribution(
       app: ENV["CI_FIREBASE_ANDROID_APP_ID"],
       service_credentials_file: "fastlane/credentials.json",
       groups: ENV["CI_FIREBASE_ANDROID_GROUPS"],
       debug: true,
       android_artifact_type: 'APK',
-      android_artifact_path: "android/app/build/outputs/apk/release/app-release.apk"
+      android_artifact_path: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH] || File.expand_path("android/app/build/outputs/apk/release/app-release.apk")
     )
   end
 end
