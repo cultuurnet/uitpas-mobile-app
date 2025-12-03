@@ -23,6 +23,22 @@ end
 lane :prebuild do |options|
   platform = options[:platform] || "all"
 
+  # Print EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR value
+  Dir.chdir("..") do
+    if File.exist?(".env")
+      env_content = File.read(".env")
+      if env_content =~ /EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR=(.+)/
+        puts "\n=== EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR ==="
+        puts $1
+        puts "========================================================\n"
+      else
+        puts "\n⚠️  EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR not found in .env"
+      end
+    else
+      puts "\n⚠️  .env file does not exist"
+    end
+  end
+
   # Change to project root directory
   Dir.chdir("..") do
     if platform == "ios"
@@ -31,6 +47,30 @@ lane :prebuild do |options|
       sh("npx expo prebuild --clean --platform android")
     else
       sh("npx expo prebuild --clean")
+    end
+
+    # Double check Android colors.xml files after prebuild
+    if platform == "android" || platform == "all"
+      values_colors = "android/app/src/main/res/values/colors.xml"
+      values_night_colors = "android/app/src/main/res/values-night/colors.xml"
+
+      puts "\n=== Checking Android colors.xml files ==="
+      
+      if File.exist?(values_colors)
+        puts "\n--- values/colors.xml ---"
+        puts File.read(values_colors)
+      else
+        puts "\n⚠️  values/colors.xml does not exist!"
+      end
+
+      if File.exist?(values_night_colors)
+        puts "\n--- values-night/colors.xml ---"
+        puts File.read(values_night_colors)
+      else
+        puts "\n⚠️  values-night/colors.xml does not exist!"
+      end
+      
+      puts "\n==========================================\n"
     end
   end
 end
@@ -41,6 +81,32 @@ end
 private_lane :build_android do |options|
   env = options[:env]
   gradle_task = env == "production" ? "clean bundle" : "clean assemble"
+
+  puts "\n=== Current Working Directory ==="
+  puts Dir.pwd
+  puts "==================================\n"
+
+  # Double check Android colors.xml files after prebuild
+  values_colors = "../android/app/src/main/res/values/colors.xml"
+  values_night_colors = "../android/app/src/main/res/values-night/colors.xml"
+
+  puts "\n=== Checking Android colors.xml files ==="
+  
+  if File.exist?(values_colors)
+    puts "\n--- values/colors.xml ---"
+    puts File.read(values_colors)
+  else
+    puts "\n⚠️  values/colors.xml does not exist!"
+  end
+
+  if File.exist?(values_night_colors)
+    puts "\n--- values-night/colors.xml ---"
+    puts File.read(values_night_colors)
+  else
+    puts "\n⚠️  values-night/colors.xml does not exist!"
+  end
+  
+  puts "\n==========================================\n"
 
   # gradle(
   #   task: gradle_task,

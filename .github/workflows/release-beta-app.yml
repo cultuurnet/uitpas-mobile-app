@@ -63,17 +63,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Expo prebuild for iOS
-        run: fastlane prebuild platform:ios
-      - run: fastlane build env:beta ios:true
-        env:
-          CI_IOS_TEAM_ID: 'FAJTRUZ6J9'
-          CI_IOS_CODE_SIGN_IDENTITY: 'iPhone Distribution'
-          CI_IOS_PROVISIONING_PROFILE: 'fastlane/compubliquitpas_Beta.mobileprovision'
-          CI_IOS_USERNAME: '${{ secrets.CI_IOS_USERNAME }}'
-          CI_IOS_TEAM_NAME: 'DAG 22 BVBA'
-          CI_IOS_APPLE_ID: '${{ secrets.CI_IOS_APPLE_ID }}'
-          CI_FIREBASE_IOS_APP_ID: ${{ secrets.CI_FIREBASE_IOS_APP_ID }}
-          CI_FIREBASE_IOS_GROUPS: 'Publiq'
+        run: npx expo prebuild --clean --platform ios
+      # - run: fastlane build env:beta ios:true
+      #   env:
+      #     CI_IOS_TEAM_ID: 'FAJTRUZ6J9'
+      #     CI_IOS_CODE_SIGN_IDENTITY: 'iPhone Distribution'
+      #     CI_IOS_PROVISIONING_PROFILE: 'fastlane/compubliquitpas_Beta.mobileprovision'
+      #     CI_IOS_USERNAME: '${{ secrets.CI_IOS_USERNAME }}'
+      #     CI_IOS_TEAM_NAME: 'DAG 22 BVBA'
+      #     CI_IOS_APPLE_ID: '${{ secrets.CI_IOS_APPLE_ID }}'
+      #     CI_FIREBASE_IOS_APP_ID: ${{ secrets.CI_FIREBASE_IOS_APP_ID }}
+      #     CI_FIREBASE_IOS_GROUPS: 'Publiq'
   release_beta_android:
     name: Android (beta)
     environment: beta
@@ -123,7 +123,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Expo prebuild for Android
-        run: fastlane prebuild platform:android
+        run: npx expo prebuild --clean --platform android
       - uses: actions/setup-java@v3
         with:
           distribution: temurin
