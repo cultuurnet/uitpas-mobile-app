@@ -131,7 +131,7 @@ jobs:
           cache: gradle
       - run: fastlane build env:beta android:true
         env:
-          STORE_FILE: ./fastlane/debug.keystore
+          STORE_FILE: ../../fastlane/debug.keystore
           STORE_PASSWORD: android
           KEY_ALIAS: androiddebugkey
           KEY_PASSWORD: android
