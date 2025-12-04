@@ -59,7 +59,7 @@ private_lane :build_android do |options|
       groups: ENV["CI_FIREBASE_ANDROID_GROUPS"],
       debug: true,
       android_artifact_type: 'APK',
-      android_artifact_path: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH] || File.expand_path("android/app/build/outputs/apk/release/app-release.apk")
+      android_artifact_path: "android/app/build/outputs/apk/release/app-release.apk"
     )
   end
 end

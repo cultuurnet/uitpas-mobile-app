@@ -138,7 +138,9 @@ jobs:
           CI_FIREBASE_ANDROID_APP_ID: ${{ secrets.CI_FIREBASE_ANDROID_APP_ID }}
           CI_FIREBASE_ANDROID_GROUPS: 'Publiq'
       - name: Upload Android APK
+        if: always()
         uses: actions/upload-artifact@v4
+        continue-on-error: true
         with:
           name: android-build-${{ github.run_id }}
           path: android/app/build/outputs/apk/release/app-release.apk
