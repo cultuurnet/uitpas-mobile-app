@@ -52,7 +52,7 @@ private_lane :build_android do |options|
       package_name: ENV["EXPO_PUBLIC_APP_PACKAGE_NAME"],
       aab: "android/app/build/outputs/bundle/release/app-release.aab",
     )
-  else    
+  else
     firebase_app_distribution(
       app: ENV["CI_FIREBASE_ANDROID_APP_ID"],
       service_credentials_file: "fastlane/credentials.json",
