@@ -75,6 +75,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       },
     ],
     ['expo-navigation-bar', { backgroundColor: '#FFFFFF', barStyle: 'dark' }],
+    "expo-web-browser"
   ],
   scheme: process.env.EXPO_PUBLIC_APP_PACKAGE_NAME,
   slug: 'uitpas-mobile-app',
