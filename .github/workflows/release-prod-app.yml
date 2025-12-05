@@ -53,14 +53,19 @@ jobs:
         run: corepack enable
       - name: Prepare pnpm
         run: corepack prepare pnpm@10.23.0 --activate
+      - name: Install dependencies
+        run: pnpm install
+      - name: Expo prebuild for iOS
+        run: npx expo prebuild --clean --platform ios
       - run: fastlane build env:production ios:true
         env:
-          CI_IOS_TEAM_ID: '${{ secrets.IOS_TEAM_ID }}'
-          CI_IOS_CODE_SIGN_IDENTITY: '${{ secrets.IOS_CODE_SIGN_IDENTITY }}'
+          CI_IOS_TEAM_ID: '3M7M296YKK'
+          CI_IOS_CODE_SIGN_IDENTITY: 'Apple Distribution'
           CI_IOS_PROVISIONING_PROFILE: 'fastlane/Compubliquitpas App Store.mobileprovision'
-          CI_IOS_USERNAME: '${{ secrets.IOS_USERNAME }}'
-          CI_IOS_TEAM_NAME: '${{ secrets.IOS_TEAM_NAME }}'
-          CI_IOS_APPLE_ID: '${{ secrets.IOS_APPLE_ID }}'
+          CI_IOS_USERNAME: '${{ secrets.CI_IOS_USERNAME }}'
+          CI_IOS_TEAM_NAME: 'Publiq ASBL'
+          CI_IOS_APPLE_ID: '${{ secrets.CI_IOS_APPLE_ID }}'
+          CI_IOS_TESTFLIGHT_TEAM_ID: '65321197'
   release_prod_android:
     name: Android (prod)
     environment: production
@@ -93,11 +98,6 @@ jobs:
           echo EXPO_PUBLIC_SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
           echo EXPO_PUBLIC_TRACKING_HOST="${{ secrets.TRACKING_HOST }}" >> .env
           cat .env
-      - uses: actions/setup-java@v3
-        with:
-          distribution: temurin
-          java-version: 17
-          cache: gradle
       - uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc
@@ -117,6 +117,15 @@ jobs:
         with:
           fileName: 'uitpas.keystore'
           encodedString: ${{ secrets.STORE_FILE }}
+      - name: Install dependencies
+        run: pnpm install
+      - name: Expo prebuild for Android
+        run: npx expo prebuild --clean --platform android
+      - uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
       - run: fastlane build env:production android:true
         env:
           STORE_FILE: ${{ steps.android_keystore.outputs.filePath }}

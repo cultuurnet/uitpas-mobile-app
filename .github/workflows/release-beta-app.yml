@@ -60,8 +60,18 @@ jobs:
         run: corepack enable
       - name: Prepare pnpm
         run: corepack prepare pnpm@10.23.0 --activate
+      - name: Install dependencies
+        run: pnpm install
+      - name: Expo prebuild for iOS
+        run: npx expo prebuild --clean --platform ios
       - run: fastlane build env:beta ios:true
         env:
+          CI_IOS_TEAM_ID: 'FAJTRUZ6J9'
+          CI_IOS_CODE_SIGN_IDENTITY: 'iPhone Distribution'
+          CI_IOS_PROVISIONING_PROFILE: 'fastlane/compubliquitpas_Beta.mobileprovision'
+          CI_IOS_USERNAME: '${{ secrets.CI_IOS_USERNAME }}'
+          CI_IOS_TEAM_NAME: 'DAG 22 BVBA'
+          CI_IOS_APPLE_ID: '${{ secrets.CI_IOS_APPLE_ID }}'
           CI_FIREBASE_IOS_APP_ID: ${{ secrets.CI_FIREBASE_IOS_APP_ID }}
           CI_FIREBASE_IOS_GROUPS: 'Publiq'
   release_beta_android:
@@ -103,11 +113,6 @@ jobs:
           echo EXPO_PUBLIC_SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
           echo EXPO_PUBLIC_TRACKING_HOST="${{ secrets.TRACKING_HOST }}" >> .env
           cat .env
-      - uses: actions/setup-java@v3
-        with:
-          distribution: temurin
-          java-version: 17
-          cache: gradle
       - uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc
@@ -115,9 +120,18 @@ jobs:
         run: corepack enable
       - name: Prepare pnpm
         run: corepack prepare pnpm@10.23.0 --activate
+      - name: Install dependencies
+        run: pnpm install
+      - name: Expo prebuild for Android
+        run: npx expo prebuild --clean --platform android
+      - uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
       - run: fastlane build env:beta android:true
         env:
-          STORE_FILE: ./fastlane/debug.keystore
+          STORE_FILE: debug.keystore
           STORE_PASSWORD: android
           KEY_ALIAS: androiddebugkey
           KEY_PASSWORD: android
