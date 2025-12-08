@@ -13,7 +13,7 @@ export const AddFamilyMemberError = ({ navigation, route }: TProps) => {
   const { t } = useTranslation();
 
   const goToFamilyOverview = () => {
-    navigation.navigate('FamilyOverview');
+    navigation.popTo('FamilyOverview');
   };
 
   return (
