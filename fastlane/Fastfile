@@ -9,10 +9,6 @@ skip_docs
 lane :build do |options|
   env = options[:env]
 
-  # Prepare codebase
-  install_packages
-  prebuild(platform: options[:ios] ? "ios" : options[:android] ? "android" : "all", env: env)
-
   # Android build
   if options[:android]
     build_android(env: env)
@@ -21,33 +17,6 @@ lane :build do |options|
   # iOS build
   if options[:ios]
     build_ios(env: env)
-  end
-end
-
-#======================================
-# Validation & Setup
-#======================================
-private_lane :install_packages do
-  sh("corepack enable")
-  sh("pnpm install")
-end
-
-private_lane :prebuild do |options|
-  platform = options[:platform] || "all"
-
-  # Change to project root directory
-  Dir.chdir("..") do
-    # Build environment variables hash to pass to the command
-    # This ensures all loaded ENV vars are available to the expo prebuild process
-    env_vars = ENV.select { |key, _| key.start_with?('EXPO_', 'NODE_ENV') }.to_h
-
-    if platform == "android"
-      sh(env_vars, "npx expo prebuild --clean --platform android")
-    elsif platform == "ios"
-      sh(env_vars, "npx expo prebuild --clean --platform ios")
-    else
-      sh(env_vars, "npx expo prebuild --clean")
-    end
   end
 end
 
@@ -64,7 +33,7 @@ private_lane :build_android do |options|
     project_dir: "android",
     print_command: false,
     properties: {
-      "android.injected.signing.store.file" => ENV["STORE_FILE"],
+      "android.injected.signing.store.file" => "#{Dir.pwd}/#{ENV['STORE_FILE']}",
       "android.injected.signing.store.password" => ENV["STORE_PASSWORD"],
       "android.injected.signing.key.alias" => ENV["KEY_ALIAS"],
       "android.injected.signing.key.password" => ENV["KEY_PASSWORD"],
@@ -98,17 +67,6 @@ end
 #======================================
 # iOS
 #======================================
-def get_provisioning_profile_path(env)
-  case env
-  when "production"
-    "./Compubliquitpas App Store.mobileprovision"
-  when "beta"
-    "./compubliquitpas_Beta.mobileprovision"
-  else
-    raise "Unknown environment: #{env}. Expected \"production\" or \"beta\"."
-  end
-end
-
 private_lane :build_ios do |options|
   env = options[:env]
   app_name = ENV["EXPO_PUBLIC_APP_NAME"].gsub(/\s/, '')
@@ -132,7 +90,7 @@ private_lane :build_ios do |options|
   install_provisioning_profiles if is_ci?
   update_project_provisioning(
     xcodeproj: xcodeproject_path,
-    profile: get_provisioning_profile_path(env),
+    profile: ENV["CI_IOS_PROVISIONING_PROFILE"],
     target_filter: app_name,
     build_configuration: "Release",
   )
@@ -157,7 +115,7 @@ private_lane :build_ios do |options|
     upload_to_testflight(
       username: ENV["CI_IOS_USERNAME"],
       team_name: ENV["CI_IOS_TEAM_NAME"],
-      team_id: ENV["CI_IOS_TEAM_ID"],
+      team_id: ENV["CI_IOS_TESTFLIGHT_TEAM_ID"],
       app_identifier: ENV["EXPO_PUBLIC_APP_PACKAGE_NAME"],
       apple_id: ENV["CI_IOS_APPLE_ID"],
       itc_provider: ENV["CI_IOS_APPLE_ID"],
@@ -167,7 +125,6 @@ private_lane :build_ios do |options|
     )
   else
     firebase_app_distribution(
-      env: options[:env],
       app: ENV["CI_FIREBASE_IOS_APP_ID"],
       service_credentials_file: "fastlane/credentials.json",
       groups: ENV["CI_FIREBASE_IOS_GROUPS"],
