@@ -48,7 +48,7 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
         const error = e as TApiError;
         const type = error?.type || 'unknown';
         trackSelfDescribingEvent('errorMessage', { message: type.replace(TRACKING_URL_REGEX, '').substring(0, 100) });
-        navigation.navigate('AddFamilyMemberError', { description: error?.endUserMessage?.nl || t('ERROR.TITLE') }); // End-of-flow error
+        navigation.replace('AddFamilyMemberError', { description: error?.endUserMessage?.nl || t('ERROR.TITLE') }); // End-of-flow error
       }
     },
   });
