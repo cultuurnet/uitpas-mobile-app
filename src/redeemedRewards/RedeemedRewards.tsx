@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, RefreshControl } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
@@ -33,12 +33,14 @@ export const RedeemedRewards = ({ navigation }: TProps) => {
   } = useGetRedeemedRewards({ passHolder: selectedPassHolder });
   const { data: hasFamilyMembers } = useHasFamilyMembers();
 
-  const members = rewards?.pages?.flatMap(({ member }) => member) ?? [];
+  const members = useMemo(() => rewards?.pages?.flatMap(({ member }) => member) ?? [], [rewards]);
 
   return (
     <>
       <Analytics screenName="redeemed-rewards" />
-      {hasFamilyMembers && <FamilyFilter selectedPassHolder={selectedPassHolder} setSelectedPassHolder={setSelectedPassHolder} />}
+      {hasFamilyMembers && (
+        <FamilyFilter selectedPassHolder={selectedPassHolder} setSelectedPassHolder={setSelectedPassHolder} />
+      )}
       <FlashList
         ItemSeparatorComponent={Styled.Separator}
         ListEmptyComponent={

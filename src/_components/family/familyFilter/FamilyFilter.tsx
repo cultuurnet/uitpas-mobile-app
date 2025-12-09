@@ -13,30 +13,46 @@ export const FamilyFilter = ({ selectedPassHolder, setSelectedPassHolder }: TPro
 
   const handleSelectPassHolder = useCallback(
     (nextSelectedPassHolder: TPassHolder, nextSelectedIndex: number) => {
-      if (selectedPassHolder.id !== nextSelectedPassHolder.id) {
-        setSelectedPassHolder(nextSelectedPassHolder);
-        listRef.current?.scrollToIndex({ animated: true, index: nextSelectedIndex });
-      }
+      setSelectedPassHolder(nextSelectedPassHolder);
+      listRef.current?.scrollToIndex({ animated: true, index: nextSelectedIndex });
     },
-    [selectedPassHolder.id, setSelectedPassHolder],
+    [setSelectedPassHolder],
   );
 
   const handlePressPrev = useCallback(() => {
     const currentIndex = findCurrentIndexByPassHolder(familyMembers, selectedPassHolder);
     const prevBoundedIndex = findBoundedIndex(familyMembers, currentIndex - 1);
     const prevPassHolder = familyMembers[prevBoundedIndex].passholder;
-    handleSelectPassHolder(prevPassHolder, prevBoundedIndex);
+    if (prevPassHolder.id !== selectedPassHolder.id) {
+      handleSelectPassHolder(prevPassHolder, prevBoundedIndex);
+    }
   }, [familyMembers, handleSelectPassHolder, selectedPassHolder]);
 
   const handlePressNext = useCallback(() => {
     const currentIndex = findCurrentIndexByPassHolder(familyMembers, selectedPassHolder);
     const nextBoundedIndex = findBoundedIndex(familyMembers, currentIndex + 1);
     const nextPassHolder = familyMembers[nextBoundedIndex].passholder;
-    handleSelectPassHolder(nextPassHolder, nextBoundedIndex);
+    if (nextPassHolder.id !== selectedPassHolder.id) {
+      handleSelectPassHolder(nextPassHolder, nextBoundedIndex);
+    }
   }, [familyMembers, handleSelectPassHolder, selectedPassHolder]);
 
+  const renderItem = useCallback(
+    ({ item: familyMember, index }: { index: number; item: TFamilyMember }) => {
+      const isSelected = familyMember.passholder.id === selectedPassHolder.id;
+      return (
+        <Styled.FilterItem isSelected={isSelected} onPress={() => handleSelectPassHolder(familyMember.passholder, index)}>
+          <Styled.FilterLabel color={isSelected ? 'neutral.0' : 'primary.100'} fontStyle="bold" size="small">
+            {familyMember.passholder.firstName}
+          </Styled.FilterLabel>
+        </Styled.FilterItem>
+      );
+    },
+    [handleSelectPassHolder, selectedPassHolder.id],
+  );
+
   const PrevButton = useMemo(() => <Styled.FilterPrevButton name="ChevronLeft" onPress={handlePressPrev} />, [handlePressPrev]);
-  const NextMember = useMemo(() => <Styled.FilterNextButton name="ChevronRight" onPress={handlePressNext} />, [handlePressNext]);
+  const NextButton = useMemo(() => <Styled.FilterNextButton name="ChevronRight" onPress={handlePressNext} />, [handlePressNext]);
 
   return (
     <Styled.Container>
@@ -47,23 +63,10 @@ export const FamilyFilter = ({ selectedPassHolder, setSelectedPassHolder }: TPro
         horizontal
         keyExtractor={item => item.uitpasNumber}
         ref={listRef}
-        renderItem={({ item: familyMember, index }) => (
-          <Styled.FilterItem
-            isSelected={familyMember.passholder.id === selectedPassHolder.id}
-            onPress={() => handleSelectPassHolder(familyMember.passholder, index)}
-          >
-            <Styled.FilterLabel
-              color={familyMember.passholder.id === selectedPassHolder.id ? 'neutral.0' : 'primary.100'}
-              fontStyle="bold"
-              size="small"
-            >
-              {familyMember.passholder.firstName}
-            </Styled.FilterLabel>
-          </Styled.FilterItem>
-        )}
+        renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
       />
-      {NextMember}
+      {NextButton}
     </Styled.Container>
   );
 };
