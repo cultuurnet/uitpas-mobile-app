@@ -4,7 +4,7 @@ import { HeaderBackButton } from '@react-navigation/elements';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as SplashScreen from 'expo-splash-screen';
 
-import { Icon } from '../../_components';
+import { Icon, Spinner } from '../../_components';
 import { FamilyUserPoints, SingleUserPoints } from '../../_components/userPoints';
 import { ConfigUrl } from '../../_config';
 import { useAuthentication, useOnboarding } from '../../_context';
@@ -27,6 +27,7 @@ import {
   OtherFamiliesOverview,
 } from '../../onboarding/family';
 import Onboarding from '../../onboarding/Onboarding';
+import { useGetMe } from '../../profile/_queries/useGetMe';
 import { FamiliesOverview } from '../../profile/family/FamiliesOverview';
 import { useFamilyComposition } from '../../profile/family/hooks';
 import ProfileNotFound from '../../profile/ProfileNotFound';
@@ -55,6 +56,7 @@ export const RootStackNavigator = () => {
   const getMainHeaderProps = useMainHeaderProps(isAuthenticated);
   const UserPoints = useFamilyComposition({ FamilyComponent: FamilyUserPoints, SingleComponent: SingleUserPoints });
   const isPolicyApprovedInStorage = storage.getBoolean(StorageKey.IsPolicyApproved);
+  const { data: passHolder, isLoading: isPassHolderLoading } = useGetMe(isAuthenticated && !showFamilyOnboarding);
 
   useEffect(() => {
     if (isInitialized) SplashScreen?.hideAsync();
@@ -130,7 +132,7 @@ export const RootStackNavigator = () => {
           />
         </RootStack.Group>
       )}
-      {isAuthenticated && !showFamilyOnboarding && (
+      {isAuthenticated && !showFamilyOnboarding && passHolder && (
         <>
           <RootStack.Screen
             component={MainNavigator}
@@ -316,9 +318,11 @@ export const RootStackNavigator = () => {
         </>
       )}
 
-      {isAuthenticated && (
+      {isAuthenticated && (isPassHolderLoading||!passHolder) && (
         <RootStack.Group screenOptions={{ headerShown: false }}>
-          <RootStack.Screen component={ProfileNotFound} name="ProfileNotFound" options={{ gestureEnabled: false }} />
+          {isPassHolderLoading 
+          ? <RootStack.Screen component={Spinner} name="ProfileNotFound" options={{ gestureEnabled: false }} />
+          : <RootStack.Screen component={ProfileNotFound} name="ProfileNotFound" options={{ gestureEnabled: false }} />}
         </RootStack.Group>
       )}
     </RootStack.Navigator>

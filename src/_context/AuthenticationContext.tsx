@@ -1,16 +1,15 @@
 import { createContext, FC, PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react';
 import { Platform } from 'react-native';
-import { QueryCache } from '@tanstack/react-query';
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 
 import { Config } from '../_config';
 import { useToggle } from '../_hooks';
 import { useAppState } from '../_hooks/useAppState';
-import { TUser } from '../_models';
+import {  TUser } from '../_models';
 import { log } from '../_utils';
 import { storage } from '../storage';
-import { queryClient } from './QueryClientProvider';
+import { QUERY_PERSIST_KEY, queryClient } from './QueryClientProvider';
 import { getIdTokenProfileClaims } from './util';
 
 WebBrowser.maybeCompleteAuthSession();
@@ -80,15 +79,15 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
       storage.delete(STORAGE_KEYS.REFRESH_TOKEN);
       storage.delete(STORAGE_KEYS.EXPIRES_AT);
 
-      setIsAuthenticated(false);
+      // Clear persisted react query cache from storage
+      storage.delete(QUERY_PERSIST_KEY);
 
       // Clear react query cache
-      const queryCache = new QueryCache({});
       queryClient.clear();
-      queryCache.clear();
       queryClient.removeQueries();
-
+      
       // Reset state
+      setIsAuthenticated(false);
       setAccessToken(undefined);
       setRefreshToken(undefined);
       setUser(undefined);
