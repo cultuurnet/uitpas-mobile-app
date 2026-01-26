@@ -20,7 +20,10 @@ export const queryClient = new QueryClient({
   },
 });
 
+export const QUERY_PERSIST_KEY = 'REACT_QUERY_OFFLINE_CACHE';
+
 const persister = createSyncStoragePersister({
+  key: QUERY_PERSIST_KEY,
   storage: {
     getItem: (key: string) => storage.getString(key),
     removeItem: (key: string) => storage.delete(key),
