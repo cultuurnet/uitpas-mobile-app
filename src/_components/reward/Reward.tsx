@@ -59,7 +59,11 @@ const Reward = ({ reward, isRedeemed, subtitle, onPress, mode, showFamilyMembers
           <Typography fontStyle="bold" size="small">
             {reward.title}
           </Typography>
-          <Typography size="small">{subtitle || reward.organizers[0]?.name}</Typography>
+          {subtitle ? (
+            <Typography size="small">{subtitle}</Typography>
+          ) : reward.organizers.length === 1 ? (
+            <Typography size="small">{reward.organizers[0]?.name}</Typography>
+          ) : null}
           {!isTile && renderPointsAndLabel()}
         </Styled.TextContainer>
       </>

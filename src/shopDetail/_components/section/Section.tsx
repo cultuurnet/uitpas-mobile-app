@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import * as Styled from './style';
 
@@ -7,7 +7,7 @@ type TProps = {
   title: string;
 };
 
-export const Section = ({ title, children }: TProps) => {
+export const Section = memo(({ title, children }: TProps) => {
   return (
     <Styled.Section>
       <Styled.SectionTitle color="primary.800" fontStyle="bold">
@@ -16,4 +16,4 @@ export const Section = ({ title, children }: TProps) => {
       {children}
     </Styled.Section>
   );
-};
+});

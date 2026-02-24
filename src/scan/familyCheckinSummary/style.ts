@@ -1,4 +1,4 @@
-import { Image } from 'react-native';
+import { Image as ExpoImage } from 'expo-image';
 import styled from 'styled-components/native';
 
 import { Button, FamilyMembersPoints as FamilyMembersPointsComp } from '../../_components';
@@ -9,7 +9,7 @@ export const Header = styled.View`
   align-items: center;
 `;
 
-export const HeaderImage = styled(Image)`
+export const HeaderImage = styled(ExpoImage)`
   width: 80px;
   height: 80px;
   border-radius: 40px;

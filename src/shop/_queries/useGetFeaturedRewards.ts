@@ -7,7 +7,6 @@ export function useGetFeaturedRewards() {
   const api = usePubliqApi();
 
   return api.get<TRewardsResponse>(['featured-rewards', FEATURED_CARD_SYSTEM_ID], '/rewards', {
-    cacheTime: 0,
     params: {
       featured: true,
       owningCardSystemId: FEATURED_CARD_SYSTEM_ID,

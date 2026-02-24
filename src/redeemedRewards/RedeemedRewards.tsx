@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, RefreshControl } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
@@ -11,9 +11,6 @@ import { useHasFamilyMembers } from '../onboarding/family/_queries';
 import { useGetMe } from '../profile/_queries/useGetMe';
 import { useGetRedeemedRewards } from './_queries/useGetRedeemedRewards';
 import * as Styled from './style';
-
-// When everything fits on 1 line, and device font-size is not increased, the height of a listitem is 125
-const MIMIMAL_REWARD_HEIGHT = 125;
 
 type TProps = {
   navigation: TRootStackNavigationProp<'RedeemedRewards'>;
@@ -32,15 +29,18 @@ export const RedeemedRewards = ({ navigation }: TProps) => {
     isError,
     isRefetching,
     isFetchingNextPage,
+    error,
   } = useGetRedeemedRewards({ passHolder: selectedPassHolder });
   const { data: hasFamilyMembers } = useHasFamilyMembers();
 
-  const members = rewards?.pages?.flatMap(({ member }) => member) ?? [];
+  const members = useMemo(() => rewards?.pages?.flatMap(({ member }) => member) ?? [], [rewards]);
 
   return (
     <>
       <Analytics screenName="redeemed-rewards" />
-      {hasFamilyMembers && <FamilyFilter selectedPassHolder={selectedPassHolder} setSelectedPassHolder={setSelectedPassHolder} />}
+      {hasFamilyMembers && (
+        <FamilyFilter selectedPassHolder={selectedPassHolder} setSelectedPassHolder={setSelectedPassHolder} />
+      )}
       <FlashList
         ItemSeparatorComponent={Styled.Separator}
         ListEmptyComponent={
@@ -52,7 +52,7 @@ export const RedeemedRewards = ({ navigation }: TProps) => {
             </>
           ) : (
             <Styled.NoContentText align="center">
-              {t(isError ? 'PROFILE.REDEEMED_REWARDS.ERROR' : 'PROFILE.REDEEMED_REWARDS.EMPTY')}
+              {isError ? (error?.endUserMessage?.nl ?? t('PROFILE.REDEEMED_REWARDS.ERROR')) : t('PROFILE.REDEEMED_REWARDS.EMPTY')}
             </Styled.NoContentText>
           )
         }
@@ -65,7 +65,6 @@ export const RedeemedRewards = ({ navigation }: TProps) => {
         }
         contentContainerStyle={{ paddingBottom: 105, paddingTop: 24 }}
         data={members}
-        estimatedItemSize={MIMIMAL_REWARD_HEIGHT}
         keyExtractor={item => item.id}
         onEndReached={!isRewardsLoading ? fetchNextPage : () => {}}
         onEndReachedThreshold={0.1}

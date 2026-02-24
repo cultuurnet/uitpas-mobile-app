@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, RefreshControl } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
@@ -15,13 +15,7 @@ import { useGetRewards } from '../shop/_queries/useGetRewards';
 import { WelcomeHeader } from './_components/WelcomeHeader';
 import * as Styled from './style';
 
-type TProps = {
-  navigation: TRootStackNavigationProp<'FilteredShop'>;
-  route: TRootStackRouteProp<'FilteredShop'>;
-};
-
-// When everything fits on 1 line, and device font-size is not increased, the height of a listitem is 125
-const MINIMAL_REWARD_HEIGHT = 125;
+type TProps = { navigation: TRootStackNavigationProp<'FilteredShop'>; route: TRootStackRouteProp<'FilteredShop'> };
 
 export const FilteredShop = ({ route }: TProps) => {
   const { subtitle, section, category, type, isFeatured } = route.params || {};
@@ -29,8 +23,16 @@ export const FilteredShop = ({ route }: TProps) => {
 
   const { data: me } = useGetMe();
   const [selectedPassHolder, setSelectedPassHolder] = useState(me);
-  const { getFiltersForCategory, getFiltersForSection } = getRewardFilters({ passHolder: selectedPassHolder });
   const { data: hasFamilyMembers } = useHasFamilyMembers();
+
+  const filters = useMemo(() => {
+    if (isFeatured) {
+      return {};
+    }
+
+    const { getFiltersForCategory, getFiltersForSection } = getRewardFilters({ passHolder: selectedPassHolder });
+    return { type, ...getFiltersForSection(section), ...getFiltersForCategory(category) };
+  }, [isFeatured, selectedPassHolder, type, section, category]);
 
   const {
     data: rewards,
@@ -39,20 +41,32 @@ export const FilteredShop = ({ route }: TProps) => {
     refetch,
     isFetchingNextPage,
   } = useGetRewards({
-    filters: isFeatured ? {} : { type, ...getFiltersForSection(section), ...getFiltersForCategory(category) },
+    filters,
     itemsPerPage: 20,
     params: isFeatured ? { featured: true, owningCardSystemId: FEATURED_CARD_SYSTEM_ID } : {},
   });
 
-  const members = rewards?.pages?.flatMap(({ member }) => member) ?? [];
+  const members = useMemo(() => rewards?.pages?.flatMap(({ member }) => member) ?? [], [rewards?.pages]);
   const isFilteredOnWelcome = section === 'welkom';
 
-  // Determine the screen name for analytics
-  const getScreenName = () => {
+  const renderItem = useCallback(
+    ({ item }: { item: (typeof members)[number] }) => (
+      <Reward mode="list" reward={item} showFamilyMembers={!isFilteredOnWelcome && hasFamilyMembers} />
+    ),
+    [isFilteredOnWelcome, hasFamilyMembers],
+  );
+
+  const onEndReached = useCallback(() => {
+    if (!isRewardsLoading) {
+      fetchNextPage();
+    }
+  }, [isRewardsLoading, fetchNextPage]);
+
+  const getScreenName = useCallback(() => {
     if (isFeatured) return 'rewardshop-list-featured';
     if (isFilteredOnWelcome) return 'welcome-rewards';
     return `rewardshop-list-${normalizeForSlug(category || section)}`;
-  };
+  }, [isFeatured, isFilteredOnWelcome, category, section]);
 
   return (
     <>
@@ -93,9 +107,8 @@ export const FilteredShop = ({ route }: TProps) => {
         }
         contentContainerStyle={{ paddingBottom: 105 }}
         data={members}
-        estimatedItemSize={MINIMAL_REWARD_HEIGHT}
         keyExtractor={item => item.id}
-        onEndReached={!isRewardsLoading ? fetchNextPage : () => {}}
+        onEndReached={onEndReached}
         onEndReachedThreshold={0.1}
         refreshControl={
           <RefreshControl
@@ -105,9 +118,7 @@ export const FilteredShop = ({ route }: TProps) => {
             tintColor={theme.palette.primary['500']}
           />
         }
-        renderItem={({ item }) => (
-          <Reward mode="list" reward={item} showFamilyMembers={!isFilteredOnWelcome && hasFamilyMembers} />
-        )}
+        renderItem={renderItem}
       />
     </>
   );

@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { Icon, TouchableRipple, Typography } from '../../_components';
+import { Icon, PressableRipple, Typography } from '../../_components';
 import { theme } from '../../_styles/theme';
 
 export const SearchContainer = styled.View<{ paddingTop?: number }>`
@@ -22,6 +22,7 @@ export const SearchInput = styled.TextInput`
   background-color: ${theme.palette.neutral[0]};
   padding: 12px 12px 12px 44px;
   line-height: 22px;
+  height: 50px;
   text-align-vertical: center;
 `;
 
@@ -42,7 +43,7 @@ export const SearchResultsContainer = styled.View`
   background-color: ${theme.palette.neutral[100]};
 `;
 
-export const PopularItem = styled(TouchableRipple)`
+export const PopularItem = styled(PressableRipple)`
   padding: 12px;
   padding-left: 16px;
   flex-direction: row;

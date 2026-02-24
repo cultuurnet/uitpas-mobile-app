@@ -1,9 +1,9 @@
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { Analytics, Icon, TouchableRipple } from '../../../_components';
+import { Analytics, Icon, PressableRipple } from '../../../_components';
 import { useOnboarding } from '../../../_context';
 import { TMainNavigationProp } from '../../../_routing';
 import { getAvatarByNameOrDefault } from '../../../_utils';
@@ -49,7 +49,7 @@ export const FamilyOverview = ({ navigation }: TProps) => {
             <Styled.HeaderContent onPress={() => navigation.navigate('EditFamilyMember', { member: me })}>
               <>
                 <View>
-                  <Styled.MyAvatar resizeMode="contain" source={getAvatarByNameOrDefault(me?.icon)} />
+                  <Styled.MyAvatar contentFit="contain" source={getAvatarByNameOrDefault(me?.icon)} />
                   <Styled.EditProfileIconContainer>
                     <Icon color="neutral.0" name="Edit" size={12} />
                   </Styled.EditProfileIconContainer>
@@ -70,10 +70,10 @@ export const FamilyOverview = ({ navigation }: TProps) => {
           if (formItem.type === TFormItemType.FamilyMemberItem) {
             return (
               <Styled.FormItemButtonWrapper>
-                <TouchableRipple borderless onPress={() => navigation.navigate('EditFamilyMember', { member: formItem })}>
+                <PressableRipple borderless onPress={() => navigation.navigate('EditFamilyMember', { member: formItem })}>
                   <Styled.FormItem>
                     <View>
-                      <Styled.FamilyMemberAvatar resizeMode="contain" source={getAvatarByNameOrDefault(formItem.icon)} />
+                      <Styled.FamilyMemberAvatar contentFit="contain" source={getAvatarByNameOrDefault(formItem.icon)} />
                       <Styled.EditProfileIconContainer>
                         <Icon color="neutral.0" name="Edit" size={12} />
                       </Styled.EditProfileIconContainer>
@@ -82,14 +82,14 @@ export const FamilyOverview = ({ navigation }: TProps) => {
                       {formItem.passholder.firstName}
                     </Styled.FormItemLabel>
                   </Styled.FormItem>
-                </TouchableRipple>
+                </PressableRipple>
               </Styled.FormItemButtonWrapper>
             );
           } else if (formItem.type === TFormItemType.FamilyMemberAddButton) {
             return (
               <>
                 <Styled.FormItemButtonWrapper>
-                  <TouchableRipple borderless onPress={() => navigation.navigate('AddFamilyMember', { familyMembers })}>
+                  <PressableRipple borderless onPress={() => navigation.navigate('AddFamilyMember', { familyMembers })}>
                     <Styled.FormItem>
                       <Styled.FormItemBody>
                         <Styled.AddIconContainer>
@@ -100,7 +100,7 @@ export const FamilyOverview = ({ navigation }: TProps) => {
                         {t('ONBOARDING.FAMILY.OVERVIEW.ADD_MEMBER')}
                       </Styled.FormItemLabel>
                     </Styled.FormItem>
-                  </TouchableRipple>
+                  </PressableRipple>
                 </Styled.FormItemButtonWrapper>
                 {familyMembers.length % 2 === 1 && <Styled.FormItemContainer />}
               </>

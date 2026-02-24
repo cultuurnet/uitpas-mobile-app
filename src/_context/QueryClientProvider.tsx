@@ -15,18 +15,15 @@ function onAppStateChange(status: AppStateStatus) {
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      cacheTime: 1000 * 60 * 60 * 1, // 1 hour
+      gcTime: 1000 * 60 * 60 * 1, // 1 hour
     },
   },
 });
 
-if (__DEV__) {
-  import('react-query-native-devtools').then(({ addPlugin }) => {
-    addPlugin({ queryClient });
-  });
-}
+export const QUERY_PERSIST_KEY = 'REACT_QUERY_OFFLINE_CACHE';
 
 const persister = createSyncStoragePersister({
+  key: QUERY_PERSIST_KEY,
   storage: {
     getItem: (key: string) => storage.getString(key),
     removeItem: (key: string) => storage.delete(key),

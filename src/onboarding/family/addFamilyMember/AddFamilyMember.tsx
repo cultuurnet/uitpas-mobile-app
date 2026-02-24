@@ -7,15 +7,13 @@ import { useHeaderHeight } from '@react-navigation/elements';
 
 import { Analytics, Button, Trans, Typography } from '../../../_components';
 import { queryClient, useTracking } from '../../../_context';
+import { TApiError } from '../../../_http';
 import { TMainNavigationProp, TRootStackRouteProp } from '../../../_routing';
 import { applyBarcodeMask, getRandomUniqueAvatar, openExternalURL, TRACKING_URL_REGEX } from '../../../_utils';
 import { TRegistrationTokenRequest, useGetRegistrationToken, useRegisterFamilyMember } from '../_queries';
 import * as Styled from './style';
 
-type TProps = {
-  navigation: TMainNavigationProp<'Profile'>;
-  route: TRootStackRouteProp<'AddFamilyMember'>;
-};
+type TProps = { navigation: TMainNavigationProp<'Profile'>; route: TRootStackRouteProp<'AddFamilyMember'> };
 
 type TFormData = TRegistrationTokenRequest;
 
@@ -26,17 +24,12 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
     formState: { errors },
     getValues: getFormValues,
     handleSubmit,
-  } = useForm<TFormData>({
-    defaultValues: {
-      birthDate: null,
-      uitpasNumber: '',
-    },
-  });
+  } = useForm<TFormData>({ defaultValues: { birthDate: null, uitpasNumber: '' } });
   const { trackSelfDescribingEvent } = useTracking();
 
   const {
     error: registrationTokenError, // Inline error
-    isLoading: registrationTokenIsLoading,
+    isPending: registrationTokenIsLoading,
     mutate: getRegistrationToken,
   } = useGetRegistrationToken({
     onError: () => {
@@ -45,22 +38,21 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
     onSuccess: async ({ token }) => {
       try {
         await registerFamilyMember({
-          body: {
-            icon: getRandomUniqueAvatar(familyMembers),
-            uitpasNumber: getFormValues().uitpasNumber.replaceAll(' ', ''),
-          },
+          body: { icon: getRandomUniqueAvatar(familyMembers), uitpasNumber: getFormValues().uitpasNumber.replaceAll(' ', '') },
           headers: { 'x-registration-token': token },
         });
         trackSelfDescribingEvent('successMessage', { message: 'family-member-added' });
-        queryClient.invalidateQueries(['family']);
+        queryClient.invalidateQueries({ queryKey: ['family'] });
         navigation.navigate('FamilyOverview');
-      } catch (error) {
-        trackSelfDescribingEvent('errorMessage', { message: error.type.replace(TRACKING_URL_REGEX, '').substring(0, 100) });
-        navigation.navigate('AddFamilyMemberError', { description: error.endUserMessage.nl }); // End-of-flow error
+      } catch (e) {
+        const error = e as TApiError;
+        const type = error?.type || 'unknown';
+        trackSelfDescribingEvent('errorMessage', { message: type.replace(TRACKING_URL_REGEX, '').substring(0, 100) });
+        navigation.replace('AddFamilyMemberError', { description: error?.endUserMessage?.nl || t('ERROR.TITLE') }); // End-of-flow error
       }
     },
   });
-  const { mutateAsync: registerFamilyMember, isLoading: registerFamilyMemberIsLoading } = useRegisterFamilyMember();
+  const { mutateAsync: registerFamilyMember, isPending: registerFamilyMemberIsLoading } = useRegisterFamilyMember();
 
   const headerHeight = useHeaderHeight();
   const { bottom } = useSafeAreaInsets();
@@ -119,7 +111,9 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
                 <Styled.FormError color="error.700">{t('ONBOARDING.FAMILY.ADD_MEMBER.MISSING_FIELDS')}</Styled.FormError>
               )}
               {registrationTokenError && (
-                <Styled.FormError color="error.700">{registrationTokenError.endUserMessage.nl}</Styled.FormError>
+                <Styled.FormError color="error.700">
+                  {registrationTokenError.endUserMessage?.nl || t('ERROR.TITLE')}
+                </Styled.FormError>
               )}
             </Styled.FormBody>
             <Typography align="center">{t('ONBOARDING.FAMILY.ADD_MEMBER.INFO')}</Typography>

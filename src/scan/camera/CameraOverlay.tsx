@@ -44,7 +44,14 @@ const CameraOverlay: FC<TProps> = ({
         />
         {!isLoading &&
           corners.map((corner, i) => (
-            <Path d={corner.path} key={`corner-${i}`} stroke="white" strokeWidth={strokeWidth} x={corner.x} y={corner.y} />
+            <Path
+              d={corner.path}
+              fill="none"
+              key={`corner-${i}`}
+              stroke="white"
+              strokeWidth={strokeWidth}
+              transform={`translate(${corner.x}, ${corner.y})`}
+            />
           ))}
       </Svg>
 

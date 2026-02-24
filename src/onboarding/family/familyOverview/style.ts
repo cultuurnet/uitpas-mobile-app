@@ -1,6 +1,7 @@
+import { Image as ExpoImage } from 'expo-image';
 import styled from 'styled-components/native';
 
-import { Button, TouchableRipple, Typography } from '../../../_components';
+import { Button, PressableRipple, Typography } from '../../../_components';
 import { theme } from '../../../_styles/theme';
 
 export const Header = styled.View`
@@ -11,12 +12,12 @@ export const Header = styled.View`
   margin-bottom: 8px;
 `;
 
-export const HeaderContent = styled(TouchableRipple)`
+export const HeaderContent = styled(PressableRipple)`
   width: 60%;
   align-items: center;
 `;
 
-export const MyAvatar = styled.Image`
+export const MyAvatar = styled(ExpoImage)`
   width: 64px;
   height: 64px;
   border-width: 4px;
@@ -63,7 +64,7 @@ export const FormItemLabel = styled(Typography)`
   line-height: 21px;
 `;
 
-export const FamilyMemberAvatar = styled.Image`
+export const FamilyMemberAvatar = styled(ExpoImage)`
   width: 64px;
   height: 64px;
 `;

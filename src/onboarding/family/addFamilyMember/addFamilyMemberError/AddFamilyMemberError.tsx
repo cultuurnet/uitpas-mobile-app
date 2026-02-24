@@ -13,11 +13,11 @@ export const AddFamilyMemberError = ({ navigation, route }: TProps) => {
   const { t } = useTranslation();
 
   const goToFamilyOverview = () => {
-    navigation.navigate('FamilyOverview');
+    navigation.popTo('FamilyOverview');
   };
 
   return (
-    <SafeAreaView backgroundColor="neutral.0" barStyle="dark-content">
+    <SafeAreaView backgroundColor="neutral.0" barStyle="dark">
       <Styled.Body>
         <Icon color="error.600" name="Warning" size={48} />
         <Styled.Title align="center" color="error.600" fontStyle="bold" size="xxlarge">

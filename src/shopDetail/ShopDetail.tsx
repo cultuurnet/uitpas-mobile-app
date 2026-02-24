@@ -49,23 +49,36 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
   const rewardsSection = useRef(null);
   const rewardTrackingData = useMemo(() => ({ reward: getRewardTrackingData(reward) }), [reward]);
 
-  const [firstOrganizer, ...organizers] = reward.organizers || [];
-  const isInAppRedeemable = reward?.online && redeemStatus?.redeemable;
+  const { hiddenOrganizers, visibleOrganizers } = useMemo(() => {
+    const allOrganizers = reward.organizers || [];
+    return { hiddenOrganizers: allOrganizers.slice(3), visibleOrganizers: allOrganizers.slice(0, 3) };
+  }, [reward.organizers]);
+  const isInAppRedeemable = useMemo(() => reward?.online && redeemStatus?.redeemable, [reward?.online, redeemStatus?.redeemable]);
   // If we have a redeembutton, it needs to be sticky, otherwise we don't have sticky content
-  const stickyHeaderIndices = isInAppRedeemable ? [2] : [];
+  const stickyHeaderIndices = useMemo(() => (isInAppRedeemable ? [2] : []), [isInAppRedeemable]);
 
-  const handleLinkPress = () => {
+  const handleLinkPress = useCallback(() => {
     trackSelfDescribingEvent('linkClick', { targetUrl: normalizeUrl(reward.moreInfoURL) }, rewardTrackingData);
-  };
-  const trackError = () => {
+  }, [reward.moreInfoURL, trackSelfDescribingEvent, rewardTrackingData]);
+
+  const trackError = useCallback(() => {
     trackSelfDescribingEvent(
       'errorMessage',
-      { message: redeemStatus?.reason.substring(0, 100) || redeemStatusError.type },
+      { message: redeemStatus?.reason.substring(0, 100) || redeemStatusError?.type },
       rewardTrackingData,
     );
-  };
+  }, [redeemStatus?.reason, trackSelfDescribingEvent, rewardTrackingData, redeemStatusError?.type]);
 
-  const handleRedeemButtonPress = () => {
+  const handleRedeemReward = useCallback(
+    (member: TFamilyMember) => {
+      trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-cta' }, rewardTrackingData);
+      setSelectedMember(member);
+      toggleIsRedeemModalVisible();
+    },
+    [trackSelfDescribingEvent, rewardTrackingData, toggleIsRedeemModalVisible],
+  );
+
+  const handleRedeemButtonPress = useCallback(() => {
     if (!showFamilyMembers || !hasFamilyMembers) {
       const mainMember = familyMembers.filter(({ mainFamilyMember }) => mainFamilyMember)[0];
       if (mainMember) {
@@ -78,21 +91,12 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
         });
       });
     }
-  };
+  }, [showFamilyMembers, hasFamilyMembers, familyMembers, handleRedeemReward]);
 
-  const handleRedeemReward = useCallback(
-    (member: TFamilyMember) => {
-      trackSelfDescribingEvent('buttonClick', { button_name: 'redeem-cta' }, rewardTrackingData);
-      setSelectedMember(member);
-      toggleIsRedeemModalVisible();
-    },
-    [rewardTrackingData, toggleIsRedeemModalVisible, trackSelfDescribingEvent],
-  );
-
-  const handleRedeemModalToggle = () => {
+  const handleRedeemModalToggle = useCallback(() => {
     setSelectedMember(null);
     toggleIsRedeemModalVisible();
-  };
+  }, [toggleIsRedeemModalVisible]);
 
   return (
     <>
@@ -111,7 +115,9 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
           <Styled.Title fontStyle="bold" size="xxlarge">
             {reward.title}
           </Styled.Title>
-          <Typography color="primary.800">{firstOrganizer?.name}</Typography>
+          {visibleOrganizers.length === 1 && hiddenOrganizers.length === 0 && (
+            <Typography color="primary.800">{visibleOrganizers[0]?.name}</Typography>
+          )}
         </Styled.Content>
 
         <RedeemStatusButton
@@ -131,18 +137,23 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
           </Section>
 
           {!!reward.moreInfoURL && <Styled.MoreInfoLink href={normalizeUrl(reward.moreInfoURL)} onPress={handleLinkPress} />}
-
-          <Section title={t('SHOP_DETAIL.LOCATION')}>
-            <Organizer fallbackName={firstOrganizer?.name} id={firstOrganizer?.id} key={firstOrganizer?.id} />
-            {organizers.length > 0 && (
-              <Accordion expandedTitle={t('SHOP_DETAIL.SHOW_LESS')} title={t('SHOP_DETAIL.SHOW_MORE')}>
-                {organizers.map(organizer => (
-                  <Organizer fallbackName={organizer.name} id={organizer.id} key={organizer.id} showTopBorder />
-                ))}
-              </Accordion>
-            )}
-          </Section>
-
+          {!reward.online && (
+            <Section title={t('SHOP_DETAIL.LOCATION')}>
+              {visibleOrganizers.map((organizer, index) => (
+                <Organizer fallbackName={organizer.name} id={organizer.id} key={organizer.id} showTopBorder={index > 0} />
+              ))}
+              {hiddenOrganizers.length > 0 && (
+                <Accordion
+                  expandedTitle={t('SHOP_DETAIL.SHOW_LESS')}
+                  title={t('SHOP_DETAIL.SHOW_MORE', { count: hiddenOrganizers.length })}
+                >
+                  {hiddenOrganizers.map(organizer => (
+                    <Organizer fallbackName={organizer.name} id={organizer.id} key={organizer.id} showTopBorder />
+                  ))}
+                </Accordion>
+              )}
+            </Section>
+          )}
           <Availability
             maxAvailableUnits={reward.maxAvailableUnits}
             redeemConstraint={reward.redeemConstraint}
@@ -171,7 +182,7 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
             <HtmlRenderer source={{ html: reward.practicalInfo }} />
           </Section>
 
-          {showFamilyMembers && hasFamilyMembers && !isRedeemStatusLoading && (
+          {showFamilyMembers && hasFamilyMembers && (
             <View ref={rewardsSection}>
               <Section title={t('SHOP_DETAIL.WHO_CAN_REDEEM.TITLE')}>
                 <RedeemFamilyMembers onRedeem={handleRedeemReward} reward={reward} />

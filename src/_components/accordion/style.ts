@@ -1,9 +1,10 @@
 import styled from 'styled-components/native';
 
 import { theme } from '../../_styles/theme';
+import PressableOpacity from '../pressable/PressableOpacity';
 import Typography from '../typography/Typography';
 
-export const Handle = styled.TouchableOpacity`
+export const Handle = styled(PressableOpacity)`
   flex-direction: row;
   padding: 16px 0 8px;
   align-items: center;
