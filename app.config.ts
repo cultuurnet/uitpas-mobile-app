@@ -10,17 +10,13 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     allowBackup: false,
     edgeToEdgeEnabled: true,
     package: process.env.EXPO_PUBLIC_APP_PACKAGE_NAME,
-    // Offset 106 so versionCode is always > last Play Store release (106 = 2.1.2)
-    versionCode:
-      process.env.BUILD_NUMBER != null
-        ? Math.max(107, 106 + parseInt(process.env.BUILD_NUMBER, 10))
-        : undefined,
     permissions: [
       'android.permission.CAMERA',
       'android.permission.READ_EXTERNAL_STORAGE',
       'android.permission.WRITE_EXTERNAL_STORAGE',
     ],
     predictiveBackGestureEnabled: false,
+    versionCode: process.env.BUILD_NUMBER != null ? Math.max(108, 107 + parseInt(process.env.BUILD_NUMBER, 10)) : undefined,
   },
   extra: {
     API_HOST: process.env.EXPO_PUBLIC_API_HOST,
@@ -80,7 +76,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       },
     ],
     ['expo-navigation-bar', { backgroundColor: '#FFFFFF', barStyle: 'dark' }],
-    "expo-web-browser"
+    'expo-web-browser',
   ],
   scheme: process.env.EXPO_PUBLIC_APP_PACKAGE_NAME,
   slug: 'uitpas-mobile-app',
