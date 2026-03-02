@@ -6,7 +6,7 @@ import * as WebBrowser from 'expo-web-browser';
 import { Config } from '../_config';
 import { useToggle } from '../_hooks';
 import { useAppState } from '../_hooks/useAppState';
-import {  TUser } from '../_models';
+import { TUser } from '../_models';
 import { log } from '../_utils';
 import { storage } from '../storage';
 import { QUERY_PERSIST_KEY, queryClient } from './QueryClientProvider';
@@ -45,7 +45,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isInitialized, setIsInitialized] = useToggle(false);
   const [isAuthenticated, setIsAuthenticated] = useToggle(false);
 
-  const redirectUri = `${Config.APP_PACKAGE_NAME}://account-test.uitid.be/${Platform.OS}/${Config.APP_PACKAGE_NAME}/callback`;
+  const redirectUri = `${Config.APP_PACKAGE_NAME}://${Config.REACT_NATIVE_APP_AUTH_ISSUER?.replace('https://', '')}/${Platform.OS}/${Config.APP_PACKAGE_NAME}/callback`;
   const discovery = AuthSession.useAutoDiscovery(Config.REACT_NATIVE_APP_AUTH_ISSUER || '');
 
   const [request, , promptAsync] = AuthSession.useAuthRequest(
@@ -85,7 +85,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
       // Clear react query cache
       queryClient.clear();
       queryClient.removeQueries();
-      
+
       // Reset state
       setIsAuthenticated(false);
       setAccessToken(undefined);
@@ -97,7 +97,7 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [refreshToken, discovery, setIsAuthenticated]);
 
   const saveTokens = useCallback(
-    (tokens: { accessToken: string; expiresIn?: number, idToken?: string; refreshToken?: string; }) => {
+    (tokens: { accessToken: string; expiresIn?: number; idToken?: string; refreshToken?: string }) => {
       storage.set(STORAGE_KEYS.ACCESS_TOKEN, tokens.accessToken);
       if (tokens.idToken) storage.set(STORAGE_KEYS.ID_TOKEN, tokens.idToken);
       if (tokens.refreshToken) storage.set(STORAGE_KEYS.REFRESH_TOKEN, tokens.refreshToken);
