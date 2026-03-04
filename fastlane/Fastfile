@@ -1,4 +1,5 @@
 require 'logger'
+require "base64"
 
 # Don't generate README files.
 skip_docs
@@ -112,17 +113,20 @@ private_lane :build_ios do |options|
   # Upload
   app_name = ENV["EXPO_PUBLIC_APP_NAME"].gsub(/\s/, '')
   if env == "production"
-    upload_to_testflight(
-      username: ENV["CI_IOS_USERNAME"],
-      team_name: ENV["CI_IOS_TEAM_NAME"],
-      team_id: ENV["CI_IOS_TESTFLIGHT_TEAM_ID"],
-      app_identifier: ENV["EXPO_PUBLIC_APP_PACKAGE_NAME"],
-      apple_id: ENV["CI_IOS_APPLE_ID"],
-      itc_provider: ENV["CI_IOS_APPLE_ID"],
-      ipa: "ios/build/#{app_name}.ipa",
-      skip_submission: true,
-      skip_waiting_for_build_processing: true,
+    api_key = app_store_connect_api_key(
+      key_id: ENV["APPSTORE_KEY_ID"],
+      issuer_id: ENV["APPSTORE_ISSUER_ID"],
+      key_content: ENV["APPSTORE_KEY_P8"],
+      in_house: false
     )
+
+    upload_to_testflight(
+    api_key: api_key,
+    app_identifier: ENV["EXPO_PUBLIC_APP_PACKAGE_NAME"],
+    ipa: "ios/build/#{app_name}.ipa",
+    skip_submission: true,
+    skip_waiting_for_build_processing: true
+  )
   else
     firebase_app_distribution(
       app: ENV["CI_FIREBASE_IOS_APP_ID"],

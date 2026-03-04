@@ -62,10 +62,9 @@ jobs:
           CI_IOS_TEAM_ID: '3M7M296YKK'
           CI_IOS_CODE_SIGN_IDENTITY: 'Apple Distribution'
           CI_IOS_PROVISIONING_PROFILE: 'fastlane/compubliquitpas_AppStore.mobileprovision'
-          CI_IOS_USERNAME: '${{ secrets.CI_IOS_USERNAME }}'
-          CI_IOS_TEAM_NAME: 'Publiq ASBL'
-          CI_IOS_APPLE_ID: '${{ secrets.CI_IOS_APPLE_ID }}'
-          CI_IOS_TESTFLIGHT_TEAM_ID: '65321197'
+          APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+          APPSTORE_KEY_P8: ${{ secrets.APPSTORE_KEY_P8 }}
   release_prod_android:
     name: Android (prod)
     environment: production
