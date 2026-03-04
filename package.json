@@ -1,6 +1,6 @@
 {
   "name": "uitpas-mobile-app",
-  "version": "2.1.4-3",
+  "version": "2.1.4",
   "main": "index.ts",
   "private": true,
   "packageManager": "pnpm@10.23.0",
