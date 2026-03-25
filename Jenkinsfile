@@ -6,7 +6,7 @@ pipeline {
     agent none
 
     environment {
-        PIPELINE_VERSION = build.pipelineVersion()
+        PIPELINE_VERSION = util.pipelineVersion()
     }
 
     stages {
@@ -20,7 +20,7 @@ pipeline {
         stage('Test and build') {
             agent { label 'ubuntu && 20.04' }
             environment {
-                GIT_SHORT_COMMIT = build.shortCommitRef()
+                GIT_SHORT_COMMIT = util.shortCommitRef()
                 ARTIFACT_VERSION = "${env.PIPELINE_VERSION}" + '+sha.' + "${env.GIT_SHORT_COMMIT}"
             }
                         steps {
