@@ -15,9 +15,18 @@ export type TIconProps = {
   name: TIconName;
   onPress?: () => void;
   size?: 'small' | 'large' | number;
-} & Omit<ImageProps, 'source'>;
+} & Omit<ImageProps, 'loading' | 'source'>;
 
-const Icon = ({ size, name, color, style = undefined, onPress, disabled = false, borderless = false, ...imageProps }: TIconProps) => {
+const Icon = ({
+  size,
+  name,
+  color,
+  style = undefined,
+  onPress,
+  disabled = false,
+  borderless = false,
+  ...imageProps
+}: TIconProps) => {
   const tintColor = color && getColor(color);
 
   const iconElement = (

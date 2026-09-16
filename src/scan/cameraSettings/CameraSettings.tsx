@@ -3,7 +3,6 @@ import { t } from 'i18next';
 
 import { Scan } from '../../_assets/images';
 import { FocusAwareStatusBar, SafeAreaView } from '../../_components';
-import { theme } from '../../_styles/theme';
 import * as Styled from './style';
 
 const CameraSettings = () => {
@@ -11,7 +10,7 @@ const CameraSettings = () => {
 
   return (
     <SafeAreaView backgroundColor="neutral.0" isScrollable={false}>
-      <FocusAwareStatusBar backgroundColor={theme.palette.neutral['0']} style="dark" />
+      <FocusAwareStatusBar style="dark" />
 
       <Styled.TopContainer>
         <Styled.TitleText align="center" color="secondary.700" fontStyle="bold" size="large">

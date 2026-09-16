@@ -16,7 +16,6 @@ import { Analytics, FocusAwareStatusBar, Spinner } from '../../_components';
 import { useTracking } from '../../_context';
 import { TApiError } from '../../_http';
 import { TMainNavigationProp } from '../../_routing/_components/TRootStackParamList';
-import { theme } from '../../_styles/theme';
 import { log, TRACKING_URL_REGEX } from '../../_utils';
 import { useHasFamilyMembers } from '../../onboarding/family/_queries';
 import { useGetMe } from '../../profile/_queries/useGetMe';
@@ -130,7 +129,7 @@ const Camera = ({ navigation }: TProps) => {
     <>
       <Analytics screenName="Camera" />
       <View onLayout={handleLayoutChange} style={StyleSheet.absoluteFill}>
-        <FocusAwareStatusBar backgroundColor={theme.palette.neutral['900']} style="light" />
+        <FocusAwareStatusBar style="light" />
         <VisionCamera
           codeScanner={codeScanner}
           device={device}

@@ -34,7 +34,7 @@ const App = () => {
             <SafeAreaProvider>
               <NavigationContainer ref={navigationRef}>
                 <TrackingProvider>
-                  <StatusBar backgroundColor={theme.palette.secondary[600]} style="light" />
+                  <StatusBar style="light" />
                   <RootStackNavigator />
                 </TrackingProvider>
               </NavigationContainer>

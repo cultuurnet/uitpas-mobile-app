@@ -8,7 +8,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       foregroundImage: process.env.EXPO_PUBLIC_APP_ADAPTIVE_ICON,
     },
     allowBackup: false,
-    edgeToEdgeEnabled: true,
     package: process.env.EXPO_PUBLIC_APP_PACKAGE_NAME,
     permissions: [
       'android.permission.CAMERA',
@@ -52,6 +51,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   plugins: [
     'expo-localization',
     ['expo-build-properties', { android: { cppVersion: '20', minSdkVersion: 29 }, ios: { useFrameworks: 'static' } }],
+    '@react-native-community/datetimepicker',
+    '@sentry/react-native',
     [
       'react-native-vision-camera',
       { cameraPermissionText: 'UiTPAS needs access to your Camera to scan QR codes.', enableCodeScanner: true },
@@ -75,7 +76,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         resizeMode: 'contain',
       },
     ],
-    ['expo-navigation-bar', { backgroundColor: '#FFFFFF', barStyle: 'dark' }],
+    ['expo-navigation-bar', { backgroundColor: '#FFFFFF', style: 'dark' }],
     'expo-web-browser',
   ],
   scheme: process.env.EXPO_PUBLIC_APP_PACKAGE_NAME,
