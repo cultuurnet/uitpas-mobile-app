@@ -15,6 +15,7 @@ const SECTIONS: TRewardSectionProps[] = [
   { horizontal: true, section: 'online', title: 'SHOP.SECTIONS.ONLINE' },
   { horizontal: true, section: 'interessant', title: 'SHOP.SECTIONS.INTERESTING' },
   { section: 'in de kijker', title: 'SHOP.SECTIONS.HIGHLIGHTED' },
+  { horizontal: true, section: 'binnenkort om te ruilen', title: 'SHOP.SECTIONS.FUTURE' },
   { category: 'laatste kans', horizontal: true, title: 'SHOP.SECTIONS.LAST_CHANCE' },
   { section: 'populair regio', title: 'SHOP.SECTIONS.POPULAR_REGION' },
   { horizontal: true, section: 'stad voordelen', title: 'SHOP.SECTIONS.CITY' },

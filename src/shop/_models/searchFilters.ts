@@ -11,6 +11,7 @@ export type TSearchFilters = {
   online?: boolean;
   organizerPostalCode?: string;
   sport?: boolean;
+  subset?: string;
   type?: TRewardType;
   withoutSorting?: boolean;
 };

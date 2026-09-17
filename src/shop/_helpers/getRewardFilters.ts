@@ -7,6 +7,7 @@ type TProps = {
 };
 
 export type TFilterRewardSection =
+  | 'binnenkort om te ruilen'
   | 'online'
   | 'in de kijker'
   | 'populair regio'
@@ -22,6 +23,8 @@ export function getRewardFilters({ passHolder }: TProps) {
   const getFiltersForSection = (section: TFilterRewardSection): TSearchFilters => {
     // filter for a section
     switch (section) {
+      case 'binnenkort om te ruilen':
+        return { subset: 'ENDUSER-FUTURE' };
       case 'online':
         return {
           online: true,
