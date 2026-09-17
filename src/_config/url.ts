@@ -9,6 +9,7 @@ type TConfigUrlIdentifiers =
   | 'helpdesk'
   | 'termsOfService'
   | 'privacyPolicy'
+  | 'accessibilityStatement'
   | 'shop'
   | 'appStore'
   | 'playStore'
@@ -21,6 +22,10 @@ type TConfigUrlIdentifiers =
   | 'version';
 
 const urls: Record<TConfigUrlIdentifiers, TConfigUrl> = {
+  accessibilityStatement: {
+    beta: 'https://test.uitpas.be/toegankelijkheidsverklaring',
+    production: 'https://www.uitpas.be/toegankelijkheidsverklaring',
+  },
   appStore: {
     beta: 'itms-apps://apps.apple.com/be/app/uitpas/id1658556470?l=nl',
     production: 'itms-apps://apps.apple.com/be/app/uitpas/id1658556470?l=nl',
