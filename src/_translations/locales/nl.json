@@ -249,6 +249,7 @@
       "FOOD": "Eten en drinken",
       "ONLINE": "Meteen in de app omruilen",
       "HIGHLIGHTED": "In de kijker",
+      "FUTURE": "Binnenkort om te ruilen",
       "WELCOME": "Welkomstvoordelen",
       "CITY": "Voordelen in {{city}}",
       "CITY_FALLBACK": "je gemeente"
