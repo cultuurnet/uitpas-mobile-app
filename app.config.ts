@@ -50,13 +50,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   orientation: 'portrait',
   plugins: [
     'expo-localization',
-    ['expo-build-properties', { android: { cppVersion: '20', minSdkVersion: 29 }, ios: { useFrameworks: 'static' } }],
+    [
+      'expo-build-properties',
+      { android: { cppVersion: '20', minSdkVersion: 29 }, ios: { deploymentTarget: '16.4', useFrameworks: 'static' } },
+    ],
     '@react-native-community/datetimepicker',
     '@sentry/react-native',
-    [
-      'react-native-vision-camera',
-      { cameraPermissionText: 'UiTPAS needs access to your Camera to scan QR codes.', enableCodeScanner: true },
-    ],
     [
       'expo-font',
       {

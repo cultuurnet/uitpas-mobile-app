@@ -1,4 +1,4 @@
-import { Code, CodeScannerFrame } from 'react-native-vision-camera';
+import { Barcode } from 'react-native-vision-camera-barcode-scanner';
 
 type Rect = {
   bottom: number;
@@ -7,11 +7,11 @@ type Rect = {
   top: number;
 };
 
-export function isInRange({ corners }: Code, scanRegion: Rect, frame: CodeScannerFrame) {
-  const [topLeft, topRight, bottomRight, bottomLeft] = corners;
+export function isInRange({ cornerPoints }: Barcode, scanRegion: Rect, frame: { height: number; width: number }) {
+  const [topLeft, topRight, bottomRight, bottomLeft] = cornerPoints;
   const { width: frameWidth, height: frameHeight } = frame;
 
-  if (corners?.length >= 4) {
+  if (cornerPoints?.length >= 4) {
     /** bounding box for QR code in percentages */
     const qrBoundingBox: Rect = {
       bottom: (bottomLeft.y + bottomRight.y) / 2 / frameHeight,
