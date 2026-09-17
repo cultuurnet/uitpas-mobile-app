@@ -12,6 +12,11 @@ const links: TLinkListItem[] = [
   { href: ConfigUrl.termsOfService, iconName: 'External', label: i18n.t('PROFILE.ABOUT.TERMS_OF_SERVICE') },
   { href: ConfigUrl.privacyPolicy, iconName: 'External', label: i18n.t('PROFILE.ABOUT.PRIVACY_POLICY') },
   {
+    href: `${ConfigUrl.accessibilityStatement}#${Platform.OS}`,
+    iconName: 'External',
+    label: i18n.t('PROFILE.ABOUT.ACCESSIBILITY_STATEMENT'),
+  },
+  {
     href: Platform.OS === 'ios' ? ConfigUrl.appStore : ConfigUrl.playStore,
     iconName: 'External',
     label: i18n.t('PROFILE.ABOUT.CHECK_FOR_UPDATES'),
