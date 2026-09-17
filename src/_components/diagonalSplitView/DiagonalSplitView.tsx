@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { ScrollView, StyleProp, useWindowDimensions, View, ViewStyle } from 'react-native';
 
 import { ThemeColor } from '../../_styles/theme';
-import { getColor } from '../../_utils';
 import FocusAwareStatusBar from '../statusBar/FocusAwareStatusBar';
 import * as Styled from './style';
 
@@ -50,7 +49,7 @@ const DiagonalSplitView: FC<TProps> = ({
           {isScrollable ? <Styled.BottomContainerContent>{bottomContent}</Styled.BottomContainerContent> : bottomContent}
         </Styled.BottomContainer>
       </Styled.ViewContainer>
-      <FocusAwareStatusBar backgroundColor={getColor(backgroundColor)} style="light" />
+      <FocusAwareStatusBar style="light" />
     </ScrollView>
   );
 };

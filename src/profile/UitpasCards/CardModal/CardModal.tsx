@@ -4,7 +4,6 @@ import { StatusBar } from 'expo-status-bar';
 
 import { Icon } from '../../../_components';
 import { useFullScreenBrightness } from '../../../_hooks/useFullscreenBrightness';
-import { theme } from '../../../_styles/theme';
 import { TPassHolder } from '../../_models';
 import UitpasCard from '../UitpasCard/UitpasCard';
 import * as Styled from './style';
@@ -30,7 +29,7 @@ const CardModal: FC<TCardModalProps> = ({ passHolder, icon, isVisible, toggleIsV
       transparent
       visible={isVisible}
     >
-      {isVisible && <StatusBar backgroundColor={theme.palette.neutral['900']} style="light" />}
+      {isVisible && <StatusBar style="light" />}
       <Styled.BlurContainer onPress={toggleIsVisible} underlayColor="rgba(0, 0, 0, 0.85)">
         <>
           <Styled.CloseButton>
