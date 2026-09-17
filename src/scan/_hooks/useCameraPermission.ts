@@ -1,24 +1,19 @@
-import { useCallback, useState } from 'react';
-import { Camera } from 'react-native-vision-camera';
+import { useCallback } from 'react';
+import { useCameraPermission as useVisionCameraPermission } from 'react-native-vision-camera';
 import { useFocusEffect } from '@react-navigation/native';
 
 export function useCameraPermission() {
-  const [hasCameraPermission, setHasCameraPermission] = useState<boolean>();
+  const { canRequestPermission, hasPermission, requestPermission } = useVisionCameraPermission();
 
   useFocusEffect(
     useCallback(() => {
-      (async () => {
-        let permission = await Camera.getCameraPermissionStatus();
-        if (permission !== 'granted') {
-          permission = await Camera.requestCameraPermission();
-        }
-
-        setHasCameraPermission(permission === 'granted');
-      })();
-    }, []),
+      if (!hasPermission && canRequestPermission) {
+        requestPermission();
+      }
+    }, [canRequestPermission, hasPermission, requestPermission]),
   );
 
   return {
-    hasCameraPermission,
+    hasCameraPermission: hasPermission,
   };
 }

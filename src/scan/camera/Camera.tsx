@@ -1,15 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
-import { getModel } from 'react-native-device-info';
-import {
-  Camera as VisionCamera,
-  Code,
-  CodeScannerFrame,
-  runAtTargetFps,
-  useCameraDevices,
-  useCameraFormat,
-  useCodeScanner,
-} from 'react-native-vision-camera';
+import { Camera as VisionCamera, useCameraDevice } from 'react-native-vision-camera';
+import { Barcode, useBarcodeScannerOutput } from 'react-native-vision-camera-barcode-scanner';
 import { useFocusEffect } from '@react-navigation/native';
 
 import { Analytics, FocusAwareStatusBar, Spinner } from '../../_components';
@@ -22,27 +14,10 @@ import { useGetMe } from '../../profile/_queries/useGetMe';
 import { useCameraPermission } from '../_hooks';
 import { TOverlayDimensions, useOverlayDimensions } from '../_hooks/useOverlayDimensions';
 import { useCheckin } from '../_queries/useCheckin';
-// import { isInRange } from '../_util/isInRange';
 import CameraSettings from '../cameraSettings/CameraSettings';
 import CameraOverlay from './CameraOverlay';
 
 type TProps = { navigation: TMainNavigationProp<'Camera'> };
-
-const MODELS_WITH_CAMERA_ISSUE = [
-  'SM-A235F',
-  'SM-A235M',
-  'SM-A235N',
-  'SM-A233C',
-  'SM-A2360',
-  'SM-A236B',
-  'SM-A236E',
-  'SM-A236M',
-  'SM-A236U',
-  'SM-A236U1',
-  'SM-S236DL',
-  'SM-S237VL',
-  'SM-A236V',
-];
 
 const overlaySettings: TOverlayDimensions = { cornerLength: 20, padding: 75, strokeWidth: 4 };
 
@@ -56,25 +31,17 @@ const Camera = ({ navigation }: TProps) => {
   const { mutateAsync: checkin, isPending } = useCheckin();
   const { data: hasFamilyMembers } = useHasFamilyMembers();
 
-  const codeScanner = useCodeScanner({
-    codeTypes: ['qr'],
-    onCodeScanned: (codes, frame) => {
-      runAtTargetFps(5, () => {
-        if (isActive && !isPending && codes.length > 0) {
-          onBarCodeDetected(codes[0], frame);
-        }
-      });
+  const barcodeScannerOutput = useBarcodeScannerOutput({
+    barcodeFormats: ['qr-code'],
+    onBarcodeScanned: barcodes => {
+      if (isActive && !isPending && barcodes.length > 0) {
+        onBarCodeDetected(barcodes[0]);
+      }
     },
+    onError: error => log.error(error),
   });
 
-  const devices = useCameraDevices();
-  const device = devices.find(({ position }) => position === 'back');
-  const MODEL = getModel();
-  const HAS_CAMERA_ISSUE = MODELS_WITH_CAMERA_ISSUE.includes(MODEL);
-
-  const format = useCameraFormat(device, [
-    { videoResolution: HAS_CAMERA_ISSUE ? { height: 640, width: 480 } : { height: 1080, width: 1920 } },
-  ]);
+  const device = useCameraDevice('back');
 
   useFocusEffect(
     useCallback(() => {
@@ -88,17 +55,19 @@ const Camera = ({ navigation }: TProps) => {
     setOverlayDimensions({ height, width });
   }
 
-  async function onBarCodeDetected(code: Code, _frame: CodeScannerFrame) {
-    // if (isInRange(code, overlay.regionDefinition, frame)) {
+  async function onBarCodeDetected(barcode: Barcode) {
+    const checkinCode = barcode.rawValue;
+    if (checkinCode == null) return;
+
     try {
       setIsActive(false);
-      const response = await checkin({ body: { checkinCode: code.value } });
+      const response = await checkin({ body: { checkinCode } });
       trackSelfDescribingEvent(
         'successMessage',
         { message: 'points-saved-success' },
         { up_action: { name: 'save-points', points: response.addedPoints, target: 'self', target_ph_id: me?.id } },
       );
-      navigation.navigate('ScanSuccess', { ...response, checkinCode: code.value });
+      navigation.navigate('ScanSuccess', { ...response, checkinCode });
     } catch (error) {
       const { endUserMessage } = error as TApiError;
       trackSelfDescribingEvent(
@@ -107,21 +76,20 @@ const Camera = ({ navigation }: TProps) => {
         { up_action: { name: 'save-points', points: undefined, target: 'self', target_ph_id: me?.id } },
       );
       navigation.navigate('Error', {
-        checkinCode: code.value,
+        checkinCode,
         gotoAfterClose: ['MainNavigator', 'Profile'],
         message: endUserMessage?.nl,
         showFamilyScan: hasFamilyMembers,
       });
       log.error(error);
     }
-    // }
   }
 
   if (!hasCameraPermission) {
     return <CameraSettings />;
   }
 
-  if (!device || !format) {
+  if (!device) {
     return <Spinner />;
   }
 
@@ -131,10 +99,9 @@ const Camera = ({ navigation }: TProps) => {
       <View onLayout={handleLayoutChange} style={StyleSheet.absoluteFill}>
         <FocusAwareStatusBar style="light" />
         <VisionCamera
-          codeScanner={codeScanner}
           device={device}
-          format={format}
           isActive={isActive && overlayDimensions.width !== 0}
+          outputs={[barcodeScannerOutput]}
           style={overlayDimensions}
         />
         <CameraOverlay config={overlay} isLoading={isPending} settings={overlaySettings} />
