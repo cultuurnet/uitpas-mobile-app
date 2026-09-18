@@ -55,7 +55,14 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       { android: { cppVersion: '20', minSdkVersion: 29 }, ios: { deploymentTarget: '16.4', useFrameworks: 'static' } },
     ],
     '@react-native-community/datetimepicker',
-    '@sentry/react-native',
+    [
+      '@sentry/react-native/expo',
+      {
+        organization: 'publiq-vzw',
+        project: 'uitpas-mobile-app',
+        url: 'https://sentry.io/',
+      },
+    ],
     [
       'expo-font',
       {
