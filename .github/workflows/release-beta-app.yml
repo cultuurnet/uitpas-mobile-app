@@ -14,7 +14,7 @@ jobs:
   release_beta_ios:
     name: iOS (beta)
     environment: beta
-    runs-on: macos-15
+    runs-on: macos-26
     if:
       github.event_name == 'workflow_dispatch' || (startsWith(github.head_ref, 'release/') && github.event.pull_request.merged ==
       true)
@@ -24,7 +24,7 @@ jobs:
         with:
           p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
           p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: nyaa8/package-version@v1
         name: Fetch current version
       - name: create-json
@@ -53,7 +53,7 @@ jobs:
           echo EXPO_PUBLIC_SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
           echo EXPO_PUBLIC_TRACKING_HOST="${{ secrets.TRACKING_HOST }}" >> .env
           cat .env
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
       - name: Enable Corepack
@@ -61,7 +61,7 @@ jobs:
       - name: Prepare pnpm
         run: corepack prepare pnpm@10.23.0 --activate
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: Expo prebuild for iOS
         run: npx expo prebuild --clean --platform ios
       - run: fastlane build env:beta ios:true
@@ -82,7 +82,7 @@ jobs:
       github.event_name == 'workflow_dispatch' || (startsWith(github.head_ref, 'release/') && github.event.pull_request.merged ==
       true)
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ env.BRANCH }}
       - uses: nyaa8/package-version@v1
@@ -113,7 +113,7 @@ jobs:
           echo EXPO_PUBLIC_SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
           echo EXPO_PUBLIC_TRACKING_HOST="${{ secrets.TRACKING_HOST }}" >> .env
           cat .env
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
       - name: Enable Corepack
@@ -121,7 +121,7 @@ jobs:
       - name: Prepare pnpm
         run: corepack prepare pnpm@10.23.0 --activate
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: Expo prebuild for Android
         run: npx expo prebuild --clean --platform android
       - uses: actions/setup-java@v3
@@ -144,7 +144,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ env.BRANCH }}
       - uses: nyaa8/package-version@v1
