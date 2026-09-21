@@ -74,6 +74,7 @@ jobs:
           CI_IOS_APPLE_ID: '${{ secrets.CI_IOS_APPLE_ID }}'
           CI_FIREBASE_IOS_APP_ID: ${{ secrets.CI_FIREBASE_IOS_APP_ID }}
           CI_FIREBASE_IOS_GROUPS: 'Publiq'
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
   release_beta_android:
     name: Android (beta)
     environment: beta
@@ -137,6 +138,7 @@ jobs:
           KEY_PASSWORD: android
           CI_FIREBASE_ANDROID_APP_ID: ${{ secrets.CI_FIREBASE_ANDROID_APP_ID }}
           CI_FIREBASE_ANDROID_GROUPS: 'Publiq'
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
   create_release:
     name: Create release
     needs: [release_beta_ios, release_beta_android]
