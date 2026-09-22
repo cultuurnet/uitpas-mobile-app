@@ -52,7 +52,6 @@ jobs:
           echo EXPO_PUBLIC_APP_ENCRYPTION_KEY="${{ secrets.ENCRYPTION_KEY }}" >> .env
           echo EXPO_PUBLIC_SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
           echo EXPO_PUBLIC_TRACKING_HOST="${{ secrets.TRACKING_HOST }}" >> .env
-          cat .env
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
@@ -75,7 +74,8 @@ jobs:
           CI_FIREBASE_IOS_APP_ID: ${{ secrets.CI_FIREBASE_IOS_APP_ID }}
           CI_FIREBASE_IOS_GROUPS: 'Publiq'
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_DISABLE_AUTO_UPLOAD: true
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
   release_beta_android:
     name: Android (beta)
     environment: beta
@@ -114,7 +114,6 @@ jobs:
           echo EXPO_PUBLIC_APP_ENCRYPTION_KEY="${{ secrets.ENCRYPTION_KEY }}" >> .env
           echo EXPO_PUBLIC_SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
           echo EXPO_PUBLIC_TRACKING_HOST="${{ secrets.TRACKING_HOST }}" >> .env
-          cat .env
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
@@ -140,7 +139,6 @@ jobs:
           CI_FIREBASE_ANDROID_APP_ID: ${{ secrets.CI_FIREBASE_ANDROID_APP_ID }}
           CI_FIREBASE_ANDROID_GROUPS: 'Publiq'
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_DISABLE_AUTO_UPLOAD: true
   create_release:
     name: Create release
     needs: [release_beta_ios, release_beta_android]
