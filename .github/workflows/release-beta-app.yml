@@ -64,16 +64,6 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Expo prebuild for iOS
         run: npx expo prebuild --clean --platform ios
-      - name: Verify Sentry auth token
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-        run: |
-          if [ -n "$SENTRY_AUTH_TOKEN" ]; then
-            echo "SENTRY_AUTH_TOKEN is set (length: ${#SENTRY_AUTH_TOKEN})"
-          else
-            echo "SENTRY_AUTH_TOKEN is not set"
-            exit 1
-          fi
       - run: fastlane build env:beta ios:true
         env:
           CI_IOS_TEAM_ID: 'FAJTRUZ6J9'
@@ -136,16 +126,6 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Expo prebuild for Android
         run: npx expo prebuild --clean --platform android
-      - name: Verify Sentry auth token
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-        run: |
-          if [ -n "$SENTRY_AUTH_TOKEN" ]; then
-            echo "SENTRY_AUTH_TOKEN is set (length: ${#SENTRY_AUTH_TOKEN})"
-          else
-            echo "SENTRY_AUTH_TOKEN is not set"
-            exit 1
-          fi
       - uses: actions/setup-java@v3
         with:
           distribution: temurin
