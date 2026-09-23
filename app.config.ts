@@ -58,10 +58,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       '@sentry/react-native/expo',
       {
-        loadNativeSymbols: false,
         organization: 'publiq-vzw',
         project: 'uitpas-mobile-app',
-        uploadSourceMaps: false,
         url: 'https://sentry.io/',
       },
     ],
