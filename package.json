@@ -37,12 +37,12 @@
     "color": "^4.2.3",
     "date-fns": "^4.1.0",
     "domhandler": "^5.0.3",
-    "expo": "~57.0.23",
+    "expo": "~57.0.24",
     "expo-application": "~57.0.3",
     "expo-auth-session": "^57.0.12",
-    "expo-build-properties": "~57.0.20",
+    "expo-build-properties": "~57.0.21",
     "expo-clipboard": "~57.0.2",
-    "expo-constants": "~57.0.18",
+    "expo-constants": "~57.0.19",
     "expo-crypto": "^57.0.3",
     "expo-device": "~57.0.2",
     "expo-font": "~57.0.4",
@@ -112,6 +112,13 @@
   },
   "engines": {
     "node": ">=24"
+  },
+  "expo": {
+    "install": {
+      "exclude": [
+        "@sentry/react-native"
+      ]
+    }
   },
   "pnpm": {
     "onlyBuiltDependencies": [
