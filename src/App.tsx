@@ -3,6 +3,7 @@ import { LogBox } from 'react-native';
 import { getLocales } from 'react-native-localize';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
+import * as Sentry from '@sentry/react-native';
 import { StatusBar } from 'expo-status-bar';
 import { ThemeProvider } from 'styled-components/native';
 
@@ -46,4 +47,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Sentry.wrap(App);
