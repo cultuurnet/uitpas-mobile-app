@@ -88,6 +88,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     // are arm64-only. This plugin removes the exclusion and relabels the vendored
     // arm64 ML Kit slices for Apple Silicon simulators.
     './plugins/withMlkitSimulatorSupport',
+    // The iOS 27 SDK requires the UIScene life cycle; backported from Expo SDK 58.
+    './plugins/withSceneLifecycle',
   ],
   scheme: process.env.EXPO_PUBLIC_APP_PACKAGE_NAME,
   slug: 'uitpas-mobile-app',
