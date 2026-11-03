@@ -84,6 +84,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     ],
     ['expo-navigation-bar', { backgroundColor: '#FFFFFF', style: 'dark' }],
     'expo-web-browser',
+    // ML Kit 9.0.0 excludes arm64 from simulator builds, but Xcode 26+ simulators
+    // are arm64-only. This plugin removes the exclusion and relabels the vendored
+    // arm64 ML Kit slices for Apple Silicon simulators.
+    './plugins/withMlkitSimulatorSupport',
+    // The iOS 27 SDK requires the UIScene life cycle; backported from Expo SDK 58.
+    './plugins/withSceneLifecycle',
   ],
   scheme: process.env.EXPO_PUBLIC_APP_PACKAGE_NAME,
   slug: 'uitpas-mobile-app',

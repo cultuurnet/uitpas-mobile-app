@@ -5,7 +5,7 @@ import { ScrollView, Switch } from 'react-native';
 import { Typography } from '../../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../../_routing';
 import { theme } from '../../_styles/theme';
-import { getPassHolderRegions } from '../../_utils';
+import { getPassHolderRegions, hasOnlySupraLocalCardSystem } from '../../_utils';
 import { useGetMe } from '../../profile/_queries/useGetMe';
 import { TRewardCategory } from '../_models/reward';
 import { TSearchFilters } from '../_models/searchFilters';
@@ -47,6 +47,7 @@ export const SearchFilters = ({ navigation, route }: TProps) => {
   const [updatedFilters, setUpdatedFilters] = useState({ filters, sort });
   const { data: passHolder } = useGetMe();
   const regions = getPassHolderRegions(passHolder);
+  const isOnlySupraLocal = passHolder && hasOnlySupraLocalCardSystem(passHolder);
 
   function onSubmit() {
     navigation.navigate('Search', updatedFilters);
@@ -59,23 +60,25 @@ export const SearchFilters = ({ navigation, route }: TProps) => {
   return (
     <Styled.Container>
       <ScrollView contentContainerStyle={{ paddingTop: 40 }}>
-        <Styled.RegionFilter>
-          <Styled.RegionFilterText>
-            <Typography bottomSpacing="5px" color="primary.800" fontStyle="bold" size="large">
-              {t('SHOP.SEARCH.FILTERS.REGION.TITLE')}
-            </Typography>
-            <Typography>
-              {t('SHOP.SEARCH.FILTERS.REGION.DESCRIPTION', { regions: regions.map(card => card.cardSystem.name).join(', ') })}
-            </Typography>
-          </Styled.RegionFilterText>
-          <Switch
-            onValueChange={value =>
-              setUpdatedFilters({ ...updatedFilters, filters: { ...updatedFilters.filters, includeAllCardSystems: value } })
-            }
-            trackColor={{ false: theme.palette.neutral['200'], true: theme.palette.primary['600'] }}
-            value={updatedFilters.filters.includeAllCardSystems}
-          />
-        </Styled.RegionFilter>
+        {!isOnlySupraLocal && (
+          <Styled.RegionFilter>
+            <Styled.RegionFilterText>
+              <Typography bottomSpacing="5px" color="primary.800" fontStyle="bold" size="large">
+                {t('SHOP.SEARCH.FILTERS.REGION.TITLE')}
+              </Typography>
+              <Typography>
+                {t('SHOP.SEARCH.FILTERS.REGION.DESCRIPTION', { regions: regions.map(card => card.cardSystem.name).join(', ') })}
+              </Typography>
+            </Styled.RegionFilterText>
+            <Switch
+              onValueChange={value =>
+                setUpdatedFilters({ ...updatedFilters, filters: { ...updatedFilters.filters, includeAllCardSystems: value } })
+              }
+              trackColor={{ false: theme.palette.neutral['200'], true: theme.palette.primary['600'] }}
+              value={updatedFilters.filters.includeAllCardSystems}
+            />
+          </Styled.RegionFilter>
+        )}
         <Styled.SectionTitle color="primary.800" fontStyle="bold" size="large">
           {t('SHOP.SEARCH.FILTERS.SORT.TITLE')}
         </Styled.SectionTitle>
