@@ -8,7 +8,7 @@ import { useToggle } from '../_hooks';
 import { StorageKey } from '../_models';
 import { TMainNavigationProp } from '../_routing/_components/TRootStackParamList';
 import i18n from '../_translations/i18n';
-import { getActiveMIARegion } from '../_utils';
+import { getActiveMIARegion, hasOnlySupraLocalCardSystem } from '../_utils';
 import { storage } from '../storage';
 import { useGetVersions } from '../update/_queries/useGetVersions';
 import { useGetMe } from './_queries/useGetMe';
@@ -32,13 +32,19 @@ const Profile = ({ navigation }: TProps) => {
   const { data: passHolder, isLoading: isPassHolderLoading } = useGetMe();
   const versions = useGetVersions();
 
-  const rewardSectionLinks = useMemo<TLinkListItem[]>(
-    () => [
-      {
+  // Passholders with only the supra-local card system have no welcome benefits.
+  const isOnlySupraLocal = passHolder && hasOnlySupraLocalCardSystem(passHolder);
+
+  const rewardSectionLinks = useMemo<TLinkListItem[]>(() => {
+    const links: TLinkListItem[] = [];
+    if (!isOnlySupraLocal) {
+      links.push({
         iconName: 'Gift',
         label: i18n.t('PROFILE.LINKS.BENEFITS'),
         onPress: () => navigation.navigate('FilteredShop', { section: 'welkom', subtitle: t('PROFILE.WELCOME_GIFTS_TITLE') }),
-      },
+      });
+    }
+    links.push(
       {
         iconName: 'CircledCheck',
         label: i18n.t('PROFILE.LINKS.REDEEMED_REWARDS'),
@@ -49,9 +55,9 @@ const Profile = ({ navigation }: TProps) => {
         label: i18n.t('PROFILE.LINKS.HISTORY'),
         onPress: () => navigation.navigate('History'),
       },
-    ],
-    [t, navigation],
-  );
+    );
+    return links;
+  }, [isOnlySupraLocal, t, navigation]);
 
   const genericProfileLinks = useMemo(() => {
     const links: TLinkListItem[] = [
