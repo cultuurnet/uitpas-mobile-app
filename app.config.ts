@@ -1,5 +1,11 @@
 import { ConfigContext, ExpoConfig } from 'expo/config';
 
+// Jenkins sets BUILD_NUMBER for CI/release builds; local builds don't have it.
+const isCiBuild = process.env.BUILD_NUMBER != null;
+// Without this, iOS App Transport Security blocks the app from reaching Metro (localhost / LAN IP)
+// and Debug builds fail with "No script URL provided".
+const allowsLocalNetworking = !isCiBuild || process.env.EXPO_PUBLIC_NODE_ENV === 'local';
+
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   android: {
@@ -38,7 +44,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     infoPlist: {
       NSAppTransportSecurity: {
         NSAllowsArbitraryLoads: false,
-        NSAllowsLocalNetworking: process.env.EXPO_PUBLIC_NODE_ENV === 'local',
+        NSAllowsLocalNetworking: allowsLocalNetworking,
       },
       NSCameraUsageDescription: 'UiTPAS needs camera access to scan QR codes',
       NSPhotoLibraryAddUsageDescription: 'UiTPAS needs permission to save photos',
