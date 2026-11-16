@@ -6,6 +6,7 @@ import { FlashList, FlashListRef } from '@shopify/flash-list';
 
 import { EnlargedHeader, PillButton, Reward, SafeAreaView, Typography } from '../../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../../_routing';
+import { hasOnlySupraLocalCardSystem } from '../../_utils';
 import { useGetMe } from '../../profile/_queries/useGetMe';
 import { RewardsSectionLoader } from '../_components/rewardsSection/RewardSection.loading';
 import { TReward } from '../_models/reward';
@@ -36,6 +37,8 @@ export const Search = ({ navigation, route }: TProps) => {
   const { t } = useTranslation();
   const { data: user } = useGetMe();
   const { filters = initialFilters, sort = '-redeemCount' } = route.params || {};
+  // Passholders with only the supra-local card system always search across all card systems.
+  const isOnlySupraLocal = user && hasOnlySupraLocalCardSystem(user);
   const {
     data: searchResults,
     isLoading: isSearchLoading,
@@ -99,11 +102,16 @@ export const Search = ({ navigation, route }: TProps) => {
                 ItemSeparatorComponent={() => <Styled.RewardSeparator />}
                 ListEmptyComponent={
                   <Styled.NoContentText align="center" size="small">
-                    {t(filters.includeAllCardSystems ? 'SHOP.SEARCH.NO_RESULTS' : 'SHOP.SEARCH.NO_RESULTS_REGION')}
+                    {t(
+                      filters.includeAllCardSystems || isOnlySupraLocal
+                        ? 'SHOP.SEARCH.NO_RESULTS'
+                        : 'SHOP.SEARCH.NO_RESULTS_REGION',
+                    )}
                   </Styled.NoContentText>
                 }
                 ListFooterComponent={
-                  !filters.includeAllCardSystems && (
+                  !filters.includeAllCardSystems &&
+                  !isOnlySupraLocal && (
                     <RegionNotification
                       filters={filters}
                       onPress={onSearchOutsideRegion}

@@ -1,9 +1,10 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList } from 'react-native';
 
 import { Analytics, EnlargedHeader, SafeAreaView } from '../_components';
 import { TMainNavigationProp } from '../_routing';
+import { hasOnlySupraLocalCardSystem } from '../_utils';
 import { useGetMe } from '../profile/_queries/useGetMe';
 import { CategoryFilters } from './_components/categoryFilters/CategoryFilters';
 import { FeaturedRewards } from './_components/featuredRewards/FeaturedRewards';
@@ -31,14 +32,18 @@ type TProps = {
 const Shop = ({ navigation }: TProps) => {
   const { t } = useTranslation();
   const { data: user } = useGetMe();
-  const [sections, setSections] = useState<TRewardSectionProps[]>(SECTIONS.slice(0, 2));
+  const [loadedCount, setLoadedCount] = useState(2);
 
   const loadNextSection = useCallback(() => {
-    setSections(sections => {
-      if (sections.length < SECTIONS.length) return SECTIONS.slice(0, sections.length + 1);
-      return sections;
-    });
+    setLoadedCount(count => count + 1);
   }, []);
+
+  const sections = useMemo<TRewardSectionProps[]>(() => {
+    // "Eropuit in andere regio's" is meaningless for passholders with only the supra-local card system.
+    const allSections =
+      user && hasOnlySupraLocalCardSystem(user) ? SECTIONS.filter(({ section }) => section !== 'populair') : SECTIONS;
+    return allSections.slice(0, loadedCount);
+  }, [user, loadedCount]);
 
   return (
     <>

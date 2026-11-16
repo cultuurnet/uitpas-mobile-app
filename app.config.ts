@@ -1,5 +1,11 @@
 import { ConfigContext, ExpoConfig } from 'expo/config';
 
+// Jenkins sets BUILD_NUMBER for CI/release builds; local builds don't have it.
+const isCiBuild = process.env.BUILD_NUMBER != null;
+// Without this, iOS App Transport Security blocks the app from reaching Metro (localhost / LAN IP)
+// and Debug builds fail with "No script URL provided".
+const allowsLocalNetworking = !isCiBuild || process.env.EXPO_PUBLIC_NODE_ENV === 'local';
+
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   android: {
@@ -38,7 +44,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     infoPlist: {
       NSAppTransportSecurity: {
         NSAllowsArbitraryLoads: false,
-        NSAllowsLocalNetworking: process.env.EXPO_PUBLIC_NODE_ENV === 'local',
+        NSAllowsLocalNetworking: allowsLocalNetworking,
       },
       NSCameraUsageDescription: 'UiTPAS needs camera access to scan QR codes',
       NSPhotoLibraryAddUsageDescription: 'UiTPAS needs permission to save photos',
@@ -84,6 +90,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     ],
     ['expo-navigation-bar', { backgroundColor: '#FFFFFF', style: 'dark' }],
     'expo-web-browser',
+    // ML Kit 9.0.0 excludes arm64 from simulator builds, but Xcode 26+ simulators
+    // are arm64-only. This plugin removes the exclusion and relabels the vendored
+    // arm64 ML Kit slices for Apple Silicon simulators.
+    './plugins/withMlkitSimulatorSupport',
+    // The iOS 27 SDK requires the UIScene life cycle; backported from Expo SDK 58.
+    './plugins/withSceneLifecycle',
   ],
   scheme: process.env.EXPO_PUBLIC_APP_PACKAGE_NAME,
   slug: 'uitpas-mobile-app',

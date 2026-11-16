@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 
 import { usePubliqApi } from '../../_hooks/usePubliqApi';
 import { Params } from '../../_http/HttpClient';
+import { hasOnlySupraLocalCardSystem } from '../../_utils';
 import { useGetMe } from '../../profile/_queries/useGetMe';
 import { TRewardsResponse } from '../_models/reward';
 import { TSearchFilters } from '../_models/searchFilters';
@@ -53,7 +54,8 @@ export function useGetRewards({
     if (filters !== undefined) {
       const { includeAllCardSystems, isInterestingForPassholderId, organizerPostalCode } = filters;
       if (isInterestingForPassholderId) params.isInterestingForPassholderId = user?.id;
-      if (!includeAllCardSystems)
+      // Passholders with only the supra-local card system have no owning rewards; drop the filter so they see all card systems.
+      if (!includeAllCardSystems && user && !hasOnlySupraLocalCardSystem(user))
         params.owningCardSystemId = user?.cardSystemMemberships.map(membership => String(membership.cardSystem.id));
       if (organizerPostalCode) params.organizerPostalCode = user?.address?.postalCode;
       if (withoutSorting) delete params.sort;
