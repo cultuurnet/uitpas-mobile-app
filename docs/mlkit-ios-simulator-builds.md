@@ -147,6 +147,6 @@ Signs this workaround is fighting the tooling, worth knowing before you touch it
   `post_integrate`), because CocoaPods writes aggregate-target xcconfigs after
   `post_install` runs.
 
-Do not confuse this plugin with its sibling `plugins/withSceneLifecycle.js`,
-which backports the iOS 27 SDK `UIScene` life cycle requirement from Expo SDK
-58 and is unrelated.
+Do not confuse this plugin with the iOS 27 SDK `UIScene` life cycle backport
+that used to live in its sibling `plugins/withSceneLifecycle.js`. The Expo SDK
+58 upgrade generates the scene life cycle itself, so that plugin is gone.
