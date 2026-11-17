@@ -40,6 +40,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   icon: process.env.EXPO_PUBLIC_APP_ICON,
   ios: {
     bundleIdentifier: process.env.EXPO_PUBLIC_APP_PACKAGE_NAME,
+    deploymentTarget: '16.4',
     entitlements: { 'com.apple.developer.associated-domains': ['applinks:uitpas.be'] },
     infoPlist: {
       NSAppTransportSecurity: {
@@ -58,7 +59,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     'expo-localization',
     [
       'expo-build-properties',
-      { android: { cppVersion: '20', minSdkVersion: 29 }, ios: { deploymentTarget: '16.4', useFrameworks: 'static' } },
+      {
+        android: { enableMinifyInReleaseBuilds: false, minSdkVersion: 29 },
+        ios: { useFrameworks: 'static' },
+      },
     ],
     '@react-native-community/datetimepicker',
     [
@@ -94,8 +98,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     // are arm64-only. This plugin removes the exclusion and relabels the vendored
     // arm64 ML Kit slices for Apple Silicon simulators.
     './plugins/withMlkitSimulatorSupport',
-    // The iOS 27 SDK requires the UIScene life cycle; backported from Expo SDK 58.
-    './plugins/withSceneLifecycle',
   ],
   scheme: process.env.EXPO_PUBLIC_APP_PACKAGE_NAME,
   slug: 'uitpas-mobile-app',

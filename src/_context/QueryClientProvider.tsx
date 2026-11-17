@@ -26,7 +26,7 @@ const persister = createSyncStoragePersister({
   key: QUERY_PERSIST_KEY,
   storage: {
     getItem: (key: string) => storage.getString(key),
-    removeItem: (key: string) => storage.delete(key),
+    removeItem: (key: string) => storage.remove(key),
     setItem: (key: string, value: string) => storage.set(key, value),
   },
 });

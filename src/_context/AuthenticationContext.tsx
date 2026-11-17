@@ -74,13 +74,13 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
       }
 
       // Clear local storage
-      storage.delete(STORAGE_KEYS.ACCESS_TOKEN);
-      storage.delete(STORAGE_KEYS.ID_TOKEN);
-      storage.delete(STORAGE_KEYS.REFRESH_TOKEN);
-      storage.delete(STORAGE_KEYS.EXPIRES_AT);
+      storage.remove(STORAGE_KEYS.ACCESS_TOKEN);
+      storage.remove(STORAGE_KEYS.ID_TOKEN);
+      storage.remove(STORAGE_KEYS.REFRESH_TOKEN);
+      storage.remove(STORAGE_KEYS.EXPIRES_AT);
 
       // Clear persisted react query cache from storage
-      storage.delete(QUERY_PERSIST_KEY);
+      storage.remove(QUERY_PERSIST_KEY);
 
       // Clear react query cache
       queryClient.clear();

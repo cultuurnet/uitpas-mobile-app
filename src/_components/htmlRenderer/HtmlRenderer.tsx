@@ -43,10 +43,12 @@ const HtmlRenderer: FC<Props> = ({ source, fontSize = 'small', onLinkPress }) =>
     }
 
     if (context.italic) {
-      props.style = {
-        ...(typeof props.style === 'object' && !Array.isArray(props.style) ? props.style : {}),
-        fontStyle: 'italic',
-      };
+      Object.assign(props, {
+        style: {
+          ...(typeof props.style === 'object' && !Array.isArray(props.style) ? props.style : {}),
+          fontStyle: 'italic' as const,
+        },
+      });
     }
 
     if (context.fontSize) {

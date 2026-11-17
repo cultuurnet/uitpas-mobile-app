@@ -8,7 +8,7 @@ export type Props = {
 };
 
 export const useAppState = ({ onChange, onForeground, onBackground }: Props = {}) => {
-  const [appState, setAppState] = useState<AppStateStatus>(AppState.currentState);
+  const [appState, setAppState] = useState<AppStateStatus>(AppState.currentState as AppStateStatus);
 
   useEffect(() => {
     const handleAppStateChange = (nextAppState: AppStateStatus) => {

@@ -113,7 +113,7 @@ export const FilteredShop = ({ route }: TProps) => {
         refreshControl={
           <RefreshControl
             colors={[theme.palette.primary['500'], theme.palette.neutral['0']]}
-            onRefresh={refetch}
+            onRefresh={() => void refetch()}
             refreshing={false} // Don't show the refresh control on loading new data, as this causes a layout shift when selecting another member in the list
             tintColor={theme.palette.primary['500']}
           />
