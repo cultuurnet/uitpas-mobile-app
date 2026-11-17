@@ -72,7 +72,7 @@ jobs:
           CI_IOS_TEAM_NAME: 'DAG 22 BVBA'
           CI_IOS_APPLE_ID: '${{ secrets.CI_IOS_APPLE_ID }}'
           CI_FIREBASE_IOS_APP_ID: ${{ secrets.CI_FIREBASE_IOS_APP_ID }}
-          CI_FIREBASE_IOS_GROUPS: 'Publiq'
+          CI_FIREBASE_IOS_GROUPS: 'Publiq, icapps'
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
@@ -137,7 +137,7 @@ jobs:
           KEY_ALIAS: androiddebugkey
           KEY_PASSWORD: android
           CI_FIREBASE_ANDROID_APP_ID: ${{ secrets.CI_FIREBASE_ANDROID_APP_ID }}
-          CI_FIREBASE_ANDROID_GROUPS: 'Publiq'
+          CI_FIREBASE_ANDROID_GROUPS: 'Publiq, icapps'
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
   create_release:
     name: Create release
