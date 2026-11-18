@@ -44,7 +44,7 @@ jobs:
           echo EXPO_PUBLIC_APP_LOGGING_LEVEL=info >> .env
           echo EXPO_PUBLIC_APP_ICON="${{ secrets.APP_ICON }}" >> .env
           echo EXPO_PUBLIC_APP_ADAPTIVE_ICON="${{ secrets.APP_ADAPTIVE_ICON }}" >> .env
-          echo EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR="${{ secrets.APP_ADAPTIVE_ICON_BG_COLOR }}" >> .env
+          echo "EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR=\"${{ secrets.APP_ADAPTIVE_ICON_BG_COLOR }}\"" >> .env
           echo EXPO_PUBLIC_AUTH_CLIENT_ID="${{ secrets.AUTH_CLIENT_ID }}" >> .env
           echo EXPO_PUBLIC_AUTH_ISSUER="${{ secrets.AUTH_ISSUER }}" >> .env
           echo EXPO_PUBLIC_API_HOST="${{ secrets.API_HOST }}" >> .env
@@ -106,7 +106,7 @@ jobs:
           echo EXPO_PUBLIC_APP_LOGGING_LEVEL=info >> .env
           echo EXPO_PUBLIC_APP_ICON="${{ secrets.APP_ICON }}" >> .env
           echo EXPO_PUBLIC_APP_ADAPTIVE_ICON="${{ secrets.APP_ADAPTIVE_ICON }}" >> .env
-          echo EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR="${{ secrets.APP_ADAPTIVE_ICON_BG_COLOR }}" >> .env
+          echo "EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR=\"${{ secrets.APP_ADAPTIVE_ICON_BG_COLOR }}\"" >> .env
           echo EXPO_PUBLIC_AUTH_CLIENT_ID="${{ secrets.AUTH_CLIENT_ID }}" >> .env
           echo EXPO_PUBLIC_AUTH_ISSUER="${{ secrets.AUTH_ISSUER }}" >> .env
           echo EXPO_PUBLIC_API_HOST="${{ secrets.API_HOST }}" >> .env
@@ -117,8 +117,13 @@ jobs:
       - name: Verify adaptive icon background color
         run: |
           value=$(sed -n 's/^EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR=//p' .env)
-          if [ -z "$value" ] || [ "$value" = '""' ] || [ "$value" = "''" ]; then
-            echo "::warning title=Adaptive icon background color is empty::secret APP_ADAPTIVE_ICON_BG_COLOR did not resolve; Expo will omit color/iconBackground and Android resource linking will fail."
+          case "$value" in
+            ''|'""'|"''") effective="" ;;
+            '#'*) effective="" ;;
+            *) effective="$value" ;;
+          esac
+          if [ -z "$effective" ]; then
+            echo "::warning title=Adaptive icon background color is empty::EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR parses as empty (missing secret, or an unquoted '#' value read as a comment); Expo will omit color/iconBackground and Android resource linking will fail."
           else
             echo "Adaptive icon background color is defined in .env."
           fi
