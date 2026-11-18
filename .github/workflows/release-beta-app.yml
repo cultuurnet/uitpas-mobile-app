@@ -116,19 +116,6 @@ jobs:
           echo "EXPO_PUBLIC_APP_ENCRYPTION_KEY=\"$(trim "${{ secrets.ENCRYPTION_KEY }}")\"" >> .env
           echo "EXPO_PUBLIC_SENTRY_DSN=\"$(trim "${{ secrets.SENTRY_DSN }}")\"" >> .env
           echo "EXPO_PUBLIC_TRACKING_HOST=\"$(trim "${{ secrets.TRACKING_HOST }}")\"" >> .env
-      - name: Verify adaptive icon background color
-        run: |
-          value=$(sed -n 's/^EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR=//p' .env)
-          case "$value" in
-            ''|'""'|"''") effective="" ;;
-            '#'*) effective="" ;;
-            *) effective="$value" ;;
-          esac
-          if [ -z "$effective" ]; then
-            echo "::warning title=Adaptive icon background color is empty::EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR parses as empty (missing secret, or an unquoted '#' value read as a comment); Expo will omit color/iconBackground and Android resource linking will fail."
-          else
-            echo "Adaptive icon background color is defined in .env."
-          fi
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
