@@ -32,4 +32,5 @@ export { default as Spinner } from './spinner/Spinner';
 export { default as Tooltip } from './tooltip/Tooltip';
 export { default as Trans } from './trans/Trans';
 export { default as Typography } from './typography/Typography';
+export { default as UsersPreview } from './usersPreview/UsersPreview';
 export { default as Analytics } from './analytics/Analytics';

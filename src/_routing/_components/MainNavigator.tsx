@@ -5,12 +5,10 @@ import { getFocusedRouteNameFromRoute, RouteProp } from '@react-navigation/nativ
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import { t } from 'i18next';
 
-import { NavigationBar, NavigationButton } from '../../_components';
+import { NavigationBar, NavigationButton, UsersPreview } from '../../_components';
 import TabBarIcon from '../../_components/tabBarIcon/TabBarIcon';
-import { FamilyUserPoints, SingleUserPoints } from '../../_components/userPoints';
 import { theme } from '../../_styles/theme';
 import { useGetMe } from '../../profile/_queries/useGetMe';
-import { useFamilyComposition } from '../../profile/family/hooks';
 import Profile from '../../profile/Profile';
 import Camera from '../../scan/camera/Camera';
 import Shop from '../../shop/Shop';
@@ -19,7 +17,6 @@ import { TMainParamsList, TRootStackParamList } from './TRootStackParamList';
 export const useMainHeaderProps = (
   enabled?: boolean,
 ): ((route: RouteProp<TRootStackParamList, 'MainNavigator'>) => NativeStackNavigationOptions) => {
-  const UserPoints = useFamilyComposition({ FamilyComponent: FamilyUserPoints, SingleComponent: SingleUserPoints });
   const { data: passHolder } = useGetMe(enabled);
 
   return route => {
@@ -28,7 +25,7 @@ export const useMainHeaderProps = (
     switch (routeName) {
       case 'Shop':
         return {
-          headerRight: UserPoints,
+          headerRight: () => <UsersPreview />,
           title: t('NAVIGATION.SHOP'),
         };
       case 'Camera':
