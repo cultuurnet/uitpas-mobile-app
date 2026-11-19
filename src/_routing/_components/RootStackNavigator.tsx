@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
-import { Platform } from 'react-native';
-import { HeaderBackButton } from '@react-navigation/elements';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as SplashScreen from 'expo-splash-screen';
 
-import { Icon, Spinner, UsersPreview } from '../../_components';
+import { HeaderIcon, Spinner, UsersPreview } from '../../_components';
 import { ConfigUrl } from '../../_config';
 import { useAuthentication, useOnboarding } from '../../_context';
 import { StorageKey } from '../../_models';
@@ -144,14 +142,8 @@ export const RootStackNavigator = () => {
             options={({ navigation }) => ({
               headerBackVisible: false,
               headerLeft: null,
-              headerRight: props => (
-                <HeaderBackButton
-                  {...props}
-                  backImage={() => <Icon color="neutral.0" name="Close" size={14} />}
-                  displayMode="minimal"
-                  onPress={() => navigation.pop()}
-                  style={{ marginRight: -10, padding: 10 }}
-                />
+              headerRight: () => (
+                <HeaderIcon accessibilityLabel={i18n.t('NAVIGATION.CLOSE')} name="Close" onPress={() => navigation.pop()} />
               ),
               title: i18n.t('SCAN.FAMILY_MEMBERS.TITLE'),
             })}
@@ -200,22 +192,9 @@ export const RootStackNavigator = () => {
             component={RedeemedReward}
             name="RedeemedReward"
             options={({ navigation, route }) => ({
-              headerRight: props =>
+              headerRight: () =>
                 route.params?.isModal ? (
-                  <HeaderBackButton
-                    {...props}
-                    backImage={() => (
-                      <Icon
-                        color={Platform.OS === 'ios' ? 'neutral.1200' : 'neutral.0'}
-                        name="Close"
-                        size={14}
-                        style={Platform.OS === 'ios' ? { marginLeft: 10 } : undefined}
-                      />
-                    )}
-                    displayMode="minimal"
-                    onPress={() => navigation.pop()}
-                    style={{ marginRight: -10, padding: 10 }}
-                  />
+                  <HeaderIcon accessibilityLabel={i18n.t('NAVIGATION.CLOSE')} name="Close" onPress={() => navigation.pop()} />
                 ) : null,
               presentation: route.params?.isModal ? 'modal' : 'card',
               title: i18n.t('REDEEMED_REWARD.HEADER_TITLE'),
@@ -235,14 +214,8 @@ export const RootStackNavigator = () => {
             name="SearchFilters"
             options={({ navigation }) => ({
               headerBackVisible: false,
-              headerRight: props => (
-                <HeaderBackButton
-                  {...props}
-                  backImage={() => <Icon color="neutral.0" name="Close" size={14} />}
-                  displayMode="minimal"
-                  onPress={() => navigation.pop()}
-                  style={{ marginRight: -10, padding: 10 }}
-                />
+              headerRight: () => (
+                <HeaderIcon accessibilityLabel={i18n.t('NAVIGATION.CLOSE')} name="Close" onPress={() => navigation.pop()} />
               ),
               presentation: 'modal',
               title: i18n.t('SHOP.SEARCH.FILTERS.HEADER_TITLE'),
@@ -253,12 +226,10 @@ export const RootStackNavigator = () => {
             name="FamilyOverview"
             options={{
               headerRight: () => (
-                <Icon
-                  color={Platform.OS === 'ios' ? 'neutral.1200' : 'neutral.0'}
+                <HeaderIcon
+                  accessibilityLabel={i18n.t('NAVIGATION.INFO')}
                   name="Info"
                   onPress={() => openExternalURL(ConfigUrl.familyFaq)}
-                  size={24}
-                  style={Platform.OS === 'ios' ? { marginLeft: 6 } : undefined}
                 />
               ),
               title: i18n.t('ONBOARDING.FAMILY.OVERVIEW.TITLE'),
