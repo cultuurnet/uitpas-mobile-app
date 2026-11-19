@@ -4,8 +4,7 @@ import { HeaderBackButton } from '@react-navigation/elements';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as SplashScreen from 'expo-splash-screen';
 
-import { Icon, Spinner } from '../../_components';
-import { FamilyUserPoints, SingleUserPoints } from '../../_components/userPoints';
+import { Icon, Spinner, UsersPreview } from '../../_components';
 import { ConfigUrl } from '../../_config';
 import { useAuthentication, useOnboarding } from '../../_context';
 import { StorageKey } from '../../_models';
@@ -29,7 +28,6 @@ import {
 import Onboarding from '../../onboarding/Onboarding';
 import { useGetMe } from '../../profile/_queries/useGetMe';
 import { FamiliesOverview } from '../../profile/family/FamiliesOverview';
-import { useFamilyComposition } from '../../profile/family/hooks';
 import ProfileNotFound from '../../profile/ProfileNotFound';
 import RedeemedReward from '../../redeemedReward/RedeemedReward';
 import { RedeemedRewards } from '../../redeemedRewards/RedeemedRewards';
@@ -54,7 +52,6 @@ export const RootStackNavigator = () => {
   const { showFamilyOnboarding } = useOnboarding();
   const versions = useGetVersions();
   const getMainHeaderProps = useMainHeaderProps(isAuthenticated);
-  const UserPoints = useFamilyComposition({ FamilyComponent: FamilyUserPoints, SingleComponent: SingleUserPoints });
   const isPolicyApprovedInStorage = storage.getBoolean(StorageKey.IsPolicyApproved);
   const { data: passHolder, isLoading: isPassHolderLoading } = useGetMe(isAuthenticated && !showFamilyOnboarding);
 
@@ -126,7 +123,7 @@ export const RootStackNavigator = () => {
             options={{
               gestureEnabled: false,
               headerBackVisible: false,
-              headerRight: UserPoints,
+              headerRight: () => <UsersPreview />,
               title: i18n.t('NAVIGATION.SHOP'),
             }}
           />
@@ -179,7 +176,7 @@ export const RootStackNavigator = () => {
             options={({ route }) => ({
               headerBackButtonDisplayMode: 'minimal',
               headerBackButtonMenuEnabled: false,
-              headerRight: UserPoints,
+              headerRight: () => <UsersPreview />,
               title: route?.params?.section === 'welkom' ? i18n.t('SHOP.WELCOME.HEADER_TITLE') : i18n.t('SHOP.HEADER_TITLE'),
             })}
           />
@@ -188,7 +185,7 @@ export const RootStackNavigator = () => {
             name="History"
             options={{
               headerBackButtonDisplayMode: 'minimal',
-              headerRight: UserPoints,
+              headerRight: () => <UsersPreview />,
               title: i18n.t('PROFILE.HISTORY.HEADER_TITLE'),
             }}
           />
@@ -197,7 +194,7 @@ export const RootStackNavigator = () => {
             name="RedeemedRewards"
             options={{
               headerBackButtonDisplayMode: 'minimal',
-              headerRight: UserPoints,
+              headerRight: () => <UsersPreview />,
               title: i18n.t('PROFILE.REDEEMED_REWARDS.HEADER_TITLE'),
             }}
           />
@@ -233,7 +230,7 @@ export const RootStackNavigator = () => {
             options={{
               headerBackButtonDisplayMode: 'minimal',
               headerBackButtonMenuEnabled: false,
-              headerRight: UserPoints,
+              headerRight: () => <UsersPreview />,
               title: i18n.t('SHOP_DETAIL.HEADER_TITLE'),
             }}
           />
