@@ -12,6 +12,7 @@ export { default as ExternalLink } from './externalLink/ExternalLink';
 export * from './family';
 export { default as FakeTextInput } from './textInput/fakeTextInput/FakeTextInput';
 export { default as FocusAwareStatusBar } from './statusBar/FocusAwareStatusBar';
+export { default as HeaderIcon } from './headerIcon/HeaderIcon';
 export { default as HtmlRenderer } from './htmlRenderer/HtmlRenderer';
 export { default as Icon } from './icon/Icon';
 export { default as TextInput } from './textInput/TextInput';

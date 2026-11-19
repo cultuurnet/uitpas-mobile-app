@@ -5,7 +5,9 @@
   "NAVIGATION": {
     "PROFILE": "Mijn UiTPAS",
     "CAMERA": "Sparen",
-    "SHOP": "Voordelen"
+    "SHOP": "Voordelen",
+    "CLOSE": "Sluiten",
+    "INFO": "Meer informatie"
   },
   "UPDATE": {
     "NECESSARY": "Update nodig",
