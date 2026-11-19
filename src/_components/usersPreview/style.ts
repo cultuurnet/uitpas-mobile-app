@@ -1,4 +1,3 @@
-import { Platform } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
 import styled from 'styled-components/native';
 
@@ -18,11 +17,12 @@ export const Container = styled(PressableOpacity)<{ $isSingleUser: boolean }>`
     border-width: 2px;
     border-radius: 16px;
     border-color: ${theme.palette.neutral[0]};
-    background-color: ${Platform.OS === 'ios' ? theme.palette.neutral[0] : 'transparent'};
+    background-color: ${theme.palette.neutral[0]};
   `
       : `
     align-self: flex-start;
-    padding: 2px;
+    padding-horizontal: 4px;
+    padding-vertical: 2px;
     border-radius: 18px;
     background-color: ${theme.palette.neutral[0]};
   `}
@@ -30,7 +30,7 @@ export const Container = styled(PressableOpacity)<{ $isSingleUser: boolean }>`
 
 export const Points = styled(Typography)`
   margin-right: 4px;
-  color: ${Platform.OS === 'ios' ? theme.palette.secondary[500] : theme.palette.neutral[0]};
+  color: ${theme.palette.primary[700]};
 `;
 
 export const AvatarImage = styled(ExpoImage)`

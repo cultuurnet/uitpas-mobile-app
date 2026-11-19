@@ -26,6 +26,7 @@ export const useMainHeaderProps = (
       case 'Shop':
         return {
           headerRight: () => <UsersPreview />,
+          headerRightBackgroundVisible: false,
           title: t('NAVIGATION.SHOP'),
         };
       case 'Camera':
