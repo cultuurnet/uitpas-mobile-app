@@ -33,16 +33,6 @@ export const Points = styled(Typography)`
   color: ${Platform.OS === 'ios' ? theme.palette.secondary[500] : theme.palette.neutral[0]};
 `;
 
-export const Avatar = styled.View`
-  width: 20px;
-  height: 20px;
-  border-radius: 10px;
-  background-color: ${theme.palette.secondary[0]};
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-`;
-
 export const AvatarImage = styled(ExpoImage)`
   width: 24px;
   height: 24px;
