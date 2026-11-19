@@ -109,6 +109,10 @@
     "CTA": "Aanmelden"
   },
   "PROFILE": {
+    "CARD_MODAL": {
+      "NEXT": "Volgende kaart",
+      "PREVIOUS": "Vorige kaart"
+    },
     "YOU": "(jij)",
     "POINTS": "punten",
     "HELLO": "Dag {{name}}",
