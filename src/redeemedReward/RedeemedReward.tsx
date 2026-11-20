@@ -6,6 +6,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { GiftOpen } from '../_assets/images';
 import { EnlargedHeader, HtmlRenderer, Trans, Typography } from '../_components';
 import { useTracking } from '../_context';
+import { useStatusAnnouncement } from '../_hooks';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../_routing';
 import { formatISOString, getAvatarByNameOrDefault, getRewardTrackingData, getUpActionTrackingData } from '../_utils';
 import { useHasFamilyMembers } from '../onboarding/family/_queries';
@@ -25,6 +26,16 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
   const memberName = member?.passholder?.firstName;
 
   const { data: hasFamilyMembers } = useHasFamilyMembers();
+
+  const hasMemberName = !!member?.passholder?.firstName;
+  const announcement =
+    !isModal || !redeemedReward || hasFamilyMembers === undefined
+      ? null
+      : hasFamilyMembers && hasMemberName
+        ? t('REDEEMED_REWARD.ANNOUNCEMENT_FAMILY', { count: redeemedReward.reward.points, name: member.passholder.firstName })
+        : t('REDEEMED_REWARD.ANNOUNCEMENT', { count: redeemedReward.reward.points });
+  useStatusAnnouncement(announcement);
+
   const HeaderImage = useFamilyComposition({
     FamilyComponent: () => (
       <View>

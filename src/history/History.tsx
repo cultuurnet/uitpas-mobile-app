@@ -4,6 +4,7 @@ import { RefreshControl } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 
 import { Analytics, FamilyFilter, Spinner } from '../_components';
+import { useStatusAnnouncement } from '../_hooks';
 import { theme } from '../_styles/theme';
 import { useHasFamilyMembers } from '../onboarding/family/_queries';
 import { useGetMe } from '../profile/_queries/useGetMe';
@@ -35,11 +36,14 @@ const History: FC = () => {
     }
   }
 
+  const members = history?.pages?.flatMap(({ member }) => member) ?? [];
+  const emptyMessage = !isHistoryLoading && members.length === 0 ? t('PROFILE.HISTORY.EMPTY') : null;
+  useStatusAnnouncement(emptyMessage);
+
   if (isHistoryLoading) {
     return <Spinner />;
   }
 
-  const members = history?.pages?.flatMap(({ member }) => member) ?? [];
   return (
     <>
       <Analytics screenName="History" />

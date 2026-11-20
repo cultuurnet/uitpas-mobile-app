@@ -15,13 +15,36 @@ type TProps = {
   route: TRootStackRouteProp<'FamilyCheckinSummary'>;
 };
 
-type FamilyMembersSummaryItem = { item: { member: TFamilyMember; response: TFamilyScanResponse } };
+type FamilyMembersSummaryRow = { member: TFamilyMember; response: TFamilyScanResponse };
+type FamilyMembersSummaryItem = { item: FamilyMembersSummaryRow };
 
 export const FamilyCheckinSummary = ({ navigation, route }: TProps) => {
   const { memberResponses } = route.params;
 
   const { t } = useTranslation();
   const { top } = useSafeAreaInsets();
+
+  const getSubtitleText = useCallback(
+    ({ response }: FamilyMembersSummaryRow) =>
+      response.type === 'error'
+        ? response.error.endUserMessage.nl
+        : t('SCAN.FAMILY_MEMBERS.SUMMARY.SUCCEEDED', { count: response.value.totalPoints }),
+    [t],
+  );
+
+  const getItemAccessibilityLabel = useCallback(
+    ({ item: row }: FamilyMembersSummaryItem) => {
+      const { member, response } = row;
+      const name = `${member.passholder.firstName}${member.mainFamilyMember ? ` ${t('SHOP_DETAIL.WHO_CAN_REDEEM.YOU')}` : ''}`;
+
+      if (response.type === 'error') {
+        return `${name}: ${getSubtitleText(row)}`;
+      }
+
+      return `${name}: ${t('SCAN.FAMILY_MEMBERS.SUMMARY.ADDED_POINTS', { count: response.value.addedPoints })}. ${getSubtitleText(row)}`;
+    },
+    [getSubtitleText, t],
+  );
 
   const FamilyMembersSummary = useCallback(() => {
     const renderIcon = ({ item: { response } }: FamilyMembersSummaryItem) => {
@@ -31,26 +54,27 @@ export const FamilyCheckinSummary = ({ navigation, route }: TProps) => {
       return <CheckinErrorIcon />;
     };
 
-    const renderSubtitle = ({ item: { response } }: FamilyMembersSummaryItem) => {
-      if (response.type === 'error') {
-        return <Typography size="small">{response.error.endUserMessage.nl}</Typography>;
+    const renderSubtitle = ({ item }: FamilyMembersSummaryItem) => {
+      if (item.response.type === 'error') {
+        return <Typography size="small">{getSubtitleText(item)}</Typography>;
       }
       return (
         <Typography color="primary.700" fontStyle="semibold" numberOfLines={1} size="small">
-          {t('SCAN.FAMILY_MEMBERS.SUMMARY.SUCCEEDED', { count: response.value.totalPoints })}
+          {getSubtitleText(item)}
         </Typography>
       );
     };
 
     return (
       <FamilyMembersPoints
+        ItemAccessibilityLabel={getItemAccessibilityLabel}
         ItemRightComponent={renderIcon}
         ItemSubtitle={renderSubtitle}
         members={memberResponses}
         style={{ paddingHorizontal: 16 }}
       />
     );
-  }, [memberResponses, t]);
+  }, [getItemAccessibilityLabel, getSubtitleText, memberResponses]);
 
   return (
     <>

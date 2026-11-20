@@ -342,6 +342,10 @@
     }
   },
   "REDEEMED_REWARD": {
+    "ANNOUNCEMENT": "Voordeel omgeruild. Je hebt net {{count}} punt omgeruild.",
+    "ANNOUNCEMENT_plural": "Voordeel omgeruild. Je hebt net {{count}} punten omgeruild.",
+    "ANNOUNCEMENT_FAMILY": "Voordeel omgeruild voor {{name}}. Je hebt net {{count}} punt omgeruild.",
+    "ANNOUNCEMENT_FAMILY_plural": "Voordeel omgeruild voor {{name}}. Je hebt net {{count}} punten omgeruild.",
     "AVATAR": "Avatar {{name}}",
     "HEADER_TITLE": "Je omgeruild voordeel",
     "SUCCESS_TITLE": "Gelukt!",
@@ -375,6 +379,8 @@
       "CTA": "Instellingen openen"
     },
     "SUCCESS": {
+      "ANNOUNCEMENT": "Punten gespaard. Hopla, weer een punt erbij! Je hebt nu {{totalPoints}} UiTPAS-punten.",
+      "ANNOUNCEMENT_MULTIPLE": "Punten gespaard. Hopla, weer {{addedPoints}} punten erbij! Je hebt nu {{totalPoints}} UiTPAS-punten.",
       "DESCRIPTION": "Hopla, weer een punt erbij!\nJe hebt nu <bold>{{totalPoints}} UiTPAS-punten.</bold>",
       "DESCRIPTION_MULTIPLE": "Hopla, weer {{addedPoints}} punten erbij!\nJe hebt nu <bold>{{totalPoints}} UiTPAS-punten.</bold>",
       "CLOSE": "Sluiten",
@@ -384,6 +390,8 @@
       "TITLE": "Met wie ben je op stap?",
       "CHECKIN": "Spaar",
       "SUMMARY": {
+        "ADDED_POINTS": "{{count}} punt erbij",
+        "ADDED_POINTS_plural": "{{count}} punten erbij",
         "CLOSE": "Sluiten",
         "POINTS_SAVED": "Punten gespaard",
         "SUCCEEDED": "Gelukt! Nieuw saldo: {{count}} punt",
