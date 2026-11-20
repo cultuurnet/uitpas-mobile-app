@@ -4,6 +4,7 @@ import { t } from 'i18next';
 
 import { BlurredModal, Button, Trans, Typography } from '../../../_components';
 import { queryClient, useTracking } from '../../../_context';
+import { useStatusAnnouncement } from '../../../_hooks';
 import { TRootStackNavigationProp } from '../../../_routing';
 import { getLanguage, getRewardTrackingData, getUpActionTrackingData } from '../../../_utils';
 import { useHasFamilyMembers } from '../../../onboarding/family/_queries';
@@ -36,6 +37,9 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
       toggleIsVisible();
     },
   });
+
+  const errorMessage = error ? error?.endUserMessage?.[getLanguage()] || t('SHOP_DETAIL.REDEEM.MODAL_GENERIC_ERROR') : null;
+  useStatusAnnouncement(errorMessage);
 
   const handleModalDismissed = useCallback(() => {
     if (!pendingNavigation.current) return;
@@ -72,9 +76,9 @@ const RedeemModal: FC<TRedeemModalProps> = ({ member, reward, isVisible, toggleI
         {t('SHOP_DETAIL.REDEEM.MODAL_TITLE')}
       </Typography>
       <Trans i18nKey="SHOP_DETAIL.REDEEM.MODAL_DESCRIPTION" values={{ count: reward.points, title: reward.title }} />
-      {!!error && (
+      {!!errorMessage && (
         <Typography bottomSpacing="12px" color="error.500" size="small" topSpacing="12px">
-          {error?.endUserMessage?.[getLanguage()] || t('SHOP_DETAIL.REDEEM.MODAL_GENERIC_ERROR')}
+          {errorMessage}
         </Typography>
       )}
       {hasFamilyMembers && member && (

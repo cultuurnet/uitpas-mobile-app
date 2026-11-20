@@ -14,6 +14,9 @@ type TProps = {
   route: TRootStackRouteProp<'ScanSuccess'>;
 };
 
+// `accessible` is missing from LottieView's public props, but `...rest` forwards it to the native view.
+const lottieAccessibilityProps = { accessible: false };
+
 const ScanSuccess: FC = ({ route, navigation }: TProps) => {
   const { data: hasFamilyMembers } = useHasFamilyMembers();
   const {
@@ -21,6 +24,7 @@ const ScanSuccess: FC = ({ route, navigation }: TProps) => {
   } = route;
   const { height } = useWindowDimensions();
   const { t } = useTranslation();
+  const announcement = t(`SCAN.SUCCESS.ANNOUNCEMENT${addedPoints > 1 ? '_MULTIPLE' : ''}`, { addedPoints, totalPoints });
 
   return (
     <>
@@ -28,13 +32,19 @@ const ScanSuccess: FC = ({ route, navigation }: TProps) => {
       <DiagonalSplitView
         bottomContent={
           <>
-            <Styled.BottomContainer>
+            <Styled.BottomContainer accessibilityLabel={announcement} accessible>
               <Styled.SavedPoints>
-                <Typography color="primary.700" fontStyle="bold" size="xxlarge">
+                <Typography
+                  accessible={false}
+                  color="primary.700"
+                  fontStyle="bold"
+                  importantForAccessibility="no-hide-descendants"
+                  size="xxlarge"
+                >
                   +{addedPoints}
                 </Typography>
               </Styled.SavedPoints>
-              <Typography align="center">
+              <Typography accessible={false} align="center" importantForAccessibility="no-hide-descendants">
                 <Trans
                   i18nKey={`SCAN.SUCCESS.DESCRIPTION${addedPoints > 1 ? '_MULTIPLE' : ''}`}
                   values={{ addedPoints, totalPoints }}
@@ -55,7 +65,9 @@ const ScanSuccess: FC = ({ route, navigation }: TProps) => {
             />
           </>
         }
-        topContent={<LottieView autoPlay loop source={PointsSuccess} style={{ height: height / 3 }} />}
+        topContent={
+          <LottieView {...lottieAccessibilityProps} autoPlay loop source={PointsSuccess} style={{ height: height / 3 }} />
+        }
       />
     </>
   );
