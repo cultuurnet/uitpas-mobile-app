@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
-import { Pressable, PressableProps, StyleSheet,ViewStyle } from 'react-native';
-import Animated, { interpolateColor,useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { Pressable, PressableProps, StyleSheet, ViewStyle } from 'react-native';
+import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 export const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -28,7 +28,7 @@ const PressableHighlight = ({
   }, [pressed]);
 
   const backgroundColor = React.useMemo(() => {
-    if (!style) return 'transparent';
+    if (!style || typeof style === 'function') return 'transparent';
     const flattened = StyleSheet.flatten(style) as ViewStyle;
     return (flattened?.backgroundColor as string) || 'transparent';
   }, [style]);
