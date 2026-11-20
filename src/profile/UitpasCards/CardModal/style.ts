@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 
 import { Button } from '../../../_components';
+import Typography from '../../../_components/typography/Typography';
 import { theme } from '../../../_styles/theme';
 
 export const BlurContainer = styled(Button)`
@@ -42,4 +43,24 @@ export const BarcodeContainer = styled.View`
   background-color: ${({ theme }) => theme.palette.neutral['0']};
   border-radius: 10px;
   padding: 30px;
+`;
+
+export const Pagination = styled.View`
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 8px;
+`;
+
+export const PaginationButton = styled.Pressable`
+  align-items: center;
+  background-color: ${theme.palette.neutral['0']};
+  border-radius: 18px;
+  height: 36px;
+  justify-content: center;
+  width: 36px;
+`;
+
+export const PaginationText = styled(Typography)`
+  margin-horizontal: 20px;
 `;
