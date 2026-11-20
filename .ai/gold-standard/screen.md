@@ -14,7 +14,7 @@ import { useTracking } from '../_context';
 import { TMainNavigationProp, TRootStackRouteProp } from '../_routing';
 import { useGetXFromOtherFeature } from '../otherFeature/_queries';
 import { useGetThing } from './_queries/useGetThing';
-import { LocalWidget } from './_components/localWidget/LocalWidget';
+import { LocalComponent } from './_components/localComponent/LocalComponent';
 import * as Styled from './style';
 
 type TProps = {
@@ -46,7 +46,7 @@ export const {ScreenName} = ({ navigation, route }: TProps) => {
         <Styled.{LayoutPart}>
           <Typography fontStyle="bold" size="xxlarge">{data.title}</Typography>
         </Styled.{LayoutPart}>
-        <LocalWidget onAction={handlePress} thing={data} />
+        <LocalComponent onAction={handlePress} thing={data} />
       </ScrollView>
       <{SomeModal} isVisible={isVisible} toggleIsVisible={handleClose} />
     </>

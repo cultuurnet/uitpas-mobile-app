@@ -24,7 +24,7 @@ export type TRootStackParamList = {
   name="ShopDetail"
   options={{
     headerBackButtonDisplayMode: 'minimal',
-    headerRight: UserPoints,                 // points widget in header, standard for content screens
+    headerRight: UserPoints,                 // points component in header, standard for content screens
     title: i18n.t('SHOP_DETAIL.HEADER_TITLE'),   // header titles via i18n.t, not t()
   }}
 />
