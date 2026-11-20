@@ -52,7 +52,7 @@ const Error = ({ route, navigation }: TProps) => {
           </>
         }
         lineColor="error.600"
-        topContent={<Styled.ErrorImage contentFit="contain" source={ErrorImage} />}
+        topContent={<Styled.ErrorImage accessible={false} contentFit="contain" source={ErrorImage} />}
       />
     </>
   );

@@ -9,6 +9,8 @@ import * as Styled from './style';
 export type TButtonProps = {
   accessibilityHint?: string;
   accessibilityLabel?: string;
+  accessibilityRole?: 'button' | 'link';
+  accessible?: boolean;
   backgroundColor?: ThemeColor;
   centered?: boolean;
   children?: ReactNode;
@@ -31,6 +33,7 @@ export type TButtonProps = {
 const Button: FC<TButtonProps> = ({
   accessibilityHint,
   accessibilityLabel,
+  accessibilityRole = 'button',
   disabled,
   radius = true,
   onPress,
@@ -68,8 +71,8 @@ const Button: FC<TButtonProps> = ({
       $variant={variant}
       accessibilityHint={accessibilityHint}
       accessibilityLabel={accessibilityLabel}
-      accessibilityRole="button"
-      accessibilityState={{ disabled }}
+      accessibilityRole={accessibilityRole}
+      accessibilityState={{ busy: loading, disabled: disabled || loading }}
       borderless={variant !== 'link'}
       disabled={disabled}
       hitSlop={hitSlop}

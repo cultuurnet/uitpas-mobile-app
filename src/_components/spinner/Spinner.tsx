@@ -1,4 +1,5 @@
 import { FC, useEffect } from 'react';
+import { View } from 'react-native';
 import Animated, {
   cancelAnimation,
   Easing,
@@ -11,6 +12,7 @@ import Svg, { Path } from 'react-native-svg';
 import { StatusBarStyle } from 'expo-status-bar';
 
 import { ThemeColor } from '../../_styles/theme';
+import i18n from '../../_translations/i18n';
 import { getColor } from '../../_utils';
 import * as Styled from './style';
 
@@ -58,10 +60,22 @@ const Spinner: FC<TProps> = ({ color = 'secondary.500', size = 44, fullScreen = 
     </Animated.View>
   );
 
-  if (!fullScreen) return Spinner;
+  if (!fullScreen) {
+    return (
+      <View accessibilityLabel={i18n.t('GENERAL.LOADING')} accessibilityRole="progressbar" accessible>
+        {Spinner}
+      </View>
+    );
+  }
 
   return (
-    <Styled.Wrapper barStyle={statusBarStyle} isScrollable={false}>
+    <Styled.Wrapper
+      accessibilityLabel={i18n.t('GENERAL.LOADING')}
+      accessibilityRole="progressbar"
+      accessible
+      barStyle={statusBarStyle}
+      isScrollable={false}
+    >
       {Spinner}
     </Styled.Wrapper>
   );

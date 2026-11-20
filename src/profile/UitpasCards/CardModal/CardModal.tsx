@@ -45,10 +45,10 @@ const CardModal: FC<TCardModalProps> = ({ passHolder, icon, isVisible, paging, t
       visible={isVisible}
     >
       {isVisible && <StatusBar style="light" />}
-      <Styled.BlurContainer onPress={toggleIsVisible} underlayColor="rgba(0, 0, 0, 0.85)">
+      <Styled.BlurContainer accessible={false} onPress={toggleIsVisible} underlayColor="rgba(0, 0, 0, 0.85)">
         <>
-          <Styled.CloseButton>
-            <Icon color="neutral.0" name="Close" onPress={toggleIsVisible} size={14} />
+          <Styled.CloseButton accessibilityLabel={t('NAVIGATION.CLOSE')} accessibilityRole="button" onPress={toggleIsVisible}>
+            <Icon accessible={false} color="neutral.0" name="Close" size={14} />
           </Styled.CloseButton>
           <UitpasCard icon={icon} isLarge passHolder={passHolder} />
           {paging && (

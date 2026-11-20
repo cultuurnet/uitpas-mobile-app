@@ -14,7 +14,7 @@ const PillButton = ({ icon, label, onPress, amount: count, ...props }: TProps) =
   const hasCount = count !== undefined && count > 0;
 
   return (
-    <Styled.PillButton {...props} $hasCount={hasCount} inline onPress={onPress} radius>
+    <Styled.PillButton {...props} $hasCount={hasCount} accessibilityRole="button" inline onPress={onPress} radius>
       <>
         <Icon color={hasCount ? 'neutral.0' : 'primary.800'} name={icon} size={22} />
         <Styled.PillButtonLabel color={hasCount ? 'neutral.0' : 'primary.800'} size="small">

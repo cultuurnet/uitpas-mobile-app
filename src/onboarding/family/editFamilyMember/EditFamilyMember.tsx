@@ -8,7 +8,7 @@ import * as EmojiAvatars from '../../../_assets/images/avatars/emojiAvatars';
 import { Analytics, Button, Typography } from '../../../_components';
 import { queryClient } from '../../../_context';
 import { TMainNavigationProp, TRootStackRouteProp } from '../../../_routing';
-import { applyBarcodeMask, getAvatarByNameOrDefault, getValidAvatarNameOrDefault } from '../../../_utils';
+import { applyBarcodeMask, getAvatarAltTextKey, getAvatarByNameOrDefault, getValidAvatarNameOrDefault } from '../../../_utils';
 import { useEditFamilyMember } from '../_queries';
 import * as Styled from './style';
 
@@ -72,7 +72,13 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
           data={SORTED_AVATARS}
           numColumns={5}
           renderItem={({ item: avatar }) => (
-            <Styled.AvatarItemBorder isSelected={avatar === selectedAvatar} onPress={() => setSelectedAvatar(avatar)}>
+            <Styled.AvatarItemBorder
+              accessibilityLabel={t(getAvatarAltTextKey(avatar))}
+              accessibilityRole="button"
+              accessibilityState={{ selected: avatar === selectedAvatar }}
+              isSelected={avatar === selectedAvatar}
+              onPress={() => setSelectedAvatar(avatar)}
+            >
               <Styled.AvatarItemContainer>
                 <Styled.AvatarItemImage contentFit="contain" source={getAvatarByNameOrDefault(avatar)} />
               </Styled.AvatarItemContainer>

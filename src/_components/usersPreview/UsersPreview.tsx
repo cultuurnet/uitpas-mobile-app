@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useToggle } from '../../_hooks';
 import { getAvatarByNameOrDefault } from '../../_utils';
@@ -8,6 +9,7 @@ import CardModal from '../../profile/UitpasCards/CardModal/CardModal';
 import * as Styled from './style';
 
 const UsersPreview = () => {
+  const { t } = useTranslation();
   const { data: me, isLoading: isLoadingMe, isError: isErrorMe } = useGetMe();
   const { data: familyMembers = [], isLoading: isLoadingFamilyMembers, isError: isErrorFamilyMembers } = useGetFamilyMembers();
   const [cardModalVisible, toggleCardModalVisible] = useToggle(false);
@@ -36,7 +38,15 @@ const UsersPreview = () => {
 
   return (
     <>
-      <Styled.Container $isSingleUser={isSingleUser} activeOpacity={isSingleUser ? 0.8 : 0.2} onPress={openCardModal}>
+      <Styled.Container
+        $isSingleUser={isSingleUser}
+        accessibilityLabel={
+          isSingleUser ? t('PROFILE.HEADER_POINTS.OPEN_WITH_POINTS', { points: me.points }) : t('PROFILE.HEADER_POINTS.OPEN')
+        }
+        accessibilityRole="button"
+        activeOpacity={isSingleUser ? 0.8 : 0.2}
+        onPress={openCardModal}
+      >
         {isSingleUser ? (
           <>
             <Styled.Points allowFontScaling={false} fontStyle="bold" size="normal">

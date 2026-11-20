@@ -99,5 +99,4 @@ pkg
 # AI working files (local only)
 opencode.json
 .ai/config/
-.ai/artifacts/runs/
-.ai/artifacts/handoffs/
+.ai/artifacts/

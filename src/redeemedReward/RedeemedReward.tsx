@@ -22,18 +22,23 @@ const RedeemedReward = ({ route, navigation }: TProps) => {
   const { t } = useTranslation();
   const { trackSelfDescribingEvent } = useTracking();
   const { redeemedReward, member, isModal } = route.params || {};
+  const memberName = member?.passholder?.firstName;
 
   const { data: hasFamilyMembers } = useHasFamilyMembers();
   const HeaderImage = useFamilyComposition({
     FamilyComponent: () => (
       <View>
-        <Styled.MemberAvatar source={getAvatarByNameOrDefault(member.icon)} />
+        <Styled.MemberAvatar
+          accessibilityLabel={memberName ? t('REDEEMED_REWARD.AVATAR', { name: memberName }) : undefined}
+          accessible={!!memberName}
+          source={getAvatarByNameOrDefault(member?.icon)}
+        />
         <Styled.MemberAvatarLine style={{ transform: [{ rotate: '-25deg' }] }} />
         <Styled.MemberAvatarLine />
         <Styled.MemberAvatarLine style={{ transform: [{ rotate: '25deg' }] }} />
       </View>
     ),
-    SingleComponent: () => <Styled.GiftOpenImage source={GiftOpen} />,
+    SingleComponent: () => <Styled.GiftOpenImage accessible={false} source={GiftOpen} />,
   });
 
   useFocusEffect(
