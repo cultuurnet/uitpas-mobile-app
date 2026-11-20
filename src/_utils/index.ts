@@ -1,3 +1,4 @@
+export * from './accessibilityHelpers';
 export * from './colorHelper';
 export * from './dateHelpers';
 export * from './imageHelpers';

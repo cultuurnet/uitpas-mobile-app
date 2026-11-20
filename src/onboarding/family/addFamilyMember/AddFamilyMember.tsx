@@ -9,7 +9,7 @@ import { Analytics, Button, Trans, Typography } from '../../../_components';
 import { queryClient, useTracking } from '../../../_context';
 import { TApiError } from '../../../_http';
 import { TMainNavigationProp, TRootStackRouteProp } from '../../../_routing';
-import { applyBarcodeMask, getRandomUniqueAvatar, openExternalURL, TRACKING_URL_REGEX } from '../../../_utils';
+import { announceStatus, applyBarcodeMask, getRandomUniqueAvatar, openExternalURL, TRACKING_URL_REGEX } from '../../../_utils';
 import { TRegistrationTokenRequest, useGetRegistrationToken, useRegisterFamilyMember } from '../_queries';
 import * as Styled from './style';
 
@@ -32,8 +32,9 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
     isPending: registrationTokenIsLoading,
     mutate: getRegistrationToken,
   } = useGetRegistrationToken({
-    onError: () => {
+    onError: (error: TApiError) => {
       trackSelfDescribingEvent('errorMessage', { message: 'card-dob-mismatch' });
+      announceStatus(error?.endUserMessage?.nl || t('ERROR.TITLE'));
     },
     onSuccess: async ({ token }) => {
       try {
@@ -123,7 +124,10 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
           <Button
             label={t('ONBOARDING.FAMILY.ADD_MEMBER.ADD')}
             loading={registrationTokenIsLoading || registerFamilyMemberIsLoading}
-            onPress={handleSubmit(formData => getRegistrationToken(formData))}
+            onPress={handleSubmit(
+              formData => getRegistrationToken(formData),
+              () => announceStatus(t('ONBOARDING.FAMILY.ADD_MEMBER.MISSING_FIELDS')),
+            )}
           />
         </Styled.StickyFooter>
       </Styled.ScreenContainer>

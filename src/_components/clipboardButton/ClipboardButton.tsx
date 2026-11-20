@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AccessibilityInfo } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 
 import { theme } from '../../_styles/theme';
+import { announceStatus } from '../../_utils';
 import Icon from '../icon/Icon';
 import Typography from '../typography/Typography';
 import * as Styled from './style';
@@ -20,7 +20,7 @@ const ClipboardButton = ({ label, accessibilityLabel, ...props }: TProps) => {
 
   const onPress = useCallback(async () => {
     await Clipboard.setStringAsync(label);
-    AccessibilityInfo.announceForAccessibility(t('GENERAL.COPIED'));
+    announceStatus(t('GENERAL.COPIED'));
     setIsCopied(true);
     const timeout = setTimeout(() => {
       setIsCopied(false);

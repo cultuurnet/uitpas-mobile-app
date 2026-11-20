@@ -17,6 +17,7 @@ const Error = ({ route, navigation }: TProps) => {
     params: { checkinCode, message, gotoAfterClose, showFamilyScan },
   } = route;
   const { t } = useTranslation();
+  const statusMessage = `${t('ERROR.TITLE')} ${message || t('ERROR.DEFAULT_MESSAGE')}`;
 
   const onClose = useCallback(() => {
     if (typeof gotoAfterClose === 'string') {
@@ -33,11 +34,20 @@ const Error = ({ route, navigation }: TProps) => {
         backgroundColor="error.300"
         bottomContent={
           <>
-            <Styled.BottomContainer>
-              <Typography bottomSpacing="24px" color="error.600" fontStyle="bold" size="xxlarge">
+            <Styled.BottomContainer accessibilityLabel={statusMessage} accessible>
+              <Typography
+                accessible={false}
+                bottomSpacing="24px"
+                color="error.600"
+                fontStyle="bold"
+                importantForAccessibility="no-hide-descendants"
+                size="xxlarge"
+              >
                 {t('ERROR.TITLE')}
               </Typography>
-              <Typography align="center">{message || t('ERROR.DEFAULT_MESSAGE')}</Typography>
+              <Typography accessible={false} align="center" importantForAccessibility="no-hide-descendants">
+                {message || t('ERROR.DEFAULT_MESSAGE')}
+              </Typography>
             </Styled.BottomContainer>
             <Button href={ConfigUrl.helpdesk} label={t('ERROR.HELP')} variant="link" />
             {showFamilyScan && (
