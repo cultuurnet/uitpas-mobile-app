@@ -9,7 +9,7 @@ type TProps = {
 };
 
 const BrandLogo: FC<TProps> = ({ inverse, height = 24 }) => {
-  return <Styled.LogoImage contentFit="contain" height={height} source={inverse ? LogoInverse : Logo} />;
+  return <Styled.LogoImage accessible={false} contentFit="contain" height={height} source={inverse ? LogoInverse : Logo} />;
 };
 
 export default BrandLogo;

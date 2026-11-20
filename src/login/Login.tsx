@@ -63,7 +63,7 @@ const Login = () => {
               {t('LOGIN.INTRO')}
             </Styled.IntroText>
 
-            {height > 600 && <Styled.Illustration source={Person} />}
+            {height > 600 && <Styled.Illustration accessible={false} source={Person} />}
           </Styled.TopContainer>
         }
       />

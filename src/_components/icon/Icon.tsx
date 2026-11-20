@@ -9,6 +9,7 @@ import * as Styled from './style';
 export type TIconName = keyof typeof Icons;
 
 export type TIconProps = {
+  accessibilityRole?: 'button' | 'link';
   borderless?: boolean;
   color?: ThemeColor;
   disabled?: boolean;
@@ -18,6 +19,8 @@ export type TIconProps = {
 } & Omit<ImageProps, 'loading' | 'source'>;
 
 const Icon = ({
+  accessibilityLabel,
+  accessibilityRole,
   size,
   name,
   color,
@@ -29,26 +32,41 @@ const Icon = ({
 }: TIconProps) => {
   const tintColor = color && getColor(color);
 
-  const iconElement = (
-    <Styled.Icon
-      {...imageProps}
-      contentFit="contain"
-      size={size}
-      source={Icons[name]}
-      style={onPress ? undefined : style}
-      tintColor={tintColor}
-    />
-  );
-
   if (onPress) {
     return (
-      <Styled.IconButton {...imageProps} borderless={borderless} disabled={disabled} hitSlop={24} onPress={onPress} style={style}>
-        {iconElement}
+      <Styled.IconButton
+        accessibilityLabel={accessibilityLabel}
+        accessibilityRole={accessibilityRole ?? 'button'}
+        borderless={borderless}
+        disabled={disabled}
+        hitSlop={24}
+        onPress={onPress}
+        style={style}
+      >
+        <Styled.Icon
+          {...imageProps}
+          accessible={false}
+          contentFit="contain"
+          size={size}
+          source={Icons[name]}
+          tintColor={tintColor}
+        />
       </Styled.IconButton>
     );
   }
 
-  return iconElement;
+  return (
+    <Styled.Icon
+      {...imageProps}
+      accessibilityLabel={accessibilityLabel}
+      accessible={!!accessibilityLabel}
+      contentFit="contain"
+      size={size}
+      source={Icons[name]}
+      style={style}
+      tintColor={tintColor}
+    />
+  );
 };
 
 export default Icon;

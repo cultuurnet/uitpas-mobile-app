@@ -1,5 +1,8 @@
 {
   "GENERAL": {
+    "COPIED": "Gekopieerd",
+    "COPY": "Kopiëren",
+    "LOADING": "Bezig met laden",
     "PROBLEM": "Meld een probleem"
   },
   "NAVIGATION": {
@@ -7,7 +10,9 @@
     "CAMERA": "Sparen",
     "SHOP": "Voordelen",
     "CLOSE": "Sluiten",
-    "INFO": "Meer informatie"
+    "INFO": "Meer informatie",
+    "BACK": "Terug",
+    "CLEAR_SEARCH": "Wissen"
   },
   "UPDATE": {
     "NECESSARY": "Update nodig",
@@ -38,7 +43,8 @@
         "YOU": "(jij)",
         "ADD_MEMBER": "Gezinslid toevoegen",
         "DONE": "Klaar",
-        "CANCEL": "Annuleren"
+        "CANCEL": "Annuleren",
+        "FAQ_LINK": "Veelgestelde vragen gezin"
       },
       "OTHER_FAMILIES": {
         "TITLE": "Mijn gezin",
@@ -70,6 +76,7 @@
       "ADD_MEMBER": {
         "TITLE": "Gezinslid toevoegen",
         "UITPAS_NUMBER": "UiTPAS-nummer",
+        "UITPAS_NUMBER_TOOLTIP": "Meer info",
         "UITPAS_NUMBER_INFO": "Je UiTPAS-nummer vind je op de achterkant van je UiTPAS, of in de welkomstmail die je kreeg.",
         "UITPAS_NUMBER_DESCRIPTION": "Heeft je gezinslid nog geen UiTPAS? <button>Bekijk hier de aankooppunten</button>",
         "UITPAS_NUMBER_DESCRIPTION_LINK": "https://www.uitpas.be/waar-vind-je-de-uitpas?filters=pointOfSale&view=list&_search",
@@ -102,6 +109,28 @@
     "CANCEL": "Annuleren",
     "CONFIRM": "OK"
   },
+  "AVATARS": {
+    "EMOJI_0": "Blij gezicht avatar",
+    "EMOJI_1": "Lachend gezicht met gesloten ogen avatar",
+    "EMOJI_2": "Verbaasd gezicht met bril avatar",
+    "EMOJI_3": "Knipogend gezicht avatar",
+    "EMOJI_4": "Gillend gezicht avatar",
+    "EMOJI_5": "Gezicht met kruisjes als ogen avatar",
+    "EMOJI_6": "Glimlachend gezicht met bril avatar",
+    "EMOJI_7": "Gezicht met hartjesogen avatar",
+    "EMOJI_8": "Neutraal gezicht avatar",
+    "EMOJI_9": "Gezicht met tong uit avatar",
+    "ANIMALS_0": "Walvis avatar",
+    "ANIMALS_1": "Flamingo avatar",
+    "ANIMALS_2": "Vis avatar",
+    "ANIMALS_3": "Konijn avatar",
+    "ANIMALS_4": "Varken avatar",
+    "ANIMALS_5": "Schildpad avatar",
+    "ANIMALS_6": "Vogel avatar",
+    "ANIMALS_7": "Hond avatar",
+    "ANIMALS_8": "Krokodil avatar",
+    "ANIMALS_9": "Vlinder avatar"
+  },
   "LOGIN": {
     "INTRO": "Jouw voordeelkaart voor\nverrassende vrije tijd buitenshuis",
     "REGISTER": "Kan je niet aanmelden?\nRegistreer je UiTPAS (opnieuw)",
@@ -111,7 +140,12 @@
   "PROFILE": {
     "CARD_MODAL": {
       "NEXT": "Volgende kaart",
+      "OPEN": "UiTPAS vergroten van {{name}}",
       "PREVIOUS": "Vorige kaart"
+    },
+    "HEADER_POINTS": {
+      "OPEN": "UiTPAS vergroten",
+      "OPEN_WITH_POINTS": "Puntensaldo {{points}}, UiTPAS vergroten"
     },
     "YOU": "(jij)",
     "POINTS": "punten",
@@ -266,6 +300,7 @@
     "HEADER_TITLE": "Voordeel",
     "DESCRIPTION": "Over het voordeel",
     "MORE_INFO": "Meer info",
+    "OPEN_MAPS": "Open locatie in kaarten",
     "LOCATION": "Waar omruilen?",
     "AVAILABILITY": "Beschikbaarheid",
     "HOW_TO_COLLECT": "Hoe omruilen?",
@@ -307,6 +342,7 @@
     }
   },
   "REDEEMED_REWARD": {
+    "AVATAR": "Avatar {{name}}",
     "HEADER_TITLE": "Je omgeruild voordeel",
     "SUCCESS_TITLE": "Gelukt!",
     "SUCCESS_MESSAGE_SINGLE_PART_1": "Je hebt net <bold color='secondary.900'>{{count}} punt</bold> omgeruild.",
@@ -349,6 +385,7 @@
       "CHECKIN": "Spaar",
       "SUMMARY": {
         "CLOSE": "Sluiten",
+        "POINTS_SAVED": "Punten gespaard",
         "SUCCEEDED": "Gelukt! Nieuw saldo: {{count}} punt",
         "SUCCEEDED_plural": "Gelukt! Nieuw saldo: {{count}} punten"
       }

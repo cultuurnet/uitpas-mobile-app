@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlatList, Pressable, useWindowDimensions } from 'react-native';
 
 import { useToggle } from '../../_hooks';
@@ -11,6 +12,7 @@ import { getCardWidth } from './UitpasCard/style';
 import UitpasCard from './UitpasCard/UitpasCard';
 
 export const UitpasCards = () => {
+  const { t } = useTranslation();
   const { width: screenWidth } = useWindowDimensions();
   const [cardModalVisible, toggleCardModalVisible] = useToggle(false);
   const [selectedFamilyMember, setSelectedFamilyMember] = useState<TFamilyMember>(null);
@@ -31,7 +33,11 @@ export const UitpasCards = () => {
         horizontal
         keyExtractor={item => item.uitpasNumber}
         renderItem={({ item: familyMember }) => (
-          <Pressable onPress={() => handlePressCard(familyMember)}>
+          <Pressable
+            accessibilityLabel={t('PROFILE.CARD_MODAL.OPEN', { name: familyMember.passholder.firstName })}
+            accessibilityRole="button"
+            onPress={() => handlePressCard(familyMember)}
+          >
             <UitpasCard
               hasYouSuffix={familyMembers.length > 1 && familyMember.mainFamilyMember}
               icon={familyMembers.length > 1 ? familyMember.icon : null}
