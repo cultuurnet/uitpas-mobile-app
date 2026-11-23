@@ -10,6 +10,7 @@ import FakeTextInput from '../textInput/fakeTextInput/FakeTextInput';
 import * as Styled from './style';
 
 type TProps = {
+  accessibilityLabel?: string;
   date?: Date;
   description?: string | ReactElement;
   isError?: boolean;

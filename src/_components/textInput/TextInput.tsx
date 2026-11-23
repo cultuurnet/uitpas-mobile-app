@@ -11,10 +11,14 @@ type TTextInputProps = TextInputProps & {
 };
 
 const TextInput = ({ description, label, style, ...inputProps }: TTextInputProps) => {
+  const { t } = useTranslation();
+
+  const accessibilityLabel = inputProps.accessibilityLabel ?? (typeof label === 'string' ? t(label) : undefined);
+
   return (
     <View style={style}>
       {label && <TextInputLabel text={label} />}
-      <Styled.TextInput {...inputProps} />
+      <Styled.TextInput {...inputProps} accessibilityLabel={accessibilityLabel} />
       {description && <TextInputDescription text={description} />}
     </View>
   );
@@ -31,7 +35,7 @@ export const TextInputLabel = ({ text }: TTextInputLabelProps) => {
 
   if (typeof text === 'string') {
     return (
-      <Styled.Label color="primary.700" fontStyle="semibold">
+      <Styled.Label accessible={false} color="primary.700" fontStyle="semibold" importantForAccessibility="no">
         {t(text)}
       </Styled.Label>
     );

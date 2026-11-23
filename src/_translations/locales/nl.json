@@ -5,7 +5,8 @@
     "LOADING": "Bezig met laden",
     "POINTS": "{{count}} punt",
     "POINTS_other": "{{count}} punten",
-    "PROBLEM": "Meld een probleem"
+    "PROBLEM": "Meld een probleem",
+    "REQUIRED_FIELD": "{{label}}, verplicht veld"
   },
   "NAVIGATION": {
     "PROFILE": "Mijn UiTPAS",
@@ -97,7 +98,8 @@
       "EDIT_MEMBER": {
         "TITLE": "Gezinslid aanpassen",
         "DESCRIPTION": "Hoe wil je {{firstName}} weergeven in de app?",
-        "SAVE": "Opslaan"
+        "SAVE": "Opslaan",
+        "AVATAR_SELECTED": "{{name}}, geselecteerd"
       },
       "INFORMATION": {
         "INFO_TITLE": "De snelste weg naar jullie UiTPAS",
@@ -231,6 +233,7 @@
     "SHOW_MORE_OF": "Bekijk meer: {{title}}",
     "NO_RESULTS": "Helaas, er zijn momenteel geen voordelen in deze categorie.",
     "SEARCH": {
+      "LABEL": "Zoeken: {{placeholder}}",
       "PLACEHOLDER": "Leuke voordelen, gemeenten,...",
       "NO_RESULTS_REGION": "Helaas, we vinden geen voordelen in je UiTPAS-regio die overeenkomen met je zoekopdracht.",
       "NO_RESULTS": "Helaas, we vinden geen voordelen die overeenkomen met je zoekopdracht.",

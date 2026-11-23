@@ -1,4 +1,4 @@
-import { AccessibilityInfo } from 'react-native';
+import { AccessibilityInfo, findNodeHandle } from 'react-native';
 import { TFunction } from 'i18next';
 
 import { TReward } from '../shop/_models/reward';
@@ -10,6 +10,17 @@ import { TReward } from '../shop/_models/reward';
  */
 export function announceStatus(message: string) {
   AccessibilityInfo.announceForAccessibilityWithOptions(message, { priority: 'low', queue: true });
+}
+
+/**
+ * Moves VoiceOver/TalkBack focus to a mounted native element, e.g. back to the
+ * button that opened a modal after the modal has been dismissed.
+ */
+export function focusAccessibilityElement(target: Parameters<typeof findNodeHandle>[0] | null) {
+  const reactTag = target == null ? null : findNodeHandle(target);
+  if (reactTag != null) {
+    AccessibilityInfo.setAccessibilityFocus(reactTag);
+  }
 }
 
 /**

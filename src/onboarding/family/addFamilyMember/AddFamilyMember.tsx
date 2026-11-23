@@ -59,6 +59,20 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
   const { bottom } = useSafeAreaInsets();
   const { t } = useTranslation();
 
+  const uitpasNumberAccessibilityLabel = [
+    t('GENERAL.REQUIRED_FIELD', { label: t('ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER') }),
+    errors?.uitpasNumber ? t('ONBOARDING.FAMILY.ADD_MEMBER.MISSING_FIELDS') : null,
+  ]
+    .filter(Boolean)
+    .join(', ');
+
+  const birthDateAccessibilityLabel = [
+    t('GENERAL.REQUIRED_FIELD', { label: t('ONBOARDING.FAMILY.ADD_MEMBER.BIRTHDATE') }),
+    errors?.birthDate ? t('ONBOARDING.FAMILY.ADD_MEMBER.MISSING_FIELDS') : null,
+  ]
+    .filter(Boolean)
+    .join(', ');
+
   return (
     <>
       <Analytics screenName="AddFamilyMember" />
@@ -71,6 +85,7 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
                 name="uitpasNumber"
                 render={({ field: { onChange, value } }) => (
                   <Styled.UitpasNumberInput
+                    accessibilityLabel={uitpasNumberAccessibilityLabel}
                     description={
                       <Trans
                         i18nKey="ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER_DESCRIPTION"
@@ -82,7 +97,12 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
                     keyboardType="number-pad"
                     label={
                       <Styled.UitpasNumberLabelContainer>
-                        <Styled.UitpasNumberLabel color="primary.700" fontStyle="semibold">
+                        <Styled.UitpasNumberLabel
+                          accessible={false}
+                          color="primary.700"
+                          fontStyle="semibold"
+                          importantForAccessibility="no"
+                        >
                           {t('ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER')}
                         </Styled.UitpasNumberLabel>
                         <Styled.UitpasNumberTooltip />
@@ -100,6 +120,7 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
                 name="birthDate"
                 render={({ field: { onChange, value } }) => (
                   <Styled.BirthDateInput
+                    accessibilityLabel={birthDateAccessibilityLabel}
                     date={value}
                     isError={!!errors?.birthDate}
                     label="ONBOARDING.FAMILY.ADD_MEMBER.BIRTHDATE"

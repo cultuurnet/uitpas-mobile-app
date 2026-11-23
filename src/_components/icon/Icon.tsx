@@ -1,4 +1,5 @@
 import React from 'react';
+import { ViewInstance } from 'react-native';
 import { ImageProps } from 'expo-image';
 
 import * as Icons from '../../_assets/icons';
@@ -18,55 +19,63 @@ export type TIconProps = {
   size?: 'small' | 'large' | number;
 } & Omit<ImageProps, 'loading' | 'source'>;
 
-const Icon = ({
-  accessibilityLabel,
-  accessibilityRole,
-  size,
-  name,
-  color,
-  style = undefined,
-  onPress,
-  disabled = false,
-  borderless = false,
-  ...imageProps
-}: TIconProps) => {
-  const tintColor = color && getColor(color);
+const Icon = React.forwardRef<ViewInstance, TIconProps>(
+  (
+    {
+      accessibilityLabel,
+      accessibilityRole,
+      size,
+      name,
+      color,
+      style = undefined,
+      onPress,
+      disabled = false,
+      borderless = false,
+      ...imageProps
+    },
+    ref,
+  ) => {
+    const tintColor = color && getColor(color);
 
-  if (onPress) {
+    if (onPress) {
+      return (
+        <Styled.IconButton
+          accessibilityLabel={accessibilityLabel}
+          accessibilityRole={accessibilityRole ?? 'button'}
+          borderless={borderless}
+          disabled={disabled}
+          hitSlop={24}
+          onPress={onPress}
+          ref={ref}
+          style={style}
+        >
+          <Styled.Icon
+            {...imageProps}
+            accessible={false}
+            contentFit="contain"
+            size={size}
+            source={Icons[name]}
+            tintColor={tintColor}
+          />
+        </Styled.IconButton>
+      );
+    }
+
     return (
-      <Styled.IconButton
+      <Styled.Icon
+        {...imageProps}
         accessibilityLabel={accessibilityLabel}
-        accessibilityRole={accessibilityRole ?? 'button'}
-        borderless={borderless}
-        disabled={disabled}
-        hitSlop={24}
-        onPress={onPress}
+        accessible={!!accessibilityLabel}
+        contentFit="contain"
+        size={size}
+        source={Icons[name]}
         style={style}
-      >
-        <Styled.Icon
-          {...imageProps}
-          accessible={false}
-          contentFit="contain"
-          size={size}
-          source={Icons[name]}
-          tintColor={tintColor}
-        />
-      </Styled.IconButton>
+        tintColor={tintColor}
+      />
     );
-  }
+  },
+);
 
-  return (
-    <Styled.Icon
-      {...imageProps}
-      accessibilityLabel={accessibilityLabel}
-      accessible={!!accessibilityLabel}
-      contentFit="contain"
-      size={size}
-      source={Icons[name]}
-      style={style}
-      tintColor={tintColor}
-    />
-  );
-};
+Icon.displayName = 'Icon';
 
 export default Icon;

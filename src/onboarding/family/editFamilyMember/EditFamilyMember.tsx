@@ -8,7 +8,13 @@ import * as EmojiAvatars from '../../../_assets/images/avatars/emojiAvatars';
 import { Analytics, Button, Typography } from '../../../_components';
 import { queryClient } from '../../../_context';
 import { TMainNavigationProp, TRootStackRouteProp } from '../../../_routing';
-import { applyBarcodeMask, getAvatarAltTextKey, getAvatarByNameOrDefault, getValidAvatarNameOrDefault } from '../../../_utils';
+import {
+  announceStatus,
+  applyBarcodeMask,
+  getAvatarAltTextKey,
+  getAvatarByNameOrDefault,
+  getValidAvatarNameOrDefault,
+} from '../../../_utils';
 import { useEditFamilyMember } from '../_queries';
 import * as Styled from './style';
 
@@ -31,6 +37,12 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
 
   const { bottom } = useSafeAreaInsets();
   const { t } = useTranslation();
+
+  const handleSelectAvatar = (avatar: string) => {
+    if (avatar === selectedAvatar) return;
+    setSelectedAvatar(avatar);
+    announceStatus(t('ONBOARDING.FAMILY.EDIT_MEMBER.AVATAR_SELECTED', { name: t(getAvatarAltTextKey(avatar)) }));
+  };
 
   const handleSubmit = async () => {
     await editFamilyMember({ body: { icon: selectedAvatar } });
@@ -61,7 +73,13 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
               <Styled.UitpasNumber color="primary.700" fontStyle="bold">
                 {applyBarcodeMask(uitpasNumber)}
               </Styled.UitpasNumber>
-              <Styled.SelectedAvatarImage contentFit="contain" source={getAvatarByNameOrDefault(selectedAvatar)} />
+              <Styled.SelectedAvatarImage
+                accessibilityElementsHidden
+                accessible={false}
+                contentFit="contain"
+                importantForAccessibility="no"
+                source={getAvatarByNameOrDefault(selectedAvatar)}
+              />
               <Styled.Description color="primary.700" fontStyle="semibold">
                 {t('ONBOARDING.FAMILY.EDIT_MEMBER.DESCRIPTION', { firstName })}
               </Styled.Description>
@@ -77,10 +95,14 @@ export const EditFamilyMember = ({ navigation, route }: TProps) => {
               accessibilityRole="button"
               accessibilityState={{ selected: avatar === selectedAvatar }}
               isSelected={avatar === selectedAvatar}
-              onPress={() => setSelectedAvatar(avatar)}
+              onPress={() => handleSelectAvatar(avatar)}
             >
-              <Styled.AvatarItemContainer>
-                <Styled.AvatarItemImage contentFit="contain" source={getAvatarByNameOrDefault(avatar)} />
+              <Styled.AvatarItemContainer
+                accessibilityElementsHidden
+                accessible={false}
+                importantForAccessibility="no-hide-descendants"
+              >
+                <Styled.AvatarItemImage accessible={false} contentFit="contain" source={getAvatarByNameOrDefault(avatar)} />
               </Styled.AvatarItemContainer>
             </Styled.AvatarItemBorder>
           )}

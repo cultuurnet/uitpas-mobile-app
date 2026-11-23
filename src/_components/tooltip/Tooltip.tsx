@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ImageStyle, StyleProp } from 'react-native';
+import { ImageStyle, Platform, StyleProp, ViewInstance } from 'react-native';
 
+import { focusAccessibilityElement } from '../../_utils';
 import BlurredModal from '../blurredModal/BlurredModal';
 import Icon from '../icon/Icon';
 import Typography from '../typography/Typography';
@@ -13,12 +14,22 @@ type TProps = {
 
 const Tooltip = ({ style }: TProps) => {
   const [isVisible, setIsVisible] = useState(false);
+  const buttonRef = useRef<ViewInstance>(null);
+  const hasOpenedRef = useRef(false);
 
   const { t } = useTranslation();
 
   const handleToggleIsVisible = () => {
+    hasOpenedRef.current = true;
     setIsVisible(currentIsVisible => !currentIsVisible);
   };
+
+  const handleModalDismissed = useCallback(() => {
+    if (!hasOpenedRef.current) return;
+    hasOpenedRef.current = false;
+    const delay = Platform.OS === 'android' ? 300 : 0;
+    setTimeout(() => focusAccessibilityElement(buttonRef.current), delay);
+  }, []);
 
   return (
     <>
@@ -26,10 +37,11 @@ const Tooltip = ({ style }: TProps) => {
         accessibilityLabel={t('ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER_TOOLTIP')}
         name="QuestionFilled"
         onPress={handleToggleIsVisible}
+        ref={buttonRef}
         size="small"
         style={style}
       />
-      <BlurredModal isVisible={isVisible} toggleIsVisible={handleToggleIsVisible}>
+      <BlurredModal isVisible={isVisible} onDismiss={handleModalDismissed} toggleIsVisible={handleToggleIsVisible}>
         <Styled.Title fontStyle="bold" size="large">
           {t('ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER')}
         </Styled.Title>
