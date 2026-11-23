@@ -17,8 +17,6 @@ export const FamilyFilter = ({ selectedPassHolder, setSelectedPassHolder }: TPro
     () => findCurrentIndexByPassHolder(familyMembers, selectedPassHolder),
     [familyMembers, selectedPassHolder],
   );
-  const isAtStart = currentIndex <= 0;
-  const isAtEnd = currentIndex < 0 || currentIndex >= familyMembers.length - 1;
 
   const handleSelectPassHolder = useCallback(
     (nextSelectedPassHolder: TPassHolder, nextSelectedIndex: number) => {
@@ -29,14 +27,14 @@ export const FamilyFilter = ({ selectedPassHolder, setSelectedPassHolder }: TPro
   );
 
   const handlePressPrev = useCallback(() => {
-    const prevBoundedIndex = findBoundedIndex(familyMembers, currentIndex - 1);
-    const prevPassHolder = familyMembers[prevBoundedIndex].passholder;
+    const prevIndex = currentIndex <= 0 ? familyMembers.length - 1 : currentIndex - 1;
+    const prevPassHolder = familyMembers[prevIndex].passholder;
     if (prevPassHolder.id !== selectedPassHolder.id) {
-      handleSelectPassHolder(prevPassHolder, prevBoundedIndex);
+      handleSelectPassHolder(prevPassHolder, prevIndex);
       announceStatus(
         t('SHOP.WELCOME.MEMBER_SELECTED', {
           name: prevPassHolder.firstName,
-          position: prevBoundedIndex + 1,
+          position: prevIndex + 1,
           total: familyMembers.length,
         }),
       );
@@ -44,14 +42,14 @@ export const FamilyFilter = ({ selectedPassHolder, setSelectedPassHolder }: TPro
   }, [currentIndex, familyMembers, handleSelectPassHolder, selectedPassHolder, t]);
 
   const handlePressNext = useCallback(() => {
-    const nextBoundedIndex = findBoundedIndex(familyMembers, currentIndex + 1);
-    const nextPassHolder = familyMembers[nextBoundedIndex].passholder;
+    const nextIndex = currentIndex < 0 || currentIndex >= familyMembers.length - 1 ? 0 : currentIndex + 1;
+    const nextPassHolder = familyMembers[nextIndex].passholder;
     if (nextPassHolder.id !== selectedPassHolder.id) {
-      handleSelectPassHolder(nextPassHolder, nextBoundedIndex);
+      handleSelectPassHolder(nextPassHolder, nextIndex);
       announceStatus(
         t('SHOP.WELCOME.MEMBER_SELECTED', {
           name: nextPassHolder.firstName,
-          position: nextBoundedIndex + 1,
+          position: nextIndex + 1,
           total: familyMembers.length,
         }),
       );
@@ -82,34 +80,15 @@ export const FamilyFilter = ({ selectedPassHolder, setSelectedPassHolder }: TPro
     [familyMembers.length, handleSelectPassHolder, selectedPassHolder?.id, t],
   );
 
-  const PrevButton = useMemo(
-    () => (
-      <Styled.FilterPrevButton
-        accessibilityLabel={t('SHOP.WELCOME.PREVIOUS_MEMBER')}
-        disabled={isAtStart}
-        name="ChevronLeft"
-        onPress={handlePressPrev}
-      />
-    ),
-    [handlePressPrev, isAtStart, t],
-  );
-  const NextButton = useMemo(
-    () => (
-      <Styled.FilterNextButton
-        accessibilityLabel={t('SHOP.WELCOME.NEXT_MEMBER')}
-        disabled={isAtEnd}
-        name="ChevronRight"
-        onPress={handlePressNext}
-      />
-    ),
-    [handlePressNext, isAtEnd, t],
-  );
-
   if (!familyMembers.length) return null;
 
   return (
     <Styled.Container>
-      {PrevButton}
+      <Styled.FilterPrevButton
+        accessibilityLabel={t('SHOP.WELCOME.PREVIOUS_MEMBER')}
+        name="ChevronLeft"
+        onPress={handlePressPrev}
+      />
       <FlatList
         ItemSeparatorComponent={Styled.Separator}
         data={familyMembers}
@@ -119,7 +98,11 @@ export const FamilyFilter = ({ selectedPassHolder, setSelectedPassHolder }: TPro
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
       />
-      {NextButton}
+      <Styled.FilterNextButton
+        accessibilityLabel={t('SHOP.WELCOME.NEXT_MEMBER')}
+        name="ChevronRight"
+        onPress={handlePressNext}
+      />
     </Styled.Container>
   );
 };
@@ -127,8 +110,4 @@ export const FamilyFilter = ({ selectedPassHolder, setSelectedPassHolder }: TPro
 const findCurrentIndexByPassHolder = (familyMembers: TFamilyMember[], passHolder: TPassHolder) => {
   if (!passHolder) return -1;
   return familyMembers.findIndex(member => member.passholder.id === passHolder.id);
-};
-
-const findBoundedIndex = (familyMembers: TFamilyMember[], index: number) => {
-  return Math.min(Math.max(index, 0), familyMembers.length - 1);
 };
