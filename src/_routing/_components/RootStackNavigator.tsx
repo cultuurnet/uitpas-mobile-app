@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as SplashScreen from 'expo-splash-screen';
 
@@ -13,6 +13,7 @@ import About from '../../about/About';
 import Error from '../../error/Error';
 import { FilteredShop } from '../../filteredShop/FilteredShop';
 import History from '../../history/History';
+import { Initializing } from '../../initializing/Initializing';
 import Login from '../../login/Login';
 import {
   AddFamilyMember,
@@ -43,6 +44,8 @@ import { TRootStackParamList } from './TRootStackParamList';
 
 SplashScreen.preventAutoHideAsync();
 
+const SPLASH_HANDOFF_DELAY = 300;
+
 const RootStack = createNativeStackNavigator<TRootStackParamList>();
 
 export const RootStackNavigator = () => {
@@ -52,9 +55,25 @@ export const RootStackNavigator = () => {
   const getMainHeaderProps = useMainHeaderProps(isAuthenticated);
   const isPolicyApprovedInStorage = storage.getBoolean(StorageKey.IsPolicyApproved);
   const { data: passHolder, isLoading: isPassHolderLoading } = useGetMe(isAuthenticated && !showFamilyOnboarding);
+  const isSplashHiddenRef = useRef(false);
 
   useEffect(() => {
-    if (isInitialized) SplashScreen?.hideAsync();
+    const hideSplash = () => {
+      if (isSplashHiddenRef.current) return;
+
+      isSplashHiddenRef.current = true;
+      SplashScreen.hideAsync().catch(() => {});
+    };
+
+    if (isInitialized) {
+      hideSplash();
+      return;
+    }
+
+    // Hand the splash over to the Initializing screen so a slow restore does not look like a freeze.
+    const timer = setTimeout(hideSplash, SPLASH_HANDOFF_DELAY);
+
+    return () => clearTimeout(timer);
   }, [isInitialized]);
 
   useEffect(() => {
@@ -72,9 +91,12 @@ export const RootStackNavigator = () => {
       }}
     >
       <RootStack.Group screenOptions={{ headerShown: false }}>
-        {!isAuthenticated && !isPolicyApprovedInStorage && <RootStack.Screen component={Onboarding} name="Onboarding" />}
+        {!isInitialized && <RootStack.Screen component={Initializing} name="Initializing" options={{ gestureEnabled: false }} />}
+        {isInitialized && !isAuthenticated && !isPolicyApprovedInStorage && (
+          <RootStack.Screen component={Onboarding} name="Onboarding" />
+        )}
         {isAuthenticated && versions?.isBehindMinVersion && <RootStack.Screen component={UpdateScreen} name="Update" />}
-        {!isAuthenticated && <RootStack.Screen component={Login} name="Login" />}
+        {isInitialized && !isAuthenticated && <RootStack.Screen component={Login} name="Login" />}
       </RootStack.Group>
       {isAuthenticated && showFamilyOnboarding && (
         <RootStack.Group navigationKey={showFamilyOnboarding.toString()} screenOptions={{ headerShown: true }}>
