@@ -1,9 +1,9 @@
 import React from 'react';
 import { Platform } from 'react-native';
 
+import { isLiquidGlass } from '../../_utils/iOSHelpers';
 import Icon, { TIconName } from '../icon/Icon';
 import * as Styled from './style';
-import { isLiquidGlass } from '../../_utils/iOSHelpers';
 
 export type THeaderIconProps = {
   accessibilityLabel: string;
