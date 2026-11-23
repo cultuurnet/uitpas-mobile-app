@@ -6,7 +6,7 @@ import { Accordion, Analytics, HtmlRenderer, Points, RewardImage, Trans, Typogra
 import { useTracking } from '../_context';
 import { useToggle } from '../_hooks';
 import { TMainNavigationProp, TRootStackRouteProp } from '../_routing';
-import { getRewardTrackingData, normalizeUrl } from '../_utils';
+import { announceStatus, getRewardTrackingData, normalizeUrl } from '../_utils';
 import { useGetFamilyMembers, useHasFamilyMembers } from '../onboarding/family/_queries';
 import { TFamilyMember } from '../profile/_models';
 import { useGetMe } from '../profile/_queries/useGetMe';
@@ -88,10 +88,11 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
       rewardsSection.current?.measureLayout(scrollViewRef.current, (_x, yInScrollView) => {
         redeemButtonRef.current?.measure((_x, _y, _width, stickyAreaHeight) => {
           scrollViewRef.current?.scrollTo({ animated: true, y: yInScrollView - stickyAreaHeight });
+          announceStatus(t('SHOP_DETAIL.WHO_CAN_REDEEM.TITLE'));
         });
       });
     }
-  }, [showFamilyMembers, hasFamilyMembers, familyMembers, handleRedeemReward]);
+  }, [showFamilyMembers, hasFamilyMembers, familyMembers, handleRedeemReward, t]);
 
   const handleRedeemModalToggle = useCallback(() => {
     setSelectedMember(null);
@@ -112,7 +113,7 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
           </RewardImage>
         </Styled.ImageContainer>
         <Styled.Content>
-          <Styled.Title fontStyle="bold" size="xxlarge">
+          <Styled.Title accessibilityRole="header" fontStyle="bold" size="xxlarge">
             {reward.title}
           </Styled.Title>
           {visibleOrganizers.length === 1 && hiddenOrganizers.length === 0 && (
@@ -136,7 +137,9 @@ export const ShopDetail = ({ navigation, route }: TProps) => {
             <HtmlRenderer onLinkPress={handleLinkPress} source={{ html: reward.promotionalDescription }} />
           </Section>
 
-          {!!reward.moreInfoURL && <Styled.MoreInfoLink href={normalizeUrl(reward.moreInfoURL)} onPress={handleLinkPress} />}
+          {!!reward.moreInfoURL && (
+            <Styled.MoreInfoLink accessibilityRole="link" href={normalizeUrl(reward.moreInfoURL)} onPress={handleLinkPress} />
+          )}
           {!reward.online && (
             <Section title={t('SHOP_DETAIL.LOCATION')}>
               {visibleOrganizers.map((organizer, index) => (

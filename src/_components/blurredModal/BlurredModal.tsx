@@ -19,8 +19,8 @@ const BlurredModal: FC<PropsWithChildren<TLogOutModalProps>> = ({ isVisible, tog
 
   return (
     <Modal animationType="fade" onDismiss={onDismiss} onRequestClose={toggleIsVisible} transparent visible={isVisible}>
-      <Styled.BlurContainer onPress={toggleIsVisible}>
-        <Styled.ModalContainer>{children}</Styled.ModalContainer>
+      <Styled.BlurContainer accessible={false} importantForAccessibility="no" onPress={toggleIsVisible}>
+        <Styled.ModalContainer accessibilityViewIsModal>{children}</Styled.ModalContainer>
       </Styled.BlurContainer>
     </Modal>
   );

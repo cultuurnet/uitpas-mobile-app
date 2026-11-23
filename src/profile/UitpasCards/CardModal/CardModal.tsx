@@ -1,10 +1,11 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 import { Icon } from '../../../_components';
 import { useFullScreenBrightness } from '../../../_hooks/useFullscreenBrightness';
+import { announceStatus } from '../../../_utils';
 import { TPassHolder } from '../../_models';
 import UitpasCard from '../UitpasCard/UitpasCard';
 import * as Styled from './style';
@@ -27,6 +28,7 @@ type TCardModalProps = {
 const CardModal: FC<TCardModalProps> = ({ passHolder, icon, isVisible, paging, toggleIsVisible }) => {
   const { t } = useTranslation();
   const { resetScreen, brightenScreen } = useFullScreenBrightness();
+  const previousIndexRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     if (isVisible) {
@@ -35,6 +37,30 @@ const CardModal: FC<TCardModalProps> = ({ passHolder, icon, isVisible, paging, t
       resetScreen();
     }
   }, [isVisible, brightenScreen, resetScreen]);
+
+  useEffect(() => {
+    if (!isVisible) {
+      previousIndexRef.current = undefined;
+      return;
+    }
+    if (!paging) return;
+
+    const { currentIndex, total } = paging;
+    if (previousIndexRef.current === undefined) {
+      previousIndexRef.current = currentIndex;
+      return;
+    }
+    if (previousIndexRef.current === currentIndex) return;
+
+    previousIndexRef.current = currentIndex;
+    announceStatus(
+      t('PROFILE.CARD_MODAL.PAGE_ANNOUNCEMENT', {
+        name: passHolder?.firstName,
+        position: currentIndex + 1,
+        total,
+      }),
+    );
+  }, [isVisible, paging, passHolder?.firstName, t]);
 
   return (
     <Modal
@@ -45,7 +71,12 @@ const CardModal: FC<TCardModalProps> = ({ passHolder, icon, isVisible, paging, t
       visible={isVisible}
     >
       {isVisible && <StatusBar style="light" />}
-      <Styled.BlurContainer accessible={false} onPress={toggleIsVisible} underlayColor="rgba(0, 0, 0, 0.85)">
+      <Styled.BlurContainer
+        accessible={false}
+        importantForAccessibility="no"
+        onPress={toggleIsVisible}
+        underlayColor="rgba(0, 0, 0, 0.85)"
+      >
         <>
           <Styled.CloseButton accessibilityLabel={t('NAVIGATION.CLOSE')} accessibilityRole="button" onPress={toggleIsVisible}>
             <Icon accessible={false} color="neutral.0" name="Close" size={14} />
@@ -61,7 +92,15 @@ const CardModal: FC<TCardModalProps> = ({ passHolder, icon, isVisible, paging, t
               >
                 <Icon color="primary.700" name="ChevronLeft" size={16} />
               </Styled.PaginationButton>
-              <Styled.PaginationText color="neutral.0" fontStyle="bold" size="xlarge">
+              <Styled.PaginationText
+                accessibilityLabel={t('PROFILE.CARD_MODAL.PAGE', {
+                  position: paging.currentIndex + 1,
+                  total: paging.total,
+                })}
+                color="neutral.0"
+                fontStyle="bold"
+                size="xlarge"
+              >
                 {`${paging.currentIndex + 1} / ${paging.total}`}
               </Styled.PaginationText>
               <Styled.PaginationButton

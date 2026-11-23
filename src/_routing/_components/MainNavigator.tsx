@@ -89,6 +89,11 @@ export const MainNavigator: FC = () => {
         component={Shop}
         name="Shop"
         options={{
+          tabBarAccessibilityLabel: t('NAVIGATION.TAB_LABEL', {
+            label: t('NAVIGATION.SHOP'),
+            position: 1,
+            total: 3,
+          }),
           tabBarIcon: ({ size: _, ...props }) => <TabBarIcon name="Shop" {...props} />,
           tabBarItemStyle: {
             marginRight: 37.5,
@@ -103,6 +108,11 @@ export const MainNavigator: FC = () => {
           const focused = navigation.isFocused();
 
           return {
+            tabBarAccessibilityLabel: t('NAVIGATION.TAB_LABEL', {
+              label: t('NAVIGATION.CAMERA'),
+              position: 2,
+              total: 3,
+            }),
             tabBarButton: props => <NavigationButton focused={focused} {...props} />,
             tabBarIcon: ({ size: _, ...props }) => <TabBarIcon name="QR" size={24} {...props} />,
             tabBarItemStyle: {
@@ -119,6 +129,11 @@ export const MainNavigator: FC = () => {
         component={Profile}
         name="Profile"
         options={{
+          tabBarAccessibilityLabel: t('NAVIGATION.TAB_LABEL', {
+            label: t('NAVIGATION.PROFILE'),
+            position: 3,
+            total: 3,
+          }),
           tabBarIcon: ({ size: _, ...props }) => <TabBarIcon name="Profile" {...props} />,
           tabBarItemStyle: {
             marginLeft: 37.5,

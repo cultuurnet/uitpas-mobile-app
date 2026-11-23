@@ -3,6 +3,8 @@
     "COPIED": "Gekopieerd",
     "COPY": "Kopiëren",
     "LOADING": "Bezig met laden",
+    "POINTS": "{{count}} punt",
+    "POINTS_other": "{{count}} punten",
     "PROBLEM": "Meld een probleem"
   },
   "NAVIGATION": {
@@ -12,7 +14,8 @@
     "CLOSE": "Sluiten",
     "INFO": "Meer informatie",
     "BACK": "Terug",
-    "CLEAR_SEARCH": "Wissen"
+    "CLEAR_SEARCH": "Wissen",
+    "TAB_LABEL": "{{label}}, {{position}} van {{total}}"
   },
   "UPDATE": {
     "NECESSARY": "Update nodig",
@@ -141,6 +144,8 @@
     "CARD_MODAL": {
       "NEXT": "Volgende kaart",
       "OPEN": "UiTPAS vergroten van {{name}}",
+      "PAGE": "Kaart {{position}} van {{total}}",
+      "PAGE_ANNOUNCEMENT": "Kaart {{position}} van {{total}}, {{name}}",
       "PREVIOUS": "Vorige kaart"
     },
     "HEADER_POINTS": {
@@ -218,7 +223,12 @@
     "DESCRIPTION": "Je kan je UiTPAS-punten inruilen voor heel wat leuks: ga op zoek naar een korting of cadeautje dat bij jou past",
     "BUTTON": "Bekijk alle voordelen",
     "ONLINE_REWARD": "In de app omruilen",
+    "REWARD_CARD": {
+      "ACTION": "Voordeel bekijken",
+      "ACTION_REDEEMED": "Omgeruild voordeel bekijken"
+    },
     "SHOW_MORE": "Bekijk meer",
+    "SHOW_MORE_OF": "Bekijk meer: {{title}}",
     "NO_RESULTS": "Helaas, er zijn momenteel geen voordelen in deze categorie.",
     "SEARCH": {
       "PLACEHOLDER": "Leuke voordelen, gemeenten,...",
@@ -270,7 +280,11 @@
       "HEADER_TITLE": "Welkomstvoordelen",
       "GREETING": "Welkom bij UiTPAS {{name}}!",
       "TITLE": "Bekijk nu je Welkomstvoordelen",
-      "BANNER_TITLE": "Meteen genieten van je UiTPAS? Deze welkomstvoordelen kan je nu gebruiken."
+      "BANNER_TITLE": "Meteen genieten van je UiTPAS? Deze welkomstvoordelen kan je nu gebruiken.",
+      "MEMBER_SELECTED": "{{name}}, {{position}} van {{total}}, geselecteerd",
+      "MEMBER_TAB": "{{name}}, {{position}} van {{total}}",
+      "NEXT_MEMBER": "Volgende persoon",
+      "PREVIOUS_MEMBER": "Vorige persoon"
     },
     "FEATURED_REWARDS": {
       "SECTION_TITLE": "In de kijker",
@@ -333,10 +347,12 @@
     "WHO_CAN_REDEEM": {
       "TITLE": "Wie kan omruilen?",
       "YOU": "(jij)",
+      "ELIGIBLE": "{{name}} kan dit voordeel omruilen",
       "POINTS": "{{count}} punt",
       "POINTS_other": "{{count}} punten",
       "REDEEM": "Omruilen",
       "UNREDEEMABLE": "Niet mogelijk",
+      "UNREDEEMABLE_INFO": "{{name}}: niet mogelijk, meer info",
       "UNREDEEMABLE_MODAL_TITLE": "{{firstName}} kan dit voordeel niet omruilen",
       "UNREDEEMABLE_MODAL_CLOSE": "Sluiten"
     }

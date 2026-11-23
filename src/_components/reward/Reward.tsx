@@ -1,7 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 
 import { TRootStackNavigationProp } from '../../_routing';
+import { getRewardAccessibilityLabel } from '../../_utils';
 import { TReward } from '../../shop/_models/reward';
 import Points from '../points/Points';
 import Typography from '../typography/Typography';
@@ -20,7 +22,12 @@ type TProps = {
 
 const Reward = ({ reward, isRedeemed, subtitle, onPress, mode, showFamilyMembers, ...props }: TProps) => {
   const { push } = useNavigation<TRootStackNavigationProp>();
+  const { t } = useTranslation();
   const isTile = mode === 'tile';
+  const accessibilityLabel = useMemo(
+    () => getRewardAccessibilityLabel(reward, t, { isRedeemed, subtitle }),
+    [isRedeemed, reward, subtitle, t],
+  );
 
   const onPressReward = useCallback(() => {
     if (onPress) {
@@ -48,14 +55,20 @@ const Reward = ({ reward, isRedeemed, subtitle, onPress, mode, showFamilyMembers
 
   const Container = isTile ? Styled.RewardTileContainer : Styled.RewardListContainer;
   return (
-    <Container borderless={isTile} {...props} onPress={onPressReward}>
+    <Container
+      accessibilityLabel={accessibilityLabel}
+      accessibilityRole="button"
+      borderless={isTile}
+      {...props}
+      onPress={onPressReward}
+    >
       <>
-        <Styled.ImageContainer isTile={isTile}>
+        <Styled.ImageContainer accessibilityElementsHidden importantForAccessibility="no-hide-descendants" isTile={isTile}>
           <RewardImage hasRadius={!isTile} picture={reward.pictures?.[0]}>
             {isTile && renderPointsAndLabel()}
           </RewardImage>
         </Styled.ImageContainer>
-        <Styled.TextContainer isTile={isTile}>
+        <Styled.TextContainer accessibilityElementsHidden importantForAccessibility="no-hide-descendants" isTile={isTile}>
           <Typography fontStyle="bold" size="small">
             {reward.title}
           </Typography>

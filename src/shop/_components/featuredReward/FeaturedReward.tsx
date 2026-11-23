@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 
@@ -8,6 +8,7 @@ import { InAppRewardLabel } from '../../../_components/reward/InAppRewardLabel';
 import RewardImage from '../../../_components/reward/RewardImage';
 import Typography from '../../../_components/typography/Typography';
 import { TRootStackNavigationProp } from '../../../_routing';
+import { getRewardAccessibilityLabel } from '../../../_utils';
 import { TReward } from '../../_models/reward';
 import * as Styled from './style';
 
@@ -20,6 +21,7 @@ type TProps = {
 export const FeaturedReward = ({ reward, onPress, showFamilyMembers, ...props }: TProps) => {
   const { push } = useNavigation<TRootStackNavigationProp>();
   const { t } = useTranslation();
+  const accessibilityLabel = useMemo(() => getRewardAccessibilityLabel(reward, t, { withOrganizer: false }), [reward, t]);
 
   const onPressReward = useCallback(() => {
     if (onPress) {
@@ -34,13 +36,13 @@ export const FeaturedReward = ({ reward, onPress, showFamilyMembers, ...props }:
   }, [onPress, push, reward, showFamilyMembers]);
 
   return (
-    <Styled.Container {...props} onPress={onPressReward}>
+    <Styled.Container accessibilityLabel={accessibilityLabel} accessibilityRole="button" {...props} onPress={onPressReward}>
       <>
-        <Styled.Star source={Star} />
-        <Styled.ImageContainer>
+        <Styled.Star accessible={false} source={Star} />
+        <Styled.ImageContainer accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
           <RewardImage hasRadius picture={reward.pictures?.[0]} />
         </Styled.ImageContainer>
-        <Styled.ContentContainer>
+        <Styled.ContentContainer accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
           <Styled.Badge>
             <Typography color="neutral.0" fontStyle="bold" size="xsmall">
               {t('SHOP.FEATURED_REWARDS.BADGE')}

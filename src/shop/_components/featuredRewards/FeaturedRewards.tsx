@@ -60,10 +60,12 @@ export const FeaturedRewards = () => {
   return (
     <Styled.Container>
       <Styled.Header>
-        <Styled.SectionTile fontStyle="bold" size="large">
+        <Styled.SectionTile accessibilityRole="header" fontStyle="bold" size="large">
           {t('SHOP.FEATURED_REWARDS.SECTION_TITLE')}
         </Styled.SectionTile>
         <Styled.ShowMoreButton
+          accessibilityLabel={t('SHOP.SHOW_MORE_OF', { title: t('SHOP.FEATURED_REWARDS.SECTION_TITLE') })}
+          accessibilityRole="button"
           activeOpacity={0.8}
           onPress={() => {
             trackSelfDescribingEvent('swimlaneInteraction', {

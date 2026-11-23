@@ -37,6 +37,7 @@ const Tooltip = ({ style }: TProps) => {
         <Styled.CloseButton
           fontStyle="semibold"
           label={t('ONBOARDING.FAMILY.ADD_MEMBER.CLOSE')}
+          onPress={handleToggleIsVisible}
           underline={false}
           variant="link"
         />

@@ -5,6 +5,7 @@ import Icon from '../icon/Icon';
 import * as Styled from './style';
 
 type TProps = {
+  accessibilityRole?: 'button' | 'link';
   href: string;
   label?: string;
   onPress?: () => void;

@@ -77,11 +77,16 @@ export const RewardsSection = ({
   return (
     <Styled.Container {...props}>
       <Styled.Header>
-        <Styled.SectionTile fontStyle="bold" size="large">
+        <Styled.SectionTile accessibilityRole="header" fontStyle="bold" size="large">
           {title}
         </Styled.SectionTile>
         {!hideMoreButton && (
-          <Styled.ShowMoreButton activeOpacity={0.8} onPress={onPressMore}>
+          <Styled.ShowMoreButton
+            accessibilityLabel={t('SHOP.SHOW_MORE_OF', { title })}
+            accessibilityRole="button"
+            activeOpacity={0.8}
+            onPress={onPressMore}
+          >
             <Typography color="primary.800" fontStyle="bold" size="small">
               {t('SHOP.SHOW_MORE')}{' '}
             </Typography>

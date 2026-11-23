@@ -54,7 +54,11 @@ const Shop = ({ navigation }: TProps) => {
             <>
               <EnlargedHeader height={30} />
               <Styled.SearchContainer>
-                <Styled.SearchButton onPress={() => navigation.push('Search')}>
+                <Styled.SearchButton
+                  accessibilityLabel={t('SHOP.SEARCH.PLACEHOLDER')}
+                  accessibilityRole="button"
+                  onPress={() => navigation.push('Search')}
+                >
                   <Styled.SearchInputContainer>
                     <Styled.SearchPlaceholderText>{t('SHOP.SEARCH.PLACEHOLDER')}</Styled.SearchPlaceholderText>
                   </Styled.SearchInputContainer>

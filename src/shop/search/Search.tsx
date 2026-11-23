@@ -155,14 +155,18 @@ export const Search = ({ navigation, route }: TProps) => {
             )
           ) : (
             <>
-              <Styled.PopularItem key={`search-${user.address.city}`} onPress={() => onSearch(user.address.city)}>
+              <Styled.PopularItem
+                accessibilityRole="button"
+                key={`search-${user.address.city}`}
+                onPress={() => onSearch(user.address.city)}
+              >
                 <Styled.PopularItemIcon name="Popular" size={20} />
                 <Typography color="primary.800">{user.address.city}</Typography>
               </Styled.PopularItem>
               <Styled.Separator key={`separator-${user.address.city}`} />
               {SEARCH_TERMS.map(({ keyword, label }) => (
                 <React.Fragment key={`search-${keyword}`}>
-                  <Styled.PopularItem onPress={() => onSearch(keyword)}>
+                  <Styled.PopularItem accessibilityRole="button" onPress={() => onSearch(keyword)}>
                     <Styled.PopularItemIcon name="Popular" size={20} />
                     <Typography color="primary.800">{t(label)}</Typography>
                   </Styled.PopularItem>

@@ -1,4 +1,5 @@
 import { FC, ReactNode, useCallback, useState } from 'react';
+import { ViewProps } from 'react-native';
 
 import { ThemeColor } from '../../_styles/theme';
 import { openExternalURL } from '../../_utils';
@@ -10,6 +11,7 @@ export type TButtonProps = {
   accessibilityHint?: string;
   accessibilityLabel?: string;
   accessibilityRole?: 'button' | 'link';
+  accessibilityViewIsModal?: ViewProps['accessibilityViewIsModal'];
   accessible?: boolean;
   backgroundColor?: ThemeColor;
   centered?: boolean;
@@ -20,6 +22,7 @@ export type TButtonProps = {
   fontStyle?: TTypographyProps['fontStyle'];
   hitSlop?: number;
   href?: string;
+  importantForAccessibility?: ViewProps['importantForAccessibility'];
   inline?: boolean;
   label?: string;
   loading?: boolean;
