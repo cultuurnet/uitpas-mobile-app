@@ -9,19 +9,19 @@ import { announceStatus } from '../_utils';
  * Clearing the message (null/undefined) resets the guard, so a later identical
  * outcome is announced again.
  */
-export function useStatusAnnouncement(message?: string | null) {
+export function useStatusAnnouncement(message: string | null) {
   const isFocused = useIsFocused();
-  const lastAnnounced = useRef<string | null>(null);
+  const lastAnnouncedMessage = useRef<string | null>(null);
 
   useEffect(() => {
     if (!message) {
-      lastAnnounced.current = null;
+      lastAnnouncedMessage.current = null;
       return;
     }
 
-    if (!isFocused || lastAnnounced.current === message) return;
+    if (!isFocused || lastAnnouncedMessage.current === message) return;
 
-    lastAnnounced.current = message;
+    lastAnnouncedMessage.current = message;
     announceStatus(message);
   }, [isFocused, message]);
 }
