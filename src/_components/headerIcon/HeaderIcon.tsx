@@ -1,5 +1,4 @@
 import React from 'react';
-import { Platform } from 'react-native';
 
 import { isLiquidGlass } from '../../_utils/iOSHelpers';
 import Icon, { TIconName } from '../icon/Icon';
