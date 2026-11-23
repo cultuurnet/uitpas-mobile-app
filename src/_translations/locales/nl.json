@@ -231,9 +231,9 @@
         "MOVIE": "Film"
       },
       "REGION_HINT": "Er is ook nog {{count}} voordeel gevonden van organisatoren buiten {{regions}}",
-      "REGION_HINT_plural": "Er zijn ook nog {{count}} voordelen gevonden van organisatoren buiten {{regions}}",
+      "REGION_HINT_other": "Er zijn ook nog {{count}} voordelen gevonden van organisatoren buiten {{regions}}",
       "REGION_HINT_EMPTY": "Er is nog {{count}} voordeel gevonden van organisatoren buiten {{regions}}",
-      "REGION_HINT_EMPTY_plural": "Er zijn nog {{count}} voordelen gevonden van organisatoren buiten {{regions}}",
+      "REGION_HINT_EMPTY_other": "Er zijn nog {{count}} voordelen gevonden van organisatoren buiten {{regions}}",
       "REGION_HINT_CTA": "Toon ook voordelen buiten mijn UiTPAS-regio",
       "FILTERS": {
         "HEADER_TITLE": "Filteren",
@@ -309,7 +309,7 @@
     "COLLECT_OFFLINE_FAMILY": "Om dit voordeel om te ruilen moet je naar een van de locaties hierboven. Toon <button>je UiTPAS</button> (of die van het gezinslid waarvoor je wil ruilen) aan een medewerker om de punten te ruilen.",
     "OTHER_REWARDS": "Meer voordelen op deze locatie",
     "SHOW_MORE": "Toon {{count}} andere locatie",
-    "SHOW_MORE_plural": "Toon {{count}} andere locaties",
+    "SHOW_MORE_other": "Toon {{count}} andere locaties",
     "SHOW_LESS": "Toon minder locaties",
     "GENERIC_REDEEM_ERROR": "Er is iets misgegaan",
     "RETRY": "Probeer opnieuw",
@@ -323,7 +323,7 @@
       "BUTTON": "Nu omruilen",
       "MODAL_TITLE": "Voordeel omruilen",
       "MODAL_DESCRIPTION": "Weet je zeker dat je <bold>{{count}} punt</bold> wil omruilen voor het voordeel <bold>\"{{title}}\"</bold>",
-      "MODAL_DESCRIPTION_plural": "Weet je zeker dat je <bold>{{count}} punten</bold> wil omruilen voor het voordeel <bold>\"{{title}}\"</bold>",
+      "MODAL_DESCRIPTION_other": "Weet je zeker dat je <bold>{{count}} punten</bold> wil omruilen voor het voordeel <bold>\"{{title}}\"</bold>",
       "MODAL_BUTTON_CONFIRM": "Bevestigen",
       "MODAL_BUTTON_CANCEL": "Annuleren",
       "MODAL_GENERIC_ERROR": "We konden je voordeel niet omruilen, probeer later opnieuw.",
@@ -334,7 +334,7 @@
       "TITLE": "Wie kan omruilen?",
       "YOU": "(jij)",
       "POINTS": "{{count}} punt",
-      "POINTS_plural": "{{count}} punten",
+      "POINTS_other": "{{count}} punten",
       "REDEEM": "Omruilen",
       "UNREDEEMABLE": "Niet mogelijk",
       "UNREDEEMABLE_MODAL_TITLE": "{{firstName}} kan dit voordeel niet omruilen",
@@ -343,16 +343,16 @@
   },
   "REDEEMED_REWARD": {
     "ANNOUNCEMENT": "Voordeel omgeruild. Je hebt net {{count}} punt omgeruild.",
-    "ANNOUNCEMENT_plural": "Voordeel omgeruild. Je hebt net {{count}} punten omgeruild.",
+    "ANNOUNCEMENT_other": "Voordeel omgeruild. Je hebt net {{count}} punten omgeruild.",
     "ANNOUNCEMENT_FAMILY": "Voordeel omgeruild voor {{name}}. Je hebt net {{count}} punt omgeruild.",
-    "ANNOUNCEMENT_FAMILY_plural": "Voordeel omgeruild voor {{name}}. Je hebt net {{count}} punten omgeruild.",
+    "ANNOUNCEMENT_FAMILY_other": "Voordeel omgeruild voor {{name}}. Je hebt net {{count}} punten omgeruild.",
     "AVATAR": "Avatar {{name}}",
     "HEADER_TITLE": "Je omgeruild voordeel",
     "SUCCESS_TITLE": "Gelukt!",
     "SUCCESS_MESSAGE_SINGLE_PART_1": "Je hebt net <bold color='secondary.900'>{{count}} punt</bold> omgeruild.",
-    "SUCCESS_MESSAGE_SINGLE_PART_1_plural": "Je hebt net <bold color='secondary.900'>{{count}} punten</bold> omgeruild.",
+    "SUCCESS_MESSAGE_SINGLE_PART_1_other": "Je hebt net <bold color='secondary.900'>{{count}} punten</bold> omgeruild.",
     "SUCCESS_MESSAGE_FAMILY_PART_1": "Je hebt <bold color='secondary.900'>{{count}} punt</bold> omgeruild voor <bold color='secondary.900'>{{name}}</bold>.",
-    "SUCCESS_MESSAGE_FAMILY_PART_1_plural": "Je hebt <bold color='secondary.900'>{{count}} punten</bold> omgeruild voor <bold color='secondary.900'>{{name}}</bold>.",
+    "SUCCESS_MESSAGE_FAMILY_PART_1_other": "Je hebt <bold color='secondary.900'>{{count}} punten</bold> omgeruild voor <bold color='secondary.900'>{{name}}</bold>.",
     "SUCCESS_MESSAGE_SINGLE_PART_2": "Je vindt deze informatie ook terug in je <button>omgeruilde voordelen</button>, en in de e-mail die we je gestuurd hebben.",
     "SUCCESS_MESSAGE_FAMILY_PART_2": "Je vindt deze informatie ook terug in je <button>omgeruilde voordelen</button>, en in de e-mail die we naar <bold color='secondary.900'>{{email}}</bold> gestuurd hebben.",
     "SUCCESS_MESSAGE_FAMILY_NO_EMAIL_PART_2": "Je vindt deze informatie ook terug in je <button>omgeruilde voordelen</button>.",
@@ -391,11 +391,11 @@
       "CHECKIN": "Spaar",
       "SUMMARY": {
         "ADDED_POINTS": "{{count}} punt erbij",
-        "ADDED_POINTS_plural": "{{count}} punten erbij",
+        "ADDED_POINTS_other": "{{count}} punten erbij",
         "CLOSE": "Sluiten",
         "POINTS_SAVED": "Punten gespaard",
         "SUCCEEDED": "Gelukt! Nieuw saldo: {{count}} punt",
-        "SUCCEEDED_plural": "Gelukt! Nieuw saldo: {{count}} punten"
+        "SUCCEEDED_other": "Gelukt! Nieuw saldo: {{count}} punten"
       }
     }
   },
