@@ -1,7 +1,11 @@
-import React, { FC, PropsWithChildren, useEffect } from 'react';
+import React, { FC, PropsWithChildren, useEffect, useRef } from 'react';
 import { Modal, Platform } from 'react-native';
 
 import * as Styled from './style';
+
+// RN only supports `Modal.onDismiss` on iOS, so Android needs a synthetic dismissal.
+// The fade-out uses `@android:integer/config_shortAnimTime` (200 ms); 300 ms adds a margin.
+const ANDROID_DISMISS_DELAY_MS = 300;
 
 type TLogOutModalProps = {
   isVisible: boolean;
@@ -10,11 +14,22 @@ type TLogOutModalProps = {
 };
 
 const BlurredModal: FC<PropsWithChildren<TLogOutModalProps>> = ({ isVisible, toggleIsVisible, onDismiss, children }) => {
-  useEffect(() => {
-    if (isVisible) return;
-    if (Platform.OS === 'ios') return;
+  const hasBeenShownRef = useRef(false);
 
-    onDismiss?.();
+  useEffect(() => {
+    if (isVisible) {
+      hasBeenShownRef.current = true;
+      return;
+    }
+    if (Platform.OS === 'ios') return;
+    if (!hasBeenShownRef.current) return;
+
+    const timeout = setTimeout(() => {
+      hasBeenShownRef.current = false;
+      onDismiss?.();
+    }, ANDROID_DISMISS_DELAY_MS);
+
+    return () => clearTimeout(timeout);
   }, [isVisible, onDismiss]);
 
   return (

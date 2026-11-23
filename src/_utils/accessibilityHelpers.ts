@@ -1,4 +1,4 @@
-import { AccessibilityInfo, findNodeHandle } from 'react-native';
+import { AccessibilityInfo } from 'react-native';
 import { TFunction } from 'i18next';
 
 import { TReward } from '../shop/_models/reward';
@@ -13,14 +13,16 @@ export function announceStatus(message: string) {
 }
 
 /**
- * Moves VoiceOver/TalkBack focus to a mounted native element, e.g. back to the
- * button that opened a modal after the modal has been dismissed.
+ * Moves the screen-reader focus to a mounted native element, e.g. back to the
+ * button that opened a modal after the modal has been closed. In practice this
+ * only moves focus on iOS; on Android RN posts a view-focused event that
+ * TalkBack ignores. The element must still be attached when the native call
+ * runs, so callers must wait for a closing modal to finish (BlurredModal delays
+ * its synthetic Android `onDismiss` for that reason).
  */
-export function focusAccessibilityElement(target: Parameters<typeof findNodeHandle>[0] | null) {
-  const reactTag = target == null ? null : findNodeHandle(target);
-  if (reactTag != null) {
-    AccessibilityInfo.setAccessibilityFocus(reactTag);
-  }
+export function focusAccessibilityElement(target: Parameters<typeof AccessibilityInfo.sendAccessibilityEvent>[0] | null) {
+  if (target == null) return;
+  AccessibilityInfo.sendAccessibilityEvent(target, 'focus');
 }
 
 /**

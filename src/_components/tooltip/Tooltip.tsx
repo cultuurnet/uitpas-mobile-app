@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ImageStyle, Platform, StyleProp, ViewInstance } from 'react-native';
+import { ImageStyle, StyleProp, ViewInstance } from 'react-native';
 
 import { focusAccessibilityElement } from '../../_utils';
 import BlurredModal from '../blurredModal/BlurredModal';
@@ -27,8 +27,7 @@ const Tooltip = ({ style }: TProps) => {
   const handleModalDismissed = useCallback(() => {
     if (!hasOpenedRef.current) return;
     hasOpenedRef.current = false;
-    const delay = Platform.OS === 'android' ? 300 : 0;
-    setTimeout(() => focusAccessibilityElement(buttonRef.current), delay);
+    focusAccessibilityElement(buttonRef.current);
   }, []);
 
   return (
