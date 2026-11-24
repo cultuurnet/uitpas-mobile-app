@@ -1,6 +1,6 @@
 # AGENTS.md
 
-UiTPAS mobile app: Expo (SDK 57, Continuous Native Generation) + React Native, TypeScript. Single package, no monorepo.
+UiTPAS mobile app: Expo (SDK 58, Continuous Native Generation) + React Native, TypeScript. Single package, no monorepo.
 
 ## Git workflow
 - **Never commit or push unless explicitly told to.** Make the edits, leave them uncommitted, and report the changed files.

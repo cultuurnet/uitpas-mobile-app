@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { ScrollView, ScrollViewProps, StyleProp, ViewStyle } from 'react-native';
+import { ScrollView, ScrollViewInstance, ScrollViewProps, StyleProp, ViewStyle } from 'react-native';
 import { NativeSafeAreaViewProps as RNSafeAreaViewProps } from 'react-native-safe-area-context';
 import { StatusBarStyle } from 'expo-status-bar';
 
@@ -16,7 +16,7 @@ export type TSafeAreaViewProps = {
 } & RNSafeAreaViewProps &
   Pick<ScrollViewProps, 'keyboardShouldPersistTaps'>;
 
-const SafeAreaView = forwardRef<ScrollView, TSafeAreaViewProps>(
+const SafeAreaView = forwardRef<ScrollViewInstance, TSafeAreaViewProps>(
   (
     {
       children,

@@ -38,9 +38,7 @@ export const RedeemedRewards = ({ navigation }: TProps) => {
   return (
     <>
       <Analytics screenName="redeemed-rewards" />
-      {hasFamilyMembers && (
-        <FamilyFilter selectedPassHolder={selectedPassHolder} setSelectedPassHolder={setSelectedPassHolder} />
-      )}
+      {hasFamilyMembers && <FamilyFilter selectedPassHolder={selectedPassHolder} setSelectedPassHolder={setSelectedPassHolder} />}
       <FlashList
         ItemSeparatorComponent={Styled.Separator}
         ListEmptyComponent={
@@ -71,7 +69,7 @@ export const RedeemedRewards = ({ navigation }: TProps) => {
         refreshControl={
           <RefreshControl
             colors={[theme.palette.primary['500'], theme.palette.neutral['0']]}
-            onRefresh={refetch}
+            onRefresh={() => void refetch()}
             refreshing={isRefetching}
             tintColor={theme.palette.primary['500']}
           />
