@@ -1,6 +1,6 @@
 import React from 'react';
-import { Platform } from 'react-native';
 
+import { isLiquidGlass } from '../../_utils/iOSHelpers';
 import Icon, { TIconName } from '../icon/Icon';
 import * as Styled from './style';
 
@@ -10,8 +10,6 @@ export type THeaderIconProps = {
   name: TIconName;
   onPress: () => void;
 };
-
-const isLiquidGlass = Platform.OS === 'ios' && parseInt(String(Platform.Version), 10) >= 26;
 
 const HeaderIcon = ({ accessibilityLabel, name, onPress, accessibilityRole = 'button' }: THeaderIconProps) => (
   <Styled.Container accessibilityLabel={accessibilityLabel} accessibilityRole={accessibilityRole} hitSlop={8} onPress={onPress}>

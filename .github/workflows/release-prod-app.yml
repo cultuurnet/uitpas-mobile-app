@@ -29,22 +29,23 @@ jobs:
         name: Fetch current version
       - name: Create .env file
         run: |
+          trim() { printf '%s' "$1" | tr -d '\r\n'; }
           touch .env
           echo EXPO_PUBLIC_NODE_ENV=production >> .env
-          echo EXPO_PUBLIC_APP_NAME="${{ secrets.APP_NAME }}" >> .env
-          echo EXPO_PUBLIC_APP_PACKAGE_NAME="${{ secrets.APP_PACKAGE_NAME }}" >> .env
-          echo EXPO_PUBLIC_APP_VERSION="${{ env.PACKAGE_VERSION }}" >> .env
+          echo "EXPO_PUBLIC_APP_NAME=\"$(trim "${{ secrets.APP_NAME }}")\"" >> .env
+          echo "EXPO_PUBLIC_APP_PACKAGE_NAME=\"$(trim "${{ secrets.APP_PACKAGE_NAME }}")\"" >> .env
+          echo "EXPO_PUBLIC_APP_VERSION=\"$(trim "${{ env.PACKAGE_VERSION }}")\"" >> .env
           echo EXPO_PUBLIC_APP_LOGGING_LEVEL=warn >> .env
-          echo EXPO_PUBLIC_APP_ICON="${{ secrets.APP_ICON }}" >> .env
-          echo EXPO_PUBLIC_APP_ADAPTIVE_ICON="${{ secrets.APP_ADAPTIVE_ICON }}" >> .env
-          echo EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR="${{ secrets.APP_ADAPTIVE_ICON_BG_COLOR }}" >> .env
-          echo EXPO_PUBLIC_AUTH_CLIENT_ID="${{ secrets.AUTH_CLIENT_ID }}" >> .env
-          echo EXPO_PUBLIC_AUTH_ISSUER="${{ secrets.AUTH_ISSUER }}" >> .env
-          echo EXPO_PUBLIC_API_HOST="${{ secrets.API_HOST }}" >> .env
-          echo EXPO_PUBLIC_API_HOST_UITDATABANK="${{ secrets.API_HOST_UITDATABANK }}" >> .env
-          echo EXPO_PUBLIC_APP_ENCRYPTION_KEY="${{ secrets.ENCRYPTION_KEY }}" >> .env
-          echo EXPO_PUBLIC_SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
-          echo EXPO_PUBLIC_TRACKING_HOST="${{ secrets.TRACKING_HOST }}" >> .env
+          echo "EXPO_PUBLIC_APP_ICON=\"$(trim "${{ secrets.APP_ICON }}")\"" >> .env
+          echo "EXPO_PUBLIC_APP_ADAPTIVE_ICON=\"$(trim "${{ secrets.APP_ADAPTIVE_ICON }}")\"" >> .env
+          echo "EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR=\"$(trim "${{ secrets.APP_ADAPTIVE_ICON_BG_COLOR }}")\"" >> .env
+          echo "EXPO_PUBLIC_AUTH_CLIENT_ID=\"$(trim "${{ secrets.AUTH_CLIENT_ID }}")\"" >> .env
+          echo "EXPO_PUBLIC_AUTH_ISSUER=\"$(trim "${{ secrets.AUTH_ISSUER }}")\"" >> .env
+          echo "EXPO_PUBLIC_API_HOST=\"$(trim "${{ secrets.API_HOST }}")\"" >> .env
+          echo "EXPO_PUBLIC_API_HOST_UITDATABANK=\"$(trim "${{ secrets.API_HOST_UITDATABANK }}")\"" >> .env
+          echo "EXPO_PUBLIC_APP_ENCRYPTION_KEY=\"$(trim "${{ secrets.ENCRYPTION_KEY }}")\"" >> .env
+          echo "EXPO_PUBLIC_SENTRY_DSN=\"$(trim "${{ secrets.SENTRY_DSN }}")\"" >> .env
+          echo "EXPO_PUBLIC_TRACKING_HOST=\"$(trim "${{ secrets.TRACKING_HOST }}")\"" >> .env
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
@@ -82,22 +83,23 @@ jobs:
         name: Fetch current version
       - name: Create .env file
         run: |
+          trim() { printf '%s' "$1" | tr -d '\r\n'; }
           touch .env
           echo EXPO_PUBLIC_NODE_ENV=production >> .env
-          echo EXPO_PUBLIC_APP_NAME="${{ secrets.APP_NAME }}" >> .env
-          echo EXPO_PUBLIC_APP_PACKAGE_NAME="${{ secrets.APP_PACKAGE_NAME }}" >> .env
-          echo EXPO_PUBLIC_APP_VERSION="${{ env.PACKAGE_VERSION }}" >> .env
+          echo "EXPO_PUBLIC_APP_NAME=\"$(trim "${{ secrets.APP_NAME }}")\"" >> .env
+          echo "EXPO_PUBLIC_APP_PACKAGE_NAME=\"$(trim "${{ secrets.APP_PACKAGE_NAME }}")\"" >> .env
+          echo "EXPO_PUBLIC_APP_VERSION=\"$(trim "${{ env.PACKAGE_VERSION }}")\"" >> .env
           echo EXPO_PUBLIC_APP_LOGGING_LEVEL=warn >> .env
-          echo EXPO_PUBLIC_APP_ICON="${{ secrets.APP_ICON }}" >> .env
-          echo EXPO_PUBLIC_APP_ADAPTIVE_ICON="${{ secrets.APP_ADAPTIVE_ICON }}" >> .env
-          echo EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR="${{ secrets.APP_ADAPTIVE_ICON_BG_COLOR }}" >> .env
-          echo EXPO_PUBLIC_AUTH_CLIENT_ID="${{ secrets.AUTH_CLIENT_ID }}" >> .env
-          echo EXPO_PUBLIC_AUTH_ISSUER="${{ secrets.AUTH_ISSUER }}" >> .env
-          echo EXPO_PUBLIC_API_HOST="${{ secrets.API_HOST }}" >> .env
-          echo EXPO_PUBLIC_API_HOST_UITDATABANK="${{ secrets.API_HOST_UITDATABANK }}" >> .env
-          echo EXPO_PUBLIC_APP_ENCRYPTION_KEY="${{ secrets.ENCRYPTION_KEY }}" >> .env
-          echo EXPO_PUBLIC_SENTRY_DSN="${{ secrets.SENTRY_DSN }}" >> .env
-          echo EXPO_PUBLIC_TRACKING_HOST="${{ secrets.TRACKING_HOST }}" >> .env
+          echo "EXPO_PUBLIC_APP_ICON=\"$(trim "${{ secrets.APP_ICON }}")\"" >> .env
+          echo "EXPO_PUBLIC_APP_ADAPTIVE_ICON=\"$(trim "${{ secrets.APP_ADAPTIVE_ICON }}")\"" >> .env
+          echo "EXPO_PUBLIC_APP_ADAPTIVE_ICON_BACKGROUND_COLOR=\"$(trim "${{ secrets.APP_ADAPTIVE_ICON_BG_COLOR }}")\"" >> .env
+          echo "EXPO_PUBLIC_AUTH_CLIENT_ID=\"$(trim "${{ secrets.AUTH_CLIENT_ID }}")\"" >> .env
+          echo "EXPO_PUBLIC_AUTH_ISSUER=\"$(trim "${{ secrets.AUTH_ISSUER }}")\"" >> .env
+          echo "EXPO_PUBLIC_API_HOST=\"$(trim "${{ secrets.API_HOST }}")\"" >> .env
+          echo "EXPO_PUBLIC_API_HOST_UITDATABANK=\"$(trim "${{ secrets.API_HOST_UITDATABANK }}")\"" >> .env
+          echo "EXPO_PUBLIC_APP_ENCRYPTION_KEY=\"$(trim "${{ secrets.ENCRYPTION_KEY }}")\"" >> .env
+          echo "EXPO_PUBLIC_SENTRY_DSN=\"$(trim "${{ secrets.SENTRY_DSN }}")\"" >> .env
+          echo "EXPO_PUBLIC_TRACKING_HOST=\"$(trim "${{ secrets.TRACKING_HOST }}")\"" >> .env
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
