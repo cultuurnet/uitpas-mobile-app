@@ -22,7 +22,13 @@ const Tooltip = ({ style }: TProps) => {
 
   return (
     <>
-      <Icon name="QuestionFilled" onPress={handleToggleIsVisible} size="small" style={style} />
+      <Icon
+        accessibilityLabel={t('ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER_TOOLTIP')}
+        name="QuestionFilled"
+        onPress={handleToggleIsVisible}
+        size="small"
+        style={style}
+      />
       <BlurredModal isVisible={isVisible} toggleIsVisible={handleToggleIsVisible}>
         <Styled.Title fontStyle="bold" size="large">
           {t('ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER')}

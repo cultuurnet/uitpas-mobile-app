@@ -6,12 +6,13 @@ import * as Styled from './style';
 
 export type THeaderIconProps = {
   accessibilityLabel: string;
+  accessibilityRole?: 'button' | 'link';
   name: TIconName;
   onPress: () => void;
 };
 
-const HeaderIcon = ({ accessibilityLabel, name, onPress }: THeaderIconProps) => (
-  <Styled.Container accessibilityLabel={accessibilityLabel} accessibilityRole="button" hitSlop={8} onPress={onPress}>
+const HeaderIcon = ({ accessibilityLabel, name, onPress, accessibilityRole = 'button' }: THeaderIconProps) => (
+  <Styled.Container accessibilityLabel={accessibilityLabel} accessibilityRole={accessibilityRole} hitSlop={8} onPress={onPress}>
     <Icon color={isLiquidGlass ? 'neutral.1200' : 'neutral.0'} name={name} size={20} />
   </Styled.Container>
 );

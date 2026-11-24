@@ -227,7 +227,8 @@ export const RootStackNavigator = () => {
             options={{
               headerRight: () => (
                 <HeaderIcon
-                  accessibilityLabel={i18n.t('NAVIGATION.INFO')}
+                  accessibilityLabel={i18n.t('ONBOARDING.FAMILY.OVERVIEW.FAQ_LINK')}
+                  accessibilityRole="link"
                   name="Info"
                   onPress={() => openExternalURL(ConfigUrl.familyFaq)}
                 />

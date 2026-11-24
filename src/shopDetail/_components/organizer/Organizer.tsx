@@ -48,8 +48,26 @@ export const Organizer = memo(({ id, fallbackName, showTopBorder = false }: TPro
     Linking.openURL(url);
   }, [formattedAddress, data?.geo]);
 
+  const isActionable = !isLoading && !isError;
+
+  const accessibilityLabel = [
+    name || fallbackName,
+    isError ? t('ERROR.ORGANIZER_ADDRESS') : formattedAddress,
+    isActionable ? t('SHOP_DETAIL.OPEN_MAPS') : null,
+  ]
+    .filter(Boolean)
+    .join(', ');
+
   return (
-    <Styled.Container activeOpacity={0.8} disabled={isLoading || isError} onPress={onPress} showTopBorder={showTopBorder}>
+    <Styled.Container
+      accessibilityLabel={accessibilityLabel}
+      accessibilityRole="link"
+      accessibilityState={{ disabled: isLoading || isError }}
+      activeOpacity={0.8}
+      disabled={isLoading || isError}
+      onPress={onPress}
+      showTopBorder={showTopBorder}
+    >
       <>
         <Styled.ImageContainer>
           <Icon color={'secondary.600'} name="Location" size={24} />

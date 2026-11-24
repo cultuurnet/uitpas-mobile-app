@@ -11,7 +11,7 @@ const UitpasInfo: FC<TProps> = ({ onClose }) => {
   return (
     <Styled.NotificationContainer>
       <Styled.CardInfo color="secondary.900">{i18n.t('PROFILE.INFO')}</Styled.CardInfo>
-      <Styled.CloseButton name="Close" onPress={onClose} size={10} />
+      <Styled.CloseButton accessibilityLabel={i18n.t('NAVIGATION.CLOSE')} name="Close" onPress={onClose} size={10} />
     </Styled.NotificationContainer>
   );
 };

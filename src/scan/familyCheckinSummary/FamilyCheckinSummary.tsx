@@ -69,7 +69,7 @@ export const FamilyCheckinSummary = ({ navigation, route }: TProps) => {
         topContent={null}
       />
       <Styled.Header style={{ top: top + 16 }}>
-        <Styled.HeaderImage source={Check} />
+        <Styled.HeaderImage accessibilityLabel={t('SCAN.FAMILY_MEMBERS.SUMMARY.POINTS_SAVED')} accessible source={Check} />
       </Styled.Header>
     </>
   );

@@ -4,18 +4,21 @@ import { Gift } from '../../_assets/images';
 import * as Styled from './style';
 
 type TProps = {
+  alt?: string;
   children?: React.ReactNode;
   hasRadius?: boolean;
   largeSpacing?: boolean;
   picture?: string;
 };
 
-const RewardImage = ({ children, picture, hasRadius = false, largeSpacing = false, ...props }: TProps) => {
+const RewardImage = ({ alt, children, picture, hasRadius = false, largeSpacing = false, ...props }: TProps) => {
   const [isImageError, setIsImageError] = useState(false);
 
   return (
     <>
       <Styled.Image
+        accessible={!!alt}
+        alt={alt}
         contentFit="cover"
         hasRadius={hasRadius}
         onError={() => setIsImageError(true)}

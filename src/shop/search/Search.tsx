@@ -87,9 +87,23 @@ export const Search = ({ navigation, route }: TProps) => {
         <EnlargedHeader height={30} />
         <Styled.SearchContainer paddingTop={top}>
           <Styled.SearchInput autoFocus numberOfLines={1} onChangeText={setSearch} returnKeyType="search" value={search} />
-          <Styled.BackIcon borderless color="primary.700" name="ChevronLeft" onPress={onClose} size={24} />
+          <Styled.BackIcon
+            accessibilityLabel={t('NAVIGATION.BACK')}
+            borderless
+            color="primary.700"
+            name="ChevronLeft"
+            onPress={onClose}
+            size={24}
+          />
           {search.length > 0 && (
-            <Styled.ResetIcon borderless color="primary.700" name="Close" onPress={() => setSearch('')} size={14} />
+            <Styled.ResetIcon
+              accessibilityLabel={t('NAVIGATION.CLEAR_SEARCH')}
+              borderless
+              color="primary.700"
+              name="Close"
+              onPress={() => setSearch('')}
+              size={14}
+            />
           )}
         </Styled.SearchContainer>
 

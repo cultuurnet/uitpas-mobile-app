@@ -16,7 +16,7 @@ const CameraSettings = () => {
         <Styled.TitleText align="center" color="secondary.700" fontStyle="bold" size="large">
           {t('SCAN.SETTINGS.TITLE')}
         </Styled.TitleText>
-        {height > 600 && <Styled.Image source={Scan} />}
+        {height > 600 && <Styled.Image accessible={false} source={Scan} />}
         <Styled.IntroText align="center" color="neutral.900">
           {t('SCAN.SETTINGS.DESCRIPTION')}
         </Styled.IntroText>
