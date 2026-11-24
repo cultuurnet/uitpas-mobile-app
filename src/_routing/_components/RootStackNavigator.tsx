@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
-import { Platform } from 'react-native';
-import { HeaderBackButton } from '@react-navigation/elements';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as SplashScreen from 'expo-splash-screen';
 
-import { Icon, Spinner } from '../../_components';
-import { FamilyUserPoints, SingleUserPoints } from '../../_components/userPoints';
+import { HeaderIcon, Spinner, UsersPreview } from '../../_components';
 import { ConfigUrl } from '../../_config';
 import { useAuthentication, useOnboarding } from '../../_context';
 import { StorageKey } from '../../_models';
@@ -29,7 +26,6 @@ import {
 import Onboarding from '../../onboarding/Onboarding';
 import { useGetMe } from '../../profile/_queries/useGetMe';
 import { FamiliesOverview } from '../../profile/family/FamiliesOverview';
-import { useFamilyComposition } from '../../profile/family/hooks';
 import ProfileNotFound from '../../profile/ProfileNotFound';
 import RedeemedReward from '../../redeemedReward/RedeemedReward';
 import { RedeemedRewards } from '../../redeemedRewards/RedeemedRewards';
@@ -54,7 +50,6 @@ export const RootStackNavigator = () => {
   const { showFamilyOnboarding } = useOnboarding();
   const versions = useGetVersions();
   const getMainHeaderProps = useMainHeaderProps(isAuthenticated);
-  const UserPoints = useFamilyComposition({ FamilyComponent: FamilyUserPoints, SingleComponent: SingleUserPoints });
   const isPolicyApprovedInStorage = storage.getBoolean(StorageKey.IsPolicyApproved);
   const { data: passHolder, isLoading: isPassHolderLoading } = useGetMe(isAuthenticated && !showFamilyOnboarding);
 
@@ -73,6 +68,7 @@ export const RootStackNavigator = () => {
       screenOptions={{
         ...generalStyles.navigationHeader,
         gestureEnabled: true,
+        headerBackButtonDisplayMode: 'minimal',
       }}
     >
       <RootStack.Group screenOptions={{ headerShown: false }}>
@@ -100,7 +96,6 @@ export const RootStackNavigator = () => {
             component={AddFamilyMember}
             name="AddFamilyMember"
             options={{
-              headerBackButtonDisplayMode: 'minimal',
               title: i18n.t('ONBOARDING.FAMILY.ADD_MEMBER.TITLE'),
             }}
           />
@@ -116,7 +111,6 @@ export const RootStackNavigator = () => {
             component={EditFamilyMember}
             name="EditFamilyMember"
             options={{
-              headerBackButtonDisplayMode: 'minimal',
               title: i18n.t('ONBOARDING.FAMILY.EDIT_MEMBER.TITLE'),
             }}
           />
@@ -126,7 +120,8 @@ export const RootStackNavigator = () => {
             options={{
               gestureEnabled: false,
               headerBackVisible: false,
-              headerRight: UserPoints,
+              headerRight: () => <UsersPreview />,
+              headerRightBackgroundVisible: false,
               title: i18n.t('NAVIGATION.SHOP'),
             }}
           />
@@ -147,14 +142,8 @@ export const RootStackNavigator = () => {
             options={({ navigation }) => ({
               headerBackVisible: false,
               headerLeft: null,
-              headerRight: props => (
-                <HeaderBackButton
-                  {...props}
-                  backImage={() => <Icon color="neutral.0" name="Close" size={14} />}
-                  displayMode="minimal"
-                  onPress={() => navigation.pop()}
-                  style={{ marginRight: -10, padding: 10 }}
-                />
+              headerRight: () => (
+                <HeaderIcon accessibilityLabel={i18n.t('NAVIGATION.CLOSE')} name="Close" onPress={() => navigation.pop()} />
               ),
               title: i18n.t('SCAN.FAMILY_MEMBERS.TITLE'),
             })}
@@ -169,7 +158,6 @@ export const RootStackNavigator = () => {
             component={About}
             name="About"
             options={{
-              headerBackButtonDisplayMode: 'minimal',
               title: i18n.t('PROFILE.ABOUT.HEADER_TITLE'),
             }}
           />
@@ -177,9 +165,8 @@ export const RootStackNavigator = () => {
             component={FilteredShop}
             name="FilteredShop"
             options={({ route }) => ({
-              headerBackButtonDisplayMode: 'minimal',
-              headerBackButtonMenuEnabled: false,
-              headerRight: UserPoints,
+              headerRight: () => <UsersPreview />,
+              headerRightBackgroundVisible: false,
               title: route?.params?.section === 'welkom' ? i18n.t('SHOP.WELCOME.HEADER_TITLE') : i18n.t('SHOP.HEADER_TITLE'),
             })}
           />
@@ -187,8 +174,8 @@ export const RootStackNavigator = () => {
             component={History}
             name="History"
             options={{
-              headerBackButtonDisplayMode: 'minimal',
-              headerRight: UserPoints,
+              headerRight: () => <UsersPreview />,
+              headerRightBackgroundVisible: false,
               title: i18n.t('PROFILE.HISTORY.HEADER_TITLE'),
             }}
           />
@@ -196,8 +183,8 @@ export const RootStackNavigator = () => {
             component={RedeemedRewards}
             name="RedeemedRewards"
             options={{
-              headerBackButtonDisplayMode: 'minimal',
-              headerRight: UserPoints,
+              headerRight: () => <UsersPreview />,
+              headerRightBackgroundVisible: false,
               title: i18n.t('PROFILE.REDEEMED_REWARDS.HEADER_TITLE'),
             }}
           />
@@ -205,23 +192,9 @@ export const RootStackNavigator = () => {
             component={RedeemedReward}
             name="RedeemedReward"
             options={({ navigation, route }) => ({
-              headerBackButtonDisplayMode: 'minimal',
-              headerRight: props =>
+              headerRight: () =>
                 route.params?.isModal ? (
-                  <HeaderBackButton
-                    {...props}
-                    backImage={() => (
-                      <Icon
-                        color={Platform.OS === 'ios' ? 'neutral.1200' : 'neutral.0'}
-                        name="Close"
-                        size={14}
-                        style={Platform.OS === 'ios' ? { marginLeft: 10 } : undefined}
-                      />
-                    )}
-                    displayMode="minimal"
-                    onPress={() => navigation.pop()}
-                    style={{ marginRight: -10, padding: 10 }}
-                  />
+                  <HeaderIcon accessibilityLabel={i18n.t('NAVIGATION.CLOSE')} name="Close" onPress={() => navigation.pop()} />
                 ) : null,
               presentation: route.params?.isModal ? 'modal' : 'card',
               title: i18n.t('REDEEMED_REWARD.HEADER_TITLE'),
@@ -231,9 +204,8 @@ export const RootStackNavigator = () => {
             component={ShopDetail}
             name="ShopDetail"
             options={{
-              headerBackButtonDisplayMode: 'minimal',
-              headerBackButtonMenuEnabled: false,
-              headerRight: UserPoints,
+              headerRight: () => <UsersPreview />,
+              headerRightBackgroundVisible: false,
               title: i18n.t('SHOP_DETAIL.HEADER_TITLE'),
             }}
           />
@@ -241,88 +213,74 @@ export const RootStackNavigator = () => {
             component={SearchFilters}
             name="SearchFilters"
             options={({ navigation }) => ({
-              headerBackButtonDisplayMode: 'minimal',
               headerBackVisible: false,
-              headerRight: props => (
-                <HeaderBackButton
-                  {...props}
-                  backImage={() => <Icon color="neutral.0" name="Close" size={14} />}
-                  displayMode="minimal"
-                  onPress={() => navigation.pop()}
-                  style={{ marginRight: -10, padding: 10 }}
-                />
+              headerRight: () => (
+                <HeaderIcon accessibilityLabel={i18n.t('NAVIGATION.CLOSE')} name="Close" onPress={() => navigation.pop()} />
               ),
               presentation: 'modal',
               title: i18n.t('SHOP.SEARCH.FILTERS.HEADER_TITLE'),
             })}
           />
-          <RootStack.Group
-            screenOptions={{
-              headerBackButtonDisplayMode: 'minimal',
+          <RootStack.Screen
+            component={FamilyOverview}
+            name="FamilyOverview"
+            options={{
+              headerRight: () => (
+                <HeaderIcon
+                  accessibilityLabel={i18n.t('NAVIGATION.INFO')}
+                  name="Info"
+                  onPress={() => openExternalURL(ConfigUrl.familyFaq)}
+                />
+              ),
+              title: i18n.t('ONBOARDING.FAMILY.OVERVIEW.TITLE'),
             }}
-          >
-            <RootStack.Screen
-              component={FamilyOverview}
-              name="FamilyOverview"
-              options={{
-                headerRight: () => (
-                  <Icon
-                    color={Platform.OS === 'ios' ? 'neutral.1200' : 'neutral.0'}
-                    name="Info"
-                    onPress={() => openExternalURL(ConfigUrl.familyFaq)}
-                    size={24}
-                    style={Platform.OS === 'ios' ? { marginLeft: 6 } : undefined}
-                  />
-                ),
-                title: i18n.t('ONBOARDING.FAMILY.OVERVIEW.TITLE'),
-              }}
-            />
-            <RootStack.Screen
-              component={OtherFamiliesOverview}
-              name="MyFamilies"
-              options={{
-                title: i18n.t('ONBOARDING.FAMILY.OTHER_FAMILIES.TITLE'),
-              }}
-            />
-            <RootStack.Screen
-              component={AddFamilyMember}
-              name="AddFamilyMember"
-              options={{
-                title: i18n.t('ONBOARDING.FAMILY.ADD_MEMBER.TITLE'),
-              }}
-            />
-            <RootStack.Screen
-              component={AddFamilyMemberError}
-              name="AddFamilyMemberError"
-              options={{
-                gestureEnabled: false,
-                headerShown: false,
-              }}
-            />
-            <RootStack.Screen
-              component={EditFamilyMember}
-              name="EditFamilyMember"
-              options={{
-                title: i18n.t('ONBOARDING.FAMILY.EDIT_MEMBER.TITLE'),
-              }}
-            />
-            <RootStack.Screen
-              component={FamiliesOverview}
-              name="FamiliesOverview"
-              options={{
-                headerBackButtonDisplayMode: 'minimal',
-                title: i18n.t('PROFILE.LINKS.MY_FAMILY'),
-              }}
-            />
-          </RootStack.Group>
+          />
+          <RootStack.Screen
+            component={OtherFamiliesOverview}
+            name="MyFamilies"
+            options={{
+              title: i18n.t('ONBOARDING.FAMILY.OTHER_FAMILIES.TITLE'),
+            }}
+          />
+          <RootStack.Screen
+            component={AddFamilyMember}
+            name="AddFamilyMember"
+            options={{
+              title: i18n.t('ONBOARDING.FAMILY.ADD_MEMBER.TITLE'),
+            }}
+          />
+          <RootStack.Screen
+            component={AddFamilyMemberError}
+            name="AddFamilyMemberError"
+            options={{
+              gestureEnabled: false,
+              headerShown: false,
+            }}
+          />
+          <RootStack.Screen
+            component={EditFamilyMember}
+            name="EditFamilyMember"
+            options={{
+              title: i18n.t('ONBOARDING.FAMILY.EDIT_MEMBER.TITLE'),
+            }}
+          />
+          <RootStack.Screen
+            component={FamiliesOverview}
+            name="FamiliesOverview"
+            options={{
+              title: i18n.t('PROFILE.LINKS.MY_FAMILY'),
+            }}
+          />
         </>
       )}
 
-      {isAuthenticated && (isPassHolderLoading||!passHolder) && (
+      {isAuthenticated && (isPassHolderLoading || !passHolder) && (
         <RootStack.Group screenOptions={{ headerShown: false }}>
-          {isPassHolderLoading 
-          ? <RootStack.Screen component={Spinner} name="ProfileNotFound" options={{ gestureEnabled: false }} />
-          : <RootStack.Screen component={ProfileNotFound} name="ProfileNotFound" options={{ gestureEnabled: false }} />}
+          {isPassHolderLoading ? (
+            <RootStack.Screen component={Spinner} name="ProfileNotFound" options={{ gestureEnabled: false }} />
+          ) : (
+            <RootStack.Screen component={ProfileNotFound} name="ProfileNotFound" options={{ gestureEnabled: false }} />
+          )}
         </RootStack.Group>
       )}
     </RootStack.Navigator>

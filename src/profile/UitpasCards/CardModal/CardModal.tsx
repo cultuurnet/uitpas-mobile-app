@@ -1,4 +1,5 @@
 import React, { FC, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Modal } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
@@ -8,9 +9,23 @@ import { TPassHolder } from '../../_models';
 import UitpasCard from '../UitpasCard/UitpasCard';
 import * as Styled from './style';
 
-type TCardModalProps = { icon?: string; isVisible: boolean; passHolder: TPassHolder; toggleIsVisible: () => void };
+export type TCardModalPaging = {
+  currentIndex: number;
+  onNext: () => void;
+  onPrevious: () => void;
+  total: number;
+};
 
-const CardModal: FC<TCardModalProps> = ({ passHolder, icon, isVisible, toggleIsVisible }) => {
+type TCardModalProps = {
+  icon?: string;
+  isVisible: boolean;
+  paging?: TCardModalPaging;
+  passHolder: TPassHolder;
+  toggleIsVisible: () => void;
+};
+
+const CardModal: FC<TCardModalProps> = ({ passHolder, icon, isVisible, paging, toggleIsVisible }) => {
+  const { t } = useTranslation();
   const { resetScreen, brightenScreen } = useFullScreenBrightness();
 
   useEffect(() => {
@@ -36,6 +51,29 @@ const CardModal: FC<TCardModalProps> = ({ passHolder, icon, isVisible, toggleIsV
             <Icon color="neutral.0" name="Close" onPress={toggleIsVisible} size={14} />
           </Styled.CloseButton>
           <UitpasCard icon={icon} isLarge passHolder={passHolder} />
+          {paging && (
+            <Styled.Pagination>
+              <Styled.PaginationButton
+                accessibilityLabel={t('PROFILE.CARD_MODAL.PREVIOUS')}
+                accessibilityRole="button"
+                hitSlop={8}
+                onPress={paging.onPrevious}
+              >
+                <Icon color="primary.700" name="ChevronLeft" size={16} />
+              </Styled.PaginationButton>
+              <Styled.PaginationText color="neutral.0" fontStyle="bold" size="xlarge">
+                {`${paging.currentIndex + 1} / ${paging.total}`}
+              </Styled.PaginationText>
+              <Styled.PaginationButton
+                accessibilityLabel={t('PROFILE.CARD_MODAL.NEXT')}
+                accessibilityRole="button"
+                hitSlop={8}
+                onPress={paging.onNext}
+              >
+                <Icon color="primary.700" name="ChevronRight" size={16} />
+              </Styled.PaginationButton>
+            </Styled.Pagination>
+          )}
         </>
       </Styled.BlurContainer>
     </Modal>
