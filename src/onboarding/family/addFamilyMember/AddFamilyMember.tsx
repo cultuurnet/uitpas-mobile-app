@@ -9,7 +9,7 @@ import { Analytics, Button, Trans, Typography } from '../../../_components';
 import { queryClient, useTracking } from '../../../_context';
 import { TApiError } from '../../../_http';
 import { TMainNavigationProp, TRootStackRouteProp } from '../../../_routing';
-import { applyBarcodeMask, getRandomUniqueAvatar, openExternalURL, TRACKING_URL_REGEX } from '../../../_utils';
+import { announceStatus, applyBarcodeMask, getRandomUniqueAvatar, openExternalURL, TRACKING_URL_REGEX } from '../../../_utils';
 import { TRegistrationTokenRequest, useGetRegistrationToken, useRegisterFamilyMember } from '../_queries';
 import * as Styled from './style';
 
@@ -32,8 +32,9 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
     isPending: registrationTokenIsLoading,
     mutate: getRegistrationToken,
   } = useGetRegistrationToken({
-    onError: () => {
+    onError: (error: TApiError) => {
       trackSelfDescribingEvent('errorMessage', { message: 'card-dob-mismatch' });
+      announceStatus(error?.endUserMessage?.nl || t('ERROR.TITLE'));
     },
     onSuccess: async ({ token }) => {
       try {
@@ -58,6 +59,20 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
   const { bottom } = useSafeAreaInsets();
   const { t } = useTranslation();
 
+  const uitpasNumberAccessibilityLabel = [
+    t('GENERAL.REQUIRED_FIELD', { label: t('ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER') }),
+    errors?.uitpasNumber ? t('ONBOARDING.FAMILY.ADD_MEMBER.MISSING_FIELDS') : null,
+  ]
+    .filter(Boolean)
+    .join(', ');
+
+  const birthDateAccessibilityLabel = [
+    t('GENERAL.REQUIRED_FIELD', { label: t('ONBOARDING.FAMILY.ADD_MEMBER.BIRTHDATE') }),
+    errors?.birthDate ? t('ONBOARDING.FAMILY.ADD_MEMBER.MISSING_FIELDS') : null,
+  ]
+    .filter(Boolean)
+    .join(', ');
+
   return (
     <>
       <Analytics screenName="AddFamilyMember" />
@@ -70,6 +85,7 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
                 name="uitpasNumber"
                 render={({ field: { onChange, value } }) => (
                   <Styled.UitpasNumberInput
+                    accessibilityLabel={uitpasNumberAccessibilityLabel}
                     description={
                       <Trans
                         i18nKey="ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER_DESCRIPTION"
@@ -81,7 +97,12 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
                     keyboardType="number-pad"
                     label={
                       <Styled.UitpasNumberLabelContainer>
-                        <Styled.UitpasNumberLabel color="primary.700" fontStyle="semibold">
+                        <Styled.UitpasNumberLabel
+                          accessible={false}
+                          color="primary.700"
+                          fontStyle="semibold"
+                          importantForAccessibility="no"
+                        >
                           {t('ONBOARDING.FAMILY.ADD_MEMBER.UITPAS_NUMBER')}
                         </Styled.UitpasNumberLabel>
                         <Styled.UitpasNumberTooltip />
@@ -99,6 +120,7 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
                 name="birthDate"
                 render={({ field: { onChange, value } }) => (
                   <Styled.BirthDateInput
+                    accessibilityLabel={birthDateAccessibilityLabel}
                     date={value}
                     isError={!!errors?.birthDate}
                     label="ONBOARDING.FAMILY.ADD_MEMBER.BIRTHDATE"
@@ -123,7 +145,10 @@ export const AddFamilyMember = ({ navigation, route }: TProps) => {
           <Button
             label={t('ONBOARDING.FAMILY.ADD_MEMBER.ADD')}
             loading={registrationTokenIsLoading || registerFamilyMemberIsLoading}
-            onPress={handleSubmit(formData => getRegistrationToken(formData))}
+            onPress={handleSubmit(
+              formData => getRegistrationToken(formData),
+              () => announceStatus(t('ONBOARDING.FAMILY.ADD_MEMBER.MISSING_FIELDS')),
+            )}
           />
         </Styled.StickyFooter>
       </Styled.ScreenContainer>

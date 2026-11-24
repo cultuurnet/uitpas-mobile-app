@@ -1,6 +1,8 @@
 import { useCallback, useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlatList } from 'react-native';
 
+import { announceStatus } from '../../../_utils';
 import { useGetFamilyMembers } from '../../../onboarding/family/_queries';
 import { TFamilyMember, TPassHolder } from '../../../profile/_models';
 import * as Styled from './style';
@@ -9,7 +11,12 @@ type TProps = { selectedPassHolder: TPassHolder; setSelectedPassHolder: (selecte
 
 export const FamilyFilter = ({ selectedPassHolder, setSelectedPassHolder }: TProps) => {
   const listRef = useRef<FlatList>(null);
+  const { t } = useTranslation();
   const { data: familyMembers = [] } = useGetFamilyMembers();
+  const currentIndex = useMemo(
+    () => findCurrentIndexByPassHolder(familyMembers, selectedPassHolder),
+    [familyMembers, selectedPassHolder],
+  );
 
   const handleSelectPassHolder = useCallback(
     (nextSelectedPassHolder: TPassHolder, nextSelectedIndex: number) => {
@@ -20,43 +27,68 @@ export const FamilyFilter = ({ selectedPassHolder, setSelectedPassHolder }: TPro
   );
 
   const handlePressPrev = useCallback(() => {
-    const currentIndex = findCurrentIndexByPassHolder(familyMembers, selectedPassHolder);
-    const prevBoundedIndex = findBoundedIndex(familyMembers, currentIndex - 1);
-    const prevPassHolder = familyMembers[prevBoundedIndex].passholder;
+    const prevIndex = currentIndex <= 0 ? familyMembers.length - 1 : currentIndex - 1;
+    const prevPassHolder = familyMembers[prevIndex].passholder;
     if (prevPassHolder.id !== selectedPassHolder.id) {
-      handleSelectPassHolder(prevPassHolder, prevBoundedIndex);
+      handleSelectPassHolder(prevPassHolder, prevIndex);
+      announceStatus(
+        t('SHOP.WELCOME.MEMBER_SELECTED', {
+          name: prevPassHolder.firstName,
+          position: prevIndex + 1,
+          total: familyMembers.length,
+        }),
+      );
     }
-  }, [familyMembers, handleSelectPassHolder, selectedPassHolder]);
+  }, [currentIndex, familyMembers, handleSelectPassHolder, selectedPassHolder, t]);
 
   const handlePressNext = useCallback(() => {
-    const currentIndex = findCurrentIndexByPassHolder(familyMembers, selectedPassHolder);
-    const nextBoundedIndex = findBoundedIndex(familyMembers, currentIndex + 1);
-    const nextPassHolder = familyMembers[nextBoundedIndex].passholder;
+    const nextIndex = currentIndex < 0 || currentIndex >= familyMembers.length - 1 ? 0 : currentIndex + 1;
+    const nextPassHolder = familyMembers[nextIndex].passholder;
     if (nextPassHolder.id !== selectedPassHolder.id) {
-      handleSelectPassHolder(nextPassHolder, nextBoundedIndex);
+      handleSelectPassHolder(nextPassHolder, nextIndex);
+      announceStatus(
+        t('SHOP.WELCOME.MEMBER_SELECTED', {
+          name: nextPassHolder.firstName,
+          position: nextIndex + 1,
+          total: familyMembers.length,
+        }),
+      );
     }
-  }, [familyMembers, handleSelectPassHolder, selectedPassHolder]);
+  }, [currentIndex, familyMembers, handleSelectPassHolder, selectedPassHolder, t]);
 
   const renderItem = useCallback(
     ({ item: familyMember, index }: { index: number; item: TFamilyMember }) => {
-      const isSelected = familyMember.passholder.id === selectedPassHolder.id;
+      const isSelected = familyMember.passholder.id === selectedPassHolder?.id;
       return (
-        <Styled.FilterItem isSelected={isSelected} onPress={() => handleSelectPassHolder(familyMember.passholder, index)}>
+        <Styled.FilterItem
+          accessibilityLabel={t('SHOP.WELCOME.MEMBER_TAB', {
+            name: familyMember.passholder.firstName,
+            position: index + 1,
+            total: familyMembers.length,
+          })}
+          accessibilityRole="tab"
+          accessibilityState={{ selected: isSelected }}
+          isSelected={isSelected}
+          onPress={() => handleSelectPassHolder(familyMember.passholder, index)}
+        >
           <Styled.FilterLabel color={isSelected ? 'neutral.0' : 'primary.100'} fontStyle="bold" size="small">
             {familyMember.passholder.firstName}
           </Styled.FilterLabel>
         </Styled.FilterItem>
       );
     },
-    [handleSelectPassHolder, selectedPassHolder.id],
+    [familyMembers.length, handleSelectPassHolder, selectedPassHolder?.id, t],
   );
 
-  const PrevButton = useMemo(() => <Styled.FilterPrevButton name="ChevronLeft" onPress={handlePressPrev} />, [handlePressPrev]);
-  const NextButton = useMemo(() => <Styled.FilterNextButton name="ChevronRight" onPress={handlePressNext} />, [handlePressNext]);
+  if (!familyMembers.length) return null;
 
   return (
     <Styled.Container>
-      {PrevButton}
+      <Styled.FilterPrevButton
+        accessibilityLabel={t('SHOP.WELCOME.PREVIOUS_MEMBER')}
+        name="ChevronLeft"
+        onPress={handlePressPrev}
+      />
       <FlatList
         ItemSeparatorComponent={Styled.Separator}
         data={familyMembers}
@@ -66,15 +98,16 @@ export const FamilyFilter = ({ selectedPassHolder, setSelectedPassHolder }: TPro
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
       />
-      {NextButton}
+      <Styled.FilterNextButton
+        accessibilityLabel={t('SHOP.WELCOME.NEXT_MEMBER')}
+        name="ChevronRight"
+        onPress={handlePressNext}
+      />
     </Styled.Container>
   );
 };
 
 const findCurrentIndexByPassHolder = (familyMembers: TFamilyMember[], passHolder: TPassHolder) => {
+  if (!passHolder) return -1;
   return familyMembers.findIndex(member => member.passholder.id === passHolder.id);
-};
-
-const findBoundedIndex = (familyMembers: TFamilyMember[], index: number) => {
-  return Math.min(Math.max(index, 0), familyMembers.length - 1);
 };

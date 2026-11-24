@@ -10,7 +10,7 @@ export const WelcomeHeader = () => {
 
   return (
     <Styled.Container>
-      <Styled.Gift source={GiftHalf} />
+      <Styled.Gift accessible={false} source={GiftHalf} />
       <Typography color="neutral.0" fontStyle="bold">
         {t('SHOP.WELCOME.BANNER_TITLE')}
       </Typography>

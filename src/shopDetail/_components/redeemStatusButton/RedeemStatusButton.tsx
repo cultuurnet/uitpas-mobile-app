@@ -14,7 +14,7 @@ type TProps = {
   error: TApiError;
   isLoading: boolean;
   onPress: () => void;
-  refetch: () => void;
+  refetch: () => Promise<{ data?: TRedeemStatus; error?: TApiError | null }>;
   reward: TReward | null;
   status: TRedeemStatus | null;
   trackError: () => void;

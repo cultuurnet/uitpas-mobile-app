@@ -3,7 +3,10 @@
     "COPIED": "Gekopieerd",
     "COPY": "Kopiëren",
     "LOADING": "Bezig met laden",
-    "PROBLEM": "Meld een probleem"
+    "POINTS": "{{count}} punt",
+    "POINTS_other": "{{count}} punten",
+    "PROBLEM": "Meld een probleem",
+    "REQUIRED_FIELD": "{{label}}, verplicht veld"
   },
   "NAVIGATION": {
     "PROFILE": "Mijn UiTPAS",
@@ -12,7 +15,8 @@
     "CLOSE": "Sluiten",
     "INFO": "Meer informatie",
     "BACK": "Terug",
-    "CLEAR_SEARCH": "Wissen"
+    "CLEAR_SEARCH": "Wissen",
+    "TAB_LABEL": "{{label}}, {{position}} van {{total}}"
   },
   "UPDATE": {
     "NECESSARY": "Update nodig",
@@ -94,7 +98,8 @@
       "EDIT_MEMBER": {
         "TITLE": "Gezinslid aanpassen",
         "DESCRIPTION": "Hoe wil je {{firstName}} weergeven in de app?",
-        "SAVE": "Opslaan"
+        "SAVE": "Opslaan",
+        "AVATAR_SELECTED": "{{name}}, geselecteerd"
       },
       "INFORMATION": {
         "INFO_TITLE": "De snelste weg naar jullie UiTPAS",
@@ -141,6 +146,8 @@
     "CARD_MODAL": {
       "NEXT": "Volgende kaart",
       "OPEN": "UiTPAS vergroten van {{name}}",
+      "PAGE": "Kaart {{position}} van {{total}}",
+      "PAGE_ANNOUNCEMENT": "Kaart {{position}} van {{total}}, {{name}}",
       "PREVIOUS": "Vorige kaart"
     },
     "HEADER_POINTS": {
@@ -218,9 +225,15 @@
     "DESCRIPTION": "Je kan je UiTPAS-punten inruilen voor heel wat leuks: ga op zoek naar een korting of cadeautje dat bij jou past",
     "BUTTON": "Bekijk alle voordelen",
     "ONLINE_REWARD": "In de app omruilen",
+    "REWARD_CARD": {
+      "ACTION": "Voordeel bekijken",
+      "ACTION_REDEEMED": "Omgeruild voordeel bekijken"
+    },
     "SHOW_MORE": "Bekijk meer",
+    "SHOW_MORE_OF": "Bekijk meer: {{title}}",
     "NO_RESULTS": "Helaas, er zijn momenteel geen voordelen in deze categorie.",
     "SEARCH": {
+      "LABEL": "Zoeken: {{placeholder}}",
       "PLACEHOLDER": "Leuke voordelen, gemeenten,...",
       "NO_RESULTS_REGION": "Helaas, we vinden geen voordelen in je UiTPAS-regio die overeenkomen met je zoekopdracht.",
       "NO_RESULTS": "Helaas, we vinden geen voordelen die overeenkomen met je zoekopdracht.",
@@ -231,9 +244,9 @@
         "MOVIE": "Film"
       },
       "REGION_HINT": "Er is ook nog {{count}} voordeel gevonden van organisatoren buiten {{regions}}",
-      "REGION_HINT_plural": "Er zijn ook nog {{count}} voordelen gevonden van organisatoren buiten {{regions}}",
+      "REGION_HINT_other": "Er zijn ook nog {{count}} voordelen gevonden van organisatoren buiten {{regions}}",
       "REGION_HINT_EMPTY": "Er is nog {{count}} voordeel gevonden van organisatoren buiten {{regions}}",
-      "REGION_HINT_EMPTY_plural": "Er zijn nog {{count}} voordelen gevonden van organisatoren buiten {{regions}}",
+      "REGION_HINT_EMPTY_other": "Er zijn nog {{count}} voordelen gevonden van organisatoren buiten {{regions}}",
       "REGION_HINT_CTA": "Toon ook voordelen buiten mijn UiTPAS-regio",
       "FILTERS": {
         "HEADER_TITLE": "Filteren",
@@ -270,7 +283,11 @@
       "HEADER_TITLE": "Welkomstvoordelen",
       "GREETING": "Welkom bij UiTPAS {{name}}!",
       "TITLE": "Bekijk nu je Welkomstvoordelen",
-      "BANNER_TITLE": "Meteen genieten van je UiTPAS? Deze welkomstvoordelen kan je nu gebruiken."
+      "BANNER_TITLE": "Meteen genieten van je UiTPAS? Deze welkomstvoordelen kan je nu gebruiken.",
+      "MEMBER_SELECTED": "{{name}}, {{position}} van {{total}}, geselecteerd",
+      "MEMBER_TAB": "{{name}}, {{position}} van {{total}}",
+      "NEXT_MEMBER": "Volgende persoon",
+      "PREVIOUS_MEMBER": "Vorige persoon"
     },
     "FEATURED_REWARDS": {
       "SECTION_TITLE": "In de kijker",
@@ -309,7 +326,7 @@
     "COLLECT_OFFLINE_FAMILY": "Om dit voordeel om te ruilen moet je naar een van de locaties hierboven. Toon <button>je UiTPAS</button> (of die van het gezinslid waarvoor je wil ruilen) aan een medewerker om de punten te ruilen.",
     "OTHER_REWARDS": "Meer voordelen op deze locatie",
     "SHOW_MORE": "Toon {{count}} andere locatie",
-    "SHOW_MORE_plural": "Toon {{count}} andere locaties",
+    "SHOW_MORE_other": "Toon {{count}} andere locaties",
     "SHOW_LESS": "Toon minder locaties",
     "GENERIC_REDEEM_ERROR": "Er is iets misgegaan",
     "RETRY": "Probeer opnieuw",
@@ -323,7 +340,7 @@
       "BUTTON": "Nu omruilen",
       "MODAL_TITLE": "Voordeel omruilen",
       "MODAL_DESCRIPTION": "Weet je zeker dat je <bold>{{count}} punt</bold> wil omruilen voor het voordeel <bold>\"{{title}}\"</bold>",
-      "MODAL_DESCRIPTION_plural": "Weet je zeker dat je <bold>{{count}} punten</bold> wil omruilen voor het voordeel <bold>\"{{title}}\"</bold>",
+      "MODAL_DESCRIPTION_other": "Weet je zeker dat je <bold>{{count}} punten</bold> wil omruilen voor het voordeel <bold>\"{{title}}\"</bold>",
       "MODAL_BUTTON_CONFIRM": "Bevestigen",
       "MODAL_BUTTON_CANCEL": "Annuleren",
       "MODAL_GENERIC_ERROR": "We konden je voordeel niet omruilen, probeer later opnieuw.",
@@ -333,22 +350,28 @@
     "WHO_CAN_REDEEM": {
       "TITLE": "Wie kan omruilen?",
       "YOU": "(jij)",
+      "ELIGIBLE": "{{name}} kan dit voordeel omruilen",
       "POINTS": "{{count}} punt",
-      "POINTS_plural": "{{count}} punten",
+      "POINTS_other": "{{count}} punten",
       "REDEEM": "Omruilen",
       "UNREDEEMABLE": "Niet mogelijk",
+      "UNREDEEMABLE_INFO": "{{name}}: niet mogelijk, meer info",
       "UNREDEEMABLE_MODAL_TITLE": "{{firstName}} kan dit voordeel niet omruilen",
       "UNREDEEMABLE_MODAL_CLOSE": "Sluiten"
     }
   },
   "REDEEMED_REWARD": {
+    "ANNOUNCEMENT": "Voordeel omgeruild. Je hebt net {{count}} punt omgeruild.",
+    "ANNOUNCEMENT_other": "Voordeel omgeruild. Je hebt net {{count}} punten omgeruild.",
+    "ANNOUNCEMENT_FAMILY": "Voordeel omgeruild voor {{name}}. Je hebt net {{count}} punt omgeruild.",
+    "ANNOUNCEMENT_FAMILY_other": "Voordeel omgeruild voor {{name}}. Je hebt net {{count}} punten omgeruild.",
     "AVATAR": "Avatar {{name}}",
     "HEADER_TITLE": "Je omgeruild voordeel",
     "SUCCESS_TITLE": "Gelukt!",
     "SUCCESS_MESSAGE_SINGLE_PART_1": "Je hebt net <bold color='secondary.900'>{{count}} punt</bold> omgeruild.",
-    "SUCCESS_MESSAGE_SINGLE_PART_1_plural": "Je hebt net <bold color='secondary.900'>{{count}} punten</bold> omgeruild.",
+    "SUCCESS_MESSAGE_SINGLE_PART_1_other": "Je hebt net <bold color='secondary.900'>{{count}} punten</bold> omgeruild.",
     "SUCCESS_MESSAGE_FAMILY_PART_1": "Je hebt <bold color='secondary.900'>{{count}} punt</bold> omgeruild voor <bold color='secondary.900'>{{name}}</bold>.",
-    "SUCCESS_MESSAGE_FAMILY_PART_1_plural": "Je hebt <bold color='secondary.900'>{{count}} punten</bold> omgeruild voor <bold color='secondary.900'>{{name}}</bold>.",
+    "SUCCESS_MESSAGE_FAMILY_PART_1_other": "Je hebt <bold color='secondary.900'>{{count}} punten</bold> omgeruild voor <bold color='secondary.900'>{{name}}</bold>.",
     "SUCCESS_MESSAGE_SINGLE_PART_2": "Je vindt deze informatie ook terug in je <button>omgeruilde voordelen</button>, en in de e-mail die we je gestuurd hebben.",
     "SUCCESS_MESSAGE_FAMILY_PART_2": "Je vindt deze informatie ook terug in je <button>omgeruilde voordelen</button>, en in de e-mail die we naar <bold color='secondary.900'>{{email}}</bold> gestuurd hebben.",
     "SUCCESS_MESSAGE_FAMILY_NO_EMAIL_PART_2": "Je vindt deze informatie ook terug in je <button>omgeruilde voordelen</button>.",
@@ -375,6 +398,8 @@
       "CTA": "Instellingen openen"
     },
     "SUCCESS": {
+      "ANNOUNCEMENT": "Punten gespaard. Hopla, weer een punt erbij! Je hebt nu {{totalPoints}} UiTPAS-punten.",
+      "ANNOUNCEMENT_MULTIPLE": "Punten gespaard. Hopla, weer {{addedPoints}} punten erbij! Je hebt nu {{totalPoints}} UiTPAS-punten.",
       "DESCRIPTION": "Hopla, weer een punt erbij!\nJe hebt nu <bold>{{totalPoints}} UiTPAS-punten.</bold>",
       "DESCRIPTION_MULTIPLE": "Hopla, weer {{addedPoints}} punten erbij!\nJe hebt nu <bold>{{totalPoints}} UiTPAS-punten.</bold>",
       "CLOSE": "Sluiten",
@@ -384,10 +409,12 @@
       "TITLE": "Met wie ben je op stap?",
       "CHECKIN": "Spaar",
       "SUMMARY": {
+        "ADDED_POINTS": "{{count}} punt erbij",
+        "ADDED_POINTS_other": "{{count}} punten erbij",
         "CLOSE": "Sluiten",
         "POINTS_SAVED": "Punten gespaard",
         "SUCCEEDED": "Gelukt! Nieuw saldo: {{count}} punt",
-        "SUCCEEDED_plural": "Gelukt! Nieuw saldo: {{count}} punten"
+        "SUCCEEDED_other": "Gelukt! Nieuw saldo: {{count}} punten"
       }
     }
   },

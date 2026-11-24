@@ -42,7 +42,7 @@ export const RegionNotification: FC<TProps> = ({ onPress, filters, search, searc
         values={{ count: calculatedAmount, regions: regions?.map(card => card.cardSystem.name).join(', ') }}
       />
 
-      <Styled.Cta onPress={onPress}>
+      <Styled.Cta accessibilityRole="button" onPress={onPress}>
         <Styled.Link align="center" fontStyle="bold">
           {t('SHOP.SEARCH.REGION_HINT_CTA')}
         </Styled.Link>

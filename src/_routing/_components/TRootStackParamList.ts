@@ -59,6 +59,7 @@ export type TRootStackParamList = {
     type?: TRewardType;
   };
   History: undefined;
+  Initializing: undefined;
   Login: undefined;
   MainNavigator: { screen: TMainRoute };
   MyFamilies: undefined;

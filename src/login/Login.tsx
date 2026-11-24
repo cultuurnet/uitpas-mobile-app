@@ -15,7 +15,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { t } = useTranslation();
-  const { authorize, isInitialized } = useAuthentication();
+  const { authorize } = useAuthentication();
   const navigation = useStackNavigation();
   const { height } = useWindowDimensions();
 
@@ -40,7 +40,7 @@ const Login = () => {
     }
   };
 
-  if (isLoading || !isInitialized) {
+  if (isLoading) {
     return <Spinner statusBarStyle="dark" />;
   }
 

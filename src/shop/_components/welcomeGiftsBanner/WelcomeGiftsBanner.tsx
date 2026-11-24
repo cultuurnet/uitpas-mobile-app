@@ -23,6 +23,7 @@ export const WelcomeGiftsBanner = () => {
 
   return (
     <Styled.Container
+      accessibilityRole="button"
       onPress={() => navigate('FilteredShop', { section: 'welkom', subtitle: t('SHOP.SECTIONS.WELCOME') })}
       underlayColor={theme.palette.primary[800]}
     >

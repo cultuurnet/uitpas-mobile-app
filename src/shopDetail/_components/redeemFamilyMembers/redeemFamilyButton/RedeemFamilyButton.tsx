@@ -27,7 +27,14 @@ export const RedeemFamilyButton = ({ member, onPress, reward }: TProps) => {
   if ((data && !data.redeemable) || error) {
     return (
       <>
-        <Styled.UnredeemableStatus color="primary.700" fontStyle="normal" onPress={toggleUnredeemableModal} size="small">
+        <Styled.UnredeemableStatus
+          accessibilityLabel={t('SHOP_DETAIL.WHO_CAN_REDEEM.UNREDEEMABLE_INFO', { name: member.passholder.firstName })}
+          accessibilityRole="button"
+          color="primary.700"
+          fontStyle="normal"
+          onPress={toggleUnredeemableModal}
+          size="small"
+        >
           {t('SHOP_DETAIL.WHO_CAN_REDEEM.UNREDEEMABLE')}
         </Styled.UnredeemableStatus>
         <BlurredModal isVisible={showUnredeemableModal} toggleIsVisible={toggleUnredeemableModal}>
@@ -39,6 +46,7 @@ export const RedeemFamilyButton = ({ member, onPress, reward }: TProps) => {
           <Styled.UnredeemableModalCloseButton
             fontStyle="semibold"
             label={t('SHOP_DETAIL.WHO_CAN_REDEEM.UNREDEEMABLE_MODAL_CLOSE')}
+            onPress={toggleUnredeemableModal}
             underline={false}
             variant="link"
           />
@@ -51,5 +59,11 @@ export const RedeemFamilyButton = ({ member, onPress, reward }: TProps) => {
     return <Styled.RedeemButton fontSize="small" label={t('SHOP_DETAIL.WHO_CAN_REDEEM.REDEEM')} onPress={onPress} />;
   }
 
-  return <Icon color="primary.700" name="CircledCheck" />;
+  return (
+    <Icon
+      accessibilityLabel={t('SHOP_DETAIL.WHO_CAN_REDEEM.ELIGIBLE', { name: member.passholder.firstName })}
+      color="primary.700"
+      name="CircledCheck"
+    />
+  );
 };

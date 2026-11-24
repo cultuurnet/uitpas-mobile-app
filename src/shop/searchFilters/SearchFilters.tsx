@@ -50,11 +50,11 @@ export const SearchFilters = ({ navigation, route }: TProps) => {
   const isOnlySupraLocal = passHolder && hasOnlySupraLocalCardSystem(passHolder);
 
   function onSubmit() {
-    navigation.navigate('Search', updatedFilters);
+    navigation.popTo('Search', updatedFilters);
   }
 
   function onReset() {
-    navigation.navigate('Search', { filters: initialFilters, sort: '-redeemCount' });
+    navigation.popTo('Search', { filters: initialFilters, sort: '-redeemCount' });
   }
 
   return (

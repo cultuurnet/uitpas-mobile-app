@@ -10,7 +10,7 @@ type TProps = {
 export const Section = memo(({ title, children }: TProps) => {
   return (
     <Styled.Section>
-      <Styled.SectionTitle color="primary.800" fontStyle="bold">
+      <Styled.SectionTitle accessibilityRole="header" color="primary.800" fontStyle="bold">
         {title}
       </Styled.SectionTitle>
       {children}

@@ -1,12 +1,12 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Keyboard, Platform } from 'react-native';
+import { Keyboard, Platform, TextInputInstance } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FlashList, FlashListRef } from '@shopify/flash-list';
 
 import { EnlargedHeader, PillButton, Reward, SafeAreaView, Typography } from '../../_components';
 import { TRootStackNavigationProp, TRootStackRouteProp } from '../../_routing';
-import { hasOnlySupraLocalCardSystem } from '../../_utils';
+import { focusAccessibilityElement, hasOnlySupraLocalCardSystem } from '../../_utils';
 import { useGetMe } from '../../profile/_queries/useGetMe';
 import { RewardsSectionLoader } from '../_components/rewardsSection/RewardSection.loading';
 import { TReward } from '../_models/reward';
@@ -52,11 +52,18 @@ export const Search = ({ navigation, route }: TProps) => {
   const results = useMemo(() => searchResults?.pages?.flatMap(({ member }) => member) ?? [], [searchResults]);
 
   const ref = useRef<FlashListRef<TReward>>(null);
+  const searchInputRef = useRef<TextInputInstance>(null);
 
   const onClose = useCallback(() => {
     setSearch('');
     navigation.pop();
   }, [navigation]);
+
+  const handleClearSearch = useCallback(() => {
+    setSearch('');
+    searchInputRef.current?.focus();
+    setTimeout(() => focusAccessibilityElement(searchInputRef.current), 100);
+  }, []);
 
   function onSearch(keyword: string) {
     Keyboard.dismiss();
@@ -86,7 +93,16 @@ export const Search = ({ navigation, route }: TProps) => {
       <Styled.ViewContainer behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <EnlargedHeader height={30} />
         <Styled.SearchContainer paddingTop={top}>
-          <Styled.SearchInput autoFocus numberOfLines={1} onChangeText={setSearch} returnKeyType="search" value={search} />
+          <Styled.SearchInput
+            accessibilityLabel={t('SHOP.SEARCH.LABEL', { placeholder: t('SHOP.SEARCH.PLACEHOLDER') })}
+            autoFocus
+            numberOfLines={1}
+            onChangeText={setSearch}
+            placeholder={t('SHOP.SEARCH.PLACEHOLDER')}
+            ref={searchInputRef}
+            returnKeyType="search"
+            value={search}
+          />
           <Styled.BackIcon
             accessibilityLabel={t('NAVIGATION.BACK')}
             borderless
@@ -101,7 +117,7 @@ export const Search = ({ navigation, route }: TProps) => {
               borderless
               color="primary.700"
               name="Close"
-              onPress={() => setSearch('')}
+              onPress={handleClearSearch}
               size={14}
             />
           )}
@@ -155,14 +171,18 @@ export const Search = ({ navigation, route }: TProps) => {
             )
           ) : (
             <>
-              <Styled.PopularItem key={`search-${user.address.city}`} onPress={() => onSearch(user.address.city)}>
+              <Styled.PopularItem
+                accessibilityRole="button"
+                key={`search-${user.address.city}`}
+                onPress={() => onSearch(user.address.city)}
+              >
                 <Styled.PopularItemIcon name="Popular" size={20} />
                 <Typography color="primary.800">{user.address.city}</Typography>
               </Styled.PopularItem>
               <Styled.Separator key={`separator-${user.address.city}`} />
               {SEARCH_TERMS.map(({ keyword, label }) => (
                 <React.Fragment key={`search-${keyword}`}>
-                  <Styled.PopularItem onPress={() => onSearch(keyword)}>
+                  <Styled.PopularItem accessibilityRole="button" onPress={() => onSearch(keyword)}>
                     <Styled.PopularItemIcon name="Popular" size={20} />
                     <Typography color="primary.800">{t(label)}</Typography>
                   </Styled.PopularItem>

@@ -34,9 +34,9 @@ const Accordion = ({ children, title, expandedTitle }: TProps) => {
   };
 
   return (
-    <View accessibilityRole="menuitem" accessibilityState={{ expanded }}>
+    <View>
       {expanded && <Styled.Content>{children}</Styled.Content>}
-      <Styled.Handle activeOpacity={0.8} onPress={handleToggle}>
+      <Styled.Handle accessibilityRole="button" accessibilityState={{ expanded }} activeOpacity={0.8} onPress={handleToggle}>
         <Styled.Label color="primary.800" fontStyle="bold" size="small">
           {expanded ? expandedTitle || title : title}
         </Styled.Label>

@@ -4,6 +4,7 @@ import { ActivityIndicator, RefreshControl } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 
 import { Analytics, FamilyFilter, Reward, RewardLoader } from '../_components';
+import { useStatusAnnouncement } from '../_hooks';
 import { TRootStackNavigationProp } from '../_routing';
 import { theme } from '../_styles/theme';
 import { formatISOString } from '../_utils';
@@ -34,6 +35,13 @@ export const RedeemedRewards = ({ navigation }: TProps) => {
   const { data: hasFamilyMembers } = useHasFamilyMembers();
 
   const members = useMemo(() => rewards?.pages?.flatMap(({ member }) => member) ?? [], [rewards]);
+  const emptyMessage =
+    !isRewardsLoading && members.length === 0
+      ? isError
+        ? (error?.endUserMessage?.nl ?? t('PROFILE.REDEEMED_REWARDS.ERROR'))
+        : t('PROFILE.REDEEMED_REWARDS.EMPTY')
+      : null;
+  useStatusAnnouncement(emptyMessage);
 
   return (
     <>

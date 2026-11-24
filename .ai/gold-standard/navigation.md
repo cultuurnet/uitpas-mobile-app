@@ -45,7 +45,7 @@ navigate('FilteredShop', { category, subtitle: t(label) });
 
 - **Typed navigation props always**: `TMainNavigationProp<'Shop'>` / `TRootStackNavigationProp<'Search'>` / `TRootStackRouteProp<'Search'>` — never untyped `any` navigation. Non-parameterized `TMainNavigationProp`/`TRootStackNavigationProp` is allowed when any route works.
 - `TMainParamsList` is declared in `TRootStackParamList.ts` (not in `MainNavigator.tsx`) to avoid a circular dependency — keep it there.
-- **`push` vs `navigate`**: `push` stacks a new instance (list → detail); `navigate` reuses an existing entry (filters → search). `navigation.pop()` to close modals/search.
+- **`push` vs `navigate` vs `popTo`**: `push` stacks a new instance (list → detail); `navigate` only reuses the current route, otherwise it pushes, so use `popTo` to return to an existing screen with new params (filters → search, error → overview). `navigation.pop()` to close modals/search.
 - Route params carry display fallbacks: pass the tapped `reward` object so the detail screen renders before the fetch resolves.
 - Tab screens get `headerShown: false` (tab bar + custom headers per route via `useMainHeaderProps`); stacked screens own their native header.
 - Header titles translated with direct `i18n.t(...)` (outside React render); in-component strings use `useTranslation().t`.
