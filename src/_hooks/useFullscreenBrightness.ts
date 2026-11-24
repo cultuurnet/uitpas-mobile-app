@@ -1,21 +1,37 @@
-import { useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { Platform } from 'react-native';
-import DeviceBrightness from '@adrianso/react-native-device-brightness';
+import * as Brightness from 'expo-brightness';
+
+import { log } from '../_utils/logger';
 
 export const useFullScreenBrightness = () => {
-  const initialBrightness = useRef(-1);
-  const brightenScreen = async () => {
-    initialBrightness.current =
-      Platform.OS === 'android' ? await DeviceBrightness.getSystemBrightnessLevel() : await DeviceBrightness.getBrightnessLevel();
+  const initialBrightness = useRef<number | null>(null);
 
-    DeviceBrightness.setBrightnessLevel(1);
-  };
-
-  const resetScreen = async () => {
-    if (initialBrightness.current !== -1) {
-      await DeviceBrightness.setBrightnessLevel(initialBrightness.current);
+  const brightenScreen = useCallback(async () => {
+    try {
+      if (Platform.OS === 'ios') {
+        initialBrightness.current = await Brightness.getBrightnessAsync();
+      }
+      await Brightness.setBrightnessAsync(1);
+    } catch (error) {
+      log.warn('Unable to brighten screen', error);
     }
-  };
+  }, []);
+
+  const resetScreen = useCallback(async () => {
+    try {
+      if (Platform.OS === 'android') {
+        await Brightness.restoreSystemBrightnessAsync();
+        return;
+      }
+      if (initialBrightness.current !== null) {
+        await Brightness.setBrightnessAsync(initialBrightness.current);
+        initialBrightness.current = null;
+      }
+    } catch (error) {
+      log.warn('Unable to restore screen brightness', error);
+    }
+  }, []);
 
   return { brightenScreen, resetScreen };
 };

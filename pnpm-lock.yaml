@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@adrianso/react-native-device-brightness':
-        specifier: ^1.2.7
-        version: 1.2.7
       '@react-native-community/datetimepicker':
         specifier: ^9.2.1
         version: 9.2.1(expo@58.0.26)(react-native@0.88.1(@babel/core@7.29.7)(@react-native/metro-config@0.88.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.3.0))(react@19.3.0)
@@ -77,6 +74,9 @@ importers:
       expo-auth-session:
         specifier: ^58.0.19
         version: 58.0.19(expo@58.0.26)(react-native@0.88.1(@babel/core@7.29.7)(@react-native/metro-config@0.88.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.3.0))(react@19.3.0)(typescript@6.0.3)
+      expo-brightness:
+        specifier: ~58.0.3
+        version: 58.0.3(expo@58.0.26)(react-native@0.88.1(@babel/core@7.29.7)(@react-native/metro-config@0.88.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.3.0))
       expo-build-properties:
         specifier: ~58.0.12
         version: 58.0.12(expo@58.0.26)
@@ -278,9 +278,6 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
-
-  '@adrianso/react-native-device-brightness@1.2.7':
-    resolution: {integrity: sha512-q3OTFGohAh04R8cBka7/eNXaeSD8bAZocMsifLIR3oDF5N9cNH2UVEjzJaFXW8DHFEsODpljpT+eyGWIhKlkow==}
 
   '@babel/code-frame@7.29.7':
     resolution: {integrity: sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw==}
@@ -2352,6 +2349,12 @@ packages:
       react: '*'
       react-native: '*'
 
+  expo-brightness@58.0.3:
+    resolution: {integrity: sha512-IV9Qj92nSOumcNSEG+3SpxpdKE7RkyvurnDzcRWs0lGDX3c+mpRYCkORIZ3H9IoRmsEqQToZL622ZOXOf2izhQ==}
+    peerDependencies:
+      expo: '*'
+      react-native: '*'
+
   expo-build-properties@58.0.12:
     resolution: {integrity: sha512-Wrs1X1iz0kigrBBDs3qILxvXmANccvbsjpR937KqX0Qq7ON6ISk2uJyfz7Tb7/GFhDuJ6MAfW0jR+oryYdOhcg==}
     peerDependencies:
@@ -4324,8 +4327,6 @@ snapshots:
     optionalDependencies:
       typescript: 6.0.3
 
-  '@adrianso/react-native-device-brightness@1.2.7': {}
-
   '@babel/code-frame@7.29.7':
     dependencies:
       '@babel/helper-validator-identifier': 7.29.7
@@ -5464,9 +5465,7 @@ snapshots:
       metro-runtime: 0.87.1
     transitivePeerDependencies:
       - '@babel/core'
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   '@react-native/normalize-colors@0.88.1': {}
 
@@ -6905,6 +6904,11 @@ snapshots:
       - expo
       - supports-color
       - typescript
+
+  expo-brightness@58.0.3(expo@58.0.26)(react-native@0.88.1(@babel/core@7.29.7)(@react-native/metro-config@0.88.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.3.0)):
+    dependencies:
+      expo: 58.0.26(@babel/core@7.29.7)(@expo/dom-webview@58.0.2)(react-dom@19.3.0(react@19.3.0))(react-native-webview@13.16.0(react-native@0.88.1(@babel/core@7.29.7)(@react-native/metro-config@0.88.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.3.0))(react@19.3.0))(react-native-worklets@0.13.0(@babel/core@7.29.7)(@react-native/metro-config@0.88.1(@babel/core@7.29.7))(react-native@0.88.1(@babel/core@7.29.7)(@react-native/metro-config@0.88.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.3.0))(react@19.3.0))(react-native@0.88.1(@babel/core@7.29.7)(@react-native/metro-config@0.88.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.3.0))(react@19.3.0)(typescript@6.0.3)
+      react-native: 0.88.1(@babel/core@7.29.7)(@react-native/metro-config@0.88.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.3.0)
 
   expo-build-properties@58.0.12(expo@58.0.26):
     dependencies:
